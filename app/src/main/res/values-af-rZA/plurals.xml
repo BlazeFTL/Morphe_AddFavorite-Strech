@@ -127,4 +127,12 @@
         <item quantity="one">%s nuwe vrystelling</item>
         <item quantity="other">%s nuwe vrystellings</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d skakel is geaktiveer</item>
+        <item quantity="other">%d skakels is geaktiveer</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d ongeverifieerde skakel</item>
+        <item quantity="other">%d ongeverifieerde skakels</item>
+    </plurals>
 </resources>

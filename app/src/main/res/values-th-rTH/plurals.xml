@@ -96,4 +96,10 @@
     <plurals name="changelog_new_releases">
         <item quantity="other">รุ่นใหม่ %s</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="other">เปิดใช้งาน %d ลิงก์</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="other">%d ลิงก์ที่ไม่ผ่านการยืนยัน</item>
+    </plurals>
 </resources>

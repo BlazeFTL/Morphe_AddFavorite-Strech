@@ -127,4 +127,12 @@
         <item quantity="one">%s uusi julkaisu</item>
         <item quantity="other">%s uutta julkaisua</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d linkki käytössä</item>
+        <item quantity="other">%d linkkiä käytössä</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d vahvistamaton linkki</item>
+        <item quantity="other">%d vahvistamatonta linkkiä</item>
+    </plurals>
 </resources>

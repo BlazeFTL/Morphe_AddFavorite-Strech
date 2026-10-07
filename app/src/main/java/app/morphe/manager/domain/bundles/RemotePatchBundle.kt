@@ -59,6 +59,7 @@ sealed class RemotePatchBundle(
     enabled: Boolean,
 ) : PatchBundleSource(name, uid, displayName, createdAt, updatedAt, error, directory, enabled), KoinComponent {
     protected val http: HttpService by inject()
+    protected val api: MorpheAPI by inject()
     private val assetDownloader: AssetDownloader by inject()
 
     protected abstract suspend fun getLatestInfo(): MorpheAsset
@@ -179,7 +180,6 @@ sealed class RemotePatchBundle(
      * Results cached for [CHANGELOG_CACHE_TTL]; invalidate via [clearChangelogCache].
      */
     open suspend fun fetchChangelogEntries(): List<ChangelogEntry> {
-        val api: MorpheAPI by inject()
         val changelogUrl = api.changelogUrlFromBundleEndpoint(endpoint) ?: return emptyList()
         return fetchAndCacheEntries("$uid|$changelogUrl") {
             api.fetchChangelogFromUrl(changelogUrl)
@@ -427,10 +427,10 @@ class JsonPatchBundle(
             // pre-release and the stable update would go unnoticed
             coroutineScope {
                 val devDeferred = async {
-                    runCatching { http.request<MorpheAsset> { url(switchBranchInUrl(endpoint, BRANCH_DEV)) }.getOrThrow() }.getOrNull()
+                    runCatching { fetchManifest(switchBranchInUrl(endpoint, BRANCH_DEV)) }.getOrNull()
                 }
                 val stableDeferred = async {
-                    runCatching { http.request<MorpheAsset> { url(switchBranchInUrl(endpoint, BRANCH_STABLE)) }.getOrThrow() }.getOrNull()
+                    runCatching { fetchManifest(switchBranchInUrl(endpoint, BRANCH_STABLE)) }.getOrNull()
                 }
                 val devAsset = devDeferred.await()
                 val stableAsset = stableDeferred.await()
@@ -443,7 +443,7 @@ class JsonPatchBundle(
                 }
             }
         } else {
-            http.request<MorpheAsset> { url(resolveBranchUrl(endpoint)) }.getOrThrow()
+            fetchManifest(resolveBranchUrl(endpoint))
         }
 
         // If pageUrl is not set, try to infer it from the endpoint and add version tag
@@ -461,9 +461,10 @@ class JsonPatchBundle(
         }
     }
 
+    private suspend fun fetchManifest(url: String) = api.rawFileRequest<MorpheAsset>(url).getOrThrow()
+
     override suspend fun fetchChangelogEntries(): List<ChangelogEntry> {
         // endpoint stores the original branch - rebuild the URL for the active branch
-        val api: MorpheAPI by inject()
         val activeEndpoint = resolveBranchUrl(endpoint)
         val changelogUrl = api.changelogUrlFromBundleEndpoint(activeEndpoint) ?: return emptyList()
         return fetchAndCacheEntries("$uid|$changelogUrl") {
@@ -472,7 +473,6 @@ class JsonPatchBundle(
     }
 
     override suspend fun fetchFullChangelogEntries(): List<ChangelogEntry> {
-        val api: MorpheAPI by inject()
         val stableEndpoint = switchBranchInUrl(endpoint, BRANCH_STABLE)
         val changelogUrl = api.changelogUrlFromBundleEndpoint(stableEndpoint) ?: return emptyList()
         return fetchAndCacheEntries("$uid|$changelogUrl|full") {
@@ -552,8 +552,6 @@ class APIPatchBundle(
     enabled: Boolean,
     val usePrerelease: Boolean = false,
 ) : RemotePatchBundle(name, uid, displayName, createdAt, updatedAt, installedVersionSignature, error, directory, endpoint, autoUpdate, enabled) {
-    private val api: MorpheAPI by inject()
-
     override suspend fun getLatestInfo() = api.getPatchesUpdate(usePrerelease).getOrThrow()
 
     // The endpoint is the API identifier rather than a browsable URL
@@ -609,8 +607,6 @@ class GitHubPullRequestBundle(
     enabled: Boolean
 ) : RemotePatchBundle(name, uid, displayName, createdAt, updatedAt, installedVersionSignature, error, directory, endpoint, autoUpdate, enabled) {
 
-    private val api: MorpheAPI by inject()
-
     override suspend fun getLatestInfo() = withContext(Dispatchers.IO) {
         val (owner, repo, prNumber) = endpoint.split("/").let { parts ->
             Triple(parts[3], parts[4], parts[6])
@@ -621,7 +617,6 @@ class GitHubPullRequestBundle(
 
     override suspend fun download(info: MorpheAsset, onProgress: PatchBundleDownloadProgress?) = withContext(Dispatchers.IO) {
         val prefs: PreferencesManager by inject()
-        val http: HttpService by inject()
         val gitHubPat = prefs.gitHubPat.get().also {
             if (it.isBlank()) throw RuntimeException("PAT is required")
         }

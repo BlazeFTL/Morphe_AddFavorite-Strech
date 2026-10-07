@@ -16,9 +16,6 @@ import app.morphe.manager.MainActivity
 import app.morphe.manager.R
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.worker.PatcherWorker
-import app.morphe.manager.util.UpdateNotificationManager.Companion.CHANNEL_MANAGER_UPDATES
-import app.morphe.manager.util.UpdateNotificationManager.Companion.CHANNEL_PATCH_UPDATES
-import app.morphe.manager.util.UpdateNotificationManager.Companion.EXTRA_TRIGGER_UPDATE_CHECK
 
 /**
  * Manages Android system notifications for Morphe Manager update events.
@@ -67,7 +64,7 @@ class UpdateNotificationManager(private val context: Context) {
         // without any worker having run, for example when every app failed to be prepared
         val patcherChannel = channel(
             CHANNEL_PATCHER,
-            R.string.notification_channel_patcher,
+            R.string.patching,
             R.string.notification_channel_patcher_description,
             NotificationManager.IMPORTANCE_LOW
         )
@@ -145,11 +142,11 @@ class UpdateNotificationManager(private val context: Context) {
     fun showManagerUpdateNotification(version: String? = null) {
         postNotification(
             channelId = CHANNEL_MANAGER_UPDATES,
-            titleRes = R.string.notification_manager_update_title,
+            titleRes = R.string.home_update_available,
             contentText = if (!version.isNullOrBlank())
                 context.getString(R.string.notification_update_text, version)
             else
-                context.getString(R.string.notification_manager_update_title),
+                context.getString(R.string.home_update_available),
             notificationId = NOTIFICATION_ID_MANAGER_UPDATE,
             action = NotificationCompat.Action.Builder(
                 R.drawable.ic_notification,

@@ -333,7 +333,8 @@ fun PatchingFailed(
     sources: List<PatchSourceRef>,
     errorMessage: String?,
     onHomeClick: () -> Unit,
-    onErrorClick: () -> Unit
+    onErrorClick: () -> Unit,
+    onChangePatchesClick: (() -> Unit)? = null
 ) {
     ResultScreen(
         status = PatchingFailedStatus,
@@ -351,12 +352,26 @@ fun PatchingFailed(
             )
         },
         actions = {
-            ResultActionButton(
-                text = stringResource(R.string.patcher_error_details),
-                icon = Icons.Outlined.BugReport,
-                failed = true,
-                onClick = onErrorClick
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+            ) {
+                ResultActionButton(
+                    text = stringResource(R.string.patcher_error_details),
+                    icon = Icons.Outlined.BugReport,
+                    failed = true,
+                    onClick = onErrorClick
+                )
+                // A run is often failed by one patch, and going back to the selection drops it
+                // without picking the APK and the rest of the patches all over again
+                onChangePatchesClick?.let {
+                    AppDialogOutlinedButton(
+                        text = stringResource(R.string.patcher_change_patches),
+                        onClick = it,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
         },
         bottomBar = { horizontalPadding ->
             PatcherBottomActionBar(

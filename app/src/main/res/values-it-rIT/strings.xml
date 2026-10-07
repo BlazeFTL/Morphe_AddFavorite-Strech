@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">A questo punto, resta sveglio/a e applica le patch</string>
     <string name="home_greeting_super_late_4">Tu e i server, entrambi svegli</string>
     <string name="home_greeting_super_late_5">Notturno e produttivo/a</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Dolcetto o patch?</string>
+    <string name="home_greeting_halloween_2">Nessun fantasma in questi APK, abbiamo controllato</string>
+    <string name="home_greeting_halloween_3">Stagione da paura, patch nuove</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Qualcosa di malvagio si avvicina patchando</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Buone feste, patch nuove</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Lascia nevicare, lascia patchare</string>
+    <string name="home_greeting_winter_3">Anno nuovo, patch nuove</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Patchando tra la neve</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fonti delle patch</string>
     <string name="sources_search">Cerca fonti e patch</string>
@@ -486,7 +502,12 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="app_links_enable_auto_in_progress">Abilitazione dei collegamenti…</string>
     <string name="app_links_open_settings">Apri le impostazioni dei collegamenti</string>
     <string name="app_links_repair_success">Collegamenti all\'app abilitati correttamente</string>
+    <string name="app_links_repair_failed">Non è stato possibile abilitare automaticamente i collegamenti all\'app</string>
+    <string name="app_links_badge_enabled">Abilitato</string>
     <string name="app_links_badge_disabled">Disattivato</string>
+    <string name="app_links_all_verified">Tutti i collegamenti supportati sono configurati per aprirsi in questa app</string>
+    <string name="app_links_fix">Correggi i collegamenti</string>
+    <string name="configure">Configura</string>
     <string name="patcher_rename_title">Questo installerà un clone</string>
     <string name="patcher_rename_description">Le patch hanno compilato questa app con un nome del pacchetto proprio, quindi installarla aggiunge un clone accanto a &lt;b&gt;%s&lt;/b&gt; invece di aggiornarla</string>
     <string name="patcher_rename_result_package">Verrà installato come</string>
@@ -552,6 +573,7 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="patcher_failed_title">Ops! Qualcosa è andato storto</string>
     <string name="patcher_failed_dialog_title">Patching fallito</string>
     <string name="patcher_error_details">Dettagli errore</string>
+    <string name="patcher_change_patches">Cambia patch</string>
     <string name="patcher_unknown_error">Si è verificato un errore sconosciuto</string>
     <string name="patcher_split_step_extracting">Estrazione degli APK divisi</string>
     <string name="patcher_split_step_merging">Unione %s</string>
@@ -571,6 +593,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_back_to_game_hint">Tocca %1$s per tornare al tuo gioco</string>
     <string name="patcher_storage_permission_dialog_title">Non è possibile accedere alla cartella di archiviazione</string>
     <string name="patcher_incompatible_patcher_title">Aggiornamento richiesto</string>
+    <string name="patcher_incompatible_patcher_description">La sorgente &lt;b&gt;%1$s&lt;/b&gt; richiede il patcher &lt;b&gt;%2$s&lt;/b&gt; o una versione successiva. Aggiorna Morphe per usarla</string>
     <string name="patcher_storage_permission_description_api30">Una o più opzioni delle patch fanno riferimento a percorsi che Morphe non può leggere. Concedi l\'accesso alla memoria di archiviazione e tocca il pulsante, quindi il patching partirà automaticamente</string>
     <string name="patcher_storage_permission_description_legacy">Una o più opzioni delle patch fanno riferimento a percorsi non raggiungibili. Aggiorna i percorsi nelle opzioni delle patch e riprova</string>
     <string name="patcher_storage_permission_grant">Concedi l\'autorizzazione alla memoria di archiviazione</string>
@@ -709,6 +732,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_background_random_interval_3days">Ogni 3 giorni</string>
     <string name="settings_appearance_parallax_effect">Effetto parallasse</string>
     <string name="settings_appearance_parallax_effect_description">Sfondo regolare che si sposta quando si inclina il dispositivo</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Tema</string>
     <string name="settings_appearance_theme_mode">Modalità tema</string>
@@ -770,9 +794,9 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_app_icon_default">Predefinita</string>
     <string name="settings_appearance_app_icon_light_2">Cielo</string>
     <string name="settings_appearance_app_icon_light_3">Tramonto</string>
-    <string name="settings_appearance_app_icon_dark_1">Oceano</string>
     <string name="settings_appearance_app_icon_dark_2">Vuoto</string>
-    <string name="settings_appearance_app_icon_dark_3">Indaco</string>
+    <string name="settings_appearance_app_icon_mark_color">Colore</string>
+    <string name="settings_appearance_app_icon_mark_white">Bianco</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Cambiare l’icona dell’app?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Cambia in &lt;b&gt;%s&lt;/b&gt; e riavvia?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1308,6 +1332,7 @@ Dettagli: %2$s"</string>
     <string name="changelog_download_fail">Download del registro delle modifiche non riuscito: %s</string>
     <string name="changelog_empty">Nessun registro delle modifiche disponibile</string>
     <string name="changelog_earlier_releases">Versioni precedenti</string>
+    <string name="changelog_patched_with">Corretto con %s</string>
     <string name="changelog_older_empty">Nessuna versione precedente da visualizzare </string>
     <string name="changelog_older_failed">Impossibile caricare le versioni precedenti</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

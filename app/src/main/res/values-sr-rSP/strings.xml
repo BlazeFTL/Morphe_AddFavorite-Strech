@@ -123,6 +123,14 @@
     <string name="home_greeting_super_late_3">У овом тренутку, останите будни и запакујте</string>
     <string name="home_greeting_super_late_4">Ти и сервери, обоје будни</string>
     <string name="home_greeting_super_late_5">Ноћни и продуктивни</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Извор печовања</string>
     <string name="sources_search">Претражите изворе и закрпе</string>
@@ -486,7 +494,12 @@
     <string name="app_links_enable_auto_in_progress">Омогућавање линкова…</string>
     <string name="app_links_open_settings">Отвори подешавања линкова</string>
     <string name="app_links_repair_success">Апликациони линкови су успешно омогућени</string>
+    <string name="app_links_repair_failed">Аутоматско омогућавање апликационих линкова није успело</string>
+    <string name="app_links_badge_enabled">Омогућено</string>
     <string name="app_links_badge_disabled">Онемогућен</string>
+    <string name="app_links_all_verified">Сви подржани линкови су подешени да се отварају у овој апликацији</string>
+    <string name="app_links_fix">Поправи линкове</string>
+    <string name="configure">Подеси</string>
     <string name="patcher_rename_title">Ово ће инсталирати клон</string>
     <string name="patcher_rename_description">Пачови су направили ову апликацију под сопственим именом пакета, тако да инсталација додаје клон поред &lt;b&gt;%s&lt;/b&gt; уместо да је ажурира</string>
     <string name="patcher_rename_result_package">Инсталираће се као</string>
@@ -552,6 +565,7 @@
     <string name="patcher_failed_title">Упс! Дошло је до грешке</string>
     <string name="patcher_failed_dialog_title">Закрапа није успела</string>
     <string name="patcher_error_details">Детаљи грешке</string>
+    <string name="patcher_change_patches">Промени закрпе</string>
     <string name="patcher_unknown_error">Дошло је до непознате грешке</string>
     <string name="patcher_split_step_extracting">Екстракција подељених APK-ова</string>
     <string name="patcher_split_step_merging">Спајање %s</string>
@@ -571,6 +585,7 @@
     <string name="patcher_back_to_game_hint">Додирните %1$s да се вратите на своју игру</string>
     <string name="patcher_storage_permission_dialog_title">Не могу приступити до пута складиштења</string>
     <string name="patcher_incompatible_patcher_title">Захтевано је ажурирање</string>
+    <string name="patcher_incompatible_patcher_description">Извор &lt;b&gt;%1$s&lt;/b&gt; захтева патчер &lt;b&gt;%2$s&lt;/b&gt; или новији. Ажурирајте Morphe да бисте га користили</string>
     <string name="patcher_storage_permission_description_api30">Једна или више опција исправки указују на путеве које Morphe не може да чита. Доделите дозволу за складиште и додирните дугме, а затим ће почети аутоматско отклањање грешака</string>
     <string name="patcher_storage_permission_description_legacy">Један или више опција пачања указују на путеве које не могу да се приступе. Ажурирајте путеве у опцијама пачања и покушајте поново</string>
     <string name="patcher_storage_permission_grant">Дозволите приступ складишту</string>
@@ -709,6 +724,7 @@
     <string name="settings_appearance_background_random_interval_3days">Свака 3 дана</string>
     <string name="settings_appearance_parallax_effect">Efekt paralaksa</string>
     <string name="settings_appearance_parallax_effect_description">Umiranje pozadine pri kretanju ugao naprijed nazad</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Начин</string>
     <string name="settings_appearance_theme_mode">Режим теме</string>
@@ -770,9 +786,8 @@
     <string name="settings_appearance_app_icon_default">Подразумеван</string>
     <string name="settings_appearance_app_icon_light_2">Небо</string>
     <string name="settings_appearance_app_icon_light_3">Залаз сунца</string>
-    <string name="settings_appearance_app_icon_dark_1">Океан</string>
     <string name="settings_appearance_app_icon_dark_2">Празност</string>
-    <string name="settings_appearance_app_icon_dark_3">Индиго</string>
+    <string name="settings_appearance_app_icon_mark_color">Боја</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Променити икону</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Промените у &lt;b&gt;%s&lt;/b&gt; и поново покрените?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1308,6 +1323,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">Није успело преузимање дневника промена: %s</string>
     <string name="changelog_empty">Нема доступних промена</string>
     <string name="changelog_earlier_releases">Ранија издања</string>
+    <string name="changelog_patched_with">Закрпљено са %s</string>
     <string name="changelog_older_empty">Нема старијих верзија за приказ</string>
     <string name="changelog_older_failed">Није успело учитавање старијих издања</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

@@ -4,13 +4,13 @@
     <string name="home_other_apps">Άλλες εφαρμογές</string>
     <string name="home_other_apps_action">Επιλογή άλλων εφαρμογών</string>
     <string name="home_not_patched_yet">Δεν τροποποιήθηκε ακόμη</string>
-    <string name="home_unpatched_version_installed">Εγκαταστάθηκε μη τροποποιημένη έκδοση</string>
+    <string name="home_unpatched_version_installed">Εγκαταστάθηκε η μη τροποποιημένη έκδοση</string>
     <string name="home_unpatched_badge">Δεν τροποποιήθηκε</string>
     <string name="home_no_patches_available">Δεν υπάρχουν διαθέσιμες τροποποιήσεις</string>
     <string name="home_app_hide_title"> Απόκρυψη αυτής της εφαρμογής;</string>
     <string name="home_app_hide_message">Αυτή η εφαρμογή θα αποκρυφθεί από την αρχική οθόνη. Μπορείτε να την επαναφέρετε αργότερα από τις κρυφές εφαρμογές χρησιμοποιώντας το κουμπί στο κάτω μέρος της λίστας</string>
     <string name="home_app_will_be_hidden">Αυτή η εφαρμογή θα αποκρυφθεί</string>
-    <string name="home_app_no_hidden">Καμία κρυφή εφαρμογή</string>
+    <string name="home_app_no_hidden">Καμία κρυμμένη εφαρμογή</string>
     <string name="home_app_hidden_apps_title">Κρυφές εφαρμογές</string>
     <string name="home_app_hidden_apps_hint">Πατήστε για επανεμφάνιση</string>
     <string name="home_app_patch_sources_description">Οι πηγές που δεν είναι επιλεγμένες δεν προσφέρονται όταν αυτές οι εφαρμογές διορθώνονται, και οι διορθώσεις αυτών των πηγών δεν συμπεριλαμβάνονται ποτέ από μόνες τους σε μια επιλογή. Κάθε πηγή παραμένει ενεργή για κάθε άλλη εφαρμογή.</string>
@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">Σε αυτό το σημείο, καλύτερα να μείνεις ξύπνιος και να κάνεις ενημερώσεις</string>
     <string name="home_greeting_super_late_4">Εσύ και οι servers, και οι δύο ξύπνιοι</string>
     <string name="home_greeting_super_late_5">Νυχτερινός και παραγωγικός</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Φάρσα ή μπάλωμα;</string>
+    <string name="home_greeting_halloween_2">Κανένα φάντασμα σε αυτά τα APK, το ελέγξαμε</string>
+    <string name="home_greeting_halloween_3">Ανατριχιαστική σεζόν, φρέσκα μπαλώματα</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Κάτι κακό μπαλώνει από δω</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Καλές γιορτές, φρέσκα μπαλώματα</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Ας χιονίζει, ας μπαλώνει</string>
+    <string name="home_greeting_winter_3">Νέα χρονιά, νέα μπαλώματα</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Μπαλώνοντας μέσα στο χιόνι</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Πηγές τροποποιήσεων</string>
     <string name="sources_search">Αναζήτηση πηγών και επιδιορθώσεων</string>
@@ -277,6 +293,7 @@
     <string name="home_installed_app_picker_filter_system">Μόνο εφαρμογές συστήματος</string>
     <string name="home_invalid_apk_unreadable">Δεν ήταν δυνατή η ανάγνωση του αρχείου. Ελέγξτε ότι ο \'Εξωτερικός χώρος αποθήκευσης\' δεν περιορίζεται από την μπαταρία</string>
     <string name="home_invalid_apk_not_an_apk">Το επιλεγμένο αρχείο δεν είναι ένα έγκυρο APK</string>
+    <string name="home_invalid_apk_already_patched">Το επιλεγμένο APK είναι ήδη επιδιορθωμένο. Επιλέξτε την αρχική εφαρμογή αντί αυτού</string>
     <string name="home_invalid_apk_io_error">Απέτυχε το άνοιγμα του αρχείου. Παρακαλώ προσπαθήστε ξανά</string>
     <string name="home_external_apk_expert_mode_required">Αυτή η λειτουργία είναι διαθέσιμη μόνο στην Εξειδικευμένη λειτουργία</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -485,8 +502,12 @@
     <string name="app_links_enable_auto_in_progress">Ενεργοποίηση συνδέσμων…</string>
     <string name="app_links_open_settings">Άνοιγμα ρυθμίσεων συνδέσμων</string>
     <string name="app_links_repair_success">Οι σύνδεσμοι εφαρμογής ενεργοποιήθηκαν με επιτυχία</string>
+    <string name="app_links_repair_failed">Αποτυχία αυτόματης ενεργοποίησης των συνδέσμων εφαρμογής</string>
     <string name="app_links_badge_enabled">Ενεργοποιημένο</string>
     <string name="app_links_badge_disabled">Απενεργοποιημένο</string>
+    <string name="app_links_all_verified">Όλοι οι υποστηριζόμενοι σύνδεσμοι έχουν ρυθμιστεί να ανοίγουν σε αυτήν την εφαρμογή</string>
+    <string name="app_links_fix">Διόρθωση συνδέσμων</string>
+    <string name="configure">Διαμόρφωση</string>
     <string name="patcher_rename_title">Αυτό θα εγκαταστήσει ένα κλώνο</string>
     <string name="patcher_rename_description">Οι τροποποιήσεις δημιούργησαν αυτήν την εφαρμογή με δικό τους όνομα πακέτου, οπότε η εγκατάστασή της προσθέτει ένα κλώνο δίπλα στο <b>%s</b> αντί να την ενημερώσει</string>
     <string name="patcher_rename_result_package">Θα εγκατασταθεί ως</string>
@@ -552,6 +573,7 @@
     <string name="patcher_failed_title">Ωχ! Κάτι πήγε στραβά</string>
     <string name="patcher_failed_dialog_title">Απέτυχε η τροποποίηση</string>
     <string name="patcher_error_details">Λεπτομέρειες σφάλματος</string>
+    <string name="patcher_change_patches">Αλλαγή patches</string>
     <string name="patcher_unknown_error">Παρουσιάστηκε άγνωστο σφάλμα</string>
     <string name="patcher_split_step_extracting">Εξαγωγή διαχωρισμένων APK</string>
     <string name="patcher_split_step_merging">Συγχώνευση %s</string>
@@ -571,6 +593,7 @@
     <string name="patcher_back_to_game_hint">Πάτα %1$s για να επιστρέψεις στο παιχνίδι σου</string>
     <string name="patcher_storage_permission_dialog_title">Δεν είναι δυνατή η πρόσβαση στη διαδρομή αποθηκευτικού χώρου</string>
     <string name="patcher_incompatible_patcher_title">Απαιτείται ενημέρωση</string>
+    <string name="patcher_incompatible_patcher_description">Η πηγή &lt;b&gt;%1$s&lt;/b&gt; απαιτεί τον patcher &lt;b&gt;%2$s&lt;/b&gt; ή νεότερο. Ενημερώστε το Morphe για να τον χρησιμοποιήσει</string>
     <string name="patcher_storage_permission_description_api30">Μία ή περισσότερες επιλογές τροποποιήσεων πηγαίνουν σε διαδρομές που το Morphe δεν μπορεί να διαβάσει. Δώστε άδεια αποθήκευσης και πατήστε το κουμπί, στη συνέχεια η διαδικασία τροποποίησης θα ξεκινήσει αυτόματα</string>
     <string name="patcher_storage_permission_description_legacy">Μία ή περισσότερες επιλογές τροποποιήσεων πηγαίνουν σε διαδρομές που δεν είναι προσβάσιμες. Ενημερώστε τις διαδρομές στις επιλογές τροποποιήσεων και δοκιμάστε ξανά</string>
     <string name="patcher_storage_permission_grant">Επιτρέψτε την πρόσβαση στον αποθηκευτικό χώρο</string>
@@ -709,6 +732,7 @@
     <string name="settings_appearance_background_random_interval_3days">Κάθε 3 ημέρες</string>
     <string name="settings_appearance_parallax_effect">Εφέ παράλλαξης</string>
     <string name="settings_appearance_parallax_effect_description">Ομαλή μετατόπιση φόντου όταν αλλάξει κλίση η συσκευή</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Θέμα</string>
     <string name="settings_appearance_theme_mode">Λειτουργία θέματος</string>
@@ -770,9 +794,8 @@
     <string name="settings_appearance_app_icon_default">Προεπιλογή</string>
     <string name="settings_appearance_app_icon_light_2">Ουρανός</string>
     <string name="settings_appearance_app_icon_light_3">Δύση ηλίου </string>
-    <string name="settings_appearance_app_icon_dark_1">Θάλασσα</string>
     <string name="settings_appearance_app_icon_dark_2">Κενό</string>
-    <string name="settings_appearance_app_icon_dark_3">Ίντιγκο</string>
+    <string name="settings_appearance_app_icon_mark_color">Χρωματιστή</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Αλλαγή εικονιδίου της εφαρμογής;</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Αλλαγή σε &lt;b&gt;%s&lt;/b&gt; και επανεκκίνηση;</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1308,6 +1331,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">Αποτυχία λήψης αρχείου καταγραφής αλλαγών: %s</string>
     <string name="changelog_empty">Δεν υπάρχει διαθέσιμο αρχείο καταγραφών αλλαγών </string>
     <string name="changelog_earlier_releases">Παλαιότερες εκδόσεις</string>
+    <string name="changelog_patched_with">Επιδιορθώθηκε με %s</string>
     <string name="changelog_older_empty">Δεν υπάρχουν παλαιότερες εκδόσεις για εμφάνιση</string>
     <string name="changelog_older_failed">Δεν ήταν δυνατή η φόρτωση παλαιότερων εκδόσεων</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

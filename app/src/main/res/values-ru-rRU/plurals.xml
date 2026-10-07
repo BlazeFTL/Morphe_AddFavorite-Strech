@@ -189,4 +189,16 @@
         <item quantity="many">%s новых релизов</item>
         <item quantity="other">%s новых релиза</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d ссылка включена</item>
+        <item quantity="few">%d ссылки включены</item>
+        <item quantity="many">%d ссылок включено</item>
+        <item quantity="other">%d ссылок включено</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d непроверенная ссылка</item>
+        <item quantity="few">%d непроверенные ссылки</item>
+        <item quantity="many">%d непроверенных ссылок</item>
+        <item quantity="other">%d непроверенных ссылок</item>
+    </plurals>
 </resources>

@@ -123,6 +123,26 @@
     <string name="home_greeting_super_late_3">이 정도면 그냥 안 자고 패치하는 게 낫겠네요</string>
     <string name="home_greeting_super_late_4">당신과 서버, 둘 다 깨어있네요</string>
     <string name="home_greeting_super_late_5">야행성이면서 생산적이네요</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">장난이 좋으신가요, 아니면 패치가 좋으신가요?</string>
+    <string name="home_greeting_halloween_2">APK에는 유령 같은 문제는 없어요. 저희가 꼼꼼히 확인했어요</string>
+    <string name="home_greeting_halloween_3">오싹한 할로윈 시즌, 새로운 패치가 찾아왔습니다</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">무시무시한 무언가가 패치되어 찾아옵니다</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">즐거운 연말연시, 새로운 패치와 함께하세요</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">눈이 내리고, 패치가 찾아옵니다</string>
+    <string name="home_greeting_winter_3">새해에는 새로운 패치와 함께하세요</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">눈길을 헤치며 패치가 찾아옵니다</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <string name="home_greeting_new_year_1">새해 복 많이 받으세요!</string>
+    <string name="home_greeting_new_year_2">새로운 패치를 손꼽아 기다려 주세요</string>
+    <string name="home_greeting_new_year_3">새해에도 변함없이 광고 없는 앱을 만나보세요</string>
+    <!-- Pun on the saying "Out with the old, in with the new" -->
+    <string name="home_greeting_new_year_4">이전 버전은 보내고, 새로운 버전을 맞이하세요</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">패치 소스</string>
     <string name="sources_search">소스 및 패치 검색</string>
@@ -139,8 +159,8 @@
     <string name="sources_management_failed_to_open_url">URL을 열 수 없습니다</string>
     <string name="sources_apps">앱</string>
     <string name="sources_apps_description">앱을 탭하면 이 소스에서 제외하거나 다시 가져올 수 있습니다. 길게 누르면 여러 앱을 선택할 수 있습니다. 앱을 가져오는 소스가 하나도 없으면 홈 화면에서 사라집니다.</string>
-    <string name="sources_apps_brought">이 소스에서 가져온 앱</string>
-    <string name="sources_apps_left_out">이 소스에서 제외된 앱</string>
+    <string name="sources_apps_brought">이 소스에서 제공됨</string>
+    <string name="sources_apps_left_out">이 소스에서 제외됨</string>
     <string name="sources_apps_leave_out">제외하기</string>
     <string name="sources_apps_leave_out_done">제외됨</string>
     <string name="sources_apps_bring_back">다시 가져오기</string>
@@ -489,9 +509,9 @@
     <string name="app_links_repair_failed">앱 링크 자동 활성화 실패</string>
     <string name="app_links_badge_enabled">활성화됨</string>
     <string name="app_links_badge_disabled">비활성화됨</string>
-    <string name="app_links_all_verified">지원되는 모든 링크가 이 앱에서 열리도록 구성되었습니다</string>
+    <string name="app_links_all_verified">지원되는 모든 링크가 이 앱에서 열리도록 설정되었습니다</string>
     <string name="app_links_fix">링크 수정</string>
-    <string name="configure">구성</string>
+    <string name="configure">설정</string>
     <string name="patcher_rename_title">복제본이 설치됩니다</string>
     <string name="patcher_rename_description">이 패치는 이 앱을 사용자가 설정한 자체 패키지명으로 빌드하므로, 설치하면 &lt;b&gt;%s&lt;/b&gt;를 업데이트하는 것이 아니라 그 옆에 복제본이 추가됩니다</string>
     <string name="patcher_rename_result_package">다음 패키지명으로 설치됩니다</string>
@@ -557,6 +577,7 @@
     <string name="patcher_failed_title">이런! 오류가 발생하였습니다</string>
     <string name="patcher_failed_dialog_title">패치 실패</string>
     <string name="patcher_error_details">오류 세부 정보</string>
+    <string name="patcher_change_patches">패치 변경</string>
     <string name="patcher_unknown_error">알 수 없는 오류가 발생하였습니다</string>
     <string name="patcher_split_step_extracting">분할 APK를 추출하는 중</string>
     <string name="patcher_split_step_merging">%s를 병합하는 중</string>
@@ -708,6 +729,9 @@
     <string name="settings_appearance_background_snow">눈송이</string>
     <string name="settings_appearance_background_grid">격자</string>
     <string name="settings_appearance_background_particles">입자</string>
+    <string name="settings_appearance_background_lava">라바 램프</string>
+    <string name="settings_appearance_background_halloween">할로윈</string>
+    <string name="settings_appearance_background_fireworks">불꽃놀이</string>
     <string name="settings_appearance_background_none">없음</string>
     <string name="settings_appearance_background_random">무작위</string>
     <string name="settings_appearance_background_random_interval_launch">앱 실행 시</string>
@@ -715,6 +739,10 @@
     <string name="settings_appearance_background_random_interval_3days">3일마다</string>
     <string name="settings_appearance_parallax_effect">페럴랙스 효과</string>
     <string name="settings_appearance_parallax_effect_description">기기를 기울이면 배경이 부드럽게 이동합니다</string>
+    <string name="settings_appearance_seasonal_themes">시즌 테마</string>
+    <string name="settings_appearance_seasonal_themes_description">기념일 및 연휴 기간에 특별한 배경과 인사말을 표시합니다</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
+    <string name="settings_appearance_seasonal_background_notice">시즌 테마가 활성화되어 있는 동안 %1$s 배경이 %2$s까지 표시됩니다</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">테마</string>
     <string name="settings_appearance_theme_mode">테마 모드</string>
@@ -731,7 +759,7 @@
     <string name="settings_appearance_color_accents">앱 및 소스 색상</string>
     <string name="settings_appearance_color_accents_description">강조 색상 대신 각 앱과 소스의 고유 색상을 사용합니다</string>
     <string name="settings_appearance_outlines">윤곽선</string>
-    <string name="settings_appearance_outlines_description">카드, 패널, 버튼의 가장자리에 얇은 테두리를 표시합니다</string>
+    <string name="settings_appearance_outlines_description">카드, 패널 및 버튼의 가장자리에 얇은 테두리를 표시합니다</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">언어 및 디스플레이</string>
     <string name="settings_appearance_app_language">앱 언어</string>
@@ -775,9 +803,24 @@
     <string name="settings_appearance_app_icon_default">기본값</string>
     <string name="settings_appearance_app_icon_light_2">하늘</string>
     <string name="settings_appearance_app_icon_light_3">일몰</string>
-    <string name="settings_appearance_app_icon_dark_1">바다</string>
+    <string name="settings_appearance_app_icon_light_4">라벤더</string>
+    <string name="settings_appearance_app_icon_light_5">빙하</string>
+    <string name="settings_appearance_app_icon_light_6">안개</string>
+    <string name="settings_appearance_app_icon_light_7">모래</string>
+    <string name="settings_appearance_app_icon_dark_1">청록색</string>
     <string name="settings_appearance_app_icon_dark_2">공허</string>
-    <string name="settings_appearance_app_icon_dark_3">남색</string>
+    <string name="settings_appearance_app_icon_dark_3">자두색</string>
+    <string name="settings_appearance_app_icon_dark_4">자정</string>
+    <string name="settings_appearance_app_icon_dark_5">슬레이트</string>
+    <string name="settings_appearance_app_icon_accent_1">오로라</string>
+    <string name="settings_appearance_app_icon_accent_2">잉크</string>
+    <string name="settings_appearance_app_icon_accent_3">종이</string>
+    <string name="settings_appearance_app_icon_accent_4">황혼</string>
+    <string name="settings_appearance_app_icon_background">배경</string>
+    <string name="settings_appearance_app_icon_mark">로고</string>
+    <string name="settings_appearance_app_icon_mark_color">컬러</string>
+    <string name="settings_appearance_app_icon_mark_white">하얀색</string>
+    <string name="settings_appearance_app_icon_mark_black">검정색</string>
     <string name="settings_appearance_app_icon_change_dialog_title">앱 아이콘을 변경할까요?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">&lt;b&gt;%s&lt;/b&gt;으로 변경하고 다시 시작하시겠습니까?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1028,7 +1071,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">가져오기 &amp; 내보내기</string>
     <string name="settings_system_signing_key">서명키</string>
-    <string name="settings_system_signing_key_description">패치된 앱이 서명된 키를 백업하고 복원합니다</string>
+    <string name="settings_system_signing_key_description">앱 패치에 사용되는 서명키를 백업하고 복원합니다</string>
     <string name="settings_system_signing_key_dialog_description">Morphe가 패치하는 모든 앱은 이 키로 서명됩니다. 이 키를 반드시 보관하세요: 이 키가 없으면 패치된 앱은 기존 앱을 삭제한 후에만 업데이트할 수 있습니다</string>
     <string name="settings_system_signing_key_missing">Morphe는 첫 번째 패치와 함께 하나를 생성합니다</string>
     <string name="settings_system_signing_key_created">%s에 생성됨</string>
@@ -1306,12 +1349,13 @@ morphe_header_custom_dark.png
     <string name="imported_successfully">성공적으로 가져왔습니다</string>
     <string name="changelog">변경 사항 보기</string>
     <string name="changelog_for_app">\'%s\'에 대한 변경 사항</string>
-    <string name="changelog_general_changes">일반 변경 사항</string>
+    <string name="changelog_general_changes">일반 변경</string>
     <string name="whats_new">새로운 기능</string>
     <string name="changelog_description">이 버전의 새로운 기능</string>
     <string name="changelog_download_fail">변경 사항을 다운로드할 수 없습니다: %s</string>
     <string name="changelog_empty">변경 사항이 없습니다</string>
     <string name="changelog_earlier_releases">이전 릴리스</string>
+    <string name="changelog_patched_with">%s로 패치됨</string>
     <string name="changelog_older_empty">표시할 이전 릴리스가 없습니다</string>
     <string name="changelog_older_failed">이전 릴리스를 불러올 수 없습니다</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

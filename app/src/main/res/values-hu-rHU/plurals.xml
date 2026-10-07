@@ -127,4 +127,12 @@
         <item quantity="one">%s új kiadás</item>
         <item quantity="other">%s új kiadás</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d link engedélyezve</item>
+        <item quantity="other">%d link engedélyezve</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d nem ellenőrzött link</item>
+        <item quantity="other">%d nem ellenőrzött link</item>
+    </plurals>
 </resources>

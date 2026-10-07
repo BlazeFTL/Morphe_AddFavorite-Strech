@@ -127,4 +127,12 @@
         <item quantity="one">%s нова версия</item>
         <item quantity="other">%s нови версии</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d връзка е активирана</item>
+        <item quantity="other">%d връзки са активирани</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d непроверена връзка</item>
+        <item quantity="other">%d непроверени връзки</item>
+    </plurals>
 </resources>

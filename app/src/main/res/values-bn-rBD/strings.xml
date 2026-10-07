@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">এখন আর ঘুমিয়ে কী হবে, বরং জেগেই থাকুন আর একটা কিছু প্যাচ করে ফেলুন</string>
     <string name="home_greeting_super_late_4">আপনি এবং সার্ভার, দুজনেই কিন্তু এখনো জেগে আছেন</string>
     <string name="home_greeting_super_late_5">রাতও জাগছেন, আবার কাজের কাজও করে ফেলছেন</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">ট্রিক নাকি প্যাচ?</string>
+    <string name="home_greeting_halloween_2">এই APK-গুলিতে কোনো ভূত নেই, আমরা পরীক্ষা করে দেখেছি</string>
+    <string name="home_greeting_halloween_3">ভুতুড়ে মৌসুম, নতুন প্যাচ</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">অশুভ কিছু এই পথে প্যাচ নিয়ে আসে</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">শুভ ছুটির দিন, নতুন প্যাচ</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">তুষার পড়ুক, প্যাচ আসুক</string>
+    <string name="home_greeting_winter_3">নতুন বছর, নতুন প্যাচ</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">তুষার ভেদ করে প্যাচ করা</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">প্যাচ সোর্সগুলো</string>
     <string name="sources_search">উৎস এবং প্যাচ অনুসন্ধান করুন</string>
@@ -277,6 +293,7 @@
     <string name="home_installed_app_picker_filter_system">শুধুমাত্র সিস্টেম অ্যাপস</string>
     <string name="home_invalid_apk_unreadable">ফাইলটি পড়া যায়নি। \'এক্সটার্নাল স্টোরেজ\' ব্যাটারি দ্বারা সীমাবদ্ধ কিনা তা পরীক্ষা করুন</string>
     <string name="home_invalid_apk_not_an_apk">নির্বাচিত ফাইলটি একটি বৈধ APK নয়</string>
+    <string name="home_invalid_apk_already_patched">নির্বাচিত APK ইতিমধ্যে প্যাচ করা হয়েছে। পরিবর্তে মূল অ্যাপটি নির্বাচন করুন</string>
     <string name="home_invalid_apk_io_error">ফাইলটি খুলতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন</string>
     <string name="home_external_apk_expert_mode_required">এই বৈশিষ্ট্যটি শুধুমাত্র বিশেষজ্ঞ মোডে উপলব্ধ</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -485,7 +502,12 @@
     <string name="app_links_enable_auto_in_progress">লিঙ্ক সক্রিয় করা হচ্ছে…</string>
     <string name="app_links_open_settings">লিঙ্ক সেটিংস খুলুন</string>
     <string name="app_links_repair_success">অ্যাপ লিঙ্ক সফলভাবে সক্রিয় করা হয়েছে</string>
+    <string name="app_links_repair_failed">অ্যাপ লিংক স্বয়ংক্রিয়ভাবে সক্রিয় করা যায়নি</string>
+    <string name="app_links_badge_enabled">সক্রিয়</string>
     <string name="app_links_badge_disabled">বন্ধ রাখুন</string>
+    <string name="app_links_all_verified">সকল সমর্থিত লিংক এই অ্যাপে খোলার জন্য কনফিগার করা হয়েছে</string>
+    <string name="app_links_fix">লিংক ঠিক করুন</string>
+    <string name="configure">কনফিগার করুন</string>
     <string name="patcher_rename_title">এটি একটি ক্লোন ইনস্টল করবে</string>
     <string name="patcher_rename_description">প্যাচগুলো এই অ্যাপটি তাদের নিজস্ব প্যাকেজ নামে তৈরি করেছে, তাই এটি ইনস্টল করলে <b>%s</b>-এর পাশাপাশি একটি ক্লোন যুক্ত হবে, এটি আপডেট করার পরিবর্তে।</string>
     <string name="patcher_rename_result_package">হিসাবে ইনস্টল হবে</string>
@@ -551,6 +573,7 @@
     <string name="patcher_failed_title">ওহ! কিছু একটা ভুল হয়েছে</string>
     <string name="patcher_failed_dialog_title">প্যাচিং ব্যর্থ হয়েছে</string>
     <string name="patcher_error_details">ত্রুটির বিবরণ</string>
+    <string name="patcher_change_patches">প্যাচ পরিবর্তন করুন</string>
     <string name="patcher_unknown_error">অজানা ত্রুটি ঘটেছে</string>
     <string name="patcher_split_step_extracting">স্প্লিট APK এক্সট্রাক্ট করা হচ্ছে</string>
     <string name="patcher_split_step_merging">মার্জ করা হচ্ছে %s</string>
@@ -570,6 +593,7 @@
     <string name="patcher_back_to_game_hint">আপনার গেমে ফিরে যেতে %1$s ট্যাপ করুন</string>
     <string name="patcher_storage_permission_dialog_title">স্টোরেজ পথে অ্যাক্সেস করতে পারেনি</string>
     <string name="patcher_incompatible_patcher_title">আপডেট প্রয়োজন</string>
+    <string name="patcher_incompatible_patcher_description">উৎস &lt;b&gt;%1$s&lt;/b&gt;-এর জন্য প্যাচার &lt;b&gt;%2$s&lt;/b&gt; বা তার চেয়ে নতুন সংস্করণ প্রয়োজন। এটি ব্যবহার করতে Morphe আপডেট করুন</string>
     <string name="patcher_storage_permission_description_api30">একটি বা একাধিক প্যাচ অপশন এমন পথে নির্দেশ করে যা Morphe পড়তে পারে না। স্টোরেজ অ্যাক্সেস দিন এবং বোতামটি টিপুন, তাহলে প্যাচিং স্বয়ংক্রিয়ভাবে শুরু হবে।</string>
     <string name="patcher_storage_permission_description_legacy">এক বা একাধিক প্যাচ বিকল্প অ্যাক্সেস করতে পারে না। প্যাচ বিকল্পগুলিতে পথ আপডেট করুন এবং আবার চেষ্টা করুন</string>
     <string name="patcher_storage_permission_grant">স্টোরেজ অনুমতি দিন</string>
@@ -708,6 +732,7 @@
     <string name="settings_appearance_background_random_interval_3days">প্রতি ৩ দিনে</string>
     <string name="settings_appearance_parallax_effect">প্যারাল্যাক্স ইফেক্ট</string>
     <string name="settings_appearance_parallax_effect_description">ডিভাইসকে কাঁটিলে পটভূমি পরিবর্তনের সাবলীলতা</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">সিস্টেম</string>
     <string name="settings_appearance_theme_mode">বিষয়বস্তুর ধরণ</string>
@@ -769,9 +794,8 @@
     <string name="settings_appearance_app_icon_default">ডিফল্ট</string>
     <string name="settings_appearance_app_icon_light_2">স্কাই</string>
     <string name="settings_appearance_app_icon_light_3">সানসেট</string>
-    <string name="settings_appearance_app_icon_dark_1">ওশান</string>
     <string name="settings_appearance_app_icon_dark_2">ভয়েড</string>
-    <string name="settings_appearance_app_icon_dark_3">ইন্ডিগো</string>
+    <string name="settings_appearance_app_icon_mark_color">রং</string>
     <string name="settings_appearance_app_icon_change_dialog_title">অ্যাপ আইকন পরিবর্তন? </string>
     <string name="settings_appearance_app_icon_change_dialog_message">&lt;b&gt;%s&lt;/b&gt;-এ পরিবর্তন করুন এবং পুনরায় চালু করুন?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1151,6 +1175,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="file_picker_internal_storage">অভ্যন্তরীণ স্টোরেজ</string>
     <string name="file_picker_sd_card">এসডি কার্ড</string>
     <string name="file_picker_root">রুট (/)</string>
+    <string name="file_picker_storages">স্টোরেজ</string>
     <string name="file_picker_sort_name_asc">নাম (A–Z)</string>
     <string name="file_picker_sort_name_desc">নাম (Z–A)</string>
     <string name="file_picker_sort_size_desc">সাইজ (বৃহত্তম প্রথমে)</string>
@@ -1298,6 +1323,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_download_fail">চেঞ্জলগ ডাউনলোড করা যায়নি: %s</string>
     <string name="changelog_empty">কোনো চ্যাঞলগ উপলব্ধ নেই</string>
     <string name="changelog_earlier_releases">আগের রিলিজগুলো</string>
+    <string name="changelog_patched_with">%s দিয়ে প্যাচ করা হয়েছে</string>
     <string name="changelog_older_empty">দেখানোর জন্য পুরোনো রিলিজ নেই</string>
     <string name="changelog_older_failed">পুরনো রিলিজগুলো লোড করা যায়নি</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

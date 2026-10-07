@@ -123,6 +123,26 @@
     <string name="home_greeting_super_late_3">À ce stade, autant rester éveillé et patcher</string>
     <string name="home_greeting_super_late_4">Vous et les serveurs, tous les deux réveillés</string>
     <string name="home_greeting_super_late_5">Nocturne et productif</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Des bonbons ou un patch ?</string>
+    <string name="home_greeting_halloween_2">Aucun fantôme dans ces APK, on a vérifié</string>
+    <string name="home_greeting_halloween_3">Saison des frissons, nouveaux patchs</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Quelque chose de patché arrive par ici</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Joyeuses fêtes, nouveaux patchs</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Que la neige tombe, que les patchs tombent</string>
+    <string name="home_greeting_winter_3">Nouvelle année, nouveaux patchs</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Patching à travers la neige</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <string name="home_greeting_new_year_1">Bonne année !</string>
+    <string name="home_greeting_new_year_2">Compte à rebours avant de nouveaux patchs</string>
+    <string name="home_greeting_new_year_3">Nouvelle année, mêmes applis sans publicité</string>
+    <!-- Pun on the saying "Out with the old, in with the new" -->
+    <string name="home_greeting_new_year_4">Adieu les anciennes versions, place aux nouvelles</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sources de patchs</string>
     <string name="sources_search">Rechercher des sources et des patchs</string>
@@ -482,15 +502,19 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
 </string>
     <string name="home_app_info_not_patched_description">Une version non patchée de cette application est installée. Morphe conserve toujours son ancien patch</string>
     <string name="app_links_title">Liens web pris en charge</string>
-    <string name="app_links_description">Sur Android 12 et plus, les liens vers les domaines pris en charge s\'ouvrent dans votre navigateur par défaut, sauf s\'ils sont approuvés</string>
+    <string name="app_links_description">Sur Android 12 et plus, les liens vers les domaines pris en charge s\'ouvrent par défaut dans votre navigateur, sauf s\'ils sont approuvés</string>
     <string name="app_links_unverified_banner_title">Liens web non vérifiés</string>
     <string name="app_links_unverified_banner_description">Les liens web pris en charge s\'ouvrent actuellement dans votre navigateur au lieu de cette application</string>
     <string name="app_links_enable_auto">Activer automatiquement</string>
     <string name="app_links_enable_auto_in_progress">Activation des liens…</string>
     <string name="app_links_open_settings">Ouvrir les paramètres des liens</string>
     <string name="app_links_repair_success">Liens d\'application activés avec succès</string>
-    <string name="app_links_badge_enabled">Activée</string>
-    <string name="app_links_badge_disabled">Désactivée</string>
+    <string name="app_links_repair_failed">Échec de l\'activation automatique des liens d\'application</string>
+    <string name="app_links_badge_enabled">Activé</string>
+    <string name="app_links_badge_disabled">Désactivé</string>
+    <string name="app_links_all_verified">Tous les liens pris en charge sont configurés pour s\'ouvrir dans cette application</string>
+    <string name="app_links_fix">Corriger les liens</string>
+    <string name="configure">Configurer</string>
     <string name="patcher_rename_title">Cela installera un clone</string>
     <string name="patcher_rename_description">Les patchs ont compilé cette application sous leur propre nom de paquet, donc l\'installer ajoute un clone à côté de <b>%s</b> au lieu de le mettre à jour</string>
     <string name="patcher_rename_result_package">Sera installé en tant que</string>
@@ -556,6 +580,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="patcher_failed_title">Oups ! Quelque chose s\'est mal passé</string>
     <string name="patcher_failed_dialog_title">Échec du patching</string>
     <string name="patcher_error_details">Détails de l\'erreur</string>
+    <string name="patcher_change_patches">Changer les patchs</string>
     <string name="patcher_unknown_error">Une erreur inconnue s\'est produite</string>
     <string name="patcher_split_step_extracting">Extraction des APK fractionnés</string>
     <string name="patcher_split_step_merging">Fusion de %s</string>
@@ -575,6 +600,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="patcher_back_to_game_hint">Appuyez sur %1$s pour revenir à votre jeu</string>
     <string name="patcher_storage_permission_dialog_title">Impossible d\'accéder au chemin de stockage</string>
     <string name="patcher_incompatible_patcher_title">Mise à jour nécessaire</string>
+    <string name="patcher_incompatible_patcher_description">La source &lt;b&gt;%1$s&lt;/b&gt; nécessite le patcheur &lt;b&gt;%2$s&lt;/b&gt; ou une version plus récente. Mettez à jour Morphe pour pouvoir l\'utiliser</string>
     <string name="patcher_storage_permission_description_api30">Une ou plusieurs options de patch pointent vers des chemins que Morphe ne peut pas lire. Accordez l\'accès au stockage puis appuyez sur le bouton le patching commencera automatiquement</string>
     <string name="patcher_storage_permission_description_legacy">Une ou plusieurs options de patch pointent vers des chemins inaccessibles. Mettez à jour les chemins dans les options de patch puis réessayez</string>
     <string name="patcher_storage_permission_grant">Accorder l\'autorisation d\'accès au stockage</string>
@@ -706,6 +732,9 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_background_snow">Neige</string>
     <string name="settings_appearance_background_grid">Grille</string>
     <string name="settings_appearance_background_particles">Particules</string>
+    <string name="settings_appearance_background_lava">Lampe à lave</string>
+    <string name="settings_appearance_background_halloween">Halloween</string>
+    <string name="settings_appearance_background_fireworks">Feux d\'artifice</string>
     <string name="settings_appearance_background_none">Aucune</string>
     <string name="settings_appearance_background_random">Aléatoire</string>
     <string name="settings_appearance_background_random_interval_launch">Au démarrage</string>
@@ -713,6 +742,10 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_background_random_interval_3days">Tous les 3 jours</string>
     <string name="settings_appearance_parallax_effect">Effet de parallaxe</string>
     <string name="settings_appearance_parallax_effect_description">Déplacement d\'arrière-plan fluide lors de l\'inclinaison de l\'appareil</string>
+    <string name="settings_appearance_seasonal_themes">Thèmes saisonniers</string>
+    <string name="settings_appearance_seasonal_themes_description">Arrière-plans festifs et messages de vœux pendant les fêtes</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
+    <string name="settings_appearance_seasonal_background_notice">L\'arrière-plan %1$s est activé jusqu\'au %2$s lorsque les thèmes saisonniers sont activés</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Thème</string>
     <string name="settings_appearance_theme_mode">Mode du thème</string>
@@ -774,9 +807,24 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_app_icon_default">Par défaut</string>
     <string name="settings_appearance_app_icon_light_2">Ciel</string>
     <string name="settings_appearance_app_icon_light_3">Coucher de soleil</string>
-    <string name="settings_appearance_app_icon_dark_1">Océan</string>
+    <string name="settings_appearance_app_icon_light_4">Lavande</string>
+    <string name="settings_appearance_app_icon_light_5">Glacier</string>
+    <string name="settings_appearance_app_icon_light_6">Brume</string>
+    <string name="settings_appearance_app_icon_light_7">Sable</string>
+    <string name="settings_appearance_app_icon_dark_1">Sarcelle</string>
     <string name="settings_appearance_app_icon_dark_2">Néant</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_dark_3">Prune</string>
+    <string name="settings_appearance_app_icon_dark_4">Minuit</string>
+    <string name="settings_appearance_app_icon_dark_5">Ardoise</string>
+    <string name="settings_appearance_app_icon_accent_1">Aurore</string>
+    <string name="settings_appearance_app_icon_accent_2">Encre</string>
+    <string name="settings_appearance_app_icon_accent_3">Papier</string>
+    <string name="settings_appearance_app_icon_accent_4">Crépuscule</string>
+    <string name="settings_appearance_app_icon_background">Arrière-plan</string>
+    <string name="settings_appearance_app_icon_mark">Logo</string>
+    <string name="settings_appearance_app_icon_mark_color">Coloré</string>
+    <string name="settings_appearance_app_icon_mark_white">Blanc</string>
+    <string name="settings_appearance_app_icon_mark_black">Noir</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Changer l\'icône de l\'application ? </string>
     <string name="settings_appearance_app_icon_change_dialog_message">Changer pour &lt;b&gt;%s&lt;/b&gt; et redémarrer ?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1285,7 +1333,7 @@ Détails : %2$s"</string>
     <string name="remount">Remonter</string>
     <string name="share">Partager</string>
     <string name="install">Installer</string>
-    <string name="installed">Installé</string>
+    <string name="installed">Installée</string>
     <string name="reinstall">Réinstaller</string>
     <string name="uninstall">Désinstaller</string>
     <string name="uninstalled">Désinstallée</string>
@@ -1314,6 +1362,7 @@ Détails : %2$s"</string>
     <string name="changelog_download_fail">Échec du téléchargement du journal des modifications : %s</string>
     <string name="changelog_empty">Aucun journal des modifications disponible</string>
     <string name="changelog_earlier_releases">Versions précédentes</string>
+    <string name="changelog_patched_with">Patchée avec %s</string>
     <string name="changelog_older_empty">Aucune version antérieure à afficher</string>
     <string name="changelog_older_failed">Impossible de charger les anciennes versions</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1328,7 +1377,7 @@ Détails : %2$s"</string>
     <string name="changelog_section_improvements">Améliorations</string>
     <string name="changelog_section_app_support">Prise en charge des applications</string>
     <string name="changelog_section_other">Changements</string>
-    <string name="changelog_badge_latest">Dernier</string>
+    <string name="changelog_badge_latest">Dernière</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_downloaded">Téléchargée</string>
     <string name="changelog_badge_prerelease">Préversion</string>

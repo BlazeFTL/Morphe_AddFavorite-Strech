@@ -127,4 +127,12 @@
         <item quantity="one">%s ny udgivelse</item>
         <item quantity="other">%s nye udgivelser</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d aktiveret link</item>
+        <item quantity="other">%d aktiverede links</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d ubekræftet link</item>
+        <item quantity="other">%d ubekræftede links</item>
+    </plurals>
 </resources>

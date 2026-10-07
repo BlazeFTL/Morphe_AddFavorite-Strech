@@ -158,4 +158,14 @@
         <item quantity="few">%s versiuni noi</item>
         <item quantity="other">%s de versiuni noi</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d link activat</item>
+        <item quantity="few">%d linkuri activate</item>
+        <item quantity="other">%d de linkuri activate</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d link neverificat</item>
+        <item quantity="few">%d linkuri neverificate</item>
+        <item quantity="other">%d de linkuri neverificate</item>
+    </plurals>
 </resources>

@@ -1,3 +1,8 @@
+/*
+ * Copyright 2026 Morphe.
+ * https://github.com/MorpheApp/morphe-manager
+ */
+
 package app.morphe.manager.ui.viewmodel
 
 import android.app.Application
@@ -1269,9 +1274,8 @@ class InstallViewModel : ViewModel(), KoinComponent {
 
         val isShizukuInstall = token == InstallerManager.Token.Shizuku ||
                 token == InstallerManager.Token.ShizukuPlayStore
-        if (!isShizukuInstall) return false
 
-        return withContext(Dispatchers.IO) {
+        return isShizukuInstall && withContext(Dispatchers.IO) {
             sessionInstaller.shizukuAvailability(InstallerManager.InstallTarget.PATCHER).available
         }
     }

@@ -65,12 +65,15 @@ import kotlinx.coroutines.launch
  *
  * @param accent The color the game is known by, taken from its own palette, which its picker
  *   card wears the way an app card wears the app's.
+ * @param aspectRatio Width to height of the game's field, so the canvas slot hugs the field
+ *   instead of padding it out to a square.
  */
 enum class MiniGame(
     @StringRes val titleRes: Int,
     @StringRes val subtitleRes: Int,
     val icon: ImageVector,
-    val accent: Color
+    val accent: Color,
+    val aspectRatio: Float = 1f
 ) {
     GAME_2048(
         R.string.mini_game_2048,
@@ -100,7 +103,8 @@ enum class MiniGame(
         R.string.mini_game_blocks,
         R.string.mini_game_blocks_picker_subtitle,
         Icons.Outlined.Dashboard,
-        Color(0xFF7E57C2)
+        Color(0xFF7E57C2),
+        BLOCKS_ASPECT_RATIO
     ),
     BRICKS(
         R.string.mini_game_bricks,
@@ -402,10 +406,11 @@ internal fun MiniGameContent(state: MiniGameState) {
                     )
                     Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
                         BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
-                            val size = minOf(maxWidth, maxHeight)
+                            val ratio = selected.aspectRatio
+                            val width = minOf(maxWidth, maxHeight * ratio)
                             Box(
                                 modifier = Modifier
-                                    .size(size)
+                                    .size(width, width / ratio)
                                     .align(Alignment.Center)
                                     // The canvases round their own corners, and the overlays
                                     // drawn over them have to stop at the same edge

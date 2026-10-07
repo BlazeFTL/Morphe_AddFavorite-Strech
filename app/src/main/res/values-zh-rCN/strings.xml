@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">到这个点，干脆起来更新吧</string>
     <string name="home_greeting_super_late_4">你和服务器，都在线上</string>
     <string name="home_greeting_super_late_5">夜间且高效</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">不给补丁就捣蛋？</string>
+    <string name="home_greeting_halloween_2">这些 APK 中没有鬼魂，我们检查过了</string>
+    <string name="home_greeting_halloween_3">万圣节季，新补丁</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">有邪恶之物正打补丁而来</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">节日快乐，新补丁</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">下雪吧，打补丁吧</string>
+    <string name="home_greeting_winter_3">新年，新补丁</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">冒着风雪打补丁</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">补丁源</string>
     <string name="sources_search">搜索源和补丁</string>
@@ -277,6 +293,7 @@
     <string name="home_installed_app_picker_filter_system">仅系统应用</string>
     <string name="home_invalid_apk_unreadable">无法读取文件。请检查“外部存储”是否被限制电池使用</string>
     <string name="home_invalid_apk_not_an_apk">所选文件不是有效的 APK</string>
+    <string name="home_invalid_apk_already_patched">所选 APK 已被修补。请改为选择原始应用</string>
     <string name="home_invalid_apk_io_error">无法打开文件。请重试</string>
     <string name="home_external_apk_expert_mode_required">此功能仅在专家模式下可用</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -485,7 +502,12 @@
     <string name="app_links_enable_auto_in_progress">正在启用链接……</string>
     <string name="app_links_open_settings">打开链接设置</string>
     <string name="app_links_repair_success">应用链接已成功启用</string>
+    <string name="app_links_repair_failed">自动启用应用链接失败</string>
+    <string name="app_links_badge_enabled">已启用</string>
     <string name="app_links_badge_disabled">已禁用</string>
+    <string name="app_links_all_verified">所有受支持的链接均已配置为在此应用中打开</string>
+    <string name="app_links_fix">修复链接</string>
+    <string name="configure">配置</string>
     <string name="patcher_rename_title">这将安装一个克隆</string>
     <string name="patcher_rename_description">补丁以它们自己的包名构建了这个应用，因此安装它会添加一个克隆，与 &lt;b&gt;%s&lt;/b&gt; 并列，而不是更新它。</string>
     <string name="patcher_rename_result_package">将安装为</string>
@@ -551,6 +573,7 @@
     <string name="patcher_failed_title">哎呀！出现错误</string>
     <string name="patcher_failed_dialog_title">补丁失败</string>
     <string name="patcher_error_details">错误详情</string>
+    <string name="patcher_change_patches">更改补丁</string>
     <string name="patcher_unknown_error">发生未知错误</string>
     <string name="patcher_split_step_extracting">提取拆分 APK</string>
     <string name="patcher_split_step_merging">合并 %s</string>
@@ -570,6 +593,7 @@
     <string name="patcher_back_to_game_hint">点击%1$s返回游戏</string>
     <string name="patcher_storage_permission_dialog_title">无法访问存储路径</string>
     <string name="patcher_incompatible_patcher_title">更新要求</string>
+    <string name="patcher_incompatible_patcher_description">源 &lt;b&gt;%1$s&lt;/b&gt; 需要修补程序 &lt;b&gt;%2$s&lt;/b&gt; 或更高版本。更新 Morphe 以使用它</string>
     <string name="patcher_storage_permission_description_api30">一个或多个补丁选项指向Morphe无法读取的路径。授予存储访问权限并点击按钮，然后补丁将自动开始</string>
     <string name="patcher_storage_permission_description_legacy">一个或多个补丁选项指向无法访问的路径。更新补丁选项中的路径，然后重试</string>
     <string name="patcher_storage_permission_grant">授予存储权限</string>
@@ -708,6 +732,7 @@
     <string name="settings_appearance_background_random_interval_3days">每3天</string>
     <string name="settings_appearance_parallax_effect">视差效果</string>
     <string name="settings_appearance_parallax_effect_description">倾斜设备时平滑背景过渡</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">主题</string>
     <string name="settings_appearance_theme_mode">主题模式</string>
@@ -769,9 +794,8 @@
     <string name="settings_appearance_app_icon_default">默认</string>
     <string name="settings_appearance_app_icon_light_2">天空</string>
     <string name="settings_appearance_app_icon_light_3">日落</string>
-    <string name="settings_appearance_app_icon_dark_1">大海</string>
     <string name="settings_appearance_app_icon_dark_2">虚空</string>
-    <string name="settings_appearance_app_icon_dark_3">靛青</string>
+    <string name="settings_appearance_app_icon_mark_color">颜色</string>
     <string name="settings_appearance_app_icon_change_dialog_title">更改应用图标？</string>
     <string name="settings_appearance_app_icon_change_dialog_message">更改为&lt;b&gt;%s&lt;/b&gt;并重启？</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1307,6 +1331,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">下载更新日志失败：%s</string>
     <string name="changelog_empty">无可用更新日志</string>
     <string name="changelog_earlier_releases">更早的版本</string>
+    <string name="changelog_patched_with">已使用 %s 修补</string>
     <string name="changelog_older_empty">没有更多旧版本显示</string>
     <string name="changelog_older_failed">无法加载更早的版本</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

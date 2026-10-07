@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">Á þessum tíma, bara vertu vökur og gerðu við</string>
     <string name="home_greeting_super_late_4">Þú og netþjónarnir, báðir vakin</string>
     <string name="home_greeting_super_late_5">Næturhægur og afkastamikill</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Brellur eða plástrar?</string>
+    <string name="home_greeting_halloween_2">Engir draugar í þessum APK-skrám, við gáðum</string>
+    <string name="home_greeting_halloween_3">Draugaleg árstíð, ferskir plástrar</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Eitthvað illt er að plástra þessa leið</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Gleðilega hátíð, ferskir plástrar</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Láttu það snjóa, láttu það plástra</string>
+    <string name="home_greeting_winter_3">Nýtt ár, nýir plástrar</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Plástrandi um snjóinn</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Heimildir breytistillinga</string>
     <string name="sources_search">Leita að uppsprettum og plástrum</string>
@@ -484,6 +500,12 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="app_links_enable_auto_in_progress">Er að virkja tengla…</string>
     <string name="app_links_open_settings">Opna tenglastillingar</string>
     <string name="app_links_repair_success">Tókst að virkja forritstengla</string>
+    <string name="app_links_repair_failed">Mistókst að virkja app-tengla sjálfkrafa</string>
+    <string name="app_links_badge_enabled">Virkt</string>
+    <string name="app_links_badge_disabled">Slökkt</string>
+    <string name="app_links_all_verified">Allir studdir tenglar eru stilltir til að opnast í þessu appi</string>
+    <string name="app_links_fix">Laga tengla</string>
+    <string name="configure">Stilla</string>
     <string name="patcher_rename_title">Þetta mun setja upp klón</string>
     <string name="patcher_rename_description">Plástrarnir byggðu þetta forrit undir pakkanafni sínu, svo að uppsetning þess bætir við klóni við hliðina á <b>%s</b> í stað þess að uppfæra það</string>
     <string name="patcher_rename_result_package">Mun setja upp sem</string>
@@ -549,6 +571,7 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="patcher_failed_title">Afsakið! Eitthvað fór úrskeikur</string>
     <string name="patcher_failed_dialog_title">Viðgerðin mislukkaðist</string>
     <string name="patcher_error_details">Villuupplýsingar</string>
+    <string name="patcher_change_patches">Breyta plástrum</string>
     <string name="patcher_unknown_error">Óþekkt villa kom upp</string>
     <string name="patcher_split_step_extracting">Útdráttur af flíknum APK</string>
     <string name="patcher_split_step_merging">Samruni %s</string>
@@ -568,6 +591,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="patcher_back_to_game_hint">Ýttu á %1$s til að fara aftur í leikinn</string>
     <string name="patcher_storage_permission_dialog_title">Ekki hægt að fá aðgang að geymslushörðu</string>
     <string name="patcher_incompatible_patcher_title">Uppfærsla krafist</string>
+    <string name="patcher_incompatible_patcher_description">Uppsprettan &lt;b&gt;%1$s&lt;/b&gt; krefst patcher &lt;b&gt;%2$s&lt;/b&gt; eða nýrri. Uppfærðu Morphe til að nota það</string>
     <string name="patcher_storage_permission_description_api30">Einn eða fleiri pakkningaval benda á slóð sem Morphe gat ekki lesið. Veittu geymsluheimild og smelltu á hnappinn þá mun pakkningin hefjast sjálfkrafa</string>
     <string name="patcher_storage_permission_description_legacy">Einn eða fleiri pakkningaval benda á slóð sem ekkert lið veitir aðgang að. Endurskoða slóðir í pakkningavalum og reyndu aftur</string>
     <string name="patcher_storage_permission_grant">Veittu geymsluheimild</string>
@@ -706,6 +730,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_background_random_interval_3days">Á þremur dögum</string>
     <string name="settings_appearance_parallax_effect">Parallax áhrif</string>
     <string name="settings_appearance_parallax_effect_description">Slétt bakgrunnur breytist þegar tækið er hallað</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Þema</string>
     <string name="settings_appearance_theme_mode">Þema stilla</string>
@@ -767,9 +792,8 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_app_icon_default">Sjálfgefið</string>
     <string name="settings_appearance_app_icon_light_2">Himinn</string>
     <string name="settings_appearance_app_icon_light_3">Sólsetur</string>
-    <string name="settings_appearance_app_icon_dark_1">Haf</string>
     <string name="settings_appearance_app_icon_dark_2">Tómarúm</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_mark_color">Litur</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Breyta tákn</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Breytir til &lt;b&gt;%s&lt;/b&gt; og endurræsir?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1302,6 +1326,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="changelog_download_fail">Ekki tókst að sækja breytingaskrá: %s</string>
     <string name="changelog_empty">Engin breytingaskrá í boði</string>
     <string name="changelog_earlier_releases">Fyrri útgáfur</string>
+    <string name="changelog_patched_with">Plástrað með %s</string>
     <string name="changelog_older_empty">Engar eldri útgáfur til sýnis</string>
     <string name="changelog_older_failed">Ekki tókst að hlaða eldri útgáfur</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

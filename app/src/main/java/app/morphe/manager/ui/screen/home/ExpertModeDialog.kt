@@ -48,8 +48,8 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
 import app.morphe.manager.util.PatchSelectionUtils.hasCustomizedOptions
-import app.morphe.manager.util.PatchSelectionUtils.hasEnablableUniversal
 import app.morphe.manager.util.PatchSelectionUtils.hasMissingRequiredOptions
+import app.morphe.manager.util.PatchSelectionUtils.hasUniversalToEnable
 import app.morphe.manager.util.toast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -248,7 +248,7 @@ fun ExpertModeDialog(
                     },
                     title = headerTitle,
                     subtitle = listOfNotNull(
-                        stringResource(R.string.expert_mode_title),
+                        stringResource(R.string.settings_advanced_expert_mode),
                         allPatchesInfo.singleOrNull()?.first?.name
                     ).joinToString("\n"),
                     search = search,
@@ -735,7 +735,7 @@ private fun BundleControls(
         totalCount = patches.size,
         holdsUniversalPatches = holdsUniversal,
         // The second "Enable all" tap applies every universal patch at once; warn first
-        warnOnUniversalAll = !holdsUniversal && patches.hasEnablableUniversal(lockStateOf),
+        warnOnUniversalAll = !holdsUniversal && patches.hasUniversalToEnable(lockStateOf),
         onSelectAll = {
             // This tap enables the universal patches, so it has to show what it turned on
             if (!holdsUniversal) onExpandUniversal(bundle.uid)

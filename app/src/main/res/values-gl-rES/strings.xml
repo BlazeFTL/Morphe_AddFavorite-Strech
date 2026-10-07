@@ -57,6 +57,14 @@
     <!-- Evening greetings (17:00–21:59) -->
     <!-- Late night greetings (22:00–23:59) -->
     <!-- Super late night greetings (0:00–4:59) -->
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fonte de parches</string>
     <string name="sources_management_open_in_browser">Abrir no navegador</string>
@@ -273,6 +281,7 @@ Elixe outro APK</string>
     <!-- Settings -->
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background_none">Ningún</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_system">Sistema</string>
     <!-- Settings - Appearance Tab - Language Selector -->

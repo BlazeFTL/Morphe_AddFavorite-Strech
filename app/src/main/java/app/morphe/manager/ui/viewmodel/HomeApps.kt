@@ -438,6 +438,31 @@ class HomeApps(
         .flowOn(Dispatchers.IO)
         .stateIn(scope, SharingStarted.Eagerly, null)
 
+    /**
+     * What the enabled bundles say about each app, and what every bundle does. The cards are
+     * rebuilt for every change to the apps and the preferences, while the bundles change far less
+     * often, so this is only walked again when they do. Read by [buildHomeAppState] alone, which
+     * runs one build at a time.
+     */
+    private var homeMetadata: Pair<Map<Int, PatchBundleInfo.Global>, HomeMetadata>? = null
+
+    private data class HomeMetadata(
+        val enabled: Map<String, BundleAppMetadata>,
+        /** Names only, for records whose bundle the user has since disabled. */
+        val all: Map<String, BundleAppMetadata>
+    )
+
+    private fun homeMetadataFor(
+        info: Map<Int, PatchBundleInfo.Global>,
+        enabledInfo: Map<Int, PatchBundleInfo.Global>
+    ): HomeMetadata {
+        homeMetadata?.takeIf { it.first === info }?.let { return it.second }
+        return HomeMetadata(
+            enabled = BundleAppMetadata.buildFrom(enabledInfo),
+            all = BundleAppMetadata.buildFrom(info)
+        ).also { homeMetadata = info to it }
+    }
+
     /** The home cards for [inputs], or the cached ones while the bundles load. */
     private suspend fun buildHomeAppState(inputs: HomeInputs): HomeAppState? {
         val (homeBundle, homePrefs, installedApps, updatesMap, trackedSnapshots) = inputs
@@ -446,9 +471,7 @@ class HomeApps(
             ?: return cachedHomeCards?.toState(installedApps, homePrefs)
 
         val enabledInfo = ready.info.filter { (_, info) -> info.enabled }
-        val metadata = BundleAppMetadata.buildFrom(enabledInfo)
-        // Names only, for records whose bundle the user has since disabled
-        val allMetadata = BundleAppMetadata.buildFrom(ready.info)
+        val (metadata, allMetadata) = homeMetadataFor(ready.info, enabledInfo)
         val appsBySource = enabledInfo.mapValues { (_, info) -> info.appsBrought(keptFrom) }
         val packages = appsBySource.values.flatMapTo(mutableSetOf()) { it }
         val sourceGroups = buildHomeAppSourceGroups(

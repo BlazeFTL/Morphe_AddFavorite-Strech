@@ -123,6 +123,14 @@
     <string name="home_greeting_super_late_3">Đến nước này rồi thì thức vá luôn, xem có gì mới hông~</string>
     <string name="home_greeting_super_late_4">Đêm nay không chỉ mình bạn thức đâu ^^</string>
     <string name="home_greeting_super_late_5">Cú đêm năng suất thật đấy</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Nguồn vá</string>
     <string name="sources_search">Tìm kiếm nguồn và bản vá</string>
@@ -486,8 +494,12 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="app_links_enable_auto_in_progress">Đang bật liên kết…</string>
     <string name="app_links_open_settings">Mở cài đặt liên kết</string>
     <string name="app_links_repair_success">Đã bật liên kết ứng dụng thành công</string>
+    <string name="app_links_repair_failed">Không thể tự động bật liên kết ứng dụng</string>
     <string name="app_links_badge_enabled">Đang bật</string>
     <string name="app_links_badge_disabled">Đang tắt</string>
+    <string name="app_links_all_verified">Tất cả các liên kết được hỗ trợ đều được cấu hình để mở trong ứng dụng này</string>
+    <string name="app_links_fix">Sửa liên kết</string>
+    <string name="configure">Cấu hình</string>
     <string name="patcher_rename_title">Cài đặt như bản sao</string>
     <string name="patcher_rename_description">Các bản vá sẽ dựng ứng dụng với một tên gói khác, vì vậy khi cài đặt sẽ có thêm một ứng dụng khác cùng với &lt;b&gt;%s&lt;/b&gt; thay vì cập nhật lên</string>
     <string name="patcher_rename_result_package">Cài đặt với tên</string>
@@ -555,6 +567,7 @@ Nếu không, APK đã vá và được gắn có thể sẽ không hoạt độ
     <string name="patcher_failed_title">Ui, có lỗi xảy ra rồi!</string>
     <string name="patcher_failed_dialog_title">Không thể vá</string>
     <string name="patcher_error_details">Chi tiết lỗi</string>
+    <string name="patcher_change_patches">Thay đổi bản vá</string>
     <string name="patcher_unknown_error">Đã xảy ra lỗi không xác định</string>
     <string name="patcher_split_step_extracting">Đang giải nén các APK chia nhỏ</string>
     <string name="patcher_split_step_merging">Đang gộp %s</string>
@@ -574,6 +587,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="patcher_back_to_game_hint">Chạm vào %1$s để quay lại trò chơi của bạn</string>
     <string name="patcher_storage_permission_dialog_title">Không thể truy cập đường dẫn bộ nhớ</string>
     <string name="patcher_incompatible_patcher_title">Cần phải cập nhật</string>
+    <string name="patcher_incompatible_patcher_description">Nguồn &lt;b&gt;%1$s&lt;/b&gt; yêu cầu patcher &lt;b&gt;%2$s&lt;/b&gt; trở lên. Cập nhật Morphe để sử dụng nó</string>
     <string name="patcher_storage_permission_description_api30">Một hoặc nhiều tuỳ chỉnh bản vá đang trỏ đến thư mục mà Morphe không thể truy cập. Hãy cấp quyền truy cập bộ nhớ, sau đó bấm nút và quá trình vá sẽ tự động bắt đầu</string>
     <string name="patcher_storage_permission_description_legacy">Một hoặc nhiều tuỳ chỉnh bản vá đang trỏ đến đường dẫn không thể truy cập. Hãy cập nhật lại đường dẫn trong phần tuỳ chỉnh bản vá và thử lại</string>
     <string name="patcher_storage_permission_grant">Cấp quyền truy cập bộ nhớ</string>
@@ -712,6 +726,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_background_random_interval_3days">Cứ 3 ngày một lần</string>
     <string name="settings_appearance_parallax_effect">Hiệu ứng thị sai</string>
     <string name="settings_appearance_parallax_effect_description">Nền chuyển động nhẹ nhàng khi nghiêng thiết bị</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Chủ đề</string>
     <string name="settings_appearance_theme_mode">Chế độ giao diện</string>
@@ -773,9 +788,10 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_app_icon_default">Mặc định</string>
     <string name="settings_appearance_app_icon_light_2">Bầu trời</string>
     <string name="settings_appearance_app_icon_light_3">Hoàng hôn</string>
-    <string name="settings_appearance_app_icon_dark_1">Đại dương</string>
     <string name="settings_appearance_app_icon_dark_2">Hư không</string>
-    <string name="settings_appearance_app_icon_dark_3">Màu chàm</string>
+    <string name="settings_appearance_app_icon_dark_4">Đêm đen</string>
+    <string name="settings_appearance_app_icon_mark_color">Màu</string>
+    <string name="settings_appearance_app_icon_mark_black">Đen</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Đổi biểu tượng?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Bạn có muốn đổi sang &lt;b&gt;%s&lt;/b&gt; và khởi động lại?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1314,6 +1330,7 @@ Chi tiết: %2$s"</string>
     <string name="changelog_download_fail">Không thể tải lịch sử cập nhật: %s</string>
     <string name="changelog_empty">Không có lịch sử cập nhật</string>
     <string name="changelog_earlier_releases">Các bản phát hành trước</string>
+    <string name="changelog_patched_with">Đã vá bằng %s</string>
     <string name="changelog_older_empty">Không có bản phát hành nào trước đây</string>
     <string name="changelog_older_failed">Không thể tải các bản phát hành cũ hơn</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

@@ -96,4 +96,10 @@
     <plurals name="changelog_new_releases">
         <item quantity="other">%s bản phát hành mới</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="other">Đã bật %d liên kết</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="other">%d liên kết chưa xác minh</item>
+    </plurals>
 </resources>

@@ -126,6 +126,26 @@
     <string name="home_greeting_super_late_3">At this point, just stay up and patch</string>
     <string name="home_greeting_super_late_4">You and the servers, both awake</string>
     <string name="home_greeting_super_late_5">Nocturnal and productive</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Trick or patch?</string>
+    <string name="home_greeting_halloween_2">No ghosts in these APKs, we checked</string>
+    <string name="home_greeting_halloween_3">Spooky season, fresh patches</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Something wicked this way patches</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Happy holidays, fresh patches</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Let it snow, let it patch</string>
+    <string name="home_greeting_winter_3">New year, new patches</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Patching through the snow</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <string name="home_greeting_new_year_1">Happy New Year!</string>
+    <string name="home_greeting_new_year_2">Counting down to fresh patches</string>
+    <string name="home_greeting_new_year_3">New year, same ad-free apps</string>
+    <!-- Pun on the saying "Out with the old, in with the new" -->
+    <string name="home_greeting_new_year_4">Out with the old versions, in with the new</string>
 
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch sources</string>
@@ -280,7 +300,6 @@ Anything you add from this website is used at your own risk"</string>
     <string name="home_use_installed_app">Use installed app</string>
     <string name="home_installed_app_picker_title">Installed apps</string>
     <string name="home_installed_app_picker_empty">No apps found</string>
-    <string name="home_installed_app_picker_filter_all">All apps</string>
     <string name="home_installed_app_picker_filter_user">User apps only</string>
     <string name="home_installed_app_picker_filter_system">System apps only</string>
     <string name="home_invalid_apk_unreadable">Could not read the file. Check that \'External Storage\' is not battery restricted</string>
@@ -290,7 +309,6 @@ Anything you add from this website is used at your own risk"</string>
     <string name="home_external_apk_expert_mode_required">This feature is only available in Expert mode</string>
 
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
-    <string name="expert_mode_title">Expert mode</string>
     <string name="expert_mode_search">Search patches</string>
     <string name="expert_mode_disable_all">Disable all</string>
     <string name="expert_mode_disable_all_done">All patches disabled</string>
@@ -504,8 +522,6 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="app_links_open_settings">Open link settings</string>
     <string name="app_links_repair_success">App links enabled successfully</string>
     <string name="app_links_repair_failed">Failed to enable app links automatically</string>
-    <string name="app_links_badge_enabled">Enabled</string>
-    <string name="app_links_badge_disabled">Disabled</string>
     <string name="app_links_all_verified">All supported links are configured to open in this app</string>
     <string name="app_links_fix">Fix links</string>
     <string name="configure">Configure</string>
@@ -541,7 +557,6 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="patcher_field_source">Source</string>
     <string name="patcher_field_split">Split APK</string>
     <string name="patcher_field_manager">Manager</string>
-    <string name="patcher_field_patcher">Patcher</string>
     <string name="patcher_field_runtime">Runtime</string>
     <!-- Native code libraries (.so files) packed inside the APK -->
     <string name="patcher_field_libraries">Libraries</string>
@@ -578,6 +593,7 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="patcher_failed_title">Oops! Something went wrong</string>
     <string name="patcher_failed_dialog_title">Patching failed</string>
     <string name="patcher_error_details">Error details</string>
+    <string name="patcher_change_patches">Change patches</string>
     <string name="patcher_unknown_error">Unknown error occurred</string>
     <string name="patcher_split_step_extracting">Extracting split APKs</string>
     <string name="patcher_split_step_merging">Merging %s</string>
@@ -619,7 +635,6 @@ Uninstalling will permanently erase all app data"</string>
     <string name="patcher_step_load_patches">Loading patches</string>
     <string name="patcher_step_prepare_split_apk">Merging split APK</string>
     <string name="patcher_step_unpack">Read APK file</string>
-    <string name="patcher_step_group_patching">Patching</string>
     <string name="patcher_step_group_saving">Saving</string>
     <string name="patcher_step_write_patched">Writing patched APK file</string>
     <string name="patcher_step_sign_apk">Signing patched APK file</string>
@@ -759,7 +774,10 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_background_snow">Snow</string>
     <string name="settings_appearance_background_grid">Grid</string>
     <string name="settings_appearance_background_particles">Particles</string>
+    <string name="settings_appearance_background_lava">Lava lamp</string>
     <string name="settings_appearance_background_matrix" translatable="false">Matrix</string>
+    <string name="settings_appearance_background_halloween">Halloween</string>
+    <string name="settings_appearance_background_fireworks">Fireworks</string>
     <string name="settings_appearance_background_none">None</string>
     <string name="settings_appearance_background_random">Random</string>
     <string name="settings_appearance_background_random_interval_launch">On launch</string>
@@ -767,6 +785,10 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_background_random_interval_3days">Every 3 days</string>
     <string name="settings_appearance_parallax_effect">Parallax effect</string>
     <string name="settings_appearance_parallax_effect_description">Smooth background shifting when tilting the device</string>
+    <string name="settings_appearance_seasonal_themes">Seasonal themes</string>
+    <string name="settings_appearance_seasonal_themes_description">Festive backgrounds and greetings during holidays</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
+    <string name="settings_appearance_seasonal_background_notice">The %1$s background is on until %2$s while seasonal themes are on</string>
 
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Theme</string>
@@ -835,9 +857,25 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_app_icon_default">Default</string>
     <string name="settings_appearance_app_icon_light_2">Sky</string>
     <string name="settings_appearance_app_icon_light_3">Sunset</string>
-    <string name="settings_appearance_app_icon_dark_1">Ocean</string>
+    <string name="settings_appearance_app_icon_light_4">Lavender</string>
+    <string name="settings_appearance_app_icon_light_5">Glacier</string>
+    <string name="settings_appearance_app_icon_light_6">Mist</string>
+    <string name="settings_appearance_app_icon_light_7">Sand</string>
+    <string name="settings_appearance_app_icon_dark_1">Teal</string>
     <string name="settings_appearance_app_icon_dark_2">Void</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_dark_3">Plum</string>
+    <string name="settings_appearance_app_icon_dark_4">Midnight</string>
+    <string name="settings_appearance_app_icon_dark_5">Slate</string>
+    <string name="settings_appearance_app_icon_accent_1">Aurora</string>
+    <string name="settings_appearance_app_icon_accent_2">Ink</string>
+    <string name="settings_appearance_app_icon_accent_3">Paper</string>
+    <string name="settings_appearance_app_icon_accent_4">Dusk</string>
+    <string name="settings_appearance_app_icon_background">Background</string>
+    <string name="settings_appearance_app_icon_mark">Logo</string>
+    <string name="settings_appearance_app_icon_mark_color">Color</string>
+    <string name="settings_appearance_app_icon_mark_white">White</string>
+    <string name="settings_appearance_app_icon_mark_black">Black</string>
+    <string name="settings_appearance_app_icon_combined" translatable="false">%1$s · %2$s</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Change app icon?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Change to &lt;b&gt;%s&lt;/b&gt; and restart?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -878,7 +916,6 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="external_batch_patch_unknown_caller">An unknown app</string>
 
     <!-- Notification content -->
-    <string name="notification_manager_update_title">Morphe update available</string>
     <string name="notification_bundle_update_title">New patches available</string>
     <string name="notification_update_text">Version %s is ready to download</string>
     <string name="notification_bundle_update_text_unversioned">Tap to open Morphe and update</string>
@@ -889,7 +926,6 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="notification_channel_manager_updates_description">Notifications about new Morphe releases</string>
     <string name="notification_channel_patch_updates">Patch updates</string>
     <string name="notification_channel_patch_updates_description">Notifications about new patch releases</string>
-    <string name="notification_channel_patcher">Patching</string>
     <string name="notification_channel_patcher_description">Shown while Morphe is patching an app in the background</string>
 
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -1442,7 +1478,6 @@ Details: %2$s"</string>
     <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">This release is still being published. Try again in a few minutes</string>
     <string name="update_download_missing">The downloaded update is no longer available. Download it again</string>
-    <string name="download_manager_failed">Failed to download update: %s</string>
     <string name="failed_to_check_updates">Failed to check for updates: %s</string>
     <string name="failed_to_download_update">Failed to download update: %s</string>
     <string name="download_confirmation_metered">"You are currently on a metered connection, and data charges from your service provider may apply.

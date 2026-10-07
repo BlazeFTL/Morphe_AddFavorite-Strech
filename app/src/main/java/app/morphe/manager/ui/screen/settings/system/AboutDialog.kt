@@ -131,7 +131,7 @@ fun AboutDialog(
             ) {
                 val icon = rememberDrawablePainter(
                     drawable = remember {
-                        AppCompatResources.getDrawable(context, R.mipmap.ic_launcher)
+                        AppCompatResources.getDrawable(context, R.mipmap.ic_launcher_default)
                     }
                 )
                 Image(

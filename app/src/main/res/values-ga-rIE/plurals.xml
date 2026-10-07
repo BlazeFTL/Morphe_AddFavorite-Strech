@@ -200,11 +200,11 @@
         <item quantity="other">%s ceartú</item>
     </plurals>
     <plurals name="changelog_performance_count">
-        <item quantity="one">%s bharrfheabhsú</item>
-        <item quantity="two">%s bharrfheabhsú</item>
-        <item quantity="few">%s bharrfheabhsú</item>
-        <item quantity="many">%s mbarrfheabhsú</item>
-        <item quantity="other">%s bharrfheabhsú</item>
+        <item quantity="one">%s optamú</item>
+        <item quantity="two">%s optamú</item>
+        <item quantity="few">%s optamú</item>
+        <item quantity="many">%s optamú</item>
+        <item quantity="other">%s optamú</item>
     </plurals>
     <plurals name="changelog_change_count">
         <item quantity="one">%s athrú</item>
@@ -219,5 +219,19 @@
         <item quantity="few">%s leagan nua</item>
         <item quantity="many">%s leagan nua</item>
         <item quantity="other">%s leagan nua</item>
+    </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d nasc cumasaithe</item>
+        <item quantity="two">%d naisc chumasaithe</item>
+        <item quantity="few">%d naisc chumasaithe</item>
+        <item quantity="many">%d naisc chumasaithe</item>
+        <item quantity="other">%d naisc cumasaithe</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d nasc neamhfhíoraithe</item>
+        <item quantity="two">%d naisc neamhfhíoraithe</item>
+        <item quantity="few">%d naisc neamhfhíoraithe</item>
+        <item quantity="many">%d naisc neamhfhíoraithe</item>
+        <item quantity="other">%d naisc neamhfhíoraithe</item>
     </plurals>
 </resources>

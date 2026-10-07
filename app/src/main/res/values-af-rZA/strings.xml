@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">Op hierdie stadium, bly net wakker en laai iets by</string>
     <string name="home_greeting_super_late_4">Jy en die bedieners, albei wakker</string>
     <string name="home_greeting_super_late_5">Nagtelike en produktief</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Streek of pleister?</string>
+    <string name="home_greeting_halloween_2">Geen spoke in hierdie APK\'s nie, ons het gekyk</string>
+    <string name="home_greeting_halloween_3">Spookseisoen, vars pleisters</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Iets kwaads pleister hierdie kant toe</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Geseënde feestyd, vars pleisters</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Laat dit sneeu, laat dit pleister</string>
+    <string name="home_greeting_winter_3">Nuwe jaar, nuwe pleisters</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Pleister deur die sneeu</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Verandering oorspronge</string>
     <string name="sources_search">Soek bronne en patches</string>
@@ -557,6 +573,7 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="patcher_failed_title">Oeps! Iets het fout geloop</string>
     <string name="patcher_failed_dialog_title">Patcher het misluk</string>
     <string name="patcher_error_details">Foutbesonderhede</string>
+    <string name="patcher_change_patches">Verander patches</string>
     <string name="patcher_unknown_error">Onbekende fout het voorgekom</string>
     <string name="patcher_split_step_extracting">Ekstraheer gesplitte APK\'s</string>
     <string name="patcher_split_step_merging">Voeg %s saam</string>
@@ -715,6 +732,7 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_background_random_interval_3days">Elke 3 dae</string>
     <string name="settings_appearance_parallax_effect">Parallax effek</string>
     <string name="settings_appearance_parallax_effect_description">Glat agtergrondverskuiwing wanneer jy die toestel kantel</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Tema</string>
     <string name="settings_appearance_theme_mode">Tema-modus</string>
@@ -776,9 +794,8 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_app_icon_default">Standaard</string>
     <string name="settings_appearance_app_icon_light_2">Lug</string>
     <string name="settings_appearance_app_icon_light_3">Sonsondergang</string>
-    <string name="settings_appearance_app_icon_dark_1">Osean</string>
     <string name="settings_appearance_app_icon_dark_2">Leegte</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_mark_color">Kleur</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Verander app ikoon?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Verander na &lt;b&gt;%s&lt;/b&gt; en herbegin?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1314,6 +1331,7 @@ Besonderhede: %2$s"</string>
     <string name="changelog_download_fail">Kon nie veranderingslogboek aflaai nie: %s</string>
     <string name="changelog_empty">Geen wysiging beskikbaar nie</string>
     <string name="changelog_earlier_releases">Vroeëre weergawes</string>
+    <string name="changelog_patched_with">Gepatch met %s</string>
     <string name="changelog_older_empty">Geen ouer vrystellings om te wys nie</string>
     <string name="changelog_older_failed">Kon nie ouer weergawes laai nie</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

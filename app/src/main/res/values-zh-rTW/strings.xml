@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">到這時候，還是繼續修補吧</string>
     <string name="home_greeting_super_late_4">你和伺服器，都還醒著</string>
     <string name="home_greeting_super_late_5">晝伏夜出且高效</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">要搗蛋還是要修補？</string>
+    <string name="home_greeting_halloween_2">這些 APK 裡沒有鬼，我們檢查過了</string>
+    <string name="home_greeting_halloween_3">驚悚季節，全新修補程式</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">邪惡之物正朝此處修補而來</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">佳節愉快，全新修補程式</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">讓它下雪吧，讓它修補吧</string>
+    <string name="home_greeting_winter_3">新年，新的修補程式</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">冒雪修補</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">修補來源</string>
     <string name="sources_search">搜尋來源與修補程式</string>
@@ -479,15 +495,19 @@
     <string name="home_app_info_app_deleted_description">此應用程式已在 Morphe 外部被解除安裝。重新修補以還原功能</string>
     <string name="home_app_info_not_patched_description">已安裝此應用程式的未修補版本。Morphe 仍保留其先前的修補記錄。</string>
     <string name="app_links_title">支援的網頁連結</string>
-    <string name="app_links_description">在 Android 12 以上版本，除非經過核准，否則指向支援網域的連結預設會在您的瀏覽器中開啟</string>
+    <string name="app_links_description">在 Android 12 以上版本，除非經過你同意，否則指向支援網域的連結預設會在瀏覽器中開啟</string>
     <string name="app_links_unverified_banner_title">網頁連結未經驗證</string>
-    <string name="app_links_unverified_banner_description">目前支援的網頁連結會在您的瀏覽器中開啟，而非在此應用程式中開啟</string>
+    <string name="app_links_unverified_banner_description">目前支援的網頁連結會在瀏覽器中開啟，而非在此應用程式中開啟</string>
     <string name="app_links_enable_auto">自動啟用</string>
     <string name="app_links_enable_auto_in_progress">正在啟用連結……</string>
     <string name="app_links_open_settings">開啟連結設定</string>
     <string name="app_links_repair_success">已成功啟用應用程式連結</string>
+    <string name="app_links_repair_failed">自動啟用應用程式連結失敗</string>
     <string name="app_links_badge_enabled">已啟用</string>
     <string name="app_links_badge_disabled">已停用</string>
+    <string name="app_links_all_verified">所有受支援的連結都已設定為在此應用程式中開啟</string>
+    <string name="app_links_fix">修正連結</string>
+    <string name="configure">設定</string>
     <string name="patcher_rename_title">這將安裝一個克隆應用程式</string>
     <string name="patcher_rename_description">這些修補程式是以它們自己的套件名稱來建置此應用程式，因此安裝它會在&lt;b&gt;%s&lt;/b&gt;旁新增一個克隆，而不是更新它</string>
     <string name="patcher_rename_result_package">將安裝為</string>
@@ -553,6 +573,7 @@
     <string name="patcher_failed_title">糟糕！發生錯誤</string>
     <string name="patcher_failed_dialog_title">修補失敗</string>
     <string name="patcher_error_details">錯誤詳細資料</string>
+    <string name="patcher_change_patches">變更修補程式</string>
     <string name="patcher_unknown_error">發生未知錯誤</string>
     <string name="patcher_split_step_extracting">提取分割 APK</string>
     <string name="patcher_split_step_merging">合併 %s</string>
@@ -572,6 +593,7 @@
     <string name="patcher_back_to_game_hint">點擊%1$s返回您的遊戲</string>
     <string name="patcher_storage_permission_dialog_title">無法存取儲存路徑</string>
     <string name="patcher_incompatible_patcher_title">需要更新</string>
+    <string name="patcher_incompatible_patcher_description">來源 &lt;b&gt;%1$s&lt;/b&gt; 需要修補程式 &lt;b&gt;%2$s&lt;/b&gt; 或更新版本。更新 Morphe 以使用它</string>
     <string name="patcher_storage_permission_description_api30">一個或多個修補選項指向 Morphe 無法讀取的路徑。授予儲存空間存取權限並輕觸按鈕，修補將自動開始</string>
     <string name="patcher_storage_permission_description_legacy">一個或多個修補選項指向無法存取的路徑。更新修補選項中的路徑並重試</string>
     <string name="patcher_storage_permission_grant">授予儲存空間權限</string>
@@ -710,6 +732,7 @@
     <string name="settings_appearance_background_random_interval_3days">每 3 天</string>
     <string name="settings_appearance_parallax_effect">視差效果</string>
     <string name="settings_appearance_parallax_effect_description">傾斜裝置時平滑的背景位移</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">主題</string>
     <string name="settings_appearance_theme_mode">主題模式</string>
@@ -770,9 +793,8 @@
     <string name="settings_appearance_app_icon_default">預設</string>
     <string name="settings_appearance_app_icon_light_2">天空</string>
     <string name="settings_appearance_app_icon_light_3">日落</string>
-    <string name="settings_appearance_app_icon_dark_1">海洋</string>
     <string name="settings_appearance_app_icon_dark_2">虛空</string>
-    <string name="settings_appearance_app_icon_dark_3">靛藍</string>
+    <string name="settings_appearance_app_icon_mark_color">顏色</string>
     <string name="settings_appearance_app_icon_change_dialog_title">變更應用程式圖示？</string>
     <string name="settings_appearance_app_icon_change_dialog_message">變更為 <b>%s</b> 並重新啟動？</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1306,6 +1328,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">無法下載變更紀錄：%s</string>
     <string name="changelog_empty">沒有可用的變更紀錄</string>
     <string name="changelog_earlier_releases">先前版本</string>
+    <string name="changelog_patched_with">已使用 %s 修補</string>
     <string name="changelog_older_empty">尚無較舊版本可顯示</string>
     <string name="changelog_older_failed">無法載入較舊版本</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

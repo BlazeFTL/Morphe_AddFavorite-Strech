@@ -96,4 +96,10 @@
     <plurals name="changelog_new_releases">
         <item quantity="other">%s 个新版本</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="other">%d 个链接已启用</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="other">%d 个未验证链接</item>
+    </plurals>
 </resources>

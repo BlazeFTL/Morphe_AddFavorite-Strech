@@ -251,4 +251,20 @@
         <item quantity="many">%s إصدارًا جديدًا</item>
         <item quantity="other">%s إصدار جديد</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="zero">%d رابط مفعّل</item>
+        <item quantity="one">%d رابط مفعّل</item>
+        <item quantity="two">%d رابطان مفعّلان</item>
+        <item quantity="few">%d روابط مفعّلة</item>
+        <item quantity="many">%d رابطًا مفعّلًا</item>
+        <item quantity="other">%d رابط مفعّل</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="zero">%d رابط غير موثّق</item>
+        <item quantity="one">%d رابط غير موثّق</item>
+        <item quantity="two">%d رابطان غير موثّقان</item>
+        <item quantity="few">%d روابط غير موثّقة</item>
+        <item quantity="many">%d رابطًا غير موثّق</item>
+        <item quantity="other">%d رابط غير موثّق</item>
+    </plurals>
 </resources>

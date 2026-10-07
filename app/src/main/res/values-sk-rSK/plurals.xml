@@ -189,4 +189,16 @@
         <item quantity="many">%s novej verzie</item>
         <item quantity="other">%s nových verzií</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d povolený odkaz</item>
+        <item quantity="few">%d povolené odkazy</item>
+        <item quantity="many">%d povoleného odkazu</item>
+        <item quantity="other">%d povolených odkazov</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d neoverený odkaz</item>
+        <item quantity="few">%d neoverené odkazy</item>
+        <item quantity="many">%d neovereného odkazu</item>
+        <item quantity="other">%d neoverených odkazov</item>
+    </plurals>
 </resources>

@@ -874,12 +874,14 @@ fun BundleChangelogDialog(
         scope.launch {
             olderState = withContext(Dispatchers.Default) {
                 runCatching {
-                    val all = src.fetchFullChangelogEntries()
-                    val filtered = all.filter {
-                        // Skip versions already shown above and any pre-release leftovers;
-                        // history is meaningful only as the stable timeline
+                    // History is the stable timeline, led on the prerelease channel by the dev
+                    // builds of the cycle under way, which only its own changelog lists. The stable
+                    // one keeps every merged dev build too, and those are left out
+                    val history = src.fetchChannelChangelogEntries().filter { it.isPrerelease } +
+                            src.fetchFullChangelogEntries().filterNot { it.isPrerelease }
+                    val filtered = history.filter {
+                        // Skip versions already shown above
                         it.version.normalizeVersion() !in shownVersions
-                                && !it.isPrerelease
                                 // A dev changelog lagging behind the stable one must not put newer
                                 // releases under the earlier ones
                                 && (oldestShown == null || !isNewerVersion(oldestShown, it.version))

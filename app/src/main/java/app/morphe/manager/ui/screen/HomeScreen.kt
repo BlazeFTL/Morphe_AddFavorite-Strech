@@ -21,15 +21,16 @@ import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.supportsMount
 import app.morphe.manager.data.room.apps.installed.trackingKey
 import app.morphe.manager.domain.batch.BatchTarget
-import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isHeldBack
 import app.morphe.manager.domain.manager.*
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
 import app.morphe.manager.ui.screen.shared.rememberInstallQueue
+import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.viewmodel.*
 import app.morphe.manager.util.*
 import kotlinx.coroutines.delay
@@ -44,7 +45,7 @@ import kotlin.time.Duration.Companion.milliseconds
 @Composable
 fun HomeScreen(
     onSettingsClick: () -> Unit,
-    onStartQuickPatch: (QuickPatchParams) -> Unit,
+    onStartQuickPatch: (Patcher.ViewModelParams) -> Unit,
     onStartBatchPatch: (List<BatchTarget>, Boolean) -> Unit,
     homeViewModel: HomeViewModel = koinViewModel(),
     prefs: PreferencesManager = koinInject(),
@@ -75,10 +76,14 @@ fun HomeScreen(
     // Reactively observe the preference so the greeting updates immediately
     val showGreetingPhrases by prefs.showGreetingPhrases.getAsState()
     val showRepatchNotice by prefs.showRepatchNotice.getAsState()
+    val seasonalThemes by prefs.seasonalThemes.getAsState()
+    val seasonalEvent = remember(seasonalThemes) { SeasonalEvent.on().takeIf { seasonalThemes } }
 
-    // Re-evaluated whenever showPatchingPhrases changes
-    var greetingResId by remember(showGreetingPhrases) {
-        mutableStateOf(if (showGreetingPhrases) HomeAndPatcherMessages.getHomeMessage(context) else null)
+    // Re-evaluated whenever showPatchingPhrases or the seasonal event changes
+    var greetingResId by remember(showGreetingPhrases, seasonalEvent) {
+        mutableStateOf(
+            if (showGreetingPhrases) HomeAndPatcherMessages.getHomeMessage(context, seasonalEvent) else null
+        )
     }
     val greetingMessage = greetingResId?.let { stringResource(it) }
 
@@ -88,7 +93,7 @@ fun HomeScreen(
     val onRefresh: () -> Unit = {
         view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         HomeAndPatcherMessages.resetHomeMessage()
-        greetingResId = if (showGreetingPhrases) HomeAndPatcherMessages.getHomeMessage(context) else null
+        greetingResId = if (showGreetingPhrases) HomeAndPatcherMessages.getHomeMessage(context, seasonalEvent) else null
         homeViewModel.refresh()
     }
 
@@ -215,12 +220,11 @@ fun HomeScreen(
 
     // Sources built for a newer patcher than this manager ships. They cannot be loaded or patched
     // with until the app is updated, so surface it instead of leaving the source silently broken
-    val bundleSources by homeViewModel.patchBundleRepository.sources.collectAsStateWithLifecycle(emptyList())
-    val hasOutdatedManagerSources = bundleSources.any { it.requiresManagerUpdate }
+    val hasOutdatedManagerSources by homeViewModel.patchBundleRepository.hasOutdatedManagerSources.collectAsStateWithLifecycle()
 
     // Reading these took the process down, so they are skipped until the file changes. Nothing
     // else on this screen would explain why their patches are suddenly gone
-    val hasHeldBackSources = bundleSources.any { it.isHeldBack }
+    val hasHeldBackSources by homeViewModel.patchBundleRepository.hasHeldBackSources.collectAsStateWithLifecycle()
 
     // Manager update details dialog
     if (showUpdateDetailsDialog.value) {

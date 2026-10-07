@@ -408,7 +408,7 @@ fun ExpertPatchingInProgress(
                     val now = System.currentTimeMillis()
                     val elapsed = now - lastScrollTime
                     if (elapsed < SCROLL_THROTTLE_MS && patcherSucceeded == null) {
-                        delay(SCROLL_THROTTLE_MS - elapsed)
+                        delay((SCROLL_THROTTLE_MS - elapsed).milliseconds)
                     } else if (lastScrollTime == 0L) {
                         delay(50.milliseconds)
                     }
@@ -659,7 +659,6 @@ private fun ExpertLogPanel(
     miniGameState: MiniGameState,
     accentColor: Color? = null
 ) {
-    val rawLogs = patchProgress.logs
     val logItems = patchProgress.logItems
     // Decoration only: the log's own colors keep telling warnings and errors apart
     val appAccent = usableAppAccent(accentColor)
@@ -931,7 +930,7 @@ private fun StartBannerCard(item: LogItem.StartBanner) {
                 value = item.managerVersion ?: "?",
                 modifier = Modifier.weight(1f))
             BannerFieldCell(
-                label = stringResource(R.string.patcher_field_patcher),
+                label = stringResource(R.string.settings_advanced_patcher),
                 value = item.patcherVersion ?: "?",
                 modifier = Modifier.weight(1f))
         }

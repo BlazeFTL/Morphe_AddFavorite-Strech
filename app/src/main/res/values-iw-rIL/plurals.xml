@@ -158,4 +158,14 @@
         <item quantity="two">%s גרסאות חדשות</item>
         <item quantity="other">%s גרסאות חדשות</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d קישור מופעל</item>
+        <item quantity="two">%d קישורים מופעלים</item>
+        <item quantity="other">%d קישורים מופעלים</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d קישור לא מאומת</item>
+        <item quantity="two">%d קישורים לא מאומתים</item>
+        <item quantity="other">%d קישורים לא מאומתים</item>
+    </plurals>
 </resources>

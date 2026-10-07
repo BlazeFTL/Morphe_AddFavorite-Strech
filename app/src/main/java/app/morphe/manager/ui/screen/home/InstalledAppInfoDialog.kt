@@ -69,6 +69,8 @@ import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
 
@@ -1021,7 +1023,16 @@ private fun WarningBanner(
                 textAlign = TextAlign.Center
             )
 
-            versions?.let { VersionTransition(versions = it, contentColor = contentColor) }
+            // The versions and the extra actions depend on what the sources say, which can arrive
+            // after the banner is already up
+            val shownVersions = rememberLatest(versions)
+            AnimatedVisibility(
+                visible = versions != null,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                shownVersions?.let { VersionTransition(versions = it, contentColor = contentColor) }
+            }
 
             // Action button
             PrimaryActionButton(
@@ -1031,17 +1042,33 @@ private fun WarningBanner(
 
             // Side by side, because the banner's own button is the one meant to stand out and a
             // column of full-width buttons under it reads as three offers of equal weight
-            if (secondaryActions.isNotEmpty()) {
+            val shownActions = rememberLatest(secondaryActions.takeIf { it.isNotEmpty() })
+            AnimatedVisibility(
+                visible = secondaryActions.isNotEmpty(),
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                 ) {
-                    secondaryActions.forEach { action ->
-                        TileActionButton(
-                            action = action,
-                            horizontal = true,
-                            modifier = Modifier.weight(1f)
-                        )
+                    shownActions?.forEach { action ->
+                        // One that joins a row already on screen fades in rather than popping up
+                        key(action.text) {
+                            val appeared = remember { MutableTransitionState(false) }
+                            appeared.targetState = true
+                            AnimatedVisibility(
+                                visibleState = appeared,
+                                enter = Animations.fadeIn,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                TileActionButton(
+                                    action = action,
+                                    horizontal = true,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -1112,27 +1139,27 @@ private fun InfoSection(
     val totalPatches = appliedPatches?.values?.sumOf { it.size } ?: 0
     val context = LocalContext.current
 
-    // APK size from sourceDir
-    val apkSize = remember(installedApp.currentPackageName) {
-        try {
-            val pm = context.packageManager
-            val info = pm.getPackageInfo(installedApp.currentPackageName, 0)
-
-            val bytes = File(
-                info.applicationInfo?.sourceDir ?: return@remember null
-            ).length()
-
-            context.formatBytes(bytes)
-        } catch (_: Exception) { null }
+    // Read off the main thread: listing the native libraries walks the whole APK, which for the
+    // largest apps holds the dialog's first frame back noticeably
+    val installedApk by produceState<File?>(null, installedApp.currentPackageName) {
+        value = withContext(Dispatchers.IO) {
+            try {
+                context.packageManager.getPackageInfo(installedApp.currentPackageName, 0)
+                    .applicationInfo?.sourceDir?.let(::File)
+            } catch (_: Exception) { null }
+        }
     }
 
-    val apkAbis = remember(installedApp.currentPackageName) {
-        try {
-            val pm = context.packageManager
-            val info = pm.getPackageInfo(installedApp.currentPackageName, 0)
-            val sourceDir = info.applicationInfo?.sourceDir ?: return@remember emptyList()
-            NativeLibs.extractAbisFromApk(File(sourceDir))
-        } catch (_: Exception) { emptyList() }
+    // APK size from sourceDir
+    val apkSize = remember(installedApk) { installedApk?.let { context.formatBytes(it.length()) } }
+
+    val apkAbis by produceState(emptyList(), installedApk) {
+        val apk = installedApk ?: return@produceState
+        value = withContext(Dispatchers.IO) {
+            try {
+                NativeLibs.extractAbisFromApk(apk)
+            } catch (_: Exception) { emptyList() }
+        }
     }
 
     // Edged like the app's cards elsewhere, so the panel reads as part of the app's dialog
@@ -1162,14 +1189,13 @@ private fun InfoSection(
             // Kept in place even while a banner above says the same thing, so the version the
             // sources cover can be looked up rather than only met as a warning. A version that
             // was turned down is where the offer is taken back up again
-            if (supportedVersion != null) {
-                SettingsDivider()
+            InfoSlot(supportedVersion) { version ->
                 val supportedVersionLabel = stringResource(R.string.home_app_info_newest_supported_version)
                 if (onStopIgnoringVersion != null) {
                     InfoRowWithAction(
                         icon = Icons.Outlined.VisibilityOff,
                         label = supportedVersionLabel,
-                        value = supportedVersion.withVersionPrefix(),
+                        value = version.withVersionPrefix(),
                         onAction = onStopIgnoringVersion,
                         actionIcon = Icons.Outlined.Visibility,
                         actionContentDescription = stringResource(R.string.stop_ignoring)
@@ -1178,65 +1204,60 @@ private fun InfoSection(
                     InfoRow(
                         icon = Icons.Outlined.Update,
                         label = supportedVersionLabel,
-                        value = supportedVersion.withVersionPrefix()
+                        value = version.withVersionPrefix()
                     )
                 }
             }
 
-            if (apkSize != null) {
-                SettingsDivider()
+            InfoSlot(apkSize) { size ->
                 InfoRow(
                     icon = Icons.Outlined.SdCard,
                     label = stringResource(R.string.home_app_info_apk_size),
-                    value = apkSize
+                    value = size
                 )
             }
 
-            if (apkAbis.isNotEmpty()) {
-                SettingsDivider()
+            InfoSlot(apkAbis.takeIf { it.isNotEmpty() }) { abis ->
                 InfoRow(
                     icon = Icons.Outlined.Memory,
                     label = stringResource(R.string.home_app_info_cpu_arch),
-                    value = apkAbis.joinToString(" • ")
+                    value = abis.joinToString(" • ")
                 )
             }
 
-            if (totalPatches > 0) {
-                SettingsDivider()
+            InfoSlot(totalPatches.takeIf { it > 0 }) { count ->
                 InfoRowWithAction(
                     icon = Icons.Outlined.DoneAll,
                     label = stringResource(R.string.home_app_info_applied_patches),
-                    value = pluralStringResource(R.plurals.patch_count, totalPatches, totalPatches.toString()),
+                    value = pluralStringResource(R.plurals.patch_count, count, count.toString()),
                     onAction = onShowPatches
                 )
             }
 
-            if (bundlesUsedSummary.isNotBlank()) {
-                SettingsDivider()
+            InfoSlot(bundlesUsedSummary.takeIf { it.isNotBlank() }) { summary ->
                 InfoRow(
                     icon = Icons.Outlined.Source,
                     label = stringResource(R.string.home_app_info_patch_source_used),
-                    value = bundlesUsedSummary
+                    value = summary
                 )
             }
 
-            if (appLinksStatus?.hasSupportedLinks == true) {
-                SettingsDivider()
-                val linksValue = if (appLinksStatus.isFullyConfigured) {
+            InfoSlot(appLinksStatus?.takeIf { it.hasSupportedLinks }) { status ->
+                val linksValue = if (status.isFullyConfigured) {
                     pluralStringResource(
                         R.plurals.app_links_count_enabled,
-                        appLinksStatus.domains.size,
-                        appLinksStatus.domains.size
+                        status.domains.size,
+                        status.domains.size
                     )
                 } else {
                     pluralStringResource(
                         R.plurals.app_links_count_unverified,
-                        appLinksStatus.unhandledDomains.size,
-                        appLinksStatus.unhandledDomains.size
+                        status.unhandledDomains.size,
+                        status.unhandledDomains.size
                     )
                 }
                 InfoRowWithAction(
-                    icon = if (appLinksStatus.isFullyConfigured) Icons.Outlined.Link else Icons.Outlined.LinkOff,
+                    icon = if (status.isFullyConfigured) Icons.Outlined.Link else Icons.Outlined.LinkOff,
                     label = stringResource(R.string.app_links_title),
                     value = linksValue,
                     onAction = onOpenAppLinks,
@@ -1246,6 +1267,39 @@ private fun InfoSection(
             }
         }
     }
+}
+
+/**
+ * A row of the info card shown while [value] is there. Most of what the card lists is read after
+ * the dialog opens, so rows slide in as it arrives instead of pushing the card apart.
+ */
+@Composable
+private fun <T : Any> InfoSlot(value: T?, content: @Composable (T) -> Unit) {
+    val shown = rememberLatest(value)
+    AnimatedVisibility(
+        visible = value != null,
+        enter = Animations.expandFadeEnter,
+        exit = Animations.shrinkFadeExit
+    ) {
+        shown?.let {
+            Column {
+                SettingsDivider()
+                content(it)
+            }
+        }
+    }
+}
+
+/** [value], or the last one it held once it is gone, so content animating out has something to show. */
+@Composable
+private fun <T : Any> rememberLatest(value: T?): T? {
+    val latest = remember { LatestValue<T>() }
+    if (value != null) latest.value = value
+    return value ?: latest.value
+}
+
+private class LatestValue<T : Any> {
+    var value: T? = null
 }
 
 @Composable

@@ -123,6 +123,14 @@
     <string name="home_greeting_super_late_3">Na tej točki samo ostanite budni in popravljajte</string>
     <string name="home_greeting_super_late_4">Vi in strežniki, vsi budni</string>
     <string name="home_greeting_super_late_5">Nočni in produktivni</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Viri popravkov</string>
     <string name="sources_search">Išči vire in popravke</string>
@@ -486,7 +494,12 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="app_links_enable_auto_in_progress">Omogočanje povezav…</string>
     <string name="app_links_open_settings">Odpri nastavitve povezav</string>
     <string name="app_links_repair_success">Povezave aplikacij so uspešno omogočene</string>
+    <string name="app_links_repair_failed">Ni uspelo samodejno omogočiti povezav aplikacij</string>
+    <string name="app_links_badge_enabled">Omogočeno</string>
     <string name="app_links_badge_disabled">Onemogočeno</string>
+    <string name="app_links_all_verified">Vse podprte povezave so nastavljene tako, da se odpirajo v tej aplikaciji</string>
+    <string name="app_links_fix">Popravite povezave</string>
+    <string name="configure">Nastavite</string>
     <string name="patcher_rename_title">To bo namestilo klon</string>
     <string name="patcher_rename_description">Popravki so to aplikacijo zgradili pod lastnim imenom paketa, zato njena namestitev doda klon poleg &lt;b&gt;%s&lt;/b&gt; namesto da bi jo posodobila</string>
     <string name="patcher_rename_result_package">Bo nameščeno kot</string>
@@ -552,6 +565,7 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="patcher_failed_title">Ojoj! Nekaj je šlo narobe</string>
     <string name="patcher_failed_dialog_title">Popravljanje je spodletelo</string>
     <string name="patcher_error_details">Podrobnosti napake</string>
+    <string name="patcher_change_patches">Spremeni popravke</string>
     <string name="patcher_unknown_error">Prišlo je do neznane napake</string>
     <string name="patcher_split_step_extracting">Izvlečenje razdeljenih datotek APK</string>
     <string name="patcher_split_step_merging">Združevanje %s</string>
@@ -571,6 +585,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patcher_back_to_game_hint">Dotakni se %1$s, da se vrneš v svojo igro.</string>
     <string name="patcher_storage_permission_dialog_title">Dostopa do poti shrambe ni možen</string>
     <string name="patcher_incompatible_patcher_title">Posodobitev je zahtevana</string>
+    <string name="patcher_incompatible_patcher_description">Vir &lt;b&gt;%1$s&lt;/b&gt; zahteva orodje za krpanje &lt;b&gt;%2$s&lt;/b&gt; ali novejše. Posodobite Morphe, da ga boste lahko uporabili</string>
     <string name="patcher_storage_permission_description_api30">Ena ali več možnosti popravka se sklicujejo na poti, do katerih Morphe ne more dostopati. Dovolite dostop do shrambe in nato pritisnite gumb, nato se bo popravljanje začelo samodejno</string>
     <string name="patcher_storage_permission_description_legacy">Ena ali več možnosti popravka se sklicujejo na poti, do katerih ni mogoče dostopiti. Posodobite poti v možnostih popravka in poskusite znova</string>
     <string name="patcher_storage_permission_grant">Dovoli dostop do shrambe</string>
@@ -709,6 +724,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_background_random_interval_3days">Vsake 3 dni</string>
     <string name="settings_appearance_parallax_effect">Paralaksni učinek</string>
     <string name="settings_appearance_parallax_effect_description">Gladko premikanje ozadja med nagibanjem naprave.</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Tema</string>
     <string name="settings_appearance_theme_mode">Način teme</string>
@@ -770,9 +786,8 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_app_icon_default">Privzeta</string>
     <string name="settings_appearance_app_icon_light_2">Nebo</string>
     <string name="settings_appearance_app_icon_light_3">Sončni zahod</string>
-    <string name="settings_appearance_app_icon_dark_1">Ocean</string>
     <string name="settings_appearance_app_icon_dark_2">Praznina</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_mark_color">Barva</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Spremeni ikono aplikacije?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Spremeni v &lt;b&gt;%s&lt;/b&gt; in ponovno zaženi?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1308,6 +1323,7 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_download_fail">Ni mogoče prenesti dnevnika sprememb: %s</string>
     <string name="changelog_empty">Ni na voljo dnevnika sprememb</string>
     <string name="changelog_earlier_releases">Starejše izdaje</string>
+    <string name="changelog_patched_with">Zakrpano z %s</string>
     <string name="changelog_older_empty">Ni starejših različic za prikaz</string>
     <string name="changelog_older_failed">Ni bilo mogoče naložiti starejših izdaj</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

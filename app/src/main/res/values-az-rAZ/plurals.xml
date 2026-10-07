@@ -127,4 +127,12 @@
         <item quantity="one">%s yeni buraxılış</item>
         <item quantity="other">%s yeni buraxılış</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d link aktivdir</item>
+        <item quantity="other">%d link aktivdir</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d təsdiqlənməmiş link</item>
+        <item quantity="other">%d təsdiqlənməmiş link</item>
+    </plurals>
 </resources>

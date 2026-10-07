@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 enum class StepCategory(@param:StringRes val displayName: Int) {
     PREPARING(R.string.patcher_step_group_preparing),
-    PATCHING(R.string.patcher_step_group_patching),
+    PATCHING(R.string.patching),
     SAVING(R.string.patcher_step_group_saving)
 }
 

@@ -248,7 +248,7 @@ fun ExpertModeDialog(
                     },
                     title = headerTitle,
                     subtitle = listOfNotNull(
-                        stringResource(R.string.expert_mode_title),
+                        stringResource(R.string.settings_advanced_expert_mode),
                         allPatchesInfo.singleOrNull()?.first?.name
                     ).joinToString("\n"),
                     search = search,

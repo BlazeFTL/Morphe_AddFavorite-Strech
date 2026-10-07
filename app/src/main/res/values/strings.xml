@@ -300,7 +300,6 @@ Anything you add from this website is used at your own risk"</string>
     <string name="home_use_installed_app">Use installed app</string>
     <string name="home_installed_app_picker_title">Installed apps</string>
     <string name="home_installed_app_picker_empty">No apps found</string>
-    <string name="home_installed_app_picker_filter_all">All apps</string>
     <string name="home_installed_app_picker_filter_user">User apps only</string>
     <string name="home_installed_app_picker_filter_system">System apps only</string>
     <string name="home_invalid_apk_unreadable">Could not read the file. Check that \'External Storage\' is not battery restricted</string>
@@ -310,7 +309,6 @@ Anything you add from this website is used at your own risk"</string>
     <string name="home_external_apk_expert_mode_required">This feature is only available in Expert mode</string>
 
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
-    <string name="expert_mode_title">Expert mode</string>
     <string name="expert_mode_search">Search patches</string>
     <string name="expert_mode_disable_all">Disable all</string>
     <string name="expert_mode_disable_all_done">All patches disabled</string>
@@ -524,8 +522,6 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="app_links_open_settings">Open link settings</string>
     <string name="app_links_repair_success">App links enabled successfully</string>
     <string name="app_links_repair_failed">Failed to enable app links automatically</string>
-    <string name="app_links_badge_enabled">Enabled</string>
-    <string name="app_links_badge_disabled">Disabled</string>
     <string name="app_links_all_verified">All supported links are configured to open in this app</string>
     <string name="app_links_fix">Fix links</string>
     <string name="configure">Configure</string>
@@ -561,7 +557,6 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="patcher_field_source">Source</string>
     <string name="patcher_field_split">Split APK</string>
     <string name="patcher_field_manager">Manager</string>
-    <string name="patcher_field_patcher">Patcher</string>
     <string name="patcher_field_runtime">Runtime</string>
     <!-- Native code libraries (.so files) packed inside the APK -->
     <string name="patcher_field_libraries">Libraries</string>
@@ -640,7 +635,6 @@ Uninstalling will permanently erase all app data"</string>
     <string name="patcher_step_load_patches">Loading patches</string>
     <string name="patcher_step_prepare_split_apk">Merging split APK</string>
     <string name="patcher_step_unpack">Read APK file</string>
-    <string name="patcher_step_group_patching">Patching</string>
     <string name="patcher_step_group_saving">Saving</string>
     <string name="patcher_step_write_patched">Writing patched APK file</string>
     <string name="patcher_step_sign_apk">Signing patched APK file</string>
@@ -922,7 +916,6 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="external_batch_patch_unknown_caller">An unknown app</string>
 
     <!-- Notification content -->
-    <string name="notification_manager_update_title">Morphe update available</string>
     <string name="notification_bundle_update_title">New patches available</string>
     <string name="notification_update_text">Version %s is ready to download</string>
     <string name="notification_bundle_update_text_unversioned">Tap to open Morphe and update</string>
@@ -933,7 +926,6 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="notification_channel_manager_updates_description">Notifications about new Morphe releases</string>
     <string name="notification_channel_patch_updates">Patch updates</string>
     <string name="notification_channel_patch_updates_description">Notifications about new patch releases</string>
-    <string name="notification_channel_patcher">Patching</string>
     <string name="notification_channel_patcher_description">Shown while Morphe is patching an app in the background</string>
 
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -1486,7 +1478,6 @@ Details: %2$s"</string>
     <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">This release is still being published. Try again in a few minutes</string>
     <string name="update_download_missing">The downloaded update is no longer available. Download it again</string>
-    <string name="download_manager_failed">Failed to download update: %s</string>
     <string name="failed_to_check_updates">Failed to check for updates: %s</string>
     <string name="failed_to_download_update">Failed to download update: %s</string>
     <string name="download_confirmation_metered">"You are currently on a metered connection, and data charges from your service provider may apply.

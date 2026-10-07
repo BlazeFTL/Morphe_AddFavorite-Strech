@@ -13,13 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
 import kotlin.math.PI
+import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * Breathing Grid background - a grid of dots pulses in concentric sine waves
- * radiating from the screen center, like ripples on water.
+ * Breathing Grid background - a grid of dots pulses in the sine waves of two sources that
+ * wander slowly around the screen, their ripples crossing like those of two stones in water.
  * Uses frame-based time so [speedMultiplier] changes smoothly without restarting animations.
  * On patching completion a strong shockwave burst radiates from center, temporarily
  * expanding all dots before settling back.
@@ -62,6 +63,13 @@ fun GridBackground(
         val cellH = size.height / (rows - 1).toFloat()
         val maxDist = sqrt(size.width * size.width + size.height * size.height) * 0.5f
 
+        // Two wave sources wander slowly around the screen. Their ripples cross and interfere, so
+        // the pattern keeps reshaping instead of only ever spreading from the middle
+        val sourceAX = size.width  * (0.5f + 0.32f * sin(t * twoPi / 23000f))
+        val sourceAY = size.height * (0.5f + 0.30f * sin(t * twoPi / 31000f + 1.1f))
+        val sourceBX = size.width  * (0.5f + 0.32f * sin(t * twoPi / 27000f + 2.4f))
+        val sourceBY = size.height * (0.5f + 0.30f * cos(t * twoPi / 19000f + 0.4f))
+
         // Shockwave: a ring that expands outward - dots near the ring get a size boost
         val waveRadius   = sw * maxDist * 1.2f
         val waveWidth    = maxDist * 0.25f
@@ -71,14 +79,19 @@ fun GridBackground(
                 val baseX = col * cellW + tiltX * 12f
                 val baseY = row * cellH + tiltY * 12f
 
-                // Distance from screen center - drives the ripple phase offset
+                // Distance from screen center - drives the shockwave and the edge dimming
                 val dx = baseX - size.width  * 0.5f
                 val dy = baseY - size.height * 0.5f
                 val dist = sqrt(dx * dx + dy * dy)
 
-                // Continuous ripple wave: phase offset by distance so wave propagates outward
-                val ripplePhase = dist / density * 0.036f
-                val wave = sin(t * twoPi / 3800f - ripplePhase)
+                // Each source sends out its own continuous ripple, phase offset by distance so it
+                // propagates outward, and the dot follows their sum
+                val distA = sqrt((baseX - sourceAX) * (baseX - sourceAX) + (baseY - sourceAY) * (baseY - sourceAY))
+                val distB = sqrt((baseX - sourceBX) * (baseX - sourceBX) + (baseY - sourceBY) * (baseY - sourceBY))
+                val wave = 0.5f * (
+                    sin(t * twoPi / 3800f - distA / density * 0.036f) +
+                        sin(t * twoPi / 4300f - distB / density * 0.036f + 1.7f)
+                )
 
                 // Base dot radius oscillates with the wave
                 val baseRadius = (1.7f + wave * 0.85f) * density

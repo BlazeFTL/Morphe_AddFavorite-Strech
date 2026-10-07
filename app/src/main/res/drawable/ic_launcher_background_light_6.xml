@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Dark variant 1 (Teal theme) -->
+<!-- Light variant 6 (Mist theme) -->
 <color xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#0F8B8D" />
+    android:color="#DCE3EB" />

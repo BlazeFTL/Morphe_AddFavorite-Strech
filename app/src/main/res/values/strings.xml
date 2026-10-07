@@ -863,9 +863,26 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_app_icon_default">Default</string>
     <string name="settings_appearance_app_icon_light_2">Sky</string>
     <string name="settings_appearance_app_icon_light_3">Sunset</string>
-    <string name="settings_appearance_app_icon_dark_1">Ocean</string>
+    <string name="settings_appearance_app_icon_light_4">Lavender</string>
+    <string name="settings_appearance_app_icon_light_5">Glacier</string>
+    <string name="settings_appearance_app_icon_light_6">Mist</string>
+    <string name="settings_appearance_app_icon_light_7">Sand</string>
+    <string name="settings_appearance_app_icon_dark_1">Teal</string>
     <string name="settings_appearance_app_icon_dark_2">Void</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_dark_3">Plum</string>
+    <string name="settings_appearance_app_icon_dark_4">Midnight</string>
+    <string name="settings_appearance_app_icon_dark_5">Slate</string>
+    <string name="settings_appearance_app_icon_accent_1">Aurora</string>
+    <string name="settings_appearance_app_icon_accent_2">Ink</string>
+    <string name="settings_appearance_app_icon_accent_3">Paper</string>
+    <string name="settings_appearance_app_icon_accent_4">Dusk</string>
+    <string name="settings_appearance_app_icon_background">Background</string>
+    <string name="settings_appearance_app_icon_mark">Logo</string>
+    <string name="settings_appearance_app_icon_mark_color">Color</string>
+    <string name="settings_appearance_app_icon_mark_white">White</string>
+    <string name="settings_appearance_app_icon_mark_black">Black</string>
+    <!-- An icon outside the presets. %1$s is a background name, such as Ink. %2$s is a logo color, such as White -->
+    <string name="settings_appearance_app_icon_combined">%1$s · %2$s</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Change app icon?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Change to &lt;b&gt;%s&lt;/b&gt; and restart?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

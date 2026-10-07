@@ -14,17 +14,13 @@ import app.morphe.manager.util.AppCardColorDefaults
 import app.morphe.manager.util.AppCardColorMode
 import app.morphe.manager.util.AppLocale
 import app.morphe.manager.util.toHexString
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 /**
  * How often the random background rotates.
  * [ON_LAUNCH] picks a new background every time the app is opened.
- * [DAILY] keeps the same background for the calendar day.
- * [EVERY_3_DAYS] rotates every 3 days based on epoch day.
+ * [DAILY] keeps the same background for the local calendar day.
+ * [EVERY_3_DAYS] keeps it for three local calendar days.
  */
 enum class RandomInterval(val labelResId: Int) {
     ON_LAUNCH(R.string.settings_appearance_background_random_interval_launch),
@@ -36,39 +32,8 @@ class ThemeSettingsViewModel(
     private val app: Application,
     val prefs: PreferencesManager
 ) : ViewModel() {
-    /**
-     * The currently resolved background for this session when RANDOM mode is active.
-     * Populated by [resolveRandomBackground]; null until first resolution.
-     */
-    private val _resolvedRandomBackground = MutableStateFlow<BackgroundType?>(null)
-    val resolvedRandomBackground: StateFlow<BackgroundType?> = _resolvedRandomBackground.asStateFlow()
-
-    /**
-     * Resolves the effective background type when [BackgroundType.RANDOM] is selected.
-     * Called once on app start and again whenever the interval preference changes.
-     *
-     * - [RandomInterval.ON_LAUNCH]: picks a new random type each time.
-     * - [RandomInterval.DAILY]: uses today's epoch day as a stable index.
-     * - [RandomInterval.EVERY_3_DAYS]: uses epoch day ÷ 3 as a stable index.
-     */
-    suspend fun resolveRandomBackground(interval: RandomInterval) {
-        val pool = BackgroundType.randomizable(prefs.matrixBackgroundUnlocked.get())
-        _resolvedRandomBackground.value = when (interval) {
-            RandomInterval.ON_LAUNCH -> pool.random()
-            RandomInterval.DAILY -> {
-                val dayIndex = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis())
-                pool[(dayIndex % pool.size).toInt()]
-            }
-            RandomInterval.EVERY_3_DAYS -> {
-                val periodIndex = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis()) / 3
-                pool[(periodIndex % pool.size).toInt()]
-            }
-        }
-    }
-
     fun setRandomInterval(interval: RandomInterval) = viewModelScope.launch {
         prefs.randomBackgroundInterval.update(interval)
-        resolveRandomBackground(interval)
     }
 
     fun setCustomAccentColor(color: Color?) = viewModelScope.launch {
@@ -148,12 +113,6 @@ class ThemeSettingsViewModel(
             if (prefs.backgroundType.value == BackgroundType.MATRIX) {
                 prefs.backgroundType.value = BackgroundType.DEFAULT
             }
-        }
-
-        // A random rotation that had already landed on Matrix would keep it on screen until the
-        // next resolve, so it is drawn again from the pool Matrix has just left
-        if (_resolvedRandomBackground.value == BackgroundType.MATRIX) {
-            resolveRandomBackground(prefs.randomBackgroundInterval.get())
         }
     }
 

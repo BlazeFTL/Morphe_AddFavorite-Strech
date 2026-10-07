@@ -48,11 +48,12 @@ import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.shared.AnimatedBackground
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.BackgroundType
+import app.morphe.manager.ui.screen.shared.RandomBackground
+import app.morphe.manager.ui.screen.shared.rememberRandomBackground
 import app.morphe.manager.ui.theme.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.MainViewModel
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
-import app.morphe.manager.ui.viewmodel.ThemeSettingsViewModel
 import app.morphe.manager.util.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -115,6 +116,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         val vm: MainViewModel = getActivityViewModel()
+
+        // A recreated activity keeps the background RANDOM drew, only a fresh launch draws again
+        if (savedInstanceState == null) RandomBackground.newLaunch()
 
         // Handle deep link on cold start. The task keeps the intent that started it, so a restore
         // after the process was reclaimed - or any recreate - would replay a link already acted on
@@ -339,21 +343,13 @@ private fun MorpheManager(vm: MainViewModel) {
     val navController = rememberNavController()
     val scope = rememberCoroutineScope()
     val prefs: PreferencesManager = koinInject()
-    val themeViewModel: ThemeSettingsViewModel = koinViewModel()
     val backgroundType by prefs.backgroundType.getAsState()
     val enableParallax by prefs.enableBackgroundParallax.getAsState()
-    val randomInterval by prefs.randomBackgroundInterval.getAsState()
-    val resolvedRandomBackground by themeViewModel.resolvedRandomBackground.collectAsStateWithLifecycle()
+    val resolvedRandomBackground =
+        if (backgroundType == BackgroundType.RANDOM) rememberRandomBackground(prefs) else null
     val seasonalThemes by prefs.seasonalThemes.getAsState()
     // Read once per launch, so an event that begins while the app is open waits for the next one
     val seasonalEvent = remember { SeasonalEvent.on() }
-
-    // Resolve which background to show whenever RANDOM mode is active or the interval changes
-    LaunchedEffect(backgroundType, randomInterval) {
-        if (backgroundType == BackgroundType.RANDOM) {
-            themeViewModel.resolveRandomBackground(randomInterval)
-        }
-    }
 
     // Patcher background speed - driven by PatcherViewModel when on patcher screen.
     // Exposed as top-level mutable state so PatcherScreen can write into it

@@ -82,7 +82,8 @@ fun AppearanceTabContent(
     val matrixUnlocked by themeViewModel.prefs.matrixBackgroundUnlocked.getAsState()
     val seasonalThemes by themeViewModel.prefs.seasonalThemes.getAsState()
     val seasonalEvent = remember { SeasonalEvent.on() }
-    val resolvedRandomBackground by themeViewModel.resolvedRandomBackground.collectAsStateWithLifecycle()
+    val resolvedRandomBackground =
+        if (backgroundType == BackgroundType.RANDOM) rememberRandomBackground(themeViewModel.prefs) else null
     val effectiveThemeStyle = resolveThemeStyle(themeStyle, supportsDynamicColor)
     val showAppCardColorSetting = effectiveThemeStyle != ThemeStyle.MONOCHROME
 

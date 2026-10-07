@@ -54,6 +54,9 @@ class PreferencesManager(
     val enableBackgroundParallax = booleanPreference("enable_background_parallax", true)
     val randomBackgroundInterval = enumPreference("random_background_interval", RandomInterval.ON_LAUNCH)
 
+    /** The background the last launch drew for RANDOM, which the next launch steers clear of. */
+    val lastRandomBackground = stringPreference("last_random_background", "")
+
     /** Whether the hidden Matrix background has been found and taken. */
     val matrixBackgroundUnlocked = booleanPreference("matrix_background_unlocked", false)
 

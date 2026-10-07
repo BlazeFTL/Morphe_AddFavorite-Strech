@@ -62,12 +62,12 @@ fun CirclesBackground(
         // Circle 5 - small bottom left
         // Circle 6 - bottom center
         val circles = listOf(
-            CircleData(0.20f  + 0.05f  * sin(t * twoPi / 8000f), 0.225f + 0.025f * sin(t * twoPi / 7000f), 400f, primaryColor,   0.05f,  0.8f),
-            CircleData(0.85f  + 0.03f  * sin(t * twoPi / 9000f), 0.185f + 0.035f * sin(t * twoPi / 6500f), 280f, tertiaryColor,  0.035f, 0.6f),
-            CircleData(0.715f + 0.035f * sin(t * twoPi / 7500f), 0.44f  + 0.04f  * sin(t * twoPi / 8500f), 200f, tertiaryColor,  0.04f,  0.4f),
-            CircleData(0.815f + 0.035f * sin(t * twoPi / 9500f), 0.785f + 0.035f * sin(t * twoPi / 7200f), 320f, secondaryColor, 0.035f, 0.7f),
-            CircleData(0.24f  + 0.04f  * sin(t * twoPi / 8200f), 0.765f + 0.035f * sin(t * twoPi / 6800f), 180f, primaryColor,   0.04f,  0.5f),
-            CircleData(0.525f + 0.025f * sin(t * twoPi / 8800f), 0.895f + 0.025f * sin(t * twoPi / 7800f), 220f, secondaryColor, 0.04f,  0.6f),
+            CircleData(0.20f  + 0.05f  * sin(t * twoPi / 8000f), 0.225f + 0.025f * sin(t * twoPi / 7000f), 133f, primaryColor,   0.05f,  0.8f),
+            CircleData(0.85f  + 0.03f  * sin(t * twoPi / 9000f), 0.185f + 0.035f * sin(t * twoPi / 6500f), 93f,  tertiaryColor,  0.035f, 0.6f),
+            CircleData(0.715f + 0.035f * sin(t * twoPi / 7500f), 0.44f  + 0.04f  * sin(t * twoPi / 8500f), 67f,  tertiaryColor,  0.04f,  0.4f),
+            CircleData(0.815f + 0.035f * sin(t * twoPi / 9500f), 0.785f + 0.035f * sin(t * twoPi / 7200f), 107f, secondaryColor, 0.035f, 0.7f),
+            CircleData(0.24f  + 0.04f  * sin(t * twoPi / 8200f), 0.765f + 0.035f * sin(t * twoPi / 6800f), 60f,  primaryColor,   0.04f,  0.5f),
+            CircleData(0.525f + 0.025f * sin(t * twoPi / 8800f), 0.895f + 0.025f * sin(t * twoPi / 7800f), 73f,  secondaryColor, 0.04f,  0.6f),
         )
 
         circles.forEachIndexed { index, circle ->
@@ -86,19 +86,19 @@ fun CirclesBackground(
             // Filled circle
             drawCircle(
                 color  = circle.color.copy(alpha = circle.alpha * burstAlpha),
-                radius = circle.radius * radiusScale,
+                radius = circle.radius * density * radiusScale,
                 center = center
             )
 
             // During burst: stroke ring that expands further for a layered depth look
             if (bp > 0f && localBp > 0f) {
-                val strokeRadius = circle.radius * (1f + localBp * 3.5f)
+                val strokeRadius = circle.radius * density * (1f + localBp * 3.5f)
                 val strokeAlpha  = ((1f - localBp) * 0.5f).coerceIn(0f, 1f)
                 drawCircle(
                     color  = circle.color.copy(alpha = strokeAlpha),
                     radius = strokeRadius,
                     center = center,
-                    style  = Stroke(width = 4f)
+                    style  = Stroke(width = 1.3f * density)
                 )
             }
         }
@@ -108,7 +108,7 @@ fun CirclesBackground(
 private data class CircleData(
     val x: Float,
     val y: Float,
-    val radius: Float,
+    val radius: Float, // In dp
     val color: androidx.compose.ui.graphics.Color,
     val alpha: Float,
     val depth: Float // Depth for parallax effect

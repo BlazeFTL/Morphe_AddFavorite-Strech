@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
 import kotlin.math.PI
+import kotlin.math.roundToInt
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -53,8 +54,10 @@ fun GridBackground(
         val twoPi = 2f * PI.toFloat()
         val sw    = shockwaveProgress.value
 
-        val cols  = 11
-        val rows  = 20
+        // Columns and rows follow the screen, so cells stay square in landscape and on tablets
+        val spacing = GRID_SPACING_DP * density
+        val cols  = (size.width  / spacing).roundToInt().coerceAtLeast(2) + 1
+        val rows  = (size.height / spacing).roundToInt().coerceAtLeast(2) + 1
         val cellW = size.width  / (cols - 1).toFloat()
         val cellH = size.height / (rows - 1).toFloat()
         val maxDist = sqrt(size.width * size.width + size.height * size.height) * 0.5f
@@ -74,20 +77,20 @@ fun GridBackground(
                 val dist = sqrt(dx * dx + dy * dy)
 
                 // Continuous ripple wave: phase offset by distance so wave propagates outward
-                val ripplePhase = dist * 0.012f
+                val ripplePhase = dist / density * 0.036f
                 val wave = sin(t * twoPi / 3800f - ripplePhase)
 
                 // Base dot radius oscillates with the wave
-                val baseRadius = 5.0f + wave * 2.5f
+                val baseRadius = (1.7f + wave * 0.85f) * density
 
                 // Shockwave: dots near the expanding ring get a strong size boost
                 val distFromWave = kotlin.math.abs(dist - waveRadius)
                 val shockBoost = if (sw > 0f && distFromWave < waveWidth) {
                     val localPhase = 1f - distFromWave / waveWidth
-                    localPhase * localPhase * 6f * (1f - sw * 0.5f)
+                    localPhase * localPhase * 2f * density * (1f - sw * 0.5f)
                 } else 0f
 
-                val finalRadius = (baseRadius + shockBoost).coerceAtLeast(0.8f)
+                val finalRadius = (baseRadius + shockBoost).coerceAtLeast(0.27f * density)
 
                 // Color cycles gently across the grid
                 val colorPhase = (col + row) % 3
@@ -114,3 +117,6 @@ fun GridBackground(
         }
     }
 }
+
+/** Distance between neighboring dots. */
+private const val GRID_SPACING_DP = 40f

@@ -20,13 +20,17 @@ import app.morphe.manager.ui.theme.isDarkTheme
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
+import kotlin.math.floor
+import kotlin.math.min
+import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.random.Random
 
 /**
  * Snowfall background with layered depth and parallax effect.
  * Near flakes are crisp and fast, far ones soft out-of-focus dots, and slow gusts of wind push
- * the whole fall sideways, the near flakes further than the far ones.
+ * the whole fall sideways, the near flakes further than the far ones. Flakes drift down slowly and
+ * melt away partway down, so the snow is thickest near the top and thins out toward the bottom.
  * Uses frame-based time so [speedMultiplier] changes smoothly without restarting animations.
  * On patching completion all snowflakes blast upward in a blizzard burst, then settle
  * back down into normal fall.
@@ -61,7 +65,7 @@ fun SnowBackground(
 
     // Generate snowflakes with depth layers, sorted far to close once for proper layering
     val snowflakes = remember {
-        List(40) {
+        List(56) {
             // Depth runs from far (0) to close (1), and alpha and parallax grow with it, so the
             // layers that set size and speed have to follow the same direction
             val depth = Random.nextFloat()
@@ -75,9 +79,9 @@ fun SnowBackground(
                 x = Random.nextFloat(),
                 initialProgress = Random.nextFloat(),
                 fallSpeed = when (layer) {
-                    0 -> 8000 + Random.nextInt(3000)     // Fast (close)
-                    1 -> 12000 + Random.nextInt(4000)    // Medium
-                    else -> 16000 + Random.nextInt(5000) // Slow (far)
+                    0 -> 15000 + Random.nextInt(5000)    // Fast (close)
+                    1 -> 22000 + Random.nextInt(6000)    // Medium
+                    else -> 30000 + Random.nextInt(8000) // Slow (far)
                 },
                 swayAmplitude = when (layer) {
                     0 -> 0.04f + Random.nextFloat() * 0.03f
@@ -86,14 +90,15 @@ fun SnowBackground(
                 },
                 swayFrequency = 1.2f + Random.nextFloat() * 1.0f,
                 size = when (layer) {
-                    0 -> 0.9f + Random.nextFloat() * 0.4f    // 0.9-1.3
-                    1 -> 0.7f + Random.nextFloat() * 0.3f    // 0.7-1.0
-                    else -> 0.5f + Random.nextFloat() * 0.2f // 0.5-0.7
+                    0 -> 0.75f + Random.nextFloat() * 0.35f  // 0.75-1.1
+                    1 -> 0.6f + Random.nextFloat() * 0.25f   // 0.6-0.85
+                    else -> 0.45f + Random.nextFloat() * 0.2f // 0.45-0.65
                 },
                 rotationSpeed = 8000 + Random.nextInt(22000),
                 rotationDirection = if (Random.nextBoolean()) 1f else -1f,
                 initialRotation = Random.nextFloat() * 360f,
                 swayPhaseOffset = Random.nextFloat() * 2f * PI.toFloat(),
+                seed = Random.nextFloat() * 1000f,
                 depth = depth,
                 layer = layer
             )
@@ -135,7 +140,18 @@ fun SnowBackground(
         snowflakes.forEach { flake ->
             // Calculate continuous fall progress
             val timeProgress = globalTime / flake.fallSpeed
-            val fallProgress = (flake.initialProgress + timeProgress) % 1f
+            val travel = flake.initialProgress + timeProgress
+            val fallProgress = travel % 1f
+
+            // Every pass down the screen starts from a fresh column and melts at its own height,
+            // so the fall never repeats the same tracks
+            val pass = floor(travel)
+            val column = fract(sin(pass * 12.9898f + flake.seed) * 43758.547f)
+            val meltAt = MELT_FROM + (1f - MELT_FROM) * fract(sin(pass * 78.233f + flake.seed) * 12543.123f).pow(1.4f)
+            val fadeIn = (fallProgress / FLAKE_FADE).coerceIn(0f, 1f)
+            val fadeOut = ((meltAt - fallProgress) / FLAKE_FADE).coerceIn(0f, 1f)
+            val life = min(fadeIn, fadeOut).let { it * it * (3f - 2f * it) }
+            if (life <= 0f) return@forEach
 
             // Calculate sway - continuous wave
             val swayPhase = timeProgress * 2f * PI.toFloat() * flake.swayFrequency + flake.swayPhaseOffset
@@ -155,7 +171,7 @@ fun SnowBackground(
             val bp = burstProgress.value
             val burstLift = if (bp > 0f) bp * (height + 200f) * (1f + flake.depth * 0.5f) else 0f
             val wind = gust * (0.03f + 0.07f * flake.depth)
-            val baseX = (flake.x + sway + wind) * width + parallaxX
+            val baseX = (fract(flake.x + column) + sway + wind) * width + parallaxX
             val baseY = fallProgress * (height + 100f) - 50f + parallaxY - burstLift
 
             // Wrap X position for horizontal parallax
@@ -179,7 +195,7 @@ fun SnowBackground(
 
             // Apply cycle fade + burst fade (flakes vanish as they fly up)
             val burstFade = if (burstProgress.value > 0f) (1f - burstProgress.value).coerceIn(0f, 1f) else 1f
-            val finalAlpha = depthAlpha * (0.7f + flake.size * 0.3f) * edgeFade * cycleFade * burstFade
+            val finalAlpha = depthAlpha * (0.7f + flake.size * 0.3f) * edgeFade * cycleFade * burstFade * life
 
             // Only draw if visible
             if (finalAlpha > 0.01f && baseY > -50f && baseY < height + 50f) {
@@ -203,6 +219,13 @@ fun SnowBackground(
         }
     }
 }
+
+// Shortest share of the fall a flake lives before it melts away, and how much of the fall its fade
+// in and out each take
+private const val MELT_FROM = 0.4f
+private const val FLAKE_FADE = 0.12f
+
+private fun fract(value: Float) = value - floor(value)
 
 /**
  * Detail level for snowflake rendering.
@@ -391,6 +414,7 @@ private data class SnowflakeData(
     val rotationDirection: Float,
     val initialRotation: Float,
     val swayPhaseOffset: Float,
+    val seed: Float, // Varies where each pass of the flake starts and melts
     val depth: Float,
     val layer: Int // 0 = close, 1 = middle, 2 = far
 )

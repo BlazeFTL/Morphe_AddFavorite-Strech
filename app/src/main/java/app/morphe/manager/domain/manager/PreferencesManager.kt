@@ -188,8 +188,8 @@ class PreferencesManager(
     /** Persist the post-patch APK so it can be exported or reinstalled after the patcher screen is closed. */
     val savePatchedApks = booleanPreference("save_patched_apks", true)
 
-    /** Play a distinct notification sound when patching finishes. */
-    val patcherCompletionSound = booleanPreference("patcher_completion_sound", true)
+    /** Play a distinct notification sound when patching finishes. Off until asked for, as a sound can startle. */
+    val patcherCompletionSound = booleanPreference("patcher_completion_sound", false)
 
     /** URI of a user-picked success tone. Empty falls back to the bundled `R.raw.success`. */
     val patcherSuccessSoundUri = stringPreference("patcher_success_sound_uri", "")

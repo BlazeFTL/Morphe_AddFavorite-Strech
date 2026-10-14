@@ -25,7 +25,7 @@
     <!-- Shown under the app a link was opened for -->
     <string name="deep_link_add_source_only_app">Only this app is added. You can add other apps from the source\'s app list</string>
     <!-- Asked when the link names an app of a source that is already added -->
-    <string name="deep_link_add_source_app_back">This source is already added. Bring this app back to it?</string>
+    <string name="deep_link_add_source_app_back">This source is already added. Add this app from the existing source?</string>
 
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe update available</string>

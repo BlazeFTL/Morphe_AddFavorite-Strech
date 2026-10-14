@@ -788,8 +788,6 @@ private fun AddSourceConfirmDialog(
     details: (@Composable () -> Unit)?,
     offersChooseApps: Boolean,
     warns: Boolean,
-    primaryText: String,
-    primaryIcon: ImageVector,
     onConfirm: (chooseApps: Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -800,9 +798,9 @@ private fun AddSourceConfirmDialog(
         padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
-                primaryText = primaryText,
+                primaryText = stringResource(R.string.add),
                 onPrimaryClick = { onConfirm(chooseApps) },
-                primaryIcon = primaryIcon,
+                primaryIcon = Icons.Outlined.Extension,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
             )
@@ -943,7 +941,15 @@ private fun SourceIcon(
                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.fillMaxSize(0.45f)
             )
-            pictureUrl?.let { RemoteAvatar(url = it, modifier = Modifier.fillMaxSize()) }
+            // Opaque, so an avatar with a transparent background does not show the host through it
+            pictureUrl?.let {
+                RemoteAvatar(
+                    url = it,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.primaryContainer)
+                )
+            }
         }
         Box(
             contentAlignment = Alignment.Center,
@@ -1032,8 +1038,6 @@ fun DeepLinkAddSourceDialog(
         },
         offersChooseApps = packageName == null,
         warns = !bringsAppBack,
-        primaryText = stringResource(if (bringsAppBack) R.string.sources_apps_bring_back else R.string.add),
-        primaryIcon = if (bringsAppBack) Icons.Outlined.Visibility else Icons.Outlined.Extension,
         onConfirm = onConfirm,
         onDismiss = onDismiss
     )
@@ -1093,8 +1097,6 @@ fun MppImportDialog(
         },
         offersChooseApps = true,
         warns = true,
-        primaryText = stringResource(R.string.add),
-        primaryIcon = Icons.Outlined.Extension,
         onConfirm = onConfirm,
         onDismiss = onDismiss
     )

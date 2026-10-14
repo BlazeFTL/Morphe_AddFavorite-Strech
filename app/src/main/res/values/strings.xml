@@ -168,17 +168,17 @@
     <string name="sources_management_report_issue">Report an issue</string>
     <string name="sources_management_failed_to_open_url">Failed to open URL</string>
     <string name="sources_apps">Apps</string>
-    <string name="sources_apps_description">Tap an app to leave it out of this source or bring it back, or long-press to pick several. An app leaves the home screen once no source brings it</string>
+    <string name="sources_apps_description">Ticked apps come from this source. Tap an app to leave it out or bring it back. An app leaves the home screen once no source brings it, unless you have patched it</string>
     <string name="sources_apps_brought">Brought by this source</string>
     <string name="sources_apps_left_out">Left out of this source</string>
-    <string name="sources_apps_leave_out">Leave out</string>
-    <string name="sources_apps_leave_out_done">Left out</string>
     <string name="sources_apps_bring_back">Bring back</string>
+    <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
+    <string name="sources_apps_stays_patched">Kept as patched</string>
     <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
     <string name="sources_apps_new">New</string>
     <string name="sources_apps_new_apps">Bring new apps</string>
-    <string name="sources_apps_new_apps_on_description">Apps this source starts supporting later reach the home screen on their own</string>
-    <string name="sources_apps_new_apps_off_description">Apps this source starts supporting later are left out until you bring them back here</string>
+    <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
+    <string name="sources_apps_new_apps_description">Apps it adds later show up on the home screen</string>
     <string name="sources_management_prerelease_toggle">Pre-release patches</string>
     <string name="sources_management_prerelease_toggle_description">Receives early access to new experimental patch versions</string>
     <string name="sources_prerelease_warning_title">Enable pre-release patches?</string>

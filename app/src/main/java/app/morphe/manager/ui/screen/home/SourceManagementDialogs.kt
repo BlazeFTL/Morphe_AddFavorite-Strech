@@ -48,11 +48,13 @@ import app.morphe.manager.domain.bundles.APIPatchBundle
 import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.bundles.RemotePatchBundle
+import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository.LocalFileCheck
 import app.morphe.manager.domain.repository.PatchBundleRepository.RemoteSourceRejection
 import app.morphe.manager.domain.repository.PatchBundleRepository.RemoteUrlCheck
 import app.morphe.manager.domain.repository.SourceMuteRepository
+import app.morphe.manager.domain.repository.appsBrought
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.appIconColorOf
 import app.morphe.manager.ui.screen.shared.*
@@ -1071,9 +1073,9 @@ private fun String.sanitizePatchChangelogMarkdown(): String =
  * longer offered when the app is patched, and no longer brings it to the home screen. An app
  * another source still brings stays there.
  *
- * Laid out like the hidden apps list: a tap answers for one app, and a long press or the header's
- * select all picks several for the bar to answer at once, so the few wanted out of hundreds take a
- * select all and a few taps. Leaving out the apps the source adds later keeps that cut as it grows.
+ * Laid out like a patch list: a ticked app is brought, a tap answers for one app and the header
+ * answers for everything the search left, so the few wanted out of hundreds take one tap there and
+ * a few on them. Leaving out the apps the source adds later keeps that cut as it grows.
  */
 @Composable
 fun SourceAppsDialog(
@@ -1082,7 +1084,7 @@ fun SourceAppsDialog(
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
     val sourceMuteRepository: SourceMuteRepository = koinInject()
-    val context = LocalContext.current
+    val installedAppRepository: InstalledAppRepository = koinInject()
     val scope = rememberCoroutineScope()
     val itemSpacing = rememberWindowSize().itemSpacing
 
@@ -1093,12 +1095,18 @@ fun SourceAppsDialog(
     // Null until read, so the switch never shows the default before the stored answer
     val unseenNewApps by sourceMuteRepository.unseenNewApps.collectAsStateWithLifecycle(null)
     val newApps = unseenNewApps?.get(src.uid).orEmpty()
+    // A patched app keeps its home card whichever sources bring it, so leaving it out does not move it
+    val installedApps by remember { installedAppRepository.getAll() }.collectAsStateWithLifecycle(emptyList())
+    val patchedApps = remember(installedApps) { installedApps.mapTo(mutableSetOf()) { it.originalPackageName } }
 
-    val listedApps = remember(bundleInfo, src.uid) { bundleInfo[src.uid]?.listedApps().orEmpty() }
+    val sourceInfo = bundleInfo[src.uid]
+    val listedApps = remember(sourceInfo) { sourceInfo?.listedApps().orEmpty() }
+    // By the rule the home screen applies, so a tick here is a card there
+    val broughtApps = remember(sourceInfo, keptFrom) { sourceInfo?.appsBrought(keptFrom).orEmpty() }
     // What each app gets from this source, so the choice is not made on a name alone
-    val patchCounts = remember(bundleInfo, src.uid) {
+    val patchCounts = remember(sourceInfo) {
         buildMap {
-            bundleInfo[src.uid]?.patches?.forEach { patch ->
+            sourceInfo?.patches?.forEach { patch ->
                 patch.compatiblePackages.orEmpty()
                     .mapNotNullTo(mutableSetOf()) { it.packageName }
                     .forEach { merge(it, 1, Int::plus) }
@@ -1126,11 +1134,9 @@ fun SourceAppsDialog(
         }
     }
 
-    var isMultiSelectMode by remember { mutableStateOf(false) }
-    val selection = rememberSelectionState<String>()
-    fun exitMultiSelect() {
-        isMultiSelectMode = false
-        selection.clear()
+    // Scoped to the search, so bringing or leaving out all never reaches apps out of view
+    val allFilteredBrought = remember(filtered, broughtApps) {
+        filtered.all { (packageName, _) -> packageName in broughtApps }
     }
 
     // Written in full even if the dialog is gone before it finishes, so a list never lands half
@@ -1153,7 +1159,6 @@ fun SourceAppsDialog(
     AppDialog(
         onDismissRequest = ::dismiss,
         accentColor = rememberSourceHeaderColor(src),
-        dismissOnClickOutside = !isMultiSelectMode,
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -1161,40 +1166,6 @@ fun SourceAppsDialog(
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        bottomBar = if (isMultiSelectMode) {
-            {
-                MultiSelectShell(visible = true, onBack = ::exitMultiSelect) {
-                    SelectionActionBar(
-                        selectedCount = selection.size,
-                        // Scoped to the search so "select all" never reaches apps out of view
-                        totalCount = filtered.size,
-                        onSelectAll = { selection.setAll(filtered.map { (packageName, _) -> packageName }) },
-                        onDeselectAll = { selection.clear() },
-                        actions = listOf(
-                            SelectionAction(
-                                icon = Icons.Outlined.VisibilityOff,
-                                label = stringResource(R.string.sources_apps_leave_out),
-                                onClick = context.withToast(stringResource(R.string.sources_apps_leave_out_done)) {
-                                    bring(selection.keys.toList(), brought = false)
-                                    exitMultiSelect()
-                                },
-                                tone = ActionTone.Destructive
-                            ),
-                            SelectionAction(
-                                icon = Icons.Outlined.Visibility,
-                                label = stringResource(R.string.sources_apps_bring_back),
-                                onClick = {
-                                    bring(selection.keys.toList(), brought = true)
-                                    exitMultiSelect()
-                                },
-                                tone = ActionTone.Tertiary
-                            )
-                        ),
-                        onCancel = ::exitMultiSelect
-                    )
-                }
-            }
-        } else null,
         padding = DialogPadding.Compact,
         scrollable = false,
         contentArrangement = Arrangement.Top,
@@ -1212,22 +1183,25 @@ fun SourceAppsDialog(
             searchLabel = stringResource(R.string.home_search_apps),
             // A lone app leaves nothing to search through
             searchEnabled = apps.size > 1,
-            // Picks everything in view without a long press first, so keeping a few apps out of
-            // hundreds starts from one tap
+            // Answers for everything in view at once, so keeping a few apps out of hundreds is
+            // one tap here and a few on the apps wanted
             actions = {
                 TitleAction(
-                    icon = Icons.Outlined.Checklist,
-                    contentDescription = stringResource(R.string.select_all),
+                    icon = if (allFilteredBrought) Icons.Outlined.RemoveDone else Icons.Outlined.DoneAll,
+                    contentDescription = stringResource(
+                        if (allFilteredBrought) R.string.deselect_all else R.string.select_all
+                    ),
+                    // Only the apps that change, so a few left out of hundreds write a few rows
                     onClick = {
-                        if (isMultiSelectMode) {
-                            exitMultiSelect()
-                        } else {
-                            isMultiSelectMode = true
-                            selection.setAll(filtered.map { (packageName, _) -> packageName })
-                        }
+                        bring(
+                            filtered.mapNotNull { (packageName, _) ->
+                                packageName.takeIf { (it in broughtApps) == allFilteredBrought }
+                            },
+                            brought = !allFilteredBrought
+                        )
                     },
                     style = TitleActionStyle.Toggle,
-                    active = isMultiSelectMode,
+                    active = allFilteredBrought,
                     enabled = filtered.isNotEmpty()
                 )
             }
@@ -1274,10 +1248,7 @@ fun SourceAppsDialog(
                         },
                         icon = Icons.Outlined.AutoAwesome,
                         title = stringResource(R.string.sources_apps_new_apps),
-                        subtitle = stringResource(
-                            if (bringsNewApps) R.string.sources_apps_new_apps_on_description
-                            else R.string.sources_apps_new_apps_off_description
-                        ),
+                        subtitle = stringResource(R.string.sources_apps_new_apps_description),
                         showBorder = true,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -1295,26 +1266,19 @@ fun SourceAppsDialog(
             }
 
             items(items = filtered, key = { (packageName, _) -> packageName }) { (packageName, label) ->
-                val brought = src.uid !in keptFrom[packageName].orEmpty()
+                val brought = packageName in broughtApps
                 val gradientColors = appMetadata[packageName]?.gradientColors
                     ?: AppCardColorDefaults.defaultGradientColors
 
-                // Outside picking several, the card's mark and dimming tell whether the source brings it
+                // The card's mark and dimming tell whether the source brings it, so they mean nothing else
                 SelectableCard(
                     modifier = Modifier.animatedListItem(this),
-                    isSelected = if (isMultiSelectMode) selection.contains(packageName) else brought,
+                    isSelected = brought,
                     isSelectionMode = true
                 ) {
                     AppCardLayout(
                         gradientColors = gradientColors,
-                        onClick = {
-                            if (isMultiSelectMode) selection.toggle(packageName)
-                            else bring(listOf(packageName), brought = !brought)
-                        },
-                        onLongClick = {
-                            isMultiSelectMode = true
-                            selection.toggle(packageName)
-                        },
+                        onClick = { bring(listOf(packageName), brought = !brought) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         val patchCount = patchCounts[packageName] ?: 0
@@ -1324,7 +1288,10 @@ fun SourceAppsDialog(
                             displayName = label,
                             subtitle = listOfNotNull(
                                 stringResource(R.string.sources_apps_new).takeIf { packageName in newApps },
-                                pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())
+                                pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString()),
+                                // Left out, it would be gone from the home screen but for its install
+                                stringResource(R.string.sources_apps_stays_patched)
+                                    .takeIf { !brought && packageName in patchedApps }
                             ).joinToString(" · "),
                             gradientColors = gradientColors
                         )

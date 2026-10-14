@@ -127,18 +127,18 @@ every app it has patches for. The same choice is offered in the confirmation sho
 `.mpp` file opened from a file manager, and the list is always one tap away from the **Apps**
 row on the source card.
 
-The list works like **Hidden apps**. Each app shows how many patches the source has for it.
-Tap an app to leave it out of this source, and tap it again to bring it back. Long-press to
-pick several, or tap the select all button in the header to pick everything the search left:
-the bar below then selects all or none, and **Leave out** or **Bring back** answers for all of
-them at once. To keep one app out of hundreds, tap select all, tap that app to drop it from the
-selection and tap **Leave out**.
+The list works like a patch list. A ticked app is brought by the source, and each app shows how
+many patches the source has for it. Tap an app to leave it out of this source, and tap it again
+to bring it back. The button in the header brings back every app the search left, or leaves
+them all out once all of them are brought. To keep a few apps out of hundreds, tap it once to
+leave out everything, then tap the apps you want.
 
 An app left out no longer comes from this source: the source is not offered when the app is
 patched, the same as unticking it in [Choosing sources per app](#choosing-sources-per-app). An
 app stays on the home screen while any source still brings it, and leaves once none does. It is
 not in the **Hidden apps** list then, since nothing hid it: bring it back here instead. An app
-you already patched keeps its card either way.
+you already patched keeps its card either way, and the list says so under it once it is left
+out. Hide that card from the home screen if you no longer want it there.
 
 #### New apps
 

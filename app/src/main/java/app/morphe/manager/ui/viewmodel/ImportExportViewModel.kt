@@ -90,7 +90,10 @@ data class PatchBundleDataExportFile(
     val options: Map<String, Map<String, Map<String, String>>>?,
     // Apps kept from this source. Null in backups written before an app could be, which reads the
     // same as a backup where no app was
-    val mutedPackages: List<String>? = null
+    val mutedPackages: List<String>? = null,
+    // Apps the source has listed so far, present only when it leaves new apps out. Null in backups
+    // written before a source could, which reads as a source that brings them
+    val knownApps: List<String>? = null
 )
 
 /**
@@ -412,9 +415,10 @@ class ImportExportViewModel(
                     exportDate = exportDate,
                     selections = selections,
                     options = options.ifEmpty { null },
-                    mutedPackages = sourceMuteRepository.exportForBundle(bundleUid).ifEmpty { null }
+                    mutedPackages = sourceMuteRepository.exportForBundle(bundleUid).ifEmpty { null },
+                    knownApps = sourceMuteRepository.exportKnownApps(bundleUid)
                 )
-            }.filter { it.selections.isNotEmpty() || it.mutedPackages != null }
+            }.filter { it.selections.isNotEmpty() || it.mutedPackages != null || it.knownApps != null }
         }
 
         return AllSelectionsExportFile(
@@ -523,7 +527,8 @@ class ImportExportViewModel(
                         }
                         sourceMuteRepository.importForBundle(
                             bundleUid,
-                            exportFile.mutedPackages.orEmpty()
+                            exportFile.mutedPackages.orEmpty(),
+                            exportFile.knownApps
                         )
                     }
                     PatchBundleRepository.ImportMode.Merge -> {
@@ -541,9 +546,11 @@ class ImportExportViewModel(
                                 options = packageOptions
                             )
                         }
-                        exportFile.mutedPackages?.let {
-                            sourceMuteRepository.muteApps(bundleUid, it)
-                        }
+                        sourceMuteRepository.mergeForBundle(
+                            bundleUid,
+                            exportFile.mutedPackages.orEmpty(),
+                            exportFile.knownApps
+                        )
                     }
                 }
             }

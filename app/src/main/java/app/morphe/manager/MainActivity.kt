@@ -198,7 +198,7 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Handles add-source deep links from an explicit-package `intent://` fired by the website.
-     * Format: https://morphe.software/add-source?<github|gitlab>=owner/repo(&name=…)
+     * Format: https://morphe.software/add-source?<github|gitlab>=owner/repo(&name=…)(&app=package&appName=…)
      * Only GitHub and GitLab URLs are accepted.
      */
     private fun handleDeepLinkIntent(intent: Intent?, vm: MainViewModel) {
@@ -299,21 +299,17 @@ class MainActivity : AppCompatActivity() {
                 data.path?.startsWith(ADD_SOURCE_PATH) == true
         if (!isAddSource) return
 
-        val name = data.getQueryParameter("name")?.takeIf { it.isNotBlank() }
+        fun param(key: String) = data.getQueryParameter(key)?.takeIf { it.isNotBlank() }
 
-        val githubRepo = data.getQueryParameter("github")?.takeIf { it.isNotBlank() }
-        if (githubRepo != null) {
-            val url = "https://github.com/$githubRepo"
-            vm.pendingDeepLinkSource = MainViewModel.DeepLinkSource(url = url, name = name)
-            return
-        }
-
-        val gitlabRepo = data.getQueryParameter("gitlab")?.takeIf { it.isNotBlank() }
-        if (gitlabRepo != null) {
-            val url = "https://gitlab.com/$gitlabRepo"
-            vm.pendingDeepLinkSource = MainViewModel.DeepLinkSource(url = url, name = name)
-            return
-        }
+        val url = param("github")?.let { "https://github.com/$it" }
+            ?: param("gitlab")?.let { "https://gitlab.com/$it" }
+            ?: return
+        vm.pendingDeepLinkSource = MainViewModel.DeepLinkSource(
+            url = url,
+            name = param("name"),
+            packageName = param("app"),
+            appName = param("appName")
+        )
     }
 
     companion object {
@@ -375,9 +371,9 @@ private fun MorpheManager(vm: MainViewModel) {
 
     // Handle deep link source
     LaunchedEffect(vm.pendingDeepLinkSource) {
-        vm.pendingDeepLinkSource?.let { bundle ->
+        vm.pendingDeepLinkSource?.let { source ->
             navController.popBackStack(HomeScreen, false)
-            homeViewModel.handleDeepLinkAddSource(bundle.url, bundle.name)
+            homeViewModel.handleDeepLinkAddSource(source)
             vm.pendingDeepLinkSource = null
         }
     }

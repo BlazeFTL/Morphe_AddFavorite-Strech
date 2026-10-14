@@ -322,18 +322,18 @@ private val REPOSITORY_HOST_ICONS: Map<String, ImageVector> by lazy {
 }
 
 /** The link without its scheme, the way it reads in the address bar. */
-private fun String.bareLink() = substringAfter("://").removePrefix("www.")
+internal fun String.bareLink() = substringAfter("://").removePrefix("www.")
 
 private fun String.linkHost() = bareLink().substringBefore('/').lowercase(Locale.US)
 
 /** A repository as owner/repo, anything else as its bare link. */
-private fun remoteLinkTitle(link: String): String {
+internal fun remoteLinkTitle(link: String): String {
     val bare = link.bareLink()
     val segments = bare.substringAfter('/', "").split('/').filter { it.isNotBlank() }
     return if (link.linkHost() in REPOSITORY_HOST_ICONS && segments.size >= 2) "${segments[0]}/${segments[1]}" else bare
 }
 
-private fun remoteLinkIcon(link: String): ImageVector = REPOSITORY_HOST_ICONS[link.linkHost()] ?: Icons.Outlined.Link
+internal fun remoteLinkIcon(link: String): ImageVector = REPOSITORY_HOST_ICONS[link.linkHost()] ?: Icons.Outlined.Link
 
 @Composable
 private fun RemoteTabContent(state: RemoteLinksState) {
@@ -1072,8 +1072,9 @@ private fun String.sanitizePatchChangelogMarkdown(): String =
  * longer offered when the app is patched, and no longer brings it to the home screen. An app
  * another source still brings stays there.
  *
- * Laid out like the hidden apps list: a tap answers for one app, and a long press picks several
- * for the bar to answer at once, so the few wanted out of hundreds take a select all and a few taps.
+ * Laid out like the hidden apps list: a tap answers for one app, and a long press or the header's
+ * select all picks several for the bar to answer at once, so the few wanted out of hundreds take a
+ * select all and a few taps. Leaving out the apps the source adds later keeps that cut as it grows.
  */
 @Composable
 fun SourceAppsDialog(
@@ -1090,11 +1091,31 @@ fun SourceAppsDialog(
     val bundleInfo by patchBundleRepository.allBundlesInfoFlow.collectAsStateWithLifecycle(emptyMap())
     val appMetadata by patchBundleRepository.allAppMetadata.collectAsStateWithLifecycle()
     val keptFrom by sourceMuteRepository.mutedSources.collectAsStateWithLifecycle(emptyMap())
+    // Null until read, so the switch never shows the default before the stored answer
+    val unseenNewApps by sourceMuteRepository.unseenNewApps.collectAsStateWithLifecycle(null)
+    val newApps = unseenNewApps?.get(src.uid).orEmpty()
 
-    val apps = remember(bundleInfo, appMetadata, src.uid) {
-        bundleInfo[src.uid]?.listedApps().orEmpty()
+    val listedApps = remember(bundleInfo, src.uid) { bundleInfo[src.uid]?.listedApps().orEmpty() }
+    // What each app gets from this source, so the choice is not made on a name alone
+    val patchCounts = remember(bundleInfo, src.uid) {
+        buildMap {
+            bundleInfo[src.uid]?.patches?.forEach { patch ->
+                patch.compatiblePackages.orEmpty()
+                    .mapNotNullTo(mutableSetOf()) { it.packageName }
+                    .forEach { merge(it, 1, Int::plus) }
+            }
+        }
+    }
+    // New apps lead, as they are what the user came back for
+    val apps = remember(listedApps, appMetadata, newApps) {
+        listedApps
             .map { packageName -> packageName to (appMetadata[packageName]?.displayName ?: packageName) }
-            .sortedBy { (_, label) -> label.lowercase(Locale.ROOT) }
+            .sortedWith(
+                compareBy(
+                    { (packageName, _) -> packageName !in newApps },
+                    { (_, label) -> label.lowercase(Locale.ROOT) }
+                )
+            )
     }
 
     val search = rememberSearchFieldState(searchable = apps.size > 1)
@@ -1115,23 +1136,29 @@ fun SourceAppsDialog(
 
     // Written in full even if the dialog is gone before it finishes, so a list never lands half
     // applied
-    fun bring(packageNames: Collection<String>, brought: Boolean) {
-        scope.launch {
-            withContext(NonCancellable) {
-                if (brought) sourceMuteRepository.unmuteApps(src.uid, packageNames)
-                else sourceMuteRepository.muteApps(src.uid, packageNames)
-            }
-        }
+    fun persist(write: suspend () -> Unit) {
+        scope.launch { withContext(NonCancellable) { write() } }
+    }
+
+    fun bring(packageNames: Collection<String>, brought: Boolean) = persist {
+        if (brought) sourceMuteRepository.unmuteApps(src.uid, packageNames)
+        else sourceMuteRepository.muteApps(src.uid, packageNames)
+    }
+
+    // The new apps have been seen once the list closes, so the source card stops counting them
+    fun dismiss() {
+        if (newApps.isNotEmpty()) persist { sourceMuteRepository.markNewAppsSeen(src.uid) }
+        onDismissRequest()
     }
 
     AppDialog(
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = ::dismiss,
         accentColor = rememberSourceHeaderColor(src),
         dismissOnClickOutside = !isMultiSelectMode,
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
-                onClick = onDismissRequest,
+                onClick = ::dismiss,
                 modifier = Modifier.fillMaxWidth()
             )
         },
@@ -1185,7 +1212,26 @@ fun SourceAppsDialog(
             search = search,
             searchLabel = stringResource(R.string.home_search_apps),
             // A lone app leaves nothing to search through
-            searchEnabled = apps.size > 1
+            searchEnabled = apps.size > 1,
+            // Picks everything in view without a long press first, so keeping a few apps out of
+            // hundreds starts from one tap
+            actions = {
+                TitleAction(
+                    icon = Icons.Outlined.Checklist,
+                    contentDescription = stringResource(R.string.select_all),
+                    onClick = {
+                        if (isMultiSelectMode) {
+                            exitMultiSelect()
+                        } else {
+                            isMultiSelectMode = true
+                            selection.setAll(filtered.map { (packageName, _) -> packageName })
+                        }
+                    },
+                    style = TitleActionStyle.Toggle,
+                    active = isMultiSelectMode,
+                    enabled = filtered.isNotEmpty()
+                )
+            }
         )
 
         DialogLazyList(
@@ -1217,6 +1263,26 @@ fun SourceAppsDialog(
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
+            }
+
+            unseenNewApps?.let { lists ->
+                item(key = "new_apps") {
+                    val bringsNewApps = src.uid !in lists
+                    SettingsSwitchItem(
+                        checked = bringsNewApps,
+                        onToggle = {
+                            persist { sourceMuteRepository.setBringsNewApps(src.uid, !bringsNewApps, listedApps) }
+                        },
+                        icon = Icons.Outlined.AutoAwesome,
+                        title = stringResource(R.string.sources_apps_new_apps),
+                        subtitle = stringResource(
+                            if (bringsNewApps) R.string.sources_apps_new_apps_on_description
+                            else R.string.sources_apps_new_apps_off_description
+                        ),
+                        showBorder = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
 
             if (filtered.isEmpty() && search.query.isNotBlank()) {
@@ -1255,14 +1321,19 @@ fun SourceAppsDialog(
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
+                        val patchCount = patchCounts[packageName] ?: 0
                         AppCardContent(
                             packageName = packageName,
                             packageInfo = null,
                             displayName = label,
-                            subtitle = stringResource(
-                                if (brought) R.string.sources_apps_brought
-                                else R.string.sources_apps_left_out
-                            ),
+                            subtitle = listOfNotNull(
+                                stringResource(R.string.sources_apps_new).takeIf { packageName in newApps },
+                                stringResource(
+                                    if (brought) R.string.sources_apps_brought
+                                    else R.string.sources_apps_left_out
+                                ),
+                                pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())
+                            ).joinToString(" · "),
                             gradientColors = gradientColors
                         )
                     }

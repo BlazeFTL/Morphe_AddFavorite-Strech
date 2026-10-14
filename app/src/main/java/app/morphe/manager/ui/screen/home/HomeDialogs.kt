@@ -6,35 +6,47 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.BundleSourceType
 import app.morphe.manager.domain.bundles.PatchBundleSource
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.ownerAvatarUrl
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.bundles.recommended
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.patcher.UnusableOptionPathsDialog
@@ -45,8 +57,8 @@ import app.morphe.manager.util.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
-import java.net.URI
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
@@ -546,13 +558,27 @@ fun HomeDialogs(
         )
     }
 
-    // Deep link: Add bundle confirmation dialog
-    homeViewModel.deepLinkPendingBundle?.let { bundle ->
+    // Deep link: Add source confirmation dialog
+    homeViewModel.deepLinkPendingSource?.let { source ->
+        val sourceMuteRepository: SourceMuteRepository = koinInject()
+        val appMetadata by homeViewModel.patchBundleRepository.allAppMetadata.collectAsStateWithLifecycle()
+        val keptFrom by sourceMuteRepository.mutedSources.collectAsStateWithLifecycle(emptyMap())
+        // Read again as the sources load, since a link that starts the app arrives before they do
+        val sources by homeViewModel.patchBundleRepository.sources.collectAsStateWithLifecycle()
+        val existingUid = remember(source, sources) {
+            homeViewModel.patchBundleRepository.existingSourceUid(source.url)
+        }
         DeepLinkAddSourceDialog(
-            url = bundle.url,
-            name = bundle.name,
-            onConfirm = { chooseApps -> homeViewModel.confirmDeepLinkBundle(chooseApps) },
-            onDismiss = { homeViewModel.dismissDeepLinkBundle() }
+            url = source.url,
+            name = source.name,
+            packageName = source.packageName,
+            // The source is not read yet, so a name another source knows wins over the one the link gives
+            appName = source.packageName?.let { appMetadata[it]?.displayName ?: source.appName ?: it },
+            appGradientColors = source.packageName?.let { appMetadata[it]?.gradientColors },
+            isAdded = existingUid != null,
+            isAppLeftOut = existingUid != null && existingUid in keptFrom[source.packageName].orEmpty(),
+            onConfirm = { chooseApps -> homeViewModel.confirmDeepLinkSource(chooseApps) },
+            onDismiss = { homeViewModel.dismissDeepLinkSource() }
         )
     }
 
@@ -745,13 +771,25 @@ fun MeteredPatchingDialog(
 }
 
 /**
- * Confirmation dialog shown when the app is opened via a deep link to add a patch bundle.
- * Displays the URL (and optional name) and asks the user to confirm before adding.
+ * Asks before adding a source handed over from outside Morphe, by a link or by a file opened in a
+ * file manager. Laid out like the result of a patching run: [icon] over [heading] and the
+ * [question], then [details] on what would be added.
+ *
+ * [offersChooseApps] asks under the details whether to open the app list once the source has
+ * loaded, for a source added whole. [warns] says to trust the source, which one already added was
+ * trusted for.
  */
 @Composable
-fun DeepLinkAddSourceDialog(
-    url: String,
-    name: String?,
+private fun AddSourceConfirmDialog(
+    heading: String,
+    subheading: String?,
+    question: String,
+    icon: @Composable () -> Unit,
+    details: (@Composable () -> Unit)?,
+    offersChooseApps: Boolean,
+    warns: Boolean,
+    primaryText: String,
+    primaryIcon: ImageVector,
     onConfirm: (chooseApps: Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -759,13 +797,12 @@ fun DeepLinkAddSourceDialog(
 
     AppDialog(
         onDismissRequest = onDismiss,
-        title = stringResource(R.string.deep_link_add_source_title),
         padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
-                primaryText = stringResource(R.string.add),
+                primaryText = primaryText,
                 onPrimaryClick = { onConfirm(chooseApps) },
-                primaryIcon = Icons.Outlined.Extension,
+                primaryIcon = primaryIcon,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
             )
@@ -776,75 +813,235 @@ fun DeepLinkAddSourceDialog(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            val avatarUrl = remember(url) {
-                runCatching {
-                    val uri = URI(url)
-                    val owner = uri.path.trim('/').split('/').firstOrNull()
-                    val isGitLab = uri.host?.contains("gitlab.com", ignoreCase = true) == true
-                    if (owner != null) {
-                        if (isGitLab) "https://unavatar.io/gitlab/$owner"
-                        else "https://github.com/$owner.png"
-                    } else null
-                }.getOrNull()
-            }
-            Surface(
-                shape = CircleShape,
-                color = MaterialTheme.colorScheme.primaryContainer,
-                modifier = Modifier.size(56.dp)
+            icon()
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                if (avatarUrl != null) {
-                    RemoteAvatar(
-                        url = avatarUrl,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Outlined.Extension,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(12.dp)
+                Text(
+                    text = heading,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = dialogTextColor(),
+                    textAlign = TextAlign.Center
+                )
+                subheading?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = dialogSecondaryTextColor(),
+                        textAlign = TextAlign.Center,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
-            }
-
-            Text(
-                text = stringResource(R.string.deep_link_add_source_message),
-                style = MaterialTheme.typography.bodyLarge,
-                color = dialogSecondaryTextColor(),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            // Bundle details card
-            LabeledSection(title = name) {
                 Text(
-                    text = url,
-                    style = MaterialTheme.typography.bodySmall,
-                    fontFamily = FontFamily.Monospace,
+                    text = question,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = dialogSecondaryTextColor(),
-                    modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = Defaults.ContentPaddingSmall)
                 )
             }
 
-            Notice(
-                text = stringResource(R.string.deep_link_add_source_warning),
-                tone = SemanticTone.Warning,
-                icon = Icons.Outlined.Warning
-            )
+            details?.invoke()
 
-            ChooseAppsToggle(
-                checked = chooseApps,
-                onCheckedChange = { chooseApps = it },
-                modifier = Modifier.fillMaxWidth()
+            // A choice about what happens next, so it stays out of what is added
+            if (offersChooseApps) {
+                SelectionCheckRow(
+                    text = stringResource(R.string.sources_dialog_choose_apps_description),
+                    checked = chooseApps,
+                    onCheckedChange = { chooseApps = it }
+                )
+            }
+
+            if (warns) {
+                // A line rather than a card, so it reads as a reminder and not as a second question
+                val color = SemanticTone.Warning.accent
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = Defaults.ContentPaddingSmall)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Warning,
+                        contentDescription = null,
+                        tint = color,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Text(
+                        text = stringResource(R.string.deep_link_add_source_warning),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = color
+                    )
+                }
+            }
+        }
+    }
+}
+
+/** Size of the source's icon, the one a patching run's result gives the app's on a phone. */
+private val SourceIconSize = 112.dp
+
+/** How far the mark hangs past the corner of the source's icon. */
+private val SourceMarkOverhang = 6.dp
+
+/** Width of the gap cut out of the source's icon around the mark. */
+private val SourceMarkGap = 3.dp
+
+/** Size of an app's icon in a row of what a link adds. */
+private val SourceRowIconSize = 40.dp
+
+/**
+ * [icon] on a disc, covered by the picture at [pictureUrl] once it loads, with [mark] cut into its
+ * corner the way the result of a patching run marks the app's icon.
+ */
+@Composable
+private fun SourceIcon(
+    icon: ImageVector,
+    mark: ImageVector,
+    markColor: Color,
+    pictureUrl: String? = null
+) {
+    val markSize = SourceIconSize * 0.4f
+
+    Box(
+        modifier = Modifier
+            .padding(bottom = SourceMarkOverhang)
+            .size(SourceIconSize)
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                // The gap is cleared from the disc rather than painted over it, so it shows the
+                // dialog behind whatever its color
+                .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
+                .drawWithContent {
+                    drawContent()
+                    val cutRadius = markSize.toPx() / 2f
+                    val inset = cutRadius - SourceMarkOverhang.toPx()
+                    val centerX = if (layoutDirection == LayoutDirection.Rtl) inset else size.width - inset
+                    drawCircle(
+                        color = Color.Black,
+                        radius = cutRadius,
+                        center = Offset(centerX, size.height - inset),
+                        blendMode = BlendMode.Clear
+                    )
+                }
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.primaryContainer)
+        ) {
+            // Stands in until the picture loads, and for good when it does not
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                modifier = Modifier.fillMaxSize(0.45f)
+            )
+            pictureUrl?.let { RemoteAvatar(url = it, modifier = Modifier.fillMaxSize()) }
+        }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .offset(x = SourceMarkOverhang, y = SourceMarkOverhang)
+                .size(markSize)
+                .padding(SourceMarkGap)
+                .background(markColor, CircleShape)
+        ) {
+            Icon(
+                imageVector = mark,
+                contentDescription = null,
+                tint = markColor.contrastingContent(),
+                modifier = Modifier.size(SourceIconSize * 0.24f)
             )
         }
     }
 }
 
 /**
- * Confirmation dialog shown when a .mpp file is opened from a file manager.
+ * Confirmation dialog shown when the app is opened via a deep link to add a patch source, headed
+ * by the repository under its owner's avatar as on the page the link comes from.
+ *
+ * A link opened for [packageName], named [appName], adds the source for that app alone, so it lists
+ * the app instead of offering to choose, in [appGradientColors] while its icon is not on the device.
+ * From a source that [isAdded] already, that app is all there is left to do, and [isAppLeftOut]
+ * says whether it needs bringing back.
+ */
+@Composable
+fun DeepLinkAddSourceDialog(
+    url: String,
+    name: String?,
+    packageName: String?,
+    appName: String?,
+    appGradientColors: List<Color>?,
+    isAdded: Boolean,
+    isAppLeftOut: Boolean,
+    onConfirm: (chooseApps: Boolean) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val bringsAppBack = packageName != null && isAdded
+    // Links reach here for a repository only, which reads as owner/repo
+    val repository = remoteLinkTitle(url)
+
+    AddSourceConfirmDialog(
+        heading = name ?: repository.substringAfter('/'),
+        subheading = url.bareLink().substringBefore('/') + "/" + repository.substringBefore('/'),
+        question = stringResource(
+            if (bringsAppBack) R.string.deep_link_add_source_app_back else R.string.deep_link_add_source_message
+        ),
+        icon = {
+            SourceIcon(
+                icon = remoteLinkIcon(url),
+                mark = if (isAdded) Icons.Outlined.Check else remoteLinkIcon(url),
+                markColor = if (isAdded) SemanticTone.Success.accent else MaterialTheme.colorScheme.inverseSurface,
+                pictureUrl = ownerAvatarUrl(url)
+            )
+        },
+        // The header names the source, so only what the link narrows it to is listed
+        details = if (packageName == null) null else {
+            {
+                SettingsGroup {
+                    IconTextRow(
+                        modifier = Modifier.padding(Defaults.ContentPadding),
+                        leadingContent = {
+                            AppIcon(
+                                packageName = packageName,
+                                contentDescription = null,
+                                modifier = Modifier.size(SourceRowIconSize),
+                                placeholderGradientColors = appGradientColors
+                                    ?: AppCardColorDefaults.defaultGradientColors
+                            )
+                        },
+                        title = appName ?: packageName,
+                        description = stringResource(
+                            when {
+                                !isAdded -> R.string.deep_link_add_source_only_app
+                                isAppLeftOut -> R.string.sources_apps_left_out
+                                else -> R.string.sources_apps_brought
+                            }
+                        )
+                    )
+                }
+            }
+        },
+        offersChooseApps = packageName == null,
+        warns = !bringsAppBack,
+        primaryText = stringResource(if (bringsAppBack) R.string.sources_apps_bring_back else R.string.add),
+        primaryIcon = if (bringsAppBack) Icons.Outlined.Visibility else Icons.Outlined.Extension,
+        onConfirm = onConfirm,
+        onDismiss = onDismiss
+    )
+}
+
+/**
+ * Confirmation dialog shown when a .mpp file is opened from a file manager, headed by the name its
+ * manifest gives, or the file's while it is read.
  */
 @Composable
 fun MppImportDialog(
@@ -853,125 +1050,54 @@ fun MppImportDialog(
     onConfirm: (chooseApps: Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
-    var chooseApps by rememberSaveable { mutableStateOf(false) }
-
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.deep_link_add_source_title),
-        description = stringResource(R.string.deep_link_add_source_message),
-        padding = DialogPadding.Compact,
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.add),
-                onPrimaryClick = { onConfirm(chooseApps) },
-                primaryIcon = Icons.Outlined.Extension,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
+    val versionLabel = stringResource(R.string.version)
+    val authorLabel = stringResource(R.string.author)
+    val sourceLabel = stringResource(R.string.patcher_field_source)
+    val fileLabel = stringResource(R.string.file)
+    val rows = buildList<@Composable () -> Unit> {
+        manifest?.version?.let { version ->
+            add { InfoRow(icon = Icons.Outlined.Update, label = versionLabel, value = version.withVersionPrefix()) }
         }
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            // Bundle details card, without a body when the name is all there is
-            val displayName = manifest?.name ?: fileName
-            val hasDetails = manifest?.description != null || manifest?.version != null ||
-                    manifest?.author != null || manifest?.source != null ||
-                    (fileName != null && manifest?.name != null)
-            SectionCard(accentColor = LocalAccent.current) {
-                Column {
-                    if (displayName != null) CardHeader(title = displayName)
-                    if (hasDetails) Column(
-                        modifier = Modifier.padding(Defaults.ContentPadding),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        // Description
-                        manifest.description?.let {
-                            Text(
-                                text = it,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = dialogSecondaryTextColor(),
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                        }
+        manifest?.author?.let { author ->
+            add { InfoRow(icon = Icons.Outlined.Person, label = authorLabel, value = author) }
+        }
+        manifest?.source?.let { source ->
+            add { InfoRow(icon = Icons.Outlined.Source, label = sourceLabel, value = source.bareLink()) }
+        }
+        // The file only tells something the heading does not once the manifest names the bundle
+        if (fileName != null && manifest?.name != null) add {
+            InfoRow(icon = Icons.Outlined.Description, label = fileLabel, value = fileName)
+        }
+    }
 
-                        // Metadata row: version, author
-                        if (manifest.version != null || manifest.author != null) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                manifest.version?.let { version ->
-                                    StatusBadge(
-                                        text = "v$version",
-                                        icon = Icons.Outlined.NewReleases,
-                                        tone = SemanticTone.Primary
-                                    )
-                                }
-                                manifest.author?.let { author ->
-                                    StatusBadge(
-                                        text = author,
-                                        icon = Icons.Outlined.Person,
-                                        tone = SemanticTone.Neutral
-                                    )
-                                }
-                            }
-                        }
-
-                        // Source URL
-                        manifest.source?.let { source ->
-                            Text(
-                                text = source,
-                                style = MaterialTheme.typography.bodySmall,
-                                fontFamily = FontFamily.Monospace,
-                                color = dialogSecondaryTextColor(),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                        }
-
-                        // Filename (always shown as secondary info)
-                        if (fileName != null && manifest.name != null) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.Description,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier.size(12.dp)
-                                )
-                                Text(
-                                    text = fileName,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    fontFamily = FontFamily.Monospace,
-                                    color = dialogSecondaryTextColor(),
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
-                                )
-                            }
-                        }
+    AddSourceConfirmDialog(
+        heading = manifest?.name ?: fileName ?: stringResource(R.string.deep_link_add_source_title),
+        subheading = manifest?.description,
+        question = stringResource(R.string.deep_link_add_source_message),
+        icon = {
+            SourceIcon(
+                icon = Icons.Outlined.Extension,
+                mark = Icons.AutoMirrored.Outlined.InsertDriveFile,
+                markColor = MaterialTheme.colorScheme.inverseSurface
+            )
+        },
+        details = if (rows.isEmpty()) null else {
+            {
+                InfoPanel {
+                    rows.forEachIndexed { index, row ->
+                        if (index > 0) SettingsDivider()
+                        row()
                     }
                 }
             }
-
-            Notice(
-                text = stringResource(R.string.deep_link_add_source_warning),
-                tone = SemanticTone.Warning,
-                icon = Icons.Outlined.Warning
-            )
-
-            ChooseAppsToggle(
-                checked = chooseApps,
-                onCheckedChange = { chooseApps = it },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-    }
+        },
+        offersChooseApps = true,
+        warns = true,
+        primaryText = stringResource(R.string.add),
+        primaryIcon = Icons.Outlined.Extension,
+        onConfirm = onConfirm,
+        onDismiss = onDismiss
+    )
 }
 
 /** A single selectable bundle entry for [SimpleBundleSelectDialog]. */

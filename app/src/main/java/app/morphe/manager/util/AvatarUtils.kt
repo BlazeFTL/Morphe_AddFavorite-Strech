@@ -10,16 +10,20 @@ import android.graphics.BitmapFactory
 import android.graphics.Color as AndroidColor
 import android.os.SystemClock
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.scale
 import app.morphe.manager.R
+import app.morphe.manager.ui.screen.shared.Defaults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.URL
@@ -202,7 +206,8 @@ fun rememberSourceAccent(isDefault: Boolean, avatarUrl: String?, fallbackAvatarU
 /**
  * Displays a remote avatar image loaded from [url].
  * If [url] fails to load, falls back to [fallbackUrl].
- * Renders nothing until a bitmap is available.
+ * Renders nothing until a bitmap is available, then fades in over whatever stood in for it. One
+ * already cached shows at once.
  */
 @Composable
 fun RemoteAvatar(
@@ -210,23 +215,24 @@ fun RemoteAvatar(
     url: String,
     fallbackUrl: String? = null
 ) {
-    var bitmap by remember(url) {
-        mutableStateOf(AvatarCache[url] ?: fallbackUrl?.let { AvatarCache[it] })
-    }
+    val cached = remember(url) { AvatarCache[url] ?: fallbackUrl?.let { AvatarCache[it] } }
+    var bitmap by remember(url) { mutableStateOf(cached) }
+    val alpha = remember(url) { Animatable(if (cached != null) 1f else 0f) }
 
     LaunchedEffect(url, fallbackUrl) {
         if (bitmap == null) {
             bitmap = loadRemoteAvatar(url)
                 ?: fallbackUrl?.let { loadRemoteAvatar(it) }
         }
+        if (bitmap != null) alpha.animateTo(1f, tween(Defaults.ANIMATION_DURATION))
     }
 
-    if (bitmap != null) {
+    bitmap?.let {
         Image(
-            bitmap = bitmap!!.asImageBitmap(),
+            bitmap = it.asImageBitmap(),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = modifier
+            modifier = modifier.graphicsLayer { this.alpha = alpha.value }
         )
     }
 }

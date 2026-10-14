@@ -125,9 +125,17 @@ fun BundleManagementSheet(
     val bundleInfo by patchBundleRepository.allBundlesInfoFlow.collectAsStateWithLifecycle(emptyMap())
     val blockedSources by patchBundleRepository.blockedSources.collectAsStateWithLifecycle(emptyMap())
     val keptFrom by sourceMuteRepository.mutedSources.collectAsStateWithLifecycle(emptyMap())
-    // How many of its apps each source still brings, out of all it names
-    val appCounts = remember(bundleInfo, keptFrom) {
-        bundleInfo.mapValues { (_, info) -> info.appsBrought(keptFrom).size to info.listedApps().size }
+    val unseenNewApps by sourceMuteRepository.unseenNewApps.collectAsStateWithLifecycle(emptyMap())
+    val appCounts = remember(bundleInfo, keptFrom, unseenNewApps) {
+        bundleInfo.mapValues { (uid, info) ->
+            val listed = info.listedApps()
+            SourceAppCount(
+                brought = info.appsBrought(keptFrom).size,
+                listed = listed.size,
+                // An app the source has since dropped is nothing left to look at
+                unseen = unseenNewApps[uid].orEmpty().count { it in listed }
+            )
+        }
     }
 
     val showSheetOnboarding = globalOnboardingState?.sheetOnboardingActive == true
@@ -436,7 +444,7 @@ fun BundleManagementSheet(
                                     info = SourceCardInfo(
                                         patchCount = patchCounts[bundle.uid] ?: 0,
                                         patchMatchCount = patchMatchCounts[bundle.uid],
-                                        appCount = appCounts[bundle.uid] ?: (0 to 0),
+                                        appCount = appCounts[bundle.uid] ?: SourceAppCount.NONE,
                                         updateInfo = manualUpdateInfo[bundle.uid],
                                         isUpdating = bundle.uid in activeUpdateUids,
                                         metadataFetchError = metadataFetchErrors[bundle.uid],
@@ -654,13 +662,22 @@ private fun PatchBundleSource.sourceSortTitle(): String =
 private fun PatchBundleSource.matchesQuery(query: String): Boolean =
     displayTitle.contains(query, ignoreCase = true) || name.contains(query, ignoreCase = true)
 
+/**
+ * Apps a source still [brought] to the home screen, out of all it [listed], and how many of them
+ * were left out on arrival without the user having looked yet. None listed drops the card's row.
+ */
+private data class SourceAppCount(val brought: Int, val listed: Int, val unseen: Int) {
+    companion object {
+        val NONE = SourceAppCount(0, 0, 0)
+    }
+}
+
 /** What a source card reports about its source, beyond the source itself. */
 private data class SourceCardInfo(
     val patchCount: Int,
     /** Patches matching the sheet's search, or null while nothing is searched. */
     val patchMatchCount: Int?,
-    /** Apps the source still brings, out of all it names. None named drops the row. */
-    val appCount: Pair<Int, Int>,
+    val appCount: SourceAppCount,
     val updateInfo: PatchBundleRepository.ManualBundleUpdateInfo?,
     val isUpdating: Boolean,
     val metadataFetchError: Throwable?,
@@ -903,17 +920,22 @@ private fun BundleManagementCard(
                             // Apps, for any source naming some. It is also the one way back from an
                             // app kept from the source that does not depend on which mode the user
                             // patches in
-                            val (offeredApps, listedApps) = info.appCount
+                            val (broughtApps, listedApps, unseenApps) = info.appCount
                             if (listedApps > 0) {
                                 SettingsDivider()
 
+                                val count = if (broughtApps < listedApps) {
+                                    "$broughtApps/$listedApps"
+                                } else {
+                                    listedApps.toString()
+                                }
                                 InfoRow(
                                     icon = Icons.Outlined.Apps,
                                     label = stringResource(R.string.sources_apps),
-                                    value = if (offeredApps < listedApps) {
-                                        "$offeredApps/$listedApps"
+                                    value = if (unseenApps > 0) {
+                                        pluralStringResource(R.plurals.sources_apps_count_with_new, unseenApps, count, unseenApps)
                                     } else {
-                                        listedApps.toString()
+                                        count
                                     },
                                     onClick = actions.onAppsClick,
                                     enabled = !info.isUpdating

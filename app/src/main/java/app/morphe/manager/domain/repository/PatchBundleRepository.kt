@@ -12,6 +12,7 @@ package app.morphe.manager.domain.repository
 
 import android.app.Application
 import android.content.Context
+import android.database.SQLException
 import android.util.Log
 import androidx.annotation.StringRes
 import app.morphe.manager.BuildConfig
@@ -547,6 +548,14 @@ class PatchBundleRepository(
                 null
             }
         }.toMap()
+
+        // Recorded before the patches are published, so an app a source leaves out never gets a
+        // card first. A failure here costs the leaving out, not the source
+        try {
+            sourceMuteRepository.leaveOutNewApps(metadata)
+        } catch (e: SQLException) {
+            Log.e(tag, "Failed to leave out new apps", e)
+        }
 
         if (failures.isNotEmpty()) {
             dispatchAction("Mark bundles as failed") { state ->
@@ -1266,9 +1275,12 @@ class PatchBundleRepository(
      * reports as one download rather than one per source. A URL that is invalid, blocked or
      * already added is skipped, with one toast per kind of refusal.
      *
+     * With [onlyApp] each added source leaves out every other app it names, the ones it adds later
+     * included. It is recorded before the download starts, so the others never reach the home screen.
+     *
      * @return The uid of each source added, in the order of [urls].
      */
-    suspend fun createRemotes(urls: List<String>, autoUpdate: Boolean): List<Int> {
+    suspend fun createRemotes(urls: List<String>, autoUpdate: Boolean, onlyApp: String? = null): List<Int> {
         val added = CompletableDeferred<List<Int>>()
         dispatchAction("Add bundles (${urls.size})") { state ->
             val ready = state as? BundleState.Ready
@@ -1302,6 +1314,9 @@ class PatchBundleRepository(
             rejections.forEach { toast(it.messageRes) }
             if (created.isEmpty()) return@dispatchAction state
 
+            onlyApp?.let { app ->
+                created.forEach { sourceMuteRepository.setBringsNewApps(it.uid, false, setOf(app)) }
+            }
             update(*created.toTypedArray(), allowUnsafeNetwork = prefs.allowMeteredUpdates.get())
             ready.copy(sources = ready.sources.mutate { sources -> created.forEach { sources[it.uid] = it } })
         }
@@ -1340,11 +1355,21 @@ class PatchBundleRepository(
      * endpoint, lowercased. The built-in source's endpoint is an API identifier no link reads as,
      * so it is also known by the repository it publishes, in the form [toBlocklistKey] gives.
      */
-    private fun BundleState.Ready.remoteSourceKeys(): Set<String> = buildSet {
-        sources.values.filterIsInstance<RemotePatchBundle>().forEach { source ->
-            add(source.endpoint.lowercase(Locale.US))
-            if (source is APIPatchBundle) toBlocklistKey(normalizeRemoteBundleUrl(SOURCE_REPO_URL))?.let(::add)
-        }
+    private fun BundleState.Ready.remoteSourceKeys(): Set<String> =
+        sources.values.filterIsInstance<RemotePatchBundle>().flatMapTo(mutableSetOf()) { it.sourceKeys() }
+
+    private fun RemotePatchBundle.sourceKeys(): Set<String> = buildSet {
+        add(endpoint.lowercase(Locale.US))
+        if (this@sourceKeys is APIPatchBundle) toBlocklistKey(normalizeRemoteBundleUrl(SOURCE_REPO_URL))?.let(::add)
+    }
+
+    /** The source [url] would duplicate, by the same rule [createRemotes] turns it down with. */
+    fun existingSourceUid(url: String): Int? {
+        val ready = store.state.value as? BundleState.Ready ?: return null
+        val duplicate = RemoteUrlCheck.Rejected(RemoteSourceRejection.Duplicate)
+        return ready.sources.values.filterIsInstance<RemotePatchBundle>()
+            .firstOrNull { checkRemoteUrl(url, it.sourceKeys()) == duplicate }
+            ?.uid
     }
 
     /** Saves and loads a new remote source for [endpoint]. Do not use this outside an action. */

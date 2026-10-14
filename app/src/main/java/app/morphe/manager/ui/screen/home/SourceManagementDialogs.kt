@@ -27,7 +27,6 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalClipboard
@@ -1300,14 +1299,11 @@ fun SourceAppsDialog(
                 val gradientColors = appMetadata[packageName]?.gradientColors
                     ?: AppCardColorDefaults.defaultGradientColors
 
+                // Outside picking several, the card's mark and dimming tell whether the source brings it
                 SelectableCard(
-                    modifier = Modifier
-                        .animatedListItem(this)
-                        // An app left out reads as one this source no longer brings, the
-                        // same way the selection dims what it leaves unpicked
-                        .alpha(if (brought || isMultiSelectMode) 1f else 0.55f),
-                    isSelected = selection.contains(packageName),
-                    isSelectionMode = isMultiSelectMode
+                    modifier = Modifier.animatedListItem(this),
+                    isSelected = if (isMultiSelectMode) selection.contains(packageName) else brought,
+                    isSelectionMode = true
                 ) {
                     AppCardLayout(
                         gradientColors = gradientColors,
@@ -1328,10 +1324,6 @@ fun SourceAppsDialog(
                             displayName = label,
                             subtitle = listOfNotNull(
                                 stringResource(R.string.sources_apps_new).takeIf { packageName in newApps },
-                                stringResource(
-                                    if (brought) R.string.sources_apps_brought
-                                    else R.string.sources_apps_left_out
-                                ),
                                 pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())
                             ).joinToString(" · "),
                             gradientColors = gradientColors

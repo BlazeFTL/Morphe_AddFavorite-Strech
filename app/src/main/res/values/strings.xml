@@ -822,7 +822,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_pure_black">Pure Black</string>
     <string name="settings_appearance_pure_black_description">Uses true black backgrounds</string>
     <string name="settings_appearance_color_accents">App and source colors</string>
-    <string name="settings_appearance_color_accents_description">Uses each app\'s and source\'s own color instead of the accent color</string>
+    <string name="settings_appearance_color_accents_description">Uses each app\'s and source\'s color instead of the accent</string>
     <string name="settings_appearance_outlines">Outlines</string>
     <string name="settings_appearance_outlines_description">Draws a thin edge around cards, panels and buttons</string>
 
@@ -845,11 +845,11 @@ Uninstalling will permanently erase all app data"</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Home screen</string>
     <string name="settings_appearance_greeting_phrases">Greeting phrases</string>
-    <string name="settings_appearance_greeting_phrases_subtitle">Show a greeting message on the home screen</string>
+    <string name="settings_appearance_greeting_phrases_subtitle">Shows a greeting message</string>
     <string name="settings_appearance_repatch_notice">Re-patch notice</string>
-    <string name="settings_appearance_repatch_notice_description">Show a banner when patched apps can be re-patched</string>
+    <string name="settings_appearance_repatch_notice_description">Shows a banner when patched apps can be re-patched</string>
     <string name="settings_appearance_sort_button">Sort and filter button</string>
-    <string name="settings_appearance_sort_button_description">Show the sort and filter button on the home screen</string>
+    <string name="settings_appearance_sort_button_description">Shows a button to sort and filter apps</string>
     <string name="settings_appearance_app_card_colors">App card colors</string>
     <string name="settings_appearance_app_card_colors_default">Default</string>
     <string name="settings_appearance_app_card_colors_default_description">Give each app the color of its own bundle</string>
@@ -908,7 +908,7 @@ Uninstalling will permanently erase all app data"</string>
 
 Patches are not affected: enable pre-release patches for each source in the patch sources list"</string>
     <string name="settings_advanced_updates_allow_metered">Mobile data updates</string>
-    <string name="settings_advanced_updates_allow_metered_description">Allows Morphe and patch updates to download over mobile data</string>
+    <string name="settings_advanced_updates_allow_metered_description">Downloads Morphe and patch updates over mobile data</string>
     <string name="settings_advanced_updates_background_notifications">Background update notifications</string>
     <string name="settings_advanced_updates_background_notifications_description">Periodically check for updates in the background and notify when available</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Push notifications for new releases, even when the app is closed</string>
@@ -924,7 +924,7 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_update_interval_battery_warning">Background checks may not work reliably on some devices. Manufacturers like Xiaomi, Huawei, Samsung, and OnePlus often aggressively restrict background processes to save battery</string>
 
     <string name="settings_advanced_external_batch_patch">Allow external triggers</string>
-    <string name="settings_advanced_external_batch_patch_description">Lets automation apps start batch patching via an intent</string>
+    <string name="settings_advanced_external_batch_patch_description">Lets automation apps start batch patching</string>
     <string name="external_batch_patch_title">Start batch patching?</string>
     <string name="external_batch_patch_description">%s wants Morphe to patch and install apps</string>
     <string name="external_batch_patch_trust_caller">Always allow this app</string>
@@ -950,11 +950,11 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert">Expert settings</string>
     <string name="settings_advanced_expert_mode">Expert mode</string>
-    <string name="settings_advanced_expert_mode_description">Enables complex Morphe patching settings and customization options</string>
+    <string name="settings_advanced_expert_mode_description">Unlocks advanced patching settings and patch options</string>
     <string name="settings_advanced_expert_mode_dialog_title">Enable Expert mode?</string>
     <string name="settings_advanced_expert_mode_dialog_message">Expert mode gives more control over how patches are applied, but misconfiguring settings in expert mode can result in a non-functional app</string>
     <string name="settings_advanced_strip_unused_libs">Optimize for device architecture</string>
-    <string name="settings_advanced_strip_unused_libs_description">Removes unused CPU architecture libs and split APK modules</string>
+    <string name="settings_advanced_strip_unused_libs_description">Removes unused native libraries and APK splits</string>
 
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat" translatable="false">GitHub PAT</string>
@@ -1092,13 +1092,13 @@ The image dimensions must be as follows:
     <string name="installer_play_store_warning_risk">Play Store may offer updates for the patched app. Installing that update will overwrite the patched APK with the original version and remove the patches. If prompted to update, tap the three-dot menu on the app\'s Play Store page and choose \"Turn off updates\"</string>
     <string name="installer_play_store_warning_continue">I understand, continue</string>
     <string name="installer_play_store_mode">Install as Play Store</string>
-    <string name="installer_play_store_mode_description">Record Google Play Store as the installation source for this install method</string>
+    <string name="installer_play_store_mode_description">Marks Google Play Store as the install source</string>
     <string name="settings_prompt_installer_on_install">Installer selection prompt</string>
-    <string name="settings_prompt_installer_on_install_description">Shows installer selection dialog each time a patched app is installed</string>
+    <string name="settings_prompt_installer_on_install_description">Asks which installer to use for every install</string>
     <string name="settings_auto_install_with_shizuku">Auto-install after patching</string>
     <string name="settings_auto_install_with_shizuku_description">Installs the patched APK as soon as patching completes</string>
     <string name="settings_auto_uninstall_with_shizuku">Auto-uninstall on conflict</string>
-    <string name="settings_auto_uninstall_with_shizuku_description">When auto-installing with Shizuku, uninstall the existing app first if Android reports a signature conflict. This can remove app data</string>
+    <string name="settings_auto_uninstall_with_shizuku_description">Uninstalls the existing app on a signature conflict. This can remove app data</string>
     <string name="settings_auto_uninstall_warning_title">Enable auto-uninstall?</string>
     <string name="settings_auto_uninstall_warning_message">If Android reports a signature conflict during Shizuku auto-install, Morphe will uninstall the existing app before installing the patched APK</string>
     <string name="settings_auto_uninstall_warning_risk">This can remove app data. If the patched APK fails to install after uninstalling, the previous app may already be gone</string>
@@ -1137,14 +1137,14 @@ Details: %2$s"</string>
     <string name="settings_system_memory_limit_warning">A low memory limit may cause failures when patching larger apps</string>
     <string name="settings_system_memory_limit_high_warning">A high memory limit can make patching much slower on some devices. Raise it only if patching keeps failing at lower limits</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limit</string>
-    <string name="settings_system_process_runtime_disabled_description">Click to configure</string>
+    <string name="settings_system_process_runtime_disabled_description">Tap to configure</string>
     <string name="settings_system_process_runtime_description_not_available">This feature requires Android 11 or greater</string>
     <string name="settings_system_patcher_completion_sound">Completion sound</string>
     <string name="settings_system_patcher_completion_sound_description">Plays a distinct tone for success or failure when patching finishes</string>
 
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">Notifications</string>
-    <string name="settings_system_notifications_description">Configure background alerts and completion sounds</string>
+    <string name="settings_system_notifications_description">Configures background alerts and completion sounds</string>
     <string name="settings_system_notifications_success_sound">Success sound</string>
     <string name="settings_system_notifications_error_sound">Failure sound</string>
     <string name="settings_system_notifications_sound_default">Default</string>
@@ -1157,7 +1157,7 @@ Details: %2$s"</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Import &amp; export</string>
     <string name="settings_system_signing_key">Signing key</string>
-    <string name="settings_system_signing_key_description">Backs up and restores the key your patched apps are signed with</string>
+    <string name="settings_system_signing_key_description">Backs up or restores the key that signs patched apps</string>
     <string name="settings_system_signing_key_dialog_description">Every app Morphe patches is signed with this key. Keep a copy: without it, patched apps can only be updated after uninstalling them</string>
     <string name="settings_system_signing_key_missing">Morphe creates one with your first patch</string>
     <string name="settings_system_signing_key_created">Created %s</string>
@@ -1216,7 +1216,7 @@ Details: %2$s"</string>
 
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Storage management</string>
-    <string name="settings_system_storage_management_description">Review disk usage and clear cached files</string>
+    <string name="settings_system_storage_management_description">Shows disk usage and clears cached files</string>
     <string name="settings_system_storage_keystore_title">Signing keystore</string>
     <string name="settings_system_storage_app_data_title">App data</string>
     <string name="settings_system_storage_patch_bundles_title">Patch bundles</string>
@@ -1289,7 +1289,7 @@ Details: %2$s"</string>
 
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Custom file picker</string>
-    <string name="settings_system_custom_file_picker_description">Browse storage with Morphe\'s built-in file picker instead of the system default</string>
+    <string name="settings_system_custom_file_picker_description">Uses Morphe\'s built-in file picker instead of the system one</string>
 
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK download helper</string>

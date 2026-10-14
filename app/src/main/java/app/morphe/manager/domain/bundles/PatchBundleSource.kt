@@ -191,16 +191,19 @@ sealed class PatchBundleSource(
             )
         }
 
+        /** Get custom bundle avatar URL, see [bundleAvatarUrl]. */
+        val PatchBundleSource.bundleAvatarUrl: String? get() =
+            (this as? RemotePatchBundle)?.let { bundleAvatarUrl(it.endpoint) }
+
         /**
-         * Get custom bundle avatar URL (the PNG named after the bundle JSON, next to it).
+         * The PNG named after the bundle JSON at [endpoint], next to it.
          * Returns null if the endpoint does not point to a JSON file.
          */
-        val PatchBundleSource.bundleAvatarUrl: String? get() {
-            val remote = this as? RemotePatchBundle ?: return null
-            val path = remote.endpoint.substringBefore('?').substringBefore('#')
+        fun bundleAvatarUrl(endpoint: String): String? {
+            val path = endpoint.substringBefore('?').substringBefore('#')
             if (!path.endsWith(JSON_EXTENSION, ignoreCase = true)) return null
             // Keep the query and fragment, they can carry the credentials of a private host
-            return path.dropLast(JSON_EXTENSION.length) + ".png" + remote.endpoint.substring(path.length)
+            return path.dropLast(JSON_EXTENSION.length) + ".png" + endpoint.substring(path.length)
         }
 
         /**

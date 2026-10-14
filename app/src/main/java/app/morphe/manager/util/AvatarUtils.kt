@@ -167,11 +167,12 @@ fun Bitmap.accentColor(): Color? {
  */
 @Composable
 fun rememberAvatarAccent(url: String?, fallbackUrl: String? = null): Color? {
-    // An avatar already in the cache is read right away, so what shows it opens in its color
-    val known = remember(url, fallbackUrl) {
-        url?.let(AvatarCache::accent) ?: fallbackUrl?.let(AvatarCache::accent)
+    // An avatar already in the cache is read right away, so what shows it opens in its color. The
+    // fallback's only stands in while the avatar it backs up is tried
+    val known = remember(url) { url?.let(AvatarCache::accent) }
+    var accent by remember(url, fallbackUrl) {
+        mutableStateOf((known ?: fallbackUrl?.let(AvatarCache::accent))?.color)
     }
-    var accent by remember(url, fallbackUrl) { mutableStateOf(known?.color) }
     LaunchedEffect(url, fallbackUrl) {
         if (known != null) return@LaunchedEffect
         val loadedUrl = url?.takeIf { loadRemoteAvatar(it) != null }
@@ -215,13 +216,15 @@ fun RemoteAvatar(
     url: String,
     fallbackUrl: String? = null
 ) {
-    val cached = remember(url) { AvatarCache[url] ?: fallbackUrl?.let { AvatarCache[it] } }
-    var bitmap by remember(url) { mutableStateOf(cached) }
-    val alpha = remember(url) { Animatable(if (cached != null) 1f else 0f) }
+    val cached = remember(url) { AvatarCache[url] }
+    var bitmap by remember(url) { mutableStateOf(cached ?: fallbackUrl?.let { AvatarCache[it] }) }
+    val alpha = remember(url) { Animatable(if (bitmap != null) 1f else 0f) }
 
     LaunchedEffect(url, fallbackUrl) {
-        if (bitmap == null) {
+        // A cached fallback only stands in while the avatar it backs up is tried
+        if (cached == null) {
             bitmap = loadRemoteAvatar(url)
+                ?: bitmap
                 ?: fallbackUrl?.let { loadRemoteAvatar(it) }
         }
         if (bitmap != null) alpha.animateTo(1f, tween(Defaults.ANIMATION_DURATION))

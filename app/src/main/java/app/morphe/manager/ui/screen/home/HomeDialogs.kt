@@ -40,6 +40,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.BundleSourceType
 import app.morphe.manager.domain.bundles.PatchBundleSource
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.bundleAvatarUrl
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.ownerAvatarUrl
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
@@ -895,15 +896,17 @@ private val SourceMarkGap = 3.dp
 private val SourceRowIconSize = 40.dp
 
 /**
- * [icon] on a disc, covered by the picture at [pictureUrl] once it loads, with [mark] cut into its
- * corner the way the result of a patching run marks the app's icon.
+ * [icon] on a disc, covered by the picture at [pictureUrl], or at [fallbackPictureUrl] where that one
+ * fails, once it loads, with [mark] cut into its corner the way the result of a patching run marks
+ * the app's icon.
  */
 @Composable
 private fun SourceIcon(
     icon: ImageVector,
     mark: ImageVector,
     markColor: Color,
-    pictureUrl: String? = null
+    pictureUrl: String? = null,
+    fallbackPictureUrl: String? = null
 ) {
     val markSize = SourceIconSize * 0.4f
 
@@ -945,6 +948,7 @@ private fun SourceIcon(
             pictureUrl?.let {
                 RemoteAvatar(
                     url = it,
+                    fallbackUrl = fallbackPictureUrl,
                     modifier = Modifier
                         .fillMaxSize()
                         .background(MaterialTheme.colorScheme.primaryContainer)
@@ -994,6 +998,11 @@ fun DeepLinkAddSourceDialog(
     val bringsAppBack = packageName != null && isAdded
     // Links reach here for a repository only, which reads as owner/repo
     val repository = remoteLinkTitle(url)
+    val patchBundleRepository: PatchBundleRepository = koinInject()
+    // The picture a source ships beside its bundle, as an added source shows it
+    val bundlePicture = remember(url) {
+        runCatching { patchBundleRepository.normalizeRemoteBundleUrl(url) }.getOrNull()?.let(::bundleAvatarUrl)
+    }
 
     AddSourceConfirmDialog(
         heading = name ?: repository.substringAfter('/'),
@@ -1006,7 +1015,8 @@ fun DeepLinkAddSourceDialog(
                 icon = remoteLinkIcon(url),
                 mark = if (isAdded) Icons.Outlined.Check else remoteLinkIcon(url),
                 markColor = if (isAdded) SemanticTone.Success.accent else MaterialTheme.colorScheme.inverseSurface,
-                pictureUrl = ownerAvatarUrl(url)
+                pictureUrl = bundlePicture ?: ownerAvatarUrl(url),
+                fallbackPictureUrl = ownerAvatarUrl(url).takeIf { bundlePicture != null }
             )
         },
         // The header names the source, so only what the link narrows it to is listed

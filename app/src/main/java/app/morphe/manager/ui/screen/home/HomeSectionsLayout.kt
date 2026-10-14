@@ -14,7 +14,6 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -60,7 +59,6 @@ import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.KnownApps
-import app.morphe.manager.util.isRtl
 import kotlinx.coroutines.delay
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import kotlin.time.Duration.Companion.milliseconds
@@ -82,7 +80,6 @@ data class HomeAppListUi(
     val filterMode: HomeAppFilterMode,
     val categoryState: HomeAppCategoryState,
     val categoryViewMode: HomeAppCategoryViewMode,
-    val showCategoryViewSwitcher: Boolean,
     val sourceGroups: List<HomeAppSourceGroup>
 )
 
@@ -182,7 +179,7 @@ fun SectionsLayout(
         onToggle = { searchVisible.value = !searchVisible.value },
         onClose = { searchVisible.value = false }
     )
-    var showListOptionsDialog by remember { mutableStateOf(false) }
+    var showListOptionsSheet by remember { mutableStateOf(false) }
     // The saved filter applies only while the sort button is there to undo it. Not written back
     // when the button goes, since it is also absent while the list is still loading
     val filterMode = if (chromeFlags.showSortButton) apps.filterMode else HomeAppFilterMode.ALL
@@ -198,13 +195,15 @@ fun SectionsLayout(
     )
     val footerBar = remember { HomeFooterBarHost() }
 
-    if (showListOptionsDialog) {
-        HomeAppListOptionsDialog(
+    if (showListOptionsSheet) {
+        HomeAppListOptionsSheet(
             sortMode = apps.sortMode,
             filterMode = filterMode,
+            groupingMode = apps.categoryViewMode,
             onSortModeChange = appActions.onSortModeChange,
             onFilterModeChange = appActions.onFilterModeChange,
-            onDismiss = { showListOptionsDialog = false }
+            onGroupingModeChange = appActions.onCategoryViewModeChange,
+            onDismiss = { showListOptionsSheet = false }
         )
     }
 
@@ -231,7 +230,7 @@ fun SectionsLayout(
                     chromeFlags = chromeFlags,
                     filterMode = filterMode,
                     onClearFilter = onClearFilter,
-                    onSortClick = { showListOptionsDialog = true },
+                    onSortClick = { showListOptionsSheet = true },
                     state = sectionState,
                     footerBar = footerBar,
                     onboardingState = onboardingState
@@ -251,7 +250,7 @@ fun SectionsLayout(
                     filterMode = filterMode,
                     searchActive = searchState.visible,
                     onSearchClick = searchState.onToggle,
-                    onSortClick = { showListOptionsDialog = true },
+                    onSortClick = { showListOptionsSheet = true },
                     onSourcesPositioned = onboardingState?.let { s -> { b -> s.sourcesButtonBounds = b } },
                     onSettingsPositioned = onboardingState?.let { s -> { b -> s.settingsButtonBounds = b } }
                 )
@@ -308,7 +307,6 @@ private fun AdaptiveContent(
     val isAppsEmpty by remember(apps.visible, apps.installedAppsLoading) {
         derivedStateOf { !apps.installedAppsLoading && apps.visible.isEmpty() }
     }
-    val showGroupingFooter = !isAppsEmpty && apps.showCategoryViewSwitcher
     val showOtherAppsFooter = !isAppsEmpty && chromeFlags.showOtherAppsButton
     // Grouped views reserve the full list area so the footer keeps a stable position when
     // groups expand or collapse; the flat All-apps view lets the list wrap to its content
@@ -316,39 +314,6 @@ private fun AdaptiveContent(
     val isGroupedAppView = apps.categoryViewMode != HomeAppCategoryViewMode.ALL_APPS
     val trackContentBottom = Modifier.onGloballyPositioned {
         footerBar.contentBottom = it.boundsInWindow().bottom
-    }
-
-    // Horizontal swipe on the background cycles through the visible grouping modes
-    val modes = HomeAppCategoryViewMode.entries
-    val currentModeIndex = modes.indexOf(apps.categoryViewMode)
-    val canSwipeMode = apps.showCategoryViewSwitcher &&
-            !state.isMultiSelectMode &&
-            !state.isReorderMode &&
-            !state.isCategoryBarVisible &&
-            !searchState.visible
-    val swipeThresholdPx = with(LocalDensity.current) { 64.dp.toPx() }
-    val rtl = isRtl()
-    val modeSwipe = if (canSwipeMode) {
-        Modifier.pointerInput(currentModeIndex, rtl) {
-            var accumulator = 0f
-            detectHorizontalDragGestures(
-                onDragStart = { accumulator = 0f },
-                onDragEnd = {
-                    val direction = if (rtl) -1 else 1
-                    val delta = accumulator * direction
-                    when {
-                        delta <= -swipeThresholdPx && currentModeIndex < modes.lastIndex ->
-                            appActions.onCategoryViewModeChange(modes[currentModeIndex + 1])
-                        delta >= swipeThresholdPx && currentModeIndex > 0 ->
-                            appActions.onCategoryViewModeChange(modes[currentModeIndex - 1])
-                    }
-                    accumulator = 0f
-                },
-                onDragCancel = { accumulator = 0f }
-            ) { _, dragAmount -> accumulator += dragAmount }
-        }
-    } else {
-        Modifier
     }
 
     // Both layouts feed the list the same and only set it in their own padding
@@ -412,8 +377,7 @@ private fun AdaptiveContent(
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxWidth()
-                                .then(trackContentBottom)
-                                .then(modeSwipe),
+                                .then(trackContentBottom),
                             verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
@@ -432,10 +396,7 @@ private fun AdaptiveContent(
                         // Footer stays pinned to the bottom of the pane regardless of view mode
                         HomeFooterControls(
                             showOtherApps = showOtherAppsFooter,
-                            showGroupingSelector = showGroupingFooter,
-                            mode = apps.categoryViewMode,
                             onOtherAppsClick = chromeActions.onOtherAppsClick,
-                            onModeChange = appActions.onCategoryViewModeChange,
                             itemSpacing = itemSpacing,
                             modifier = Modifier
                                 .widthIn(max = maxCardWidth)
@@ -458,8 +419,7 @@ private fun AdaptiveContent(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
-                    .then(trackContentBottom)
-                    .then(modeSwipe),
+                    .then(trackContentBottom),
                 verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center
             ) {
                 // Section 2: Greeting - when disabled, show a small top spacer so
@@ -488,10 +448,7 @@ private fun AdaptiveContent(
             ) {
                 HomeFooterControls(
                     showOtherApps = showOtherAppsFooter,
-                    showGroupingSelector = showGroupingFooter,
-                    mode = apps.categoryViewMode,
                     onOtherAppsClick = chromeActions.onOtherAppsClick,
-                    onModeChange = appActions.onCategoryViewModeChange,
                     itemSpacing = itemSpacing,
                     modifier = Modifier
                         .padding(horizontal = contentPadding)
@@ -505,78 +462,35 @@ private fun AdaptiveContent(
 }
 
 /**
- * Fixed area below the app list that hosts the "Other apps" button and the optional
- * grouping-mode switcher. Kept as one composable so both children share a single Column
- * and animate in step.
+ * Fixed area below the app list that hosts the "Other apps" button.
  */
 @Composable
 private fun HomeFooterControls(
     showOtherApps: Boolean,
-    showGroupingSelector: Boolean,
-    mode: HomeAppCategoryViewMode,
     onOtherAppsClick: () -> Unit,
-    onModeChange: (HomeAppCategoryViewMode) -> Unit,
     itemSpacing: Dp,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AnimatedVisibility(
-            visible = showOtherApps,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
-            Column {
-                Spacer(modifier = Modifier.height(itemSpacing))
-                GlassButton(
-                    label = stringResource(R.string.home_other_apps_action),
-                    selected = false,
-                    onClick = onOtherAppsClick,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 12.dp),
-                    role = Role.Button,
-                    pressScale = true,
-                    hapticFeedback = true
-                )
-            }
-        }
-        AppGroupingFooter(
-            visible = showGroupingSelector,
-            mode = mode,
-            onModeChange = onModeChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = if (showOtherApps) 0.dp else 8.dp,
-                    bottom = 12.dp
-                )
-        )
-    }
-}
-
-/**
- * Thin wrapper that fades [AppGroupingToolbar] in and out with the standard home animations.
- */
-@Composable
-private fun AppGroupingFooter(
-    visible: Boolean,
-    mode: HomeAppCategoryViewMode,
-    onModeChange: (HomeAppCategoryViewMode) -> Unit,
-    modifier: Modifier = Modifier
-) {
     AnimatedVisibility(
-        visible = visible,
+        visible = showOtherApps,
+        modifier = modifier,
         enter = Animations.expandFadeEnter,
         exit = Animations.shrinkFadeExit
     ) {
-        AppGroupingToolbar(
-            mode = mode,
-            onModeChange = onModeChange,
-            modifier = modifier
-        )
+        Column {
+            Spacer(modifier = Modifier.height(itemSpacing))
+            GlassButton(
+                label = stringResource(R.string.home_other_apps_action),
+                selected = false,
+                onClick = onOtherAppsClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp),
+                role = Role.Button,
+                pressScale = true,
+                hapticFeedback = true
+            )
+        }
     }
 }
 

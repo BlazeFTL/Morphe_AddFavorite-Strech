@@ -69,11 +69,13 @@ import app.morphe.manager.domain.repository.appsBrought
 import app.morphe.manager.ui.screen.patcher.IncompatiblePatcherVersionDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import java.util.Locale
+import kotlin.time.Duration.Companion.milliseconds
 
 /** Enough placeholder rows to fill the sheet on open without implying a count. */
 private val SourceShimmerRows = (0 until 4).toList()
@@ -83,6 +85,12 @@ private const val BUNDLE_GLYPH_FRACTION = 0.55f
 
 /** How far a switched off source's icon and the lines under its name fade back. */
 private const val DISABLED_SOURCE_ALPHA = 0.7f
+
+/**
+ * How long the cards keep gliding after a new order is picked, enough for [Animations.listSpring]
+ * to settle.
+ */
+private val SortSettleTime = 600.milliseconds
 
 /**
  * Bottom sheet for managing patch bundles.
@@ -128,7 +136,7 @@ fun BundleManagementSheet(
     // Set when the user flips pre-releases on: the toggle waits for confirmation first,
     // so the meaning of unstable testing builds is explained before anything changes
     val bundleToConfirmPrerelease = remember { mutableStateOf<PatchBundleSource?>(null) }
-    var showSortDialog by remember { mutableStateOf(false) }
+    var showSortMenu by remember { mutableStateOf(false) }
     // Search is offered from two sources up
     val isSearchable = sources.size >= 2
     val search = rememberSearchFieldState(searchable = isSearchable)
@@ -152,6 +160,8 @@ fun BundleManagementSheet(
     }
     var localOrder by remember { mutableStateOf(sources.map { it.uid }) }
     var isDragging by remember { mutableStateOf(false) }
+    // Set while the cards move into a new sort order, see SortSettleTime
+    var isSettlingSort by remember { mutableStateOf(false) }
     LaunchedEffect(sources) {
         if (isDragging) return@LaunchedEffect
         val sourceUids = sources.map { it.uid }
@@ -163,6 +173,14 @@ fun BundleManagementSheet(
     val sortModePreference by prefs.sourceBundleSortMode.getAsState()
     val sourceSortMode = SourceBundleSortMode.fromPreference(sortModePreference)
     val isManualSort = sourceSortMode == SourceBundleSortMode.MANUAL
+    // The list otherwise holds on to whichever source led it, which a new order leaves somewhere
+    // in the middle, so a new order starts the list over from its top. Requested in the pass that
+    // brings the order, so the list is laid out from the top at once rather than a frame later
+    val listedSortMode = remember { mutableListOf(sourceSortMode) }
+    if (listedSortMode[0] != sourceSortMode) {
+        listedSortMode[0] = sourceSortMode
+        listState.requestScrollToItem(0)
+    }
     val orderedSources = remember(localOrder, sources, sourceSortMode) {
         sources.sortedForSourceSort(sourceSortMode, localOrder)
     }
@@ -296,16 +314,35 @@ fun BundleManagementSheet(
                             )
 
                             val activeSortLabel = stringResource(sourceSortMode.labelRes)
-                            TitleAction(
-                                icon = Icons.AutoMirrored.Outlined.Sort,
-                                contentDescription = stringResource(R.string.sort),
-                                onClick = { showSortDialog = true },
-                                modifier = Modifier.semantics {
-                                    role = Role.Button
-                                    stateDescription = activeSortLabel
-                                },
-                                style = TitleActionStyle.Neutral
-                            )
+                            Box {
+                                TitleAction(
+                                    icon = Icons.AutoMirrored.Outlined.Sort,
+                                    contentDescription = stringResource(R.string.sort),
+                                    onClick = { showSortMenu = true },
+                                    modifier = Modifier.semantics {
+                                        role = Role.Button
+                                        stateDescription = activeSortLabel
+                                    },
+                                    style = TitleActionStyle.Toggle,
+                                    active = showSortMenu
+                                )
+                                SortModeMenu(
+                                    expanded = showSortMenu,
+                                    onDismissRequest = { showSortMenu = false },
+                                    current = sourceSortMode,
+                                    options = sortModeOptions<SourceBundleSortMode>(),
+                                    onSelect = { mode ->
+                                        scope.launch {
+                                            // Raised ahead of the new order, so the pass that lays it
+                                            // out already moves the cards rather than placing them
+                                            isSettlingSort = true
+                                            prefs.sourceBundleSortMode.update(mode.name)
+                                            delay(SortSettleTime)
+                                            isSettlingSort = false
+                                        }
+                                    }
+                                )
+                            }
                         }
                     }
                     TitleAction(
@@ -385,10 +422,11 @@ fun BundleManagementSheet(
                             ReorderableItem(
                                 reorderableState,
                                 key = bundle.uid,
-                                // Only wanted while dragging: elsewhere it lags behind a card growing
-                                // on expand, letting it overlap the one below
-                                animateItemModifier = if (isDragging) {
-                                    Modifier.animateItem()
+                                // Only wanted while the cards change places, by a drag or a new sort
+                                // order: elsewhere it lags behind a card growing on expand, letting it
+                                // overlap the one below
+                                animateItemModifier = if (isDragging || isSettlingSort) {
+                                    Modifier.animatedListItem(this)
                                 } else {
                                     Modifier.animateItem(placementSpec = null)
                                 }
@@ -505,19 +543,6 @@ fun BundleManagementSheet(
                 }
             }
         }
-    }
-
-    if (showSortDialog) {
-        SortModeSelectionDialog(
-            title = stringResource(R.string.sources_sort_title),
-            current = sourceSortMode,
-            options = sortModeOptions<SourceBundleSortMode>(),
-            onSelect = { mode ->
-                scope.launch { prefs.sourceBundleSortMode.update(mode.name) }
-                showSortDialog = false
-            },
-            onDismiss = { showSortDialog = false }
-        )
     }
 
     // Delete confirmation dialog

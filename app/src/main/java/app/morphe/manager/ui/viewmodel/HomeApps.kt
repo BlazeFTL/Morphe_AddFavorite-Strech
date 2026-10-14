@@ -60,7 +60,6 @@ data class HomeAppState(
     val sortMode: HomeAppSortMode,
     val categoryState: HomeAppCategoryState,
     val categoryViewMode: HomeAppCategoryViewMode,
-    val showCategoryViewSwitcher: Boolean,
     val sourceGroups: List<HomeAppSourceGroup>
 )
 
@@ -106,7 +105,6 @@ internal data class HomeCards(
 private data class HomeCategoryPrefs(
     val categoryState: HomeAppCategoryState,
     val categoryViewMode: HomeAppCategoryViewMode,
-    val showCategoryViewSwitcher: Boolean,
     val expandedSourceGroups: Set<Int>
 )
 
@@ -343,13 +341,11 @@ class HomeApps(
     private val _homeCategoryPrefsFlow = combine(
         homeAppButtonPrefs.categoryState,
         homeAppButtonPrefs.categoryViewMode,
-        homeAppButtonPrefs.showCategoryViewSwitcher,
         homeAppButtonPrefs.expandedSourceGroups,
-    ) { categoryState, categoryViewMode, showCategoryViewSwitcher, expandedSourceGroups ->
+    ) { categoryState, categoryViewMode, expandedSourceGroups ->
         HomeCategoryPrefs(
             categoryState = categoryState,
             categoryViewMode = categoryViewMode,
-            showCategoryViewSwitcher = showCategoryViewSwitcher,
             expandedSourceGroups = expandedSourceGroups
         )
     }
@@ -458,7 +454,6 @@ class HomeApps(
         sortMode = sortMode,
         categoryState = categoryPrefs.categoryState,
         categoryViewMode = categoryPrefs.categoryViewMode,
-        showCategoryViewSwitcher = categoryPrefs.showCategoryViewSwitcher,
         sourceGroups = sourceGroups.map { group ->
             group.copy(collapsed = group.collapsible && group.uid !in categoryPrefs.expandedSourceGroups)
         }

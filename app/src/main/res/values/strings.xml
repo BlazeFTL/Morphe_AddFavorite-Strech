@@ -56,6 +56,9 @@
     <string name="home_app_filter_uninstalled_description">Apps patched with Morphe that are no longer on this device</string>
     <string name="home_app_filter_clones">Clones</string>
     <string name="home_app_filter_clones_description">Apps built under a package name of their own, installed alongside the original</string>
+    <string name="home_app_grouping_all_apps_description">One list with every app</string>
+    <string name="home_app_grouping_sources_description">Apps under the patch source that provides them</string>
+    <string name="home_app_grouping_custom_description">Apps in categories you create</string>
     <string name="home_app_sort_manual_description">Long-press an app, then tap reorder button</string>
     <string name="home_app_sort_recommended">Recommended order</string>
     <string name="home_app_sort_recommended_description">Installed and pinned apps first</string>
@@ -150,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch sources</string>
     <string name="sources_search">Search sources and patches</string>
-    <string name="sources_sort_title">Sort patch sources</string>
     <string name="sources_sort_manual">Manual order</string>
     <string name="sources_sort_manual_hint">Long-press a source to reorder</string>
     <string name="sources_sort_last_updated">Last updated</string>
@@ -835,8 +837,6 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_home_screen">Home screen</string>
     <string name="settings_appearance_greeting_phrases">Greeting phrases</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Show a greeting message on the home screen</string>
-    <string name="settings_appearance_app_grouping">App grouping</string>
-    <string name="settings_appearance_app_grouping_description">Show a switcher to group apps by source or category</string>
     <string name="settings_appearance_repatch_notice">Re-patch notice</string>
     <string name="settings_appearance_repatch_notice_description">Show a banner when patched apps can be re-patched</string>
     <string name="settings_appearance_sort_button">Sort and filter button</string>
@@ -1337,6 +1337,7 @@ Details: %2$s"</string>
     <string name="no">No</string>
     <string name="all">All</string>
     <string name="filter">Filter</string>
+    <string name="group">Group</string>
     <string name="reset">Reset</string>
     <string name="reset_all">Reset All</string>
     <string name="apply">Apply</string>

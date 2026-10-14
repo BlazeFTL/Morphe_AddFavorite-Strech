@@ -264,37 +264,65 @@ fun PanelActions(actions: List<SelectionAction>, enabled: Boolean = true) {
 
 @Composable
 private fun PanelActionRow(action: SelectionAction, enabled: Boolean) {
-    val alpha = if (enabled) 1f else Defaults.DISABLED_ALPHA
     val accent = action.tone.accentColor()
     // The icon carries the tone; the label only takes it as a warning, so the list reads as one
     // piece with its destructive entries standing out
-    val textColor = if (action.tone == ActionTone.Destructive) accent else MaterialTheme.colorScheme.onSurface
+    PanelRow(
+        title = action.label,
+        onClick = action.onClick,
+        icon = action.icon,
+        iconTint = accent,
+        titleColor = if (action.tone == ActionTone.Destructive) accent else MaterialTheme.colorScheme.onSurface,
+        enabled = enabled
+    )
+}
+
+/**
+ * One row of a panel in a [MultiSelectShell] or an [AppBottomSheet]: [icon] and [title] at the
+ * start and [trailing] after it, such as the value the row opens, which takes what the title leaves
+ * of the row. Every row of a panel is one of these, so its actions and its settings read as one list.
+ */
+@Composable
+fun PanelRow(
+    title: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    iconTint: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    titleColor: Color = MaterialTheme.colorScheme.onSurface,
+    enabled: Boolean = true,
+    trailing: (@Composable RowScope.() -> Unit)? = null
+) {
+    val alpha = if (enabled) 1f else Defaults.DISABLED_ALPHA
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             // Pressed like a menu item, on a rounded plate held off the panel's edge, so the
             // highlight does not run into the border and the corners the panel is drawn with
             .padding(horizontal = PanelActionInset)
             .clip(PanelActionShape)
             .heightIn(min = 48.dp)
-            .clickable(enabled = enabled, role = Role.Button, onClick = action.onClick)
+            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
             .padding(horizontal = Defaults.ContentPadding - PanelActionInset),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Icon(
-            imageVector = action.icon,
-            contentDescription = null,
-            tint = accent.copy(alpha = accent.alpha * alpha),
-            modifier = Modifier.size(Defaults.IconSize)
-        )
+        if (icon != null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = iconTint.copy(alpha = iconTint.alpha * alpha),
+                modifier = Modifier.size(Defaults.IconSize)
+            )
+        }
         // Set like the item rows across the app
         Text(
-            text = action.label,
+            text = title,
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Medium,
-            color = textColor.copy(alpha = textColor.alpha * alpha)
+            color = titleColor.copy(alpha = titleColor.alpha * alpha)
         )
+        trailing?.invoke(this)
     }
 }
 

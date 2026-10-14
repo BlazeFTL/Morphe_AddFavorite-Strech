@@ -74,7 +74,6 @@ fun AppearanceTabContent(
     val outlines by themeViewModel.prefs.outlines.getAsState()
     val appCardColorMode by themeViewModel.prefs.appCardColorMode.getAsState()
     val customAppCardColors by themeViewModel.prefs.customAppCardColors.getAsState()
-    val showAppGroupingSwitcher by homeAppButtonPrefs.showCategoryViewSwitcher.collectAsStateWithLifecycle()
     val showSortButton by homeAppButtonPrefs.showSortButton.collectAsStateWithLifecycle()
     val backgroundType by themeViewModel.prefs.backgroundType.getAsState()
     val enableParallax by themeViewModel.prefs.enableBackgroundParallax.getAsState()
@@ -157,11 +156,9 @@ fun AppearanceTabContent(
             showGreetingPhrases = showGreetingPhrases,
             showRepatchNotice = showRepatchNotice,
             showSortButton = showSortButton,
-            showAppGrouping = showAppGroupingSwitcher,
             onGreetingPhrasesToggle = { themeViewModel.toggleShowGreetingPhrases(showGreetingPhrases) },
             onRepatchNoticeToggle = { themeViewModel.toggleShowRepatchNotice(showRepatchNotice) },
-            onSortButtonToggle = { homeAppButtonPrefs.setShowSortButton(!showSortButton) },
-            onAppGroupingToggle = { homeAppButtonPrefs.setShowCategoryViewSwitcher(!showAppGroupingSwitcher) }
+            onSortButtonToggle = { homeAppButtonPrefs.setShowSortButton(!showSortButton) }
         )
     }
 
@@ -478,11 +475,9 @@ private fun HomeScreenSection(
     showGreetingPhrases: Boolean,
     showRepatchNotice: Boolean,
     showSortButton: Boolean,
-    showAppGrouping: Boolean,
     onGreetingPhrasesToggle: () -> Unit,
     onRepatchNoticeToggle: () -> Unit,
-    onSortButtonToggle: () -> Unit,
-    onAppGroupingToggle: () -> Unit
+    onSortButtonToggle: () -> Unit
 ) {
     SectionTitle(
         text = stringResource(R.string.settings_appearance_home_screen),
@@ -512,14 +507,6 @@ private fun HomeScreenSection(
             icon = Icons.AutoMirrored.Outlined.Sort,
             checked = showSortButton,
             onToggle = onSortButtonToggle
-        )
-        SettingsDivider()
-        SettingsSwitchItem(
-            title = stringResource(R.string.settings_appearance_app_grouping),
-            subtitle = stringResource(R.string.settings_appearance_app_grouping_description),
-            icon = Icons.Outlined.ViewAgenda,
-            checked = showAppGrouping,
-            onToggle = onAppGroupingToggle
         )
     }
 }

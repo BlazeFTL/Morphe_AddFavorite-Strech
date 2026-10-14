@@ -8,45 +8,24 @@ package app.morphe.manager.ui.screen.patcher
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.*
-import androidx.compose.foundation.background
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Launch
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.DeleteForever
-import androidx.compose.material.icons.filled.PriorityHigh
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.outlined.DoneAll
-import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.InstallMobile
-import androidx.compose.material.icons.outlined.Link
-import androidx.compose.material.icons.outlined.LinkOff
-import androidx.compose.material.icons.outlined.Save
-import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material.icons.outlined.Source
-import androidx.compose.material.icons.outlined.SportsEsports
-import androidx.compose.material.icons.outlined.Tune
-import androidx.compose.material.icons.outlined.Update
-import androidx.compose.material.icons.outlined.Warning
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.pluralStringResource
@@ -56,14 +35,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchSourceRef
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstallViewModel.InstallState
 import app.morphe.manager.ui.viewmodel.labelRes
-import app.morphe.manager.util.contrastingContent
 import app.morphe.manager.util.withVersionPrefix
 
 /**
@@ -556,7 +533,7 @@ private fun ResultHeader(status: ResultStatus, packageName: String, windowSize: 
         Row(
             modifier = Modifier.fillMaxWidth(),
             // The status mark overhangs the icon, so the gap is measured from the mark
-            horizontalArrangement = Arrangement.spacedBy(windowSize.itemSpacing + ResultMarkOverhang),
+            horizontalArrangement = Arrangement.spacedBy(windowSize.itemSpacing + IconMarkOverhang),
             verticalAlignment = Alignment.CenterVertically
         ) {
             ResultIcon(status, packageName, iconSize = 64.dp)
@@ -633,63 +610,26 @@ private fun ResultSubtitle(status: ResultStatus, textAlign: TextAlign) {
     }
 }
 
-/** How far the status mark hangs past the corner of the app's icon. */
-private val ResultMarkOverhang = 6.dp
-
-/** Width of the gap cut out of the app's icon around the status mark, within its size. */
-private val ResultMarkGap = 3.dp
-
 /** The patched app's own icon carrying the [status]'s mark, set off by a [resultPulse]. */
 @Composable
 private fun ResultIcon(status: ResultStatus, packageName: String, iconSize: Dp) {
     val color = status.color()
-    val markSize = iconSize * 0.4f
 
-    Box(
+    MarkedIcon(
+        mark = status.icon,
+        markColor = color,
+        iconSize = iconSize,
+        contentFraction = AppIconContentFraction,
         modifier = Modifier
             // Room for the overhanging mark, so it keeps its distance from the badge under it
-            .padding(bottom = ResultMarkOverhang)
-            .size(iconSize)
+            .padding(bottom = IconMarkOverhang)
             .resultPulse(color, from = iconSize)
     ) {
         AppIcon(
             packageName = packageName,
             contentDescription = null,
-            modifier = Modifier
-                .fillMaxSize()
-                // The gap is cleared from the icon rather than painted over it, so it shows
-                // whatever lies behind, the pulse included
-                .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
-                .drawWithContent {
-                    drawContent()
-                    val cutRadius = markSize.toPx() / 2f
-                    val inset = cutRadius - ResultMarkOverhang.toPx()
-                    // The mark sits at the end corner, which is the left one in RTL
-                    val centerX = if (layoutDirection == LayoutDirection.Rtl) inset else size.width - inset
-                    drawCircle(
-                        color = Color.Black,
-                        radius = cutRadius,
-                        center = Offset(centerX, size.height - inset),
-                        blendMode = BlendMode.Clear
-                    )
-                }
+            modifier = Modifier.fillMaxSize()
         )
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .offset(x = ResultMarkOverhang, y = ResultMarkOverhang)
-                .size(markSize)
-                .padding(ResultMarkGap)
-                .background(color, CircleShape),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = status.icon,
-                contentDescription = null,
-                modifier = Modifier.size(iconSize * 0.24f),
-                tint = color.contrastingContent()
-            )
-        }
     }
 }
 

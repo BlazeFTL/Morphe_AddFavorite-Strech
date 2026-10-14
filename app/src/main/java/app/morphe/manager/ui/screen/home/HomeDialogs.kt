@@ -21,12 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.CompositingStrategy
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
@@ -35,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.BundleSourceType
@@ -886,12 +880,6 @@ private fun AddSourceConfirmDialog(
 /** Size of the source's icon, the one a patching run's result gives the app's on a phone. */
 private val SourceIconSize = 112.dp
 
-/** How far the mark hangs past the corner of the source's icon. */
-private val SourceMarkOverhang = 6.dp
-
-/** Width of the gap cut out of the source's icon around the mark. */
-private val SourceMarkGap = 3.dp
-
 /** Size of an app's icon in a row of what a link adds. */
 private val SourceRowIconSize = 40.dp
 
@@ -908,32 +896,16 @@ private fun SourceIcon(
     pictureUrl: String? = null,
     fallbackPictureUrl: String? = null
 ) {
-    val markSize = SourceIconSize * 0.4f
-
-    Box(
-        modifier = Modifier
-            .padding(bottom = SourceMarkOverhang)
-            .size(SourceIconSize)
+    MarkedIcon(
+        mark = mark,
+        markColor = markColor,
+        iconSize = SourceIconSize,
+        modifier = Modifier.padding(bottom = IconMarkOverhang)
     ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxSize()
-                // The gap is cleared from the disc rather than painted over it, so it shows the
-                // dialog behind whatever its color
-                .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
-                .drawWithContent {
-                    drawContent()
-                    val cutRadius = markSize.toPx() / 2f
-                    val inset = cutRadius - SourceMarkOverhang.toPx()
-                    val centerX = if (layoutDirection == LayoutDirection.Rtl) inset else size.width - inset
-                    drawCircle(
-                        color = Color.Black,
-                        radius = cutRadius,
-                        center = Offset(centerX, size.height - inset),
-                        blendMode = BlendMode.Clear
-                    )
-                }
                 .clip(CircleShape)
                 .background(MaterialTheme.colorScheme.primaryContainer)
         ) {
@@ -954,22 +926,6 @@ private fun SourceIcon(
                         .background(MaterialTheme.colorScheme.primaryContainer)
                 )
             }
-        }
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .offset(x = SourceMarkOverhang, y = SourceMarkOverhang)
-                .size(markSize)
-                .padding(SourceMarkGap)
-                .background(markColor, CircleShape)
-        ) {
-            Icon(
-                imageVector = mark,
-                contentDescription = null,
-                tint = markColor.contrastingContent(),
-                modifier = Modifier.size(SourceIconSize * 0.24f)
-            )
         }
     }
 }

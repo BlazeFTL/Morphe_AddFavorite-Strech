@@ -1158,39 +1158,46 @@ private fun WarningBanner(
                 }
             }
 
-            // Action button
-            PrimaryActionButton(
-                action = action,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            // Side by side, because the banner's own button is the one meant to stand out and a
-            // column of full-width buttons under it reads as three offers of equal weight
-            val shownActions = rememberLatest(secondaryActions.takeIf { it.isNotEmpty() })
-            AnimatedVisibility(
-                visible = secondaryActions.isNotEmpty(),
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
+            // Buttons sit as far apart as the dialog's own, only the text over them sits closer
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                // Action button
+                PrimaryActionButton(
+                    action = action,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                // Side by side, because the banner's own button is the one meant to stand out and a
+                // column of full-width buttons under it reads as three offers of equal weight
+                val shownActions = rememberLatest(secondaryActions.takeIf { it.isNotEmpty() })
+                AnimatedVisibility(
+                    visible = secondaryActions.isNotEmpty(),
+                    enter = Animations.expandFadeEnter,
+                    exit = Animations.shrinkFadeExit
                 ) {
-                    shownActions?.forEach { action ->
-                        // One that joins a row already on screen fades in rather than popping up
-                        key(action.text) {
-                            val appeared = remember { MutableTransitionState(false) }
-                            appeared.targetState = true
-                            AnimatedVisibility(
-                                visibleState = appeared,
-                                enter = Animations.fadeIn,
-                                modifier = Modifier.weight(1f)
-                            ) {
-                                TileActionButton(
-                                    action = action,
-                                    horizontal = true,
-                                    modifier = Modifier.fillMaxWidth()
-                                )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+                    ) {
+                        shownActions?.forEach { action ->
+                            // One that joins a row already on screen fades in rather than
+                            // popping up
+                            key(action.text) {
+                                val appeared = remember { MutableTransitionState(false) }
+                                appeared.targetState = true
+                                AnimatedVisibility(
+                                    visibleState = appeared,
+                                    enter = Animations.fadeIn,
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    TileActionButton(
+                                        action = action,
+                                        horizontal = true,
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                }
                             }
                         }
                     }
@@ -1575,7 +1582,7 @@ private fun ActionsSection(
 ) {
     Column(
         modifier = modifier.animateContentSize(animationSpec = tween(Defaults.ANIMATION_DURATION)),
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
         primary?.let { PrimaryActionButton(action = it, modifier = Modifier.fillMaxWidth()) }
 
@@ -1586,7 +1593,7 @@ private fun ActionsSection(
         } else {
             tiles.chunked(2).forEach { rowActions ->
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     rowActions.forEach { action ->

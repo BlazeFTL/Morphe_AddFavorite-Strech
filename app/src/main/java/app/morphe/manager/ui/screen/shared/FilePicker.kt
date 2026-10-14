@@ -241,7 +241,7 @@ fun FilePicker(
     var currentDir by remember { mutableStateOf(downloadsDir) }
     var refreshKey by remember { mutableIntStateOf(0) }
     var sortMode by remember {
-        mutableStateOf(enumByNameOrNull<SortMode>(prefs.filePickerSortMode.getBlocking()) ?: SortMode.NAME_ASC)
+        mutableStateOf(enumByNameOrNull<SortMode>(prefs.filePickerSortMode.getBlocking()) ?: SortMode.DATE_DESC)
     }
     var showHiddenFiles by remember { mutableStateOf(prefs.filePickerShowHiddenFiles.getBlocking()) }
     var showViewMenu by remember { mutableStateOf(false) }

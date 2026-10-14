@@ -123,6 +123,8 @@ class RootInstaller(
                         "mount -o bind $patchedPath $stockPath; " +
                         mountInZygoteNamespacesCommand(patchedPath, stockPath) + "; " +
                         replaceOtherMountsCommand(patchedAPK, stockPath) + "; " +
+                        frameworkWatcherCommand(packageName, "watch") + "; " +
+                        moduleStatusCommand(packageName, "Mounted the patched APK in Morphe") + "; " +
                         "am force-stop ${packageName.shellQuote()}"
             ).assertSuccess("Failed to mount APK")
             _mountChanges.emit(packageName)
@@ -138,6 +140,8 @@ class RootInstaller(
             // Force-stop the app so it restarts clean without the unmounted patched APK.
             execute(
                 unmountBindCommands(stockPath) + "; " +
+                        frameworkWatcherCommand(packageName, "stop") + "; " +
+                        moduleStatusCommand(packageName, "Unmounted in Morphe until the next boot") + "; " +
                         "am force-stop ${packageName.shellQuote()}"
             ).assertSuccess("Failed to unmount APK")
             _mountChanges.emit(packageName)
@@ -264,6 +268,23 @@ class RootInstaller(
 
         execute("rm -rf ${"$MODULES_PATH/${moduleId(packageName)}".shellQuote()}")
             .assertSuccess("Failed to delete files")
+    }
+
+    /**
+     * Starts ("watch") or stops ("stop") the module's watcher for a framework restart, see service.sh,
+     * in init's mount namespace where the framework starts. An older module's script has no watcher
+     * and would mount the app all over again instead, so it is left alone.
+     */
+    private fun frameworkWatcherCommand(packageName: String, action: String): String {
+        val script = "$MODULES_PATH/${moduleId(packageName)}/service.sh".shellQuote()
+        return "if grep -q watch_framework_restarts $script; then " +
+                "(nsenter -t 1 -m -- sh $script $action </dev/null >/dev/null 2>&1 &); fi"
+    }
+
+    /** Sets the description root managers show for the module, so it does not read as mounted once unmounted. */
+    private fun moduleStatusCommand(packageName: String, status: String): String {
+        val prop = "$MODULES_PATH/${moduleId(packageName)}/module.prop".shellQuote()
+        return "sed -i ${"s|^description=.*|description=$status|".shellQuote()} $prop 2>/dev/null"
     }
 
     /**

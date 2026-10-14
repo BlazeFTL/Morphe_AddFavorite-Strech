@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Download
+import androidx.compose.material.icons.outlined.FolderCopy
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material.icons.outlined.Tune
@@ -84,7 +85,7 @@ fun FilesAndStorageSection(
     ) {
         SectionTitle(
             text = stringResource(R.string.settings_system_files),
-            icon = Icons.Outlined.Storage
+            icon = Icons.Outlined.FolderCopy
         )
 
         SettingsGroup {

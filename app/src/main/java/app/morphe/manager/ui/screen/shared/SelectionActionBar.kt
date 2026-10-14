@@ -30,9 +30,6 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 
-/** Shape of the [MultiSelectShell] surface: rounded where it leaves the bottom edge, like a sheet. */
-private val ShellShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
-
 /**
  * Slide-up surface hosting a selection panel or a reorder bar. It sits on the bottom edge of the
  * screen like a sheet, with its content kept clear of the navigation bar, so it is meant for the
@@ -64,12 +61,12 @@ fun MultiSelectShell(
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .predictiveBackSlide(backProgress),
-            shape = ShellShape,
+                .predictiveBackSlide(backProgress)
+                .sheetBorder(CardBorder.neutral, SheetShape),
+            shape = SheetShape,
             // Drawn like an AppBottomSheet, on the dialogs' background with an edge of its own, so
             // a panel docked over a list reads as the same kind of surface as a sheet
             color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.background),
-            border = CardBorder.neutral,
             shadowElevation = 8.dp
         ) {
             Box(modifier = Modifier.navigationBarsPadding().padding(bottom = 4.dp)) { content() }

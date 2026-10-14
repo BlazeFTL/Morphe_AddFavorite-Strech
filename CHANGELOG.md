@@ -1,3 +1,18 @@
+# [1.36.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.35.1-dev.1...v1.36.0-dev.1) (2026-10-14)
+
+
+### Bug Fixes
+
+* Let dialogs fill narrow screens up to the shared content width ([#1150](https://github.com/MorpheApp/morphe-manager/issues/1150)) ([3cc5739](https://github.com/MorpheApp/morphe-manager/commit/3cc57395a6e0ed2fd081ac4369c2c58e05e51bd4))
+
+
+### Features
+
+* Let a patch update be ignored until the next release of its source ([a75a3f4](https://github.com/MorpheApp/morphe-manager/commit/a75a3f4bd3e70b350a2943b6459ffe82a1ad41f2))
+* Pick sorting, filtering and grouping of home apps from one sheet ([6ff2b73](https://github.com/MorpheApp/morphe-manager/commit/6ff2b73919caa457eb110c9d4f7d89b588f917a1))
+* Share patched APKs from the result screen and keep its actions in reach at any font size ([5d63cce](https://github.com/MorpheApp/morphe-manager/commit/5d63cce71d7dc154c0f77fc8d5dbd732c8540e46))
+* Show the newest files first in the file picker by default ([ea1e242](https://github.com/MorpheApp/morphe-manager/commit/ea1e24259aeb579dd2b4e57d309a9140616597c7))
+
 ## [1.35.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.35.0...v1.35.1-dev.1) (2026-10-10)
 
 

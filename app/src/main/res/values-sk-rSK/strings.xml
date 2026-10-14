@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Pridať zdroj</string>
     <string name="deep_link_add_source_message">Chcete pridať tento zdroj záplat do Morphe?</string>
     <string name="deep_link_add_source_warning">Pridávajte len zdroje, ktorým dôverujete</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Pridaná je iba táto aplikácia. Iné aplikácie môžete pridať zo zoznamu aplikácií zdroja</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Je dostupná aktualizácia Morphe</string>
     <string name="home_update_available_subtitle">Nová verzia je pripravená na inštaláciu</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Aplikácie opatchované pomocou Morphe, ktoré už nie sú v tomto zariadení</string>
     <string name="home_app_filter_clones">Klonované</string>
     <string name="home_app_filter_clones_description">Aplikácie vytvorené pod vlastným názvom balíka, inštalované popri origináli</string>
+    <string name="home_app_grouping_all_apps_description">Jeden zoznam so všetkými aplikáciami</string>
+    <string name="home_app_grouping_sources_description">Aplikácie pod zdrojom záplaty, ktorý ich poskytuje</string>
+    <string name="home_app_grouping_custom_description">Aplikácie v kategóriách, ktoré vytvoríte</string>
     <string name="home_app_sort_manual_description">Dlhým stlačením aplikácie a potom klepnutím na tlačidlo zoradiť</string>
     <string name="home_app_sort_recommended">Odporúčaná verzia</string>
     <string name="home_app_sort_recommended_description">Najprv nainštalované a pripnuté aplikácie</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Zdroje záplat</string>
     <string name="sources_search">Hľadať zdroje a záplaty</string>
-    <string name="sources_sort_title">Zoradiť zdroje záplat</string>
     <string name="sources_sort_manual">Manuálne zoradenie</string>
     <string name="sources_sort_manual_hint">Dlhým stlačením položky zdroja ju môžete presunúť</string>
     <string name="sources_sort_last_updated">Posledná aktualizácia</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Vynechať</string>
     <string name="sources_apps_leave_out_done">Vynechané</string>
     <string name="sources_apps_bring_back">Vrátiť späť</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nové</string>
+    <string name="sources_apps_new_apps">Priniesť nové aplikácie</string>
+    <string name="sources_apps_new_apps_on_description">Aplikácie, ktoré tento zdroj neskôr začne podporovať, sa automaticky objavia na domovskej obrazovke</string>
+    <string name="sources_apps_new_apps_off_description">Aplikácie, ktoré tento zdroj neskôr začne podporovať, zostanú vylúčené, kým ich sem znova neprinesiete</string>
     <string name="sources_management_prerelease_toggle">Použiť predbežne vydané záplaty</string>
     <string name="sources_management_prerelease_toggle_description">Získajte skorší prístup k novým experimentálnym verziám záplat</string>
     <string name="sources_prerelease_warning_title">Povoliť predbežné opravy?</string>
@@ -777,8 +787,6 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_home_screen">Domovská obrazovka</string>
     <string name="settings_appearance_greeting_phrases">Pozdravné frázy</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zobrazovať pozdravnú správu na domovskej obrazovke</string>
-    <string name="settings_appearance_app_grouping">Zoskupovanie aplikácií</string>
-    <string name="settings_appearance_app_grouping_description">Zobraziť prepínač na zoskupenie aplikácií podľa zdroja alebo kategórie</string>
     <string name="settings_appearance_repatch_notice">Upozornenie na opätovné záplatovanie</string>
     <string name="settings_appearance_repatch_notice_description">Zobraziť banner, keď je možné upravené aplikácie znova upraviť</string>
     <string name="settings_appearance_sort_button">Tlačidlo triedenia a filtrovania</string>
@@ -1248,6 +1256,7 @@ Podrobnosti: %2$s"</string>
     <string name="no">Nie</string>
     <string name="all">Všetko</string>
     <string name="filter">Filter</string>
+    <string name="group">Zoskupiť</string>
     <string name="reset">Obnoviť</string>
     <string name="reset_all">Obnoviť všetko</string>
     <string name="apply">Použiť</string>
@@ -1315,6 +1324,10 @@ Podrobnosti: %2$s"</string>
     <string name="available">Dostupné</string>
     <string name="continue_">Pokračovať</string>
     <string name="version">Verzia</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Autor</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Súbor</string>
     <string name="clone">Klonovať</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Zaplátať</string>

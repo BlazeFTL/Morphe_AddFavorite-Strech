@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">소스 추가</string>
     <string name="deep_link_add_source_message">이 패치 소스를 Morphe에 추가하시겠습니까?</string>
     <string name="deep_link_add_source_warning">신뢰할 수 있는 소스만 추가하세요</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">이 앱만 추가되었습니다. 소스의 앱 목록에서 다른 앱을 추가할 수 있습니다</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">이 소스는 이미 추가되었습니다. 기존 소스에서 이 앱을 추가하시겠습니까?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe 업데이트 사용 가능</string>
     <string name="home_update_available_subtitle">새 버전 설치 준비 완료</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Morphe로 패치되었지만 더 이상 이 기기에 없는 앱</string>
     <string name="home_app_filter_clones">복제본</string>
     <string name="home_app_filter_clones_description">자체 패키지명으로 빌드되어 원본 앱과 함께 설치된 앱</string>
+    <string name="home_app_grouping_all_apps_description">모든 앱이 포함된 목록</string>
+    <string name="home_app_grouping_sources_description">앱을 제공하는 패치 소스 아래에 있는 앱들</string>
+    <string name="home_app_grouping_custom_description">사용자가 생성한 카테고리에 있는 앱들</string>
     <string name="home_app_sort_manual_description">앱을 길게 탭한 후에 정렬 버튼을 탭하면 순서를 변경할 수 있습니다</string>
     <string name="home_app_sort_recommended">권장 순서</string>
     <string name="home_app_sort_recommended_description">설치된 앱 및 고정된 앱을 먼저 표시</string>
@@ -125,8 +132,8 @@
     <string name="home_greeting_super_late_5">야행성이면서 생산적이네요</string>
     <!-- Halloween greetings, shown instead of the ones above around October 31 -->
     <!-- Pun on "Trick or treat" -->
-    <string name="home_greeting_halloween_1">장난이 좋으신가요, 아니면 패치가 좋으신가요?</string>
-    <string name="home_greeting_halloween_2">APK에는 유령 같은 문제는 없어요. 저희가 꼼꼼히 확인했어요</string>
+    <string name="home_greeting_halloween_1">트릭일까요, 패치일까요?</string>
+    <string name="home_greeting_halloween_2">이 APK에는 유령이 없어요. 저희가 꼼꼼히 확인했어요</string>
     <string name="home_greeting_halloween_3">오싹한 할로윈 시즌, 새로운 패치가 찾아왔습니다</string>
     <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
     <string name="home_greeting_halloween_4">무시무시한 무언가가 패치되어 찾아옵니다</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">패치 소스</string>
     <string name="sources_search">소스 및 패치 검색</string>
-    <string name="sources_sort_title">패치 소스 정렬</string>
     <string name="sources_sort_manual">수동 정렬</string>
     <string name="sources_sort_manual_hint">소스를 길게 탭하여 순서를 변경하세요</string>
     <string name="sources_sort_last_updated">최근 업데이트 우선</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">제외하기</string>
     <string name="sources_apps_leave_out_done">제외됨</string>
     <string name="sources_apps_bring_back">다시 가져오기</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">신규</string>
+    <string name="sources_apps_new_apps">새 앱 추가</string>
+    <string name="sources_apps_new_apps_on_description">이 소스에서 지원 시작을 늦게 시작한 앱은 자동으로 홈 화면에 나타납니다</string>
+    <string name="sources_apps_new_apps_off_description">이 소스에서 지원 시작을 늦게 시작한 앱은 다시 여기에 가져오기 전까지 제외됩니다</string>
     <string name="sources_management_prerelease_toggle">Pre-release 패치</string>
     <string name="sources_management_prerelease_toggle_description">새 실험 패치 버전을 미리 받아보세요</string>
     <string name="sources_prerelease_warning_title">Pre-release 패치 활성화</string>
@@ -182,8 +193,8 @@
     <string name="sources_management_outdated_manager_hint">이 소스는 패처 %1$s용으로 빌드되었지만, Morphe %2$s에는 패처 %3$s가 포함되어 있습니다. 이를 사용하려면 Morphe를 업데이트하세요</string>
     <string name="sources_management_held_back_badge">충돌 발생</string>
     <string name="sources_management_held_back_hint">이 소스를 불러오는 동안 Morphe가 충돌하여 현재 건너뛰고 있습니다. 다시 시도하려면 소스를 업데이트하거나 다시 가져오세요</string>
-    <string name="sources_management_source_enabled">소스를 활성화하였습니다</string>
-    <string name="sources_management_source_disabled">소스를 비활성화하였습니다</string>
+    <string name="sources_management_source_enabled">소스가 활성화됨</string>
+    <string name="sources_management_source_disabled">소스가 비활성화됨</string>
     <string name="sources_management_source_updating">소스를 업데이트하는 중</string>
     <!-- Home Screen - Sources Dialogs -->
     <string name="sources_dialog_display_name">표시 이름</string>
@@ -410,7 +421,7 @@
     <string name="adaptive_icon_guide_safe_zones_title">안전한 영역</string>
     <string name="adaptive_icon_guide_safe_zones_body">윤곽선은 런처 아이콘 모양을 보여주고, 윤곽선 바깥쪽은 모두 잘려 나갑니다. 다른 런처는 다른 모양을 사용하므로 모든 모양에 표시되는 점선 원 안에 중요한 세부 정보를 유지하세요</string>
     <string name="adaptive_icon_guide_notification_title">알림 아이콘</string>
-    <string name="adaptive_icon_guide_notification_body">아이콘은 이미지에서 실제로 보이는 부분을 기준으로 잘라내고, 파일에 포함된 여백을 유지한 상태에서 상태 표시줄 아이콘과 비슷한 크기로 조정됩니다. 미리보기 아래의 슬라이더를 이용해 크기와 여백을 조절할 수 있습니다. Android에서는 이 아이콘이 단색으로 표시됩니다</string>
+    <string name="adaptive_icon_guide_notification_body">이미지에서 실제로 보이는 부분만 잘라내고, 파일에 여백이 얼마나 있든 상관없이 다른 상태바 아이콘과 같은 크기로 조정하세요. 미리보기 아래의 슬라이더를 사용해 크기를 조절할 수 있습니다. Android에서는 아이콘이 단색으로 표시됩니다</string>
     <string name="adaptive_icon_guide_monochrome_title">테마 아이콘</string>
     <string name="adaptive_icon_guide_monochrome_body">런처 아이콘과 동일한 위치와 크기를 기준으로 이미지에서 잘라냅니다. Android 13 이상에서는 테마 아이콘이 활성화된 런처의 경우 배경화면 색상을 기반으로 아이콘 색상이 적용됩니다</string>
     <string name="notification_icon_preview">알림</string>
@@ -426,7 +437,7 @@
     <string name="header_creator_guide_themes_title">밝은 테마 및 어두운 테마</string>
     <string name="header_creator_guide_themes_body">대부분의 앱은 밝은 테마와 어두운 테마용 이미지를 각각 필요로 합니다. 일부 앱(예: YouTube Music)은 어두운 테마만 사용하므로 해당 섹션만 표시됩니다.</string>
     <string name="header_creator_guide_positioning_title">위치 및 크기 조정</string>
-    <string name="header_creator_guide_positioning_body">편집기에서 이미지를 드래그하거나 핀치하여 조정할 수 있으며, 슬라이더를 사용해 크기를 조절할 수도 있습니다. 점선으로 표시된 상자는 기본 로고가 위치하는 영역을 나타내며, 이미지가 기본 로고와 정확히 맞춰지면 안내선이 표시됩니다.</string>
+    <string name="header_creator_guide_positioning_body">편집기에서 이미지를 드래그하거나 핀치하여 조정할 수 있으며, 슬라이더를 사용해 크기를 조절할 수도 있습니다. 점선으로 표시된 상자는 기본 로고가 위치하는 영역을 나타내며, 이미지가 기본 로고와 정확히 맞춰지면 안내선이 표시됩니다</string>
     <!-- Batch patching -->
     <string name="batch_patch_action">패치 선택</string>
     <string name="batch_patch_title">일괄 패치</string>
@@ -629,7 +640,7 @@
     <string name="patcher_memory_adjustment_title">메모리가 부족합니다</string>
     <string name="patcher_memory_adjustment_description">패처가 %1$d MB 메모리 제한으로 실행되는 동안 시스템에 의해 중지되었습니다. 제한을 %2$d MB로 낮추면 패처가 사용하는 메모리가 줄어들어 작업이 완료될 수 있습니다</string>
     <string name="patcher_memory_adjustment_description_at_minimum">패처가 %1$d MB 메모리 제한으로 실행되는 동안 시스템에 의해 중지되었습니다. 이 제한은 이미 설정 가능한 가장 낮은 값입니다. 패치 소스를 더 적게 사용하거나 패치를 더 적게 선택한 후 다시 패치해 보세요</string>
-    <string name="patcher_memory_adjustment_description_finished">시스템이 패처를 %1$dMB 메모리 제한에서 중단했지만, 실제로는 %2$dMB까지 사용해야 작업이 완료되었습니다. 다음번에는 %2$dMB부터 시작하면 이전에 메모리 부족으로 실패했던 시도를 건너뛸 수 있습니다</string>
+    <string name="patcher_memory_adjustment_description_finished">시스템이 패처를 %1$d MB 메모리 제한에서 중단했지만, 실제로는 %2$d MB까지 사용해야 작업이 완료되었습니다. 다음번에는 %2$d MB부터 시작하면 이전에 메모리 부족으로 실패했던 시도를 건너뛸 수 있습니다</string>
     <string name="patcher_memory_adjustment_apply">%1$d MB로 낮추기</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">패치를 진행하는 중…</string>
@@ -776,8 +787,6 @@
     <string name="settings_appearance_home_screen">홈 화면</string>
     <string name="settings_appearance_greeting_phrases">인사말</string>
     <string name="settings_appearance_greeting_phrases_subtitle">홈 화면에 인사말을 표시합니다</string>
-    <string name="settings_appearance_app_grouping">앱 그룹화</string>
-    <string name="settings_appearance_app_grouping_description">소스 또는 카테고리별로 앱을 그룹화하는 스위처를 표시합니다</string>
     <string name="settings_appearance_repatch_notice">다시 패치 알림</string>
     <string name="settings_appearance_repatch_notice_description">패치된 앱을 다시 패치할 수 있을 경우에 배너를 표시합니다</string>
     <string name="settings_appearance_sort_button">정렬 및 필터 버튼</string>
@@ -1246,6 +1255,7 @@ morphe_header_custom_dark.png
     <string name="no">아니요</string>
     <string name="all">모두</string>
     <string name="filter">필터</string>
+    <string name="group">그룹</string>
     <string name="reset">초기화</string>
     <string name="reset_all">모두 초기화</string>
     <string name="apply">적용</string>
@@ -1313,6 +1323,10 @@ morphe_header_custom_dark.png
     <string name="available">사용 가능</string>
     <string name="continue_">계속</string>
     <string name="version">버전</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">저작자</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">파일</string>
     <string name="clone">복제</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">패치</string>

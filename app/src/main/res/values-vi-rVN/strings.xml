@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Thêm nguồn</string>
     <string name="deep_link_add_source_message">Bạn có muốn thêm nguồn vá này vào Morphe không?</string>
     <string name="deep_link_add_source_warning">Chỉ thêm nguồn mà bạn tin tưởng</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Chỉ ứng dụng này đã được thêm. Bạn có thể thêm các ứng dụng khác từ danh sách ứng dụng của nguồn</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Đã có bản cập nhật Morphe mới</string>
     <string name="home_update_available_subtitle">Phiên bản mới đã sẵn sàng để được cài đặt</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Các ứng dụng từng được vá bằng Morphe nhưng không còn trên thiết bị nữa</string>
     <string name="home_app_filter_clones">Bản sao</string>
     <string name="home_app_filter_clones_description">Các ứng dụng được đựng dưới tên gói riêng, được cài đặt như ứng dụng khác ứng dụng gốc</string>
+    <string name="home_app_grouping_all_apps_description">Một danh sách chứa mọi ứng dụng</string>
+    <string name="home_app_grouping_sources_description">Các ứng dụng nằm trong nguồn patch cung cấp chúng</string>
+    <string name="home_app_grouping_custom_description">Các ứng dụng trong các danh mục do bạn tạo</string>
     <string name="home_app_sort_manual_description">Bấm giữ một ứng dụng, sau đó chọn nút sắp xếp lại</string>
     <string name="home_app_sort_recommended">Thứ tự đề xuất</string>
     <string name="home_app_sort_recommended_description">Ưu tiên ứng dụng đã cài đặt và được ghim trước</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Nguồn vá</string>
     <string name="sources_search">Tìm kiếm nguồn và bản vá</string>
-    <string name="sources_sort_title">Sắp xếp các nguồn vá</string>
     <string name="sources_sort_manual">Sắp xếp thủ công</string>
     <string name="sources_sort_manual_hint">Bấm giữ một nguồn để sắp xếp lại</string>
     <string name="sources_sort_last_updated">Cập nhật lần cuối</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Loại ra</string>
     <string name="sources_apps_leave_out_done">Đã loại ra</string>
     <string name="sources_apps_bring_back">Đưa trở lại</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Mới</string>
+    <string name="sources_apps_new_apps">Mang ứng dụng mới</string>
+    <string name="sources_apps_new_apps_on_description">Các ứng dụng mà nguồn này bắt đầu hỗ trợ sau sẽ tự động xuất hiện trên màn hình chính</string>
+    <string name="sources_apps_new_apps_off_description">Các ứng dụng mà nguồn này bắt đầu hỗ trợ sau sẽ bị loại trừ cho đến khi bạn đưa chúng trở lại đây</string>
     <string name="sources_management_prerelease_toggle">Bản vá phát hành trước</string>
     <string name="sources_management_prerelease_toggle_description">Trải nghiệm sớm các bản vá thử nghiệm mới</string>
     <string name="sources_prerelease_warning_title">Bật các bản vá trước khi phát hành?</string>
@@ -779,8 +789,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_home_screen">Trang chủ</string>
     <string name="settings_appearance_greeting_phrases">Thông điệp</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Hiện thông điệp trên trang chủ</string>
-    <string name="settings_appearance_app_grouping">Nhóm ứng dụng</string>
-    <string name="settings_appearance_app_grouping_description">Hiển thị bộ chuyển đổi để nhóm ứng dụng theo nguồn hoặc danh mục</string>
     <string name="settings_appearance_repatch_notice">Thông báo vá lại</string>
     <string name="settings_appearance_repatch_notice_description">Hiển thị biểu ngữ khi các ứng dụng đã vá có thể được vá lại</string>
     <string name="settings_appearance_sort_button">Nút sắp xếp và lọc</string>
@@ -1253,6 +1261,7 @@ Chi tiết: %2$s"</string>
     <string name="no">Không</string>
     <string name="all">Tất cả</string>
     <string name="filter">Bộ lọc</string>
+    <string name="group">Nhóm</string>
     <string name="reset">Đặt lại</string>
     <string name="reset_all">Đặt lại tất cả</string>
     <string name="apply">Áp dụng</string>
@@ -1320,6 +1329,10 @@ Chi tiết: %2$s"</string>
     <string name="available">Khả dụng</string>
     <string name="continue_">Tiếp</string>
     <string name="version">Phiên bản</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Tác giả</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Tệp</string>
     <string name="clone">Bản sao</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Vá</string>

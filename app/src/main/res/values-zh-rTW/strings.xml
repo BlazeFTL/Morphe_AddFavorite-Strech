@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">新增來源</string>
     <string name="deep_link_add_source_message">確定要將這個修補來源新增至 Morphe 嗎？</string>
     <string name="deep_link_add_source_warning">只新增您信任的來源</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">僅新增此應用程式。您可以從來源的應用程式清單新增其他應用程式</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">此來源已新增。要從現有來源新增這個應用程式嗎？</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">有可用的 Morphe 更新</string>
     <string name="home_update_available_subtitle">新版本已準備好安裝</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">已使用 Morphe 修補但已不在這部裝置上的應用程式</string>
     <string name="home_app_filter_clones">克隆</string>
     <string name="home_app_filter_clones_description">使用自己的套件名稱建置，並與原始應用程式一同安裝的應用程式</string>
+    <string name="home_app_grouping_all_apps_description">所有應用程式的列表</string>
+    <string name="home_app_grouping_sources_description">提供這些應用程式的來源套件的應用程式</string>
+    <string name="home_app_grouping_custom_description">你所建立的應用程式類別</string>
     <string name="home_app_sort_manual_description">長按應用程式，然後點選重新排序按鈕</string>
     <string name="home_app_sort_recommended">推薦順序</string>
     <string name="home_app_sort_recommended_description">優先顯示已安裝和固定應用程式</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">修補來源</string>
     <string name="sources_search">搜尋來源與修補程式</string>
-    <string name="sources_sort_title">排序修補來源</string>
     <string name="sources_sort_manual">手動排序</string>
     <string name="sources_sort_manual_hint">長按來源以重新排序</string>
     <string name="sources_sort_last_updated">上次更新</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">排除</string>
     <string name="sources_apps_leave_out_done">已排除</string>
     <string name="sources_apps_bring_back">重新加入</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">新增</string>
+    <string name="sources_apps_new_apps">新增應用程式</string>
+    <string name="sources_apps_new_apps_on_description">稍後此來源支援的應用程式將自動顯示在主畫面</string>
+    <string name="sources_apps_new_apps_off_description">稍後此來源支援的應用程式不會被包含在內，直到你在此處將它們加入</string>
     <string name="sources_management_prerelease_toggle">預先發佈版修補程式</string>
     <string name="sources_management_prerelease_toggle_description">搶先取得新實驗性修補程式版本</string>
     <string name="sources_prerelease_warning_title">啟用預發佈修補程式？</string>
@@ -776,8 +787,6 @@
     <string name="settings_appearance_home_screen">主螢幕</string>
     <string name="settings_appearance_greeting_phrases">問候語</string>
     <string name="settings_appearance_greeting_phrases_subtitle">在主螢幕上顯示問候訊息</string>
-    <string name="settings_appearance_app_grouping">應用程式分組</string>
-    <string name="settings_appearance_app_grouping_description">顯示可依來源或類別將應用程式分組的切換器</string>
     <string name="settings_appearance_repatch_notice">重新修補通知</string>
     <string name="settings_appearance_repatch_notice_description">當已修補的應用程式可重新修補時顯示橫幅</string>
     <string name="settings_appearance_sort_button">排序與篩選按鈕</string>
@@ -1245,6 +1254,7 @@ morphe_header_custom_dark.png
     <string name="no">否</string>
     <string name="all">全部</string>
     <string name="filter">過濾</string>
+    <string name="group">群組</string>
     <string name="reset">重設</string>
     <string name="reset_all">重設全部</string>
     <string name="apply">套用</string>
@@ -1312,6 +1322,10 @@ morphe_header_custom_dark.png
     <string name="available">可用</string>
     <string name="continue_">繼續</string>
     <string name="version">版本</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">製作者</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">檔案</string>
     <string name="clone">複製</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">修補</string>

@@ -15,6 +15,8 @@
     <string name="deep_link_add_source_title">Engadir fonte</string>
     <string name="deep_link_add_source_message">Desexa engadir esta fonte de parches a Morphe?</string>
     <string name="deep_link_add_source_warning">Engado tan só aquelas fontes nas que confíes </string>
+    <!-- Shown under the app a link was opened for -->
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Actualización de Morphe dispoñible</string>
     <string name="home_update_available_subtitle">Nova versión lista para instalar</string>
@@ -69,6 +71,8 @@
     <string name="sources_management_title">Fonte de parches</string>
     <string name="sources_management_open_in_browser">Abrir no navegador</string>
     <string name="sources_management_failed_to_open_url">Erro ao abrir o URL</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Novo</string>
     <string name="sources_management_prerelease_toggle">Parche pre-lanzamento</string>
     <string name="sources_management_prerelease_toggle_description">Recibe acceso anticipado a novas versións experimentais dos parches</string>
     <string name="sources_management_experimental_versions_toggle">Versións experimentais da aplicación</string>
@@ -335,6 +339,8 @@ Elixe outro APK</string>
     <string name="disabled">Desactivado</string>
     <string name="import_">Importar</string>
     <string name="copy">Copiar</string>
+    <!-- Who made a patch source, as a field label -->
+    <!-- A file a patch source is added from, as a field label -->
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patching">Parcheando</string>
     <string name="patched">Parcheado</string>

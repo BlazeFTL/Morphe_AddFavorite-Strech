@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Kaynak ekleyin</string>
     <string name="deep_link_add_source_message">Bu yama kaynağını Morphe\'ye eklemek ister misiniz?</string>
     <string name="deep_link_add_source_warning">Yalnızca güvendiğiniz kaynakları ekleyin</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Yalnızca bu uygulama eklendi. Kaynağın uygulama listesinden başka uygulamalar da ekleyebilirsiniz.</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe güncellemesi mevcut</string>
     <string name="home_update_available_subtitle">Yeni sürüm yüklenmeye hazır</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Morphe ile yamalanmış ve bu cihazda artık bulunmayan uygulamalar</string>
     <string name="home_app_filter_clones">Klonlar</string>
     <string name="home_app_filter_clones_description">Kendi paket adıyla oluşturulan ve orijinalin yanına kurulan uygulamalar</string>
+    <string name="home_app_grouping_all_apps_description">Her uygulamanın bulunduğu tek bir liste</string>
+    <string name="home_app_grouping_sources_description">Uygulamaları sağlayan yama kaynağının altındaki uygulamalar</string>
+    <string name="home_app_grouping_custom_description">Oluşturduğunuz kategorilerdeki uygulamalar</string>
     <string name="home_app_sort_manual_description">Bir uygulamaya uzun basın, ardından yeniden sıralama düğmesine dokunun</string>
     <string name="home_app_sort_recommended">Önerilen sıra</string>
     <string name="home_app_sort_recommended_description">Önce yüklenen ve sabitlenen uygulamalar</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Yama kaynakları</string>
     <string name="sources_search">Kaynakları ve yamaları ara</string>
-    <string name="sources_sort_title">Yama kaynaklarını sırala</string>
     <string name="sources_sort_manual">Manuel sıra</string>
     <string name="sources_sort_manual_hint">Yeniden sıralamak için bir kaynağa uzun basın</string>
     <string name="sources_sort_last_updated">Son güncelleme</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Hariç tut</string>
     <string name="sources_apps_leave_out_done">Hariç tutuldu</string>
     <string name="sources_apps_bring_back">Geri getir</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Yeni</string>
+    <string name="sources_apps_new_apps">Yeni uygulamalar getirin</string>
+    <string name="sources_apps_new_apps_on_description">Bu kaynağın daha sonra desteklemeye başladığı uygulamalar, ana ekrana kendiliğinden gelir.</string>
+    <string name="sources_apps_new_apps_off_description">Bu kaynağın daha sonra desteklemeye başladığı uygulamalar, siz onları buraya geri getirene kadar dahil edilmez.</string>
     <string name="sources_management_prerelease_toggle">Ön sürüm yamalar</string>
     <string name="sources_management_prerelease_toggle_description">Yeni deneysel sürüm yamalarına erken erişim sağlar</string>
     <string name="sources_prerelease_warning_title">Ön sürüm yamalarını etkinleştir?</string>
@@ -776,8 +786,6 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_home_screen">Ana ekran</string>
     <string name="settings_appearance_greeting_phrases">Selamlama cümleleri</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Ana ekranda bir selamlama mesajı göster</string>
-    <string name="settings_appearance_app_grouping">Uygulama gruplandırma</string>
-    <string name="settings_appearance_app_grouping_description">Uygulamaları kaynağa veya kategoriye göre gruplamak için bir anahtar göster</string>
     <string name="settings_appearance_repatch_notice">Yeniden yama bildirimi</string>
     <string name="settings_appearance_repatch_notice_description">Yamalı uygulamalar yeniden yamanabildiğinde bir afiş göster</string>
     <string name="settings_appearance_sort_button">Sıralama ve filtreleme düğmesi</string>
@@ -1247,6 +1255,7 @@ Ayrıntılar: %2$s"</string>
     <string name="no">Hayır</string>
     <string name="all">Hepsi</string>
     <string name="filter">Filtre</string>
+    <string name="group">Grupla</string>
     <string name="reset">Sıfırla</string>
     <string name="reset_all">Tümünü Sıfırla</string>
     <string name="apply">Uygula</string>
@@ -1314,6 +1323,10 @@ Ayrıntılar: %2$s"</string>
     <string name="available">Mevcut</string>
     <string name="continue_">Devam et</string>
     <string name="version">Sürüm</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Yazar</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Dosya</string>
     <string name="clone">Klonla</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Yamala</string>

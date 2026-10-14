@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Adicionar fonte</string>
     <string name="deep_link_add_source_message">Queres adicionar esta fonte de modificações ao Morphe?</string>
     <string name="deep_link_add_source_warning">Adiciona apenas fontes em que confias</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Apenas este aplicativo foi adicionado. Você pode adicionar outros aplicativos na lista de aplicativos da fonte</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Atualização do Morphe disponível</string>
     <string name="home_update_available_subtitle">Nova versão disponível para instalação</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Aplicações corrigidas com Morphe que já não estão neste dispositivo</string>
     <string name="home_app_filter_clones">Clones</string>
     <string name="home_app_filter_clones_description">Aplicativos criados com um nome de pacote próprio, instalados juntamente com o original</string>
+    <string name="home_app_grouping_all_apps_description">Uma lista com todos os aplicativos</string>
+    <string name="home_app_grouping_sources_description">Aplicativos sob a fonte de patch que os fornece</string>
+    <string name="home_app_grouping_custom_description">Aplicativos nas categorias que você cria</string>
     <string name="home_app_sort_manual_description">Pressione e segure um aplicativo, depois toque no botão de reordenar</string>
     <string name="home_app_sort_recommended">Ordem recomendada</string>
     <string name="home_app_sort_recommended_description">Aplicativos instalados e fixados primeiro</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fontes de modificações</string>
     <string name="sources_search">Pesquisar fontes e patches</string>
-    <string name="sources_sort_title">Ordenar fontes de patch</string>
     <string name="sources_sort_manual">Ordem manual</string>
     <string name="sources_sort_manual_hint">Mantenha pressionado uma fonte para reorganizar</string>
     <string name="sources_sort_last_updated">Última atualização</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Deixar de fora</string>
     <string name="sources_apps_leave_out_done">Deixado de fora</string>
     <string name="sources_apps_bring_back">Trazer de volta</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Novo</string>
+    <string name="sources_apps_new_apps">Traga novos aplicativos</string>
+    <string name="sources_apps_new_apps_on_description">Os aplicativos que esta fonte começa a suportar mais tarde aparecem na tela inicial automaticamente</string>
+    <string name="sources_apps_new_apps_off_description">Os aplicativos que esta fonte começa a suportar mais tarde ficam excluídos até você trazê-los de volta aqui</string>
     <string name="sources_management_prerelease_toggle">Modificações pré-lançamento</string>
     <string name="sources_management_prerelease_toggle_description">Recebe acesso antecipado às novas versões experimentais de modificações</string>
     <string name="sources_prerelease_warning_title">Ativar correções de pré-lançamento?</string>
@@ -777,8 +787,6 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <string name="settings_appearance_home_screen">Ecrã principal</string>
     <string name="settings_appearance_greeting_phrases">Frases de boas-vindas</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Mostrar uma mensagem de boas-vindas no ecrã principal</string>
-    <string name="settings_appearance_app_grouping">Agrupamento de aplicativos</string>
-    <string name="settings_appearance_app_grouping_description">Mostrar um seletor para agrupar aplicativos por origem ou categoria</string>
     <string name="settings_appearance_repatch_notice">Aviso de reaplicação de patch</string>
     <string name="settings_appearance_repatch_notice_description">Mostrar um banner quando os aplicativos corrigidos podem ser corrigidos novamente</string>
     <string name="settings_appearance_sort_button">Botão de ordenar e filtrar</string>
@@ -1248,6 +1256,7 @@ Detalhes: %2$s"</string>
     <string name="no">Não</string>
     <string name="all">Tudo</string>
     <string name="filter">Filtrar</string>
+    <string name="group">Agrupar</string>
     <string name="reset">Repor</string>
     <string name="reset_all">Redefinir Tudo</string>
     <string name="apply">Aplicar</string>
@@ -1315,6 +1324,10 @@ Detalhes: %2$s"</string>
     <string name="available">Disponível</string>
     <string name="continue_">Continuar</string>
     <string name="version">Versão</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Autor</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Arquivo</string>
     <string name="clone">Clonar</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Aplicar modificações</string>

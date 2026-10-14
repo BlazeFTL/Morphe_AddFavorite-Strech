@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Mənbə əlavə et</string>
     <string name="deep_link_add_source_message">Bu yamaq mənbəyin Morphe-yə əlavə etmək istəyirsiniz?</string>
     <string name="deep_link_add_source_warning">Yalnız etibar etdiyiniz mənbələri əlavə edin</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Yalnız bu tətbiq əlavə olunub. Mənbənin tətbiq siyahısından digər tətbiqləri də əlavə edə bilərsiniz</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Əlçatan Morphe yenilənməsi</string>
     <string name="home_update_available_subtitle">Yeni versiya quraşdırılmağa hazırdır</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Morphe ilə yamaqlanmış, artıq bu cihazda olmayan tətbiqlər</string>
     <string name="home_app_filter_clones">Dublikatlar</string>
     <string name="home_app_filter_clones_description">Öz paket adı altında qurulmuş, orijinalı ilə birlikdə quraşdırılmış tətbiqlər</string>
+    <string name="home_app_grouping_all_apps_description">Hər tətbiq olan bir siyahı</string>
+    <string name="home_app_grouping_sources_description">Onları təmin edən yamaq mənbəyi altındakı tətbiqlər</string>
+    <string name="home_app_grouping_custom_description">Yaratdığınız kateqoriyalardakı tətbiqlər</string>
     <string name="home_app_sort_manual_description">Tətbiqə uzun bas, sonra yenidən sıralama düyməsinə toxun</string>
     <string name="home_app_sort_recommended">Tövsiyə olunan düzülüş</string>
     <string name="home_app_sort_recommended_description">Əvvəlcə quraşdırılmış və nişanlanmış tətbiqlər</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Yamaq mənbələri</string>
     <string name="sources_search">Mənbələri və yamaqları axtar</string>
-    <string name="sources_sort_title">Yamaq mənbələrini sırala</string>
     <string name="sources_sort_manual">Əl ilə sıralama</string>
     <string name="sources_sort_manual_hint">Təkrar sıralamaq üçün mənbəyə uzun bas</string>
     <string name="sources_sort_last_updated">Axırıncı dəfə yeniləndi</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Çıxar</string>
     <string name="sources_apps_leave_out_done">Çıxarılan</string>
     <string name="sources_apps_bring_back">Geri qaytar</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Yeni</string>
+    <string name="sources_apps_new_apps">Yeni tətbiqləri qaytar</string>
+    <string name="sources_apps_new_apps_on_description">Bu mənbənin sonradan dəstəkləməyə başladığı tətbiqlər əsas ekrana öz-özünə əlavə olunur</string>
+    <string name="sources_apps_new_apps_off_description">Bu mənbənin sonradan dəstəkləməyə başladığı tətbiqlər siz onları bura geri qaytarana qədər kənarda qalır</string>
     <string name="sources_management_prerelease_toggle">İlkin buraxılış yamaqları</string>
     <string name="sources_management_prerelease_toggle_description">Yeni təcrübi yamaq versiyalarına erkən keçid əldə edilir</string>
     <string name="sources_prerelease_warning_title">İlkin buraxılış yamaqlarını aktivləşdirsin?</string>
@@ -537,6 +547,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <!-- Field labels, shown in a column beside their values. Keep them short, a long one is cut off rather than wrapped -->
     <string name="patcher_field_app">Tətbiq</string>
     <string name="patcher_field_package">Paket</string>
+    <string name="patcher_field_failed_patch">Uğursuz yamaq</string>
     <string name="patcher_field_source">Mənbə</string>
     <string name="patcher_field_split">Ayrılmış APK</string>
     <string name="patcher_field_manager">İdarəedici</string>
@@ -775,8 +786,6 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_home_screen">Əsas ekran</string>
     <string name="settings_appearance_greeting_phrases">Salamlaşma ifadələri</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Əsas ekranda salamlaşma mesajı göstər</string>
-    <string name="settings_appearance_app_grouping">Tətbiq qruplaşdırılması</string>
-    <string name="settings_appearance_app_grouping_description">Tətbiqləri mənbəyə və ya kateqoriyaya görə qruplaşdırmaq üçün keçirici göstər</string>
     <string name="settings_appearance_repatch_notice">Yenidən yamaqlama bildirişi</string>
     <string name="settings_appearance_repatch_notice_description">Yamaqlanmış tətbiqlər yenidən yamaqlana bildikdə etiket göstər</string>
     <string name="settings_appearance_sort_button">Sıralama və filtrləmə düyməsi</string>
@@ -1244,6 +1253,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="no">Xeyr</string>
     <string name="all">Hamısı</string>
     <string name="filter">Filtr</string>
+    <string name="group">Qrup</string>
     <string name="reset">Qaytar</string>
     <string name="reset_all">Hamısını Sıfırla</string>
     <string name="apply">Tətbiq et</string>
@@ -1311,6 +1321,10 @@ Təfərrüatlar: %2$s"</string>
     <string name="available">Əlçatan</string>
     <string name="continue_">Davam et</string>
     <string name="version">Versiya</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Müəllif</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Fayl</string>
     <string name="clone">Klon</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Yamaqla</string>

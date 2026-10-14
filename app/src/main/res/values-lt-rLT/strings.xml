@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Kitos programos</string>
     <string name="home_other_apps_action">Pasirinkti kitas programas</string>
-    <string name="home_not_patched_yet">Dar neužtaisyta</string>
+    <string name="home_not_patched_yet">Dar nepataisyta</string>
     <string name="home_unpatched_version_installed">Įdiegta nepataisyta versija</string>
     <string name="home_unpatched_badge">Nepataisyta</string>
     <string name="home_no_patches_available">Nėra prieinamų pataisų</string>
@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Pridėti šaltinį</string>
     <string name="deep_link_add_source_message">Ar norite pridėti šį pataisos šaltinį prie Morphe?</string>
     <string name="deep_link_add_source_warning">Įtraukite tik patikimus šaltinius</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Pridėta tik ši programėlė. Kitas programas galite pridėti iš šaltinio programėlių sąrašo</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Šis šaltinis jau pridėtas. Ar norite šį programėlę pridėti iš esamo šaltinio?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe atnaujinimas prieinamas</string>
     <string name="home_update_available_subtitle">Nauja versija paruošta įdiegti</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Programos, pataisytos naudojant „Morphe“, kurių šiame įrenginyje jau nėra</string>
     <string name="home_app_filter_clones">Klonai</string>
     <string name="home_app_filter_clones_description">Programos, sukurtos su savo paketo pavadinimu, įdiegtos šalia originalo</string>
+    <string name="home_app_grouping_all_apps_description">Vienas sąrašas su visomis programomis</string>
+    <string name="home_app_grouping_sources_description">Programos pagal šaltinį, kuris jas pateikia</string>
+    <string name="home_app_grouping_custom_description">Programos jūsų sukurtose kategorijose</string>
     <string name="home_app_sort_manual_description">Ilgai paspauskite programą, tada palieskite pertvarkymo mygtuką</string>
     <string name="home_app_sort_recommended">Rekomenduojama eilė</string>
     <string name="home_app_sort_recommended_description">Įdiegtos ir prisegtos programos pirmiausia</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Pataisų šaltiniai</string>
     <string name="sources_search">Ieškoti šaltinių ir pataisų</string>
-    <string name="sources_sort_title">Rūšiuoti pataisų šaltinius</string>
     <string name="sources_sort_manual">Rankinis rikiavimas</string>
     <string name="sources_sort_manual_hint">Ilgu paspaudimu perkelkite šaltinį į norimą vietą</string>
     <string name="sources_sort_last_updated">Pagal atnaujinimo datą</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Pašalinti</string>
     <string name="sources_apps_leave_out_done">Pašalinta</string>
     <string name="sources_apps_bring_back">Grąžinti</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nauja</string>
+    <string name="sources_apps_new_apps">Atnaujinti programėlės</string>
+    <string name="sources_apps_new_apps_on_description">Programėlės, kurias šaltinis pradeda palaikyti vėliau, automatiškai atsiranda pagrindiniame ekrane</string>
+    <string name="sources_apps_new_apps_off_description">Programėlės, kurias šaltinis pradeda palaikyti vėliau, bus atskirtos, kol jas grąžinsite čia</string>
     <string name="sources_management_prerelease_toggle">Bandomosios versijos pataisos</string>
     <string name="sources_management_prerelease_toggle_description">Gaukite ankstyvą prieigą prie naujų eksperimentinių pataisos versijų</string>
     <string name="sources_prerelease_warning_title">Įjungti išankstines pataisas?</string>
@@ -777,8 +788,6 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="settings_appearance_home_screen">Pagrindinis ekranas</string>
     <string name="settings_appearance_greeting_phrases">Pasveikinimo frazės</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Rodyti pasveikinimo žinutę pagrindiniame ekrane</string>
-    <string name="settings_appearance_app_grouping">Programų grupavimas</string>
-    <string name="settings_appearance_app_grouping_description">Rodyti perjungiklį programoms grupuoti pagal šaltinį ar kategoriją</string>
     <string name="settings_appearance_repatch_notice">Pakartotinio pataisymo pranešimas</string>
     <string name="settings_appearance_repatch_notice_description">Rodyti reklamjuostę, kai pataisytas programas galima pataisyti iš naujo</string>
     <string name="settings_appearance_sort_button">Rūšiavimo ir filtravimo mygtukas</string>
@@ -1248,6 +1257,7 @@ Išsami informacija: %2$s"</string>
     <string name="no">Ne</string>
     <string name="all">Visi</string>
     <string name="filter">Filtras</string>
+    <string name="group">Grupė</string>
     <string name="reset">Atstatyti</string>
     <string name="reset_all">Atstatyti viską</string>
     <string name="apply">Taikyti</string>
@@ -1315,6 +1325,10 @@ Išsami informacija: %2$s"</string>
     <string name="available">Prieinama</string>
     <string name="continue_">Tęsti</string>
     <string name="version">Versija</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Autorius</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Failas</string>
     <string name="clone">Klonas</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Pataisyti</string>

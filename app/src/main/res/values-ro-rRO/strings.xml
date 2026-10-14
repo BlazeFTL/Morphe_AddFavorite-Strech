@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Adaugă sursă</string>
     <string name="deep_link_add_source_message">Dorești să adaugi această sursă de patch la Morphe?</string>
     <string name="deep_link_add_source_warning">Adaugă numai surse în care ai încredere</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Doar această aplicație a fost adăugată. Puteți adăuga alte aplicații din lista de aplicații a sursei</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Actualizare Morphe disponibilă</string>
     <string name="home_update_available_subtitle">Versiune nouă pregătită pentru instalare</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Aplicații patch-uite cu Morphe care nu mai sunt pe acest dispozitiv</string>
     <string name="home_app_filter_clones">Clone</string>
     <string name="home_app_filter_clones_description">Aplicații create sub un nume de pachet propriu, instalate alături de original</string>
+    <string name="home_app_grouping_all_apps_description">O listă cu toate aplicațiile</string>
+    <string name="home_app_grouping_sources_description">Aplicații din sursa de parchet care le furnizează</string>
+    <string name="home_app_grouping_custom_description">Aplicații în categoriile pe care le creați</string>
     <string name="home_app_sort_manual_description">Apăsați lung pe o aplicație, apoi atingeți butonul de reordonare</string>
     <string name="home_app_sort_recommended">Ordinare recomandată</string>
     <string name="home_app_sort_recommended_description">Aplicațiile instalate și fixate primele</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Surse de patch-uri</string>
     <string name="sources_search">Caută surse și patch-uri</string>
-    <string name="sources_sort_title">Sortare surse de patch-uri</string>
     <string name="sources_sort_manual">Comandă manuală</string>
     <string name="sources_sort_manual_hint">Țineți apăsat pe o sursă pentru a reordona</string>
     <string name="sources_sort_last_updated">Ultima actualizare</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Excludeți</string>
     <string name="sources_apps_leave_out_done">Exclusă</string>
     <string name="sources_apps_bring_back">Readuceți</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nou</string>
+    <string name="sources_apps_new_apps">Adaugă aplicații noi</string>
+    <string name="sources_apps_new_apps_on_description">Aplicațiile pe care această sursă începe să le suporte mai târziu apar autonom pe ecranul de start</string>
+    <string name="sources_apps_new_apps_off_description">Aplicațiile pe care această sursă începe să le suporte mai târziu sunt excluse până când nu le readuci aici</string>
     <string name="sources_management_prerelease_toggle">Patch-uri pre-lansare</string>
     <string name="sources_management_prerelease_toggle_description">Primești acces anticipat la versiuni noi experimentale de patch-uri</string>
     <string name="sources_prerelease_warning_title">Activezi patch-urile de pre-lansare?</string>
@@ -776,8 +786,6 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_home_screen">Ecran de pornire</string>
     <string name="settings_appearance_greeting_phrases">Fraze de salut</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Afișează un mesaj de întâmpinare pe ecranul de pornire</string>
-    <string name="settings_appearance_app_grouping">Gruparea aplicațiilor</string>
-    <string name="settings_appearance_app_grouping_description">Afișează un comutator pentru a grupa aplicațiile după sursă sau categorie</string>
     <string name="settings_appearance_repatch_notice">Notificare privind repatch-uirea</string>
     <string name="settings_appearance_repatch_notice_description">Afișează un banner când aplicațiile patch-uite pot fi re-patch-uite</string>
     <string name="settings_appearance_sort_button">Buton de sortare și filtrare</string>
@@ -1247,6 +1255,7 @@ Detalii: %2$s"</string>
     <string name="no">Nu</string>
     <string name="all">Toți</string>
     <string name="filter">Filtru</string>
+    <string name="group">Grupare</string>
     <string name="reset">Resetează</string>
     <string name="reset_all">Resetează tot</string>
     <string name="apply">Aplică</string>
@@ -1314,6 +1323,10 @@ Detalii: %2$s"</string>
     <string name="available">Disponibil</string>
     <string name="continue_">Continuă</string>
     <string name="version">Versiune</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Autor</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Fișier</string>
     <string name="clone">Clonă</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch-uiește</string>

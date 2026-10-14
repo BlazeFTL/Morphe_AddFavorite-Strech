@@ -22,6 +22,8 @@
     <string name="deep_link_add_source_title">Kanîna çavkaniyê zêde bike</string>
     <string name="deep_link_add_source_message">Ma tu wê çavkaniya vê pakê ji Morphe zêde bike?</string>
     <string name="deep_link_add_source_warning">Têkilîyên ku bawerî li wan hebin zêde bike</string>
+    <!-- Shown under the app a link was opened for -->
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Nûvekirina Morphe heye</string>
     <string name="home_update_available_subtitle">Nûvekirin amade ye ku were sazkirin</string>
@@ -146,7 +148,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Kanalan saz bike</string>
     <string name="sources_search">Çavkanî û patchan bigere</string>
-    <string name="sources_sort_title">Sort kirina çavkaniyên patchê</string>
     <string name="sources_sort_manual">Fermanê destî</string>
     <string name="sources_sort_manual_hint">Çavdêriyeke dirêj li ser çavkaniyê bike da ku rêzê guhezîne</string>
     <string name="sources_sort_last_updated">Daxwazkirina herî dawî</string>
@@ -164,6 +165,7 @@
     <string name="sources_apps_leave_out">Derxe</string>
     <string name="sources_apps_leave_out_done">Derxistî</string>
     <string name="sources_apps_bring_back">Vegerîne</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
     <string name="sources_management_prerelease_toggle">Patch-ên pêş-bernameyê</string>
     <string name="sources_management_prerelease_toggle_description">Bi destê pêşîn bigihîje guhertoyên nû yên ceribandinê</string>
     <string name="sources_prerelease_warning_title">Patchên pêş-berdanê çalak bike?</string>
@@ -756,8 +758,6 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="settings_appearance_home_screen">Mîna malê</string>
     <string name="settings_appearance_greeting_phrases">Frazey şahê</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Nîşanekê bi xêrhatinê li ser mîna malê nîşan bide</string>
-    <string name="settings_appearance_app_grouping">Komkirina sepanan</string>
-    <string name="settings_appearance_app_grouping_description">Guhêrkekê nîşan bide ku sepanan li gorî çavkanî an kategoriyê kom dike.</string>
     <string name="settings_appearance_repatch_notice">Agahdariya ji nû ve patchkirinê</string>
     <string name="settings_appearance_repatch_notice_description">Dema ku sepanên patchkirî dikarin dîsa bên patchkirin, banerekê nîşan bide.</string>
     <string name="settings_appearance_sort_button">Bişkoka rêzkirin û parzûnkirinê</string>
@@ -1290,6 +1290,8 @@ Detay: %2$s"</string>
     <string name="available">Hezkir</string>
     <string name="continue_">Domîne</string>
     <string name="version">Versiyon</string>
+    <!-- Who made a patch source, as a field label -->
+    <!-- A file a patch source is added from, as a field label -->
     <string name="clone">Klon</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Dîrok</string>

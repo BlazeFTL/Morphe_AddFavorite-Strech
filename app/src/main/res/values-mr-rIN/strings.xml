@@ -22,6 +22,8 @@
     <string name="deep_link_add_source_title">मूळ जोडा</string>
     <string name="deep_link_add_source_message">तुम्हाला \'Morphe\' मध्ये ही सुधारणा मूळ जोडायची आहे का?</string>
     <string name="deep_link_add_source_warning">फक्त तुम्ही विश्वास ठेवता अशा स्त्रोतांनाच जोडा</string>
+    <!-- Shown under the app a link was opened for -->
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe नवीन सुधारणा उपलब्ध आहे</string>
     <string name="home_update_available_subtitle">नवीन सुधारणा स्थापनेसाठी तयार आहे</string>
@@ -146,7 +148,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">सुधारणांची मुळे</string>
     <string name="sources_search">स्रोत आणि पॅच शोधा</string>
-    <string name="sources_sort_title">सुधारणा स्रोत क्रमवारी लावा</string>
     <string name="sources_sort_manual">मॅन्युअल ऑर्डर</string>
     <string name="sources_sort_manual_hint">पुन्हा क्रमवारी लावण्यासाठी स्रोतावर दाबून ठेवा</string>
     <string name="sources_sort_last_updated">शेवटची अपडेट</string>
@@ -164,6 +165,7 @@
     <string name="sources_apps_leave_out">वगळा</string>
     <string name="sources_apps_leave_out_done">वगळले</string>
     <string name="sources_apps_bring_back">परत आणा</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
     <string name="sources_management_prerelease_toggle">प्री-रिलीझ पॅचेस</string>
     <string name="sources_management_prerelease_toggle_description">नवीन प्रायोगिक सुधारणा सर्वांच्या आधी वापरा</string>
     <string name="sources_prerelease_warning_title">सर्व युनिव्हर्सल पॅच सक्षम करायचे का?</string>
@@ -757,8 +759,6 @@
     <string name="settings_appearance_home_screen">मुख्य स्क्रीन</string>
     <string name="settings_appearance_greeting_phrases">शुभेच्छा संदेश</string>
     <string name="settings_appearance_greeting_phrases_subtitle">मुख्य स्क्रीनवर शुभेच्छा संदेश दर्शवा</string>
-    <string name="settings_appearance_app_grouping">ॲप समूहीकरण</string>
-    <string name="settings_appearance_app_grouping_description">अॅप्स स्रोत किंवा श्रेणीनुसार गट करण्यासाठी स्विचर दाखवा</string>
     <string name="settings_appearance_repatch_notice">री-पॅच सूचना</string>
     <string name="settings_appearance_repatch_notice_description">पॅच केलेले अॅप्स पुन्हा पॅच करता येतात तेव्हा बॅनर दाखवा</string>
     <string name="settings_appearance_sort_button">क्रमवारी आणि फिल्टर बटण</string>
@@ -1291,6 +1291,8 @@ morphe_header_custom_dark.png
     <string name="available">उपलब्ध</string>
     <string name="continue_">सुरू ठेवा</string>
     <string name="version">व्हर्जन</string>
+    <!-- Who made a patch source, as a field label -->
+    <!-- A file a patch source is added from, as a field label -->
     <string name="clone">क्लोन</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">सुधारणा</string>

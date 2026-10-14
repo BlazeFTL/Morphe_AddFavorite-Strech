@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Lisää lähde</string>
     <string name="deep_link_add_source_message">Haluatko lisätä tämän lisäosien lähteen Morpheen?</string>
     <string name="deep_link_add_source_warning">Lisää vain lähteitä, joihin luotat</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Vain tämä sovellus on lisätty. Voit lisätä muita sovelluksia lähteen sovellusluettelosta</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Tähän lähde on jo lisätty. Lisätään tämä sovellus olemassa olevasta lähteestä?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe-päivitys saatavilla</string>
     <string name="home_update_available_subtitle">Uusi versio valmis asennettavaksi</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Morphella muokatut sovellukset, joita ei ole enää tällä laitteella</string>
     <string name="home_app_filter_clones">Kloonit</string>
     <string name="home_app_filter_clones_description">Sovellukset, jotka on rakennettu oman pakettinimen alle ja asennettu alkuperäisen rinnalle</string>
+    <string name="home_app_grouping_all_apps_description">Yksi luettelo kaikista sovelluksista</string>
+    <string name="home_app_grouping_sources_description">Sovellukset lähdepaikan alla, joka tarjoaa niitä</string>
+    <string name="home_app_grouping_custom_description">Sovellukset luomissasi kategorioissa</string>
     <string name="home_app_sort_manual_description">Paina sovellusta pitkään ja napauta sitten uudelleenjärjestä-painiketta</string>
     <string name="home_app_sort_recommended">Suositeltu järjestys</string>
     <string name="home_app_sort_recommended_description">Asennetut ja kiinnitetyt sovellukset ensin</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Lisäosien lähteet</string>
     <string name="sources_search">Hae lähteitä ja korjauksia</string>
-    <string name="sources_sort_title">Lajittele lisäosien lähteet</string>
     <string name="sources_sort_manual">Manuaalinen järjestys</string>
     <string name="sources_sort_manual_hint">Paina ja pidä lähdettä uudelleenjärjestämistä varten</string>
     <string name="sources_sort_last_updated">Viimeksi päivitetty</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Jätä pois</string>
     <string name="sources_apps_leave_out_done">Jätetty pois</string>
     <string name="sources_apps_bring_back">Palauta</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Uusi</string>
+    <string name="sources_apps_new_apps">Tuo uusia sovelluksia</string>
+    <string name="sources_apps_new_apps_on_description">Myöhemmin tuesta alkaessa olevat sovellukset ilmestyvät itsestään aloitusnäytölle</string>
+    <string name="sources_apps_new_apps_off_description">Myöhemmin tuesta alkaessa olevat sovellukset jätetään pois kunnes palautat ne tänne</string>
     <string name="sources_management_prerelease_toggle">Ennakkojulkaisupäivitykset</string>
     <string name="sources_management_prerelease_toggle_description">Saat uusien kokeellisten lisäosaversioiden ennakkopääsyn</string>
     <string name="sources_prerelease_warning_title">Ota käyttöön esijulkaisupatchit?</string>
@@ -778,8 +789,6 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_home_screen">Aloitusnäyttö</string>
     <string name="settings_appearance_greeting_phrases">Tervehdysviestit</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Näytä tervehdysviesti aloitusnäytöllä</string>
-    <string name="settings_appearance_app_grouping">Sovellusten ryhmittely</string>
-    <string name="settings_appearance_app_grouping_description">Näytä kytkin, jolla sovellukset ryhmitellään lähteen tai luokan mukaan</string>
     <string name="settings_appearance_repatch_notice">Uudelleenkorjausilmoitus</string>
     <string name="settings_appearance_repatch_notice_description">Näytä banneri, kun korjattuja sovelluksia voidaan korjata uudelleen</string>
     <string name="settings_appearance_sort_button">Lajittelu- ja suodatuspainike</string>
@@ -1247,6 +1256,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="no">Ei</string>
     <string name="all">Kaikki</string>
     <string name="filter">Suodatin</string>
+    <string name="group">Ryhmä</string>
     <string name="reset">Nollaa</string>
     <string name="reset_all">Nollaa kaikki</string>
     <string name="apply">Käytä</string>
@@ -1314,6 +1324,10 @@ Yksityiskohdat: %2$s"</string>
     <string name="available">Saatavilla</string>
     <string name="continue_">Jatka</string>
     <string name="version">Versio</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Tekijä</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Tiedosto</string>
     <string name="clone">Kloonaa</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Muokkaa</string>

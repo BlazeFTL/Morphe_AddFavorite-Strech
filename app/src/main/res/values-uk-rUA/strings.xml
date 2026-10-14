@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Додати джерело</string>
     <string name="deep_link_add_source_message">Ви хочете додати це джерело патчів в Morphe?</string>
     <string name="deep_link_add_source_warning">Додавайте лише джерела, яким ви довіряєте</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Додано лише цей застосунок. Інші застосунки можна додати зі списку застосунків джерела</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Це джерело вже додано. Додати цей застосунок із наявного джерела?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Доступне оновлення Morphe</string>
     <string name="home_update_available_subtitle">Нова версія готова до встановлення</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Застосунки, пропатчені за допомогою Morphe, яких більше немає на цьому пристрої</string>
     <string name="home_app_filter_clones">Клони</string>
     <string name="home_app_filter_clones_description">Застосунки, створені під власною назвою пакета, встановлені поруч з оригіналом</string>
+    <string name="home_app_grouping_all_apps_description">Один список з усіма застосунками</string>
+    <string name="home_app_grouping_sources_description">Застосунки за джерелом патчів, яке їх надає</string>
+    <string name="home_app_grouping_custom_description">Застосунки в категоріях, які ви створюєте</string>
     <string name="home_app_sort_manual_description">Натисніть та утримуйте на картці застосунку, потім натисніть кнопку зміни порядку</string>
     <string name="home_app_sort_recommended">Рекомендований порядок</string>
     <string name="home_app_sort_recommended_description">Спочатку встановлені та закріплені застосунки</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Джерела патчів</string>
     <string name="sources_search">Пошук джерел та патчів</string>
-    <string name="sources_sort_title">Сортувати джерела патчів</string>
     <string name="sources_sort_manual">Ручне сортування</string>
     <string name="sources_sort_manual_hint">Утримуйте джерело, щоб змінити порядок</string>
     <string name="sources_sort_last_updated">Останнє оновлення</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Виключити</string>
     <string name="sources_apps_leave_out_done">Виключено</string>
     <string name="sources_apps_bring_back">Повернути</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Новий</string>
+    <string name="sources_apps_new_apps">Додати нові застосунки</string>
+    <string name="sources_apps_new_apps_on_description">Застосунки, підтримку яких це джерело додасть пізніше, самі з\'являться на головному екрані</string>
+    <string name="sources_apps_new_apps_off_description">Застосунки, підтримку яких це джерело додасть пізніше, не з\'являтимуться, доки ви самі не повернете їх сюди</string>
     <string name="sources_management_prerelease_toggle">Передрелізні патчі</string>
     <string name="sources_management_prerelease_toggle_description">Отримує ранній доступ до нових експериментальних версій патчів</string>
     <string name="sources_prerelease_warning_title">Увімкнути передрелізні патчі?</string>
@@ -777,8 +788,6 @@
     <string name="settings_appearance_home_screen">Головний екран</string>
     <string name="settings_appearance_greeting_phrases">Вітальні фрази</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Показувати вітальне повідомлення на головному екрані</string>
-    <string name="settings_appearance_app_grouping">Групування застосунків</string>
-    <string name="settings_appearance_app_grouping_description">Показувати перемикач для групування застосунків за джерелом або категорією</string>
     <string name="settings_appearance_repatch_notice">Сповіщення про перепатчинг</string>
     <string name="settings_appearance_repatch_notice_description">Показувати банер, коли пропатчені застосунки можна перепатчити</string>
     <string name="settings_appearance_sort_button">Кнопка сортування та фільтрування</string>
@@ -1248,6 +1257,7 @@ morphe_header_custom_dark.png
     <string name="no">Ні</string>
     <string name="all">Всі</string>
     <string name="filter">Фільтр</string>
+    <string name="group">Групування</string>
     <string name="reset">Скинути</string>
     <string name="reset_all">Скинути все</string>
     <string name="apply">Застосувати</string>
@@ -1315,6 +1325,10 @@ morphe_header_custom_dark.png
     <string name="available">Доступно</string>
     <string name="continue_">Продовжити</string>
     <string name="version">Версія</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Автор</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Файл</string>
     <string name="clone">Клон</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Патчити</string>

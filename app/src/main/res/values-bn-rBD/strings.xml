@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">সোর্স যোগ করুন</string>
     <string name="deep_link_add_source_message">আপনি কি এই প্যাচ সোর্স Morphe-এ যোগ করতে চান?</string>
     <string name="deep_link_add_source_warning">আপনি শুধুমাত্র যে উৎসগুলির উপর বিশ্বাস করেন সেগুলিই যোগ করুন</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">শুধুমাত্র এই অ্যাপটি যোগ করা হয়েছে। আপনি সোর্সের অ্যাপ তালিকা থেকে অন্যান্য অ্যাপ যোগ করতে পারেন</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">এই সোর্সটি ইতিমধ্যে যোগ করা হয়েছে। বিদ্যমান সোর্স থেকে এই অ্যাপটি যোগ করবেন?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe আপডেট উপলব্ধ</string>
     <string name="home_update_available_subtitle">নতুন সংস্করণ ইনস্টল করতে প্রস্তুত</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Morphe দিয়ে প্যাচ করা অ্যাপগুলো যেগুলো আর এই ডিভাইসে নেই</string>
     <string name="home_app_filter_clones">ক্লোন</string>
     <string name="home_app_filter_clones_description">নিজস্ব প্যাকেজ নামে তৈরি, মূল অ্যাপের পাশাপাশি ইনস্টল করা অ্যাপ</string>
+    <string name="home_app_grouping_all_apps_description">প্রতিটি অ্যাপসহ একটি তালিকা</string>
+    <string name="home_app_grouping_sources_description">যারা সেগুলো সরবরাহ করে সেই পেচ উৎসের অধীনে অ্যাপস</string>
+    <string name="home_app_grouping_custom_description">আপনি যে বিষয়শ্রেণীগুলো তৈরি করেন তাতে অ্যাপস</string>
     <string name="home_app_sort_manual_description">কোনো অ্যাপ দীর্ঘক্ষণ চাপুন, তারপর পুনর্বিন্যাস বোতামে আলতো চাপুন</string>
     <string name="home_app_sort_recommended">সুপারিশকৃত ক্রম</string>
     <string name="home_app_sort_recommended_description">ইনস্টল করা এবং পিন করা অ্যাপগুলি প্রথমে</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">প্যাচ সোর্সগুলো</string>
     <string name="sources_search">উৎস এবং প্যাচ অনুসন্ধান করুন</string>
-    <string name="sources_sort_title">প্যাচ সোর্স সাজান</string>
     <string name="sources_sort_manual">ম্যানুয়াল অর্ডার</string>
     <string name="sources_sort_manual_hint">পুনরায় সাজানোর জন্য একটি উৎসের উপর দীর্ঘক্ষণ চাপুন</string>
     <string name="sources_sort_last_updated">সর্বশেষ আপডেট করা হয়েছে</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">বাদ দিন</string>
     <string name="sources_apps_leave_out_done">বাদ দেওয়া হয়েছে</string>
     <string name="sources_apps_bring_back">ফিরিয়ে আনুন</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">নতুন</string>
+    <string name="sources_apps_new_apps">নতুন অ্যাপ আনুন</string>
+    <string name="sources_apps_new_apps_on_description">এই সোর্স পরবর্তীতে সমর্থন শুরু করে এমন অ্যাপগুলো স্বয়ংক্রিয়ভাবে হোম স্ক্রিনে পৌঁছায়</string>
+    <string name="sources_apps_new_apps_off_description">এই সোর্স পরবর্তীতে সমর্থন শুরু করে এমন অ্যাপগুলোকে এখানে ফিরিয়ে আনা না পর্যন্ত বাদ রাখা হয়</string>
     <string name="sources_management_prerelease_toggle">প্রি-রিলিজ প্যাচ</string>
     <string name="sources_management_prerelease_toggle_description">নতুন পরীক্ষামূলক প্যাচ সংস্করণে প্রাথমিক অ্যাক্সেস গ্রহণ করে</string>
     <string name="sources_prerelease_warning_title">প্রি-রিলিজ প্যাচ সক্রিয় করবেন?</string>
@@ -777,8 +788,6 @@
     <string name="settings_appearance_home_screen">হোম স্ক্রিন</string>
     <string name="settings_appearance_greeting_phrases">শুভেচ্ছা বার্তা</string>
     <string name="settings_appearance_greeting_phrases_subtitle">হোম স্ক্রিনে একটি শুভেচ্ছা বার্তা দেখান</string>
-    <string name="settings_appearance_app_grouping">অ্যাপ grouping</string>
-    <string name="settings_appearance_app_grouping_description">উৎস বা বিভাগ অনুসারে অ্যাপগুলো গ্রুপ করতে একটি সুইচার দেখান</string>
     <string name="settings_appearance_repatch_notice">পুনরায় প্যাচ বিজ্ঞপ্তি</string>
     <string name="settings_appearance_repatch_notice_description">প্যাচ করা অ্যাপগুলো পুনরায় প্যাচ করা গেলে একটি ব্যানার দেখান</string>
     <string name="settings_appearance_sort_button">সাজানো ও ফিল্টার বাটন</string>
@@ -1240,6 +1249,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="no">না</string>
     <string name="all">সব</string>
     <string name="filter">ফিল্টার</string>
+    <string name="group">গ্রুপ</string>
     <string name="reset">আবার সেট করুন</string>
     <string name="reset_all">সব রিসেট করুন</string>
     <string name="apply">প্রয়োগ করুন</string>
@@ -1307,6 +1317,10 @@ morphe_adaptive_monochrome_custom.xml
     <string name="available">উপলব্ধ</string>
     <string name="continue_">এগিয়ে যান</string>
     <string name="version">সংস্করণ</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">লেখক</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">ফাইল</string>
     <string name="clone">ক্লোন করুন</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">প্যাচ</string>

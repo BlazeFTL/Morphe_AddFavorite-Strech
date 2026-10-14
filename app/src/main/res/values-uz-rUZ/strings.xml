@@ -22,6 +22,8 @@
     <string name="deep_link_add_source_title">Manba qo‘shish</string>
     <string name="deep_link_add_source_message">Ushbu patch manbasi Morphe\'ga qo‘shilsinmi?</string>
     <string name="deep_link_add_source_warning">Faqat ishonchli manbalarni qo‘shing</string>
+    <!-- Shown under the app a link was opened for -->
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe\'da yangilanish mavjud</string>
     <string name="home_update_available_subtitle">Yangi versiya o‘rnatishga tayyor</string>
@@ -146,7 +148,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Tuzatish manbalari</string>
     <string name="sources_search">Manbalar va yamoqlarni qidirish</string>
-    <string name="sources_sort_title">Aplikasi dengan lencana pembaruan terlebih dahulu, lalu urutan yang direkomendasikan</string>
     <string name="sources_sort_manual">Pesanan manual</string>
     <string name="sources_sort_manual_hint">Tekan lama sumber untuk mengatur ulang</string>
     <string name="sources_sort_last_updated">Terakhir diperbarui</string>
@@ -164,6 +165,7 @@
     <string name="sources_apps_leave_out">Chiqarish</string>
     <string name="sources_apps_leave_out_done">Chiqarilgan</string>
     <string name="sources_apps_bring_back">Qaytarish</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
     <string name="sources_management_prerelease_toggle">Erta chiqarish patchlari</string>
     <string name="sources_management_prerelease_toggle_description">Yangi eksperimental patch versiyalariga erta kira olish</string>
     <string name="sources_prerelease_warning_title">Oldindan chiqarilgan yangilanishlarni yoqish?</string>
@@ -757,8 +759,6 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="settings_appearance_home_screen">Uy ekran</string>
     <string name="settings_appearance_greeting_phrases">Salomlashish iborasi</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Bosh ekranda salomlashish xabarini ko‘rsatish</string>
-    <string name="settings_appearance_app_grouping">Ilovalarni guruhlash</string>
-    <string name="settings_appearance_app_grouping_description">Ilovalarni manba yoki toifa bo‘yicha guruhlash uchun almashtirgichni ko‘rsatish</string>
     <string name="settings_appearance_repatch_notice">Qayta yamash bildirishnomasi</string>
     <string name="settings_appearance_repatch_notice_description">Yamalgan ilovalarni qayta yamash mumkin bo‘lganda banner ko‘rsatish</string>
     <string name="settings_appearance_sort_button">Saralash va filtrlash tugmasi</string>
@@ -1291,6 +1291,8 @@ Ma’lumotlar: %2$s"</string>
     <string name="available">Ochish</string>
     <string name="continue_">Davom etish</string>
     <string name="version">Versiya</string>
+    <!-- Who made a patch source, as a field label -->
+    <!-- A file a patch source is added from, as a field label -->
     <string name="clone">Klon</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>

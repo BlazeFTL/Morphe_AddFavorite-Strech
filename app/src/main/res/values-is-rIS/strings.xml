@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Bæta við gjafa</string>
     <string name="deep_link_add_source_message">Viltu bæta við þetta pakkningargjafa til Morphe?</string>
     <string name="deep_link_add_source_warning">Bættu aðeins við heimildir sem þú treystir</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Aðeins þetta forrit er bætt við. Þú getur bætt öðrum forritum við úr appalistu uppsprettunnar</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Þessi uppruni er nú þegar bætt við. Bæta við appinu frá þessum upruna?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe uppfærsla í boði</string>
     <string name="home_update_available_subtitle">Ný útgáfa tilbúin til að setja upp</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Forrit sem voru plástruð með Morphe en eru ekki lengur á þessu tæki</string>
     <string name="home_app_filter_clones">Klónar</string>
     <string name="home_app_filter_clones_description">Forrit byggð undir eigin pakkanafni, sett upp við hlið upprunalegs forrits</string>
+    <string name="home_app_grouping_all_apps_description">Einn listi með hverju forriti</string>
+    <string name="home_app_grouping_sources_description">Forrit innan uppspretta sem veitir þau</string>
+    <string name="home_app_grouping_custom_description">Forrit í flokkum sem þú býrð til</string>
     <string name="home_app_sort_manual_description">Langt ýta á forrit, þá smelltu á endurraða hnappinn</string>
     <string name="home_app_sort_recommended">Rækt ráðlagður röð</string>
     <string name="home_app_sort_recommended_description">Uppsett og fest forrit fyrst</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Heimildir breytistillinga</string>
     <string name="sources_search">Leita að uppsprettum og plástrum</string>
-    <string name="sources_sort_title">Flokka uppfærslujöfn</string>
     <string name="sources_sort_manual">Handvirkuð pöntun</string>
     <string name="sources_sort_manual_hint">Halðu lengi á uppspretta til að raða á ný</string>
     <string name="sources_sort_last_updated">Síðast uppfært</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Undanskilja</string>
     <string name="sources_apps_leave_out_done">Undanskilið</string>
     <string name="sources_apps_bring_back">Færa aftur inn</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nýtt</string>
+    <string name="sources_apps_new_apps">Koma með nýjum forritum</string>
+    <string name="sources_apps_new_apps_on_description">Forrit sem þessi uppruni byrjar að styðja síðar ná heimaskjánum sjálfkrafa</string>
+    <string name="sources_apps_new_apps_off_description">Forrit sem þessi uppruni byrjar að styðja síðari eru sleppt fyrr en þú færir þau aftur hingað</string>
     <string name="sources_management_prerelease_toggle">For úgáfur</string>
     <string name="sources_management_prerelease_toggle_description">Fáðu snemma aðgang að nýjum tilraunabreytingar útgáfum</string>
     <string name="sources_prerelease_warning_title">Tilkynna vandamál</string>
@@ -776,8 +787,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_home_screen">Heimaskjár</string>
     <string name="settings_appearance_greeting_phrases">Greeting frases</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Sýna kveðju skilaboð á heimaskjá</string>
-    <string name="settings_appearance_app_grouping">Forritaflokkun</string>
-    <string name="settings_appearance_app_grouping_description">Sýna skiptirofa til að flokka forrit eftir uppruna eða flokki</string>
     <string name="settings_appearance_repatch_notice">Tilkynning um endurplástrun</string>
     <string name="settings_appearance_repatch_notice_description">Sýna borða þegar hægt er að endurplástra plástruð forrit</string>
     <string name="settings_appearance_sort_button">Röðunar- og síunarhnappur</string>
@@ -1244,6 +1253,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="no">Nei</string>
     <string name="all">Allt</string>
     <string name="filter">Sía</string>
+    <string name="group">Hópur</string>
     <string name="reset">Endurstilla</string>
     <string name="reset_all">Endurstilla allt</string>
     <string name="apply">Sýna</string>
@@ -1311,6 +1321,10 @@ Nánari upplýsingar: %2$s"</string>
     <string name="available">Í boði</string>
     <string name="continue_">Halda áfram</string>
     <string name="version">Útgáfa</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Rhöfundur</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Skrá</string>
     <string name="clone">Klóna</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Breytistilling</string>

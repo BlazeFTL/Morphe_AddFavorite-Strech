@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">إضافة مصدر</string>
     <string name="deep_link_add_source_message">هل تريد إضافة مصدر التعديل هذا إلى Morphe؟</string>
     <string name="deep_link_add_source_warning">أضف فقط المصادر التي تثق بها</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">تمت إضافة هذا التطبيق فقط. يمكنك إضافة تطبيقات أخرى من قائمة تطبيقات المصدر</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">تمت إضافة هذا المصدر بالفعل. هل تريد إضافة هذا التطبيق من المصدر الموجود؟</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">تحديث Morphe متاح</string>
     <string name="home_update_available_subtitle">إصدار جديد جاهز للتثبيت</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">التطبيقات المعدّلة باستخدام Morphe التي لم تعد موجودة على هذا الجهاز</string>
     <string name="home_app_filter_clones">المستنسخة</string>
     <string name="home_app_filter_clones_description">تطبيقات تم إنشاؤها باستخدام اسم حزمة مختلف، ومثبتة إلى جانب التطبيق الأصلي</string>
+    <string name="home_app_grouping_all_apps_description">قائمة واحدة تحتوي على كل التطبيقات</string>
+    <string name="home_app_grouping_sources_description">التطبيقات الموجودة ضمن مصدر التعديل التي يوفرها</string>
+    <string name="home_app_grouping_custom_description">التطبيقات في الفئات التي تنشئها</string>
     <string name="home_app_sort_manual_description">اضغط مطولًا على تطبيق، ثم انقر على زر إعادة الترتيب</string>
     <string name="home_app_sort_recommended">الترتيب الموصى به</string>
     <string name="home_app_sort_recommended_description">التطبيقات المنصَّبة والمثبتة أولًا</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">مصادر التعديل</string>
     <string name="sources_search">البحث في المصادر والتعديلات</string>
-    <string name="sources_sort_title">فرز مصادر التعديل</string>
     <string name="sources_sort_manual">ترتيب يدوي</string>
     <string name="sources_sort_manual_hint">اضغط مطولًا على مصدر لإعادة الترتيب</string>
     <string name="sources_sort_last_updated">آخر تحديث</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">استبعاد</string>
     <string name="sources_apps_leave_out_done">مستبعد</string>
     <string name="sources_apps_bring_back">إعادة</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">الجديد</string>
+    <string name="sources_apps_new_apps">إضافة تطبيقات جديدة</string>
+    <string name="sources_apps_new_apps_on_description">تصل التطبيقات التي يبدأ هذا المصدر بدعمها لاحقًا إلى الشاشة الرئيسية بشكل مستقل</string>
+    <string name="sources_apps_new_apps_off_description">يتم استبعاد التطبيقات التي يبدأ هذا المصدر بدعمها لاحقًا حتى تقوم بإعادتها هنا</string>
     <string name="sources_management_prerelease_toggle">إصدارات ما قبل الإطلاق</string>
     <string name="sources_management_prerelease_toggle_description">احصل على وصول مبكر إلى إصدارات التعديل التجريبية الجديدة</string>
     <string name="sources_prerelease_warning_title">تمكين إصدارات تعديلات ما قبل الإطلاق؟</string>
@@ -428,7 +439,7 @@
     <string name="header_creator_guide_positioning_title">الموضع والحجم</string>
     <string name="header_creator_guide_positioning_body">اسحب الصورة واضغط عليها في المحرر، أو اضبط حجمها باستخدام شريط التمرير. يحدد المربع المتقطع موضع الشعار الافتراضي، وتظهر أدلة المحاذاة عندما تتحاذى الصورة معه.</string>
     <!-- Batch patching -->
-    <string name="batch_patch_action">تحديد التعديل</string>
+    <string name="batch_patch_action">تعديل المحدد</string>
     <string name="batch_patch_title">تعديل عدة تطبيقات على دفعات</string>
     <string name="batch_patch_planning">جارٍ إعداد قائمة الانتظار...</string>
     <string name="batch_patch_preparing_next">جارٍ إعداد التطبيق التالي...</string>
@@ -781,8 +792,6 @@
     <string name="settings_appearance_home_screen">الشاشة الرئيسية</string>
     <string name="settings_appearance_greeting_phrases">عبارات الترحيب</string>
     <string name="settings_appearance_greeting_phrases_subtitle">عرض رسالة ترحيب على الشاشة الرئيسية</string>
-    <string name="settings_appearance_app_grouping">تجميع التطبيقات</string>
-    <string name="settings_appearance_app_grouping_description">عرض مفتاح تبديل لتجميع التطبيقات حسب المصدر أو الفئة</string>
     <string name="settings_appearance_repatch_notice">إشعار إعادة التعديل</string>
     <string name="settings_appearance_repatch_notice_description">عرض شريط إعلام عندما يمكن إعادة تعديل التطبيقات المعدلة</string>
     <string name="settings_appearance_sort_button">زر الفرز والتصفية</string>
@@ -857,7 +866,7 @@
     <string name="settings_advanced_update_interval_chip_subtitle">تكرار التحقق في الخلفية</string>
     <string name="settings_advanced_update_interval_battery_warning">قد لا يعمل التحقق في الخلفية بشكل موثوق على بعض الأجهزة. غالبًا ماتقيّد الشركات المصنعة مثل Xiaomi، Huawei، Samsung، و OnePlus عمليات الخلفية بشدة لتوفير البطارية</string>
     <string name="settings_advanced_external_batch_patch">السماح بالمشغلات الخارجية</string>
-    <string name="settings_advanced_external_batch_patch_description">يسمح لتطبيقات الأتمتة ببدء الترقيع الدفعي عبر Intent</string>
+    <string name="settings_advanced_external_batch_patch_description">يسمح لتطبيقات الأتمتة ببدء تعديل عدة تطبيقات عبر Intent</string>
     <string name="external_batch_patch_title">بدء تعديل التطبيقات على دفعات؟</string>
     <string name="external_batch_patch_description">%s يريد من Morphe تعديل التطبيقات وتثبيتها</string>
     <string name="external_batch_patch_trust_caller">السماح لهذا التطبيق دائمًا</string>
@@ -1253,6 +1262,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="no">لا</string>
     <string name="all">الكل</string>
     <string name="filter">تصفية</string>
+    <string name="group">مجموعة</string>
     <string name="reset">إعادة التعيين</string>
     <string name="reset_all">إعادة تعيين الكل</string>
     <string name="apply">تطبيق</string>
@@ -1320,6 +1330,10 @@ morphe_adaptive_monochrome_custom.xml
     <string name="available">متاح</string>
     <string name="continue_">متابعة</string>
     <string name="version">الإصدار</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">المنتج</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">الملف</string>
     <string name="clone">استنساخ</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">تعديل</string>

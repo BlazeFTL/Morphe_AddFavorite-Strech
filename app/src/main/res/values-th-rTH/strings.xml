@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">เพิ่มแหล่งที่มา</string>
     <string name="deep_link_add_source_message">คุณต้องการเพิ่มแหล่งที่มาแพตช์นี้ไปยัง Morphe หรือไม่?</string>
     <string name="deep_link_add_source_warning">เพิ่มแหล่งที่มาที่คุณเชื่อถือเท่านั้น</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">เพิ่มเฉพาะแอปนี้แล้ว คุณสามารถเพิ่มแอปอื่นจากบัญชีรายชื่อแอปของแหล่งข้อมูลได้</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">มีการอัปเดต Morphe พร้อมใช้งาน</string>
     <string name="home_update_available_subtitle">มีเวอร์ชันใหม่พร้อมติดตั้ง</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">แอปที่แพตช์ด้วย Morphe ซึ่งไม่ได้อยู่บนอุปกรณ์นี้แล้ว</string>
     <string name="home_app_filter_clones">โคลน</string>
     <string name="home_app_filter_clones_description">แอปที่สร้างด้วยชื่อแพ็กเกจของตัวเอง ติดตั้งเคียงข้างแอปต้นฉบับ</string>
+    <string name="home_app_grouping_all_apps_description">รายการหนึ่งที่มีทุกแอป</string>
+    <string name="home_app_grouping_sources_description">แอปภายใต้แหล่งที่มาของแพทช์ที่ให้บริการ</string>
+    <string name="home_app_grouping_custom_description">แอปในหมวดหมู่ที่คุณสร้าง</string>
     <string name="home_app_sort_manual_description">แตะแอปค้างไว้ แล้วแตะปุ่มจัดเรียงใหม่</string>
     <string name="home_app_sort_recommended">เรียงตามที่แนะนำ</string>
     <string name="home_app_sort_recommended_description">แอปที่ติดตั้งและตรึงไว้ก่อน</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">จัดการแหล่งที่มา</string>
     <string name="sources_search">ค้นหาแหล่งที่มาและแพตช์</string>
-    <string name="sources_sort_title">เรียงลำดับแหล่งที่มาของแพตช์</string>
     <string name="sources_sort_manual">จัดเรียงด้วยตนเอง</string>
     <string name="sources_sort_manual_hint">แตะค้างที่แหล่งข้อมูลเพื่อจัดเรียงใหม่</string>
     <string name="sources_sort_last_updated">ปรับปรุงล่าสุด</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">แยกออก</string>
     <string name="sources_apps_leave_out_done">แยกออกแล้ว</string>
     <string name="sources_apps_bring_back">นำกลับมา</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">ใหม่</string>
+    <string name="sources_apps_new_apps">เพิ่มแอปใหม่</string>
+    <string name="sources_apps_new_apps_on_description">แอปที่แหล่งนี้เริ่มรองรับในอนาคตจะแสดงบนหน้าจอหลักอัตโนมัติ</string>
+    <string name="sources_apps_new_apps_off_description">แอปที่แหล่งนี้เริ่มรองรับในอนาคตจะถูกตัดออกจนกว่าคุณนำกลับ сюда</string>
     <string name="sources_management_prerelease_toggle">แพตช์ก่อนเปิดตัว</string>
     <string name="sources_management_prerelease_toggle_description">รับสิทธิ์เข้าถึงแพตช์ใหม่เวอร์ชันทดลองแต่เนิ่นๆ</string>
     <string name="sources_prerelease_warning_title">เปิดใช้แพตช์ก่อนเผยแพร่หรือไม่?</string>
@@ -777,8 +787,6 @@
     <string name="settings_appearance_home_screen">หน้าจอหลัก</string>
     <string name="settings_appearance_greeting_phrases">วลีทักทาย</string>
     <string name="settings_appearance_greeting_phrases_subtitle">แสดงข้อความทักทายบนหน้าจอหลัก</string>
-    <string name="settings_appearance_app_grouping">การจัดกลุ่มแอป</string>
-    <string name="settings_appearance_app_grouping_description">แสดงสวิตช์เพื่อจัดกลุ่มแอปตามแหล่งที่มาหรือหมวดหมู่</string>
     <string name="settings_appearance_repatch_notice">ประกาศการแพตช์ซ้ำ</string>
     <string name="settings_appearance_repatch_notice_description">แสดงแบนเนอร์เมื่อแอปที่แพตช์แล้วสามารถแพตช์ซ้ำได้</string>
     <string name="settings_appearance_sort_button">ปุ่มเรียงลำดับและกรอง</string>
@@ -1248,6 +1256,7 @@ morphe_header_custom_dark.png
     <string name="no">ไม่</string>
     <string name="all">ทั้งหมด</string>
     <string name="filter">ตัวกรอง</string>
+    <string name="group">กลุ่ม</string>
     <string name="reset">รีเซ็ต</string>
     <string name="reset_all">รีเซ็ตทั้งหมด</string>
     <string name="apply">นำไปใช้</string>
@@ -1315,6 +1324,10 @@ morphe_header_custom_dark.png
     <string name="available">พร้อมใช้งาน</string>
     <string name="continue_">ดำเนินการต่อ</string>
     <string name="version">เวอร์ชัน</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">ผู้สร้าง</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">ไฟล์</string>
     <string name="clone">โคลน</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">แพตช์</string>

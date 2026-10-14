@@ -23,6 +23,10 @@
     <string name="deep_link_add_source_title">הוסף מקור</string>
     <string name="deep_link_add_source_message">האם ברצונך להוסיף מקור תיקונים זה ל-Morphe?</string>
     <string name="deep_link_add_source_warning">הוסף מקורות שאתה סומך עליהם בלבד</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">היישום היחיד שנוסף הוא זה. ניתן להוסיף יישומים אחרים מרשימת היישומים של המקור</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">מקור זה כבר נוסף. להוסיף אפליקציה זו מהמקור הקיים?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">עדכון Morphe זמין</string>
     <string name="home_update_available_subtitle">גרסה חדשה מוכנה להתקנה</string>
@@ -55,6 +59,9 @@
     <string name="home_app_filter_uninstalled_description">אפליקציות שתוקנו באמצעות Morphe ושאינן מותקנות עוד במכשיר זה</string>
     <string name="home_app_filter_clones">שיבוטים</string>
     <string name="home_app_filter_clones_description">אפליקציות שנבנו תחת שם חבילה משלהן, מותקנות לצד המקורית</string>
+    <string name="home_app_grouping_all_apps_description">רשימה אחת עם כל היישומים</string>
+    <string name="home_app_grouping_sources_description">יישומים מקור מתקן המשפיע עליהם</string>
+    <string name="home_app_grouping_custom_description">יישומים בקטגוריות שאתה יוצר</string>
     <string name="home_app_sort_manual_description">החזק לחיצה ארוכה על אפליקציה, ולאחר מכן הקש על כפתור הסדר מחדש</string>
     <string name="home_app_sort_recommended">סדר מומלץ</string>
     <string name="home_app_sort_recommended_description">אפליקציות מותקנות ומעוגנות ראשונות</string>
@@ -147,7 +154,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">מקורות תיקונים</string>
     <string name="sources_search">חפש מקורות ותיקונים</string>
-    <string name="sources_sort_title">מקורות תיקונים</string>
     <string name="sources_sort_manual">הזמנה ידנית</string>
     <string name="sources_sort_manual_hint">לחץ לחיצה ארוכה על מקור כדי לשנות את הסדר</string>
     <string name="sources_sort_last_updated">עודכן לאחרונה</string>
@@ -165,6 +171,11 @@
     <string name="sources_apps_leave_out">החר</string>
     <string name="sources_apps_leave_out_done">הוחרג</string>
     <string name="sources_apps_bring_back">החזר</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">חדש</string>
+    <string name="sources_apps_new_apps">הבא אפליקציות חדשות</string>
+    <string name="sources_apps_new_apps_on_description">אפליקציות ששירות זה מתחיל לתמוך בהן מאוחר יותר מופיעות על מסך הבית באופן עצמאי</string>
+    <string name="sources_apps_new_apps_off_description">אפליקציות ששירות זה מתחיל לתמוך בהן מאוחר יותר לא נכללות עד שתביא אותן בחזרה לכאן</string>
     <string name="sources_management_prerelease_toggle">תיקונים לפני הפצה</string>
     <string name="sources_management_prerelease_toggle_description">מקבל גישה מוקדמת לגרסאות תיקונים ניסיוניות חדשות</string>
     <string name="sources_prerelease_warning_title">להפעיל תיקונים לגרסאות מוקדמות?</string>
@@ -778,8 +789,6 @@
     <string name="settings_appearance_home_screen">מסך הבית</string>
     <string name="settings_appearance_greeting_phrases">משפטי פתיחה</string>
     <string name="settings_appearance_greeting_phrases_subtitle">הצגת הודעת פתיחה על מסך הבית</string>
-    <string name="settings_appearance_app_grouping">קיבוץ אפליקציות</string>
-    <string name="settings_appearance_app_grouping_description">הצג מתג לקיבוץ אפליקציות לפי מקור או קטגוריה</string>
     <string name="settings_appearance_repatch_notice">הודעת תיקון מחדש</string>
     <string name="settings_appearance_repatch_notice_description">הצג באנר כאשר אפליקציות מטופלות ניתנות לטלאי חוזר</string>
     <string name="settings_appearance_sort_button">כפתור מיון וסינון</string>
@@ -1259,6 +1268,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="no">לא</string>
     <string name="all">כולם</string>
     <string name="filter">סינון</string>
+    <string name="group">קבץ</string>
     <string name="reset">איפוס</string>
     <string name="reset_all">אפס הכל</string>
     <string name="apply">החל</string>
@@ -1326,6 +1336,10 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="available">זמין</string>
     <string name="continue_">המשך</string>
     <string name="version">גרסה</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">יוצר</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">קובץ</string>
     <string name="clone">שכפול</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">תיקון</string>

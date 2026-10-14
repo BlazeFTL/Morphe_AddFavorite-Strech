@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Dodaj źródło</string>
     <string name="deep_link_add_source_message">Czy chcesz dodać to źródło modyfikacji do Morphe?</string>
     <string name="deep_link_add_source_warning">Dodawaj tylko zaufane źródła</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Dodano tylko tę aplikację. Inne aplikacje możesz dodać z listy aplikacji źródła</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">To źródło jest już dodane. Dodać tę aplikację z istniejącego źródła?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Dostępna aktualizacja Morphe</string>
     <string name="home_update_available_subtitle">Nowa wersja gotowa do instalacji</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Aplikacje zmodyfikowane za pomocą Morphe, których nie ma już na tym urządzeniu</string>
     <string name="home_app_filter_clones">Klony</string>
     <string name="home_app_filter_clones_description">Aplikacje zbudowane pod własną nazwą pakietu, zainstalowane obok oryginału</string>
+    <string name="home_app_grouping_all_apps_description">Jedna lista ze wszystkimi aplikacjami</string>
+    <string name="home_app_grouping_sources_description">Aplikacje pogrupowane według źródła modyfikacji, z którego pochodzą</string>
+    <string name="home_app_grouping_custom_description">Aplikacje w utworzonych przez Ciebie kategoriach</string>
     <string name="home_app_sort_manual_description">Przytrzymaj aplikację, a następnie dotknij przycisku zmiany kolejności</string>
     <string name="home_app_sort_recommended">Zalecana kolejność</string>
     <string name="home_app_sort_recommended_description">Najpierw zainstalowane i przypięte aplikacje</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Źródła modyfikacji</string>
     <string name="sources_search">Szukaj źródeł i modyfikacji</string>
-    <string name="sources_sort_title">Sortuj źródła modyfikacji</string>
     <string name="sources_sort_manual">Ręczna kolejność</string>
     <string name="sources_sort_manual_hint">Przytrzymaj źródło, aby zmienić kolejność</string>
     <string name="sources_sort_last_updated">Ostatnia aktualizacja</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Wyklucz</string>
     <string name="sources_apps_leave_out_done">Wykluczono</string>
     <string name="sources_apps_bring_back">Przywróć</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nowa</string>
+    <string name="sources_apps_new_apps">Dodawaj nowe aplikacje</string>
+    <string name="sources_apps_new_apps_on_description">Aplikacje, które to źródło zacznie obsługiwać w przyszłości, pojawią się na ekranie głównym automatycznie</string>
+    <string name="sources_apps_new_apps_off_description">Aplikacje, które to źródło zacznie obsługiwać w przyszłości, zostaną pominięte, dopóki nie przywrócisz ich w tym miejscu</string>
     <string name="sources_management_prerelease_toggle">Przedpremierowe modyfikacje</string>
     <string name="sources_management_prerelease_toggle_description">Zapewnia wczesny dostęp do nowych, eksperymentalnych wersji modyfikacji</string>
     <string name="sources_prerelease_warning_title">Włączyć przedpremierowe modyfikacje?</string>
@@ -538,7 +549,7 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <!-- Field labels, shown in a column beside their values. Keep them short, a long one is cut off rather than wrapped -->
     <string name="patcher_field_app">Aplikacja</string>
     <string name="patcher_field_package">Pakiet</string>
-    <string name="patcher_field_failed_patch">Nieudana poprawka</string>
+    <string name="patcher_field_failed_patch">Nieudana modyfikacja</string>
     <string name="patcher_field_source">Źródło</string>
     <string name="patcher_field_split">Podzielony plik APK</string>
     <string name="patcher_field_manager">Menedżer</string>
@@ -778,8 +789,6 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_home_screen">Ekran główny</string>
     <string name="settings_appearance_greeting_phrases">Powitania</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wyświetlaj powitanie na ekranie głównym</string>
-    <string name="settings_appearance_app_grouping">Grupowanie aplikacji</string>
-    <string name="settings_appearance_app_grouping_description">Pokaż przełącznik do grupowania aplikacji według źródła lub kategorii</string>
     <string name="settings_appearance_repatch_notice">Powiadomienie o ponownym modyfikowaniu</string>
     <string name="settings_appearance_repatch_notice_description">Pokazuj baner, gdy można ponownie zmodyfikować aplikacje</string>
     <string name="settings_appearance_sort_button">Przycisk sortowania i filtrowania</string>
@@ -1249,6 +1258,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="no">Nie</string>
     <string name="all">Wszystkie</string>
     <string name="filter">Filtr</string>
+    <string name="group">Grupuj</string>
     <string name="reset">Zresetuj</string>
     <string name="reset_all">Zresetuj wszystko</string>
     <string name="apply">Zastosuj</string>
@@ -1316,6 +1326,10 @@ Wymagane są następujące wymiary obrazów:
     <string name="available">Dostępne</string>
     <string name="continue_">Kontynuuj</string>
     <string name="version">Wersja</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Autor</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Plik</string>
     <string name="clone">Klonuj</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Modyfikuj</string>

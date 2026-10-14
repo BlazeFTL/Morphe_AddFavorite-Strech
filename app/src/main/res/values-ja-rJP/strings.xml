@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">ソースを追加</string>
     <string name="deep_link_add_source_message">このパッチソースを Morphe に追加しますか？</string>
     <string name="deep_link_add_source_warning">信頼できるソースのみを追加してください</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">アプリのみが追加されました。ソースのアプリリストから他のアプリを追加できます</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">このソースは既に追加されています。既存のソースからこのアプリを追加しますか？</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe の更新が利用可能です</string>
     <string name="home_update_available_subtitle">新しいバージョンがインストール可能です</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Morphe でパッチを適用した後、このデバイスから削除されたアプリ</string>
     <string name="home_app_filter_clones">クローン</string>
     <string name="home_app_filter_clones_description">独自のパッケージ名でビルドされ、オリジナルのアプリと一緒にインストールできるアプリ</string>
+    <string name="home_app_grouping_all_apps_description">すべてのアプリを含むリスト</string>
+    <string name="home_app_grouping_sources_description">それらを提供するパッチソースの下にあるアプリ</string>
+    <string name="home_app_grouping_custom_description">作成したカテゴリ内のアプリ</string>
     <string name="home_app_sort_manual_description">並べ替えるには、アプリを長押しして並べ替えボタンをタップ</string>
     <string name="home_app_sort_recommended">推奨順</string>
     <string name="home_app_sort_recommended_description">インストール済みのアプリとピン留め済みのアプリを優先</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">パッチソース</string>
     <string name="sources_search">ソースとパッチを検索</string>
-    <string name="sources_sort_title">パッチソースを並べ替え</string>
     <string name="sources_sort_manual">手動</string>
     <string name="sources_sort_manual_hint">ソースを長押しして並べ替え</string>
     <string name="sources_sort_last_updated">最終更新日</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">除外</string>
     <string name="sources_apps_leave_out_done">除外済み</string>
     <string name="sources_apps_bring_back">元に戻す</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">新機能</string>
+    <string name="sources_apps_new_apps">新しいアプリを追加</string>
+    <string name="sources_apps_new_apps_on_description">このソースが後からサポートを開始したアプリは、自動的にホーム画面に表示されます</string>
+    <string name="sources_apps_new_apps_off_description">このソースが後からサポートを開始したアプリは、ここに戻すまで除外された状態になります</string>
     <string name="sources_management_prerelease_toggle">プレリリース版のパッチを使用</string>
     <string name="sources_management_prerelease_toggle_description">実験的なバージョンのパッチを取得します</string>
     <string name="sources_prerelease_warning_title">プレリリース版パッチを有効にしますか？</string>
@@ -405,10 +416,10 @@
     <string name="adaptive_icon_created_success">アダプティブ アイコンの作成に成功しました</string>
     <string name="adaptive_icon_creation_failed">アダプティブ アイコンの作成に失敗しました</string>
     <string name="adaptive_icon_guide">アイコン作成ガイド</string>
-    <string name="adaptive_icon_guide_png_title">背景が透明な PNG を使用する</string>
-    <string name="adaptive_icon_guide_png_body">透明背景のロゴを使う場合、下で選択した背景色が適用されます。透明部分のない画像はアイコン全体に表示され、テーマアイコンと通知アイコンには Morphe のロゴがそのまま表示されます</string>
+    <string name="adaptive_icon_guide_png_title">背景が透明な PNG の使用</string>
+    <string name="adaptive_icon_guide_png_body">背景が透明なロゴを使うのがベストです。背景色には下で選択したものが適用されます。透明部分がないロゴの場合、画像はアイコン全体に表示され、テーマアイコンと通知アイコンには Morphe のロゴがそのまま表示されます</string>
     <string name="adaptive_icon_guide_safe_zones_title">セーフゾーン</string>
-    <string name="adaptive_icon_guide_safe_zones_body">アウトラインはお使いのランチャーのアイコンの形を示しており、その外側は切り取られます。ランチャーによってアイコンの形は異なるため、どの形のアイコンでも見切れないよう、重要な部分は破線の円の内側に収めてください</string>
+    <string name="adaptive_icon_guide_safe_zones_body">アウトラインはランチャーのアイコンの形を示しており、その外側は切り取られます。ランチャーによってアイコンの形は異なるため、どの形のアイコンでも見切れないよう、重要な部分は破線の円の内側に収めてください</string>
     <string name="adaptive_icon_guide_notification_title">通知アイコン</string>
     <string name="adaptive_icon_guide_notification_body">画像の表示範囲から切り抜きます。画像ファイルの余白に関係なく、ステータスバーの他のアイコンと同じ大きさに調整されます。プレビューの下にあるスライダーでサイズを調整してください。Android では単色で表示されます</string>
     <string name="adaptive_icon_guide_monochrome_title">テーマアイコン</string>
@@ -424,7 +435,7 @@
     <string name="header_creator_guide_image_title">画像の要件</string>
     <string name="header_creator_guide_image_body">透明背景の PNG 画像を使うと、アプリバーの背景になじみます。画像ファイル内のロゴ周囲の余白は無視され、標準のロゴと同じ位置・サイズで表示されます</string>
     <string name="header_creator_guide_themes_title">ライトテーマとダークテーマ</string>
-    <string name="header_creator_guide_themes_body">多くのアプリでは、ライトテーマ用とダークテーマ用にそれぞれ画像が必要です。一部のアプリ（YouTube Music など）はダークテーマのみを使用するため、該当するセクションのみ表示されます。</string>
+    <string name="header_creator_guide_themes_body">ほとんどのアプリでは、ライトテーマ用とダークテーマ用にそれぞれ画像が必要です。ただし、YouTube Music など、ダークテーマのみを使用するアプリでは、ダークテーマ用の項目だけが表示されます</string>
     <string name="header_creator_guide_positioning_title">位置とサイズ調整</string>
     <string name="header_creator_guide_positioning_body">編集画面で画像をドラッグしたり、ピンチ操作で拡大・縮小したり、スライダーでサイズを調整できます。破線の枠は標準のロゴの位置を示しており、画像がその位置と重なるとガイドが表示されます</string>
     <!-- Batch patching -->
@@ -777,8 +788,6 @@
     <string name="settings_appearance_home_screen">ホーム画面</string>
     <string name="settings_appearance_greeting_phrases">挨拶メッセージ</string>
     <string name="settings_appearance_greeting_phrases_subtitle">ホーム画面に挨拶メッセージを表示します</string>
-    <string name="settings_appearance_app_grouping">アプリのグループ化</string>
-    <string name="settings_appearance_app_grouping_description">ソースやカテゴリごとにアプリをまとめるスイッチャーを表示します</string>
     <string name="settings_appearance_repatch_notice">再パッチ通知</string>
     <string name="settings_appearance_repatch_notice_description">再パッチ可能なアプリがある場合、バナーを表示します</string>
     <string name="settings_appearance_sort_button">並べ替えとフィルターボタン</string>
@@ -1249,6 +1258,7 @@ morphe_header_custom_dark.png
     <string name="no">いいえ</string>
     <string name="all">すべて</string>
     <string name="filter">フィルター</string>
+    <string name="group">グループ</string>
     <string name="reset">リセット</string>
     <string name="reset_all">すべてリセット</string>
     <string name="apply">適用</string>
@@ -1316,6 +1326,10 @@ morphe_header_custom_dark.png
     <string name="available">利用可能</string>
     <string name="continue_">続行</string>
     <string name="version">バージョン</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">作成者</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">ファイル</string>
     <string name="clone">クローン</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">パッチ</string>

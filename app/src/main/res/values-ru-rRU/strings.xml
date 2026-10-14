@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Добавить источник</string>
     <string name="deep_link_add_source_message">Вы хотите добавить этот источник патча в Morphe?</string>
     <string name="deep_link_add_source_warning">Добавляйте только те источники, которым вы доверяете</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Добавлено только это приложение. Вы можете добавить другие приложения из списка приложений источника</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Доступно обновление Morphe</string>
     <string name="home_update_available_subtitle">Новая версия готова к установке.</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Приложения, пропатченные с помощью Morphe, которых больше нет на этом устройстве</string>
     <string name="home_app_filter_clones">Клоны</string>
     <string name="home_app_filter_clones_description">Приложения, созданные под собственным именем пакета, устанавливаются вместе с оригинальным</string>
+    <string name="home_app_grouping_all_apps_description">Один список со всеми приложениями</string>
+    <string name="home_app_grouping_sources_description">Приложения под источником патча, который их предоставляет</string>
+    <string name="home_app_grouping_custom_description">Приложения в категориях, которые вы создаете</string>
     <string name="home_app_sort_manual_description">Нажмите и удерживайте значок приложения, затем нажмите кнопку изменения порядка</string>
     <string name="home_app_sort_recommended">Рекомендуемый порядок</string>
     <string name="home_app_sort_recommended_description">Сначала установленные и закреплённые приложения</string>
@@ -103,8 +109,8 @@
     <!-- Light sarcasm, casual and tech-savvy humor -->
     <string name="home_greeting_10">Работаем на кофеине и хороших патчах</string>
     <!-- Morning greetings (5:00–11:59) -->
-    <string name="home_greeting_morning_1">Вставай и пропатчивай</string>
-    <string name="home_greeting_morning_2">Доброе утро! Приложения сами себя не пропатчат.</string>
+    <string name="home_greeting_morning_1">Проснись и патч</string>
+    <string name="home_greeting_morning_2">Доброе утро! Приложения сами себя не пропатчат</string>
     <!-- Afternoon greetings (12:00–16:59) -->
     <string name="home_greeting_afternoon_1">Послеполуденный спад? Пора что-нибудь пропатчить</string>
     <string name="home_greeting_afternoon_2">Патчи после обеда воспринимаются иначе</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Источники патчей</string>
     <string name="sources_search">Поиск источников и патчей</string>
-    <string name="sources_sort_title">Сортировка источников патчей</string>
     <string name="sources_sort_manual">Ручная сортировка</string>
     <string name="sources_sort_manual_hint">Нажмите и удерживайте источник, чтобы изменить порядок</string>
     <string name="sources_sort_last_updated">Последнее обновление</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Исключить</string>
     <string name="sources_apps_leave_out_done">Исключено</string>
     <string name="sources_apps_bring_back">Вернуть</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Новые</string>
+    <string name="sources_apps_new_apps">Добавить новые приложения</string>
+    <string name="sources_apps_new_apps_on_description">Приложения, которые этот источник начнёт поддерживать позже, появятся на главном экране автоматически</string>
+    <string name="sources_apps_new_apps_off_description">Приложения, которые этот источник начнёт поддерживать позже, будут исключены, пока вы не вернёте их сюда</string>
     <string name="sources_management_prerelease_toggle">Предрелизные патчи</string>
     <string name="sources_management_prerelease_toggle_description">Получает ранний доступ к новым экспериментальным версиям патча</string>
     <string name="sources_prerelease_warning_title">Включить предварительные патчи?</string>
@@ -724,7 +734,7 @@
     <string name="settings_appearance_background_circles">Круги</string>
     <string name="settings_appearance_background_rings">Кольца</string>
     <string name="settings_appearance_background_mesh">Сетка</string>
-    <string name="settings_appearance_background_space">Пространство</string>
+    <string name="settings_appearance_background_space">Космос</string>
     <string name="settings_appearance_background_shapes">Формы</string>
     <string name="settings_appearance_background_snow">Снег</string>
     <string name="settings_appearance_background_grid">Сетка</string>
@@ -776,8 +786,6 @@
     <string name="settings_appearance_home_screen">Главный экран</string>
     <string name="settings_appearance_greeting_phrases">Приветственные фразы</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Показывать приветственное сообщение на главном экране</string>
-    <string name="settings_appearance_app_grouping">Группировка приложений</string>
-    <string name="settings_appearance_app_grouping_description">Показывать переключатель для группировки приложений по источнику или категории</string>
     <string name="settings_appearance_repatch_notice">Уведомление о перепатчивании</string>
     <string name="settings_appearance_repatch_notice_description">Показывать баннер, когда пропатченные приложения можно перепатчить</string>
     <string name="settings_appearance_sort_button">Кнопка сортировки и фильтрации</string>
@@ -1247,6 +1255,7 @@ morphe_header_custom_dark.png
     <string name="no">Нет</string>
     <string name="all">Все</string>
     <string name="filter">Фильтр</string>
+    <string name="group">Группировать</string>
     <string name="reset">Сбросить</string>
     <string name="reset_all">Сбросить все</string>
     <string name="apply">Применить</string>
@@ -1314,6 +1323,10 @@ morphe_header_custom_dark.png
     <string name="available">Доступно</string>
     <string name="continue_">Продолжить</string>
     <string name="version">Версия</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Автор</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Файл</string>
     <string name="clone">Клон</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Патч</string>

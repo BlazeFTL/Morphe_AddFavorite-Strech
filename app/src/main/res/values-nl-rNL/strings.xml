@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Bron toevoegen</string>
     <string name="deep_link_add_source_message">Wilt u deze patchbron toevoegen aan Morphe?</string>
     <string name="deep_link_add_source_warning">Voeg alleen bronnen toe die u vertrouwt</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Er is alleen deze app toegevoegd. Je kunt andere apps toevoegen vanuit de lijst met apps van de bron</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Deze bron is al toegevoegd. Deze app toevoegen vanuit de bestaande bron?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe-update beschikbaar</string>
     <string name="home_update_available_subtitle">Nieuwe versie gereed voor installatie</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Apps die met Morphe zijn gepatcht en niet meer op dit apparaat staan</string>
     <string name="home_app_filter_clones">Klonen</string>
     <string name="home_app_filter_clones_description">Apps die onder een eigen pakketnaam zijn gebouwd en naast het origineel zijn geïnstalleerd</string>
+    <string name="home_app_grouping_all_apps_description">Eén lijst met alle apps</string>
+    <string name="home_app_grouping_sources_description">Apps onder de patchbron die ze biedt</string>
+    <string name="home_app_grouping_custom_description">Apps in categorieën die u maakt</string>
     <string name="home_app_sort_manual_description">Houd een app ingedrukt en tik vervolgens op de herordenen-knop</string>
     <string name="home_app_sort_recommended">Aanbevolen volgorde</string>
     <string name="home_app_sort_recommended_description">Geïnstalleerde en vastgezette apps eerst</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patchbronnen</string>
     <string name="sources_search">Zoek bronnen en patches</string>
-    <string name="sources_sort_title">Patchbronnen sorteren</string>
     <string name="sources_sort_manual">Handmatige volgorde</string>
     <string name="sources_sort_manual_hint">Houd een bron ingedrukt om de volgorde te wijzigen</string>
     <string name="sources_sort_last_updated">Laatst bijgewerkt</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Uitsluiten</string>
     <string name="sources_apps_leave_out_done">Uitgesloten</string>
     <string name="sources_apps_bring_back">Terugbrengen</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nieuw</string>
+    <string name="sources_apps_new_apps">Nieuwe apps toevoegen</string>
+    <string name="sources_apps_new_apps_on_description">Apps die deze bron later begint te ondersteunen, worden automatisch op het startscherm geplaatst</string>
+    <string name="sources_apps_new_apps_off_description">Apps die deze bron later begint te ondersteunen, worden niet getoond tot je ze hier opnieuw toevoegt</string>
     <string name="sources_management_prerelease_toggle">Patches van vóór de release</string>
     <string name="sources_management_prerelease_toggle_description">Krijg vroegtijdige toegang tot nieuwe experimentele patchversies</string>
     <string name="sources_prerelease_warning_title">Pre-release patches inschakelen?</string>
@@ -777,8 +788,6 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_appearance_home_screen">Startscherm</string>
     <string name="settings_appearance_greeting_phrases">Begroetingszinnen</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Toon een begroetingsbericht op de startscherm</string>
-    <string name="settings_appearance_app_grouping">App-groepering</string>
-    <string name="settings_appearance_app_grouping_description">Toon een schakelaar om apps te groeperen op bron of categorie</string>
     <string name="settings_appearance_repatch_notice">Melding over opnieuw patchen</string>
     <string name="settings_appearance_repatch_notice_description">Toon een banner wanneer gepatchte apps opnieuw kunnen worden gepatcht</string>
     <string name="settings_appearance_sort_button">Sorteer- en filterknop</string>
@@ -1248,6 +1257,7 @@ Details: %2$s"</string>
     <string name="no">Nee</string>
     <string name="all">Alles</string>
     <string name="filter">Filter</string>
+    <string name="group">Groeperen</string>
     <string name="reset">Reset</string>
     <string name="reset_all">Alles resetten</string>
     <string name="apply">Toepassen</string>
@@ -1315,6 +1325,10 @@ Details: %2$s"</string>
     <string name="available">Beschikbaar</string>
     <string name="continue_">Doorgaan</string>
     <string name="version">Versie</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Auteur</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Bestand</string>
     <string name="clone">Kloon</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patchen</string>

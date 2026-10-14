@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">स्रोत जोड़ें</string>
     <string name="deep_link_add_source_message">क्या आप इस पैच सोर्स को Morphe में जोड़ना चाहते हैं?</string>
     <string name="deep_link_add_source_warning">सिर्फ़ उन सोर्स को जोड़ें जिन पर आप भरोसा करते हैं</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">केवल यह ऐप जोड़ा गया है। आप स्रोत की ऐप सूची से अन्य ऐप जोड़ सकते हैं</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">यह स्रोत पहले से ही जोड़ा गया है। मौजूदा स्रोत से यह ऐप जोड़ें?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe अपडेट उपलब्ध है</string>
     <string name="home_update_available_subtitle">नया वर्जन इंस्टॉल करने के लिए तैयार है</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Morphe से पैच किए गए ऐप्स जो अब इस डिवाइस पर नहीं हैं</string>
     <string name="home_app_filter_clones">क्लोन</string>
     <string name="home_app_filter_clones_description">अपने स्वयं के पैकेज नाम के तहत बनाए गए ऐप्स, मूल ऐप के साथ इंस्टॉल किए गए</string>
+    <string name="home_app_grouping_all_apps_description">हर ऐप के साथ एक सूची</string>
+    <string name="home_app_grouping_sources_description">ऐप्स पैच स्रोत के अंतर्गत जो उन्हें प्रदान करते हैं</string>
+    <string name="home_app_grouping_custom_description">श्रेणियों में ऐप्स आप बनाते हैं</string>
     <string name="home_app_sort_manual_description">किसी ऐप को देर तक दबाएं, फिर पुन: व्यवस्थित करें बटन पर टैप करें</string>
     <string name="home_app_sort_recommended">अनुशंसित क्रम</string>
     <string name="home_app_sort_recommended_description">स्थापित और पिन किए गए ऐप्स पहले</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">पैच स्रोत</string>
     <string name="sources_search">स्रोत और पैच खोजें</string>
-    <string name="sources_sort_title">पैच स्रोत क्रमबद्ध करें</string>
     <string name="sources_sort_manual">मैन्युअल ऑर्डर</string>
     <string name="sources_sort_manual_hint">पुन:क्रमित करने के लिए किसी स्रोत को देर तक दबाएं</string>
     <string name="sources_sort_last_updated">अंतिम अपडेट किया गया</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">बाहर करें</string>
     <string name="sources_apps_leave_out_done">बाहर किया गया</string>
     <string name="sources_apps_bring_back">वापस लाएँ</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">नया</string>
+    <string name="sources_apps_new_apps">नए ऐप्स लाएं</string>
+    <string name="sources_apps_new_apps_on_description">इस स्रोद द्वारा बाद में समर्थित किए जाने वाले ऐप्स अपने आप होम स्क्रीन पर दिखाई देते हैं</string>
+    <string name="sources_apps_new_apps_off_description">इस स्रोत द्वारा बाद में समर्थित किए जाने वाले ऐप्स तब तक छोड़ दिए जाते हैं जब तक कि आप उन्हें वापस नहीं लाते</string>
     <string name="sources_management_prerelease_toggle">प्री-रिलीज़ पैच</string>
     <string name="sources_management_prerelease_toggle_description">नए प्रायोगिक पैच संस्करणों तक जल्दी पहुँच प्राप्त करता है</string>
     <string name="sources_prerelease_warning_title">क्या प्री-रिलीज़ पैच सक्षम करें?</string>
@@ -777,8 +788,6 @@
     <string name="settings_appearance_home_screen">मुखपृष्ठ</string>
     <string name="settings_appearance_greeting_phrases">अभिवादन वाक्यांश</string>
     <string name="settings_appearance_greeting_phrases_subtitle">मुखपृष्ठ पर अभिवादन संदेश दिखाएँ</string>
-    <string name="settings_appearance_app_grouping">ऐप समूहीकरण</string>
-    <string name="settings_appearance_app_grouping_description">स्रोत या श्रेणी के आधार पर ऐप्स को समूहित करने के लिए एक स्विचर दिखाएँ</string>
     <string name="settings_appearance_repatch_notice">पुनः पैच सूचना</string>
     <string name="settings_appearance_repatch_notice_description">जब पैच किए गए ऐप्स को दोबारा पैच किया जा सकता है तो एक बैनर दिखाएँ</string>
     <string name="settings_appearance_sort_button">सॉर्ट और फ़िल्टर बटन</string>
@@ -1248,6 +1257,7 @@ morphe_header_custom_dark.png
     <string name="no">नहीं</string>
     <string name="all">सभी</string>
     <string name="filter">फ़िल्टर</string>
+    <string name="group">समूह</string>
     <string name="reset">रीसेट करें</string>
     <string name="reset_all">सभी रीसेट करें</string>
     <string name="apply">लागू करें</string>
@@ -1315,6 +1325,10 @@ morphe_header_custom_dark.png
     <string name="available">उपलब्ध</string>
     <string name="continue_">Continue</string>
     <string name="version">Version</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">लेखक</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">फ़ाइल</string>
     <string name="clone">क्लोन</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">पैच</string>

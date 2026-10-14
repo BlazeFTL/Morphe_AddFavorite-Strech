@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Legg til kilde</string>
     <string name="deep_link_add_source_message">Vil du legge til denne patch-kilden til Morphe?</string>
     <string name="deep_link_add_source_warning">Bruk kun betrodde kilder</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Bare denne appen er lagt til. Du kan legge til andreapper fra kildens appliste</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Denne kilden er allerede lagt til. Vil du legge til denne appen fra den eksisterende kilden?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe-oppdatering er tilgjengelig</string>
     <string name="home_update_available_subtitle">Ny versjon klar for installasjon</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Apper patchet med Morphe som ikke lenger er på denne enheten</string>
     <string name="home_app_filter_clones">Kloner</string>
     <string name="home_app_filter_clones_description">Apper bygget under et eget pakkenavn, installert ved siden av originalen</string>
+    <string name="home_app_grouping_all_apps_description">Én liste med alle apper</string>
+    <string name="home_app_grouping_sources_description">Apper under kildekategorien som tilbyr dem</string>
+    <string name="home_app_grouping_custom_description">Apper i kategorier du oppretter</string>
     <string name="home_app_sort_manual_description">Trykk og hold på en app, og trykk deretter på sorter-knappen</string>
     <string name="home_app_sort_recommended">Anbefalt rekkefølge</string>
     <string name="home_app_sort_recommended_description">Installerte og fastsatte apper først</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch-kilder</string>
     <string name="sources_search">Søk etter kilder og patcher</string>
-    <string name="sources_sort_title">Sorter patch-kilder</string>
     <string name="sources_sort_manual">Manuell rekkefølge</string>
     <string name="sources_sort_manual_hint">Trykk og hold nede en kilde for å endre rekkefølgen</string>
     <string name="sources_sort_last_updated">Sist oppdatert</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Utelat</string>
     <string name="sources_apps_leave_out_done">Utelatt</string>
     <string name="sources_apps_bring_back">Ta inn igjen</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Ny</string>
+    <string name="sources_apps_new_apps">Bringer nye apper</string>
+    <string name="sources_apps_new_apps_on_description">Apper denne kilden senere starter støtte når nå hjem-skjermen på egen hånd</string>
+    <string name="sources_apps_new_apps_off_description">Apper denne kilden senere er startet støttelse utelatt til du bringe dem tilbake her</string>
     <string name="sources_management_prerelease_toggle">Forhåndsutgitte patcher</string>
     <string name="sources_management_prerelease_toggle_description">Mottar tidlig tilgang til nye eksperimentelle patchversjoner</string>
     <string name="sources_prerelease_warning_title">Aktiver forhåndsutgitte patcher?</string>
@@ -777,8 +788,6 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_home_screen">Hjemmeskjerm</string>
     <string name="settings_appearance_greeting_phrases">Hilsenfraser</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Vis en hilsenmelding på startskjermen</string>
-    <string name="settings_appearance_app_grouping">Appgruppering</string>
-    <string name="settings_appearance_app_grouping_description">Vis en bryter for å gruppere apper etter kilde eller kategori</string>
     <string name="settings_appearance_repatch_notice">Varsel om å lappe på nytt</string>
     <string name="settings_appearance_repatch_notice_description">Vis et banner når lappede apper kan lappes på nytt</string>
     <string name="settings_appearance_sort_button">Sorterings- og filterknapp</string>
@@ -1248,6 +1257,7 @@ Detaljer: %2$s"</string>
     <string name="no">Nei</string>
     <string name="all">Alle</string>
     <string name="filter">Filter</string>
+    <string name="group">Gruppér</string>
     <string name="reset">Tilbakestill</string>
     <string name="reset_all">Tilbakestill alt</string>
     <string name="apply">Bruk</string>
@@ -1315,6 +1325,10 @@ Detaljer: %2$s"</string>
     <string name="available">Tilgjengelig</string>
     <string name="continue_">Fortsett</string>
     <string name="version">Versjon</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Forfatter</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Fil</string>
     <string name="clone">Klon</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>

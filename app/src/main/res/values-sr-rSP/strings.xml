@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Додај извор</string>
     <string name="deep_link_add_source_message">Да ли желите да додати овај извор исправки у Morphe?</string>
     <string name="deep_link_add_source_warning">Додајте само изворе којима верујете</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Додата је само ова апликација. Можете додати друге апликације са листе апликација извора</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Доступно је ажурирање за Morphe</string>
     <string name="home_update_available_subtitle">Нова верзија спремна за инсталирање</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Апликације закрпљене помоћу Morphe-а које више нису на овом уређају</string>
     <string name="home_app_filter_clones">Клонови</string>
     <string name="home_app_filter_clones_description">Апликације направљене под сопственим именом пакета, инсталиране уз оригинал</string>
+    <string name="home_app_grouping_all_apps_description">Једна листе са свим апликацијама</string>
+    <string name="home_app_grouping_sources_description">Апликације испод извора за патче који их пружа</string>
+    <string name="home_app_grouping_custom_description">Апликације у категоријама које креирате</string>
     <string name="home_app_sort_manual_description">Притисните и задржите апликацију, затим додирните дугме за поредање</string>
     <string name="home_app_sort_recommended">Препоручени поредак</string>
     <string name="home_app_sort_recommended_description">Инсталиране и причвршћене апликације прво</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Извор печовања</string>
     <string name="sources_search">Претражите изворе и закрпе</string>
-    <string name="sources_sort_title">Сортирај изворе закрпа</string>
     <string name="sources_sort_manual">Ручно поређање</string>
     <string name="sources_sort_manual_hint">Притисните и задржите извор да бисте променили редослед</string>
     <string name="sources_sort_last_updated">Последње ажурирање</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Изостави</string>
     <string name="sources_apps_leave_out_done">Изостављено</string>
     <string name="sources_apps_bring_back">Врати</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Ново</string>
+    <string name="sources_apps_new_apps">Доведи нове апликације</string>
+    <string name="sources_apps_new_apps_on_description">Апликације које овај извор касније почне да подржава самостално ће се појавити на почетном екрану</string>
+    <string name="sources_apps_new_apps_off_description">Апликације које овај извор касније почне да подржава су изузете све док их не вратите овде</string>
     <string name="sources_management_prerelease_toggle">Предвершајуће закрпе</string>
     <string name="sources_management_prerelease_toggle_description">Примање ране приступности новим експерименталним верзијама пача</string>
     <string name="sources_prerelease_warning_title">Омогући пре-издање закрпе?</string>
@@ -777,8 +787,6 @@
     <string name="settings_appearance_home_screen">Почетни екран</string>
     <string name="settings_appearance_greeting_phrases">Почетне фразе</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Прикажи поруку на почетном екрану</string>
-    <string name="settings_appearance_app_grouping">Груписање апликација</string>
-    <string name="settings_appearance_app_grouping_description">Прикажи прекидач за груписање апликација по извору или категорији</string>
     <string name="settings_appearance_repatch_notice">Обавештење о поновном закрпавању</string>
     <string name="settings_appearance_repatch_notice_description">Прикажи банер када се закрпљене апликације могу поново закрпити</string>
     <string name="settings_appearance_sort_button">Дугме за сортирање и филтрирање</string>
@@ -1248,6 +1256,7 @@ morphe_header_custom_dark.png
     <string name="no">Не</string>
     <string name="all">Сви</string>
     <string name="filter">Филтер</string>
+    <string name="group">Групирај</string>
     <string name="reset">Ресетуј</string>
     <string name="reset_all">Ресетуј све</string>
     <string name="apply">Примени</string>
@@ -1315,6 +1324,10 @@ morphe_header_custom_dark.png
     <string name="available">Доступно</string>
     <string name="continue_">Настави</string>
     <string name="version">Верзија</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Аутор</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Фајл</string>
     <string name="clone">Клон</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Печ</string>

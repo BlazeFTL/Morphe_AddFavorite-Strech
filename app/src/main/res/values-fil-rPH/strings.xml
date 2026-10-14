@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Magdagdag ng mapagkukunan</string>
     <string name="deep_link_add_source_message">Gusto mo bang idagdag ang patch source na ito sa Morphe?</string>
     <string name="deep_link_add_source_warning">Magdagdag lamang ng mga mapagkukunan na pinagkakatiwalaan mo</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Ilang app lang ang idinagdag. Maaari kang magdagdag ng iba pang app mula sa listahan ng mga app ng pinagmulan</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Ang pinagmulan na ito ay nakadagdag na. Magdagdag ng app na ito mula sa umiiral na pinagmulan?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">May available na update para sa Morphe</string>
     <string name="home_update_available_subtitle">Handa na mag-install ang bagong bersyon</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Mga app na na-patch gamit ang Morphe na wala na sa device na ito</string>
     <string name="home_app_filter_clones">Mga clone</string>
     <string name="home_app_filter_clones_description">Mga app na binuo gamit ang sariling package name, na naka-install kasama ng orihinal</string>
+    <string name="home_app_grouping_all_apps_description">Isang listahan ng lahat ng app</string>
+    <string name="home_app_grouping_sources_description">Ang mga app sa ilalim ng source na nagbibigay sa kanila</string>
+    <string name="home_app_grouping_custom_description">Mga app sa mga kategorya na iyong nilikha</string>
     <string name="home_app_sort_manual_description">Pindutin nang matagal ang isang app, pagkatapos ay i-tap ang button na muling ayusin</string>
     <string name="home_app_sort_recommended">Inirerekomendang bersyon</string>
     <string name="home_app_sort_recommended_description">Mga naka-install at naka-pin na app muna</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">I-patch ang mapagkukunan</string>
     <string name="sources_search">Maghanap ng mga source at mga patch</string>
-    <string name="sources_sort_title">Idagdag ang mapagkukunan ng patch</string>
     <string name="sources_sort_manual">Manu-manong pagkakasunud-sunod</string>
     <string name="sources_sort_manual_hint">Pindutin nang matagal ang isang pinagmulan upang muling ayusin</string>
     <string name="sources_sort_last_updated">Huling in-update</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Huwag isama</string>
     <string name="sources_apps_leave_out_done">Hindi kasama</string>
     <string name="sources_apps_bring_back">Ibalik</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Bago</string>
+    <string name="sources_apps_new_apps">Magdadagdag ng mga bagong aplikasyon</string>
+    <string name="sources_apps_new_apps_on_description">Ang mga aplikasyong sinuportahan ng pinagmulang ito ay lumalabas sa home screen nang mag-isa</string>
+    <string name="sources_apps_new_apps_off_description">Ang mga aplikasyong sinuportahan ng pinagmulan na ito ay naiiwan hangga\'t hindi mo nila idaradagdag dito muli</string>
     <string name="sources_management_prerelease_toggle">Mga patch na pre-release</string>
     <string name="sources_management_prerelease_toggle_description">Tumatanggap ng maagang pag-access sa mga bagong bersyon ng patch na pang-eksperimento</string>
     <string name="sources_prerelease_warning_title">Paganahin ang mga pre-release na patch?</string>
@@ -777,8 +788,6 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_home_screen">Pangunahing iskrin</string>
     <string name="settings_appearance_greeting_phrases">Mga pagbati</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Ipakita ang mensahe ng pagbati sa pangunahing iskrin</string>
-    <string name="settings_appearance_app_grouping">Pagpapangkat ng app</string>
-    <string name="settings_appearance_app_grouping_description">Magpakita ng pampaglipat upang pangkatin ang mga app ayon sa pinagmulan o kategorya.</string>
     <string name="settings_appearance_repatch_notice">Paunawa sa muling pag-patch</string>
     <string name="settings_appearance_repatch_notice_description">Magpakita ng banner kapag ang mga na-patch na app ay maaari nang i-patch muli.</string>
     <string name="settings_appearance_sort_button">Button ng pag-uuri at pagsala</string>
@@ -1248,6 +1257,7 @@ Mga Detalye: %2$s"</string>
     <string name="no">Hindi</string>
     <string name="all">Lahat</string>
     <string name="filter">Salain</string>
+    <string name="group">Pagkakumpuha</string>
     <string name="reset">Ipawalang-bisa</string>
     <string name="reset_all">Ipawalang-bisa lahat</string>
     <string name="apply">Ilapat</string>
@@ -1315,6 +1325,10 @@ Mga Detalye: %2$s"</string>
     <string name="available">Magagamit</string>
     <string name="continue_">Magpatuloy</string>
     <string name="version">Bersyon</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">May-akda</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">File</string>
     <string name="clone">I-clone</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>

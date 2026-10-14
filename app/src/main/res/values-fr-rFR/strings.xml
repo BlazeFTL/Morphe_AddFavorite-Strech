@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Ajouter la source</string>
     <string name="deep_link_add_source_message">Voulez-vous ajouter cette source de patchs à Morphe ?</string>
     <string name="deep_link_add_source_warning">Ajoutez uniquement des sources auxquelles vous faites confiance</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Seule cette application est ajoutée. Vous pouvez ajouter d\'autres applications depuis la liste des applications de la source</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Cette source est déjà ajoutée. Ajouter cette application à partir de la source existante ?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Mise à jour de Morphe disponible</string>
     <string name="home_update_available_subtitle">Nouvelle version prête à installer</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Applications patchées avec Morphe qui ne sont plus sur cet appareil</string>
     <string name="home_app_filter_clones">Clones</string>
     <string name="home_app_filter_clones_description">Des applications créées sous leur propre nom de paquet, installées à côté de l\'original</string>
+    <string name="home_app_grouping_all_apps_description">Une seule liste avec toutes les applications</string>
+    <string name="home_app_grouping_sources_description">Les applications provenant de la source de patchs qui les fournit</string>
+    <string name="home_app_grouping_custom_description">Les applications dans les catégories que vous créez</string>
     <string name="home_app_sort_manual_description">Appuyez longuement sur une application, puis appuyez sur le bouton de réorganisation</string>
     <string name="home_app_sort_recommended">Ordre recommandé</string>
     <string name="home_app_sort_recommended_description">Applications installées et épinglées en premier</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sources de patchs</string>
     <string name="sources_search">Rechercher des sources et des patchs</string>
-    <string name="sources_sort_title">Trier les sources de patchs</string>
     <string name="sources_sort_manual">Ordre manuel</string>
     <string name="sources_sort_manual_hint">Appuyez longuement sur une source pour la réorganiser</string>
     <string name="sources_sort_last_updated">Dernière mise à jour</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Exclure</string>
     <string name="sources_apps_leave_out_done">Exclues</string>
     <string name="sources_apps_bring_back">Restaurer</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nouvelle</string>
+    <string name="sources_apps_new_apps">Ajouter les nouvelles applications</string>
+    <string name="sources_apps_new_apps_on_description">Les applications prises en charge ultérieurement par cette source apparaissent automatiquement sur l\'écran d\'accueil</string>
+    <string name="sources_apps_new_apps_off_description">Les applications prises en charge ultérieurement par cette source sont exclues jusqu\'à ce que vous les rétablissiez ici</string>
     <string name="sources_management_prerelease_toggle">Patchs en préversion</string>
     <string name="sources_management_prerelease_toggle_description">Reçoit un accès anticipé aux nouvelles versions expérimentales des patchs</string>
     <string name="sources_prerelease_warning_title">Activer les patchs en préversion ?</string>
@@ -210,7 +221,7 @@
     <string name="sources_dialog_preinstalled">Préinstallée</string>
     <string name="sources_dialog_community">Patchs communautaires</string>
     <string name="sources_dialog_choose_apps">Choisir des applications</string>
-    <string name="sources_dialog_choose_apps_description">Selectionnez les applications à conserver une fois la source chargée</string>
+    <string name="sources_dialog_choose_apps_description">Choisissez les applications à conserver une fois la source chargée</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Sources de patchs tierces</string>
     <string name="sources_dialog_community_notice_message">"Les sources de patchs communautaires sont créées et maintenues par leurs propres auteurs. Morphe ne vérifie ni n'examine les patchs tiers et n'est pas responsable de leur contenu ni de leurs actions sur votre appareil.
@@ -781,8 +792,6 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_home_screen">Écran d\'accueil</string>
     <string name="settings_appearance_greeting_phrases">Phrases de salutation</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Afficher un message de salutation sur l\'écran d\'accueil</string>
-    <string name="settings_appearance_app_grouping">Regroupement d\'applications</string>
-    <string name="settings_appearance_app_grouping_description">Afficher un sélecteur pour regrouper les applications par source ou par catégorie</string>
     <string name="settings_appearance_repatch_notice">Avis de re-patch</string>
     <string name="settings_appearance_repatch_notice_description">Afficher une bannière lorsque les applications patchées peuvent être re-patchées</string>
     <string name="settings_appearance_sort_button">Bouton trier et filtrer</string>
@@ -1074,9 +1083,9 @@ Détails : %2$s"</string>
     <string name="settings_system_notifications_sound_default">Par défaut</string>
     <string name="settings_system_notifications_sound_picker_title">Choisissez la source sonore</string>
     <string name="settings_system_notifications_sound_pick_ringtone">Sons système</string>
-    <string name="settings_system_notifications_sound_pick_file">Sélectionner parmi les fichiers</string>
+    <string name="settings_system_notifications_sound_pick_file">Choisir parmi les fichiers</string>
     <string name="settings_system_notifications_sound_reset">Réinitialiser par défaut</string>
-    <string name="settings_system_notifications_ringtone_picker_title">Sélectionner une tonalité</string>
+    <string name="settings_system_notifications_ringtone_picker_title">Choisir une tonalité</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importer &amp; exporter</string>
     <string name="settings_system_signing_key">Clé de signature</string>
@@ -1254,6 +1263,7 @@ Détails : %2$s"</string>
     <string name="no">Non</string>
     <string name="all">Tout</string>
     <string name="filter">Filtre</string>
+    <string name="group">Regrouper</string>
     <string name="reset">Réinitialiser</string>
     <string name="reset_all">Tout réinitialiser</string>
     <string name="apply">Appliquer</string>
@@ -1321,6 +1331,10 @@ Détails : %2$s"</string>
     <string name="available">Disponible</string>
     <string name="continue_">Continuer</string>
     <string name="version">Version</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Auteur</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Fichier</string>
     <string name="clone">Clone</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patcher</string>

@@ -15,6 +15,8 @@
     <string name="deep_link_add_source_title">Додај извор</string>
     <string name="deep_link_add_source_message">Дали сакате да го додадете овој извор на закрпување во Morphe?</string>
     <string name="deep_link_add_source_warning">Додајте ги само изворите во кои верувате</string>
+    <!-- Shown under the app a link was opened for -->
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Достапно е ажурирање на Morphe</string>
     <string name="home_update_available_subtitle">Достапно е ажурирање</string>
@@ -76,6 +78,7 @@
     <string name="sources_management_title">Извори на поправки</string>
     <string name="sources_management_open_in_browser">Отвори во прелистувач</string>
     <string name="sources_management_failed_to_open_url">Не успеа да се отвори URL адреса</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
     <string name="sources_management_prerelease_toggle">Пред-издадени закрпи</string>
     <string name="sources_management_prerelease_toggle_description">Прима ран пристап до нови експериментални верзии на закрпи</string>
     <string name="sources_management_experimental_versions_toggle">Експериментални верзии на апликацијата</string>
@@ -728,6 +731,8 @@ morphe_header_custom_dark.png
     <string name="available">Достапно</string>
     <string name="continue_">Продолжи</string>
     <string name="version">Верзија</string>
+    <!-- Who made a patch source, as a field label -->
+    <!-- A file a patch source is added from, as a field label -->
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Закрпи</string>
     <string name="open">Отвори</string>

@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Lägg till källa</string>
     <string name="deep_link_add_source_message">Vill du lägga till den här tilläggskällan i Morphe?</string>
     <string name="deep_link_add_source_warning">Lägg bara till källor du litar på</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Endast den här appen har lagts till. Du kan lägga till andra appar från källans applista</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Uppdatering för Morphe är tillgänglig</string>
     <string name="home_update_available_subtitle">Ny version är redo att installeras</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Appar modifierade med Morphe som inte längre finns på den här enheten</string>
     <string name="home_app_filter_clones">Kloner</string>
     <string name="home_app_filter_clones_description">Appar byggda under eget paketnamn, installerade bredvid originalet</string>
+    <string name="home_app_grouping_all_apps_description">En lista över alla appar</string>
+    <string name="home_app_grouping_sources_description">Appar från tillhandahållaren av källan</string>
+    <string name="home_app_grouping_custom_description">Appar i kategorier du skapar</string>
     <string name="home_app_sort_manual_description">Tryck länge på en app och tryck sedan på knappen för att ändra ordning</string>
     <string name="home_app_sort_recommended">Rekommenderad ordning</string>
     <string name="home_app_sort_recommended_description">Installerade och fästa appar först</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Tilläggskällor</string>
     <string name="sources_search">Sök efter källor och tillägg</string>
-    <string name="sources_sort_title">Sortera tilläggskällor</string>
     <string name="sources_sort_manual">Manuell ordning</string>
     <string name="sources_sort_manual_hint">Tryck länge på en källa för att ändra ordning</string>
     <string name="sources_sort_last_updated">Senast uppdaterad</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Uteslut</string>
     <string name="sources_apps_leave_out_done">Utesluten</string>
     <string name="sources_apps_bring_back">Ta tillbaka</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nytt</string>
+    <string name="sources_apps_new_apps">Hämta nya appar</string>
+    <string name="sources_apps_new_apps_on_description">Appar som den här källan börjar stödja senare visas automatiskt på hemskärmen</string>
+    <string name="sources_apps_new_apps_off_description">Appar som den här källan börjar stödja senare utelämnas tills du hämtar dem tillbaka hit</string>
     <string name="sources_management_prerelease_toggle">Förhandsversioner av tillägg</string>
     <string name="sources_management_prerelease_toggle_description">Får tidig åtkomst till nya experimentella tilläggsversioner</string>
     <string name="sources_prerelease_warning_title">Aktivera förhandsversioner av tillägg?</string>
@@ -777,8 +787,6 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <string name="settings_appearance_home_screen">Startskärm</string>
     <string name="settings_appearance_greeting_phrases">Hälsningsfraser</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Visa ett hälsningsmeddelande på startskärmen</string>
-    <string name="settings_appearance_app_grouping">Appgruppering</string>
-    <string name="settings_appearance_app_grouping_description">Visar en uppsättning knappar för att gruppera appar efter källa eller kategori</string>
     <string name="settings_appearance_repatch_notice">Meddelande om att modifiera igen</string>
     <string name="settings_appearance_repatch_notice_description">Visa en banner när modifierade appar kan modifieras igen</string>
     <string name="settings_appearance_sort_button">Knapp för att sortera och filtrera</string>
@@ -1248,6 +1256,7 @@ Information: %2$s"</string>
     <string name="no">Nej</string>
     <string name="all">Alla</string>
     <string name="filter">Filtrera</string>
+    <string name="group">Gruppera</string>
     <string name="reset">Återställ</string>
     <string name="reset_all">Återställ alla</string>
     <string name="apply">Verkställ</string>
@@ -1315,6 +1324,10 @@ Information: %2$s"</string>
     <string name="available">Tillgänglig</string>
     <string name="continue_">Fortsätt</string>
     <string name="version">Version</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Upphovsman</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Fil</string>
     <string name="clone">Klona</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Modifiera</string>

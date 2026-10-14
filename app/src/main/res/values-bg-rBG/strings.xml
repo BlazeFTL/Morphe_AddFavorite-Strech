@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Добавяне на източник</string>
     <string name="deep_link_add_source_message">Искате ли да добавите този източник на корекции към Morphe?</string>
     <string name="deep_link_add_source_warning">Добавяйте само източници, на които имате доверие</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Добавена е само това приложение. Можете да добавите други приложения от списъка с приложения на източника</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Този източник вече е добавен. Да се добави това приложение от съществуващия източник?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Налично е ново обновление за Morphe</string>
     <string name="home_update_available_subtitle">Готово за инсталиране</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Приложения, пачвани с Morphe, които вече не са на това устройство</string>
     <string name="home_app_filter_clones">Клонинги</string>
     <string name="home_app_filter_clones_description">Приложения, създадени под собствено име на пакета, инсталирани заедно с оригинала</string>
+    <string name="home_app_grouping_all_apps_description">Един списък с всяко приложение</string>
+    <string name="home_app_grouping_sources_description">Приложения под източника на патч, който ги предоставя</string>
+    <string name="home_app_grouping_custom_description">Приложения в категории, които създавате</string>
     <string name="home_app_sort_manual_description">Натиснете и задръжте приложение, след което докоснете бутона за пренареждане</string>
     <string name="home_app_sort_recommended">Препоръчителен ред</string>
     <string name="home_app_sort_recommended_description">Инсталирани и закрепени приложения първо</string>
@@ -147,7 +154,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Източници за поправки</string>
     <string name="sources_search">Търсене на източници и кръпки</string>
-    <string name="sources_sort_title">Сортиране на източници на поправки</string>
     <string name="sources_sort_manual">Ръчна подредба</string>
     <string name="sources_sort_manual_hint">Натиснете и задръжте източник, за да го пренаредите</string>
     <string name="sources_sort_last_updated">Последна актуализация</string>
@@ -165,6 +171,11 @@
     <string name="sources_apps_leave_out">Изключете</string>
     <string name="sources_apps_leave_out_done">Изключено</string>
     <string name="sources_apps_bring_back">Върнете</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Ново</string>
+    <string name="sources_apps_new_apps">Добавете нови приложения</string>
+    <string name="sources_apps_new_apps_on_description">Приложенията, които този източник започва да поддържа по-късно, се появяват сами на началния екран</string>
+    <string name="sources_apps_new_apps_off_description">Приложенията, които този източник започва да поддържа по-късно, остават изключени, докато ги върнете тук</string>
     <string name="sources_management_prerelease_toggle">Предварителни пачове</string>
     <string name="sources_management_prerelease_toggle_description">Получава ранен достъп до нови експериментални версии на пачове</string>
     <string name="sources_prerelease_warning_title">Активиране на предварителни пачове ли?</string>
@@ -777,8 +788,6 @@
     <string name="settings_appearance_home_screen">Начален екран</string>
     <string name="settings_appearance_greeting_phrases">Поздравителни фрази</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Показване на поздравително съобщение на началния екран</string>
-    <string name="settings_appearance_app_grouping">Групиране на приложения</string>
-    <string name="settings_appearance_app_grouping_description">Показване на превключвател за групиране на приложенията по източник или категория</string>
     <string name="settings_appearance_repatch_notice">Известие за повторно кръпване</string>
     <string name="settings_appearance_repatch_notice_description">Показване на банер, когато приложенията с кръпки могат да бъдат кръпени отново</string>
     <string name="settings_appearance_sort_button">Бутон за сортиране и филтриране</string>
@@ -1248,6 +1257,7 @@ morphe_header_custom_dark.png
     <string name="no">Не</string>
     <string name="all">Всички</string>
     <string name="filter">Филтър</string>
+    <string name="group">Групиране</string>
     <string name="reset">Нулирай</string>
     <string name="reset_all">Възстановяване на всичко</string>
     <string name="apply">Приложи</string>
@@ -1315,6 +1325,10 @@ morphe_header_custom_dark.png
     <string name="available">Достъпен</string>
     <string name="continue_">Toast</string>
     <string name="version">New downloader plugins available. Click here to configure them.</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Автор</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Файл</string>
     <string name="clone">Клониране</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Пач</string>

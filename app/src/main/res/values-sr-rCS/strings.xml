@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Dodaj izvor</string>
     <string name="deep_link_add_source_message">Da li želite da dodate ovaj izvor patch-a u Morphe?</string>
     <string name="deep_link_add_source_warning">Dodajte samo izvore kojima verujete</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Dodata je samo ova aplikacija. Možete dodati druge aplikacije iz liste aplikacija izvora</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Dostupno ažuriranje za Morphe</string>
     <string name="home_update_available_subtitle">Novu verziju možete instalirati</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Aplikacije zakrpljene pomoću Morphe-a koje više nisu na ovom uređaju</string>
     <string name="home_app_filter_clones">Klonovi</string>
     <string name="home_app_filter_clones_description">Aplikacije napravljene pod sopstvenim imenom paketa, instalirane pored originala</string>
+    <string name="home_app_grouping_all_apps_description">Jedna lista sa svim aplikacijama</string>
+    <string name="home_app_grouping_sources_description">Aplikacije izvoru koji ih obezbeđuje</string>
+    <string name="home_app_grouping_custom_description">Aplikacije u kategorijama koje kreirate</string>
     <string name="home_app_sort_manual_description">Pritisnite i zadržite aplikaciju, zatim dodirnite dugme za promenu reda</string>
     <string name="home_app_sort_recommended">Preporučeni redosled</string>
     <string name="home_app_sort_recommended_description">Instalirane i pričvršćene aplikacije prvo</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Izvori zakrpe</string>
     <string name="sources_search">Pretraži izvore i zakrpe</string>
-    <string name="sources_sort_title">Sortiraj izvore zakrpa</string>
     <string name="sources_sort_manual">Ručna postavka</string>
     <string name="sources_sort_manual_hint">Pritisnite i zadržite izvor da biste ga preuredili</string>
     <string name="sources_sort_last_updated">Zadnje ažuriranje</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Izostavite</string>
     <string name="sources_apps_leave_out_done">Izostavljeno</string>
     <string name="sources_apps_bring_back">Vratite</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Novo</string>
+    <string name="sources_apps_new_apps">Donesi nove aplikacije</string>
+    <string name="sources_apps_new_apps_on_description">Aplikacije koje ovaj izvor kasnije počne da podržava, same se pojavljuju na početnom ekranu</string>
+    <string name="sources_apps_new_apps_off_description">Aplikacije koje ovaj izvor kasnije počne da podržava su isključene dok ih ponovno ne donesete ovde</string>
     <string name="sources_management_prerelease_toggle">Zakrpe u predprodukciji</string>
     <string name="sources_management_prerelease_toggle_description">Dobija rani pristup novim eksperimentalnim verzijama zakrpa</string>
     <string name="sources_prerelease_warning_title">Omogući zakrpe za predizdanje?</string>
@@ -777,8 +787,6 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_home_screen">Početni ekran</string>
     <string name="settings_appearance_greeting_phrases">Pozdravne poruke</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Prikaži poruku dobrodošlice na početnom ekranu</string>
-    <string name="settings_appearance_app_grouping">Grupisanje aplikacija</string>
-    <string name="settings_appearance_app_grouping_description">Prikaži prekidač za grupisanje aplikacija po izvoru ili kategoriji</string>
     <string name="settings_appearance_repatch_notice">Obaveštenje o ponovnom zakrpavanju</string>
     <string name="settings_appearance_repatch_notice_description">Prikaži baner kada se već zakrpljene aplikacije mogu ponovo zakrpiti</string>
     <string name="settings_appearance_sort_button">Dugme za sortiranje i filtriranje</string>
@@ -1232,6 +1240,7 @@ Detalji: %2$s"</string>
     <string name="no">Ne</string>
     <string name="all">Sve</string>
     <string name="filter">Filter</string>
+    <string name="group">Grupa</string>
     <string name="reset">Poništi</string>
     <string name="reset_all">Poništi sve</string>
     <string name="apply">Primeni</string>
@@ -1299,6 +1308,10 @@ Detalji: %2$s"</string>
     <string name="available">Dostupno</string>
     <string name="continue_">Nastavi</string>
     <string name="version">Verzija</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Autor</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Datoteka</string>
     <string name="clone">Klon</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Zakrpi</string>

@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Tambah sumber</string>
     <string name="deep_link_add_source_message">Apakah Anda ingin menambahkan sumber tambalan ini ke Morphe?</string>
     <string name="deep_link_add_source_warning">Hanya tambahkan sumber yang Anda percayai</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Hanya aplikasi ini yang ditambahkan. Anda dapat menambahkan aplikasi lain dari daftar aplikasi sumber</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Sumber ini sudah ditambahkan. Tambahkan aplikasi ini dari sumber yang sudah ada?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Pembaruan Morphe tersedia</string>
     <string name="home_update_available_subtitle">Versi baru siap dipasang</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Aplikasi yang ditambal dengan Morphe dan tidak lagi berada di perangkat ini</string>
     <string name="home_app_filter_clones">Klon</string>
     <string name="home_app_filter_clones_description">Aplikasi yang dibuat dengan nama paket tersendiri, dipasang bersamaan dengan aslinya</string>
+    <string name="home_app_grouping_all_apps_description">Satu daftar berisi semua aplikasi</string>
+    <string name="home_app_grouping_sources_description">Aplikasi di bawah sumber penambalan yang menyediakan mereka</string>
+    <string name="home_app_grouping_custom_description">Aplikasi dalam kategori yang Anda buat</string>
     <string name="home_app_sort_manual_description">Tekan lama sebuah aplikasi, lalu ketuk tombol urutkan</string>
     <string name="home_app_sort_recommended">Urutan yang Direkomendasikan</string>
     <string name="home_app_sort_recommended_description">Aplikasi yang sudah dipasang dan disematkan terlebih dahulu</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sumber tambalan</string>
     <string name="sources_search">Cari sumber dan tambalan</string>
-    <string name="sources_sort_title">Urutkan sumber tambalan</string>
     <string name="sources_sort_manual">Urutan manual</string>
     <string name="sources_sort_manual_hint">Tekan lama sumber untuk mengubah urutan</string>
     <string name="sources_sort_last_updated">Terakhir diperbarui</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Kecualikan</string>
     <string name="sources_apps_leave_out_done">Dikecualikan</string>
     <string name="sources_apps_bring_back">Kembalikan</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Baru</string>
+    <string name="sources_apps_new_apps">Bawa aplikasi baru</string>
+    <string name="sources_apps_new_apps_on_description">Aplikasi yang mulai didukung oleh sumber ini nanti akan muncul di layar beranda secara otomatis</string>
+    <string name="sources_apps_new_apps_off_description">Aplikasi yang mulai didukung oleh sumber ini nanti akan dikecualikan sampai Anda membawanya kembali ke sini</string>
     <string name="sources_management_prerelease_toggle">Tambalan pra-rilis</string>
     <string name="sources_management_prerelease_toggle_description">Menerima akses dini ke versi eksperimental tambalan baru</string>
     <string name="sources_prerelease_warning_title">Aktifkan tambalan pra-rilis?</string>
@@ -778,8 +789,6 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="settings_appearance_home_screen">Layar beranda</string>
     <string name="settings_appearance_greeting_phrases">Frasa sapaan</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Tampilkan pesan sapaan di layar beranda</string>
-    <string name="settings_appearance_app_grouping">Pengelompokan aplikasi</string>
-    <string name="settings_appearance_app_grouping_description">Menampilkan pengalih untuk mengelompokkan aplikasi berdasarkan sumber atau kategori</string>
     <string name="settings_appearance_repatch_notice">Notifikasi penambalan ulang</string>
     <string name="settings_appearance_repatch_notice_description">Menampilkan spanduk ketika aplikasi yang telah ditambal dapat ditambal ulang</string>
     <string name="settings_appearance_sort_button">Tombol urutkan dan saring</string>
@@ -1249,6 +1258,7 @@ Rincian: %2$s"</string>
     <string name="no">Tidak</string>
     <string name="all">Semua</string>
     <string name="filter">Penyaring</string>
+    <string name="group">Kelompok</string>
     <string name="reset">Setel ulang</string>
     <string name="reset_all">Atur ulang Semua</string>
     <string name="apply">Terapkan</string>
@@ -1316,6 +1326,10 @@ Rincian: %2$s"</string>
     <string name="available">Tersedia</string>
     <string name="continue_">Lanjutkan</string>
     <string name="version">Versi</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Penulis</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Berkas</string>
     <string name="clone">Duplikat</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Tambalan</string>

@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Přidat zdroj</string>
     <string name="deep_link_add_source_message">Chcete přidat tento zdroj záplaty do Morphe?</string>
     <string name="deep_link_add_source_warning">Přidávejte pouze zdroje, kterým důvěřujete</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Přidána pouze tato aplikace. Další aplikace můžete přidat ze seznamu zdrojů</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">Tento zdroj je již přidán. Přidat tuto aplikaci ze stávajícího zdroje?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Dostupná aktualizace Morphe</string>
     <string name="home_update_available_subtitle">Připravena nová verze k instalaci</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Aplikace záplatované pomocí Morphe, které již nejsou v tomto zařízení</string>
     <string name="home_app_filter_clones">Klonované aplikace nainstalované vedle původní aplikace pod jiným názvem balíčku</string>
     <string name="home_app_filter_clones_description">Aplikace vytvořené pod jiným názvem balíčku, nainstalované vedle původní aplikace</string>
+    <string name="home_app_grouping_all_apps_description">Jeden seznam se všemi aplikacemi</string>
+    <string name="home_app_grouping_sources_description">Aplikace pod zdrojem záplaty, který je poskytuje</string>
+    <string name="home_app_grouping_custom_description">Aplikace v kategoriích, které vytvoříte</string>
     <string name="home_app_sort_manual_description">Dlouze stiskněte aplikaci a poté klepněte na tlačítko pro změnu pořadí</string>
     <string name="home_app_sort_recommended">Doporučené pořadí</string>
     <string name="home_app_sort_recommended_description">Nejprve nainstalované a připnuté aplikace</string>
@@ -146,7 +153,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Zdroje záplat</string>
     <string name="sources_search">Hledat zdroje a záplaty</string>
-    <string name="sources_sort_title">Seřadit zdroje záplat</string>
     <string name="sources_sort_manual">Ruční řazení</string>
     <string name="sources_sort_manual_hint">Dlouhým stisknutím zdroje jej můžete přerazit</string>
     <string name="sources_sort_last_updated">Naposledy aktualizováno</string>
@@ -164,6 +170,11 @@
     <string name="sources_apps_leave_out">Vyřadit</string>
     <string name="sources_apps_leave_out_done">Vyřazeno</string>
     <string name="sources_apps_bring_back">Vrátit zpět</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nové</string>
+    <string name="sources_apps_new_apps">Přinést nové aplikace</string>
+    <string name="sources_apps_new_apps_on_description">Aplikace, které tento zdroj později začne podporovat, se samy objeví na domovské obrazovce</string>
+    <string name="sources_apps_new_apps_off_description">Aplikace, které tento zdroj později začne podporovat, jsou vyřazeny, dokud je sem znovu nepřinesete</string>
     <string name="sources_management_prerelease_toggle">Předběžné záplaty</string>
     <string name="sources_management_prerelease_toggle_description">Získáte předběžný přístup k novým experimentálním verzím záplat</string>
     <string name="sources_prerelease_warning_title">Povolit předběžné záplaty?</string>
@@ -776,8 +787,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_appearance_home_screen">Domovská obrazovka</string>
     <string name="settings_appearance_greeting_phrases">Pozdravné fráze</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zobrazit pozdravný vzkaz na domovské obrazovce</string>
-    <string name="settings_appearance_app_grouping">Kreslení aplikací</string>
-    <string name="settings_appearance_app_grouping_description">Zobrazit přepínač pro seskupení aplikací podle zdroje nebo kategorie</string>
     <string name="settings_appearance_repatch_notice">Oznámení o opětovné záplatě</string>
     <string name="settings_appearance_repatch_notice_description">Zobrazit banner, když lze opatchované aplikace znovu opatchovat</string>
     <string name="settings_appearance_sort_button">Tlačítko pro řazení a filtrování</string>
@@ -1247,6 +1256,7 @@ Podrobnosti: %2$s"</string>
     <string name="no">Ne</string>
     <string name="all">Vše</string>
     <string name="filter">Filtr</string>
+    <string name="group">Skupina</string>
     <string name="reset">Resetovat</string>
     <string name="reset_all">Resetovat vše</string>
     <string name="apply">Použít</string>
@@ -1314,6 +1324,10 @@ Podrobnosti: %2$s"</string>
     <string name="available">Dostupné</string>
     <string name="continue_">Pokračovat</string>
     <string name="version">Verze</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Autor</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Soubor</string>
     <string name="clone">Klonovat</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Záplata</string>

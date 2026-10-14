@@ -22,6 +22,9 @@
     <string name="deep_link_add_source_title">Dodaj vir</string>
     <string name="deep_link_add_source_message">Želite dodati ta vir popravkov v Morphe?</string>
     <string name="deep_link_add_source_warning">Dodajte samo vire, ki jim zaupate</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Dodana je samo ta aplikacija. Druge aplikacije lahko dodate s seznama virov</string>
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe posodobitev je pripravljena</string>
     <string name="home_update_available_subtitle">Nova verzija je pripravljena za prenos</string>
@@ -54,6 +57,9 @@
     <string name="home_app_filter_uninstalled_description">Aplikacije, popravljene z Morphe, ki niso več na tej napravi</string>
     <string name="home_app_filter_clones">Klonirane aplikacije</string>
     <string name="home_app_filter_clones_description">Aplikacije z lastnim imenom paketa, nameščene ob originalni aplikaciji</string>
+    <string name="home_app_grouping_all_apps_description">En seznam z vsemi aplikacijami</string>
+    <string name="home_app_grouping_sources_description">Aplikacije v viru za popravke, ki jih zagotavlja</string>
+    <string name="home_app_grouping_custom_description">Aplikacije v kategorijah, ki jih ustvarite</string>
     <string name="home_app_sort_manual_description">Dolgo držite aplikacijo, nato tapnite gumb za ponovno razvrstitev</string>
     <string name="home_app_sort_recommended">Priporočen vrstni red</string>
     <string name="home_app_sort_recommended_description">Nameščene in pripete aplikacije naj bodo prve</string>
@@ -146,7 +152,6 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Viri popravkov</string>
     <string name="sources_search">Išči vire in popravke</string>
-    <string name="sources_sort_title">Sortiraj vire popravkov</string>
     <string name="sources_sort_manual">Ročni vrstni red</string>
     <string name="sources_sort_manual_hint">Dolgo pritisnite vir, da ga ponovno uredite</string>
     <string name="sources_sort_last_updated">Nazadnje posodobljeno</string>
@@ -164,6 +169,11 @@
     <string name="sources_apps_leave_out">Izpustite</string>
     <string name="sources_apps_leave_out_done">Izpuščeno</string>
     <string name="sources_apps_bring_back">Vrnite</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">Nova</string>
+    <string name="sources_apps_new_apps">Prinesi nove aplikacije</string>
+    <string name="sources_apps_new_apps_on_description">Aplikacije, ki jih ta vir kasneje začne podpirati, se samodejno pojavijo na domačem zaslonu</string>
+    <string name="sources_apps_new_apps_off_description">Aplikacije, ki jih ta vir kasneje začne podpirati, so izključene, dokler jih ponovno ne prineseš sem</string>
     <string name="sources_management_prerelease_toggle">Predizdani-popravki</string>
     <string name="sources_management_prerelease_toggle_description">Prejmite zgodnji dostop do novih eksperimentalnih različic popravkov</string>
     <string name="sources_prerelease_warning_title">Omogoči predizdajne-popravke?</string>
@@ -777,8 +787,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_home_screen">Začetni zaslon</string>
     <string name="settings_appearance_greeting_phrases">Pozdravna sporočila</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Prikaži pozdravno sporočilo na začetnem zaslonu</string>
-    <string name="settings_appearance_app_grouping">Grupiranje aplikacij</string>
-    <string name="settings_appearance_app_grouping_description">Prikaži preklopnik za združevanje aplikacij po viru ali kategoriji</string>
     <string name="settings_appearance_repatch_notice">Obvestilo o ponovnem popravljanju</string>
     <string name="settings_appearance_repatch_notice_description">Prikaži pasico, ko je popravljene aplikacije mogoče ponovno popraviti</string>
     <string name="settings_appearance_sort_button">Gumb za razvrščanje in filtriranje</string>
@@ -1248,6 +1256,7 @@ Podrobnosti: %2$s"</string>
     <string name="no">Ne</string>
     <string name="all">Vse</string>
     <string name="filter">Filtriraj</string>
+    <string name="group">Skupina</string>
     <string name="reset">Ponastavi</string>
     <string name="reset_all">Ponastavi vse</string>
     <string name="apply">Uporabi</string>
@@ -1315,6 +1324,10 @@ Podrobnosti: %2$s"</string>
     <string name="available">Na voljo</string>
     <string name="continue_">Naprej</string>
     <string name="version">Različica</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Avtor</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">Datoteka</string>
     <string name="clone">Kloniraj</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Popravi</string>

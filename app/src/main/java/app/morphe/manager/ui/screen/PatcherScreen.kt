@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,7 +30,6 @@ import app.morphe.manager.domain.links.AppLinksStatus
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.ui.model.RenameWarning
-import app.morphe.manager.ui.model.State
 import app.morphe.manager.ui.screen.home.AppLinksDialog
 import app.morphe.manager.ui.screen.patcher.*
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
@@ -40,6 +40,7 @@ import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
 import app.morphe.manager.util.APK_MIMETYPE
 import app.morphe.manager.util.EventEffect
+import app.morphe.manager.util.shareApks
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -101,11 +102,14 @@ private fun PatcherScreenContent(
     onChangePatches: () -> Unit
 ) {
     val view = LocalView.current
+    val context = LocalContext.current
 
     val patcherSucceeded by patcherViewModel.patcherSucceeded.collectAsStateWithLifecycle()
 
-    // Remember patcher state
-    val state = rememberPatcherScreenState(patcherViewModel)
+    // The error dialog open, if any, kept through a rotation or a font change
+    var shownFailure by rememberSaveable { mutableStateOf<PatcherFailure?>(null) }
+    var errorInfo by remember { mutableStateOf<PatcherErrorInfo?>(null) }
+    var showCancelDialog by rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val miniGameState = remember { MiniGameState(prefs, scope) }
 
@@ -217,22 +221,22 @@ private fun PatcherScreenContent(
     val patchesProgress = patcherViewModel.patchesProgress
     val unknownErrorText = stringResource(R.string.patcher_unknown_error)
 
-    // Monitor for patching errors (not installation errors)
-    LaunchedEffect(patcherSucceeded) {
-        if (patcherSucceeded == false && !state.hasPatchingError) {
-            state.hasPatchingError = true
-            val steps = patcherViewModel.steps
-            val failedStep = steps.firstOrNull { it.state == State.FAILED }
-            state.errorMessage = failedStep?.message.orEmpty()
-            state.errorInfo = patcherViewModel.buildErrorInfo()
-            state.shownFailure = PatcherFailure.PATCHING
-        }
+    // A failed run opens the error dialog once. The event is not heard again by a recreated
+    // screen, so a rotation or a font change leaves a dismissed dialog closed
+    EventEffect(flow = patcherViewModel.patchingFailedEvent) {
+        errorInfo = patcherViewModel.buildErrorInfo()
+        shownFailure = PatcherFailure.PATCHING
+    }
+
+    // The diagnostics are not kept through a recreated screen, so a dialog left open reads them again
+    LaunchedEffect(shownFailure) {
+        if (shownFailure != null && errorInfo == null) errorInfo = patcherViewModel.buildErrorInfo()
     }
 
     BackHandler {
         if (patcherViewModel.isPatching) {
             // Show cancel dialog if patching is in progress
-            state.showCancelDialog = true
+            showCancelDialog = true
         } else {
             // Allow normal back navigation if patching is complete or failed
             onBackClick()
@@ -350,18 +354,18 @@ private fun PatcherScreenContent(
     }
 
     // Cancel patching confirmation dialog
-    if (state.showCancelDialog) {
+    if (showCancelDialog) {
         ConfirmDialog(
             title = stringResource(R.string.patcher_stop_confirm_title),
             message = stringResource(R.string.patcher_stop_confirm_description),
             primaryText = stringResource(R.string.yes),
             secondaryText = stringResource(R.string.no),
             onConfirm = {
-                state.showCancelDialog = false
+                showCancelDialog = false
                 patcherViewModel.cancelPatching()
                 onBackClick()
             },
-            onDismiss = { state.showCancelDialog = false }
+            onDismiss = { showCancelDialog = false }
         )
     }
 
@@ -416,7 +420,7 @@ private fun PatcherScreenContent(
 
     // Memory limit dialog, shown after the system killed the patcher process.
     // Waits for the error dialog to close: that one explains the failure this one offers a fix for
-    if (state.shownFailure == null) {
+    if (shownFailure == null) {
         patcherViewModel.memoryAdjustmentDialog?.let { dialogState ->
             MemoryAdjustmentDialog(
                 currentLimit = dialogState.currentLimit,
@@ -446,9 +450,9 @@ private fun PatcherScreenContent(
     }
 
     // Error dialog, for a failed run and a failed install alike
-    state.shownFailure?.let { failure ->
+    shownFailure?.let { failure ->
         val errorMessage = when (failure) {
-            PatcherFailure.PATCHING -> state.effectiveErrorMessage
+            PatcherFailure.PATCHING -> patcherViewModel.failureDetails
             PatcherFailure.INSTALL -> (installState as? InstallViewModel.InstallState.Error)?.message.orEmpty()
         }
         PatcherErrorDialog(
@@ -459,8 +463,8 @@ private fun PatcherScreenContent(
                 }
             ),
             errorMessage = errorMessage.ifBlank { unknownErrorText },
-            errorInfo = state.errorInfo,
-            onDismiss = { state.shownFailure = null }
+            errorInfo = errorInfo,
+            onDismiss = { shownFailure = null }
         )
     }
 
@@ -581,7 +585,7 @@ private fun PatcherScreenContent(
         val showBackToGameHint = useExpertMode && miniGameState.hasOpenGame && !backToGameHintSeen
 
         AnimatedContent(
-            targetState = if (showSuccessScreen) state.currentPatcherState else PatcherState.IN_PROGRESS,
+            targetState = if (showSuccessScreen) PatcherState.of(patcherSucceeded) else PatcherState.IN_PROGRESS,
             transitionSpec = if (reduceMotion) {
                 { EnterTransition.None togetherWith ExitTransition.None }
             } else {
@@ -599,7 +603,7 @@ private fun PatcherScreenContent(
                             packageName = patcherViewModel.packageName,
                             patcherSucceeded = patcherSucceeded,
                             miniGameState = miniGameState,
-                            onCancelClick = { state.showCancelDialog = true },
+                            onCancelClick = { showCancelDialog = true },
                             resultButton = resultButton(shownInstallState, installedPackageName, usingMountInstall),
                             onResultClick = { patcherViewModel.showSuccess() }
                         )
@@ -610,7 +614,7 @@ private fun PatcherScreenContent(
                             patchProgress = patcherViewModel.patchRun,
                             packageName = patcherViewModel.packageName,
                             showLongStepWarning = showLongStepWarning,
-                            onCancelClick = { state.showCancelDialog = true }
+                            onCancelClick = { showCancelDialog = true }
                         )
                     }
                 }
@@ -631,8 +635,8 @@ private fun PatcherScreenContent(
                             onShowInstallError = {
                                 scope.launch {
                                     // A run that patched fine has not collected these yet
-                                    if (state.errorInfo == null) state.errorInfo = patcherViewModel.buildErrorInfo()
-                                    state.shownFailure = PatcherFailure.INSTALL
+                                    if (errorInfo == null) errorInfo = patcherViewModel.buildErrorInfo()
+                                    shownFailure = PatcherFailure.INSTALL
                                 }
                             }
                         ),
@@ -653,6 +657,13 @@ private fun PatcherScreenContent(
                                 exportApkLauncher.launch(patcherViewModel.exportFileName)
                             }
                         },
+                        onShareClick = {
+                            scope.launch {
+                                // Shared under the name a save would give it, not the working one
+                                val name = patcherViewModel.resolvedExportFileName()
+                                context.shareApks(listOf(outputFile)) { name }
+                            }
+                        },
                         isSaving = isSaving
                     )
                 }
@@ -660,10 +671,10 @@ private fun PatcherScreenContent(
                 PatcherState.FAILED -> {
                     PatchingFailed(
                         summary = patchedAppSummary,
-                        errorMessage = state.errorMessage,
+                        errorMessage = patcherViewModel.failureMessage,
                         failedPatch = patcherViewModel.patchRun.failedPatch,
                         onHomeClick = onBackClick,
-                        onErrorClick = { state.shownFailure = PatcherFailure.PATCHING },
+                        onErrorClick = { shownFailure = PatcherFailure.PATCHING },
                         // Simple mode keeps no selection of its own to return to
                         onChangePatchesClick = onChangePatches.takeIf { useExpertMode }
                     )

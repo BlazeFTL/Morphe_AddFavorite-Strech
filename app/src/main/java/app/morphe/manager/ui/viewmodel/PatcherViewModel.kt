@@ -69,6 +69,16 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
+/**
+ * Log lines the error dialog already spells out field by field in its diagnostics card, dropped
+ * from the log it falls back to so the same values are not read twice.
+ */
+private val SummarisedLogPrefixes = listOf(
+    PatcherWorker.LOG_WORKER_PREFIX_BUILD,
+    PatcherWorker.LOG_WORKER_PREFIX_DEVICE,
+    PatcherWorker.LOG_WORKER_PREFIX_SOURCE
+)
+
 @OptIn(SavedStateHandleSaveableApi::class)
 class PatcherViewModel(
     private val input: Patcher.ViewModelParams
@@ -119,6 +129,11 @@ class PatcherViewModel(
 
     private val _autoInstallChannel = Channel<Unit>(Channel.CONFLATED)
     val autoInstallEvent: Flow<Unit> = _autoInstallChannel.receiveAsFlow()
+
+    private val _patchingFailedChannel = Channel<Unit>(Channel.CONFLATED)
+
+    /** Fires once a run fails, for the screen to open the error dialog on. A recreated screen does not hear it again. */
+    val patchingFailedEvent: Flow<Unit> = _patchingFailedChannel.receiveAsFlow()
 
     /** Whether this run installs on its own, set before the event so the screen shows it coming. */
     var autoInstallPending by mutableStateOf(false)
@@ -462,6 +477,12 @@ class PatcherViewModel(
         }
     }
 
+    /** [exportFileName] once the metadata it is built from has been read, for a name used at once. */
+    suspend fun resolvedExportFileName(): String {
+        ensureExportMetadata()
+        return exportFileName
+    }
+
     private val tempDir = savedStateHandle.saveable(key = "tempDir") {
         fs.uiTempDir.resolve("installer").also {
             it.deleteRecursively()
@@ -510,6 +531,21 @@ class PatcherViewModel(
     )
 
     val steps: List<Step> get() = patchRun.steps
+
+    /** What the failed step reported, empty while the run has not failed or where it said nothing. */
+    val failureMessage: String
+        get() = steps.firstOrNull { it.state == State.FAILED }?.message.orEmpty()
+
+    /**
+     * The error as the error dialog spells it out. A failed step that says nothing falls back to
+     * the patching log, so the user always has something to act on.
+     */
+    val failureDetails: String
+        get() = failureMessage.ifBlank {
+            patchRun.logs
+                .filterNot { (_, message) -> SummarisedLogPrefixes.any { message.startsWith(it) } }
+                .joinToString("\n") { (level, message) -> "[$level] $message" }
+        }
     val progress: Float get() = patchRun.progress
     val patchesProgress get() = patchRun.patchesProgress
 
@@ -1056,6 +1092,7 @@ class PatcherViewModel(
                         isPatching = false
                         _patcherSucceeded.value = false
                         showSuccessScreen = true
+                        _patchingFailedChannel.trySend(Unit)
                     }
 
                     WorkInfo.State.RUNNING,

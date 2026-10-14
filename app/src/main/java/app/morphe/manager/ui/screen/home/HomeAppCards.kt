@@ -14,7 +14,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -305,13 +304,13 @@ private fun InstalledAppCard(
     // Newer patches and a newer supported app version are both answered by rebuilding the app, so
     // one mark stands for either. Only the newer version asks for a newer APK, so it leads
     val updateMark = when {
-        item.showsVersionBadge -> Icons.Outlined.ArrowUpward
-        item.showsUpdateBadge -> Icons.Outlined.Extension
+        item.showsVersionBadge -> AppStateIcons.NewerVersion
+        item.showsUpdateBadge -> AppStateIcons.NewerPatches
         else -> null
     }
     // A copy is marked where every other card is, and steps over to the other corner for an
     // update, which is the mark worth finding in the same place down the list
-    val cloneMark = Icons.Outlined.ContentCopy.takeIf { item.isClone }
+    val cloneMark = AppStateIcons.Clone.takeIf { item.isClone }
 
     // The states the badges stand for are read out whether the badges themselves are showing or
     // not, so reordering does not quietly drop them from the card's description
@@ -430,7 +429,7 @@ private fun InstalledAppCard(
                     if (item.isDeleted && !item.isInstallStateNotPatched) {
                         StatusBadge(
                             text = deletedLabel,
-                            icon = Icons.Outlined.DeleteOutline,
+                            icon = AppStateIcons.Uninstalled,
                             containerColor = cardStyle.chipContainerColor,
                             contentColor = cardStyle.chipContentColor
                         )
@@ -439,7 +438,7 @@ private fun InstalledAppCard(
                     if (item.isInstallStateNotPatched) {
                         StatusBadge(
                             text = replacementBadgeLabel,
-                            icon = Icons.Outlined.AutoFixHigh,
+                            icon = AppStateIcons.NotPatched,
                             containerColor = cardStyle.chipContainerColor,
                             contentColor = cardStyle.chipContentColor
                         )
@@ -448,7 +447,7 @@ private fun InstalledAppCard(
                     if (item.isInstallStateUnknown) {
                         StatusBadge(
                             text = unverifiedLabel,
-                            icon = Icons.AutoMirrored.Outlined.HelpOutline,
+                            icon = AppStateIcons.Unverified,
                             containerColor = cardStyle.chipContainerColor,
                             contentColor = cardStyle.chipContentColor
                         )
@@ -457,7 +456,7 @@ private fun InstalledAppCard(
                     if (showsPendingBadge.value) {
                         StatusBadge(
                             text = pendingLabel,
-                            icon = Icons.Outlined.HourglassEmpty,
+                            icon = AppStateIcons.Pending,
                             containerColor = cardStyle.chipContainerColor,
                             contentColor = cardStyle.chipContentColor
                         )

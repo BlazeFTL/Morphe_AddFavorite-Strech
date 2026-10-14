@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.automirrored.outlined.Launch
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.outlined.*
@@ -548,7 +547,7 @@ fun InstalledAppInfoDialog(
             val installBadges = buildList {
                 add(installedApp.installType.badge.let { (icon, label) -> icon to stringResource(label) })
                 if (installedApp.isClone) {
-                    add(Icons.Outlined.ContentCopy to stringResource(R.string.clone))
+                    add(AppStateIcons.Clone to stringResource(R.string.clone))
                 }
                 relativeTime?.let { add(Icons.Outlined.Schedule to it) }
             }
@@ -880,7 +879,7 @@ private fun InstalledAppBanners(
             staggerIndex = staggerIndex
         ) {
             WarningBanner(
-                icon = Icons.Outlined.Warning,
+                icon = AppStateIcons.Uninstalled,
                 title = stringResource(R.string.home_app_info_app_deleted_warning),
                 description = stringResource(R.string.home_app_info_app_deleted_description),
                 action = patchAction,
@@ -894,7 +893,7 @@ private fun InstalledAppBanners(
             staggerIndex = staggerIndex
         ) {
             WarningBanner(
-                icon = Icons.Outlined.AutoFixHigh,
+                icon = AppStateIcons.NotPatched,
                 title = stringResource(R.string.home_unpatched_version_installed),
                 // Naming the store is what tells the user how to keep this from happening again
                 description = stringResource(
@@ -941,7 +940,7 @@ private fun InstalledAppBanners(
             Notice(
                 text = stringResource(R.string.home_app_info_install_unverified),
                 tone = SemanticTone.Warning,
-                icon = Icons.AutoMirrored.Outlined.HelpOutline
+                icon = AppStateIcons.Unverified
             )
         }
         // Newer patches and a newer supported app version are both answered by rebuilding the
@@ -952,7 +951,11 @@ private fun InstalledAppBanners(
             staggerIndex = staggerIndex
         ) {
             WarningBanner(
-                icon = Icons.Outlined.Update,
+                icon = if (versionBehind != null) {
+                    AppStateIcons.NewerVersion
+                } else {
+                    AppStateIcons.NewerPatches
+                },
                 title = stringResource(
                     if (versionBehind != null) R.string.home_app_info_app_update_available
                     else R.string.home_app_info_patch_update_available
@@ -1070,7 +1073,7 @@ private fun VersionTransition(
             withStyle(SpanStyle(color = contentColor.copy(alpha = 0.5f))) { append("  $arrow  ") }
             withStyle(SpanStyle(color = contentColor, fontWeight = FontWeight.Medium)) { append(to) }
         },
-        style = MaterialTheme.typography.bodySmall,
+        style = MaterialTheme.typography.bodyMedium,
         textAlign = TextAlign.Center,
         modifier = modifier.semantics { contentDescription = readOut }
     )
@@ -1130,7 +1133,7 @@ private fun WarningBanner(
                 )
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleSmall,
+                    style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = headingColor,
                     textAlign = TextAlign.Center
@@ -1140,7 +1143,7 @@ private fun WarningBanner(
             // Description
             Text(
                 text = description,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )

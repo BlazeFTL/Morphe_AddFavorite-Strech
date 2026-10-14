@@ -9,7 +9,6 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -27,6 +26,11 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalClipboard
@@ -35,8 +39,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -137,7 +141,8 @@ fun AddSourceDialog(
                             icon = Icons.AutoMirrored.Outlined.OpenInNew,
                             modifier = Modifier.fillMaxWidth()
                         )
-                        Spacer(modifier = Modifier.height(Defaults.ContentPadding / 2))
+                        // As far as the buttons under it stand apart, so the three read as one grid
+                        Spacer(modifier = Modifier.height(Defaults.ItemSpacing))
                     }
                 }
                 AppDialogButtonRow(
@@ -325,7 +330,7 @@ private fun RemoteTabContent(state: RemoteLinksState) {
     val inputCheck = state.inputCheck
     val noLinksMessage = stringResource(R.string.sources_dialog_paste_no_links)
 
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
         AppDialogTextField(
             value = state.input,
             onValueChange = state::onInputChange,
@@ -461,60 +466,33 @@ private fun LocalTabContent(
     onPickFiles: () -> Unit,
     onRemove: (Uri) -> Unit
 ) {
-    val textColor = dialogTextColor()
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    // Spaced as the remote tab is, so swiping between the two does not shift what they share. The
+    // remote tab's field keeps room above its outline for its label to rise into, so this page
+    // starts as far down for both to open at one line
+    Column(
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+        modifier = Modifier.padding(top = OutlinedFieldLabelRoom)
+    ) {
         if (entries.isEmpty()) {
-            // Drop zone
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onPickFiles() },
-                shape = RoundedCornerShape(16.dp),
-                color = Color.Transparent,
-                border = BorderStroke(
-                    1.dp, textColor.copy(alpha = 0.15f)
-                )
-            ) {
-                Column(
-                    modifier = Modifier.padding(vertical = 28.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Upload,
-                        contentDescription = null,
-                        modifier = Modifier.size(28.dp),
-                        tint = textColor.copy(alpha = 0.4f)
-                    )
-                    Text(
-                        text = stringResource(R.string.sources_dialog_local_files),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium,
-                        color = textColor
-                    )
-                    Text(
-                        text = stringResource(R.string.sources_dialog_local_file_tap_hint),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = textColor.copy(alpha = 0.4f)
+            LocalFilesDropZone(onPickFiles = onPickFiles)
+        } else {
+            Column(verticalArrangement = Arrangement.spacedBy(CompactCardSpacing)) {
+                entries.forEach { entry ->
+                    val check = entry.check
+                    PendingSourceRow(
+                        icon = if (check is LocalFileCheck.Update) Icons.Outlined.Update else Icons.AutoMirrored.Outlined.InsertDriveFile,
+                        title = entry.name,
+                        detail = when (check) {
+                            is LocalFileCheck.Update -> stringResource(R.string.sources_dialog_local_updates, check.title)
+                            LocalFileCheck.Duplicate -> stringResource(R.string.sources_management_already_exists)
+                            LocalFileCheck.NotBundle -> stringResource(R.string.sources_dialog_local_invalid_extension)
+                            // Where it is read from, while it is checked and once it is known to be new
+                            else -> entry.uri.toFilePath().takeIf { it.startsWith("/") }?.substringBeforeLast("/").orEmpty()
+                        },
+                        isError = check == LocalFileCheck.Duplicate || check == LocalFileCheck.NotBundle,
+                        onRemove = { onRemove(entry.uri) }
                     )
                 }
-            }
-        } else {
-            entries.forEach { entry ->
-                val check = entry.check
-                PendingSourceRow(
-                    icon = if (check is LocalFileCheck.Update) Icons.Outlined.Update else Icons.AutoMirrored.Outlined.InsertDriveFile,
-                    title = entry.name,
-                    detail = when (check) {
-                        is LocalFileCheck.Update -> stringResource(R.string.sources_dialog_local_updates, check.title)
-                        LocalFileCheck.Duplicate -> stringResource(R.string.sources_management_already_exists)
-                        LocalFileCheck.NotBundle -> stringResource(R.string.sources_dialog_local_invalid_extension)
-                        // Where it is read from, while it is checked and once it is known to be new
-                        else -> entry.uri.toFilePath().takeIf { it.startsWith("/") }?.substringBeforeLast("/").orEmpty()
-                    },
-                    isError = check == LocalFileCheck.Duplicate || check == LocalFileCheck.NotBundle,
-                    onRemove = { onRemove(entry.uri) }
-                )
             }
             AppDialogOutlinedButton(
                 text = stringResource(R.string.sources_dialog_local_add_more),
@@ -523,6 +501,49 @@ private fun LocalTabContent(
                 modifier = Modifier.fillMaxWidth()
             )
         }
+    }
+}
+
+/** Room an [OutlinedTextField] with a label keeps above its outline, which Material does not expose. */
+private val OutlinedFieldLabelRoom = 8.dp
+
+/**
+ * What the local tab starts out as: the empty state the file picker shows, framed in dashes, the
+ * usual mark of a place files go, and opening the file picker on a tap.
+ */
+@Composable
+private fun LocalFilesDropZone(onPickFiles: () -> Unit) {
+    val edgeColor = dialogSecondaryTextColor().copy(alpha = 0.5f)
+    // Filled and rounded as the remote tab's hint card is, so the two tabs open alike
+    val shape = RoundedCornerShape(Defaults.SectionCornerRadius)
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape)
+            .background(cardFill())
+            // Drawn whatever the outline setting, since the dashes are what make it read as a zone
+            .drawBehind {
+                val stroke = dashedGuideStroke()
+                val inset = stroke.width / 2
+                drawRoundRect(
+                    color = edgeColor,
+                    topLeft = Offset(inset, inset),
+                    size = Size(size.width - stroke.width, size.height - stroke.width),
+                    cornerRadius = CornerRadius(Defaults.SectionCornerRadius.toPx() - inset),
+                    style = stroke
+                )
+            }
+            .clickable(role = Role.Button, onClick = onPickFiles)
+    ) {
+        EmptyState(
+            message = stringResource(R.string.sources_dialog_local_files),
+            subtitle = stringResource(R.string.sources_dialog_local_file_tap_hint),
+            icon = Icons.Outlined.UploadFile,
+            // About as tall as the remote tab's hint card, so switching tabs barely moves the dialog
+            contentPadding = PaddingValues(horizontal = Defaults.ContentPadding, vertical = 12.dp),
+            iconSize = 40.dp
+        )
     }
 }
 

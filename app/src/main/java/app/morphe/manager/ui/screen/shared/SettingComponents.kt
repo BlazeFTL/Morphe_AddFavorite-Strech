@@ -726,6 +726,8 @@ fun InfoStatBox(
  * optional [subtitle] under it, and an [action] that gets the user out of it.
  *
  * @param contentColor Ink of the surface below. Dialogs hand theirs down, a screen passes its own.
+ * @param contentPadding Room around it, smaller where it stands in a card beside other cards.
+ * @param iconSize Size of [icon], smaller along with [contentPadding] to keep the card in step.
  */
 @Composable
 fun EmptyState(
@@ -734,7 +736,9 @@ fun EmptyState(
     icon: ImageVector? = Icons.Outlined.FolderOff,
     subtitle: String? = null,
     action: CardAction? = null,
-    contentColor: Color = dialogSecondaryTextColor()
+    contentColor: Color = dialogSecondaryTextColor(),
+    contentPadding: PaddingValues = PaddingValues(32.dp),
+    iconSize: Dp = 56.dp
 ) {
     Column(
         modifier = modifier
@@ -742,7 +746,7 @@ fun EmptyState(
             // Held to a readable width and centered in whatever room a wide screen gives it
             .wrapContentWidth()
             .widthIn(max = Defaults.ContentMaxWidth)
-            .padding(32.dp),
+            .padding(contentPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
@@ -750,7 +754,7 @@ fun EmptyState(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(56.dp),
+                modifier = Modifier.size(iconSize),
                 tint = contentColor.copy(alpha = 0.5f)
             )
         }

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-10T21:41:57",
-  "description": "## [1.35.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.35.0...v1.35.1-dev.1) (2026-10-10)\n\n\n### Bug Fixes\n\n* Drop the record a failed first mount created ([921f838](https://github.com/MorpheApp/morphe-manager/commit/921f8382eb1feba7c8b297b13eb24bd5da22a5b4))\n* Keep mount installs recorded when the process dies mid-mount ([8e82be8](https://github.com/MorpheApp/morphe-manager/commit/8e82be8f8b3576f1a5da7be7d3406e7591fa64da))\n\n\n### Performance Improvements\n\n* Find the namespaces to remount in single passes at boot ([8e81917](https://github.com/MorpheApp/morphe-manager/commit/8e819178f429a56608bb30fc7e4b7393a6f628b6))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.35.1-dev.1/morphe-manager-1.35.1-dev.1.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.35.1-dev.1/morphe-manager-1.35.1-dev.1.apk.asc",
-  "version": "1.35.1-dev.1"
+  "created_at": "2026-10-14T09:04:52",
+  "description": "# [1.36.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.35.1-dev.1...v1.36.0-dev.1) (2026-10-14)\n\n\n### Bug Fixes\n\n* Let dialogs fill narrow screens up to the shared content width ([#1150](https://github.com/MorpheApp/morphe-manager/issues/1150)) ([3cc5739](https://github.com/MorpheApp/morphe-manager/commit/3cc57395a6e0ed2fd081ac4369c2c58e05e51bd4))\n\n\n### Features\n\n* Let a patch update be ignored until the next release of its source ([a75a3f4](https://github.com/MorpheApp/morphe-manager/commit/a75a3f4bd3e70b350a2943b6459ffe82a1ad41f2))\n* Pick sorting, filtering and grouping of home apps from one sheet ([6ff2b73](https://github.com/MorpheApp/morphe-manager/commit/6ff2b73919caa457eb110c9d4f7d89b588f917a1))\n* Share patched APKs from the result screen and keep its actions in reach at any font size ([5d63cce](https://github.com/MorpheApp/morphe-manager/commit/5d63cce71d7dc154c0f77fc8d5dbd732c8540e46))\n* Show the newest files first in the file picker by default ([ea1e242](https://github.com/MorpheApp/morphe-manager/commit/ea1e24259aeb579dd2b4e57d309a9140616597c7))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.1/morphe-manager-1.36.0-dev.1.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.1/morphe-manager-1.36.0-dev.1.apk.asc",
+  "version": "1.36.0-dev.1"
 }

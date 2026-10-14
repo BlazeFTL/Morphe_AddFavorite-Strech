@@ -29,7 +29,9 @@
     <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
     <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
+    <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
     <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
     <!-- Home Screen - Sources Dialogs -->
     <!-- Button under the files already picked, which opens the picker again -->
     <!-- %s is the name of the local source that another version of the same bundle replaces -->

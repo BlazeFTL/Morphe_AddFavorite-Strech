@@ -70,7 +70,9 @@
     <string name="sources_management_title">ಸೋಸ್ ಕೋಡ್‌ಗಳನ್ನು ಸರಿಪಡಿಸು</string>
     <string name="sources_management_open_in_browser">ಬ್ರೌಸರ್‌ನಲ್ಲಿ ತೆರೆ</string>
     <string name="sources_management_failed_to_open_url">URL ಅನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
+    <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
     <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
     <string name="sources_management_prerelease_toggle">ಪರಿ- ಬಿಡುಗಡೆ ಪ್ಯಾचಗಳು</string>
     <string name="sources_management_prerelease_toggle_description">ಹೊಚ್ಚಹೊತ್ತಾದ ಪ್ರಾಯೋಗಿಕ ಪ್ಯಾಚ್ಅವಕಾಶ ಪಡೆಯಿರಿ</string>
     <string name="sources_management_experimental_versions_toggle">ಪ್ರಾಯೋಗಿಕ ಅಪ್ಲಿಕೇಶನ್ आवृತ್ತಿಗಳು</string>

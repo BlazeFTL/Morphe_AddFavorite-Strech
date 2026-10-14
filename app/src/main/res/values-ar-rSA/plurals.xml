@@ -256,8 +256,8 @@
         <item quantity="zero">%1$s · %2$d جديد</item>
         <item quantity="one">%1$s · %2$d جديد</item>
         <item quantity="two">%1$s · %2$d جديد</item>
-        <item quantity="few">%1$s · %2$d تطبيقات جديدة</item>
-        <item quantity="many">%1$s · %2$d تطبيقاً جديداً</item>
+        <item quantity="few">%1$s · %2$d جديدة</item>
+        <item quantity="many">%1$s · %2$d جديدًا</item>
         <item quantity="other">%1$s · %2$d جديد</item>
     </plurals>
     <plurals name="changelog_new_releases">

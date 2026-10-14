@@ -119,7 +119,9 @@
     <string name="sources_sort_enabled_first_description">Паказваць актыўныя крыніцы перад адключанымі</string>
     <string name="sources_management_open_in_browser">Адкрыць у браўзеры</string>
     <string name="sources_management_failed_to_open_url">Не ўдалося адкрыць URL</string>
+    <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
     <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
     <string name="sources_management_prerelease_toggle">Перадвыпускныя патчы</string>
     <string name="sources_management_prerelease_toggle_description">Атрымлівае ранні доступ да новых эксперыментальных версій патчаў</string>
     <string name="sources_management_experimental_versions_toggle">Эксперыментальныя версіі праграмы</string>

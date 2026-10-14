@@ -164,17 +164,17 @@
     <string name="sources_management_report_issue">گزارش مشکل</string>
     <string name="sources_management_failed_to_open_url">بازکردن نشانی اینترنتی ناموفق بود</string>
     <string name="sources_apps">برنامه‌ها</string>
-    <string name="sources_apps_description">برای خارج کردن یک برنامه از این منبع یا بازگرداندن آن، روی آن ضربه بزنید؛ برای انتخاب چند مورد، فشار طولانی دهید. وقتی هیچ منبعی برنامه‌ای ارائه ندهد، آن برنامه از صفحه‌ی اصلی خارج می‌شود</string>
+    <string name="sources_apps_description">برنامه‌های فعال از این منبع دریافت می‌شوند. برای حذف یا بازگرداندن یک برنامه، روی آن ضربه بزنید. یک برنامه زمانی که دیگر توسط هیچ منبعی ارائه نشود، از صفحه اصلی خارج می‌شود، مگر اینکه شما آن را پچ کرده باشید</string>
     <string name="sources_apps_brought">ارائه‌شده توسط این منبع</string>
     <string name="sources_apps_left_out">کنار گذاشته‌شده از این منبع</string>
-    <string name="sources_apps_leave_out">کنار بگذار</string>
-    <string name="sources_apps_leave_out_done">کنار گذاشته شد</string>
     <string name="sources_apps_bring_back">بازگردان</string>
+    <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
+    <string name="sources_apps_stays_patched">به عنوان پچ شده حفظ می‌شود</string>
     <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
     <string name="sources_apps_new">جدید</string>
     <string name="sources_apps_new_apps">آپلیکیشن‌های جدید بیاورید</string>
-    <string name="sources_apps_new_apps_on_description">اپلیکیشن‌هایی که این منبع بعداً شروع به پشتیبانی می‌کند، خودشان به صفحه اصلی اضافه می‌شوند</string>
-    <string name="sources_apps_new_apps_off_description">اپلیکیشن‌هایی که این منبع بعداً شروع به پشتیبانی می‌کند تا زمانی که شما آن‌ها را دوباره اینجا بیاورید حذف می‌شوند</string>
+    <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
+    <string name="sources_apps_new_apps_description">برنامه‌هایی که بعداً اضافه می‌کند در صفحه اصلی نمایش داده می‌شوند</string>
     <string name="sources_management_prerelease_toggle">پچ‌های پیش‌انتشار</string>
     <string name="sources_management_prerelease_toggle_description">دسترسی زودهنگام به نسخه‌های آزمایشی جدید پچ را فراهم می‌کند</string>
     <string name="sources_prerelease_warning_title">پچ‌های پیش‌انتشار فعال شوند؟</string>
@@ -219,7 +219,6 @@
     <string name="sources_dialog_url_invalid">نشانی اینترنتی باید به یک مخزن GitHub/GitLab یا فایل .json اشاره کند</string>
     <string name="sources_dialog_preinstalled">پیش نصب شده</string>
     <string name="sources_dialog_community">پچ‌های جامعه</string>
-    <string name="sources_dialog_choose_apps">انتخاب برنامه‌ها</string>
     <string name="sources_dialog_choose_apps_description">انتخاب کنید کدام‌یک از برنامه‌هایش پس از بارگذاری منبع نگه داشته شوند</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">منابع پچ شخص ثالث</string>
@@ -768,7 +767,7 @@
     <string name="settings_appearance_pure_black">سیاه خالص</string>
     <string name="settings_appearance_pure_black_description">از پس‌زمینه‌های کاملاً سیاه استفاده می‌کند</string>
     <string name="settings_appearance_color_accents">رنگ‌های برنامه و منبع</string>
-    <string name="settings_appearance_color_accents_description">به‌جای رنگ تأکیدی، از رنگ خودِ هر برنامه و منبع استفاده می‌کند</string>
+    <string name="settings_appearance_color_accents_description">استفاده از رنگ هر برنامه و منبع به جای رنگ تأکید</string>
     <string name="settings_appearance_outlines">خطوط دور</string>
     <string name="settings_appearance_outlines_description">یک لبه‌ی نازک دور کارت‌ها، پنل‌ها و دکمه‌ها می‌کشد</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -787,11 +786,11 @@
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">صفحهٔ اصلی</string>
     <string name="settings_appearance_greeting_phrases">عبارت‌های خوشامدگویی</string>
-    <string name="settings_appearance_greeting_phrases_subtitle">نمایش پیام خوشامدگویی در صفحهٔ اصلی</string>
+    <string name="settings_appearance_greeting_phrases_subtitle">نمایش پیام خوش‌آمدگویی</string>
     <string name="settings_appearance_repatch_notice">اعلان پچ دوباره</string>
     <string name="settings_appearance_repatch_notice_description">نمایش بنر هنگامی که برنامه‌های پچ‌شده را می‌توان دوباره پچ کرد</string>
     <string name="settings_appearance_sort_button">دکمهٔ مرتب‌سازی و فیلتر</string>
-    <string name="settings_appearance_sort_button_description">دکمهٔ مرتب‌سازی و فیلتر را در صفحهٔ اصلی نشان می‌دهد</string>
+    <string name="settings_appearance_sort_button_description">نمایش دکمه برای مرتب‌سازی و فیلتر کردن برنامه‌ها</string>
     <string name="settings_appearance_app_card_colors">رنگ کارت برنامه‌ها</string>
     <string name="settings_appearance_app_card_colors_default">پیش‌فرض</string>
     <string name="settings_appearance_app_card_colors_default_description">به هر برنامه رنگ بستهٔ خودش را می‌دهد</string>
@@ -847,7 +846,7 @@
 
 پچ‌ها تحت تأثیر قرار نمی‌گیرند: برای هر منبع در فهرست منابع پچ، پچ‌های پیش‌انتشار را فعال کنید"</string>
     <string name="settings_advanced_updates_allow_metered">به‌روزرسانی با دادهٔ تلفن همراه</string>
-    <string name="settings_advanced_updates_allow_metered_description">اجازه می‌دهد Morphe و به‌روزرسانی‌های پچ از طریق دادهٔ تلفن همراه دانلود شوند</string>
+    <string name="settings_advanced_updates_allow_metered_description">دانلود Morphe و به‌روزرسانی‌های پچ از طریق داده تلفن همراه</string>
     <string name="settings_advanced_updates_background_notifications">اعلان‌های به‌روزرسانی در پس‌زمینه</string>
     <string name="settings_advanced_updates_background_notifications_description">به‌طور دوره‌ای در پس‌زمینه به‌روزرسانی‌ها را بررسی و هنگام در دسترس بودن اعلان می‌دهد</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">اعلان‌های فشاری برای نسخه‌های جدید، حتی وقتی برنامه بسته است</string>
@@ -862,7 +861,7 @@
     <string name="settings_advanced_update_interval_chip_subtitle">دفعات بررسی در پس‌زمینه</string>
     <string name="settings_advanced_update_interval_battery_warning">بررسی‌های پس‌زمینه ممکن است در بعضی دستگاه‌ها قابل اعتماد نباشند. سازندگانی مانند Xiaomi، Huawei، Samsung و OnePlus معمولاً برای صرفه‌جویی در باتری، فرایندهای پس‌زمینه را به‌شدت محدود می‌کنند</string>
     <string name="settings_advanced_external_batch_patch">اجازهٔ محرک‌های خارجی</string>
-    <string name="settings_advanced_external_batch_patch_description">به برنامه‌های اتوماسیون اجازه می‌دهد پچ دسته‌ای را از طریق یک فرمان آغاز کنند</string>
+    <string name="settings_advanced_external_batch_patch_description">اجازه به برنامه‌های اتوماسیون برای شروع پچ دسته‌ای</string>
     <string name="external_batch_patch_title">پچ‌کردن گروهی شروع شود؟</string>
     <string name="external_batch_patch_description">%s می‌خواهد برنامه‌ها را با Morphe پچ و نصب کند</string>
     <string name="external_batch_patch_trust_caller">همیشه به این برنامه اجازه بده</string>
@@ -886,11 +885,11 @@
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert">تنظیمات حرفه‌ای</string>
     <string name="settings_advanced_expert_mode">حالت حرفه‌ای</string>
-    <string name="settings_advanced_expert_mode_description">تنظیمات پیچیدهٔ پچ‌کردن Morphe و گزینه‌های سفارشی‌سازی را فعال می‌کند</string>
+    <string name="settings_advanced_expert_mode_description">بازکردن تنظیمات پیشرفته پچ و گزینه‌های پچ</string>
     <string name="settings_advanced_expert_mode_dialog_title">حالت حرفه‌ای فعال شود؟</string>
     <string name="settings_advanced_expert_mode_dialog_message">حالت حرفه‌ای کنترل بیشتری بر نحوهٔ اعمال پچ‌ها می‌دهد، اما پیکربندی نادرست تنظیمات در این حالت ممکن است برنامه را از کار بیندازد</string>
     <string name="settings_advanced_strip_unused_libs">بهینه‌سازی برای معماری دستگاه</string>
-    <string name="settings_advanced_strip_unused_libs_description">کتابخانه‌های معماری CPU و ماژول‌های APK تکه‌ایِ استفاده‌نشده را حذف می‌کند</string>
+    <string name="settings_advanced_strip_unused_libs_description">حذف کتابخانه‌های نیتی استفاده نشده و تقسیم‌بندی‌های APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat_description">برای منابع درخواست pull لازم است</string>
     <string name="settings_advanced_github_pat_configured">توکن پیکربندی شد</string>
@@ -1021,13 +1020,13 @@ morphe_header_custom_dark.png
     <string name="installer_play_store_warning_risk">Play Store ممکن است برای برنامهٔ پچ‌شده به‌روزرسانی پیشنهاد کند. نصب آن به‌روزرسانی، APK پچ‌شده را با نسخهٔ اصلی جایگزین و پچ‌ها را حذف می‌کند. اگر درخواست به‌روزرسانی دیدید، منوی سه‌نقطهٔ صفحهٔ برنامه در Play Store را بزنید و «خاموش‌کردن به‌روزرسانی‌ها» را انتخاب کنید</string>
     <string name="installer_play_store_warning_continue">متوجه شدم، ادامه بده</string>
     <string name="installer_play_store_mode">نصب به‌عنوان Play Store</string>
-    <string name="installer_play_store_mode_description">Google Play Store را به‌عنوان منبع نصب این روش ثبت می‌کند</string>
+    <string name="installer_play_store_mode_description">علامت‌گذاری Google Play Store به عنوان منبع نصب</string>
     <string name="settings_prompt_installer_on_install">درخواست انتخاب نصب‌کننده</string>
-    <string name="settings_prompt_installer_on_install_description">هر بار که برنامهٔ پچ‌شده نصب می‌شود، گفت‌وگوی انتخاب نصب‌کننده را نشان می‌دهد</string>
+    <string name="settings_prompt_installer_on_install_description">پرسیدن کدام نصب‌کننده برای هر نصب استفاده شود</string>
     <string name="settings_auto_install_with_shizuku">نصب خودکار پس از پچ‌کردن</string>
     <string name="settings_auto_install_with_shizuku_description">به‌محض تکمیل پچ، APK پچ‌شده را نصب می‌کند</string>
     <string name="settings_auto_uninstall_with_shizuku">حذف خودکار هنگام تداخل</string>
-    <string name="settings_auto_uninstall_with_shizuku_description">هنگام نصب خودکار با Shizuku، اگر Android تداخل امضا گزارش کند، ابتدا برنامهٔ موجود را حذف می‌کند. این کار ممکن است داده‌های برنامه را پاک کند</string>
+    <string name="settings_auto_uninstall_with_shizuku_description">حذف برنامه موجود در صورت تداخل امضا. این کار ممکن است داده‌های برنامه را حذف کند</string>
     <string name="settings_auto_uninstall_warning_title">حذف خودکار فعال شود؟</string>
     <string name="settings_auto_uninstall_warning_message">اگر Android هنگام نصب خودکار با Shizuku تداخل امضا گزارش کند، Morphe پیش از نصب APK پچ‌شده برنامهٔ موجود را حذف می‌کند</string>
     <string name="settings_auto_uninstall_warning_risk">این کار ممکن است داده‌های برنامه را پاک کند. اگر APK پچ‌شده پس از حذف نصب نشود، ممکن است برنامهٔ قبلی دیگر وجود نداشته باشد</string>
@@ -1066,13 +1065,13 @@ morphe_header_custom_dark.png
     <string name="settings_system_memory_limit_warning">محدودیت کم حافظه ممکن است هنگام پچ‌کردن برنامه‌های بزرگ‌تر باعث شکست شود</string>
     <string name="settings_system_memory_limit_high_warning">محدودیت زیاد حافظه ممکن است در بعضی دستگاه‌ها پچ‌کردن را بسیار کند کند. فقط اگر پچ‌کردن با مقادیر کمتر همچنان شکست می‌خورد، آن را افزایش دهید</string>
     <string name="settings_system_process_runtime_enabled_description">محدودیت %s مگابایت</string>
-    <string name="settings_system_process_runtime_disabled_description">برای پیکربندی کلیک کنید</string>
+    <string name="settings_system_process_runtime_disabled_description">ضربه برای پیکربندی</string>
     <string name="settings_system_process_runtime_description_not_available">این ویژگی به Android 11 یا بالاتر نیاز دارد</string>
     <string name="settings_system_patcher_completion_sound">صدای پایان</string>
     <string name="settings_system_patcher_completion_sound_description">هنگام پایان پچ‌کردن، برای موفقیت یا شکست صدایی متمایز پخش می‌کند</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">اعلان‌ها</string>
-    <string name="settings_system_notifications_description">اعلان‌های پس‌زمینه و صداهای پایان را پیکربندی کنید</string>
+    <string name="settings_system_notifications_description">پیکربندی اعلان‌های پس‌زمینه و صداهای تکمیل</string>
     <string name="settings_system_notifications_success_sound">صدای موفقیت</string>
     <string name="settings_system_notifications_error_sound">صدای شکست</string>
     <string name="settings_system_notifications_sound_default">پیش‌فرض</string>
@@ -1084,7 +1083,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">واردکردن و خروجی‌گرفتن</string>
     <string name="settings_system_signing_key">کلید امضا</string>
-    <string name="settings_system_signing_key_description">از کلیدی که برنامه‌های پچ‌شدهٔ شما با آن امضا می‌شوند پشتیبان می‌گیرد و آن را بازیابی می‌کند</string>
+    <string name="settings_system_signing_key_description">پشتیبان‌گیری یا بازیابی کلیدی که برنامه‌های پچ‌شده را امضا می‌کند</string>
     <string name="settings_system_signing_key_dialog_description">هر برنامه‌ای که Morphe پچ می‌کند با این کلید امضا می‌شود. یک نسخه از آن را نگه دارید: بدون آن، برنامه‌های پچ‌شده را فقط پس از حذف نصب می‌توان به‌روزرسانی کرد</string>
     <string name="settings_system_signing_key_missing">Morphe با اولین پچ شما یک کلید امضا ایجاد می‌کند</string>
     <string name="settings_system_signing_key_created">ایجادشده در %s</string>
@@ -1140,7 +1139,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_export_zip_failed">خروجی‌گرفتن از APKهای انتخاب‌شده ناموفق بود</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">مدیریت ذخیره‌سازی</string>
-    <string name="settings_system_storage_management_description">مصرف دیسک را بررسی و فایل‌های کش‌شده را پاک کنید</string>
+    <string name="settings_system_storage_management_description">نمایش مصرف دیسک و پاک کردن فایل‌های کش‌شده</string>
     <string name="settings_system_storage_keystore_title">مخزن کلید امضا</string>
     <string name="settings_system_storage_app_data_title">داده‌های برنامه</string>
     <string name="settings_system_storage_patch_bundles_title">بسته‌های پچ</string>
@@ -1206,7 +1205,7 @@ morphe_header_custom_dark.png
     <string name="copy_selection_same_source">همان منبع</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">انتخابگر فایل سفارشی</string>
-    <string name="settings_system_custom_file_picker_description">به‌جای انتخابگر پیش‌فرض سیستم، ذخیره‌سازی را با انتخابگر فایل داخلی Morphe مرور کنید</string>
+    <string name="settings_system_custom_file_picker_description">استفاده از انتخابگر فایل داخلی Morphe به جای انتخابگر سیستم</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">برنامهٔ کمکی دانلود APK</string>
     <string name="settings_system_apk_download_helper_trusted_count">مورد اعتماد: %1$d از %2$d</string>

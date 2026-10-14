@@ -41,13 +41,24 @@ internal fun <K, V> changedMapKeys(previous: Map<K, V>, current: Map<K, V>): Set
     (previous.keys + current.keys).filterTo(mutableSetOf()) { previous[it] != current[it] }
 
 /**
- * The patch update waiting for an installed app: the source carrying it and the version the
- * app was patched with. [subject] is null when no changelog narrowed the update down.
+ * The patch update waiting for an installed app: the source carrying it, the version the app
+ * was patched with and the one the source is at now. [subject] is null when no changelog
+ * narrowed the update down.
  */
 data class AppPatchUpdate(
     val bundleUid: Int,
     val patchedWithVersion: String?,
+    val availableVersion: String,
     val subject: ChangelogSubject? = null
+) {
+    /** The source and the version it is at, which an ignored update is remembered by. */
+    val release: String get() = "$bundleUid:$availableVersion"
+}
+
+/** Patch updates split by whether the user turned down the release each one brings. */
+private data class PatchUpdates(
+    val offered: Map<String, AppPatchUpdate>,
+    val ignored: Map<String, AppPatchUpdate>
 )
 
 /**
@@ -132,7 +143,26 @@ class HomeApps(
 ) {
     // Updates available for installed apps, null until the first check lands
     private val _appUpdatesAvailable = MutableStateFlow<Map<String, AppPatchUpdate>?>(null)
-    val appUpdatesAvailable: StateFlow<Map<String, AppPatchUpdate>?> = _appUpdatesAvailable.asStateFlow()
+
+    // Split in one pass, so the offered and the ignored updates always come from the same check
+    private val patchUpdates: StateFlow<PatchUpdates?> = combine(
+        _appUpdatesAvailable,
+        homeAppButtonPrefs.ignoredPatchReleases
+    ) { updates, ignoredReleases ->
+        updates?.toList()
+            ?.partition { (packageName, update) -> ignoredReleases[packageName] != update.release }
+            ?.let { (offered, ignored) -> PatchUpdates(offered.toMap(), ignored.toMap()) }
+    }.stateIn(scope, SharingStarted.Eagerly, null)
+
+    /** Updates still offered for installed apps, null until the first check lands. */
+    val appUpdatesAvailable: StateFlow<Map<String, AppPatchUpdate>?> = patchUpdates
+        .map { it?.offered }
+        .stateIn(scope, SharingStarted.Eagerly, null)
+
+    /** Updates the user turned down, kept until their source brings a newer release. */
+    val ignoredAppUpdates: StateFlow<Map<String, AppPatchUpdate>> = patchUpdates
+        .map { it?.ignored.orEmpty() }
+        .stateIn(scope, SharingStarted.Eagerly, emptyMap())
 
     // Ticker to force homeAppState recomputation after install/uninstall without changing DB state
     private val _appStateTicker = MutableStateFlow(0L)
@@ -389,6 +419,17 @@ class HomeApps(
     fun stopIgnoringSupportedVersion(packageName: String) =
         homeAppButtonPrefs.stopIgnoringVersion(packageName)
 
+    /**
+     * Stops offering [update] for [packageName], leaving the next release of its source to be
+     * offered as usual.
+     */
+    fun ignorePatchUpdate(packageName: String, update: AppPatchUpdate) =
+        homeAppButtonPrefs.ignorePatchRelease(packageName, update.release)
+
+    /** Undoes [ignorePatchUpdate], so the update waiting for [packageName] is offered again. */
+    fun stopIgnoringPatchUpdate(packageName: String) =
+        homeAppButtonPrefs.stopIgnoringPatchRelease(packageName)
+
     private val homeCardCache = HomeCardCache(filesystem.homeCardCacheDir.resolve("cards.json"))
 
     // Read once, shown until the bundles load
@@ -428,7 +469,7 @@ class HomeApps(
                 }
             }
         },
-        _appUpdatesAvailable,
+        appUpdatesAvailable,
         appStateSignal,
     ) { bundle, prefs, installedApps, updates, (_, trackedSnapshots) ->
         HomeInputs(bundle, prefs, installedApps, updates, trackedSnapshots)
@@ -1007,7 +1048,7 @@ class HomeApps(
                 // No resolvable app name → show badge (can't match scopes).
                 // Bundle lists only this app → show badge (every change is for it).
                 // Known name, nothing in the changelog for the app → no badge.
-                val unscoped = AppPatchUpdate(bundleUid, storedVersion)
+                val unscoped = AppPatchUpdate(bundleUid, storedVersion, currentVersion)
                 if (soleApps[bundleUid] == app.originalPackageName) return@firstNotNullOfOrNull unscoped
                 val source = readableByUid[bundleUid] ?: return@firstNotNullOfOrNull unscoped
                 if (appNames.isEmpty()) return@firstNotNullOfOrNull unscoped
@@ -1025,7 +1066,7 @@ class HomeApps(
                         .minus(app.originalPackageName)
                         .mapNotNullTo(mutableSetOf()) { appMetadata[it]?.displayName }
                 )
-                AppPatchUpdate(bundleUid, storedVersion, subject).takeIf {
+                AppPatchUpdate(bundleUid, storedVersion, currentVersion, subject).takeIf {
                     ChangelogParser.hasChangesFor(
                         entries = entries,
                         installedVersion = storedVersion,

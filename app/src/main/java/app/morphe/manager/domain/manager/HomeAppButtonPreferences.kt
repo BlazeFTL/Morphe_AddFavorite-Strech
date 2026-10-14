@@ -141,8 +141,15 @@ class HomeAppButtonPreferences(context: Context) {
      * know it as. Only the one version is held, so a user staying on an older build is left alone
      * until the sources move past what was turned down.
      */
-    private val _ignoredVersions = MutableStateFlow(loadIgnoredVersions())
-    val ignoredVersions: StateFlow<Map<String, String>> = _ignoredVersions.asStateFlow()
+    private val ignoredVersionStore = IgnoredPerPackage(KEY_IGNORED_VERSIONS)
+    val ignoredVersions: StateFlow<Map<String, String>> = ignoredVersionStore.values
+
+    /**
+     * The patch release each installed app was told to stop offering, keyed by the package the
+     * app is installed as. The next release of its source is offered as usual.
+     */
+    private val ignoredPatchReleaseStore = IgnoredPerPackage(KEY_IGNORED_PATCH_RELEASES)
+    val ignoredPatchReleases: StateFlow<Map<String, String>> = ignoredPatchReleaseStore.values
 
     private fun loadHiddenPackages(): Set<String> {
         return prefs.getStringSet(KEY_HIDDEN, null) ?: emptySet()
@@ -163,18 +170,6 @@ class HomeAppButtonPreferences(context: Context) {
                     .filter { it.isNotBlank() }
                     .distinct()
                 if (packageNames.isEmpty()) null else uid to packageNames
-            }
-            .toMap()
-    }
-
-    private fun loadIgnoredVersions(): Map<String, String> {
-        val raw = prefs.getString(KEY_IGNORED_VERSIONS, null) ?: return emptyMap()
-        return raw.lineSequence()
-            .mapNotNull { line ->
-                val parts = line.split(CATEGORY_SEPARATOR)
-                val packageName = parts.getOrNull(0)?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
-                val version = parts.getOrNull(1)?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
-                packageName to version
             }
             .toMap()
     }
@@ -202,27 +197,57 @@ class HomeAppButtonPreferences(context: Context) {
     }
 
     /** Stops [packageName] being offered at [version]. A later version is offered as usual. */
-    fun ignoreVersion(packageName: String, version: String) {
-        saveIgnoredVersions(
-            _ignoredVersions.value + (packageName.sanitizePersistedField() to version.sanitizePersistedField())
-        )
-    }
+    fun ignoreVersion(packageName: String, version: String) = ignoredVersionStore.ignore(packageName, version)
 
     /** Takes [packageName] off the ignore list, so whatever the sources support is offered again. */
-    fun stopIgnoringVersion(packageName: String) {
-        saveIgnoredVersions(_ignoredVersions.value - packageName)
-    }
+    fun stopIgnoringVersion(packageName: String) = ignoredVersionStore.stopIgnoring(packageName)
 
-    private fun saveIgnoredVersions(versions: Map<String, String>) {
-        prefs.edit {
-            putString(
-                KEY_IGNORED_VERSIONS,
-                versions.entries.joinToString("\n") { (packageName, version) ->
-                    "$packageName$CATEGORY_SEPARATOR$version"
+    /**
+     * Stops the patch update [release] names being offered for [packageName]. The next release
+     * of its source is offered as usual.
+     */
+    fun ignorePatchRelease(packageName: String, release: String) =
+        ignoredPatchReleaseStore.ignore(packageName, release)
+
+    /** Takes [packageName] off the patch ignore list, so the update waiting for it is offered again. */
+    fun stopIgnoringPatchRelease(packageName: String) = ignoredPatchReleaseStore.stopIgnoring(packageName)
+
+    /**
+     * One offer turned down per package, persisted under [key] as a line for each. Only the one
+     * value is held for a package, so whatever comes after it is offered as usual.
+     */
+    private inner class IgnoredPerPackage(private val key: String) {
+        private val _values = MutableStateFlow(load())
+        val values: StateFlow<Map<String, String>> = _values.asStateFlow()
+
+        fun ignore(packageName: String, value: String) =
+            save(_values.value + (packageName.sanitizePersistedField() to value.sanitizePersistedField()))
+
+        fun stopIgnoring(packageName: String) = save(_values.value - packageName)
+
+        private fun load(): Map<String, String> {
+            val raw = prefs.getString(key, null) ?: return emptyMap()
+            return raw.lineSequence()
+                .mapNotNull { line ->
+                    val parts = line.split(CATEGORY_SEPARATOR)
+                    val packageName = parts.getOrNull(0)?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
+                    val value = parts.getOrNull(1)?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
+                    packageName to value
                 }
-            )
+                .toMap()
         }
-        _ignoredVersions.value = versions
+
+        private fun save(values: Map<String, String>) {
+            prefs.edit {
+                putString(
+                    key,
+                    values.entries.joinToString("\n") { (packageName, value) ->
+                        "$packageName$CATEGORY_SEPARATOR$value"
+                    }
+                )
+            }
+            _values.value = values
+        }
     }
 
     fun saveOrder(packageNames: List<String>) {
@@ -575,6 +600,7 @@ class HomeAppButtonPreferences(context: Context) {
         private const val KEY_EXPANDED_SOURCE_GROUPS = "expanded_source_groups"
         private const val KEY_UNCATEGORIZED_COLLAPSED = "uncategorized_collapsed"
         private const val KEY_IGNORED_VERSIONS = "ignored_versions"
+        private const val KEY_IGNORED_PATCH_RELEASES = "ignored_patch_releases"
         private const val CATEGORY_SEPARATOR = "\t"
     }
 }

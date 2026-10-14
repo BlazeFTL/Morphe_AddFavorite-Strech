@@ -141,6 +141,7 @@ fun InstalledAppInfoDialog(
     val appUpdates by homeViewModel.apps.appUpdatesAvailable.collectAsStateWithLifecycle()
     val appUpdate = appUpdates?.get(packageName)
     val hasUpdate = appUpdate != null
+    val ignoredAppUpdates by homeViewModel.apps.ignoredAppUpdates.collectAsStateWithLifecycle()
     // What the install itself is in speaks louder than what is pending for it, so a record in one
     // of those states is described by that rather than by the work waiting on it
     val isSettledInstall = !viewModel.isAppDeleted &&
@@ -169,15 +170,21 @@ fun InstalledAppInfoDialog(
     // Both reasons to rebuild are answered by one banner, which then carries the patch button
     // the actions below would otherwise repeat
     val showsRebuildBanner = patchUpdatePending || versionBehind != null
-    // Spent on the version it names, so the banner comes back for whatever the sources support next
+    // Spent on what the banner names, the app version it offers or else the patch release, so the
+    // banner comes back for whatever the sources bring next
     val onIgnoreVersion = versionBehind?.let { status ->
         { homeViewModel.apps.ignoreSupportedVersion(catalogPackageName, status.supportedVersion) }
+    } ?: appUpdate?.takeIf { patchUpdatePending }?.let { update ->
+        { homeViewModel.apps.ignorePatchUpdate(packageName, update) }
     }
     // Offered only while the turned-down version is still the one on offer, since a newer one
     // brings the banner back on its own and leaves nothing to undo
     val onStopIgnoringVersion = ignoredVersion
         ?.takeIf { it == supportedVersion?.version }
         ?.let { { homeViewModel.apps.stopIgnoringSupportedVersion(catalogPackageName) } }
+    // An ignored patch update is only held while its release is the newest, so this lasts as long
+    val onStopIgnoringPatchUpdate = ignoredAppUpdates[packageName]
+        ?.let { { homeViewModel.apps.stopIgnoringPatchUpdate(packageName) } }
 
     // Accent color resolution order: bundle metadata (appIconColor) -> default. Read from every
     // source, a disabled one included, so the app keeps its color with nothing left to patch it.
@@ -569,8 +576,8 @@ fun InstalledAppInfoDialog(
                     )
                 }
             }
-            // Installs the saved patched build. A mount build is always mounted, while any other
-            // one warns first when the primary installer is mount
+            // Installs the saved patched build. A Mount build is always mounted, while any other
+            // one warns first when the primary installer is Mount
             val installSavedCopy: () -> Unit = {
                 viewModel.savedApkFile()?.let { savedFile ->
                     val installAction = {
@@ -725,6 +732,7 @@ fun InstalledAppInfoDialog(
                                 installedApp = installedApp,
                                 supportedVersion = supportedVersion?.version,
                                 onStopIgnoringVersion = onStopIgnoringVersion,
+                                onStopIgnoringPatchUpdate = onStopIgnoringPatchUpdate,
                                 appliedPatches = appliedPatches,
                                 bundlesUsedSummary = bundlesUsedSummary,
                                 appLinksStatus = viewModel.appLinksStatus,
@@ -1244,6 +1252,7 @@ private fun InfoSection(
     installedApp: InstalledApp,
     supportedVersion: String?,
     onStopIgnoringVersion: (() -> Unit)?,
+    onStopIgnoringPatchUpdate: (() -> Unit)?,
     appliedPatches: Map<Int, Set<String>>?,
     bundlesUsedSummary: String,
     appLinksStatus: AppLinksStatus?,
@@ -1306,23 +1315,12 @@ private fun InfoSection(
             // sources cover can be looked up rather than only met as a warning. A version that
             // was turned down is where the offer is taken back up again
             InfoSlot(supportedVersion) { version ->
-                val supportedVersionLabel = stringResource(R.string.home_app_info_newest_supported_version)
-                if (onStopIgnoringVersion != null) {
-                    InfoRowWithAction(
-                        icon = Icons.Outlined.VisibilityOff,
-                        label = supportedVersionLabel,
-                        value = version.withVersionPrefix(),
-                        onAction = onStopIgnoringVersion,
-                        actionIcon = Icons.Outlined.Visibility,
-                        actionContentDescription = stringResource(R.string.stop_ignoring)
-                    )
-                } else {
-                    InfoRow(
-                        icon = Icons.Outlined.Update,
-                        label = supportedVersionLabel,
-                        value = version.withVersionPrefix()
-                    )
-                }
+                IgnorableInfoRow(
+                    icon = Icons.Outlined.Update,
+                    label = stringResource(R.string.home_app_info_newest_supported_version),
+                    value = version.withVersionPrefix(),
+                    onStopIgnoring = onStopIgnoringVersion
+                )
             }
 
             InfoSlot(apkSize) { size ->
@@ -1350,11 +1348,13 @@ private fun InfoSection(
                 )
             }
 
+            // Where a patch update that was turned down is taken back up again
             InfoSlot(bundlesUsedSummary.takeIf { it.isNotBlank() }) { summary ->
-                InfoRow(
+                IgnorableInfoRow(
                     icon = Icons.Outlined.Source,
                     label = stringResource(R.string.home_app_info_patch_source_used),
-                    value = summary
+                    value = summary,
+                    onStopIgnoring = onStopIgnoringPatchUpdate
                 )
             }
 
@@ -1382,6 +1382,31 @@ private fun InfoSection(
                 )
             }
         }
+    }
+}
+
+/**
+ * [InfoRow] for something whose offer can be turned down. While it is, [onStopIgnoring] is set and
+ * the row trades [icon] for a crossed out eye and takes the offer back up from its end.
+ */
+@Composable
+private fun IgnorableInfoRow(
+    icon: ImageVector,
+    label: String,
+    value: String,
+    onStopIgnoring: (() -> Unit)?
+) {
+    if (onStopIgnoring != null) {
+        InfoRowWithAction(
+            icon = Icons.Outlined.VisibilityOff,
+            label = label,
+            value = value,
+            onAction = onStopIgnoring,
+            actionIcon = Icons.Outlined.Visibility,
+            actionContentDescription = stringResource(R.string.stop_ignoring)
+        )
+    } else {
+        InfoRow(icon = icon, label = label, value = value)
     }
 }
 

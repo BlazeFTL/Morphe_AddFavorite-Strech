@@ -1,3 +1,22 @@
+# [1.36.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.2...v1.36.0-dev.3) (2026-10-14)
+
+
+### Bug Fixes
+
+* Choose the apps of a source by their checks alone and say why a patched app stays ([ba12b80](https://github.com/MorpheApp/morphe-manager/commit/ba12b8067dbcb603443fe19c9eff808fc97f1078))
+* Play the completion sound at the level of other notifications, and only when asked for ([45282df](https://github.com/MorpheApp/morphe-manager/commit/45282df0ee877d71e9352d884658ca544d46d2ba))
+* Show the picture a patch source ships rather than its owner's avatar ([2fcfb7e](https://github.com/MorpheApp/morphe-manager/commit/2fcfb7ee90761fecaf7abd5d1a049c6579178fd7))
+
+
+### Features
+
+* Mark app updates on the home screen icon, telling a newer version from newer patches ([770e50e](https://github.com/MorpheApp/morphe-manager/commit/770e50ef1d134ae844705de5f974a5e0383bba5f))
+
+
+### Performance Improvements
+
+* Keep the avatars of patch sources on disk so they show at once after a restart ([be01dc7](https://github.com/MorpheApp/morphe-manager/commit/be01dc7867ad81a91d28144bc4e6d743e93b7b9d))
+
 # [1.36.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.1...v1.36.0-dev.2) (2026-10-14)
 
 

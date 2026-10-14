@@ -1,3 +1,17 @@
+# [1.36.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.1...v1.36.0-dev.2) (2026-10-14)
+
+
+### Bug Fixes
+
+* Copy the stock APK of root mounts from the installed app ([#1156](https://github.com/MorpheApp/morphe-manager/issues/1156)) ([69dbb80](https://github.com/MorpheApp/morphe-manager/commit/69dbb809e9b05cf5178b5d178890bbf2a94f9d38))
+* Keep root mounted apps through a restart of the framework alone ([05dbc46](https://github.com/MorpheApp/morphe-manager/commit/05dbc462a5b6fb0aab7be9df679fb938e9c89028))
+* Stop the unmount loops of root mounts at a bound so mounting cannot hang ([d484aaa](https://github.com/MorpheApp/morphe-manager/commit/d484aaada1ca12c20c21dfe8a016d95828b9c1cf))
+
+
+### Features
+
+* Leave out the apps a patch source adds later and add a source for one app from a link ([4d55a36](https://github.com/MorpheApp/morphe-manager/commit/4d55a365f011fcd2953ed0f03b242739e9c712a6))
+
 # [1.36.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.35.1-dev.1...v1.36.0-dev.1) (2026-10-14)
 
 

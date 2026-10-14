@@ -67,7 +67,6 @@ fun AppBottomSheet(
         // surface from entering the status-bar zone at the window-layout level.
         modifier = modifier
             .statusBarsPadding()
-            .padding(horizontal = Defaults.SheetSideInset)
             .predictiveBackSlide(backProgress),
         sheetState = sheetState,
         shape = shape,

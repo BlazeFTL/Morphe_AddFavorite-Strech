@@ -64,7 +64,6 @@ fun MultiSelectShell(
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = Defaults.SheetSideInset)
                 .predictiveBackSlide(backProgress),
             shape = ShellShape,
             // Drawn like an AppBottomSheet, on the dialogs' background with an edge of its own, so

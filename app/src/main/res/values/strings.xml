@@ -224,7 +224,6 @@
     <string name="sources_dialog_url_invalid">URL must point to a GitHub/GitLab repo or .json file</string>
     <string name="sources_dialog_preinstalled">Pre-installed</string>
     <string name="sources_dialog_community">Community patches</string>
-    <string name="sources_dialog_choose_apps">Choose apps</string>
     <string name="sources_dialog_choose_apps_description">Pick which of its apps to keep once the source has loaded</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Third-party patch sources</string>

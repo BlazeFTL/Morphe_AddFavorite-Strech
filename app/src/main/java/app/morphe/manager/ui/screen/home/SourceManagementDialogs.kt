@@ -175,7 +175,8 @@ fun AddSourceDialog(
             below = {
                 // What a source holds is only known once it has loaded, so this asks now and
                 // the list opens then
-                ChooseAppsToggle(
+                SelectionCheckRow(
+                    text = stringResource(R.string.sources_dialog_choose_apps_description),
                     checked = chooseApps,
                     onCheckedChange = { chooseApps = it }
                 )
@@ -191,26 +192,6 @@ fun AddSourceDialog(
             }
         }
     }
-}
-
-/**
- * Asks, while a source is being added, whether to open [SourceAppsDialog] once it has loaded.
- */
-@Composable
-internal fun ChooseAppsToggle(
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    SettingsSwitchItem(
-        checked = checked,
-        onToggle = { onCheckedChange(!checked) },
-        icon = Icons.Outlined.Apps,
-        title = stringResource(R.string.sources_dialog_choose_apps),
-        subtitle = stringResource(R.string.sources_dialog_choose_apps_description),
-        showBorder = true,
-        modifier = modifier
-    )
 }
 
 /** Links in pasted text however they came: one per line, in a list, or inside prose or markdown. */

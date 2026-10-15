@@ -172,9 +172,20 @@ fun HomeScreen(
         startInstallQueue(requests)
     }
 
+    // A card that stands for an install queues that install, so cloned copies are each
+    // rebuilt as themselves rather than collapsing into the app they came from
+    fun HomeAppItem.batchTarget() = BatchTarget(
+        packageName = packageName,
+        repatchedPackageName = installedApp?.trackingKey
+    )
+
     // Only the apps a rebuild actually moves on: one the sources still cover at its installed
-    // version comes back from patching exactly as it went in, however its card is badged
-    val repatchableApps = remember(homeAppItems) { homeAppItems.filter { it.showsUpdateBadge } }
+    // version comes back from patching exactly as it went in, however its card is badged.
+    // Those already queued are left to the queue's own alert
+    val repatchableApps = remember(homeAppItems, savedBatchQueue) {
+        val queued = savedBatchQueue?.targets.orEmpty().mapTo(HashSet()) { it.id }
+        homeAppItems.filter { it.showsUpdateBadge && it.batchTarget().id !in queued }
+    }
 
     val batchInProgressText = stringResource(R.string.batch_patch_in_progress)
     val openBatchQueue: (List<BatchTarget>, Boolean) -> Unit = { targets, useMount ->
@@ -191,14 +202,7 @@ fun HomeScreen(
         }
     }
     val startBatchPatch: (List<HomeAppItem>) -> Unit = { items ->
-        // A card that stands for an install queues that install, so cloned copies are each
-        // rebuilt as themselves rather than collapsing into the app they came from
-        val targets = items.map { item ->
-            BatchTarget(
-                packageName = item.packageName,
-                repatchedPackageName = item.installedApp?.trackingKey
-            )
-        }
+        val targets = items.map { it.batchTarget() }
         // The queue installs through the standard installer, never by mounting, so the
         // single-app mount choice must not carry over into the patches it resolves
         openBatchQueue(targets, false)

@@ -201,18 +201,14 @@ private fun IconBuilder(
             }
         )
 
-        AnimatedContent(
-            targetState = appIconName(pending),
+        CrossfadeText(
+            text = appIconName(pending),
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface,
             transitionSpec = Animations.fadeCrossfade(200),
             label = "icon_name"
-        ) { name ->
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-        }
+        )
 
         PickerLabel(stringResource(R.string.settings_appearance_app_icon_background))
         BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {

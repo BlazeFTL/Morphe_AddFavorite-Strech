@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -445,21 +444,15 @@ private fun DialogContent(
                         ) {
                             // Dialogs whose title tracks a state (download, install, result) swap
                             // it in step with their content instead of snapping a new string in
-                            AnimatedContent(
-                                targetState = title,
-                                transitionSpec = Animations.fadeCrossfade(),
+                            CrossfadeText(
+                                text = title,
+                                style = MaterialTheme.typography.headlineSmall,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = titleAlign,
+                                color = textColor,
                                 modifier = Modifier.weight(1f),
                                 label = "dialogTitle"
-                            ) { currentTitle ->
-                                Text(
-                                    text = currentTitle,
-                                    style = MaterialTheme.typography.headlineSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    textAlign = titleAlign,
-                                    color = textColor,
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            }
+                            )
                             if (titleTrailingContent != null) {
                                 Row(
                                     horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),

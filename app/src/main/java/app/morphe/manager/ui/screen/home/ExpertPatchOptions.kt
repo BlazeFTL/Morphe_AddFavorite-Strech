@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.home
 
 import android.graphics.drawable.Drawable
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -18,7 +17,6 @@ import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.Restore
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -596,23 +594,17 @@ private fun ColorOptionWithPresets(
                 enter = Animations.expandFadeEnter,
                 exit = Animations.shrinkFadeExit
             ) {
-                AnimatedContent(
-                    targetState = swatchName ?: lastSwatchName,
-                    transitionSpec = Animations.fadeCrossfade(),
+                CrossfadeText(
+                    text = swatchName ?: lastSwatchName,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = dialogTextColor(),
+                    textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = Defaults.ItemSpacing),
                     label = "colorOptionSwatchName"
-                ) { name ->
-                    Text(
-                        text = name,
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.SemiBold,
-                        color = dialogTextColor(),
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+                )
             }
         }
     }

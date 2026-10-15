@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.patcher
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -594,21 +593,17 @@ private fun ExpertProgressHeader(
                     horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    AnimatedContent(
-                        targetState = currentStep?.name,
+                    CrossfadeText(
+                        text = currentStep?.name ?: stringResource(R.string.patcher_success_title),
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.SemiBold,
+                        color = usableAppAccent(accentColor) ?: MaterialTheme.colorScheme.primary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f),
                         transitionSpec = Animations.fadeCrossfade(300),
-                        label = "expert_step_name",
-                        modifier = Modifier.weight(1f)
-                    ) { stepName ->
-                        Text(
-                            text = stepName ?: stringResource(R.string.patcher_success_title),
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.SemiBold,
-                            color = usableAppAccent(accentColor) ?: MaterialTheme.colorScheme.primary,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                        label = "expert_step_name"
+                    )
 
                     if (total > 0) {
                         // A finished run wears the same success tone as the success card

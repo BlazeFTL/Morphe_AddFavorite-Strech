@@ -22,7 +22,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -482,7 +481,7 @@ private fun HomeFooterControls(
  * Section 2: Greeting message.
  */
 @Composable
-fun GreetingSection(
+private fun GreetingSection(
     message: String?,
     modifier: Modifier = Modifier,
     onRefresh: (() -> Unit)? = null
@@ -499,21 +498,17 @@ fun GreetingSection(
         ),
         contentAlignment = Alignment.Center
     ) {
-        AnimatedContent(
-            targetState = message,
+        CrossfadeText(
+            text = message,
             transitionSpec = Animations.slideUpContentTransitionSpec,
+            // A step below a headline, so a long phrase still fits in a line or two
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
             label = "greeting_transition"
-        ) { targetMessage ->
-            Text(
-                text = targetMessage,
-                // Sized as a dialog title, so the home screen heads itself the way its dialogs do
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        )
     }
 }
 

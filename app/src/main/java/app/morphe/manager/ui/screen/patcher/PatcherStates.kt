@@ -606,21 +606,15 @@ private fun ResultBadge(status: ResultStatus) {
 /** The line under the app's name, for the results that have one. */
 @Composable
 private fun ResultSubtitle(status: ResultStatus, textAlign: TextAlign) {
-    AnimatedContent(
-        targetState = status.subtitle,
+    CrossfadeText(
+        text = status.subtitle?.let { stringResource(it) },
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = textAlign,
+        modifier = Modifier.fillMaxWidth(),
         transitionSpec = Animations.fadeCrossfade(500),
         label = "subtitle_animation"
-    ) { subtitle ->
-        if (subtitle != null) {
-            Text(
-                text = stringResource(subtitle),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = textAlign,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-    }
+    )
 }
 
 /** The patched app's own icon carrying the [status]'s mark, set off by a [resultPulse]. */

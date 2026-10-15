@@ -30,9 +30,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.unit.dp
@@ -321,7 +319,6 @@ fun SettingsScreen(
     }
 
     val backPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-    var navigationHeightPx by remember { mutableIntStateOf(0) }
     val backLabel = stringResource(R.string.back)
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -370,13 +367,22 @@ fun SettingsScreen(
                         }
                 )
                 // Overlay sits outside the pager, which clips each page to its own bounds
-                Box(
+                FloatingPillBarLayout(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f)
-                ) {
+                        .weight(1f),
+                    bar = {
+                        BottomNavigation(
+                            currentTab = currentTab,
+                            onTabSelected = { tab ->
+                                coroutineScope.launch { pagerState.animateScrollToPage(tab.ordinal) }
+                            },
+                            onAppearanceTabPositioned = { globalOnboardingState?.appearanceTabBounds = it },
+                            onSystemTabPositioned = { globalOnboardingState?.systemTabBounds = it }
+                        )
+                    }
+                ) { navigationHeight ->
                     // The tabs scroll on under the floating navigation, and end clear of it
-                    val navigationHeight = with(LocalDensity.current) { navigationHeightPx.toDp() }
                     CompositionLocalProvider(
                         LocalSettingsTabBottomPadding provides navigationHeight + Defaults.ItemSpacing
                     ) {
@@ -387,18 +393,6 @@ fun SettingsScreen(
                     }
 
                     ListScrollbar(scrollState = currentScrollState, extraBottomPadding = navigationHeight)
-
-                    BottomNavigation(
-                        currentTab = currentTab,
-                        onTabSelected = { tab ->
-                            coroutineScope.launch { pagerState.animateScrollToPage(tab.ordinal) }
-                        },
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .onSizeChanged { navigationHeightPx = it.height },
-                        onAppearanceTabPositioned = { globalOnboardingState?.appearanceTabBounds = it },
-                        onSystemTabPositioned = { globalOnboardingState?.systemTabBounds = it }
-                    )
                 }
             }
         }

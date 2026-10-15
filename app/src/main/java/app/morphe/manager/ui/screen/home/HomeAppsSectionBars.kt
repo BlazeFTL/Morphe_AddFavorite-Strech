@@ -48,9 +48,6 @@ internal class HomeFooterBarHost {
     var contentBottom by mutableFloatStateOf(0f)
     var dockBottom by mutableFloatStateOf(0f)
 
-    /** Height of the home bottom bar floating over the list's lower edge, 0 where none floats. */
-    var chromeBarHeightPx by mutableIntStateOf(0)
-
     /** How far the bar reaches into the area the list lays out in. */
     val listOverlapPx: Float
         get() = (barHeightPx - (dockBottom - contentBottom).coerceAtLeast(0f)).coerceAtLeast(0f)

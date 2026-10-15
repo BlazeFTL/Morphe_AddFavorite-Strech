@@ -36,7 +36,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -213,42 +212,15 @@ fun SectionsLayout(
     Box(modifier = Modifier.fillMaxSize()) {
         // Main layout structure. In portrait the list runs on under the navigation bar and the
         // floating bottom bar takes the inset, so cards keep scrolling to the edge of the screen
-        Column(
+        FloatingPillBarLayout(
             modifier = Modifier
                 .fillMaxSize()
-                .then(if (isLandscape()) Modifier.navigationBarsPadding() else Modifier)
-        ) {
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                AdaptiveContent(
-                    windowSize = windowSize,
-                    greetingMessage = greetingMessage,
-                    apps = apps,
-                    appActions = appActions,
-                    searchState = searchState,
-                    chromeActions = chromeActions,
-                    chromeFlags = chromeFlags,
-                    filterMode = filterMode,
-                    onClearFilter = onClearFilter,
-                    onSortClick = { showListOptionsSheet = true },
-                    state = sectionState,
-                    footerBar = footerBar,
-                    onboardingState = onboardingState
-                )
-
-                // Section 5: Bottom action bar, floating over the lower edge of the list, which
-                // keeps clear of it through the footer bar host
+                .then(if (isLandscape()) Modifier.navigationBarsPadding() else Modifier),
+            bar = {
+                // Section 5: Bottom action bar, floating over the lower edge of the list
                 if (!isLandscape()) {
-                    DisposableEffect(footerBar) { onDispose { footerBar.chromeBarHeightPx = 0 } }
                     HomeBottomActionBar(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .onSizeChanged { footerBar.chromeBarHeightPx = it.height }
-                            .coveredByFooterBar(sectionState.isFooterBarVisible),
+                        modifier = Modifier.coveredByFooterBar(sectionState.isFooterBarVisible),
                         onBundlesClick = chromeActions.onBundlesClick,
                         onSettingsClick = chromeActions.onSettingsClick,
                         isExpertModeEnabled = chromeFlags.isExpertModeEnabled,
@@ -266,6 +238,23 @@ fun SectionsLayout(
                     )
                 }
             }
+        ) { bottomBarHeight ->
+            AdaptiveContent(
+                windowSize = windowSize,
+                greetingMessage = greetingMessage,
+                apps = apps,
+                appActions = appActions,
+                searchState = searchState,
+                chromeActions = chromeActions,
+                chromeFlags = chromeFlags,
+                filterMode = filterMode,
+                onClearFilter = onClearFilter,
+                onSortClick = { showListOptionsSheet = true },
+                state = sectionState,
+                footerBar = footerBar,
+                bottomBarHeight = bottomBarHeight,
+                onboardingState = onboardingState
+            )
         }
 
         // In landscape the bar docks inside the list pane instead, clear of the sidebar
@@ -307,6 +296,7 @@ private fun AdaptiveContent(
     onSortClick: () -> Unit,
     state: HomeAppsSectionState,
     footerBar: HomeFooterBarHost,
+    bottomBarHeight: Dp,
     onboardingState: OnboardingState? = null
 ) {
     val contentPadding = windowSize.contentPadding
@@ -343,6 +333,7 @@ private fun AdaptiveContent(
             maxCardWidth = maxCardWidth,
             onboardingState = onboardingState,
             footerBar = footerBar,
+            bottomBarHeight = bottomBarHeight,
             showFadeOverlay = showFadeOverlay,
             fillHeight = isGroupedAppView,
             modifier = if (isGroupedAppView) Modifier.fillMaxSize() else Modifier.fillMaxWidth()
@@ -543,6 +534,8 @@ internal fun MainAppsSection(
     onBundlesClick: () -> Unit,
     footerBar: HomeFooterBarHost,
     modifier: Modifier = Modifier,
+    // Height of the bar floating over the list's lower edge, which the list keeps clear of
+    bottomBarHeight: Dp = 0.dp,
     itemSpacing: Dp = 16.dp,
     horizontalPadding: Dp = 0.dp,
     maxCardWidth: Dp = 500.dp,
@@ -583,14 +576,11 @@ internal fun MainAppsSection(
         }
     }
     // Clears whichever bar reaches into the list: the floating bottom bar always, the docked one
-    // while in its slot, each at the height it was last measured at
-    val density = LocalDensity.current
-    val footerBarOverlap = with(density) {
-        maxOf(
-            if (isFooterSlotReserved) footerBar.listOverlapPx.toDp() else 0.dp,
-            footerBar.chromeBarHeightPx.toDp()
-        )
+    // while in its slot, at the height it was last measured at
+    val dockedBarOverlap = with(LocalDensity.current) {
+        if (isFooterSlotReserved) footerBar.listOverlapPx.toDp() else 0.dp
     }
+    val footerBarOverlap = maxOf(dockedBarOverlap, bottomBarHeight)
 
     // Retire stale header action state when switching grouping modes.
     LaunchedEffect(appGrouping) { state.closeCategoryBar() }

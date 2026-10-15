@@ -16,9 +16,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,6 +28,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalDensity
@@ -66,7 +69,7 @@ class FloatingPillItem(
  * that stands apart, see [FloatingPillRoundAction].
  *
  * The bar takes the navigation bar inset itself, so the content under it should not, and should
- * leave room for the bar's measured height at the end of its scroll.
+ * leave room for the bar's height at the end of its scroll, which [FloatingPillBarLayout] hands it.
  */
 @Composable
 fun FloatingPillBar(
@@ -180,6 +183,54 @@ fun FloatingPillRoundAction(
                 )
             }
         }
+    }
+}
+
+/**
+ * Lays [content] out under a [bar] floating over its bottom edge. The bar's height reaches the
+ * content in the same pass, so the content ends clear of it from the first frame.
+ */
+@Composable
+fun FloatingPillBarLayout(
+    bar: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable BoxScope.(barHeight: Dp) -> Unit
+) {
+    val currentContent = rememberUpdatedState(content)
+    val contentSlot = remember { HeightKeyedContent(currentContent) }
+
+    SubcomposeLayout(modifier) { constraints ->
+        val barPlaceables = subcompose(FloatingPillBarSlot.Bar, bar)
+            .map { it.measure(constraints.copy(minWidth = 0, minHeight = 0)) }
+        val barHeight = barPlaceables.maxOfOrNull { it.height } ?: 0
+        val contentPlaceables = subcompose(FloatingPillBarSlot.Content, contentSlot.at(barHeight.toDp()))
+            .map { it.measure(constraints) }
+
+        layout(constraints.maxWidth, constraints.maxHeight) {
+            contentPlaceables.forEach { it.place(0, 0) }
+            barPlaceables.forEach {
+                it.place((constraints.maxWidth - it.width) / 2, constraints.maxHeight - it.height)
+            }
+        }
+    }
+}
+
+private enum class FloatingPillBarSlot { Bar, Content }
+
+/**
+ * Content slot kept as the same lambda until the bar's height moves, since a subcomposition
+ * handed a new lambda recomposes on every measure. The content is read from state.
+ */
+private class HeightKeyedContent(private val content: State<@Composable BoxScope.(Dp) -> Unit>) {
+    private var height: Dp? = null
+    private var slot: @Composable () -> Unit = {}
+
+    fun at(height: Dp): @Composable () -> Unit {
+        if (height != this.height) {
+            this.height = height
+            slot = { Box(Modifier.fillMaxSize()) { content.value(this, height) } }
+        }
+        return slot
     }
 }
 

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-15T13:27:42",
-  "description": "# [1.36.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.5...v1.36.0-dev.6) (2026-10-15)\n\n\n### Bug Fixes\n\n* Leave the apps already queued out of the repatch alert ([efe1ffb](https://github.com/MorpheApp/morphe-manager/commit/efe1ffb5ed482857dddb38ce398f55b3aac55b18))\n* Show the root cause of a failed patch instead of its dependency wrapper ([e5dfe73](https://github.com/MorpheApp/morphe-manager/commit/e5dfe7350f56f748e3bb15d3a3195b08fc46b2fe))\n\n\n### Features\n\n* Drag the home alert stack open and shut ([afd2a66](https://github.com/MorpheApp/morphe-manager/commit/afd2a667aca5b18d4ff4732054ec5d144a3de890))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.6/morphe-manager-1.36.0-dev.6.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.6/morphe-manager-1.36.0-dev.6.apk.asc",
-  "version": "1.36.0-dev.6"
+  "created_at": "2026-10-15T14:43:44",
+  "description": "# [1.36.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.6...v1.36.0-dev.7) (2026-10-15)\n\n\n### Features\n\n* Drop the active filter row above the home list ([#1162](https://github.com/MorpheApp/morphe-manager/issues/1162)) ([61f0611](https://github.com/MorpheApp/morphe-manager/commit/61f0611d4da4c64f3ff8a038e73b9aeba23b4b0e))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.7/morphe-manager-1.36.0-dev.7.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.7/morphe-manager-1.36.0-dev.7.apk.asc",
+  "version": "1.36.0-dev.7"
 }

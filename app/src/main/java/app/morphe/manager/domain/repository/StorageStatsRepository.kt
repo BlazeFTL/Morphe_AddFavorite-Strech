@@ -108,9 +108,9 @@ class StorageStatsRepository(
     }
 
     /**
-     * Deletes patcher runtime files under `cacheDir`: the persistent `framework/` and `patcher/`
-     * subdirectories plus any orphaned scratch files at `cacheDir` root left behind by aborted
-     * bundle imports, keystore imports, or process-runtime merges.
+     * Deletes patcher runtime files under `cacheDir`: the persistent `patcher/` subdirectory plus
+     * any orphaned scratch files at `cacheDir` root left behind by aborted bundle imports, keystore
+     * imports, or process-runtime merges.
      */
     suspend fun clearPatcherWorkspace(): Long = withContext(Dispatchers.IO) {
         val entries = collectPatcherWorkspaceEntries()

@@ -109,10 +109,10 @@ class Filesystem(
     }
 
     /**
-     * Wipes `cacheDir/framework` and `cacheDir/patcher` when the persisted manager version code
-     * differs from the running one. These caches hold dex/framework files tied to the patcher
-     * module bundled with the manager, so stale entries from a previous version can cause
-     * ClassNotFoundError or ABI mismatches during patching.
+     * Wipes `cacheDir/patcher` when the persisted manager version code differs from the running
+     * one. It holds dex files tied to the patcher module bundled with the manager, so stale entries
+     * from a previous version can cause ClassNotFoundError or ABI mismatches during patching.
+     * `cacheDir/framework` goes too: the apktool framework cache of patchers before 2.0, now unused.
      */
     private fun invalidatePatcherWorkspaceOnUpgrade() {
         val current = BuildConfig.VERSION_CODE

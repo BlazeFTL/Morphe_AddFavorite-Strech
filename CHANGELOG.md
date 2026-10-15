@@ -1,3 +1,10 @@
+# [1.36.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.6...v1.36.0-dev.7) (2026-10-15)
+
+
+### Features
+
+* Drop the active filter row above the home list ([#1162](https://github.com/MorpheApp/morphe-manager/issues/1162)) ([61f0611](https://github.com/MorpheApp/morphe-manager/commit/61f0611d4da4c64f3ff8a038e73b9aeba23b4b0e))
+
 # [1.36.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.5...v1.36.0-dev.6) (2026-10-15)
 
 

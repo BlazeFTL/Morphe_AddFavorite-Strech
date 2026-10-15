@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-15T14:43:44",
-  "description": "# [1.36.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.6...v1.36.0-dev.7) (2026-10-15)\n\n\n### Features\n\n* Drop the active filter row above the home list ([#1162](https://github.com/MorpheApp/morphe-manager/issues/1162)) ([61f0611](https://github.com/MorpheApp/morphe-manager/commit/61f0611d4da4c64f3ff8a038e73b9aeba23b4b0e))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.7/morphe-manager-1.36.0-dev.7.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.7/morphe-manager-1.36.0-dev.7.apk.asc",
-  "version": "1.36.0-dev.7"
+  "created_at": "2026-10-15T17:40:02",
+  "description": "# [1.36.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.7...v1.36.0-dev.8) (2026-10-15)\n\n\n### Bug Fixes\n\n* Let the scrollbar run under the floating bottom bar ([96010ce](https://github.com/MorpheApp/morphe-manager/commit/96010cec0f3a3bd97fc53b66e95b7c3af1a5d8b8))\n\n\n### Features\n\n* Ease the greeting and patcher text down a size and swap text through CrossfadeText ([a89210b](https://github.com/MorpheApp/morphe-manager/commit/a89210b7894ff27acfad5f113b8ba701629efd8e))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.8/morphe-manager-1.36.0-dev.8.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.8/morphe-manager-1.36.0-dev.8.apk.asc",
+  "version": "1.36.0-dev.8"
 }

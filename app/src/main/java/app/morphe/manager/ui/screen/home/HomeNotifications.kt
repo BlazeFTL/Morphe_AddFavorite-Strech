@@ -136,11 +136,11 @@ fun NotificationsOverlay(
     val alerts = homeAlerts(notifications)
     // Revision each alert was snoozed at, kept across navigation and rotation
     val snoozed = rememberSaveable(saver = SnoozeSaver) { mutableStateMapOf() }
-    val expanded = rememberSaveable { mutableStateOf(false) }
     // Dragged open and shut by the finger, and eased there by the chips, so either way the stack
     // follows one state. Whether it stays open is kept across navigation and rotation
-    val fold = remember { AnchoredDraggableState(if (expanded.value) StackFold.Unfolded else StackFold.Folded) }
-    LaunchedEffect(fold) { snapshotFlow { fold.settledValue }.collect { expanded.value = it == StackFold.Unfolded } }
+    val fold = rememberSaveable(saver = AnchoredDraggableState.Saver()) {
+        AnchoredDraggableState(StackFold.Folded)
+    }
     val unfolding = fold.targetValue == StackFold.Unfolded
     val scope = rememberCoroutineScope()
     fun foldTo(value: StackFold) {
@@ -525,14 +525,7 @@ private fun alert(
         onClick = onClick,
         leading = {
             if (progress != null) {
-                ProgressRing(progress = progress) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                ProgressRing(progress = progress) { RingIcon(icon) }
             } else {
                 StatusDisc(icon = icon, tone = tone)
             }
@@ -725,12 +718,7 @@ private fun BundleUpdateCard(
                         if (activeSource != null) {
                             BundleIcon(bundle = activeSource, modifier = Modifier.size(24.dp))
                         } else {
-                            Icon(
-                                imageVector = Icons.Outlined.Sync,
-                                contentDescription = null,
-                                modifier = Modifier.size(20.dp),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                            RingIcon(Icons.Outlined.Sync)
                         }
                     }
                     BundleUpdateStatus.Success -> StatusDisc(Icons.Outlined.Check, SemanticTone.Success)
@@ -923,6 +911,17 @@ private fun ProgressRing(progress: Float?, content: @Composable () -> Unit) {
         )
         content()
     }
+}
+
+/** Icon inside a [ProgressRing], small enough to leave the ring clear. */
+@Composable
+private fun RingIcon(icon: ImageVector) {
+    Icon(
+        imageVector = icon,
+        contentDescription = null,
+        modifier = Modifier.size(20.dp),
+        tint = MaterialTheme.colorScheme.onSurfaceVariant
+    )
 }
 
 private val StatusLeadingSize = 44.dp

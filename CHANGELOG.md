@@ -1,3 +1,15 @@
+# [1.36.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.7...v1.36.0-dev.8) (2026-10-15)
+
+
+### Bug Fixes
+
+* Let the scrollbar run under the floating bottom bar ([96010ce](https://github.com/MorpheApp/morphe-manager/commit/96010cec0f3a3bd97fc53b66e95b7c3af1a5d8b8))
+
+
+### Features
+
+* Ease the greeting and patcher text down a size and swap text through CrossfadeText ([a89210b](https://github.com/MorpheApp/morphe-manager/commit/a89210b7894ff27acfad5f113b8ba701629efd8e))
+
 # [1.36.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.6...v1.36.0-dev.7) (2026-10-15)
 
 

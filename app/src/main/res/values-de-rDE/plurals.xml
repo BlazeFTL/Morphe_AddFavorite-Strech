@@ -75,6 +75,10 @@
         <item quantity="one">App %s zum Patchen in der Warteschlange</item>
         <item quantity="other">Apps %s zum Patchen in der Warteschlange</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s verborgene Benachrichtigung, tippen, um sie anzuzeigen</item>
+        <item quantity="other">%s verborgene Benachrichtigungen, tippen, um sie anzuzeigen</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s App kann erneut gepatcht werden</item>
         <item quantity="other">%s Apps können erneut gepatcht werden</item>
@@ -90,10 +94,6 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s Quelle installiert</item>
         <item quantity="other">%s Quellen installiert</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s gefiltert</item>
-        <item quantity="other">%1$s · %2$s gefiltert</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s ausgeblendete App</item>

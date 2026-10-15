@@ -306,7 +306,7 @@ Segala sesuatu yang Anda tambahkan dari situs web ini digunakan atas risiko Anda
     <string name="home_installed_app_picker_filter_system">Hanya aplikasi sistem</string>
     <string name="home_invalid_apk_unreadable">Tidak dapat membaca berkas. Periksa apakah \'Penyimpanan Eksternal\' tidak dibatasi baterai</string>
     <string name="home_invalid_apk_not_an_apk">Berkas yang dipilih bukan APK yang sah</string>
-    <string name="home_invalid_apk_already_patched">APK yang dipilih sudah di-patch. Pilih aplikasi asli sebagai gantinya</string>
+    <string name="home_invalid_apk_already_patched">APK yang dipilih sudah ditambal. Pilih aplikasi asli sebagai gantinya</string>
     <string name="home_invalid_apk_io_error">Gagal membuka berkas. Silakan coba lagi</string>
     <string name="home_external_apk_expert_mode_required">Fitur ini hanya tersedia dalam Mode Ahli</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -511,8 +511,8 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="home_app_info_app_deleted_warning">Aplikasi telah dicopot</string>
     <string name="home_app_info_app_deleted_description">Aplikasi ini telah dicopot di luar Morphe. Tambal ulang untuk mengembalikan fungsinya</string>
     <string name="home_app_info_not_patched_description">Versi tanpa tambalan dari aplikasi ini terpasang. Morphe masih memiliki catatan tambalan sebelumnya</string>
-    <string name="home_app_info_mount_replaced_description">Versi lain menggantikan aplikasi yang di-mount, sehingga patch tidak berlaku lagi. Pulihkan mengembalikan versi yang sudah ditambal</string>
-    <string name="home_app_info_mount_replaced_by_play_store_description">Google Play memperbarui aplikasi yang di-mount, sehingga patch tidak berlaku lagi. Pulihkan mengembalikan versi yang sudah ditambal. Nonaktifkan pembaruan otomatis untuk aplikasi tersebut di Google Play agar tetap ditambal</string>
+    <string name="home_app_info_mount_replaced_description">Versi lain menggantikan aplikasi yang terpasang, sehingga tambalan tidak lagi berlaku. Pulihkan mengembalikan versi yang sudah ditambal</string>
+    <string name="home_app_info_mount_replaced_by_play_store_description">Google Play memperbarui aplikasi yang terpasang, sehingga tambalan tidak lagi berlaku. Pulihkan mengembalikan versi yang sudah ditambal. Matikan pembaruan otomatis untuk aplikasi tersebut di Google Play agar tetap ditambal</string>
     <string name="app_links_title">Tautan web yang didukung</string>
     <string name="app_links_description">Di Android 12+, tautan ke domain yang didukung terbuka di browser Anda secara default kecuali disetujui</string>
     <string name="app_links_unverified_banner_title">Tautan web tidak terverifikasi</string>
@@ -534,10 +534,10 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Mode root memerlukan APK asli untuk dipasang di perangkat Anda sebelum menambal</string>
     <string name="root_pre_patch_installer_title">Pilih mode tambal</string>
-    <string name="root_pre_patch_installer_description">Perangkat Anda memiliki akses root. Pilih apakah aplikasi ini akan ditambal untuk mount root atau pemasangan standar</string>
-    <string name="root_pre_patch_installer_mount_title">Mode mount root</string>
-    <string name="root_pre_patch_installer_mount_description">Tambalan untuk mount root, lalu mount APK di atas aplikasi bawaan yang sesuai. Tidak memerlukan GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Jika KernelSU memiliki module Unmount yang diaktifkan secara bawaan, buka KernelSU &gt; Superuser &gt; aplikasi yang Anda mount &gt; Profil &gt; Khusus dan nonaktifkan module Unmount. Jika tidak, APK yang ditambal dan di-mount mungkin tidak berfungsi, meskipun Morphe menampilkannya sebagai di-mount</string>
+    <string name="root_pre_patch_installer_description">Perangkat Anda memiliki akses root. Pilih apakah aplikasi ini akan ditambal untuk pemasangan root atau pemasangan standar</string>
+    <string name="root_pre_patch_installer_mount_title">Mode pemasang root</string>
+    <string name="root_pre_patch_installer_mount_description">Tambalan untuk pemasang root, lalu memasang APK di atas aplikasi bawaan yang sesuai. Tidak memerlukan GmsCore</string>
+    <string name="root_mount_module_unmount_warning">Jika KernelSU memiliki Umount modul secara bawaan yang diaktifkan, buka KernelSU &gt; Superuser &gt; aplikasi yang Anda pasang &gt; Profil &gt; Kustom dan nonaktifkan Umount modul. Jika tidak, APK yang ditambal dan dipasang mungkin tidak berfungsi, meskipun Morphe menampilkannya sebagai terpasang</string>
     <string name="root_pre_patch_installer_standard_title">Mode pasang standar</string>
     <string name="root_pre_patch_installer_standard_description">Tambalan sebagai APK normal dengan dukungan GmsCore. Setelan pemasang Anda digunakan setelah penambalan</string>
     <string name="root_pre_patch_installer_hint">Mode tambal ini terpisah dari Setelan &gt; Sistem &gt; Pemasang dan tidak dapat diubah setelah penambalan</string>
@@ -586,7 +586,7 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="patcher_installing_subtitle">Hampir siap! 🎸</string>
     <string name="patcher_success_title">Selesai! 🎉</string>
     <string name="patcher_success_subtitle">Aplikasi Anda telah ditambal dan dipasang!</string>
-    <string name="patcher_mounted_subtitle">Aplikasi Anda telah di-patch dan di-mount!</string>
+    <string name="patcher_mounted_subtitle">Aplikasi Anda telah ditambal dan terpasang!</string>
     <string name="patcher_complete_title">Penambalan selesai! ✨</string>
     <string name="patcher_failed_title">Oops! Terjadi kesalahan</string>
     <string name="patcher_failed_dialog_title">Gagal Menambal</string>
@@ -605,9 +605,9 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
 
 Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="patcher_install_error_title">Kesalahan pemasangan</string>
-    <string name="patcher_mount_error_title">Kesalahan Mount</string>
+    <string name="patcher_mount_error_title">Kesalahan pemasangan</string>
     <string name="patcher_install_error_subtitle">Coba copot dan pasang lagi</string>
-    <string name="patcher_ready_to_mount_subtitle">Tekan tombol di bawah untuk mount</string>
+    <string name="patcher_ready_to_mount_subtitle">Tekan tombol di bawah untuk memasang</string>
     <string name="patcher_patches_excluded_for_installer">Tidak tersedia untuk metode pemasangan ini dan dikecualikan: %s</string>
     <string name="patcher_back_to_game_hint">Ketuk %1$s untuk kembali ke permainan Anda</string>
     <string name="patcher_storage_permission_dialog_title">Tidak dapat mengakses jalur penyimpanan</string>
@@ -704,8 +704,8 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="saved_app_removed_toast">Entri aplikasi patch tersimpan dihapus</string>
     <string name="saved_app_launch_unavailable">Pasang aplikasi sebelum membukanya</string>
     <string name="package_name">Nama paket</string>
-    <string name="failed_to_mount">Gagal mount: %s</string>
-    <string name="failed_to_unmount">Gagal unmount: %s</string>
+    <string name="failed_to_mount">Gagal memasang: %s</string>
+    <string name="failed_to_unmount">Gagal melepas pemasangan: %s</string>
     <!-- Patcher Screen - Mini-games -->
     <string name="mini_game_score">Skor %s</string>
     <string name="mini_game_best">%s terbaik</string>
@@ -883,7 +883,7 @@ Tambalan tidak terpengaruh: aktifkan tambalan pra-rilis untuk setiap sumber dala
     <string name="notification_channel_patch_updates">Pembaruan patch</string>
     <string name="notification_channel_patch_updates_description">Notifikasi tentang rilis patch baru</string>
     <string name="notification_channel_patcher_description">Ditampilkan saat Morphe menambal aplikasi di latar belakang</string>
-    <string name="notification_channel_mounted_apps">Aplikasi yang di-mount</string>
+    <string name="notification_channel_mounted_apps">Aplikasi terpasang</string>
     <string name="notification_channel_mounted_apps_description">Saat versi lain menggantikan aplikasi yang terpasang dan tambalannya tidak lagi berlaku</string>
     <string name="notification_mount_replaced_title">%1$s tidak lagi ditambal</string>
     <string name="notification_mount_replaced_text">v%1$s menggantikan v%2$s yang ditambal. Buka Morphe untuk memulihkannya</string>
@@ -993,8 +993,8 @@ Dimensi gambar harus sebagai berikut:
     <string name="installer_internal_description">Menggunakan pemasang paket Android</string>
     <string name="installer_play_store_description">Menggunakan pemasang sistem dan mengatur Google Play Store sebagai sumber pemasangan</string>
     <string name="installer_root_play_store_description">Pasang secara senyap dengan root dan mengatur Google Play Store sebagai sumber pemasangan</string>
-    <string name="installer_auto_saved_name">Mount root</string>
-    <string name="installer_auto_saved_description">Mount aplikasi yang ditambal dalam mode mount root. APK ditambal secara standar menggunakan pemasang lain</string>
+    <string name="installer_auto_saved_name">Pemasang root</string>
+    <string name="installer_auto_saved_description">Memasang aplikasi yang ditambal dalam mode pemasang root. APK ditambal secara standar menggunakan pemasang lain</string>
     <string name="installer_shizuku_description">Pasang secara senyap menggunakan Shizuku atau Sui</string>
     <string name="installer_shizuku_play_store_description">Pasang secara senyap melalui Shizuku atau Sui dan mengatur Google Play Store sebagai sumber pemasangan</string>
     <string name="installer_option_none">Tidak ada pengganti</string>
@@ -1006,7 +1006,7 @@ Dimensi gambar harus sebagai berikut:
     <string name="installer_status_shizuku_permission">Berikan izin ke Morphe dari aplikasi Shizuku</string>
     <string name="installer_mount_warning_install">Pemasang utama Anda diatur ke pemasang mount root. Aplikasi tersimpan ini tidak dipasang menggunakan mount</string>
     <string name="mount_version_mismatch_message">Versi aplikasi bawaan (%2$s) tidak cocok dengan versi aplikasi dipatch (%1$s). Pasang versi bawaan yang cocok, lalu coba lagi</string>
-    <string name="mount_stock_restore_failed_message">Android menolak APK asli yang disimpan. Pasang versi bawaan yang sesuai, lalu coba Mount lagi</string>
+    <string name="mount_stock_restore_failed_message">Android menolak APK asli yang disimpan. Pasang versi bawaan yang sesuai, lalu coba Pasang lagi</string>
     <string name="installer_status_shizuku_unsupported">Versi Shizuku yang terpasang tidak didukung</string>
     <string name="installer_action_open_shizuku">Buka Shizuku</string>
     <string name="installer_hint_generic">Pemasangan gagal. Coba lagi atau ganti pemasang</string>
@@ -1089,7 +1089,7 @@ Rincian: %2$s"</string>
     <string name="settings_system_import_export">Impor &amp; ekspor</string>
     <string name="settings_system_signing_key">Kunci penandatanganan</string>
     <string name="settings_system_signing_key_description">Mencadangkan atau memulihkan kunci yang menandatangani aplikasi yang telah ditambal</string>
-    <string name="settings_system_signing_key_dialog_description">Setiap aplikasi yang di-patch oleh Morphe ditandatangani dengan kunci ini. Simpan salinannya: tanpa kunci ini, aplikasi yang di-patch hanya dapat diperbarui setelah menghapus instalasinya.</string>
+    <string name="settings_system_signing_key_dialog_description">Setiap aplikasi yang ditambal oleh Morphe ditandatangani dengan kunci ini. Simpan salinannya: tanpa kunci ini, aplikasi yang ditambal hanya dapat diperbarui setelah mencopot nya.</string>
     <string name="settings_system_signing_key_missing">Morphe membuatnya dengan patch pertama Anda.</string>
     <string name="settings_system_signing_key_created">Dibuat %s</string>
     <string name="settings_system_signing_key_fingerprint">Sidik jari SHA-256</string>
@@ -1339,11 +1339,11 @@ Rincian: %2$s"</string>
     <string name="patching">Menambal</string>
     <string name="patched">Ditambal</string>
     <string name="open">Buka</string>
-    <string name="mount">Mount</string>
-    <string name="mounted">Di-mount</string>
-    <string name="unmount">Unmount</string>
-    <string name="unmounted">Belum di-mount</string>
-    <string name="remount">Remount</string>
+    <string name="mount">Pasang</string>
+    <string name="mounted">Terpasang</string>
+    <string name="unmount">Lepas pemasangan</string>
+    <string name="unmounted">Belum terpasang</string>
+    <string name="remount">Pasang ulang</string>
     <string name="restore">Pulihkan</string>
     <string name="share">Bagikan</string>
     <string name="install">Pasang</string>
@@ -1364,10 +1364,10 @@ Rincian: %2$s"</string>
     <string name="logs">Catatan</string>
     <string name="sources">Sumber</string>
     <string name="installing_ellipsis">Memasang…</string>
-    <string name="mounting_ellipsis">Mounting…</string>
+    <string name="mounting_ellipsis">Memasang…</string>
     <string name="mount_stage_restoring_stock">Memulihkan asli…</string>
     <string name="mount_stage_copying">Menyalin…</string>
-    <string name="unmounting_ellipsis">Unmounting…</string>
+    <string name="unmounting_ellipsis">Melepaskan…</string>
     <string name="importing_ellipsis">Mengimpor…</string>
     <string name="imported_successfully">Berhasil diimpor</string>
     <string name="changelog">Lihat catatan perubahan</string>
@@ -1436,7 +1436,7 @@ Apakah Anda masih ingin melanjutkan?"</string>
     <!-- Translate "System" the same way as the System settings tab -->
     <string name="onboarding_system_tab_title">Tab Sistem</string>
     <string name="onboarding_system_tab_desc">Pengelola Keystore, peralatan impor/ekspor, dan informasi aplikasi</string>
-    <string name="onboarding_system_installer_desc">Pilih cara aplikasi yang telah ditambal tersebut dipasang: standar, root mount, atau Shizuku</string>
+    <string name="onboarding_system_installer_desc">Pilih cara aplikasi yang telah ditambal tersebut dipasang: standar, pemasang root, atau Shizuku</string>
     <string name="onboarding_system_process_runtime_desc">Jalankan penambalan dalam proses terpisah untuk meningkatkan stabilitas dan mengontrol penggunaan memori. Disarankan untuk aplikasi ukuran besar</string>
     <string name="onboarding_system_file_picker_desc">Aktifkan untuk menggunakan penjelajah berkas bawaan daripada pemilih sistem saat memilih APK atau keystore</string>
     <!-- Tour prompt dialog shown after first successful patch install -->

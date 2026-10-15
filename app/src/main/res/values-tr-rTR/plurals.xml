@@ -75,6 +75,10 @@
         <item quantity="one">%s uygulaması yama için kuyruğa alındı</item>
         <item quantity="other">%s uygulama yama için kuyruğa alındı</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s gizli bildirim, göstermek için dokunun</item>
+        <item quantity="other">%s gizli bildirim, göstermek için dokunun</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s uygulama yeniden yamalanabilir</item>
         <item quantity="other">%s uygulama yeniden yamalanabilir</item>
@@ -90,10 +94,6 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s kaynak yüklendi</item>
         <item quantity="other">%s kaynak yüklendi</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s filtrelenmiş</item>
-        <item quantity="other">%1$s · %2$s filtrelenmiş</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s gizli uygulama</item>

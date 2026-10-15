@@ -75,6 +75,10 @@
         <item quantity="one">%s app køet for patching</item>
         <item quantity="other">%s apps køet for patching</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s skjult varsling, trykk for å vise den</item>
+        <item quantity="other">%s skjulte varslinger, trykk for å vise dem</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s app kan patches på nytt</item>
         <item quantity="other">%s apper kan patches på nytt</item>
@@ -90,10 +94,6 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s kilde installert</item>
         <item quantity="other">%s kilder installert</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s filtrert</item>
-        <item quantity="other">%1$s · %2$s filtrerte</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skjult app</item>

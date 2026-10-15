@@ -472,7 +472,7 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="batch_patch_nothing_outdated">Tá gach aip paisteáilte cothrom le dáta</string>
     <string name="batch_queue_add_action">Cuir leis an scuaine</string>
     <string name="batch_queue_pending_subtitle">Tapáil chun athbhreithniú a dhéanamh agus tús a chur</string>
-    <string name="batch_queue_clear_title">An bhfuil fonn ort an scuain a ghlanadh?</string>
+    <string name="batch_queue_clear_title">Glan an scuaine?</string>
     <string name="batch_queue_clear_description">Buirníodh gach feidhmchlár as an scuain</string>
     <string name="shortcut_repatch_short">Athphaisteáil</string>
     <string name="shortcut_repatch_long">Athphaisteáil aipeanna atá as dáta</string>
@@ -1022,13 +1022,13 @@ Ní mór toisí na híomhá a bheith mar seo a leanas:
     <string name="installer_play_store_warning_risk">Féadfaidh Play Store nuashonruithe a thairiscint don aip bhreacach. Má shuiteáiltear an nuashonrú sin, déanfar an APK paiste a fhorscríobh leis an mbunleagan agus bainfidh sé na paistí. Má iarrtar ort nuashonrú a dhéanamh, tapáil an roghchlár trí phonc ar leathanach Play Store na haipe agus roghnaigh \"Múch nuashonruithe\"</string>
     <string name="installer_play_store_warning_continue">Tuigim, lean ar aghaidh</string>
     <string name="installer_play_store_mode">Suiteáil mar Play Store</string>
-    <string name="installer_play_store_mode_description">Markaíonn sé Siopa Google Play mar fhoinse suiteála</string>
+    <string name="installer_play_store_mode_description">Marcáileann sé Google Play Store mar an fhoinse suiteála</string>
     <string name="settings_prompt_installer_on_install">Leid roghnúcháin suiteálaí</string>
     <string name="settings_prompt_installer_on_install_description">Iarrtar cén suiteálaí a úsáid do gach suiteáil</string>
     <string name="settings_auto_install_with_shizuku">Suiteáil uathoibríoch tar éis paisteála</string>
     <string name="settings_auto_install_with_shizuku_description">Suiteáil an APK paiste a luaithe a chríochnaíonn an paiste</string>
     <string name="settings_auto_uninstall_with_shizuku">Díshuiteáil uathoibríoch i gcás coimhlinte</string>
-    <string name="settings_auto_uninstall_with_shizuku_description">Díshuiteálann sé an aip atá ann cheana ag iomarcacht sínithe. Is féidir seo sonraí aipeanna a bhaint</string>
+    <string name="settings_auto_uninstall_with_shizuku_description">Díshuiteálann sé an aip atá ann cheana má bhíonn coinbhleacht sínithe ann. D’fhéadfadh sé seo sonraí na haipe a scriosadh.</string>
     <string name="settings_auto_uninstall_warning_title">Cumasaigh díshuiteáil uathoibríoch?</string>
     <string name="settings_auto_uninstall_warning_message">Má thuairiscíonn Android coimhlint shínithe le linn uath-shuiteáil Shizuku, díshuiteálfaidh Morphe an aip atá ann cheana sula suiteálfar an APK paiste.</string>
     <string name="settings_auto_uninstall_warning_risk">Féadann sé seo sonraí aipeanna a bhaint. Mura n-éiríonn leis an APK paisteáilte a shuiteáil tar éis é a dhíshuiteáil, seans go bhfuil an aip roimhe seo imithe cheana féin.</string>
@@ -1207,7 +1207,7 @@ Sonraí: %2$s"</string>
     <string name="copy_selection_same_source">An fhoinse chéanna</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Roghnóir comhad saincheaptha</string>
-    <string name="settings_system_custom_file_picker_description">Úsáideann Morphe a roghnóir comhad istigh in ionad an ceann cóise</string>
+    <string name="settings_system_custom_file_picker_description">Úsáideann sé roghnóir comhad ionsuite Morphe in ionad an cheann chórais</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Cúntóir íoslódála APK</string>
     <string name="settings_system_apk_download_helper_trusted_count">Iontaofa: %1$d as %2$d</string>

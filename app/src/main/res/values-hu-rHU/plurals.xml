@@ -75,6 +75,10 @@
         <item quantity="one">%s app sorolva a javításhoz</item>
         <item quantity="other">%s app sorolva a javításhoz</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s rejtett értesítés, koppintson megjelenítéséhez</item>
+        <item quantity="other">%s rejtett értesítés, koppintson a megjelenítésükhöz</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s alkalmazás újrafoltozható</item>
         <item quantity="other">%s alkalmazás újrafoltozható</item>
@@ -90,10 +94,6 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s forrás telepítve</item>
         <item quantity="other">%s forrás telepítve</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s szűrt</item>
-        <item quantity="other">%1$s · %2$s szűrt</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s rejtett alkalmazás</item>

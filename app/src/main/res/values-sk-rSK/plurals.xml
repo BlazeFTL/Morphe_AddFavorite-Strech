@@ -111,6 +111,12 @@
         <item quantity="many">Aplikácií %s je zaradených do fronty na opravu</item>
         <item quantity="other">Aplikácií %s je zaradených do fronty na opravu</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s skrytých upozornení, klepnutím ich zobrazíte</item>
+        <item quantity="few">%s skrytých upozornení, klepnutím ich zobrazíte</item>
+        <item quantity="many">%s skrytých upozornení, klepnutím ich zobrazíte</item>
+        <item quantity="other">%s skrytých upozornení, klepnutím ich zobrazíte</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s aplikácia môže byť znovu opravená</item>
         <item quantity="few">%s aplikácie môžu byť znovu opravené</item>
@@ -134,12 +140,6 @@
         <item quantity="few">%s zdroje nainštalované</item>
         <item quantity="many">%s zdrojov nainštalovaných</item>
         <item quantity="other">%s zdrojov nainštalovaných</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s filtrovaný</item>
-        <item quantity="few">%1$s · %2$s filtrované</item>
-        <item quantity="many">%1$s · %2$s filtrovaných</item>
-        <item quantity="other">%1$s · %2$s filtrovaných</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skrytá aplikácia</item>

@@ -473,7 +473,7 @@
     <string name="batch_queue_add_action">إضافة إلى قائمة الانتظار</string>
     <string name="batch_queue_pending_subtitle">انقر للمراجعة والبدء</string>
     <string name="batch_queue_clear_title">مسح قائمة الانتظار؟</string>
-    <string name="batch_queue_clear_description">سيتم إزالة جميع التطبيقات من قائمة الانتظار</string>
+    <string name="batch_queue_clear_description">سيتم إزالة كل التطبيقات من قائمة الانتظار</string>
     <string name="shortcut_repatch_short">إعادة التعديل</string>
     <string name="shortcut_repatch_long">إعادة تعديل التطبيقات غير المحدثة</string>
     <string name="shortcut_check_updates_short">التحقق من التحديثات</string>

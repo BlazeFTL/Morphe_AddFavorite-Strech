@@ -106,10 +106,16 @@
         <item quantity="other">%s aplikacji gotowych do modyfikacji</item>
     </plurals>
     <plurals name="batch_queue_pending_count">
-        <item quantity="one">%s aplikacja zakolejkowana do modyfikacji</item>
-        <item quantity="few">%s aplikacji zakolejkowanych do modyfikacji</item>
-        <item quantity="many">%s aplikacji zakolejkowanych do modyfikacji</item>
-        <item quantity="other">%s aplikacji zakolejkowanych do modyfikacji</item>
+        <item quantity="one">%s aplikacja w kolejce do zmodyfikowania</item>
+        <item quantity="few">%s aplikacje w kolejce do zmodyfikowania</item>
+        <item quantity="many">%s aplikacji w kolejce do zmodyfikowania</item>
+        <item quantity="other">%s aplikacji w kolejce do zmodyfikowania</item>
+    </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s ukryte powiadomienie, dotknij, aby je pokazać</item>
+        <item quantity="few">%s ukryte powiadomienia, dotknij, aby je pokazać</item>
+        <item quantity="many">%s ukrytych powiadomień, dotknij, aby je pokazać</item>
+        <item quantity="other">%s ukrytych powiadomień, dotknij, aby je pokazać</item>
     </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s aplikacja może zostać ponownie zmodyfikowana</item>
@@ -134,12 +140,6 @@
         <item quantity="few">%s zainstalowane źródła</item>
         <item quantity="many">%s zainstalowanych źródeł</item>
         <item quantity="other">%s zainstalowanych źródeł</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s odfiltrowana</item>
-        <item quantity="few">%1$s · %2$s odfiltrowane</item>
-        <item quantity="many">%1$s · %2$s odfiltrowanych</item>
-        <item quantity="other">%1$s · %2$s odfiltrowanych</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s ukryta aplikacja</item>

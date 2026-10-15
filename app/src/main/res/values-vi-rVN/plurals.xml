@@ -57,6 +57,9 @@
     <plurals name="batch_queue_pending_count">
         <item quantity="other">%s ứng dụng đang chờ vá lỗi</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="other">Có %s thông báo đang bị tạm ẩn, chạm để hiển thị chúng</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="other">%s ứng dụng có thể được vá lại</item>
     </plurals>
@@ -68,9 +71,6 @@
     </plurals>
     <plurals name="sources_management_subtitle">
         <item quantity="other">Đã cài đặt %s nguồn</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="other">%1$s · %2$s mục đã lọc</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">%s ứng dụng đang ẩn</item>

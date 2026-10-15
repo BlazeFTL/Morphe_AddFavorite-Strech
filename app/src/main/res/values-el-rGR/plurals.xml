@@ -75,6 +75,10 @@
         <item quantity="one">Η εφαρμογή %s έχει τεθεί σε αναμονή για επιδιόρθωση</item>
         <item quantity="other">Οι εφαρμογές %s έχουν τεθεί σε αναμονή για επιδιόρθωση</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s κρυφή ειδοποίηση, πατήστε για να την εμφανίσετε</item>
+        <item quantity="other">%s κρυφές ειδοποιήσεις, πατήστε για να τις εμφανίσετε</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s εφαρμογή μπορεί να τροποποιηθεί ξανά</item>
         <item quantity="other">%s εφαρμογές μπορούν να τροποποιηθούν ξανά</item>
@@ -90,10 +94,6 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s πηγή εγκαταστάθηκε</item>
         <item quantity="other">%s πηγές εγκαταστάθηκαν</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s φιλτραρισμένο</item>
-        <item quantity="other">%1$s · %2$s φιλτραρισμένα</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s κρυφή εφαρμογή</item>

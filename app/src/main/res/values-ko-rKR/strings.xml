@@ -172,7 +172,7 @@
     <string name="sources_apps_stays_patched">패치 후 유지됨</string>
     <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
     <string name="sources_apps_new">신규</string>
-    <string name="sources_apps_new_apps">새 앱 가져오기</string>
+    <string name="sources_apps_new_apps">새로운 앱 가져오기</string>
     <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
     <string name="sources_apps_new_apps_description">나중에 추가되는 앱은 홈 화면에 나타납니다</string>
     <string name="sources_management_prerelease_toggle">Pre-release 패치</string>
@@ -470,10 +470,10 @@
     <string name="batch_patch_install_failed">설치 실패</string>
     <string name="batch_patch_in_progress">일괄 패치가 이미 실행 중입니다</string>
     <string name="batch_patch_nothing_outdated">모든 패치된 앱이 최신 상태입니다</string>
-    <string name="batch_queue_add_action">현재 재생목록에 추가</string>
+    <string name="batch_queue_add_action">패치 목록에 추가</string>
     <string name="batch_queue_pending_subtitle">탭하여 검토하고 시작하세요</string>
-    <string name="batch_queue_clear_title">대기열을 지우겠습니까?</string>
-    <string name="batch_queue_clear_description">모든 앱이 대기열에서 제거됩니다</string>
+    <string name="batch_queue_clear_title">패치 목록을 지우겠습니까?</string>
+    <string name="batch_queue_clear_description">모든 앱이 패치 목록에서 제거됩니다</string>
     <string name="shortcut_repatch_short">다시 패치</string>
     <string name="shortcut_repatch_long">오래된 앱 다시 패치</string>
     <string name="shortcut_check_updates_short">업데이트 확인</string>

@@ -111,6 +111,12 @@
         <item quantity="many">%s приложений в очереди на исправление</item>
         <item quantity="other">%s приложений в очереди на исправление</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s скрытое уведомление, нажмите, чтобы показать его</item>
+        <item quantity="few">%s скрытых уведомления, нажмите, чтобы показать их</item>
+        <item quantity="many">%s скрытых уведомлений, нажмите, чтобы показать их</item>
+        <item quantity="other">%s скрытых уведомлений, нажмите, чтобы показать их</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s приложение можно перепатчить</item>
         <item quantity="few">%s приложения можно перепатчить</item>
@@ -134,12 +140,6 @@
         <item quantity="few">%s источников установлено</item>
         <item quantity="many">%s источников установлено</item>
         <item quantity="other">%s источников установлено</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · отфильтровано: %2$s</item>
-        <item quantity="few">%1$s · отфильтровано: %2$s</item>
-        <item quantity="many">%1$s · отфильтровано: %2$s</item>
-        <item quantity="other">%1$s · отфильтровано: %2$s</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s скрытое приложение</item>

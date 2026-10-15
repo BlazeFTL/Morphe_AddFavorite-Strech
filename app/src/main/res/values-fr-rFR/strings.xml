@@ -164,17 +164,17 @@
     <string name="sources_management_report_issue">Signaler un problème</string>
     <string name="sources_management_failed_to_open_url">Échec de l\'ouverture de l\'URL</string>
     <string name="sources_apps">Applications</string>
-    <string name="sources_apps_description">Les applications cochées proviennent de cette source. Appuyez sur une application pour l\'exclure ou la réintégrer. Une application quitte l\'écran d\'accueil lorsqu\'aucune source ne la propose plus, sauf si vous l\'avez patchée</string>
+    <string name="sources_apps_description">Les applications cochées proviennent de cette source. Appuyez sur une application pour l\'exclure ou la rétablir. Une application disparaît de l\'écran d\'accueil lorsqu\'aucune source ne la propose, sauf si vous l\'avez patchée</string>
     <string name="sources_apps_brought">Fournies par cette source</string>
     <string name="sources_apps_left_out">Exclues de cette source</string>
     <string name="sources_apps_bring_back">Restaurer</string>
     <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
-    <string name="sources_apps_stays_patched">Conservée en tant que patchée</string>
+    <string name="sources_apps_stays_patched">Conservé comme patchée</string>
     <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
     <string name="sources_apps_new">Nouvelle</string>
     <string name="sources_apps_new_apps">Ajouter les nouvelles applications</string>
     <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
-    <string name="sources_apps_new_apps_description">Les applications qu\'elle ajoute ultérieurement apparaissent sur l\'écran d\'accueil</string>
+    <string name="sources_apps_new_apps_description">Les applications qu\'elle ajoute ultérieurement apparaîtront sur l\'écran d’accueil</string>
     <string name="sources_management_prerelease_toggle">Patchs en préversion</string>
     <string name="sources_management_prerelease_toggle_description">Reçoit un accès anticipé aux nouvelles versions expérimentales des patchs</string>
     <string name="sources_prerelease_warning_title">Activer les patchs en préversion ?</string>
@@ -775,7 +775,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_pure_black">Noir pur</string>
     <string name="settings_appearance_pure_black_description">Utilise des fonds véritablement noirs</string>
     <string name="settings_appearance_color_accents">Couleurs de l\'application et de la source</string>
-    <string name="settings_appearance_color_accents_description">Utilise la couleur propre à chaque application et source au lieu de l\'accentuation</string>
+    <string name="settings_appearance_color_accents_description">Utilise la couleur de chaque application et source au lieu de la couleur l\'accentuation</string>
     <string name="settings_appearance_outlines">Contours</string>
     <string name="settings_appearance_outlines_description">Dessine un fin contour autour des cartes, des panneaux et des boutons</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -854,7 +854,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
 
 Les patchs ne sont pas affectés : activez les patchs en préversion pour chaque source dans la liste des sources de patchs"</string>
     <string name="settings_advanced_updates_allow_metered">Mises à jour via les données mobiles</string>
-    <string name="settings_advanced_updates_allow_metered_description">Télécharge Morphe et les mises à jour de patch via les données mobiles</string>
+    <string name="settings_advanced_updates_allow_metered_description">Télécharge Morphe et les mises à jour de patchs via les données mobiles</string>
     <string name="settings_advanced_updates_background_notifications">Notifications de mise à jour en arrière-plan</string>
     <string name="settings_advanced_updates_background_notifications_description">Vérifier périodiquement les mises à jour en arrière-plan et notifier lorsqu\'elles sont disponibles</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Reçoit des notifications push instantanées pour les nouvelles versions, même lorsque l\'application est fermée</string>
@@ -893,11 +893,11 @@ Les patchs ne sont pas affectés : activez les patchs en préversion pour chaque
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert">Paramètres Expert</string>
     <string name="settings_advanced_expert_mode">Mode Expert</string>
-    <string name="settings_advanced_expert_mode_description">Déverrouille les paramètres de patching avancés et les options de patch</string>
+    <string name="settings_advanced_expert_mode_description">Débloque les paramètres avancés de patching et les options de patch</string>
     <string name="settings_advanced_expert_mode_dialog_title">Passer en mode Expert ?</string>
     <string name="settings_advanced_expert_mode_dialog_message">Le mode Expert offre plus de contrôle sur la manière dont les patchs sont appliqués, mais une mauvaise configuration des paramètres en mode expert peut rendre l\'application inutilisable</string>
     <string name="settings_advanced_strip_unused_libs">Optimiser pour l\'architecture de l\'appareil</string>
-    <string name="settings_advanced_strip_unused_libs_description">Supprime les bibliothèques natives inutilisées et les splits APK</string>
+    <string name="settings_advanced_strip_unused_libs_description">Supprime les bibliothèques natives et les APK fractionnés inutilisés</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat_description">Nécessaire pour les pull request de sources</string>
     <string name="settings_advanced_github_pat_configured">Jeton configuré</string>
@@ -1029,13 +1029,13 @@ Les dimensions des images doivent respecter les valeurs suivantes :
     <string name="installer_play_store_warning_risk">Le Play Store peut proposer des mises à jour pour l\'application patchée. L\'installation de cette mise à jour remplacera l\'APK patché par la version d\'origine et supprimera les patchs. Si une mise à jour vous est proposée, appuyez sur le menu à trois points sur la page de l\'application dans le Play Store et choisissez \"Désactiver les mises à jour\"</string>
     <string name="installer_play_store_warning_continue">J\'ai compris, continuer</string>
     <string name="installer_play_store_mode">Installer comme Play Store</string>
-    <string name="installer_play_store_mode_description">Marque Google Play Store comme source d\'installation</string>
+    <string name="installer_play_store_mode_description">Définit le Google Play Store comme source d\'installation</string>
     <string name="settings_prompt_installer_on_install">Invite de sélection de l\'installateur</string>
-    <string name="settings_prompt_installer_on_install_description">Demande quel installateur utiliser pour chaque installation</string>
+    <string name="settings_prompt_installer_on_install_description">Demande quel installateur utiliser à chaque installation</string>
     <string name="settings_auto_install_with_shizuku">Installer automatiquement après le patching</string>
     <string name="settings_auto_install_with_shizuku_description">Installe l\'APK patché dès que le patching est terminé</string>
     <string name="settings_auto_uninstall_with_shizuku">Désinstallation automatique en cas de conflit</string>
-    <string name="settings_auto_uninstall_with_shizuku_description">Désinstalle l\'application existante en cas de conflit de signature. Cela peut supprimer les données de l\'application</string>
+    <string name="settings_auto_uninstall_with_shizuku_description">Désinstalle l\'application existante en cas de conflit de signature. Cela peut entraîner la suppression des données de l\'application</string>
     <string name="settings_auto_uninstall_warning_title">Activer la désinstallation automatique ?</string>
     <string name="settings_auto_uninstall_warning_message">Si Android signale un conflit de signature lors de l\'installation automatique avec Shizuku, Morphe désinstallera l\'application existante avant d\'installer l\'APK patché</string>
     <string name="settings_auto_uninstall_warning_risk">Cela peut supprimer les données de l\'application. Si l\'APK patché ne parvient pas à s\'installer après la désinstallation, l\'application précédente peut déjà avoir disparu</string>
@@ -1080,7 +1080,7 @@ Détails : %2$s"</string>
     <string name="settings_system_patcher_completion_sound_description">Joue un son distinct pour indiquer la réussite ou l\'échec lorsque le patching est terminé</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">Notifications</string>
-    <string name="settings_system_notifications_description">Configure les alertes en arrière-plan et les sons d\'achèvement</string>
+    <string name="settings_system_notifications_description">Configure les alertes en arrière-plan et les sons de fin</string>
     <string name="settings_system_notifications_success_sound">Son de réussite</string>
     <string name="settings_system_notifications_error_sound">Son d\'échec</string>
     <string name="settings_system_notifications_sound_default">Par défaut</string>
@@ -1149,7 +1149,7 @@ Détails : %2$s"</string>
     <string name="settings_system_apks_export_zip_failed">Échec de l\'exportation des APK sélectionnés</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Gestion du stockage</string>
-    <string name="settings_system_storage_management_description">Affiche l\'utilisation du disque et efface les fichiers en cache</string>
+    <string name="settings_system_storage_management_description">Affiche l\'espace disque utilisé et supprime les fichiers en cache</string>
     <string name="settings_system_storage_keystore_title">Keystore de signature</string>
     <string name="settings_system_storage_app_data_title">Données de l\'application</string>
     <string name="settings_system_storage_patch_bundles_title">Bundles de patchs</string>

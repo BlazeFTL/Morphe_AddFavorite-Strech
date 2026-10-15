@@ -54,6 +54,9 @@
     <plurals name="batch_patch_ready_count">
         <item quantity="other">%s แอปพร้อมสำหรับการแพตช์</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="other">การแจ้งเตือนที่ซ่อนอยู่ %s รายการ แตะเพื่อแสดง</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="other">%s แอปสามารถแพตช์ใหม่ได้</item>
     </plurals>
@@ -65,9 +68,6 @@
     </plurals>
     <plurals name="sources_management_subtitle">
         <item quantity="other">ติดตั้ง %s ที่มาแล้ว</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="other">%1$s · %2$s รายการที่กรอง</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">แอปที่ซ่อนอยู่ %s แอป</item>

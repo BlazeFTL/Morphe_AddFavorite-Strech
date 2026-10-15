@@ -129,6 +129,13 @@
         <item quantity="many">Cuardaíonn %s aipeanna le paisteáil</item>
         <item quantity="other">Cuardaíonn %s aipeanna le paisteáil</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">Faoi cheil %s fógra, tapáil chun é a thaispeáint</item>
+        <item quantity="two">Faoi cheil %s fógra, tapáil chun iad a thaispeáint</item>
+        <item quantity="few">Faoi cheil %s fógra, tapáil chun iad a thaispeáint</item>
+        <item quantity="many">Faoi cheil %s fógra, tapáil chun iad a thaispeáint</item>
+        <item quantity="other">Faoi cheil %s fógra, tapáil chun iad a thaispeáint</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">Is féidir %s aip a phaisteáil arís</item>
         <item quantity="two">Is féidir %s aip a phaisteáil arís</item>
@@ -156,13 +163,6 @@
         <item quantity="few">%s foinsí suiteáilte</item>
         <item quantity="many">%s foinsí suiteáilte</item>
         <item quantity="other">%s foinsí suiteáilte</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s scagtha</item>
-        <item quantity="two">%1$s · %2$s scagtha</item>
-        <item quantity="few">%1$s · %2$s scagtha</item>
-        <item quantity="many">%1$s · %2$s scagtha</item>
-        <item quantity="other">%1$s · %2$s scagtha</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aip i bhfolach</item>

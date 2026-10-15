@@ -75,6 +75,10 @@
         <item quantity="one">%s app pronta per la modifica</item>
         <item quantity="other">%s app pronte per la modifica</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s notifica nascosta, tocca per mostrarla</item>
+        <item quantity="other">%s notifiche nascoste, tocca per mostrarle</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s applicazione può essere rimodificata</item>
         <item quantity="other">%s applicazioni possono essere rimodificate</item>
@@ -90,10 +94,6 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s fonte installata</item>
         <item quantity="other">%s fonti installate</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s filtrato</item>
-        <item quantity="other">%1$s · %2$s filtrati</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s applicazione nascosta</item>

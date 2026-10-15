@@ -75,6 +75,10 @@
         <item quantity="one">%s app köad för patchning</item>
         <item quantity="other">%s appar köade för patchning</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s dold avisering, tryck för att visa den</item>
+        <item quantity="other">%s dolda aviseringar, tryck för att visa dem</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s app kan modifieras igen</item>
         <item quantity="other">%s appar kan modifieras igen</item>
@@ -90,10 +94,6 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s installerad källa</item>
         <item quantity="other">%s installerade källor</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s filtrerad</item>
-        <item quantity="other">%1$s · %2$s filtrerade</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s dold app</item>

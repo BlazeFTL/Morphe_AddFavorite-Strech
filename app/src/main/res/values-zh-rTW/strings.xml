@@ -164,7 +164,7 @@
     <string name="sources_management_report_issue">回報問題</string>
     <string name="sources_management_failed_to_open_url">無法開啟網址</string>
     <string name="sources_apps">應用程式</string>
-    <string name="sources_apps_description">勾選的應用程式來自此來源。輕按應用程式可將其排除或恢復。一旦沒有來源提供該應用程式，它就會退出主畫面，除非您已对其进行修補</string>
+    <string name="sources_apps_description">勾選的應用程式來自此來源。輕按應用程式可將其排除或恢復。一旦沒有來源提供給該應用程式，它就會退出主畫面，除非你已對它做過修補</string>
     <string name="sources_apps_brought">由此來源提供</string>
     <string name="sources_apps_left_out">已從此來源排除</string>
     <string name="sources_apps_bring_back">重新加入</string>

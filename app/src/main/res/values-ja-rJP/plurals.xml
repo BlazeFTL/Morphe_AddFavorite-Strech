@@ -57,6 +57,9 @@
     <plurals name="batch_queue_pending_count">
         <item quantity="other">%s個のアプリがパッチ適用待ち</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="other">%s件の通知を非表示にしています。タップして表示します</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="other">%s 個のアプリが再パッチ可能です</item>
     </plurals>
@@ -68,9 +71,6 @@
     </plurals>
     <plurals name="sources_management_subtitle">
         <item quantity="other">インストール済みのソース %s 件</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="other">%1$s · %2$s 件フィルター済み</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">%s 個のアプリが非表示</item>

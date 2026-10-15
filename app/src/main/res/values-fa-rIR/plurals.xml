@@ -75,6 +75,10 @@
         <item quantity="one">%s برنامه در صف برای پچ</item>
         <item quantity="other">%s برنامه در صف برای پچ</item>
     </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s اعلان پنهان شده، برای نمایش آن ضربه بزنید</item>
+        <item quantity="other">%s اعلان پنهان شده، برای نمایش آن‌ها ضربه بزنید</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s برنامه را می‌توان دوباره پچ کرد</item>
         <item quantity="other">%s برنامه را می‌توان دوباره پچ کرد</item>
@@ -90,10 +94,6 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s منبع نصب شده</item>
         <item quantity="other">%s منبع نصب شده</item>
-    </plurals>
-    <plurals name="home_app_filter_active">
-        <item quantity="one">%1$s · %2$s فیلتر‌شده</item>
-        <item quantity="other">%1$s · %2$s فیلتر‌شده</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s برنامهٔ پنهان</item>

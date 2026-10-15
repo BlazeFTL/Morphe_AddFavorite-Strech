@@ -551,7 +551,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <!-- Field labels, shown in a column beside their values. Keep them short, a long one is cut off rather than wrapped -->
     <string name="patcher_field_app">App</string>
     <string name="patcher_field_package">Paket</string>
-    <string name="patcher_field_failed_patch">Misslyckad patch</string>
+    <string name="patcher_field_failed_patch">Misslyckad modifiering</string>
     <string name="patcher_field_source">Källa</string>
     <string name="patcher_field_split">Delad APK-fil</string>
     <string name="patcher_field_manager">Manager</string>
@@ -585,7 +585,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="patcher_installing_subtitle">Nästan redo att rocka loss! 🎸</string>
     <string name="patcher_success_title">Allt är klart! 🎉</string>
     <string name="patcher_success_subtitle">Appen är modifierad och installerad!</string>
-    <string name="patcher_mounted_subtitle">Din app är patchad och monterad!</string>
+    <string name="patcher_mounted_subtitle">Appen är modifierad och monterad!</string>
     <string name="patcher_complete_title">Modifieringen är klar! ✨</string>
     <string name="patcher_failed_title">Hoppsan! Något gick fel</string>
     <string name="patcher_failed_dialog_title">Modifieringen misslyckades</string>

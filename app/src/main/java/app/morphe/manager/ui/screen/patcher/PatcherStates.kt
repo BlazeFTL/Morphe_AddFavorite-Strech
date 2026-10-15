@@ -185,6 +185,19 @@ private val ExceptionPackage = Regex("""^(?:[a-z_][\w$]*\.)+(?=[A-Z][\w$]*:)""")
  */
 private fun String.withShortExceptionName(): String = replaceFirst(ExceptionPackage, "")
 
+/**
+ * What starts the error behind the one above it: a stack trace's `Caused by:`, unindented unlike a
+ * suppressed one's, or the line after which the patcher writes a failed dependency's whole trace.
+ */
+private val CauseStart = Regex("""\nCaused by: |which raised an exception:\n""")
+
+/**
+ * The innermost error of a stack trace. An error wrapping another, as a failed dependency does in
+ * the patch relying on it, says little the user can act on, unlike the error it wraps.
+ */
+private fun String.rootCause(): String =
+    CauseStart.findAll(this).lastOrNull()?.let { substring(it.range.last + 1) } ?: this
+
 /** What a finished run patched, which the result screen heads itself with either way it ended. */
 data class PatchedAppSummary(
     val packageName: String,
@@ -301,7 +314,7 @@ fun PatchingFailed(
             // The notice opens the whole error, so a long one is only cut short here. Shown even
             // without a message, as the error dialog still has the diagnostics to offer
             ResultNotice(
-                text = errorMessage?.withShortExceptionName()?.takeIf { it.isNotBlank() }
+                text = errorMessage?.rootCause()?.withShortExceptionName()?.takeIf { it.isNotBlank() }
                     ?: stringResource(R.string.patcher_unknown_error),
                 // A stack trace rarely names the patch behind it, which is what the user can act on
                 title = failedPatch?.let { stringResource(R.string.failed_to_execute_patch, it) },

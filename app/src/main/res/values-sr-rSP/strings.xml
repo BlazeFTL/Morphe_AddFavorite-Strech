@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">Нема печева</string>
     <string name="batch_patch_policy_install">Инсталирај када се заврши</string>
     <string name="batch_patch_policy_install_description">Инсталира сваку печену апликацију одмах након што се заврши ред. Искључено задржава APK-ове за касније</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Početak</string>
     <string name="batch_patch_stop_title">Заустави групно печење?</string>
     <string name="batch_patch_stop_description">Апликација која се пече управо и све што је још у реду ће бити отказано</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">Инсталација је неуспела</string>
     <string name="batch_patch_in_progress">Групно печење је већ у току</string>
     <string name="batch_patch_nothing_outdated">Све печене апликације су ажурне</string>
+    <string name="batch_queue_add_action">Додај на листу</string>
+    <string name="batch_queue_pending_subtitle">Додирните за преглед и почетак</string>
+    <string name="batch_queue_clear_title">Брисати ред?</string>
+    <string name="batch_queue_clear_description">Све апликације ће бити уклоните из реда</string>
     <string name="shortcut_repatch_short">Поново пеци</string>
     <string name="shortcut_repatch_long">Поново пеци застареле апликације</string>
     <string name="shortcut_check_updates_short">Провери ажурирања</string>

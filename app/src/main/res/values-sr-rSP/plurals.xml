@@ -88,6 +88,11 @@
         <item quantity="few">%s апликације спремне за закрпу</item>
         <item quantity="other">%s апликација спремних за закрпу</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s апликација је у реду за пацовање</item>
+        <item quantity="few">%s апликације су у реду за пацовање</item>
+        <item quantity="other">%s апликација је у реду за пацовање</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s апликација се може поново закрпити</item>
         <item quantity="few">%s апликације се могу поново закрпити</item>

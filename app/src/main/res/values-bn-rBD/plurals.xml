@@ -71,6 +71,14 @@
         <item quantity="one">%s অ্যাপ প্যাচ করার জন্য প্রস্তুত</item>
         <item quantity="other">%s অ্যাপ প্যাচ করার জন্য প্রস্তুত</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">প্যাচিংয়ের জন্য \"%s\" অ্যাপ অপেক্ষমাণ আছে</item>
+        <item quantity="other">প্যাচিংয়ের জন্য \"%s\" অ্যাপগুলি অপেক্ষমাণ আছে</item>
+    </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s লুকানো বিজ্ঞপ্তি, এতে ট্যাপ করে এটি দেখুন</item>
+        <item quantity="other">%s লুকানো বিজ্ঞপ্তি, এতে ট্যাপ করে সেগুলো দেখুন</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s অ্যাপ পুনরায় প্যাচ করা যাবে</item>
         <item quantity="other">%s অ্যাপগুলো পুনরায় প্যাচ করা যাবে</item>

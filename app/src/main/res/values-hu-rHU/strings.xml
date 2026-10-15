@@ -461,7 +461,7 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="batch_patch_state_no_patches">Nincs javítás</string>
     <string name="batch_patch_policy_install">Telepítés a befejezés után</string>
     <string name="batch_patch_policy_install_description">Minden javított alkalmazás a soron következő befejezése után azonnal települ. A kikapcsolás esetén az APK-k későbbre megmaradnak</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Kezdet</string>
     <string name="batch_patch_stop_title">Megállítsa a csoportos javítást?</string>
     <string name="batch_patch_stop_description">A jelenleg javított alkalmazás és minden a sorban lévő törölve lesz</string>
@@ -470,6 +470,10 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="batch_patch_install_failed">A telepítés sikertelen</string>
     <string name="batch_patch_in_progress">A csoportos javítás már fut</string>
     <string name="batch_patch_nothing_outdated">Minden javított alkalmazás naprakész</string>
+    <string name="batch_queue_add_action">Adáshoz hozzáad</string>
+    <string name="batch_queue_pending_subtitle">Koppints az áttekintéshez és a kezdéshez</string>
+    <string name="batch_queue_clear_title">Várólista törlése?</string>
+    <string name="batch_queue_clear_description">Minden alkalmazás eltávolításra kerül a várólistáról</string>
     <string name="shortcut_repatch_short">Újra javítás</string>
     <string name="shortcut_repatch_long">Régi alkalmazások újra javítása</string>
     <string name="shortcut_check_updates_short">Frissítések ellenőrzése</string>

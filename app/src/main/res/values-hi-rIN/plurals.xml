@@ -71,6 +71,10 @@
         <item quantity="one">%s ऐप पैच करने के लिए तैयार है</item>
         <item quantity="other">%s ऐप्स पैच करने के लिए तैयार हैं</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">पैचिंग के लिए %s ऐप कतार में</item>
+        <item quantity="other">पैचिंग के लिए %s ऐप्स कतार में</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s ऐप को फिर से पैच किया जा सकता है</item>
         <item quantity="other">%s ऐप्स को फिर से पैच किए जा सकते हैं</item>

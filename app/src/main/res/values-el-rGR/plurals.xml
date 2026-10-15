@@ -71,6 +71,10 @@
         <item quantity="one">Η εφαρμογή %s είναι έτοιμη για ενημέρωση</item>
         <item quantity="other">Οι εφαρμογές %s είναι έτοιμες για ενημέρωση</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">Η εφαρμογή %s έχει τεθεί σε αναμονή για επιδιόρθωση</item>
+        <item quantity="other">Οι εφαρμογές %s έχουν τεθεί σε αναμονή για επιδιόρθωση</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s εφαρμογή μπορεί να τροποποιηθεί ξανά</item>
         <item quantity="other">%s εφαρμογές μπορούν να τροποποιηθούν ξανά</item>

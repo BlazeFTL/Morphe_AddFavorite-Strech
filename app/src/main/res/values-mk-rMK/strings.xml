@@ -249,7 +249,7 @@
     <string name="header_creator_guide_positioning_title">Поставување и скалирање</string>
     <!-- Batch patching -->
     <string name="batch_patch_action">Поправка избрана</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Табела на водечки спонзори SponsorBlock</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="shortcut_check_updates_short">Проверете ажурирања</string>

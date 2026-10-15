@@ -71,6 +71,14 @@
         <item quantity="one">%s приложение е готово за поправяне</item>
         <item quantity="other">%s приложения са готови за поправяне</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">Приложението %s е опашано за патчиране</item>
+        <item quantity="other">Приложенията %s са опашани за патчиране</item>
+    </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s скрита известие, докоснете, за да я покажете</item>
+        <item quantity="other">%s скрити известия, докоснете, за да ги покажете</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s приложение може да бъде повторно пачвано</item>
         <item quantity="other">%s приложения могат да бъдат повторно пачвани</item>

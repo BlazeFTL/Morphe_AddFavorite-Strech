@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">بدون پچ</string>
     <string name="batch_patch_policy_install">پس از پایان نصب شود</string>
     <string name="batch_patch_policy_install_description">هر برنامهٔ پچ‌شده را بلافاصله پس از پایان صف نصب می‌کند. خاموش‌کردن آن APKها را برای بعد نگه می‌دارد</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">آغاز</string>
     <string name="batch_patch_stop_title">پچ‌کردن گروهی متوقف شود؟</string>
     <string name="batch_patch_stop_description">برنامه‌ای که اکنون در حال پچ است و همهٔ موارد باقی‌مانده در صف لغو می‌شوند</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">نصب ناموفق بود</string>
     <string name="batch_patch_in_progress">پچ‌کردن گروهی از قبل در حال اجراست</string>
     <string name="batch_patch_nothing_outdated">همهٔ برنامه‌های پچ‌شده به‌روز هستند</string>
+    <string name="batch_queue_add_action">افزودن به صف</string>
+    <string name="batch_queue_pending_subtitle">برای بررسی و شروع، ضربه بزنید</string>
+    <string name="batch_queue_clear_title">صف پاک شود؟</string>
+    <string name="batch_queue_clear_description">تمام برنامه‌ها از صف حذف خواهند شد</string>
     <string name="shortcut_repatch_short">دوباره پچ کن</string>
     <string name="shortcut_repatch_long">دوباره پچ‌کردن برنامه‌های قدیمی</string>
     <string name="shortcut_check_updates_short">بررسی به‌روزرسانی‌ها</string>

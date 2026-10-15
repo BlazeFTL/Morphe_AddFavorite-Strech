@@ -218,7 +218,7 @@ Elixe outro APK</string>
     <string name="adaptive_icon_creation_failed">Non se puido crear a icona adaptable</string>
     <!-- Header Creator -->
     <!-- Batch patching -->
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="shortcut_check_updates_short">Comprobar actualizacións</string>
     <!-- Home Screen - App Info Screen -->

@@ -461,7 +461,7 @@ Vir die beste resultate beveel hierdie app aan om 'n &lt;b&gt;volle APK&lt;/b&gt
     <string name="batch_patch_state_no_patches">Geen pleisters</string>
     <string name="batch_patch_policy_install">Installeer wanneer voltooi</string>
     <string name="batch_patch_policy_install_description">Installeer elke gepatchte program direk nadat die tou voltooi is. Af skakel die APK\'s vir later af</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Begin</string>
     <string name="batch_patch_stop_title">Stop batch pleister?</string>
     <string name="batch_patch_stop_description">Die program wat tans gepatch word en alles wat nog in die tou staan, sal gekanselleer word</string>
@@ -470,6 +470,10 @@ Vir die beste resultate beveel hierdie app aan om 'n &lt;b&gt;volle APK&lt;/b&gt
     <string name="batch_patch_install_failed">Installasie misluk</string>
     <string name="batch_patch_in_progress">Batch pleister is reeds besig</string>
     <string name="batch_patch_nothing_outdated">Elke gepatchte program is op datum</string>
+    <string name="batch_queue_add_action">Voeg by waglys</string>
+    <string name="batch_queue_pending_subtitle">Tik om te hersien en te begin</string>
+    <string name="batch_queue_clear_title">Maak die waglys skoon?</string>
+    <string name="batch_queue_clear_description">Alle toepassing sal uit die waglys verwyder word</string>
     <string name="shortcut_repatch_short">Her-pleister</string>
     <string name="shortcut_repatch_long">Her-pleister verouderde programme</string>
     <string name="shortcut_check_updates_short">Kyk vir opgraderings</string>

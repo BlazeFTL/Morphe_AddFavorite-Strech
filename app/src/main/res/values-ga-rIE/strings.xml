@@ -461,7 +461,7 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="batch_patch_state_no_patches">Gan paistí</string>
     <string name="batch_patch_policy_install">Suiteáil nuair a bheidh sé críochnaithe</string>
     <string name="batch_patch_policy_install_description">Suiteálann sé gach aip phaisteáilte díreach tar éis don scuaine a bheith críochnaithe. Coinníonn sé na APKanna le haghaidh níos déanaí má bhíonn sé múchta.</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Tosaigh</string>
     <string name="batch_patch_stop_title">Stop a chur le paistí baisce?</string>
     <string name="batch_patch_stop_description">Cuirfear ar ceal an aip atá á paisteáil faoi láthair agus gach rud atá fós i scuaine</string>
@@ -470,6 +470,10 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="batch_patch_install_failed">Theip ar an suiteáil</string>
     <string name="batch_patch_in_progress">Tá paisteáil bhaisc ag rith cheana féin</string>
     <string name="batch_patch_nothing_outdated">Tá gach aip paisteáilte cothrom le dáta</string>
+    <string name="batch_queue_add_action">Cuir leis an scuaine</string>
+    <string name="batch_queue_pending_subtitle">Tapáil chun athbhreithniú a dhéanamh agus tús a chur</string>
+    <string name="batch_queue_clear_title">An bhfuil fonn ort an scuain a ghlanadh?</string>
+    <string name="batch_queue_clear_description">Buirníodh gach feidhmchlár as an scuain</string>
     <string name="shortcut_repatch_short">Athphaisteáil</string>
     <string name="shortcut_repatch_long">Athphaisteáil aipeanna atá as dáta</string>
     <string name="shortcut_check_updates_short">Seiceáil nuashonruithe</string>

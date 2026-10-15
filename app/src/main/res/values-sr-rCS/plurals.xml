@@ -88,6 +88,11 @@
         <item quantity="few">%s aplikacije su spremne za zakrpu</item>
         <item quantity="other">%s aplikacija je spremno za zakrpu</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s aplikacija je na listi čekanja za zakrpavanje</item>
+        <item quantity="few">%s aplikacije su na listi čekanja za zakrpavanje</item>
+        <item quantity="other">%s aplikacija je na listi čekanja za zakrpavanje</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s aplikacija se može ponovo zakrpiti</item>
         <item quantity="few">%s aplikacije mogu biti ponovo zakrpljene</item>

@@ -88,6 +88,11 @@
         <item quantity="few">%s aplicaţii gata de patch</item>
         <item quantity="other">%s de aplicaţii gata de patch</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">Aplicația %s este în așteptare pentru remediere</item>
+        <item quantity="few">%s aplicații sunt în așteptare pentru remediere</item>
+        <item quantity="other">%s de aplicații sunt în așteptare pentru remediere</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s aplicație poate fi re-patchuită</item>
         <item quantity="few">%s aplicații pot fi re-patchuite</item>

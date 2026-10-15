@@ -461,7 +461,7 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="batch_patch_state_no_patches">Ni popravkov</string>
     <string name="batch_patch_policy_install">Namestite po končanem postopku</string>
     <string name="batch_patch_policy_install_description">Vsaka popravljena aplikacija se namesti takoj po končanem postopku. Izklopljeno shrani APK-je za kasnejšo uporabo</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Začetek</string>
     <string name="batch_patch_stop_title">Ustavite množično popravljanje?</string>
     <string name="batch_patch_stop_description">Aplikacija, ki se popravlja, in vse datoteke v čakalni vrsti bodo preklicane</string>
@@ -470,6 +470,10 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="batch_patch_install_failed">Namestitev je spodletela</string>
     <string name="batch_patch_in_progress">Množično popravljanje že poteka</string>
     <string name="batch_patch_nothing_outdated">Vsaka popravljena aplikacija je posodobljena</string>
+    <string name="batch_queue_add_action">Dodaj v vrsto</string>
+    <string name="batch_queue_pending_subtitle">Tapnite za pregled in začetek</string>
+    <string name="batch_queue_clear_title">Počistiti čakalno vrsto?</string>
+    <string name="batch_queue_clear_description">Vse aplikacije bodo odstranjene iz čakalne vrste</string>
     <string name="shortcut_repatch_short">Ponovno popravite</string>
     <string name="shortcut_repatch_long">Ponovno popravite zastarele aplikacije</string>
     <string name="shortcut_check_updates_short">Preverite posodobitve</string>

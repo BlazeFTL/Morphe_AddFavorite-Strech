@@ -71,6 +71,14 @@
         <item quantity="one">%s app klar til patching</item>
         <item quantity="other">%s apps klar til patching</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s app køer til patchning</item>
+        <item quantity="other">%s apps køer til patchning</item>
+    </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s skjult underretning, tryk for at vise den</item>
+        <item quantity="other">%s skjulte underretninger, tryk for at vise dem</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s app kan genpatches</item>
         <item quantity="other">%s apps kan genpatches</item>

@@ -441,7 +441,7 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="batch_patch_state_no_patches">Tiada tampalan</string>
     <string name="batch_patch_policy_install">Pasang apabila selesai</string>
     <string name="batch_patch_policy_install_description">Memasang setiap aplikasi bertampal sejurus selepas baris gilir selesai. Mati menyimpan APK untuk kemudian</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Mula</string>
     <string name="batch_patch_stop_title">Hentikan tampalan kelompok?</string>
     <string name="batch_patch_stop_description">Aplikasi yang sedang ditampal sekarang dan semua yang masih dalam baris gilir akan dibatalkan</string>

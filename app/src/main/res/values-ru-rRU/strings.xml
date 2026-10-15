@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">Нет патчей</string>
     <string name="batch_patch_policy_install">Устанавливать по завершении</string>
     <string name="batch_patch_policy_install_description">Устанавливает каждое пропатченное приложение сразу после завершения очереди. Выкл. сохраняет APK для последующей установки</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Начало</string>
     <string name="batch_patch_stop_title">Остановить массовый патчинг?</string>
     <string name="batch_patch_stop_description">Приложение, которое пропатчивается сейчас, и все, что еще ожидает в очереди, будет отменено</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">Ошибка установки</string>
     <string name="batch_patch_in_progress">Массовый патчинг уже выполняется</string>
     <string name="batch_patch_nothing_outdated">Все пропатченные приложения обновлены</string>
+    <string name="batch_queue_add_action">Добавить в очередь</string>
+    <string name="batch_queue_pending_subtitle">Нажмите, чтобы проверить и начать</string>
+    <string name="batch_queue_clear_title">Очистить очередь?</string>
+    <string name="batch_queue_clear_description">Все приложения будут удалены из очереди</string>
     <string name="shortcut_repatch_short">Перепаковать</string>
     <string name="shortcut_repatch_long">Перепаковать устаревшие приложения</string>
     <string name="shortcut_check_updates_short">Проверить обновления</string>

@@ -71,6 +71,10 @@
         <item quantity="one">%s App bereit zum Patchen</item>
         <item quantity="other">%s Apps bereit zum Patchen</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">App %s zum Patchen in der Warteschlange</item>
+        <item quantity="other">Apps %s zum Patchen in der Warteschlange</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s App kann erneut gepatcht werden</item>
         <item quantity="other">%s Apps können erneut gepatcht werden</item>

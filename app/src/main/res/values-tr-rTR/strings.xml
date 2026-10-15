@@ -461,7 +461,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="batch_patch_state_no_patches">Yama yok</string>
     <string name="batch_patch_policy_install">Tamamlandığında kur</string>
     <string name="batch_patch_policy_install_description">Sıra bittikten hemen sonra her yamalı uygulamayı kurar. Kapalı bırakmak, APK\'ları daha sonra kullanmak üzere saklar</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Başlangıç</string>
     <string name="batch_patch_stop_title">Toplu yamalamayı durdur?</string>
     <string name="batch_patch_stop_description">Şu anda yamalanan uygulama ve hala sırada bekleyen her şey iptal edilecektir</string>
@@ -470,6 +470,10 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="batch_patch_install_failed">Kurulum başarısız oldu</string>
     <string name="batch_patch_in_progress">Toplu yamalama zaten çalışıyor</string>
     <string name="batch_patch_nothing_outdated">Her yamalı uygulama güncel</string>
+    <string name="batch_queue_add_action">Sıraya ekle</string>
+    <string name="batch_queue_pending_subtitle">Gözden geçirip başlatmak için dokunun</string>
+    <string name="batch_queue_clear_title">Kuyruk temizlensin mi?</string>
+    <string name="batch_queue_clear_description">Tüm uygulamalar kuyruktan kaldırılacak</string>
     <string name="shortcut_repatch_short">Yeniden yama</string>
     <string name="shortcut_repatch_long">Güncel olmayan uygulamaları yeniden yama</string>
     <string name="shortcut_check_updates_short">Güncellemeleri kontrol et</string>

@@ -460,7 +460,7 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="batch_patch_state_no_patches">Keine Patches</string>
     <string name="batch_patch_policy_install">Beim Fertigstellen installieren</string>
     <string name="batch_patch_policy_install_description">Installiert jede gepatchte App direkt nach Abschluss der Warteschlange. Aus deaktiviert behält die APKs für später bei</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Batch-Patchen anhalten?</string>
     <string name="batch_patch_stop_description">Die App, die gerade gepatcht wird, und alles, was noch in der Warteschlange steht, wird abgebrochen</string>
@@ -469,6 +469,10 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="batch_patch_install_failed">Installation fehlgeschlagen</string>
     <string name="batch_patch_in_progress">Batch-Patchen ist bereits aktiv</string>
     <string name="batch_patch_nothing_outdated">Alle gepatchten Apps sind auf dem neuesten Stand</string>
+    <string name="batch_queue_add_action">Zur Warteschlange hinzufügen</string>
+    <string name="batch_queue_pending_subtitle">Tippen zum Überprüfen und Starten</string>
+    <string name="batch_queue_clear_title">Warteschlange löschen?</string>
+    <string name="batch_queue_clear_description">Alle Apps werden aus der Warteschlange entfernt</string>
     <string name="shortcut_repatch_short">Neu patchen</string>
     <string name="shortcut_repatch_long">Veraltete Apps neu patchen</string>
     <string name="shortcut_check_updates_short">Auf Updates prüfen</string>

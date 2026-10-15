@@ -461,7 +461,7 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="batch_patch_state_no_patches">Nema zakrpa</string>
     <string name="batch_patch_policy_install">Instaliraj kada je završeno</string>
     <string name="batch_patch_policy_install_description">Instalira svaku zakrpljenu aplikaciju odmah nakon završetka reda. Isključeno čuva APK-ove za kasnije</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Početak</string>
     <string name="batch_patch_stop_title">Zaustavi masovno zakrpljivanje?</string>
     <string name="batch_patch_stop_description">Aplikacija koja se zakrpljuje i sve ono što je još u redu će biti otkazano</string>
@@ -470,6 +470,10 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="batch_patch_install_failed">Instalacija je neuspela</string>
     <string name="batch_patch_in_progress">Masovno zakrpljivanje je već u toku</string>
     <string name="batch_patch_nothing_outdated">Sve zakrpljene aplikacije su ažurirane</string>
+    <string name="batch_queue_add_action">Dodaj u red čekanja</string>
+    <string name="batch_queue_pending_subtitle">Dodirni za pregled i početak</string>
+    <string name="batch_queue_clear_title">Očistiti red čekanja?</string>
+    <string name="batch_queue_clear_description">Sve aplikacije će biti uklonjene iz reda čekanja</string>
     <string name="shortcut_repatch_short">Ponovo zakrpi</string>
     <string name="shortcut_repatch_long">Ponovo zakrpi zastarele aplikacije</string>
     <string name="shortcut_check_updates_short">Proveri ažuriranja</string>

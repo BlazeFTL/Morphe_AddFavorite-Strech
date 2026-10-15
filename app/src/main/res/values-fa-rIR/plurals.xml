@@ -71,6 +71,10 @@
         <item quantity="one">%s برنامه آمادهٔ پچ است</item>
         <item quantity="other">%s برنامه آمادهٔ پچ است</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s برنامه در صف برای پچ</item>
+        <item quantity="other">%s برنامه در صف برای پچ</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s برنامه را می‌توان دوباره پچ کرد</item>
         <item quantity="other">%s برنامه را می‌توان دوباره پچ کرد</item>

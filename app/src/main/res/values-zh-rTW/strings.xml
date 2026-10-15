@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">沒有修補程式</string>
     <string name="batch_patch_policy_install">完成後安裝</string>
     <string name="batch_patch_policy_install_description">佇列完成後會立即安裝每個已修補的應用程式。關閉後保留 APK 以供日後使用</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">開始</string>
     <string name="batch_patch_stop_title">停止批次修補？</string>
     <string name="batch_patch_stop_description">目前正在修補的應用程式以及所有排隊的應用程式將會取消</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">安裝失敗</string>
     <string name="batch_patch_in_progress">批次修補正在執行</string>
     <string name="batch_patch_nothing_outdated">每個已修補的應用程式都是最新的</string>
+    <string name="batch_queue_add_action">新增至佇列</string>
+    <string name="batch_queue_pending_subtitle">輕觸以檢視並開始</string>
+    <string name="batch_queue_clear_title">清除佇列？</string>
+    <string name="batch_queue_clear_description">所有應用程式都將從佇列中移除</string>
     <string name="shortcut_repatch_short">重新修補</string>
     <string name="shortcut_repatch_long">重新修補過時的應用程式</string>
     <string name="shortcut_check_updates_short">檢查更新</string>

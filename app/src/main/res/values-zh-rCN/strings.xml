@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">没有补丁</string>
     <string name="batch_patch_policy_install">完成时安装</string>
     <string name="batch_patch_policy_install_description">队列完成后立即安装每个已修补的应用程序。关闭后，APK 将保留以供以后使用</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">开始</string>
     <string name="batch_patch_stop_title">停止批量修补？</string>
     <string name="batch_patch_stop_description">当前正在修补的应用程序以及所有排队的应用程序将被取消</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">安装失败</string>
     <string name="batch_patch_in_progress">批量修补已经在运行</string>
     <string name="batch_patch_nothing_outdated">每个已修补的应用程序都是最新的</string>
+    <string name="batch_queue_add_action">添加到队列</string>
+    <string name="batch_queue_pending_subtitle">点击以审核并开始</string>
+    <string name="batch_queue_clear_title">是否清空队列？</string>
+    <string name="batch_queue_clear_description">所有应用将从队列中移除</string>
     <string name="shortcut_repatch_short">重新修补</string>
     <string name="shortcut_repatch_long">重新修补过时的应用程序</string>
     <string name="shortcut_check_updates_short">检查更新</string>

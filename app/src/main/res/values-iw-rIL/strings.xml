@@ -462,7 +462,7 @@
     <string name="batch_patch_state_no_patches">אין טלאים</string>
     <string name="batch_patch_policy_install">התקן לאחר סיום</string>
     <string name="batch_patch_policy_install_description">מתקין כל אפליקציה שעברה תיקון מיד לאחר סיום התור. כבוי שומר את ה-APKs לשימוש מאוחר יותר</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">התחלה</string>
     <string name="batch_patch_stop_title">עצור תיקון באצווה?</string>
     <string name="batch_patch_stop_description">האפליקציה שעוברת תיקון כרגע וכל מה שעדיין בתור יבוטל</string>
@@ -471,6 +471,10 @@
     <string name="batch_patch_install_failed">ההתקנה נכשלה</string>
     <string name="batch_patch_in_progress">תיקון באצווה כבר פועל</string>
     <string name="batch_patch_nothing_outdated">כל האפליקציות שעברו תיקון מעודכנות</string>
+    <string name="batch_queue_add_action">הוסף לתור</string>
+    <string name="batch_queue_pending_subtitle">הקש כדי לבדוק ולהתחיל</string>
+    <string name="batch_queue_clear_title">לנקות את התור?</string>
+    <string name="batch_queue_clear_description">כל האפליקציות יוסרו מהתור</string>
     <string name="shortcut_repatch_short">תקן מחדש</string>
     <string name="shortcut_repatch_long">תקן מחדש אפליקציות מיושנות</string>
     <string name="shortcut_check_updates_short">בדוק עדכונים</string>

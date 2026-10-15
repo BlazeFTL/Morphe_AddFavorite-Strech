@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">ไม่มีแพตช์</string>
     <string name="batch_patch_policy_install">ติดตั้งเมื่อเสร็จสิ้น</string>
     <string name="batch_patch_policy_install_description">ติดตั้งแอปที่แพตช์ทุกแอปทันทีที่คิวเสร็จสิ้น ปิดจะเก็บ APK ไว้ในภายหลัง</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">เริ่มต้น</string>
     <string name="batch_patch_stop_title">หยุดแพตช์กลุ่ม?</string>
     <string name="batch_patch_stop_description">แอปที่กำลังแพตช์อยู่ตอนนี้และทุกอย่างที่อยู่ในคิวจะถูกยกเลิก</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">ติดตั้งล้มเหลว</string>
     <string name="batch_patch_in_progress">กำลังแพตช์กลุ่มอยู่แล้ว</string>
     <string name="batch_patch_nothing_outdated">แอปที่แพตช์ทั้งหมดเป็นเวอร์ชันล่าสุดแล้ว</string>
+    <string name="batch_queue_add_action">เพิ่มลงในคิว</string>
+    <string name="batch_queue_pending_subtitle">แตะเพื่อตรวจสอบและเริ่ม</string>
+    <string name="batch_queue_clear_title">ล้างคิว?</string>
+    <string name="batch_queue_clear_description">แอปทั้งหมดจะถูกนำออกจากรคิว</string>
     <string name="shortcut_repatch_short">แพตช์ซ้ำ</string>
     <string name="shortcut_repatch_long">แพตช์แอปที่ล้าสมัยซ้ำ</string>
     <string name="shortcut_check_updates_short">ตรวจสอบการอัปเดต</string>

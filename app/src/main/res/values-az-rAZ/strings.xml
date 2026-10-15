@@ -458,7 +458,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="batch_patch_state_no_patches">Yamaq yoxdur</string>
     <string name="batch_patch_policy_install">Bitdikdə quraşdır</string>
     <string name="batch_patch_policy_install_description">Növbə bitdikdən dərhal sonra hər bir yamaqlanmış tətbiqi quraşdırır. Qapalıdırsa, APK-lar daha sonra üçün saxlanılır</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Başlanğıc</string>
     <string name="batch_patch_stop_title">Toplu yamaqlama dayandırılsın?</string>
     <string name="batch_patch_stop_description">Hal-hazırda yamaqlanan tətbiq və növbədə olan hər şey ləğv ediləcək</string>
@@ -467,6 +467,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="batch_patch_install_failed">Quraşdırma uğursuz oldu</string>
     <string name="batch_patch_in_progress">Toplu yamaqlama artıq icra olunur</string>
     <string name="batch_patch_nothing_outdated">Yamaqlanmış bütün tətbiqlər yenilənib</string>
+    <string name="batch_queue_add_action">Növbəyə əlavə et</string>
     <string name="shortcut_repatch_short">Yenidən yamaqla</string>
     <string name="shortcut_repatch_long">Köhnəlmiş tətbiqləri yenidən yamaqla</string>
     <string name="shortcut_check_updates_short">Yeniləmələri yoxla</string>

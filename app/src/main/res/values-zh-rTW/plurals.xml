@@ -54,6 +54,9 @@
     <plurals name="batch_patch_ready_count">
         <item quantity="other">%s 個應用程式已準備好進行修補</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="other">%s 個應用程式佇列待修補</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="other">有 %s 個應用程式可以重新修補</item>
     </plurals>

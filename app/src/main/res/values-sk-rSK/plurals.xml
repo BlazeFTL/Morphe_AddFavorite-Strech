@@ -105,6 +105,12 @@
         <item quantity="many">%s aplikácie pripravené na záplatu</item>
         <item quantity="other">%s aplikácie pripravené na záplatu</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">Aplikácia %s je zaradená do fronty na opravu</item>
+        <item quantity="few">Aplikácie %s sú zaradené do fronty na opravu</item>
+        <item quantity="many">Aplikácií %s je zaradených do fronty na opravu</item>
+        <item quantity="other">Aplikácií %s je zaradených do fronty na opravu</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s aplikácia môže byť znovu opravená</item>
         <item quantity="few">%s aplikácie môžu byť znovu opravené</item>

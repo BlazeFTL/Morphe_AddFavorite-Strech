@@ -464,7 +464,7 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <string name="batch_patch_state_no_patches">Nema patcheva </string>
     <string name="batch_patch_policy_install">Instaliraj kada je gotovo</string>
     <string name="batch_patch_policy_install_description">Instalira svaku patchanu aplikaciju odmah nakon završetka reda čekanja. Isključeno čuva APK-ove za kasnije.</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Početak</string>
     <string name="batch_patch_stop_title">Zaustaviti grupno patchanje?</string>
     <string name="batch_patch_stop_description">Aplikacija se trenutno patcha i sve što je još u redu čekanja bit će otkazano</string>
@@ -473,6 +473,10 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <string name="batch_patch_install_failed">Instalacija nije uspjela</string>
     <string name="batch_patch_in_progress">Grupno patchanje je već pokrenuto</string>
     <string name="batch_patch_nothing_outdated">Svaka patchana aplikacija je ažurirana</string>
+    <string name="batch_queue_add_action">Dodaj u red čekanja</string>
+    <string name="batch_queue_pending_subtitle">Dodirnite za pregled i pokretanje</string>
+    <string name="batch_queue_clear_title">Očistiti red čekanja?</string>
+    <string name="batch_queue_clear_description">Sve aplikacije bit će uklonjene iz reda čekanja</string>
     <string name="shortcut_repatch_short">Patchaj opet</string>
     <string name="shortcut_repatch_long">Ponovno patchaj zastarjele aplikacije</string>
     <string name="shortcut_check_updates_short">Projveri ažuriranja</string>

@@ -461,7 +461,7 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="batch_patch_state_no_patches">Nessuna patch</string>
     <string name="batch_patch_policy_install">Installa al termine</string>
     <string name="batch_patch_policy_install_description">Installa ogni app modificata subito dopo che la coda è terminata. Disattivato mantiene gli APK per dopo</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Inizio</string>
     <string name="batch_patch_stop_title">Interrompi la modifica in batch?</string>
     <string name="batch_patch_stop_description">L\'app in fase di modifica e tutto ciò che è ancora in coda verrà annullato</string>
@@ -470,6 +470,10 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="batch_patch_install_failed">Installazione non riuscita</string>
     <string name="batch_patch_in_progress">La modifica in batch è già in esecuzione</string>
     <string name="batch_patch_nothing_outdated">Ogni app modificata è aggiornata</string>
+    <string name="batch_queue_add_action">Aggiungi alla coda</string>
+    <string name="batch_queue_pending_subtitle">Tocca per rivedere e avviare</string>
+    <string name="batch_queue_clear_title">Eliminare la coda?</string>
+    <string name="batch_queue_clear_description">Tutte le app verranno rimosse dalla coda</string>
     <string name="shortcut_repatch_short">Modifica di nuovo</string>
     <string name="shortcut_repatch_long">Modifica di nuovo le app obsolete</string>
     <string name="shortcut_check_updates_short">Verifica aggiornamenti</string>

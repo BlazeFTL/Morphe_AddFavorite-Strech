@@ -461,7 +461,7 @@ Voor de beste resultaten beveelt deze app aan om een &lt;b&gt;volledig APK&lt;/b
     <string name="batch_patch_state_no_patches">Geen patches</string>
     <string name="batch_patch_policy_install">Installeren na afronding</string>
     <string name="batch_patch_policy_install_description">Installeert elke gepatchte app direct na het afronden van de wachtrij. Uitgeschakeld bewaart de APK\'s voor later</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Batch patchen stoppen?</string>
     <string name="batch_patch_stop_description">De app die momenteel wordt gepatcht en alles wat nog in de wachtrij staat, wordt geannuleerd</string>
@@ -470,6 +470,10 @@ Voor de beste resultaten beveelt deze app aan om een &lt;b&gt;volledig APK&lt;/b
     <string name="batch_patch_install_failed">Installatie mislukt</string>
     <string name="batch_patch_in_progress">Batch patchen is al bezig</string>
     <string name="batch_patch_nothing_outdated">Elke gepatchte app is up-to-date</string>
+    <string name="batch_queue_add_action">Toevoegen aan wachtrij</string>
+    <string name="batch_queue_pending_subtitle">Tik om te controleren en te starten</string>
+    <string name="batch_queue_clear_title">Wachtrij wissen?</string>
+    <string name="batch_queue_clear_description">Alle apps worden uit de wachtrij verwijderd</string>
     <string name="shortcut_repatch_short">Opnieuw patchen</string>
     <string name="shortcut_repatch_long">Oude apps opnieuw patchen</string>
     <string name="shortcut_check_updates_short">Controleren op updates</string>

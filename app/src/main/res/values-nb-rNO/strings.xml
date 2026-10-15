@@ -461,7 +461,7 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="batch_patch_state_no_patches">Ingen patcher</string>
     <string name="batch_patch_policy_install">Installer når ferdig</string>
     <string name="batch_patch_policy_install_description">Installerer hver patchede app rett etter at køen er ferdig. Av slår på beholder APK-ene for senere</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Stopp batch-patching?</string>
     <string name="batch_patch_stop_description">Appen du patcher akkurat nå, og alt som står i kø, vil bli kansellert</string>
@@ -470,6 +470,10 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="batch_patch_install_failed">Installering mislyktes</string>
     <string name="batch_patch_in_progress">Batch-patching kjører allerede</string>
     <string name="batch_patch_nothing_outdated">Alle patchede apper er oppdaterte</string>
+    <string name="batch_queue_add_action">Legg til i kø</string>
+    <string name="batch_queue_pending_subtitle">Trykk for å gjennomgå og starte</string>
+    <string name="batch_queue_clear_title">Tøm køen?</string>
+    <string name="batch_queue_clear_description">Alle appene blir fjernet fra køen</string>
     <string name="shortcut_repatch_short">Repatch</string>
     <string name="shortcut_repatch_long">Repatch utdaterte apper</string>
     <string name="shortcut_check_updates_short">Sjekk oppdateringer</string>

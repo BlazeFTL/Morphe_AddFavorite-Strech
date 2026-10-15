@@ -54,6 +54,9 @@
     <plurals name="batch_patch_ready_count">
         <item quantity="other">%s 個のアプリがパッチ適用可能です</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="other">%s個のアプリがパッチ適用待ち</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="other">%s 個のアプリが再パッチ可能です</item>
     </plurals>

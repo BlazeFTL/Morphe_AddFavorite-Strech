@@ -460,7 +460,7 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="batch_patch_state_no_patches">Engar breytingar</string>
     <string name="batch_patch_policy_install">Settur upp þegar búið er</string>
     <string name="batch_patch_policy_install_description">Setur upp hvert breytt app þegar biðröðin er lokið. Slökkt heldur APK-skránum til síðara</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Byrja</string>
     <string name="batch_patch_stop_title">Hætta við breytingum?</string>
     <string name="batch_patch_stop_description">Appið sem er breytt núna og allt sem bíður í biðröð verður hætt</string>
@@ -469,6 +469,10 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="batch_patch_install_failed">Miskunstrið við uppsetningu</string>
     <string name="batch_patch_in_progress">Breytingar eru þegar í gangi</string>
     <string name="batch_patch_nothing_outdated">Allt breytt app er uppfært</string>
+    <string name="batch_queue_add_action">Bæta við í biðröð</string>
+    <string name="batch_queue_pending_subtitle">Smelltu til að yfirfara og byrja</string>
+    <string name="batch_queue_clear_title">Hreisa kööruna?</string>
+    <string name="batch_queue_clear_description">Öll forrit verða fjarlægð úr köörunni</string>
     <string name="shortcut_repatch_short">Endurbreyta</string>
     <string name="shortcut_repatch_long">Endurbreyta úreltum appum</string>
     <string name="shortcut_check_updates_short">Leita að uppfærslum</string>

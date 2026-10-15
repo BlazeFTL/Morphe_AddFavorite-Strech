@@ -461,7 +461,7 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="batch_patch_state_no_patches">Nu sunt disponibile patch-uri</string>
     <string name="batch_patch_policy_install">Instalează când este finalizat</string>
     <string name="batch_patch_policy_install_description">Instalează fiecare aplicație modificată imediat ce coada se termină. Oprire păstrează APK-urile pentru mai târziu</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Pornire</string>
     <string name="batch_patch_stop_title">Oprește aplicarea patch-urilor în masă?</string>
     <string name="batch_patch_stop_description">Aplicația care se modifică acum și tot ce este încă în coadă va fi anulat</string>
@@ -470,6 +470,10 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="batch_patch_install_failed">Instalare eșuată</string>
     <string name="batch_patch_in_progress">Aplicarea patch-urilor în masă este deja în desfășurare</string>
     <string name="batch_patch_nothing_outdated">Fiecare aplicație modificată este actualizată</string>
+    <string name="batch_queue_add_action">Adăugaţi la coada</string>
+    <string name="batch_queue_pending_subtitle">Atinge pentru a revizui și a începe</string>
+    <string name="batch_queue_clear_title">Golirezi cozile?</string>
+    <string name="batch_queue_clear_description">Toate aplicațiile vor fi eliminate din coadă</string>
     <string name="shortcut_repatch_short">Repară</string>
     <string name="shortcut_repatch_long">Repară aplicațiile depășite</string>
     <string name="shortcut_check_updates_short">Verifică actualizări</string>

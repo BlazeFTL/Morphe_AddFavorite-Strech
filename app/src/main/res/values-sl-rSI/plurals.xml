@@ -105,6 +105,12 @@
         <item quantity="few">%s aplikacije so pripravljene za popravljanje</item>
         <item quantity="other">%s aplikacij je pripravljenih za popravljanje</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s aplikacija čakajo na popravljanje</item>
+        <item quantity="two">%s aplikaciji čakata na popravljanje</item>
+        <item quantity="few">%s aplikacije čakajo na popravljanje</item>
+        <item quantity="other">%s aplikacij čakajo na popravljanje</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s aplikacija se lahko ponovno popravi</item>
         <item quantity="two">%s aplikaciji se lahko ponovno popravita</item>

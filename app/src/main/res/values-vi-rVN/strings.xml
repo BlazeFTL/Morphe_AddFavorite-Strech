@@ -461,7 +461,7 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="batch_patch_state_no_patches">Không có bản vá</string>
     <string name="batch_patch_policy_install">Cài đặt khi hoàn tất</string>
     <string name="batch_patch_policy_install_description">Tự động cài đặt tất cả ứng dụng đã vá ngay sau khi hàng chờ hoàn tất. Nếu tắt, các APK sẽ được giữ lại để cài đặt sau</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Bắt đầu</string>
     <string name="batch_patch_stop_title">Dừng vá hàng loạt?</string>
     <string name="batch_patch_stop_description">Ứng dụng đang được vá lúc này và toàn bộ tác vụ còn trong hàng chờ sẽ bị hủy</string>
@@ -470,6 +470,10 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="batch_patch_install_failed">Cài đặt thất bại</string>
     <string name="batch_patch_in_progress">Vá hàng loạt đang chạy rồi</string>
     <string name="batch_patch_nothing_outdated">Tất cả ứng dụng đã vá đều đang ở phiên bản mới nhất</string>
+    <string name="batch_queue_add_action">Thêm vào hàng chờ</string>
+    <string name="batch_queue_pending_subtitle">Chạm để xem lại và bắt đầu</string>
+    <string name="batch_queue_clear_title">Xóa hàng đợi?</string>
+    <string name="batch_queue_clear_description">Tất cả ứng dụng sẽ bị xóa khỏi hàng đợi</string>
     <string name="shortcut_repatch_short">Vá lại</string>
     <string name="shortcut_repatch_long">Vá lại các ứng dụng đã cũ</string>
     <string name="shortcut_check_updates_short">Kiểm tra cập nhật</string>

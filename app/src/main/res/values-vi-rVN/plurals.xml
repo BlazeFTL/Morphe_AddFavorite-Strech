@@ -54,6 +54,9 @@
     <plurals name="batch_patch_ready_count">
         <item quantity="other">%s ứng dụng sẵn sàng để vá</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="other">%s ứng dụng đang chờ vá lỗi</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="other">%s ứng dụng có thể được vá lại</item>
     </plurals>

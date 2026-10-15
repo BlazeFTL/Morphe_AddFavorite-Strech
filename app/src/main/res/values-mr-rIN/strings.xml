@@ -438,7 +438,7 @@
     <string name="batch_patch_state_no_patches">पॅच नाहीत</string>
     <string name="batch_patch_policy_install">पूर्ण झाल्यावर इंस्टॉल करा</string>
     <string name="batch_patch_policy_install_description">क्यू समाप्त झाल्यावर लगेच प्रत्येक पॅच केलेले ॲप इंस्टॉल करते. बंद केल्यास APK नंतरसाठी जतन केले जातात.</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">सुरू करा</string>
     <string name="batch_patch_stop_title">बॅच पॅचिंग थांबवायचे?</string>
     <string name="batch_patch_stop_description">सध्या पॅच केलेले ॲप आणि रांगेत असलेली सर्व काही रद्द केली जाईल.</string>

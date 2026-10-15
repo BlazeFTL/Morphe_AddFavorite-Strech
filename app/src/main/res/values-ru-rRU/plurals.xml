@@ -105,6 +105,12 @@
         <item quantity="many">%s приложений готовы к установке</item>
         <item quantity="other">%s приложений готовы к установке</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s приложение в очереди на исправление</item>
+        <item quantity="few">%s приложения в очереди на исправление</item>
+        <item quantity="many">%s приложений в очереди на исправление</item>
+        <item quantity="other">%s приложений в очереди на исправление</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s приложение можно перепатчить</item>
         <item quantity="few">%s приложения можно перепатчить</item>

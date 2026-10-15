@@ -463,7 +463,7 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="batch_patch_state_no_patches">Aucun patch</string>
     <string name="batch_patch_policy_install">Installer une fois terminé</string>
     <string name="batch_patch_policy_install_description">Installe chaque application patchée juste après la fin de la file d\'attente. Désactivé conserve les APK pour plus tard</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Commencer</string>
     <string name="batch_patch_stop_title">Arrêter le patching par lots ?</string>
     <string name="batch_patch_stop_description">L\'application en train d\'être patchée et toutes celles encore en attente seront annulées</string>
@@ -472,6 +472,10 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="batch_patch_install_failed">Échec de l\'installation</string>
     <string name="batch_patch_in_progress">Le patching par lots est déjà en cours d\'exécution</string>
     <string name="batch_patch_nothing_outdated">Toutes les applications patchées sont à jour</string>
+    <string name="batch_queue_add_action">Ajouter à la file d\'attente</string>
+    <string name="batch_queue_pending_subtitle">Appuyez ici pour consulter et commencer</string>
+    <string name="batch_queue_clear_title">Vider la file d\'attente ?</string>
+    <string name="batch_queue_clear_description">Toutes les applications seront retirées de la file d\'attente</string>
     <string name="shortcut_repatch_short">Re-patcher</string>
     <string name="shortcut_repatch_long">Re-patcher les applications obsolètes</string>
     <string name="shortcut_check_updates_short">Vérifier les mises à jour</string>

@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">パッチがありません</string>
     <string name="batch_patch_policy_install">完了後にインストールする</string>
     <string name="batch_patch_policy_install_description">キューの処理が完了すると、パッチ適用済みアプリをすべて自動でインストールします。オフにすると、APK を保存して後でインストールできます</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">開始</string>
     <string name="batch_patch_stop_title">一括パッチを停止しますか？</string>
     <string name="batch_patch_stop_description">現在パッチを適用中のアプリと、まだキューに登録されているアプリはキャンセルされます</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">インストールに失敗しました</string>
     <string name="batch_patch_in_progress">一括パッチはすでに実行中です</string>
     <string name="batch_patch_nothing_outdated">すべてのパッチ適用済みアプリは最新の状態です</string>
+    <string name="batch_queue_add_action">キューに追加</string>
+    <string name="batch_queue_pending_subtitle">タップして確認して開始</string>
+    <string name="batch_queue_clear_title">キューをクリアしますか？</string>
+    <string name="batch_queue_clear_description">すべてのアプリがキューから削除されます</string>
     <string name="shortcut_repatch_short">再パッチ</string>
     <string name="shortcut_repatch_long">古いアプリを再パッチ</string>
     <string name="shortcut_check_updates_short">更新を確認</string>

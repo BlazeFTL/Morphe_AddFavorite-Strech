@@ -71,6 +71,10 @@
         <item quantity="one">%s app tilbúið til að flikka</item>
         <item quantity="other">%s app tilbúið til að flikka</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">Forritið %s í biðröð fyrir viðgerð</item>
+        <item quantity="other">Forritin %s í biðröð fyrir viðgerð</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">Hægt er að endurplástra %s app</item>
         <item quantity="other">Hægt er að endurplástra %s öpp</item>

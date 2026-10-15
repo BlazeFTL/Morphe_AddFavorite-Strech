@@ -105,6 +105,12 @@
         <item quantity="many">%s aplikacji gotowych do modyfikacji</item>
         <item quantity="other">%s aplikacji gotowych do modyfikacji</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s aplikacja zakolejkowana do modyfikacji</item>
+        <item quantity="few">%s aplikacji zakolejkowanych do modyfikacji</item>
+        <item quantity="many">%s aplikacji zakolejkowanych do modyfikacji</item>
+        <item quantity="other">%s aplikacji zakolejkowanych do modyfikacji</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s aplikacja może zostać ponownie zmodyfikowana</item>
         <item quantity="few">%s aplikacje mogą zostać ponownie zmodyfikowane</item>

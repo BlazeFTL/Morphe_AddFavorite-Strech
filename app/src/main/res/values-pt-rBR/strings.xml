@@ -461,7 +461,7 @@ Para obter os melhores resultados, este aplicativo recomenda corrigir um(a) &lt;
     <string name="batch_patch_state_no_patches">Sem patches</string>
     <string name="batch_patch_policy_install">Instalar quando terminar</string>
     <string name="batch_patch_policy_install_description">Instala cada aplicativo corrigido logo após a fila terminar. Desativar mantém os APKs para mais tarde</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Começo</string>
     <string name="batch_patch_stop_title">Parar a aplicação de patches em lote?</string>
     <string name="batch_patch_stop_description">O aplicativo que está sendo corrigido agora e tudo o que ainda está na fila será cancelado</string>
@@ -470,6 +470,10 @@ Para obter os melhores resultados, este aplicativo recomenda corrigir um(a) &lt;
     <string name="batch_patch_install_failed">Falha ao instalar</string>
     <string name="batch_patch_in_progress">A aplicação de patches em lote já está em execução</string>
     <string name="batch_patch_nothing_outdated">Todos os aplicativos patcheados estão atualizados</string>
+    <string name="batch_queue_add_action">Adicionar à fila</string>
+    <string name="batch_queue_pending_subtitle">Toque para revisar e iniciar</string>
+    <string name="batch_queue_clear_title">Limpar a fila?</string>
+    <string name="batch_queue_clear_description">Todos os aplicativos serão removidos da fila</string>
     <string name="shortcut_repatch_short">Reaplicar patches</string>
     <string name="shortcut_repatch_long">Refazer o patch dos aplicativos desatualizados</string>
     <string name="shortcut_check_updates_short">Verificar atualizações</string>

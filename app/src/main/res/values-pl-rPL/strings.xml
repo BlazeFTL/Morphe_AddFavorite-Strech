@@ -462,7 +462,7 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="batch_patch_state_no_patches">Brak modyfikacji</string>
     <string name="batch_patch_policy_install">Zainstaluj po zakończeniu</string>
     <string name="batch_patch_policy_install_description">Instaluje każdą zmodyfikowaną aplikację zaraz po zakończeniu kolejki. Wyłączenie zachowa pliki APK na później</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Zatrzymać modyfikowanie grupowe?</string>
     <string name="batch_patch_stop_description">Aktualnie modyfikowana aplikacja i wszystkie pozostałe w kolejce zostaną anulowane</string>
@@ -471,6 +471,10 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="batch_patch_install_failed">Instalacja nie powiodła się</string>
     <string name="batch_patch_in_progress">Modyfikowanie grupowe już trwa</string>
     <string name="batch_patch_nothing_outdated">Wszystkie zmodyfikowane aplikacje są aktualne</string>
+    <string name="batch_queue_add_action">Dodaj do kolejki</string>
+    <string name="batch_queue_pending_subtitle">Dotknij, aby przejrzeć i rozpocząć</string>
+    <string name="batch_queue_clear_title">Wyczyścić kolejkę?</string>
+    <string name="batch_queue_clear_description">Wszystkie aplikacje zostaną usunięte z kolejki</string>
     <string name="shortcut_repatch_short">Zmodyfikuj ponownie</string>
     <string name="shortcut_repatch_long">Zmodyfikuj ponownie nieaktualne aplikacje</string>
     <string name="shortcut_check_updates_short">Sprawdź aktualizacje</string>

@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">لا توجد تعديلات</string>
     <string name="batch_patch_policy_install">التثبيت عند الانتهاء</string>
     <string name="batch_patch_policy_install_description">يقوم بتثبيت كل تطبيق تم تعديله مباشرة بعد انتهاء قائمة الإنتظار. وعند الإيقاف، تُحفظ ملفات APK للاستخدام لاحقًا</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">بدء</string>
     <string name="batch_patch_stop_title">إيقاف تعديل عدة تطبيقات؟</string>
     <string name="batch_patch_stop_description">سيتم إلغاء التطبيق الذي يتم تعديله الآن، مع كل العناصر المتبقية في قائمة الانتظار</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">فشل التثبيت</string>
     <string name="batch_patch_in_progress">عملية التعديل على دفعات قيد التشغيل بالفعل</string>
     <string name="batch_patch_nothing_outdated">كل التطبيقات التي تم تعديلها محدثة</string>
+    <string name="batch_queue_add_action">إضافة إلى قائمة الانتظار</string>
+    <string name="batch_queue_pending_subtitle">انقر للمراجعة والبدء</string>
+    <string name="batch_queue_clear_title">مسح قائمة الانتظار؟</string>
+    <string name="batch_queue_clear_description">سيتم إزالة جميع التطبيقات من قائمة الانتظار</string>
     <string name="shortcut_repatch_short">إعادة التعديل</string>
     <string name="shortcut_repatch_long">إعادة تعديل التطبيقات غير المحدثة</string>
     <string name="shortcut_check_updates_short">التحقق من التحديثات</string>

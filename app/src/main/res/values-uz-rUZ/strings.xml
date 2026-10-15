@@ -439,7 +439,7 @@ Eng yaxshi natijalar uchun ushbu ilova to‘liq &lt;b&gt;APK&lt;/b&gt;ni patchla
     <string name="batch_patch_state_no_patches">Hozircha patch qilinmagan</string>
     <string name="batch_patch_policy_install">Tugagandan so‘ng o‘rnating</string>
     <string name="batch_patch_policy_install_description">APK larimiz keyinroq uchun saqlanib qoladi, navbat tugagandan so‘ng har bir ta’mirlangan ilova to‘g‘ridan-to‘g‘ri o‘rnatiladi</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Boshlash</string>
     <string name="batch_patch_stop_title">Ommaviy ta’mirlashni to‘xtatmoqchimisiz?</string>
     <string name="batch_patch_stop_description">Hozir ta’mirlanayotgan ilova va hamma navbatdagi barcha ilovalar bekor qilinadi</string>

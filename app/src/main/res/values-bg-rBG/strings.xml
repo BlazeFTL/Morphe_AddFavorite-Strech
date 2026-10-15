@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">Няма пачове</string>
     <string name="batch_patch_policy_install">Инсталиране при завършване</string>
     <string name="batch_patch_policy_install_description">Инсталира всяко закърпено приложение веднага след като приключи опашката. Изключването запазва APK файловете за по-късно</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Начало</string>
     <string name="batch_patch_stop_title">Спиране на пакетното закърпване?</string>
     <string name="batch_patch_stop_description">Приложението, което се закърпва в момента, и всичко, което е опашката, ще бъдат отменени</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">Инсталирането не успя</string>
     <string name="batch_patch_in_progress">Пакетното закърпване вече работи</string>
     <string name="batch_patch_nothing_outdated">Всички закърпени приложения са актуални</string>
+    <string name="batch_queue_add_action">Добави в опашката</string>
+    <string name="batch_queue_pending_subtitle">Докоснете, за да прегледате и започнете</string>
+    <string name="batch_queue_clear_title">Изчистване на опашката?</string>
+    <string name="batch_queue_clear_description">Всички приложения ще бъдат премахнати от опашката</string>
     <string name="shortcut_repatch_short">Презакачване</string>
     <string name="shortcut_repatch_long">Презакачване на остарели приложения</string>
     <string name="shortcut_check_updates_short">Проверка за актуализации</string>

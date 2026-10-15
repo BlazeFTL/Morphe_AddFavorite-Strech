@@ -437,7 +437,7 @@ Ji bo mezgînî, ev sepan pêşniyar dike ku paketek &lt;b&gt;full APK&lt;/b&gt;
     <string name="batch_patch_state_no_patches">Patch ne hene</string>
     <string name="batch_patch_policy_install">Piştî qedibûna hemûyan saz bike</string>
     <string name="batch_patch_policy_install_description">Her sepa patchkirî piştî qedibûna rêzê rasterast saz dike. Vêalî APKan ji bo paşê dîsa dijîtine</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Destpêk</string>
     <string name="batch_patch_stop_title">Êdî patchkirina batchê rawestîne?</string>
     <string name="batch_patch_stop_description">Sepa ku niha tê patchkirin û her tiştê ku dîsa hatî plan kirin, hatî betal kirin</string>

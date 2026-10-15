@@ -461,7 +461,7 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="batch_patch_state_no_patches">Walang mga patch</string>
     <string name="batch_patch_policy_install">I-install kapag tapos na</string>
     <string name="batch_patch_policy_install_description">I-i-install ang bawat na-patch na app pagkatapos ng queue. Off ay nagpapanatili sa mga APK para sa ibang pagkakataon</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Simula</string>
     <string name="batch_patch_stop_title">Itigil ang batch patching?</string>
     <string name="batch_patch_stop_description">Ang app na kasalukuyang pine-patch at lahat ng naka-queue ay kakanselahin</string>
@@ -470,6 +470,10 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="batch_patch_install_failed">Nabigong i-install</string>
     <string name="batch_patch_in_progress">Kasulukuyang tumatakbo ang batch patching</string>
     <string name="batch_patch_nothing_outdated">Ang bawat na-patch na app ay napapanahon</string>
+    <string name="batch_queue_add_action">Idagdag sa pila</string>
+    <string name="batch_queue_pending_subtitle">I-tap para suriin at simulan</string>
+    <string name="batch_queue_clear_title">Linisin ang pila?</string>
+    <string name="batch_queue_clear_description">Aalisin lahat ng app mula sa pila</string>
     <string name="shortcut_repatch_short">I-re-patch</string>
     <string name="shortcut_repatch_long">I-re-patch ang mga hindi napapanahong app</string>
     <string name="shortcut_check_updates_short">Suriin ang mga update</string>

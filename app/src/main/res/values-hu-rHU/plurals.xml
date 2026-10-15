@@ -71,6 +71,10 @@
         <item quantity="one">%s alkalmazás javításra kész</item>
         <item quantity="other">%s alkalmazás javításra kész</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s app sorolva a javításhoz</item>
+        <item quantity="other">%s app sorolva a javításhoz</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s alkalmazás újrafoltozható</item>
         <item quantity="other">%s alkalmazás újrafoltozható</item>

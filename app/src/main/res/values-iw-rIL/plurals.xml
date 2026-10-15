@@ -88,6 +88,11 @@
         <item quantity="two">%s אפליקציות מוכנות לתיקון</item>
         <item quantity="other">%s אפליקציות מוכנות לתיקון</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">אפליקציה %s נמצאת בתור להתקנת תיקון</item>
+        <item quantity="two">שתי אפליקציות %s נמצאות בתור להתקנת תיקון</item>
+        <item quantity="other">אפליקציות %s נמצאות בתור להתקנת תיקון</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s אפליקציה ניתנת לתיקון מחדש</item>
         <item quantity="two">%s אפליקציות נתתות לתיקון מחדש</item>

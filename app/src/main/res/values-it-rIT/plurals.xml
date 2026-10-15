@@ -71,6 +71,10 @@
         <item quantity="one">%s applicazione pronta per la modifica</item>
         <item quantity="other">%s applicazioni pronte per le modifiche</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s app pronta per la modifica</item>
+        <item quantity="other">%s app pronte per la modifica</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s applicazione può essere rimodificata</item>
         <item quantity="other">%s applicazioni possono essere rimodificate</item>

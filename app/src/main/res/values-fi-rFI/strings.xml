@@ -462,7 +462,7 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="batch_patch_state_no_patches">Ei korjauksia</string>
     <string name="batch_patch_policy_install">Asenna valmistuttua</string>
     <string name="batch_patch_policy_install_description">Asentaa jokaisen korjatun sovelluksen heti jonon valmistuttua. Pois käytöstä pitää APK-tiedostot myöhempää käyttöä varten</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Alku</string>
     <string name="batch_patch_stop_title">Lopeta eräkorjaus?</string>
     <string name="batch_patch_stop_description">Tällä hetkellä korjattava sovellus ja kaikki vielä jonossa olevat sovellukset peruutetaan</string>
@@ -471,6 +471,10 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="batch_patch_install_failed">Asennus epäonnistui</string>
     <string name="batch_patch_in_progress">Eräkorjaus on jo käynnissä</string>
     <string name="batch_patch_nothing_outdated">Kaikki korjatut sovellukset ovat ajan tasalla</string>
+    <string name="batch_queue_add_action">Lisää jonohon</string>
+    <string name="batch_queue_pending_subtitle">Katsastus ja aloitus</string>
+    <string name="batch_queue_clear_title">Tyhjennetäänkö jono?</string>
+    <string name="batch_queue_clear_description">Sovellukset poistetaan jonosta</string>
     <string name="shortcut_repatch_short">Korjaa uudelleen</string>
     <string name="shortcut_repatch_long">Korjaa vanhentuneet sovellukset</string>
     <string name="shortcut_check_updates_short">Tarkista päivitykset</string>

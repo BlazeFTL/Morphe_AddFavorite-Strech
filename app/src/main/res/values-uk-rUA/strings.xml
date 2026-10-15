@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">Немає патчів</string>
     <string name="batch_patch_policy_install">Встановити після завершення</string>
     <string name="batch_patch_policy_install_description">Встановлює кожен пропатчений застосунок одразу після завершення черги. Вимкнення зберігає APK на потім</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Почати</string>
     <string name="batch_patch_stop_title">Зупинити пакетний патчинг?</string>
     <string name="batch_patch_stop_description">Застосунок, що патчиться зараз, і все, що ще в черзі, буде скасовано</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">Встановлення не вдалося</string>
     <string name="batch_patch_in_progress">Пакетний патчинг вже виконується</string>
     <string name="batch_patch_nothing_outdated">Усі пропатчені застосунки актуальні</string>
+    <string name="batch_queue_add_action">Додати до черги</string>
+    <string name="batch_queue_pending_subtitle">Натисніть, щоб переглянути та почати</string>
+    <string name="batch_queue_clear_title">Очистити чергу?</string>
+    <string name="batch_queue_clear_description">Усі застосунки буде видалено з черги</string>
     <string name="shortcut_repatch_short">Перепатчити</string>
     <string name="shortcut_repatch_long">Перепатчити застарілі застосунки</string>
     <string name="shortcut_check_updates_short">Перевірити оновлення</string>

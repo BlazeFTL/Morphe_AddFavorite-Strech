@@ -88,6 +88,16 @@
         <item quantity="few">%s aplikacije spremne za patchanje</item>
         <item quantity="other">%s aplikacija spremno za patchanje</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s aplikacija u redu za zakrpljivanje</item>
+        <item quantity="few">%s aplikacije u redu za zakrpljivanje</item>
+        <item quantity="other">%s aplikacija u redu za zakrpljivanje</item>
+    </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s skrivljena obavijest, dodirnite da je prikažete</item>
+        <item quantity="few">%s skrivljene obavijesti, dodirnite da ih prikažete</item>
+        <item quantity="other">%s skrivljenih obavijesti, dodirnite da ih prikažete</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s aplikacija može biti ponovno patchana</item>
         <item quantity="few">%s aplikacije mogu biti ponovno patchane</item>

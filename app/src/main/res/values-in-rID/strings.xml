@@ -462,7 +462,7 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="batch_patch_state_no_patches">Tidak ada tambalan</string>
     <string name="batch_patch_policy_install">Pasang setelah selesai</string>
     <string name="batch_patch_policy_install_description">Pasang setiap aplikasi yang ditambal segera setelah antrean selesai. Jika nonaktif, APK akan disimpan untuk nanti</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Mulai</string>
     <string name="batch_patch_stop_title">Hentikan penambalan massal?</string>
     <string name="batch_patch_stop_description">Aplikasi yang sedang ditambal saat ini dan semua yang masih dalam antrean akan dibatalkan</string>
@@ -471,6 +471,10 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="batch_patch_install_failed">Pemasangan gagal</string>
     <string name="batch_patch_in_progress">Penambalan massal sedang berjalan</string>
     <string name="batch_patch_nothing_outdated">Semua aplikasi yang ditambal sudah versi terbaru</string>
+    <string name="batch_queue_add_action">Tambahkan ke antrean</string>
+    <string name="batch_queue_pending_subtitle">Ketuk untuk meninjau dan memulai</string>
+    <string name="batch_queue_clear_title">Bersihkan antrean?</string>
+    <string name="batch_queue_clear_description">Semua aplikasi akan dihapus dari antrean</string>
     <string name="shortcut_repatch_short">Tambal ulang</string>
     <string name="shortcut_repatch_long">Tambal ulang aplikasi usang</string>
     <string name="shortcut_check_updates_short">Periksa pembaruan</string>

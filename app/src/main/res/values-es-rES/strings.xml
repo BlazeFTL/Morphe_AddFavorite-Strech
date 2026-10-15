@@ -461,7 +461,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="batch_patch_state_no_patches">Sin parches</string>
     <string name="batch_patch_policy_install">Instalar al finalizar</string>
     <string name="batch_patch_policy_install_description">Instala cada aplicación parcheada en cuanto finaliza la cola. Desactivado conserva los APK para más tarde</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Comenzar</string>
     <string name="batch_patch_stop_title">¿Detener el parcheo por lotes?</string>
     <string name="batch_patch_stop_description">Se cancelará la aplicación que se está parcheando ahora y todo lo que esté en la cola</string>
@@ -470,6 +470,10 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="batch_patch_install_failed">Error al instalar</string>
     <string name="batch_patch_in_progress">El parcheo por lotes ya está en ejecución</string>
     <string name="batch_patch_nothing_outdated">Todas las aplicaciones parcheadas están actualizadas</string>
+    <string name="batch_queue_add_action">Añadir a la cola</string>
+    <string name="batch_queue_pending_subtitle">Toca para revisar y comenzar</string>
+    <string name="batch_queue_clear_title">¿Borrar la cola?</string>
+    <string name="batch_queue_clear_description">Todas las aplicaciones se eliminarán de la cola</string>
     <string name="shortcut_repatch_short">Reparchear</string>
     <string name="shortcut_repatch_long">Reparchear aplicaciones desactualizadas</string>
     <string name="shortcut_check_updates_short">Buscar actualizaciones</string>

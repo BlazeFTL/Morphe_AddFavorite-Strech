@@ -71,6 +71,14 @@
         <item quantity="one">Ang %s app ay handa nang i-patch</item>
         <item quantity="other">Ang %s apps ay handa nang i-patch</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s app queued for patching</item>
+        <item quantity="other">%s apps queued for patching</item>
+    </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s itaong notification, i-tap para ipakita ito</item>
+        <item quantity="other">%s itaong notifications, i-tap para ipakita sila</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s app ay maaaring i-repatch</item>
         <item quantity="other">%s apps ay maaaring i-repatch</item>

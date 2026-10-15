@@ -461,7 +461,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="batch_patch_state_no_patches">Inga tillägg</string>
     <string name="batch_patch_policy_install">Installera när modifieringen är klar</string>
     <string name="batch_patch_policy_install_description">Installerar alla modifierade appar direkt efter att kön är klar. Om det här alternativet är inaktiverat sparas APK-filerna till senare.</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Starta</string>
     <string name="batch_patch_stop_title">Stoppa gruppmodifiering?</string>
     <string name="batch_patch_stop_description">Den app som modifieras just nu och allt som fortfarande står i kön avbryts</string>
@@ -470,6 +470,10 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="batch_patch_install_failed">Installationen misslyckades</string>
     <string name="batch_patch_in_progress">Gruppmodifiering körs redan</string>
     <string name="batch_patch_nothing_outdated">Alla modifierade appar är uppdaterade</string>
+    <string name="batch_queue_add_action">Lägg till i kön</string>
+    <string name="batch_queue_pending_subtitle">Tryck för att granska och starta</string>
+    <string name="batch_queue_clear_title">Rensa kön?</string>
+    <string name="batch_queue_clear_description">Alla appar kommer att tas bort från kön</string>
     <string name="shortcut_repatch_short">Modifiera igen</string>
     <string name="shortcut_repatch_long">Modifiera inaktuella appar igen</string>
     <string name="shortcut_check_updates_short">Sök efter uppdateringar</string>

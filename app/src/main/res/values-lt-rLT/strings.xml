@@ -461,7 +461,7 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="batch_patch_state_no_patches">Nėra pataisų</string>
     <string name="batch_patch_policy_install">Įdiegti, kai baigsis</string>
     <string name="batch_patch_policy_install_description">Įdiegia kiekvieną pataisytą programą iškart po eilės pabaigos. Išjungus APK išsaugomi vėlesniam laikui</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Pradėti</string>
     <string name="batch_patch_stop_title">Sustabdyti paketinį pataisymą?</string>
     <string name="batch_patch_stop_description">Šiuo metu pataisoma programa ir viskas, kas dar laukia eilėje, bus atšaukta</string>
@@ -470,6 +470,10 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="batch_patch_install_failed">Diegimas nepavyko</string>
     <string name="batch_patch_in_progress">Paketinis pataisymas jau vykdomas</string>
     <string name="batch_patch_nothing_outdated">Visos pataisytos programos yra atnaujintos</string>
+    <string name="batch_queue_add_action">Pridėti į eilę</string>
+    <string name="batch_queue_pending_subtitle">Paspauskite, kad peržiūrėtumėte ir pradėtumėte</string>
+    <string name="batch_queue_clear_title">Išvalyti eilę?</string>
+    <string name="batch_queue_clear_description">Visos programėlės bus pašalintos iš eilės</string>
     <string name="shortcut_repatch_short">Pataisyti iš naujo</string>
     <string name="shortcut_repatch_long">Iš naujo pataisyti pasenusias programas</string>
     <string name="shortcut_check_updates_short">Patikrinti atnaujinimus</string>

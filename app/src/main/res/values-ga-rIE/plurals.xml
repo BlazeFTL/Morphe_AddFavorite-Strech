@@ -122,6 +122,13 @@
         <item quantity="many">%s aipeanna réidh le paisteáil</item>
         <item quantity="other">%s aipeanna réidh le paisteáil</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">Cuardaíonn %s aip le paisteáil</item>
+        <item quantity="two">Cuardaíonn %s aipeanna le paisteáil</item>
+        <item quantity="few">Cuardaíonn %s aipeanna le paisteáil</item>
+        <item quantity="many">Cuardaíonn %s aipeanna le paisteáil</item>
+        <item quantity="other">Cuardaíonn %s aipeanna le paisteáil</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">Is féidir %s aip a phaisteáil arís</item>
         <item quantity="two">Is féidir %s aip a phaisteáil arís</item>

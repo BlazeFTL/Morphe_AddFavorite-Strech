@@ -71,6 +71,10 @@
         <item quantity="one">%s app klar for patching</item>
         <item quantity="other">%s apper klare for patching</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s app køet for patching</item>
+        <item quantity="other">%s apps køet for patching</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s app kan patches på nytt</item>
         <item quantity="other">%s apper kan patches på nytt</item>

@@ -105,6 +105,12 @@
         <item quantity="many">%s programų paruošta pataisymui</item>
         <item quantity="other">%s programų paruošta pataisymui</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s app queued for patching</item>
+        <item quantity="few">%s apps queued for patching</item>
+        <item quantity="many">%s apps queued for patching</item>
+        <item quantity="other">%s apps queued for patching</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s programa gali būti pataisyta iš naujo</item>
         <item quantity="few">%s programos gali būti pataisytos iš naujo</item>

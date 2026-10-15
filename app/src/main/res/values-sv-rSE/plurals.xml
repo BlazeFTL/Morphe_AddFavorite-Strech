@@ -71,6 +71,10 @@
         <item quantity="one">%s app är redo att modifieras</item>
         <item quantity="other">%s appar är redo att modifieras</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s app köad för patchning</item>
+        <item quantity="other">%s appar köade för patchning</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s app kan modifieras igen</item>
         <item quantity="other">%s appar kan modifieras igen</item>

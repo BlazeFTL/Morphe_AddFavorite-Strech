@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">कोई पैच नहीं</string>
     <string name="batch_patch_policy_install">पूरा होने पर इंस्टॉल करें</string>
     <string name="batch_patch_policy_install_description">क्यू खत्म होने के तुरंत बाद हर पैच किए गए ऐप को इंस्टॉल करता है। बंद रखने से APK बाद के लिए बच जाते हैं</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">शुरू करें</string>
     <string name="batch_patch_stop_title">बैच पैचिंग रोकें?</string>
     <string name="batch_patch_stop_description">अभी पैच किया जा रहा ऐप और सब कुछ अभी भी कतारबद्ध है, रद्द कर दिया जाएगा</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">इंस्टॉल करने में विफल</string>
     <string name="batch_patch_in_progress">बैच पैचिंग पहले से ही चल रही है</string>
     <string name="batch_patch_nothing_outdated">प्रत्येक पैच किया गया ऐप अप टू डेट है</string>
+    <string name="batch_queue_add_action">कतार में जोड़ें</string>
+    <string name="batch_queue_pending_subtitle">समीक्षा करने के लिए टैप करें और शुरू करें</string>
+    <string name="batch_queue_clear_title">कतार साफ़ करें?</string>
+    <string name="batch_queue_clear_description">सभी ऐप्स कतार से हटा दिए जाएंगे</string>
     <string name="shortcut_repatch_short">पुन: पैच करें</string>
     <string name="shortcut_repatch_long">आउटडेटेड ऐप्स को पुन: पैच करें</string>
     <string name="shortcut_check_updates_short">अपडेट जांचें</string>

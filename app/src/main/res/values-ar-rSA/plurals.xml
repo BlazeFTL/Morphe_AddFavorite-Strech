@@ -139,6 +139,22 @@
         <item quantity="many">%s تطبيق جاهز للتعديل</item>
         <item quantity="other">%s تطبيق جاهز للتعديل</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="zero">%s تطبيق في قائمة الانتظار للتعديل</item>
+        <item quantity="one">%s تطبيق جاهز للتعديل</item>
+        <item quantity="two">%s تطبيقين جاهزين للتعديل</item>
+        <item quantity="few">%s تطبيقات جاهزة للتعديل</item>
+        <item quantity="many">%s تطبيق جاهز للتعديل</item>
+        <item quantity="other">%s تطبيقاً جاهزاً للتعديل</item>
+    </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="zero">%s إشعارات مخفية، انقر لعرضها</item>
+        <item quantity="one">%s إشعار مخفي، انقر لعرضه</item>
+        <item quantity="two">%s إشعارين مخفيين، انقر لعرضهما</item>
+        <item quantity="few">%s إشعارات مخفية، انقر لعرضها</item>
+        <item quantity="many">%s إشعارًا مخفيًا، انقر لعرضه</item>
+        <item quantity="other">%s إشعارات مخفية، انقر لعرضها</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="zero">%s تطبيق يمكن إعادة تعديله</item>
         <item quantity="one">%s تطبيق يمكن إعادة تعديله</item>

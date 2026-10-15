@@ -461,7 +461,7 @@
     <string name="batch_patch_state_no_patches">কোনো প্যাচ নেই</string>
     <string name="batch_patch_policy_install">শেষ হলে ইনস্টল করুন</string>
     <string name="batch_patch_policy_install_description">সারিবদ্ধ শেষ হওয়ার সাথে সাথেই প্রতিটি প্যাচ করা অ্যাপ ইনস্টল করে। বন্ধ করলে APKগুলি পরে ব্যবহারের জন্য সেভ করা থাকবে</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">শুরু</string>
     <string name="batch_patch_stop_title">ব্যাচ প্যাচিং বন্ধ করবেন?</string>
     <string name="batch_patch_stop_description">বর্তমানে প্যাচ করা অ্যাপ এবং সারিতে থাকা সবকিছু বাতিল করা হবে</string>
@@ -470,6 +470,10 @@
     <string name="batch_patch_install_failed">ইনস্টল করতে ব্যর্থ</string>
     <string name="batch_patch_in_progress">ব্যাচ প্যাচিং ইতিমধ্যে চলছে</string>
     <string name="batch_patch_nothing_outdated">প্রতিটি প্যাচ করা অ্যাপ আপ টু ডেট</string>
+    <string name="batch_queue_add_action">ভিডিও তালিকায় যুক্ত করুন</string>
+    <string name="batch_queue_pending_subtitle">সমীক্ষা করে শুরু করতে ট্যাপ করুন</string>
+    <string name="batch_queue_clear_title">কিউ পরিষ্কার করবেন?</string>
+    <string name="batch_queue_clear_description">সব অ্যাপ কিউ থেকে সরানো হবে</string>
     <string name="shortcut_repatch_short">পুনরায় প্যাচ করুন</string>
     <string name="shortcut_repatch_long">পুরানো অ্যাপগুলি পুনরায় প্যাচ করুন</string>
     <string name="shortcut_check_updates_short">আপডেটগুলি দেখুন</string>

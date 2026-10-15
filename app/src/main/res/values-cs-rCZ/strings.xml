@@ -461,7 +461,7 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="batch_patch_state_no_patches">Žádné záplaty</string>
     <string name="batch_patch_policy_install">Nainstalovat po dokončení</string>
     <string name="batch_patch_policy_install_description">Po dokončení fronty se nainstalují všechny záplatované aplikace. Vypnuto ponechá APK pro pozdější použití</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Začít</string>
     <string name="batch_patch_stop_title">Zastavit dávkové záplatování?</string>
     <string name="batch_patch_stop_description">Aplikace, která je právě záplatována, a vše, co je ve frontě, bude zrušeno</string>
@@ -470,6 +470,10 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="batch_patch_install_failed">Instalace selhala</string>
     <string name="batch_patch_in_progress">Dávkové záplatování již běží</string>
     <string name="batch_patch_nothing_outdated">Všechny záplatované aplikace jsou aktuální</string>
+    <string name="batch_queue_add_action">Přidat do fronty</string>
+    <string name="batch_queue_pending_subtitle">Klepnutím pro kontrolu a spuštění</string>
+    <string name="batch_queue_clear_title">Vymazat frontu?</string>
+    <string name="batch_queue_clear_description">Aplikace budou odstraněny z fronty</string>
     <string name="shortcut_repatch_short">Znovu záplatovat</string>
     <string name="shortcut_repatch_long">Znovu záplatovat zastaralé aplikace</string>
     <string name="shortcut_check_updates_short">Zkontrolovat aktualizace</string>

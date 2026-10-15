@@ -71,6 +71,14 @@
         <item quantity="one">%s app gereed om te patsj</item>
         <item quantity="other">%s toepassings gereed om te patsj</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="one">%s app word gekooi vir flikkers</item>
+        <item quantity="other">%s apps is gekooi vir flikkers</item>
+    </plurals>
+    <plurals name="home_alerts_snoozed_count">
+        <item quantity="one">%s verborge notificasie, tik om dit te wys</item>
+        <item quantity="other">%s verborge notificasies, tik om hulle te wys</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s app kan weer gepatch word</item>
         <item quantity="other">%s apps kan weer gepatch word</item>

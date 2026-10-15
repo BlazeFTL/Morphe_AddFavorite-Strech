@@ -54,6 +54,9 @@
     <plurals name="batch_patch_ready_count">
         <item quantity="other">%s aplikasi siap ditambal</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="other">%s aplikasi antri untuk ditambal</item>
+    </plurals>
     <plurals name="repatch_available_count">
         <item quantity="other">%s aplikasi dapat di-tambal ulang</item>
     </plurals>

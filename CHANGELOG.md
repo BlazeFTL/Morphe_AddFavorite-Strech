@@ -1,3 +1,16 @@
+# [1.36.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.5...v1.36.0-dev.6) (2026-10-15)
+
+
+### Bug Fixes
+
+* Leave the apps already queued out of the repatch alert ([efe1ffb](https://github.com/MorpheApp/morphe-manager/commit/efe1ffb5ed482857dddb38ce398f55b3aac55b18))
+* Show the root cause of a failed patch instead of its dependency wrapper ([e5dfe73](https://github.com/MorpheApp/morphe-manager/commit/e5dfe7350f56f748e3bb15d3a3195b08fc46b2fe))
+
+
+### Features
+
+* Drag the home alert stack open and shut ([afd2a66](https://github.com/MorpheApp/morphe-manager/commit/afd2a667aca5b18d4ff4732054ec5d144a3de890))
+
 # [1.36.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.4...v1.36.0-dev.5) (2026-10-15)
 
 

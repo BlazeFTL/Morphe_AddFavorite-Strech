@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.home
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Sort
 import androidx.compose.material.icons.outlined.*
@@ -91,11 +90,7 @@ fun HomeBottomActionBar(
     )
 
     FloatingPillBar(items = items, modifier = modifier) {
-        AnimatedVisibility(
-            visible = showOtherAppsButton,
-            enter = Animations.expandHorizFadeIn,
-            exit = Animations.shrinkHorizFadeOut
-        ) {
+        AnimatedRowPill(visible = showOtherAppsButton) {
             FloatingPillRoundAction(
                 icon = Icons.Outlined.FileOpen,
                 label = otherAppsLabel,

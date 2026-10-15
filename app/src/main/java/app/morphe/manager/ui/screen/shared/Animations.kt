@@ -98,6 +98,13 @@ object Animations {
     val expandHorizFadeIn = expandHorizontally(defaultTween()) + fadeIn
     val shrinkHorizFadeOut = shrinkHorizontally(defaultTween()) + fadeOut
 
+    // A pill in a row of them, its slot opening and closing while it scales as a whole, rather
+    // than being cut off along one edge as a clipped expand would
+    val pillEnter = fadeIn + scaleIn(defaultTween(), initialScale = 0.6f) +
+            expandHorizontally(defaultTween(), clip = false)
+    val pillExit = fadeOut + scaleOut(defaultTween(), targetScale = 0.6f) +
+            shrinkHorizontally(defaultTween(), clip = false)
+
     const val STAGGER_STEP = 40
     private const val STAGGER_MAX_STEPS = 8
 

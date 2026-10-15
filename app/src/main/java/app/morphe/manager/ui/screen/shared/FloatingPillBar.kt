@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
@@ -95,7 +96,8 @@ fun FloatingPillBar(
                 .fillMaxWidth()
                 .padding(horizontal = horizontalPadding)
                 .padding(bottom = Defaults.ItemSpacing),
-            horizontalArrangement = Arrangement.spacedBy(FloatingPillSpacing, Alignment.CenterHorizontally),
+            // No spacing of its own: a trailing action brings its gap along, see [AnimatedRowPill]
+            horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Surface(
@@ -140,6 +142,20 @@ fun FloatingPillBar(
             }
 
             trailing()
+        }
+    }
+}
+
+/**
+ * A pill of a row shown while [visible], scaling in and out together with the [gap] before it.
+ * A row's own spacing would hold that gap until the pill is gone and then drop it at once.
+ */
+@Composable
+fun AnimatedRowPill(visible: Boolean, gap: Dp = FloatingPillSpacing, content: @Composable () -> Unit) {
+    AnimatedVisibility(visible = visible, enter = Animations.pillEnter, exit = Animations.pillExit) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Spacer(modifier = Modifier.width(gap))
+            content()
         }
     }
 }

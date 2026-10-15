@@ -8,6 +8,8 @@ package app.morphe.manager.ui.screen.home
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
@@ -35,11 +37,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.batch.BatchRunState
@@ -68,7 +72,7 @@ data class RepatchAlertState(val count: Int, val visible: Boolean, val onShow: (
 @Immutable
 data class BatchQueueAlertState(val run: BatchRunState?, val saved: SavedBatchQueue?, val onShow: () -> Unit)
 
-/** Transient state driving the bundle-update progress snackbar. */
+/** Transient state driving the bundle update alert, from its progress to how it ended. */
 @Immutable
 data class BundleUpdateState(
     val visible: Boolean,
@@ -96,6 +100,8 @@ data class HomeNotificationsUi(
  * @param snoozable Whether a swipe may put it away. Alerts that are the only way back to running
  *   work, or that block patching outright, stay put.
  * @param revision Changes when the alert has something new to say, which brings a snoozed one back.
+ * @param passing Whether it only reports on something under way, which a swipe puts away for good
+ *   rather than behind the bell, since brought back it would have nothing left to say.
  */
 private class HomeAlert(
     val key: String,
@@ -103,6 +109,7 @@ private class HomeAlert(
     val tone: SemanticTone,
     val snoozable: Boolean = true,
     val revision: String = "",
+    val passing: Boolean = false,
     val card: @Composable () -> Unit
 )
 
@@ -128,10 +135,17 @@ fun NotificationsOverlay(
 
     fun HomeAlert.isSnoozed() = snoozable && snoozed[key] == revision
     val active = alerts.filter { it.visible && !it.isSnoozed() }
-    val snoozedCount = alerts.count { it.visible && it.isSnoozed() }
+    val snoozedCount = alerts.count { it.visible && !it.passing && it.isSnoozed() }
+    val passingKeys = alerts.filter { it.passing }.mapTo(HashSet()) { it.key }
     val stacked = active.size - 1
 
     LaunchedEffect(stacked) { if (stacked <= 0) expanded.value = false }
+    // A swipe on the folded stack hands its place to the alert drawn beneath it, so the two swap
+    // in place. Kept until another alert comes on top, since a transition must not change midway
+    val handoff = remember { mutableStateOf<StackHandoff?>(null) }
+    val topKey = active.firstOrNull()?.key
+    LaunchedEffect(topKey) { if (handoff.value?.revealed != topKey) handoff.value = null }
+
     // Eased in step with the cards, so the chips ride down with the last one as it leaves
     val hang = animateFloatAsState(
         targetValue = if (active.isEmpty()) 0f else 1f,
@@ -147,30 +161,44 @@ fun NotificationsOverlay(
             key(alert.key) {
                 AnimatedVisibility(
                     visible = alert in active && (isTop || expanded.value),
-                    enter = Animations.slideUpFadeEnter,
-                    exit = Animations.slideUpFadeExit,
+                    enter = if (alert.key == handoff.value?.revealed) EnterTransition.None
+                    else Animations.slideUpFadeEnter,
+                    // A swiped card has already left sideways, so only its slot closes after it
+                    exit = when {
+                        alert.key == handoff.value?.swiped -> ExitTransition.None
+                        alert.isSnoozed() -> Animations.shrinkFadeExit
+                        else -> Animations.slideUpFadeExit
+                    },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Column(modifier = Modifier.padding(bottom = AlertSpacing)) {
+                    val beneath = active.getOrNull(1)?.takeIf { isTop && !expanded.value }
+                    Box(modifier = Modifier.padding(bottom = AlertSpacing)) {
                         SwipeAway(
                             enabled = alert.snoozable,
-                            onSwiped = { snoozed[alert.key] = alert.revision }
+                            onSwiped = {
+                                if (beneath != null) handoff.value = StackHandoff(alert.key, beneath.key)
+                                snoozed[alert.key] = alert.revision
+                            },
+                            background = beneath?.card
                         ) {
                             alert.card()
-                        }
-                        AnimatedVisibility(
-                            visible = isTop && !expanded.value && stacked > 0,
-                            enter = Animations.expandFadeEnter,
-                            exit = Animations.shrinkFadeExit
-                        ) {
-                            StackEdges(
-                                tones = active.drop(1).take(2).map { it.tone },
-                                onClick = { expanded.value = true }
-                            )
                         }
                     }
                 }
             }
+        }
+
+        // Drawn up against the top card across its gap, as the edges of what waits behind it
+        AnimatedVisibility(
+            visible = !expanded.value && stacked > 0,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit,
+            modifier = Modifier.offset { IntOffset(0, -AlertSpacing.roundToPx()) }
+        ) {
+            StackEdges(
+                tones = active.drop(1).take(StackEdgeCount).map { it.tone },
+                onClick = { expanded.value = true }
+            )
         }
 
         // Hung on the edge of the last card, so the chips cover as little as possible of the
@@ -180,16 +208,8 @@ fun NotificationsOverlay(
             expanded = expanded.value,
             snoozedCount = snoozedCount,
             onToggleExpanded = { expanded.value = !expanded.value },
-            onRestoreSnoozed = { snoozed.clear() },
+            onRestoreSnoozed = { snoozed.keys.retainAll(passingKeys) },
             modifier = Modifier.hangOverAbove(fraction = { hang.value }, gap = AlertSpacing)
-        )
-
-        // Kept out of the stack: it only lasts while the update runs, and its progress is the point
-        BundleUpdateSnackbar(
-            visible = notifications.bundleUpdate.visible,
-            status = notifications.bundleUpdate.status,
-            progress = notifications.bundleUpdate.progress,
-            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -203,8 +223,21 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
     val batchSucceeded = (batchRun?.succeeded ?: 0) > 0
     val queuedCount = notifications.batchQueue.saved?.queuedCount ?: 0
     val repatch = notifications.repatchAvailable
+    val bundleUpdate = notifications.bundleUpdate
 
     return listOf(
+        // Leads while it lasts, so the progress of a running update stays in sight. Only how it
+        // ended can be swiped, and a new status brings it back
+        HomeAlert(
+            key = "bundle_update",
+            visible = bundleUpdate.visible,
+            tone = bundleUpdate.status.tone,
+            snoozable = bundleUpdate.status != BundleUpdateStatus.Updating,
+            revision = bundleUpdate.status.name,
+            passing = true
+        ) {
+            BundleUpdateCard(status = bundleUpdate.status, progress = bundleUpdate.progress)
+        },
         // Blocked source alert takes priority and cannot be dismissed while the block persists
         alert(
             key = "blocked_sources",
@@ -364,6 +397,10 @@ private fun alert(
     )
 }
 
+/** Swipe on the folded stack that put [swiped] away and uncovered [revealed] under it. */
+@Immutable
+private data class StackHandoff(val swiped: String, val revealed: String)
+
 /** Edges of the alerts waiting behind the top one, each in its own tone, like a deck seen side on. */
 @Composable
 private fun StackEdges(tones: List<SemanticTone>, onClick: () -> Unit) {
@@ -373,16 +410,24 @@ private fun StackEdges(tones: List<SemanticTone>, onClick: () -> Unit) {
             .fillMaxWidth()
             .clickable(onClick = onClick)
     ) {
-        tones.forEachIndexed { depth, tone ->
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Defaults.ContentPadding + StackEdgeInset * (depth + 1))
-                    .height(StackEdgeHeight)
-                    .clip(shape)
-                    .background(statusContainerColor(tone))
-                    .border(width = 1.dp, color = statusBorderColor(tone), shape = shape)
-            )
+        // Each edge folds away on its own, so the deck thins as alerts leave it
+        repeat(StackEdgeCount) { depth ->
+            AnimatedVisibility(
+                visible = depth < tones.size,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                val tone = rememberLatest(tones.getOrNull(depth)) ?: return@AnimatedVisibility
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = Defaults.ContentPadding + StackEdgeInset * (depth + 1))
+                        .height(StackEdgeHeight)
+                        .clip(shape)
+                        .background(statusContainerColor(tone))
+                        .border(width = 1.dp, color = statusBorderColor(tone), shape = shape)
+                )
+            }
         }
     }
 }
@@ -404,24 +449,16 @@ private fun AlertStackControls(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = Defaults.ContentPadding),
-        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End)
+        horizontalArrangement = Arrangement.End
     ) {
-        AnimatedVisibility(
-            visible = stacked > 0,
-            enter = Animations.expandHorizFadeIn,
-            exit = Animations.shrinkHorizFadeOut
-        ) {
+        AnimatedRowPill(visible = stacked > 0, gap = AlertSpacing) {
             AlertChip(
                 icon = if (expanded) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
                 text = if (expanded) stringResource(R.string.less) else "+$shownStacked",
                 onClick = onToggleExpanded
             )
         }
-        AnimatedVisibility(
-            visible = snoozedCount > 0,
-            enter = Animations.expandHorizFadeIn,
-            exit = Animations.shrinkHorizFadeOut
-        ) {
+        AnimatedRowPill(visible = snoozedCount > 0, gap = AlertSpacing) {
             val description = pluralStringResource(
                 R.plurals.home_alerts_snoozed_count,
                 shownSnoozed,
@@ -474,6 +511,7 @@ private fun AlertChip(
 }
 
 private val AlertSpacing = 8.dp
+private const val StackEdgeCount = 2
 private val StackEdgeInset = 12.dp
 private val StackEdgeHeight = 6.dp
 
@@ -501,27 +539,13 @@ private val SnoozeSaver = listSaver<SnapshotStateMap<String, String>, String>(
     }
 )
 
-/**
- * Bundle update snackbar.
- */
-@Composable
-fun BundleUpdateSnackbar(
-    visible: Boolean,
-    status: BundleUpdateStatus,
-    progress: PatchBundleRepository.BundleUpdateProgress?,
-    modifier: Modifier = Modifier
-) {
-    // Swipe only for terminal states, so an update in progress cannot be dismissed. A new status
-    // brings the alert back, which is how a new update cycle shows up after the last was swiped
-    DismissibleAlert(
-        visible = visible,
-        swipeEnabled = status != BundleUpdateStatus.Updating,
-        resetKey = status,
-        modifier = modifier
-    ) {
-        BundleUpdateCard(status = status, progress = progress)
+private val BundleUpdateStatus.tone: SemanticTone
+    get() = when (this) {
+        BundleUpdateStatus.Updating -> SemanticTone.Neutral
+        BundleUpdateStatus.Success -> SemanticTone.Success
+        BundleUpdateStatus.Warning -> SemanticTone.Warning
+        BundleUpdateStatus.Error -> SemanticTone.Error
     }
-}
 
 /** The card of the bundle update, from its progress while it runs to how it ended. */
 @Composable
@@ -541,13 +565,6 @@ private fun BundleUpdateCard(
         ?.let { it.completed.toFloat() / it.total }
     // Null until there is a share to show, which spins the ring rather than parking it at zero
     val ringProgress = if (isDownloading) downloadFraction else countFraction
-
-    val tone = when (status) {
-        BundleUpdateStatus.Updating -> SemanticTone.Neutral
-        BundleUpdateStatus.Success -> SemanticTone.Success
-        BundleUpdateStatus.Warning -> SemanticTone.Warning
-        BundleUpdateStatus.Error -> SemanticTone.Error
-    }
 
     val title = stringResource(
         when (status) {
@@ -583,7 +600,7 @@ private fun BundleUpdateCard(
     val activeSource = progress?.activeUids?.firstOrNull()?.let(sourcesByUid::get)
 
     StatusCard(
-        tone = tone,
+        tone = status.tone,
         title = title,
         subtitle = subtitle,
         badge = badge,
@@ -612,36 +629,14 @@ private fun BundleUpdateCard(
 }
 
 /**
- * Shows [content] while [visible], sliding it in and out, and lets a swipe put it away for the rest
- * of the session while [swipeEnabled]. A change of [resetKey] while visible brings a swiped alert
- * back.
+ * Lets [content] be swiped off either side while [enabled], reporting it through [onSwiped] once
+ * it is fully off. [background] is uncovered as it goes.
  */
-@Composable
-private fun DismissibleAlert(
-    visible: Boolean,
-    swipeEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    resetKey: Any? = null,
-    content: @Composable () -> Unit
-) {
-    val dismissed = remember { mutableStateOf(false) }
-    LaunchedEffect(visible, resetKey) { if (visible) dismissed.value = false }
-
-    AnimatedVisibility(
-        visible = visible && !dismissed.value,
-        enter = Animations.slideUpFadeEnter,
-        exit = Animations.slideUpFadeExit,
-        modifier = modifier
-    ) {
-        SwipeAway(enabled = swipeEnabled, onSwiped = { dismissed.value = true }, content = content)
-    }
-}
-
-/** Lets [content] be swiped off either side while [enabled], reporting it through [onSwiped]. */
 @Composable
 private fun SwipeAway(
     enabled: Boolean,
     onSwiped: () -> Unit,
+    background: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
     // Made anew each time the alert shows, so one swiped away earlier does not come back
@@ -649,15 +644,19 @@ private fun SwipeAway(
     val swipeState = rememberSwipeToDismissBoxState(
         positionalThreshold = { totalDistance -> totalDistance * 0.4f }
     )
-    LaunchedEffect(swipeState.currentValue) {
-        if (enabled && swipeState.currentValue != SwipeToDismissBoxValue.Settled) onSwiped()
-    }
+    // Kept as one callback, since the box reports again whenever it is handed a new one
+    val currentOnSwiped = rememberUpdatedState { if (enabled) onSwiped() }
+    val onDismiss = remember { { _: SwipeToDismissBoxValue -> currentOnSwiped.value() } }
 
     SwipeToDismissBox(
         state = swipeState,
-        backgroundContent = {},
+        backgroundContent = {
+            // Only seen through the gap the swipe opens, so it stays out of reach of screen readers
+            if (background != null) Box(modifier = Modifier.clearAndSetSemantics {}) { background() }
+        },
         enableDismissFromStartToEnd = enabled,
-        enableDismissFromEndToStart = enabled
+        enableDismissFromEndToStart = enabled,
+        onDismiss = onDismiss
     ) {
         content()
     }

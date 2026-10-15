@@ -411,8 +411,8 @@ class HomeViewModel(
     var snackbarStatus by mutableStateOf(BundleUpdateStatus.Updating)
 
     // Latches when an update cycle was skipped due to metered network; cleared on the next
-    // successful/no-change update. Independent of the transient BundleUpdateSnackbar so the
-    // user still sees a persistent alert after the transient snackbar fades
+    // successful/no-change update. Independent of the transient bundle update alert so the
+    // user still sees a persistent alert after the transient one fades
     var updatesSkippedDueToMetered by mutableStateOf(false)
 
     // Simple mode bundle selection dialog: shown when 2+ bundles have patches for the same app

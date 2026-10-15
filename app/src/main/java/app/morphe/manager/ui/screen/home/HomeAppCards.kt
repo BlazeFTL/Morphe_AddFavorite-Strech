@@ -13,8 +13,6 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -33,7 +31,10 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.*
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -363,12 +364,12 @@ private fun InstalledAppCard(
         }
     ) {
         // App icon
-        // Frosted and as tall as the badges in the row, being as much a part of what the card says
+        // Frosted and as tall as the badges in the row, but capped so a large font can't bury the icon
         MarkedIcon(
             mark = updateMark ?: cloneMark,
             startMark = cloneMark.takeIf { updateMark != null },
             markColor = cardStyle.markContainerColor,
-            markSize = statusBadgeHeight,
+            markSize = minOf(statusBadgeHeight, cardStyle.iconSize * 0.4f),
             markContentColor = cardStyle.chipContentColor,
             iconSize = cardStyle.iconSize,
             contentFraction = AppIconContentFraction

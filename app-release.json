@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-15T08:38:27",
-  "description": "# [1.36.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.3...v1.36.0-dev.4) (2026-10-15)\n\n\n### Bug Fixes\n\n* Keep the marks on an app's icon from outgrowing it under a large system font ([97a33ad](https://github.com/MorpheApp/morphe-manager/commit/97a33ad758c86a2f3a1c26557b14f072c4c73a94))\n\n\n### Features\n\n* Float the home and settings bottom bars over their content ([4b09591](https://github.com/MorpheApp/morphe-manager/commit/4b095914b347b0855b0145b206f6f06d490af629))\n* Keep the batch queue between visits so apps can be added to it later ([b619c47](https://github.com/MorpheApp/morphe-manager/commit/b619c47134a18f6a38d2bd93bb2fc8ec28a60e9e))\n* Stack the home screen alerts and let a swipe snooze them behind a bell ([8816901](https://github.com/MorpheApp/morphe-manager/commit/88169012ec42b59f6fff16b59f9058d5a11eda1b))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.4/morphe-manager-1.36.0-dev.4.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.4/morphe-manager-1.36.0-dev.4.apk.asc",
-  "version": "1.36.0-dev.4"
+  "created_at": "2026-10-15T10:52:49",
+  "description": "# [1.36.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.4...v1.36.0-dev.5) (2026-10-15)\n\n\n### Bug Fixes\n\n* Keep the home cards in place when coming back from settings ([7bb779c](https://github.com/MorpheApp/morphe-manager/commit/7bb779cd1cd07c82a251f41673dde813d43231fa))\n* Size the home alert chips like standard chips ([1f4b805](https://github.com/MorpheApp/morphe-manager/commit/1f4b8059ee896f37cdb80262354c93e511bc2fe6))\n* Slide the snoozed alerts' bell smoothly and keep its count while it leaves ([394c815](https://github.com/MorpheApp/morphe-manager/commit/394c815a1fcbc673b3a948d982209a5bfc9e5c46))\n\n\n### Features\n\n* Stack the source update with the home alerts and show the next one under a swipe ([5823c18](https://github.com/MorpheApp/morphe-manager/commit/5823c181cd61b4eae0da2ad4f9bb8b961a761e80))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.5/morphe-manager-1.36.0-dev.5.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.36.0-dev.5/morphe-manager-1.36.0-dev.5.apk.asc",
+  "version": "1.36.0-dev.5"
 }

@@ -1,3 +1,17 @@
+# [1.36.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.4...v1.36.0-dev.5) (2026-10-15)
+
+
+### Bug Fixes
+
+* Keep the home cards in place when coming back from settings ([7bb779c](https://github.com/MorpheApp/morphe-manager/commit/7bb779cd1cd07c82a251f41673dde813d43231fa))
+* Size the home alert chips like standard chips ([1f4b805](https://github.com/MorpheApp/morphe-manager/commit/1f4b8059ee896f37cdb80262354c93e511bc2fe6))
+* Slide the snoozed alerts' bell smoothly and keep its count while it leaves ([394c815](https://github.com/MorpheApp/morphe-manager/commit/394c815a1fcbc673b3a948d982209a5bfc9e5c46))
+
+
+### Features
+
+* Stack the source update with the home alerts and show the next one under a swipe ([5823c18](https://github.com/MorpheApp/morphe-manager/commit/5823c181cd61b4eae0da2ad4f9bb8b961a761e80))
+
 # [1.36.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.3...v1.36.0-dev.4) (2026-10-15)
 
 

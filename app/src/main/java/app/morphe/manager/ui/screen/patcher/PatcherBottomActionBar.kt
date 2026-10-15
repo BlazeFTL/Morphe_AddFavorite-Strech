@@ -21,8 +21,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.shared.BottomActionBar
-import app.morphe.manager.ui.screen.shared.BottomActionButton
+import app.morphe.manager.ui.screen.shared.GlassActionBar
+import app.morphe.manager.ui.screen.shared.GlassActionButton
 import app.morphe.manager.ui.screen.shared.BottomActionTone
 import app.morphe.manager.ui.screen.shared.Defaults
 import kotlinx.coroutines.delay
@@ -74,10 +74,10 @@ fun PatcherBottomActionBar(
         listOf(leadingLabel, homeLabel, trailingLabel).filter { it.isNotEmpty() }
     }
 
-    BottomActionBar(modifier = modifier, labels = labels, horizontalPadding = horizontalPadding) {
+    GlassActionBar(modifier = modifier, labels = labels, horizontalPadding = horizontalPadding) {
         // Left: Result / Cancel / Logs button
         if (resultButton != null) {
-            BottomActionButton(
+            GlassActionButton(
                 onClick = onResultClick,
                 icon = resultButton.icon,
                 text = leadingLabel,
@@ -86,7 +86,7 @@ fun PatcherBottomActionBar(
                 showProgress = resultButton.busy
             )
         } else if (showCancelButton) {
-            BottomActionButton(
+            GlassActionButton(
                 onClick = onCancelClick,
                 icon = Icons.Default.Close,
                 text = leadingLabel,
@@ -94,7 +94,7 @@ fun PatcherBottomActionBar(
                 tone = BottomActionTone.Destructive
             )
         } else if (showLogsButton) {
-            BottomActionButton(
+            GlassActionButton(
                 onClick = onLogsClick,
                 icon = Icons.AutoMirrored.Outlined.Article,
                 text = leadingLabel,
@@ -104,7 +104,7 @@ fun PatcherBottomActionBar(
 
         // Center: Home button
         if (showHomeButton) {
-            BottomActionButton(
+            GlassActionButton(
                 onClick = onHomeClick,
                 icon = Icons.Default.Home,
                 text = homeLabel,
@@ -114,7 +114,7 @@ fun PatcherBottomActionBar(
 
         // Right: Copy logs button
         if (showCopyLogsButton) {
-            BottomActionButton(
+            GlassActionButton(
                 onClick = {
                     onCopyLogsClick()
                     scope.launch {

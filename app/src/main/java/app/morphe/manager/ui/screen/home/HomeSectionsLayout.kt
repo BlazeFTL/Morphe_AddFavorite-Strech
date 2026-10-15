@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -210,11 +211,12 @@ fun SectionsLayout(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Main layout structure
+        // Main layout structure. In portrait the list runs on under the navigation bar and the
+        // floating bottom bar takes the inset, so cards keep scrolling to the edge of the screen
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .navigationBarsPadding()
+                .then(if (isLandscape()) Modifier.navigationBarsPadding() else Modifier)
         ) {
             Box(
                 modifier = Modifier
@@ -237,25 +239,32 @@ fun SectionsLayout(
                     footerBar = footerBar,
                     onboardingState = onboardingState
                 )
-            }
 
-            // Section 5: Bottom action bar
-            if (!isLandscape()) {
-                HomeBottomActionBar(
-                    modifier = Modifier.coveredByFooterBar(sectionState.isFooterBarVisible),
-                    onBundlesClick = chromeActions.onBundlesClick,
-                    onSettingsClick = chromeActions.onSettingsClick,
-                    isExpertModeEnabled = chromeFlags.isExpertModeEnabled,
-                    showSearchButton = chromeFlags.showSearchButton,
-                    showSortButton = chromeFlags.showSortButton,
-                    sortMode = apps.sortMode,
-                    filterMode = filterMode,
-                    searchActive = searchState.visible,
-                    onSearchClick = searchState.onToggle,
-                    onSortClick = { showListOptionsSheet = true },
-                    onSourcesPositioned = onboardingState?.let { s -> { b -> s.sourcesButtonBounds = b } },
-                    onSettingsPositioned = onboardingState?.let { s -> { b -> s.settingsButtonBounds = b } }
-                )
+                // Section 5: Bottom action bar, floating over the lower edge of the list, which
+                // keeps clear of it through the footer bar host
+                if (!isLandscape()) {
+                    DisposableEffect(footerBar) { onDispose { footerBar.chromeBarHeightPx = 0 } }
+                    HomeBottomActionBar(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .onSizeChanged { footerBar.chromeBarHeightPx = it.height }
+                            .coveredByFooterBar(sectionState.isFooterBarVisible),
+                        onBundlesClick = chromeActions.onBundlesClick,
+                        onSettingsClick = chromeActions.onSettingsClick,
+                        isExpertModeEnabled = chromeFlags.isExpertModeEnabled,
+                        showSearchButton = chromeFlags.showSearchButton,
+                        showSortButton = chromeFlags.showSortButton,
+                        showOtherAppsButton = chromeFlags.showOtherAppsButton,
+                        onOtherAppsClick = chromeActions.onOtherAppsClick,
+                        sortMode = apps.sortMode,
+                        filterMode = filterMode,
+                        searchActive = searchState.visible,
+                        onSearchClick = searchState.onToggle,
+                        onSortClick = { showListOptionsSheet = true },
+                        onSourcesPositioned = onboardingState?.let { s -> { b -> s.sourcesButtonBounds = b } },
+                        onSettingsPositioned = onboardingState?.let { s -> { b -> s.settingsButtonBounds = b } }
+                    )
+                }
             }
         }
 
@@ -442,23 +451,6 @@ private fun AdaptiveContent(
                     appsSection(contentPadding, true)
                 }
             }
-            // Section 4: footer controls - pinned to the bottom of the screen,
-            // hidden when no apps are available
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                HomeFooterControls(
-                    showOtherApps = showOtherAppsFooter,
-                    onOtherAppsClick = chromeActions.onOtherAppsClick,
-                    itemSpacing = itemSpacing,
-                    modifier = Modifier
-                        .padding(horizontal = contentPadding)
-                        .widthIn(max = maxCardWidth - contentPadding * 2)
-                        .fillMaxWidth()
-                        .coveredByFooterBar(state.isFooterBarVisible)
-                )
-            }
         }
     }
 }
@@ -590,9 +582,15 @@ internal fun MainAppsSection(
             isFooterSlotReserved = false
         }
     }
-    // Only the part of the bar that reaches into the list's own area needs clearing, and it
-    // follows the height the bar was last measured at, which its actions and font scale move
-    val footerBarOverlap = with(LocalDensity.current) { footerBar.listOverlapPx.toDp() }
+    // Clears whichever bar reaches into the list: the floating bottom bar always, the docked one
+    // while in its slot, each at the height it was last measured at
+    val density = LocalDensity.current
+    val footerBarOverlap = with(density) {
+        maxOf(
+            if (isFooterSlotReserved) footerBar.listOverlapPx.toDp() else 0.dp,
+            footerBar.chromeBarHeightPx.toDp()
+        )
+    }
 
     // Retire stale header action state when switching grouping modes.
     LaunchedEffect(appGrouping) { state.closeCategoryBar() }
@@ -1146,7 +1144,7 @@ internal fun MainAppsSection(
                             // Eased rather than switched, since a centered list that wraps its
                             // content moves by half of it and would jump the cards
                             val footerClearance by animateDpAsState(
-                                targetValue = if (isFooterSlotReserved) {
+                                targetValue = if (footerBarOverlap > 0.dp) {
                                     footerBarOverlap + itemSpacing
                                 } else {
                                     0.dp
@@ -1317,22 +1315,17 @@ internal fun MainAppsSection(
                                 )
                             }
 
-                            val controlClearance = if (isFooterSlotReserved) {
-                                footerBarOverlap
-                            } else {
-                                0.dp
-                            }
                             ListScrollbar(
                                 listState = listState,
                                 alphabetTargets = scrollTargets,
                                 alphabetMode = alphabetScrollMode,
-                                extraBottomPadding = controlClearance
+                                extraBottomPadding = footerBarOverlap
                             )
 
-                            // Lift extra space for the MultiSelectBar when it's visible
+                            // Lifted clear of whichever bar covers the bottom of the list
                             ScrollToTopButton(
                                 listState = listState,
-                                extraBottomPadding = controlClearance
+                                extraBottomPadding = footerBarOverlap
                             )
                         }
 

@@ -669,7 +669,7 @@ private fun ResultSummary(version: String?, patchCount: Int, sources: List<Patch
 private fun BackToGameCallout(visible: Boolean, horizontalPadding: Dp) {
     if (!visible) return
 
-    BottomActionCallout(
+    GlassActionCallout(
         text = stringResource(R.string.patcher_back_to_game_hint, stringResource(R.string.logs)),
         // Logs comes first in a bar of Logs and Home
         slot = 0,

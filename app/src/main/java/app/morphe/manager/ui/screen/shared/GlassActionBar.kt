@@ -34,7 +34,7 @@ import app.morphe.manager.R
 
 private const val EnterMillis = 200
 
-/** Emphasis of a [BottomActionButton], resolved through [GlassButtonDefaults]. */
+/** Emphasis of a [GlassActionButton] or a [FloatingPillItem], resolved through [GlassButtonDefaults]. */
 enum class BottomActionTone {
     Neutral,
     Accent,
@@ -42,26 +42,27 @@ enum class BottomActionTone {
     Destructive
 }
 
-/** Content receiver of [BottomActionBar]: a [RowScope] plus the state its buttons need. */
-class BottomActionBarScope internal constructor(
+/** Content receiver of [GlassActionBar]: a [RowScope] plus the state its buttons need. */
+class GlassActionBarScope internal constructor(
     rowScope: RowScope,
     val showLabels: Boolean,
     internal val animateEntry: Boolean
 ) : RowScope by rowScope
 
 /**
- * Centered, width-capped row of [BottomActionButton]s, weighted equally and animated as the set
+ * Centered, width-capped row of [GlassActionButton]s, weighted equally and animated as the set
  * changes. [labels] lists one entry per button so the bar decides once whether they all fit.
+ * For the actions of a task such as patching; top-level screens float a [FloatingPillBar].
  *
  * [horizontalPadding] is what the content above the bar is inset by, so the buttons line up with
  * it. The default suits a bar nested in a column that carries the screen padding already.
  */
 @Composable
-fun BottomActionBar(
+fun GlassActionBar(
     modifier: Modifier = Modifier,
     labels: List<String> = emptyList(),
     horizontalPadding: Dp = Defaults.ContentPadding,
-    content: @Composable BottomActionBarScope.() -> Unit
+    content: @Composable GlassActionBarScope.() -> Unit
 ) {
     val reduceMotion = rememberAccessibilityEnabled()
 
@@ -84,7 +85,7 @@ fun BottomActionBar(
             horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BottomActionBarScope(
+            GlassActionBarScope(
                 rowScope = this,
                 showLabels = showLabels,
                 animateEntry = settled.value && !reduceMotion
@@ -97,13 +98,13 @@ private val TailWidth = 14.dp
 private val TailHeight = 7.dp
 
 /**
- * Callout that sits above a [BottomActionBar] and points down at the button at [slot].
+ * Callout that sits above a [GlassActionBar] and points down at the button at [slot].
  *
  * The tail is placed by a row shaped like the bar itself, so it lands on the button whatever
  * width the bar works out to.
  */
 @Composable
-fun BottomActionCallout(
+fun GlassActionCallout(
     text: String,
     slot: Int,
     slots: Int,
@@ -179,12 +180,12 @@ private fun CalloutTail(color: Color) {
 }
 
 /**
- * Single button of a [BottomActionBar]. A hidden label falls back to a tooltip;
+ * Single button of a [GlassActionBar]. A hidden label falls back to a tooltip;
  * [showProgress] swaps the icon for a spinner.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomActionBarScope.BottomActionButton(
+fun GlassActionBarScope.GlassActionButton(
     onClick: () -> Unit,
     icon: ImageVector,
     modifier: Modifier = Modifier,
@@ -249,7 +250,7 @@ fun BottomActionBarScope.BottomActionButton(
 }
 
 /**
- * The glass action button of a [BottomActionBar], for a layout of its own such as the landscape
+ * The glass action button of a [GlassActionBar], for a layout of its own such as the landscape
  * sidebar, so the buttons read the same whichever way the screen is turned.
  */
 @Composable

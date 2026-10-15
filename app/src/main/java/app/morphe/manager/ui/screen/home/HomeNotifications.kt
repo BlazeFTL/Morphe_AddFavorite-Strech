@@ -12,19 +12,31 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.PlaylistAdd
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -36,7 +48,7 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
 import app.morphe.manager.util.formatMegabytes
 
-/** Visibility flag paired with the tap callback for a single [AlertSnackbar] slot. */
+/** Visibility flag paired with the tap callback of a single alert in the strip. */
 @Immutable
 data class AlertState(val visible: Boolean, val onShow: () -> Unit)
 
@@ -77,214 +89,406 @@ data class HomeNotificationsUi(
 )
 
 /**
+ * One alert of the notification strip.
+ *
+ * @param snoozable Whether a swipe may put it away. Alerts that are the only way back to running
+ *   work, or that block patching outright, stay put.
+ * @param revision Changes when the alert has something new to say, which brings a snoozed one back.
+ */
+private class HomeAlert(
+    val key: String,
+    val visible: Boolean,
+    val tone: SemanticTone,
+    val snoozable: Boolean = true,
+    val revision: String = "",
+    val card: @Composable () -> Unit
+)
+
+/**
  * Section 1: Unified notifications overlay component.
- * Handles both manager update and bundle update notifications.
+ *
+ * Alerts stack behind the most pressing one, so however many are raised they cover no more of the
+ * screen than one. A swipe snoozes an alert for the session, and the bell chip brings it back.
  */
 @Composable
 fun NotificationsOverlay(
     notifications: HomeNotificationsUi,
     modifier: Modifier = Modifier
 ) {
-    Box(
+    val alerts = homeAlerts(notifications)
+    // Revision each alert was snoozed at, kept across navigation and rotation
+    val snoozed = rememberSaveable(saver = SnoozeSaver) { mutableStateMapOf() }
+    val expanded = rememberSaveable { mutableStateOf(false) }
+
+    // An alert that goes away forgets its snooze, so raised again it is shown again
+    val hiddenKeys = alerts.filterNot { it.visible }.map { it.key }
+    LaunchedEffect(hiddenKeys) { hiddenKeys.forEach(snoozed::remove) }
+
+    fun HomeAlert.isSnoozed() = snoozable && snoozed[key] == revision
+    val active = alerts.filter { it.visible && !it.isSnoozed() }
+    val snoozedCount = alerts.count { it.visible && it.isSnoozed() }
+    val stacked = active.size - 1
+
+    LaunchedEffect(stacked) { if (stacked <= 0) expanded.value = false }
+    val lastShown = if (expanded.value) active.lastOrNull() else active.firstOrNull()
+
+    val controls: @Composable (Modifier) -> Unit = { controlsModifier ->
+        AlertStackControls(
+            stacked = stacked,
+            expanded = expanded.value,
+            snoozedCount = snoozedCount,
+            onToggleExpanded = { expanded.value = !expanded.value },
+            onRestoreSnoozed = { snoozed.clear() },
+            modifier = controlsModifier
+        )
+    }
+
+    Column(
         modifier = modifier,
-        contentAlignment = Alignment.TopCenter
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            // Blocked source alert takes priority and cannot be dismissed while the block persists
-            AlertSnackbar(
-                visible = notifications.blockedSources.visible,
-                tone = SemanticTone.Error,
-                icon = Icons.Outlined.Block,
-                title = stringResource(R.string.home_blocked_source_title),
-                subtitle = stringResource(R.string.home_blocked_source_subtitle),
-                onShowDetails = notifications.blockedSources.onShow,
-                swipeEnabled = false,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            // The one alert raised by something that already went wrong rather than something
-            // that might, so it sits above the rest
-            AlertSnackbar(
-                visible = notifications.heldBackSources.visible,
-                tone = SemanticTone.Error,
-                icon = Icons.Outlined.ErrorOutline,
-                title = stringResource(R.string.home_held_back_title),
-                subtitle = stringResource(R.string.home_held_back_subtitle),
-                onShowDetails = notifications.heldBackSources.onShow,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            // A source built for a newer patcher stays unusable until the app itself is updated
-            AlertSnackbar(
-                visible = notifications.outdatedManager.visible,
-                tone = SemanticTone.Error,
-                icon = Icons.Outlined.SystemUpdate,
-                title = stringResource(R.string.home_outdated_manager_title),
-                subtitle = stringResource(R.string.home_outdated_manager_subtitle),
-                onShowDetails = notifications.outdatedManager.onShow,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            AlertSnackbar(
-                visible = notifications.meteredSkipped.visible,
-                tone = SemanticTone.Warning,
-                icon = Icons.Outlined.SignalCellularAlt,
-                title = stringResource(R.string.home_metered_skipped_title),
-                subtitle = stringResource(R.string.home_metered_skipped_subtitle),
-                onShowDetails = notifications.meteredSkipped.onShow,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            AlertSnackbar(
-                visible = notifications.metadataErrors.visible,
-                tone = SemanticTone.Warning,
-                icon = Icons.Outlined.CloudOff,
-                title = stringResource(R.string.home_metadata_errors_title),
-                subtitle = stringResource(R.string.home_metadata_errors_subtitle),
-                onShowDetails = notifications.metadataErrors.onShow,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            AlertSnackbar(
-                visible = notifications.managerUpdate.visible,
-                tone = SemanticTone.Primary,
-                icon = Icons.Outlined.Update,
-                title = stringResource(R.string.home_update_available),
-                subtitle = stringResource(R.string.home_update_available_subtitle),
-                onShowDetails = notifications.managerUpdate.onShow,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            val batchRun = notifications.batchQueue.run
-            val batchRunning = batchRun?.isActive == true
-            val batchFinished = batchRun?.hasOutcome == true
-
-            // Once its screen is gone this is the only way back to a running queue, which holds
-            // single-app patching back meanwhile, so it cannot be swiped away
-            AlertSnackbar(
-                visible = batchRunning,
-                tone = SemanticTone.Primary,
-                icon = Icons.Outlined.AutoFixHigh,
-                progress = batchRun?.let { run -> if (run.total > 0) run.processed.toFloat() / run.total else 0f },
-                title = stringResource(R.string.batch_patch_title),
-                subtitle = stringResource(
-                    R.string.batch_patch_progress_counter,
-                    (batchRun?.processed ?: 0).toString(),
-                    (batchRun?.total ?: 0).toString()
-                ),
-                onShowDetails = notifications.batchQueue.onShow,
-                swipeEnabled = false,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            // The patched APKs of a finished run are only installable from its summary
-            val batchSucceeded = (batchRun?.succeeded ?: 0) > 0
-            AlertSnackbar(
-                visible = batchFinished,
-                tone = if (batchSucceeded) SemanticTone.Success else SemanticTone.Error,
-                icon = if (batchSucceeded) Icons.Outlined.Check else Icons.Outlined.ErrorOutline,
-                title = stringResource(
-                    if (batchSucceeded) R.string.patcher_complete_title else R.string.patcher_failed_title
-                ),
-                subtitle = stringResource(
-                    R.string.batch_patch_summary,
-                    (batchRun?.succeeded ?: 0).toString(),
-                    (batchRun?.failed ?: 0).toString(),
-                    (batchRun?.skipped ?: 0).toString()
-                ),
-                onShowDetails = notifications.batchQueue.onShow,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            val queuedCount = notifications.batchQueue.saved?.queuedCount ?: 0
-            AlertSnackbar(
-                visible = queuedCount > 0 && !batchRunning && !batchFinished,
-                tone = SemanticTone.Primary,
-                icon = Icons.AutoMirrored.Outlined.PlaylistAdd,
-                title = pluralStringResource(
-                    R.plurals.batch_queue_pending_count,
-                    queuedCount,
-                    queuedCount.toString()
-                ),
-                subtitle = stringResource(R.string.batch_queue_pending_subtitle),
-                onShowDetails = notifications.batchQueue.onShow,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            // The badges on the cards say the same thing one app at a time. This says it once
-            // and queues every one of them, which is the part that is otherwise several taps.
-            // While a queue is patching or awaiting review, its own alert stands in for this one
-            AlertSnackbar(
-                visible = notifications.repatchAvailable.visible &&
-                        notifications.repatchAvailable.count > 0 &&
-                        !batchRunning && !batchFinished,
-                tone = SemanticTone.Primary,
-                icon = Icons.Outlined.AutoFixHigh,
-                title = pluralStringResource(
-                    R.plurals.repatch_available_count,
-                    notifications.repatchAvailable.count,
-                    notifications.repatchAvailable.count.toString()
-                ),
-                subtitle = stringResource(R.string.home_repatch_available_subtitle),
-                onShowDetails = notifications.repatchAvailable.onShow,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            BundleUpdateSnackbar(
-                visible = notifications.bundleUpdate.visible,
-                status = notifications.bundleUpdate.status,
-                progress = notifications.bundleUpdate.progress,
-                modifier = Modifier.fillMaxWidth()
-            )
+        // Every alert keeps its slot, so one leaving or joining the stack animates in place
+        alerts.forEach { alert ->
+            val isTop = alert === active.firstOrNull()
+            key(alert.key) {
+                AnimatedVisibility(
+                    visible = alert in active && (isTop || expanded.value),
+                    enter = Animations.slideUpFadeEnter,
+                    exit = Animations.slideUpFadeExit,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column {
+                        SwipeAway(
+                            enabled = alert.snoozable,
+                            onSwiped = { snoozed[alert.key] = alert.revision }
+                        ) {
+                            alert.card()
+                        }
+                        AnimatedVisibility(
+                            visible = isTop && !expanded.value && stacked > 0,
+                            enter = Animations.expandFadeEnter,
+                            exit = Animations.shrinkFadeExit
+                        ) {
+                            StackEdges(
+                                tones = active.drop(1).take(2).map { it.tone },
+                                onClick = { expanded.value = true }
+                            )
+                        }
+                        // Hung on the edge of the last card, so the chips cover as little as
+                        // possible of the screen under the strip
+                        if (alert === lastShown) controls(Modifier.hangOverAbove())
+                    }
+                }
+            }
         }
+
+        // With every alert snoozed the bell is all that is left of the strip
+        if (active.isEmpty()) controls(Modifier)
+
+        // Kept out of the stack: it only lasts while the update runs, and its progress is the point
+        BundleUpdateSnackbar(
+            visible = notifications.bundleUpdate.visible,
+            status = notifications.bundleUpdate.status,
+            progress = notifications.bundleUpdate.progress,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
+/** Every alert of the strip, raised or not, in order of priority. */
+@Composable
+private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
+    val batchRun = notifications.batchQueue.run
+    val batchRunning = batchRun?.isActive == true
+    val batchFinished = batchRun?.hasOutcome == true
+    val batchSucceeded = (batchRun?.succeeded ?: 0) > 0
+    val queuedCount = notifications.batchQueue.saved?.queuedCount ?: 0
+    val repatch = notifications.repatchAvailable
+
+    return listOf(
+        // Blocked source alert takes priority and cannot be dismissed while the block persists
+        alert(
+            key = "blocked_sources",
+            visible = notifications.blockedSources.visible,
+            tone = SemanticTone.Error,
+            icon = Icons.Outlined.Block,
+            title = stringResource(R.string.home_blocked_source_title),
+            subtitle = stringResource(R.string.home_blocked_source_subtitle),
+            onClick = notifications.blockedSources.onShow,
+            snoozable = false
+        ),
+        // The one alert raised by something that already went wrong rather than something
+        // that might, so it sits above the rest
+        alert(
+            key = "held_back_sources",
+            visible = notifications.heldBackSources.visible,
+            tone = SemanticTone.Error,
+            icon = Icons.Outlined.ErrorOutline,
+            title = stringResource(R.string.home_held_back_title),
+            subtitle = stringResource(R.string.home_held_back_subtitle),
+            onClick = notifications.heldBackSources.onShow
+        ),
+        // A source built for a newer patcher stays unusable until the app itself is updated
+        alert(
+            key = "outdated_manager",
+            visible = notifications.outdatedManager.visible,
+            tone = SemanticTone.Error,
+            icon = Icons.Outlined.SystemUpdate,
+            title = stringResource(R.string.home_outdated_manager_title),
+            subtitle = stringResource(R.string.home_outdated_manager_subtitle),
+            onClick = notifications.outdatedManager.onShow
+        ),
+        alert(
+            key = "metered_skipped",
+            visible = notifications.meteredSkipped.visible,
+            tone = SemanticTone.Warning,
+            icon = Icons.Outlined.SignalCellularAlt,
+            title = stringResource(R.string.home_metered_skipped_title),
+            subtitle = stringResource(R.string.home_metered_skipped_subtitle),
+            onClick = notifications.meteredSkipped.onShow
+        ),
+        alert(
+            key = "metadata_errors",
+            visible = notifications.metadataErrors.visible,
+            tone = SemanticTone.Warning,
+            icon = Icons.Outlined.CloudOff,
+            title = stringResource(R.string.home_metadata_errors_title),
+            subtitle = stringResource(R.string.home_metadata_errors_subtitle),
+            onClick = notifications.metadataErrors.onShow
+        ),
+        alert(
+            key = "manager_update",
+            visible = notifications.managerUpdate.visible,
+            tone = SemanticTone.Primary,
+            icon = Icons.Outlined.Update,
+            title = stringResource(R.string.home_update_available),
+            subtitle = stringResource(R.string.home_update_available_subtitle),
+            onClick = notifications.managerUpdate.onShow
+        ),
+        // Once its screen is gone this is the only way back to a running queue, which holds
+        // single-app patching back meanwhile, so it cannot be swiped away
+        alert(
+            key = "batch_running",
+            visible = batchRunning,
+            tone = SemanticTone.Primary,
+            icon = Icons.Outlined.AutoFixHigh,
+            progress = batchRun?.let { run -> if (run.total > 0) run.processed.toFloat() / run.total else 0f },
+            title = stringResource(R.string.batch_patch_title),
+            subtitle = stringResource(
+                R.string.batch_patch_progress_counter,
+                (batchRun?.processed ?: 0).toString(),
+                (batchRun?.total ?: 0).toString()
+            ),
+            onClick = notifications.batchQueue.onShow,
+            snoozable = false
+        ),
+        // The patched APKs of a finished run are only installable from its summary
+        alert(
+            key = "batch_finished",
+            visible = batchFinished,
+            tone = if (batchSucceeded) SemanticTone.Success else SemanticTone.Error,
+            icon = if (batchSucceeded) Icons.Outlined.Check else Icons.Outlined.ErrorOutline,
+            title = stringResource(
+                if (batchSucceeded) R.string.patcher_complete_title else R.string.patcher_failed_title
+            ),
+            subtitle = stringResource(
+                R.string.batch_patch_summary,
+                (batchRun?.succeeded ?: 0).toString(),
+                (batchRun?.failed ?: 0).toString(),
+                (batchRun?.skipped ?: 0).toString()
+            ),
+            onClick = notifications.batchQueue.onShow
+        ),
+        alert(
+            key = "batch_queued",
+            visible = queuedCount > 0 && !batchRunning && !batchFinished,
+            tone = SemanticTone.Primary,
+            icon = Icons.AutoMirrored.Outlined.PlaylistAdd,
+            title = pluralStringResource(R.plurals.batch_queue_pending_count, queuedCount, queuedCount.toString()),
+            subtitle = stringResource(R.string.batch_queue_pending_subtitle),
+            onClick = notifications.batchQueue.onShow,
+            revision = queuedCount.toString()
+        ),
+        // The badges on the cards say the same thing one app at a time. This says it once
+        // and queues every one of them, which is the part that is otherwise several taps.
+        // While a queue is patching or awaiting review, its own alert stands in for this one
+        alert(
+            key = "repatch_available",
+            visible = repatch.visible && repatch.count > 0 && !batchRunning && !batchFinished,
+            tone = SemanticTone.Primary,
+            icon = Icons.Outlined.AutoFixHigh,
+            title = pluralStringResource(R.plurals.repatch_available_count, repatch.count, repatch.count.toString()),
+            subtitle = stringResource(R.string.home_repatch_available_subtitle),
+            onClick = repatch.onShow,
+            revision = repatch.count.toString()
+        )
+    )
+}
+
 /**
- * Dismissible alert of the home screen's notification strip. Swipe-dismiss clears the alert for
- * the current session; it reappears next launch while [visible] stays true.
+ * An alert drawn as a [StatusCard].
  *
  * @param progress Share of the work done, which puts [icon] inside a ring filling up with it, for
  *   work still in progress.
  */
-@Composable
-fun AlertSnackbar(
+private fun alert(
+    key: String,
     visible: Boolean,
     tone: SemanticTone,
     icon: ImageVector,
     title: String,
     subtitle: String,
-    onShowDetails: () -> Unit,
-    modifier: Modifier = Modifier,
-    swipeEnabled: Boolean = true,
+    onClick: () -> Unit,
+    snoozable: Boolean = true,
+    revision: String = "",
     progress: Float? = null
-) {
-    DismissibleAlert(visible = visible, swipeEnabled = swipeEnabled, modifier = modifier) {
-        StatusCard(
-            tone = tone,
-            title = title,
-            subtitle = subtitle,
-            onClick = onShowDetails,
-            leading = {
-                if (progress != null) {
-                    ProgressRing(progress = progress) {
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                } else {
-                    StatusDisc(icon = icon, tone = tone)
+) = HomeAlert(key = key, visible = visible, tone = tone, snoozable = snoozable, revision = revision) {
+    StatusCard(
+        tone = tone,
+        title = title,
+        subtitle = subtitle,
+        onClick = onClick,
+        leading = {
+            if (progress != null) {
+                ProgressRing(progress = progress) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
+            } else {
+                StatusDisc(icon = icon, tone = tone)
             }
-        )
+        }
+    )
+}
+
+/** Edges of the alerts waiting behind the top one, each in its own tone, like a deck seen side on. */
+@Composable
+private fun StackEdges(tones: List<SemanticTone>, onClick: () -> Unit) {
+    val shape = RoundedCornerShape(bottomStart = StackEdgeHeight, bottomEnd = StackEdgeHeight)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+    ) {
+        tones.forEachIndexed { depth, tone ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Defaults.ContentPadding + StackEdgeInset * (depth + 1))
+                    .height(StackEdgeHeight)
+                    .clip(shape)
+                    .background(statusContainerColor(tone))
+                    .border(width = 1.dp, color = statusBorderColor(tone), shape = shape)
+            )
+        }
     }
 }
+
+/** Chips of the strip: one folding the stack open and shut, one bringing back what was snoozed. */
+@Composable
+private fun AlertStackControls(
+    stacked: Int,
+    expanded: Boolean,
+    snoozedCount: Int,
+    onToggleExpanded: () -> Unit,
+    onRestoreSnoozed: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = Defaults.ContentPadding),
+        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End)
+    ) {
+        AnimatedVisibility(
+            visible = stacked > 0,
+            enter = Animations.expandHorizFadeIn,
+            exit = Animations.shrinkHorizFadeOut
+        ) {
+            AlertChip(
+                icon = if (expanded) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
+                text = if (expanded) stringResource(R.string.less) else "+$stacked",
+                onClick = onToggleExpanded
+            )
+        }
+        AnimatedVisibility(
+            visible = snoozedCount > 0,
+            enter = Animations.expandHorizFadeIn,
+            exit = Animations.shrinkHorizFadeOut
+        ) {
+            val description = pluralStringResource(
+                R.plurals.home_alerts_snoozed_count,
+                snoozedCount,
+                snoozedCount.toString()
+            )
+            AlertChip(
+                icon = Icons.Outlined.Notifications,
+                text = snoozedCount.toString(),
+                onClick = onRestoreSnoozed,
+                modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = description }
+            )
+        }
+    }
+}
+
+/** Small pill among the strip's controls, lifted like the alerts it belongs to. */
+@Composable
+private fun AlertChip(
+    icon: ImageVector,
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        onClick = onClick,
+        modifier = modifier,
+        shape = CircleShape,
+        color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+        border = CardBorder.of(MaterialTheme.colorScheme.outlineVariant),
+        shadowElevation = 2.dp
+    ) {
+        Row(
+            modifier = Modifier.padding(start = 8.dp, end = 10.dp, top = 4.dp, bottom = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(16.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = text,
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
+    }
+}
+
+private val StackEdgeInset = 12.dp
+private val StackEdgeHeight = 6.dp
+
+/** Lays the element half over whatever comes before it, so only its lower half takes up room. */
+private fun Modifier.hangOverAbove() = layout { measurable, constraints ->
+    val placeable = measurable.measure(constraints)
+    val lift = placeable.height / 2
+    layout(placeable.width, placeable.height - lift) { placeable.place(0, -lift) }
+}
+
+private val SnoozeSaver = listSaver<SnapshotStateMap<String, String>, String>(
+    save = { map -> map.flatMap { (key, revision) -> listOf(key, revision) } },
+    restore = { saved ->
+        mutableStateMapOf<String, String>().apply {
+            saved.chunked(2).forEach { (key, revision) -> put(key, revision) }
+        }
+    }
+)
 
 /**
  * Bundle update snackbar.
@@ -418,25 +622,33 @@ private fun DismissibleAlert(
         exit = Animations.slideUpFadeExit,
         modifier = modifier
     ) {
-        // Made anew each time the alert shows, so one swiped away earlier does not come back
-        // still pushed off to the side
-        val swipeState = rememberSwipeToDismissBoxState(
-            positionalThreshold = { totalDistance -> totalDistance * 0.4f }
-        )
-        LaunchedEffect(swipeState.currentValue) {
-            if (swipeEnabled && swipeState.currentValue != SwipeToDismissBoxValue.Settled) {
-                dismissed.value = true
-            }
-        }
+        SwipeAway(enabled = swipeEnabled, onSwiped = { dismissed.value = true }, content = content)
+    }
+}
 
-        SwipeToDismissBox(
-            state = swipeState,
-            backgroundContent = {},
-            enableDismissFromStartToEnd = swipeEnabled,
-            enableDismissFromEndToStart = swipeEnabled
-        ) {
-            content()
-        }
+/** Lets [content] be swiped off either side while [enabled], reporting it through [onSwiped]. */
+@Composable
+private fun SwipeAway(
+    enabled: Boolean,
+    onSwiped: () -> Unit,
+    content: @Composable () -> Unit
+) {
+    // Made anew each time the alert shows, so one swiped away earlier does not come back
+    // still pushed off to the side
+    val swipeState = rememberSwipeToDismissBoxState(
+        positionalThreshold = { totalDistance -> totalDistance * 0.4f }
+    )
+    LaunchedEffect(swipeState.currentValue) {
+        if (enabled && swipeState.currentValue != SwipeToDismissBoxValue.Settled) onSwiped()
+    }
+
+    SwipeToDismissBox(
+        state = swipeState,
+        backgroundContent = {},
+        enableDismissFromStartToEnd = enabled,
+        enableDismissFromEndToStart = enabled
+    ) {
+        content()
     }
 }
 
@@ -454,15 +666,14 @@ private fun StatusCard(
     badge: String? = null,
     onClick: (() -> Unit)? = null
 ) {
-    val surface = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
     val neutral = tone == SemanticTone.Neutral
     val containerColor by animateColorAsState(
-        targetValue = if (neutral) surface else tone.container.copy(alpha = 0.35f).compositeOver(surface),
+        targetValue = statusContainerColor(tone),
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "statusCardContainer"
     )
     val borderColor by animateColorAsState(
-        targetValue = if (neutral) MaterialTheme.colorScheme.outlineVariant else tone.accent.copy(alpha = 0.35f),
+        targetValue = statusBorderColor(tone),
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "statusCardBorder"
     )
@@ -526,6 +737,17 @@ private fun StatusCard(
         }
     }
 }
+
+/** Fill of a [StatusCard] in [tone]: the app's card surface, lightly tinted unless neutral. */
+@Composable
+private fun statusContainerColor(tone: SemanticTone): Color {
+    val surface = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+    return if (tone == SemanticTone.Neutral) surface else tone.container.copy(alpha = 0.35f).compositeOver(surface)
+}
+
+@Composable
+private fun statusBorderColor(tone: SemanticTone): Color =
+    if (tone == SemanticTone.Neutral) MaterialTheme.colorScheme.outlineVariant else tone.accent.copy(alpha = 0.35f)
 
 /** Leading icon of a [StatusCard] whose work is done, on a disc in [tone]. */
 @Composable

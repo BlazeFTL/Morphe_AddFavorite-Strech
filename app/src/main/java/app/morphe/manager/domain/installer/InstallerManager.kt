@@ -255,19 +255,6 @@ class InstallerManager(
         )
     }
 
-    /**
-     * Original resolvePlan method for backward compatibility.
-     * Use [resolvePlanWithStatus] for more detailed information.
-     */
-    fun resolvePlan(
-        target: InstallTarget,
-        sourceFile: File,
-        expectedPackage: String,
-        sourceLabel: String?
-    ): InstallPlan {
-        return resolvePlanWithStatus(target, sourceFile, expectedPackage, sourceLabel).plan
-    }
-
     fun cleanup(plan: InstallPlan.External) {
         runCatching {
             app.revokeUriPermission(plan.uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)

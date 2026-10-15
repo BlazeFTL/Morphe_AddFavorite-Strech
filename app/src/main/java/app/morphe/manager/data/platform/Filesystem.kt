@@ -29,9 +29,6 @@ import java.io.File
 
 private const val TAG = "Morphe Filesystem"
 
-// Name prefix of the directory the patcher extracts a bundle's DEX into under java.io.tmpdir
-private const val LEAKED_BUNDLE_DEX_PREFIX = "morphe-extracted-patches"
-
 class Filesystem(
     private val app: Application,
     private val appScope: AppCoroutineScope
@@ -55,7 +52,6 @@ class Filesystem(
 
     init {
         invalidatePatcherWorkspaceOnUpgrade()
-        deleteLeakedBundleDex()
     }
 
     /**
@@ -123,22 +119,6 @@ class Filesystem(
             Log.i(TAG, "Manager version changed ($markedVersion -> $current), wiped patcher workspace")
         }
         runCatching { versionMarker.writeText(current.toString()) }
-    }
-
-    /**
-     * Deletes the `morphe-extracted-patches*` directories patchers from 1.4.0 left in `cacheDir`
-     * on every bundle load, which piled up to hundreds of megabytes. Runs before anything can
-     * load a bundle, so none of them is still being read.
-     */
-    // TODO: Remove a few releases after the manager ships a patcher that deletes them itself
-    private fun deleteLeakedBundleDex() {
-        val leaked = app.cacheDir.listFiles { file ->
-            file.isDirectory && file.name.startsWith(LEAKED_BUNDLE_DEX_PREFIX)
-        }.orEmpty()
-        if (leaked.isEmpty()) return
-
-        leaked.forEach { runCatching { it.deleteRecursively() } }
-        Log.i(TAG, "Deleted ${leaked.size} leaked bundle DEX directories")
     }
 
     /**

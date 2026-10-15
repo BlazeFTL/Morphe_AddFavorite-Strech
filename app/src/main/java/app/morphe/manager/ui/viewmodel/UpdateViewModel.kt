@@ -217,12 +217,12 @@ class UpdateViewModel : ViewModel(), KoinComponent {
             return@launch
         }
 
-        val plan = installerManager.resolvePlan(
+        val plan = installerManager.resolvePlanWithStatus(
             InstallerManager.InstallTarget.MANAGER_UPDATE,
             location,
             app.packageName,
             app.getString(R.string.app_name)
-        )
+        ).plan
 
         when (plan) {
             // Replacing the manager kills the process, so a session install never reports back.

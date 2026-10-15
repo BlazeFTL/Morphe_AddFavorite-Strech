@@ -6,17 +6,19 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.AnchoredDraggableDefaults
+import androidx.compose.foundation.gestures.AnchoredDraggableState
+import androidx.compose.foundation.gestures.DraggableAnchors
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.anchoredDraggable
+import androidx.compose.foundation.gestures.animateTo
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,21 +32,23 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.layout
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.lerp
 import app.morphe.manager.R
 import app.morphe.manager.domain.batch.BatchRunState
 import app.morphe.manager.domain.batch.SavedBatchQueue
@@ -52,7 +56,9 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
 import app.morphe.manager.util.formatMegabytes
+import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlinx.coroutines.launch
 
 /** Visibility flag paired with the tap callback of a single alert in the strip. */
 @Immutable
@@ -106,7 +112,6 @@ data class HomeNotificationsUi(
 private class HomeAlert(
     val key: String,
     val visible: Boolean,
-    val tone: SemanticTone,
     val snoozable: Boolean = true,
     val revision: String = "",
     val passing: Boolean = false,
@@ -118,6 +123,10 @@ private class HomeAlert(
  *
  * Alerts stack behind the most pressing one, so however many are raised they cover no more of the
  * screen than one. A swipe snoozes an alert for the session, and the bell chip brings it back.
+ *
+ * The whole stack is laid out from one model: each card's height, how far it has come in, how far
+ * it is swiped aside and how far the stack is unfolded. Every change moves the cards from wherever
+ * they are, so a swipe, an alert coming or going and the stack folding all blend into each other.
  */
 @Composable
 fun NotificationsOverlay(
@@ -128,6 +137,15 @@ fun NotificationsOverlay(
     // Revision each alert was snoozed at, kept across navigation and rotation
     val snoozed = rememberSaveable(saver = SnoozeSaver) { mutableStateMapOf() }
     val expanded = rememberSaveable { mutableStateOf(false) }
+    // Dragged open and shut by the finger, and eased there by the chips, so either way the stack
+    // follows one state. Whether it stays open is kept across navigation and rotation
+    val fold = remember { AnchoredDraggableState(if (expanded.value) StackFold.Unfolded else StackFold.Folded) }
+    LaunchedEffect(fold) { snapshotFlow { fold.settledValue }.collect { expanded.value = it == StackFold.Unfolded } }
+    val unfolding = fold.targetValue == StackFold.Unfolded
+    val scope = rememberCoroutineScope()
+    fun foldTo(value: StackFold) {
+        scope.launch { fold.animateTo(value, Animations.defaultTween()) }
+    }
 
     // An alert that goes away forgets its snooze, so raised again it is shown again
     val hiddenKeys = alerts.filterNot { it.visible }.map { it.key }
@@ -135,82 +153,208 @@ fun NotificationsOverlay(
 
     fun HomeAlert.isSnoozed() = snoozable && snoozed[key] == revision
     val active = alerts.filter { it.visible && !it.isSnoozed() }
+    val activeKeys = active.mapTo(HashSet()) { it.key }
     val snoozedCount = alerts.count { it.visible && !it.passing && it.isSnoozed() }
     val passingKeys = alerts.filter { it.passing }.mapTo(HashSet()) { it.key }
     val stacked = active.size - 1
 
-    LaunchedEffect(stacked) { if (stacked <= 0) expanded.value = false }
-    // A swipe on the folded stack hands its place to the alert drawn beneath it, so the two swap
-    // in place. Kept until another alert comes on top, since a transition must not change midway
-    val handoff = remember { mutableStateOf<StackHandoff?>(null) }
-    val topKey = active.firstOrNull()?.key
-    LaunchedEffect(topKey) { if (handoff.value?.revealed != topKey) handoff.value = null }
+    LaunchedEffect(stacked) { if (stacked <= 0) fold.animateTo(StackFold.Folded, Animations.defaultTween()) }
 
-    // Eased in step with the cards, so the chips ride down with the last one as it leaves
-    val hang = animateFloatAsState(
-        targetValue = if (active.isEmpty()) 0f else 1f,
-        animationSpec = Animations.defaultTween(),
-        label = "alertControlsHang"
-    )
+    val stackCards = remember { StackCards() }
+    val cards = stackCards.update(alerts, activeKeys)
 
-    // Each alert carries the gap under it, so the gap leaves with it instead of after it
-    Column(modifier = modifier) {
-        // Every alert keeps its slot, so one leaving or joining the stack animates in place
-        alerts.forEach { alert ->
-            val isTop = alert === active.firstOrNull()
-            key(alert.key) {
-                AnimatedVisibility(
-                    visible = alert in active && (isTop || expanded.value),
-                    enter = if (alert.key == handoff.value?.revealed) EnterTransition.None
-                    else Animations.slideUpFadeEnter,
-                    // A swiped card has already left sideways, so only its slot closes after it
-                    exit = when {
-                        alert.key == handoff.value?.swiped -> ExitTransition.None
-                        alert.isSnoozed() -> Animations.shrinkFadeExit
-                        else -> Animations.slideUpFadeExit
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    val beneath = active.getOrNull(1)?.takeIf { isTop && !expanded.value }
-                    Box(modifier = Modifier.padding(bottom = AlertSpacing)) {
-                        SwipeAway(
-                            enabled = alert.snoozable,
-                            onSwiped = {
-                                if (beneath != null) handoff.value = StackHandoff(alert.key, beneath.key)
-                                snoozed[alert.key] = alert.revision
-                            },
-                            background = beneath?.card
-                        ) {
-                            alert.card()
-                        }
+    Layout(
+        contents = listOf(
+            {
+                // Keyed by the card itself, so one raised again after it has gone starts afresh
+                cards.forEach { card ->
+                    key(card) {
+                        StackCardSlot(
+                            card = card,
+                            raised = card.key in activeKeys,
+                            onSwiped = { snoozed[card.key] = card.alert.revision }
+                        )
                     }
                 }
+            },
+            {
+                // Over the cards peeking out under the top one, so a tap there unfolds the stack
+                // rather than opening whichever card it lands on
+                Box(
+                    modifier = Modifier.clickable(interactionSource = null, indication = null) {
+                        foldTo(StackFold.Unfolded)
+                    }
+                )
+            },
+            {
+                AlertStackControls(
+                    stacked = stacked,
+                    expanded = unfolding,
+                    snoozedCount = snoozedCount,
+                    onToggleExpanded = { foldTo(if (unfolding) StackFold.Folded else StackFold.Unfolded) },
+                    onRestoreSnoozed = { snoozed.keys.retainAll(passingKeys) }
+                )
             }
-        }
+        ),
+        modifier = modifier
+            .clipAbove()
+            // A drag down the strip unfolds the stack under the finger and one up folds it back,
+            // settling on whichever end it got more than halfway to
+            .anchoredDraggable(
+                state = fold,
+                orientation = Orientation.Vertical,
+                enabled = stacked > 0,
+                flingBehavior = AnchoredDraggableDefaults.flingBehavior(
+                    state = fold,
+                    animationSpec = Animations.defaultTween()
+                )
+            )
+    ) { (cardMeasurables, peekMeasurables, controlMeasurables), constraints ->
+        val loose = constraints.copy(minHeight = 0)
+        val gap = AlertSpacing.roundToPx()
+        val cardPlaceables = cardMeasurables.map { it.measure(loose) }
+        val controls = controlMeasurables.map { it.measure(loose) }
 
-        // Drawn up against the top card across its gap, as the edges of what waits behind it
-        AnimatedVisibility(
-            visible = !expanded.value && stacked > 0,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit,
-            modifier = Modifier.offset { IntOffset(0, -AlertSpacing.roundToPx()) }
-        ) {
-            StackEdges(
-                tones = active.drop(1).take(StackEdgeCount).map { it.tone },
-                onClick = { expanded.value = true }
+        // The stack unfolds by as much as the raised cards past the top one take up at rest
+        val restHeights = cards.indices.filter { cards[it].key in activeKeys }.map { cardPlaceables[it].height + gap }
+        val unfoldDistance = (restHeights.sum() - (restHeights.firstOrNull() ?: 0)).toFloat()
+        if (fold.anchors.positionOf(StackFold.Unfolded) != unfoldDistance) {
+            fold.updateAnchors(
+                DraggableAnchors {
+                    StackFold.Folded at 0f
+                    StackFold.Unfolded at unfoldDistance
+                }
             )
         }
+        val unfolded = if (unfoldDistance > 0f) {
+            ((fold.offset.takeUnless { it.isNaN() } ?: 0f) / unfoldDistance).coerceIn(0f, 1f)
+        } else 0f
 
-        // Hung on the edge of the last card, so the chips cover as little as possible of the
-        // screen under the strip. With every alert snoozed the bell is all that is left of it
-        AlertStackControls(
-            stacked = stacked,
-            expanded = expanded.value,
-            snoozedCount = snoozedCount,
-            onToggleExpanded = { expanded.value = !expanded.value },
-            onRestoreSnoozed = { snoozed.keys.retainAll(passingKeys) },
-            modifier = Modifier.hangOverAbove(fraction = { hang.value }, gap = AlertSpacing)
-        )
+        val held = FloatArray(cards.size)
+        val depths = FloatArray(cards.size)
+        val unfoldedTops = FloatArray(cards.size)
+        // How far the cards before this one have cleared off it while folded, all of it for the top
+        var clear = 1f
+        // How many cards are held over this one, which sets how far down the folded stack it sits
+        var depth = 0f
+        var foldedHeight = 0f
+        var unfoldedHeight = 0f
+        cards.forEachIndexed { index, card ->
+            // Each card carries the gap under it, so the gap comes and goes with it
+            val height = cardPlaceables[index].height + gap
+            // A card swiped aside hands its room over to the next one as it goes
+            held[index] = card.presence.value * (1f - card.swiped)
+            depths[index] = depth
+            unfoldedTops[index] = unfoldedHeight
+            foldedHeight += clear * held[index] * height
+            unfoldedHeight += held[index] * height
+            clear *= 1f - held[index]
+            depth += held[index]
+        }
+
+        // Folded, the cards behind the top one peek out under it, each a step lower and narrower,
+        // and those past the last step wait out of sight behind it
+        val step = StackPeekStep.toPx()
+        val inset = StackPeekInset.toPx()
+        val sidePadding = Defaults.ContentPadding.toPx()
+        val leadBottom = foldedHeight - gap
+        val peek = step * (depth - 1f).coerceIn(0f, StackPeekCount.toFloat()) * (1f - unfolded)
+        val tops = IntArray(cards.size)
+        val scales = FloatArray(cards.size)
+        val alphas = FloatArray(cards.size)
+        cards.forEachIndexed { index, card ->
+            val placeable = cardPlaceables[index]
+            val presence = card.presence.value
+            val level = depths[index].coerceAtMost(StackPeekCount.toFloat())
+            // The top card keeps to the top, swiped aside or not, while those under it hang off the
+            // bottom of whatever leads the stack
+            val foldedTop = if (depths[index] == 0f) 0f else leadBottom + level * step - placeable.height
+            // Coming in and going out it slides from and to behind whatever is above it
+            val shift = -(1f - presence) * (placeable.height + gap)
+            tops[index] = (lerp(foldedTop, unfoldedTops[index], unfolded) + shift).roundToInt()
+            val narrowed = 1f - 2f * inset * level / (placeable.width - 2f * sidePadding).coerceAtLeast(1f)
+            scales[index] = lerp(narrowed, 1f, unfolded)
+            val folded = (StackPeekCount + 1f - depths[index]).coerceIn(0f, 1f)
+            alphas[index] = presence * lerp(folded, 1f, unfolded)
+        }
+        val cardsHeight = lerp(foldedHeight, unfoldedHeight, unfolded).roundToInt()
+        val peekHeight = peek.roundToInt()
+        val peekTargets = peekMeasurables.map { it.measure(Constraints.fixed(constraints.maxWidth, peekHeight)) }
+
+        // Hung half over the edge of the last card, so the chips cover as little as possible of
+        // the screen under the strip. They ride that edge up as the last card leaves and stop at
+        // the top, where with every alert snoozed the bell is all that is left of the strip
+        val controlsHeight = controls.maxOfOrNull { it.height } ?: 0
+        val controlsBase = cardsHeight + (peekHeight - gap).coerceAtLeast(0)
+        val controlsTop = (controlsBase - controlsHeight / 2 - gap).coerceAtLeast(0)
+        val height = controlsTop + controlsHeight + gap
+
+        layout(constraints.maxWidth, height.coerceAtLeast(0)) {
+            cardPlaceables.forEachIndexed { index, placeable ->
+                // A card nobody can see is left out, so it does not take taps meant for the one over it
+                if (alphas[index] <= 0f) return@forEachIndexed
+                val card = cards[index]
+                // Earlier cards are drawn over later ones, which slide in and out behind them
+                placeable.placeWithLayer(card.offset.roundToInt(), tops[index], zIndex = -index.toFloat()) {
+                    alpha = alphas[index]
+                    scaleX = scales[index]
+                    scaleY = scales[index]
+                    // Narrowed about its bottom edge, which is the part left peeking out
+                    transformOrigin = TransformOrigin(0.5f, 1f)
+                }
+            }
+            peekTargets.forEach { it.place(0, leadBottom.roundToInt(), zIndex = 1f) }
+            controls.forEach { it.place(0, controlsTop, zIndex = 1f) }
+        }
+    }
+}
+
+/** One alert as the stack draws it, kept on while it eases out once its alert is gone. */
+@Stable
+private class StackCard(alert: HomeAlert, presence: Float) {
+    val key = alert.key
+    var alert by mutableStateOf(alert)
+
+    /** How far it has come in, from 0 while out of the stack to 1 once it is in place. */
+    val presence = Animatable(presence)
+
+    /** Where it is swiped, settling off either side or back in its place. */
+    val swipe = AnchoredDraggableState(SwipeAnchor.Rest)
+
+    /** How far it is swiped aside, in pixels either way. */
+    val offset: Float get() = swipe.offset.takeUnless { it.isNaN() } ?: 0f
+
+    /** Width it was last laid out at, which a swipe is measured against. */
+    var width by mutableIntStateOf(0)
+
+    /** Whether it has eased all the way out, after which the stack lets it go. */
+    var gone by mutableStateOf(false)
+
+    /** Share of its width it is swiped aside by. */
+    val swiped: Float get() = if (width > 0) (abs(offset) / width).coerceAtMost(1f) else 0f
+}
+
+/** The cards of the stack by alert, each kept on until it has eased out after its alert is gone. */
+private class StackCards {
+    private val pool = HashMap<String, StackCard>()
+    private var started = false
+
+    /**
+     * The cards to draw for [alerts], in their order, with [raised] the keys of the ones raised.
+     * Those up when the strip first comes up are already in place rather than easing in.
+     */
+    fun update(alerts: List<HomeAlert>, raised: Set<String>): List<StackCard> {
+        val cards = alerts.mapNotNull { alert ->
+            val card = pool[alert.key]?.takeUnless { it.gone }
+            when {
+                alert.key in raised -> (card ?: StackCard(alert, if (started) 0f else 1f))
+                    .also { it.alert = alert; pool[alert.key] = it }
+                card != null -> card
+                else -> null.also { pool.remove(alert.key) }
+            }
+        }
+        started = true
+        return cards
     }
 }
 
@@ -231,7 +375,6 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
         HomeAlert(
             key = "bundle_update",
             visible = bundleUpdate.visible,
-            tone = bundleUpdate.status.tone,
             snoozable = bundleUpdate.status != BundleUpdateStatus.Updating,
             revision = bundleUpdate.status.name,
             passing = true
@@ -374,7 +517,7 @@ private fun alert(
     snoozable: Boolean = true,
     revision: String = "",
     progress: Float? = null
-) = HomeAlert(key = key, visible = visible, tone = tone, snoozable = snoozable, revision = revision) {
+) = HomeAlert(key = key, visible = visible, snoozable = snoozable, revision = revision) {
     StatusCard(
         tone = tone,
         title = title,
@@ -395,41 +538,6 @@ private fun alert(
             }
         }
     )
-}
-
-/** Swipe on the folded stack that put [swiped] away and uncovered [revealed] under it. */
-@Immutable
-private data class StackHandoff(val swiped: String, val revealed: String)
-
-/** Edges of the alerts waiting behind the top one, each in its own tone, like a deck seen side on. */
-@Composable
-private fun StackEdges(tones: List<SemanticTone>, onClick: () -> Unit) {
-    val shape = RoundedCornerShape(bottomStart = StackEdgeHeight, bottomEnd = StackEdgeHeight)
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-    ) {
-        // Each edge folds away on its own, so the deck thins as alerts leave it
-        repeat(StackEdgeCount) { depth ->
-            AnimatedVisibility(
-                visible = depth < tones.size,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
-                val tone = rememberLatest(tones.getOrNull(depth)) ?: return@AnimatedVisibility
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = Defaults.ContentPadding + StackEdgeInset * (depth + 1))
-                        .height(StackEdgeHeight)
-                        .clip(shape)
-                        .background(statusContainerColor(tone))
-                        .border(width = 1.dp, color = statusBorderColor(tone), shape = shape)
-                )
-            }
-        }
-    }
 }
 
 /** Chips of the strip: one folding the stack open and shut, one bringing back what was snoozed. */
@@ -511,22 +619,28 @@ private fun AlertChip(
 }
 
 private val AlertSpacing = 8.dp
-private const val StackEdgeCount = 2
-private val StackEdgeInset = 12.dp
-private val StackEdgeHeight = 6.dp
+
+/** Cards that peek out under the top one while the stack is folded, like a deck seen side on. */
+private const val StackPeekCount = 2
+private val StackPeekStep = 6.dp
+private val StackPeekInset = 12.dp
+
+/** Share of its width a card has to be swiped by to go, short of a fling. */
+private val SwipeAwayThreshold: (Float) -> Float = { distance -> distance * 0.4f }
+
+/** Where the stack can be dragged to: folded behind its top card, or unfolded into a list. */
+private enum class StackFold { Folded, Unfolded }
+
+/** Where a card can be swiped to: off either side, or back in its place. */
+private enum class SwipeAnchor { Start, Rest, End }
 
 /**
- * Lays the element half over whatever comes before it, across that one's [gap], by [fraction].
- * Only its lower half and its own [gap] take up room then, and at 0 it sits fully below.
+ * Cuts off whatever is drawn above the element, as a card leaving off the top of the strip would
+ * be, while a card swiped aside or folding away over its bottom is still drawn in full.
  */
-private fun Modifier.hangOverAbove(fraction: () -> Float, gap: Dp) = layout { measurable, constraints ->
-    val placeable = measurable.measure(constraints)
-    val half = placeable.height / 2
-    val gapPx = gap.roundToPx()
-    val shown = fraction()
-    val lift = ((half + gapPx) * shown).roundToInt()
-    layout(placeable.width, placeable.height + gapPx - (half * shown).roundToInt()) {
-        placeable.place(0, -lift)
+private fun Modifier.clipAbove() = drawWithContent {
+    clipRect(left = -size.width, top = 0f, right = size.width * 2, bottom = Float.MAX_VALUE) {
+        this@drawWithContent.drawContent()
     }
 }
 
@@ -629,36 +743,49 @@ private fun BundleUpdateCard(
 }
 
 /**
- * Lets [content] be swiped off either side while [enabled], reporting it through [onSwiped] once
- * it is fully off. [background] is uncovered as it goes.
+ * One card of the stack, easing in while [raised] and out once it is not. While its alert allows,
+ * it can be swiped off either side, reporting it through [onSwiped] once it is fully off.
  */
 @Composable
-private fun SwipeAway(
-    enabled: Boolean,
-    onSwiped: () -> Unit,
-    background: (@Composable () -> Unit)? = null,
-    content: @Composable () -> Unit
-) {
-    // Made anew each time the alert shows, so one swiped away earlier does not come back
-    // still pushed off to the side
-    val swipeState = rememberSwipeToDismissBoxState(
-        positionalThreshold = { totalDistance -> totalDistance * 0.4f }
-    )
-    // Kept as one callback, since the box reports again whenever it is handed a new one
-    val currentOnSwiped = rememberUpdatedState { if (enabled) onSwiped() }
-    val onDismiss = remember { { _: SwipeToDismissBoxValue -> currentOnSwiped.value() } }
+private fun StackCardSlot(card: StackCard, raised: Boolean, onSwiped: () -> Unit) {
+    LaunchedEffect(raised) {
+        // One brought back while still on its way out returns from wherever it got to
+        if (raised) launch { card.swipe.animateTo(SwipeAnchor.Rest, Animations.defaultTween()) }
+        card.presence.animateTo(if (raised) 1f else 0f, Animations.defaultTween())
+        if (!raised) card.gone = true
+    }
 
-    SwipeToDismissBox(
-        state = swipeState,
-        backgroundContent = {
-            // Only seen through the gap the swipe opens, so it stays out of reach of screen readers
-            if (background != null) Box(modifier = Modifier.clearAndSetSemantics {}) { background() }
-        },
-        enableDismissFromStartToEnd = enabled,
-        enableDismissFromEndToStart = enabled,
-        onDismiss = onDismiss
+    // Reported once the card has settled off a side, not when the finger lets go of it
+    val currentOnSwiped = rememberUpdatedState(onSwiped)
+    LaunchedEffect(card) {
+        snapshotFlow { card.swipe.settledValue }.collect { if (it != SwipeAnchor.Rest) currentOnSwiped.value() }
+    }
+
+    Box(
+        modifier = Modifier
+            .onSizeChanged { size ->
+                card.width = size.width
+                val width = size.width.toFloat()
+                card.swipe.updateAnchors(
+                    DraggableAnchors {
+                        SwipeAnchor.Start at -width
+                        SwipeAnchor.Rest at 0f
+                        SwipeAnchor.End at width
+                    }
+                )
+            }
+            .anchoredDraggable(
+                state = card.swipe,
+                orientation = Orientation.Horizontal,
+                enabled = raised && card.alert.snoozable,
+                flingBehavior = AnchoredDraggableDefaults.flingBehavior(
+                    state = card.swipe,
+                    positionalThreshold = SwipeAwayThreshold,
+                    animationSpec = Animations.defaultTween()
+                )
+            )
     ) {
-        content()
+        card.alert.card()
     }
 }
 

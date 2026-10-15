@@ -119,14 +119,6 @@ object Animations {
             scaleIn(tween(Defaults.ANIMATION_DURATION, delay, LinearOutSlowInEasing), initialScale = 0.8f)
     }
 
-    // Slide + fade + size collapse
-    val slideUpFadeEnter = slideInVertically(defaultTween()) { -it } +
-        fadeIn(defaultTween()) +
-        expandVertically(defaultTween())
-    val slideUpFadeExit = slideOutVertically(defaultTween()) { -it } +
-        fadeOut(defaultTween()) +
-        shrinkVertically(defaultTween())
-
     // Push transitions (Settings screen slides up over home, returns by sliding down)
     val pushEnter = slideInVertically(
         animationSpec = defaultTween(Defaults.SCREEN_ENTER_DURATION, FastOutSlowInEasing)

@@ -1285,8 +1285,7 @@ internal fun MainAppsSection(
                             ListScrollbar(
                                 listState = listState,
                                 alphabetTargets = scrollTargets,
-                                alphabetMode = alphabetScrollMode,
-                                extraBottomPadding = footerBarOverlap
+                                alphabetMode = alphabetScrollMode
                             )
 
                             // Lifted clear of whichever bar covers the bottom of the list

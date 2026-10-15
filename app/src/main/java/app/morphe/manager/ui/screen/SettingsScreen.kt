@@ -392,7 +392,7 @@ fun SettingsScreen(
                         ) { page -> TabContent(SettingsTab.entries[page]) }
                     }
 
-                    ListScrollbar(scrollState = currentScrollState, extraBottomPadding = navigationHeight)
+                    ListScrollbar(scrollState = currentScrollState)
                 }
             }
         }

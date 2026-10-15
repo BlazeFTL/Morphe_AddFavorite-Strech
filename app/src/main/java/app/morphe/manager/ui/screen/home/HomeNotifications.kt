@@ -39,6 +39,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.batch.BatchRunState
@@ -47,6 +48,7 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
 import app.morphe.manager.util.formatMegabytes
+import kotlin.math.roundToInt
 
 /** Visibility flag paired with the tap callback of a single alert in the strip. */
 @Immutable
@@ -130,23 +132,15 @@ fun NotificationsOverlay(
     val stacked = active.size - 1
 
     LaunchedEffect(stacked) { if (stacked <= 0) expanded.value = false }
-    val lastShown = if (expanded.value) active.lastOrNull() else active.firstOrNull()
+    // Eased in step with the cards, so the chips ride down with the last one as it leaves
+    val hang = animateFloatAsState(
+        targetValue = if (active.isEmpty()) 0f else 1f,
+        animationSpec = Animations.defaultTween(),
+        label = "alertControlsHang"
+    )
 
-    val controls: @Composable (Modifier) -> Unit = { controlsModifier ->
-        AlertStackControls(
-            stacked = stacked,
-            expanded = expanded.value,
-            snoozedCount = snoozedCount,
-            onToggleExpanded = { expanded.value = !expanded.value },
-            onRestoreSnoozed = { snoozed.clear() },
-            modifier = controlsModifier
-        )
-    }
-
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
+    // Each alert carries the gap under it, so the gap leaves with it instead of after it
+    Column(modifier = modifier) {
         // Every alert keeps its slot, so one leaving or joining the stack animates in place
         alerts.forEach { alert ->
             val isTop = alert === active.firstOrNull()
@@ -157,7 +151,7 @@ fun NotificationsOverlay(
                     exit = Animations.slideUpFadeExit,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Column {
+                    Column(modifier = Modifier.padding(bottom = AlertSpacing)) {
                         SwipeAway(
                             enabled = alert.snoozable,
                             onSwiped = { snoozed[alert.key] = alert.revision }
@@ -174,16 +168,21 @@ fun NotificationsOverlay(
                                 onClick = { expanded.value = true }
                             )
                         }
-                        // Hung on the edge of the last card, so the chips cover as little as
-                        // possible of the screen under the strip
-                        if (alert === lastShown) controls(Modifier.hangOverAbove())
                     }
                 }
             }
         }
 
-        // With every alert snoozed the bell is all that is left of the strip
-        if (active.isEmpty()) controls(Modifier)
+        // Hung on the edge of the last card, so the chips cover as little as possible of the
+        // screen under the strip. With every alert snoozed the bell is all that is left of it
+        AlertStackControls(
+            stacked = stacked,
+            expanded = expanded.value,
+            snoozedCount = snoozedCount,
+            onToggleExpanded = { expanded.value = !expanded.value },
+            onRestoreSnoozed = { snoozed.clear() },
+            modifier = Modifier.hangOverAbove(fraction = { hang.value }, gap = AlertSpacing)
+        )
 
         // Kept out of the stack: it only lasts while the update runs, and its progress is the point
         BundleUpdateSnackbar(
@@ -398,6 +397,9 @@ private fun AlertStackControls(
     onRestoreSnoozed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // The chips keep their last count while they shrink away, rather than reading 0 on the way out
+    val shownStacked = rememberLatest(stacked.takeIf { it > 0 }) ?: 0
+    val shownSnoozed = rememberLatest(snoozedCount.takeIf { it > 0 }) ?: 0
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -411,7 +413,7 @@ private fun AlertStackControls(
         ) {
             AlertChip(
                 icon = if (expanded) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
-                text = if (expanded) stringResource(R.string.less) else "+$stacked",
+                text = if (expanded) stringResource(R.string.less) else "+$shownStacked",
                 onClick = onToggleExpanded
             )
         }
@@ -422,12 +424,12 @@ private fun AlertStackControls(
         ) {
             val description = pluralStringResource(
                 R.plurals.home_alerts_snoozed_count,
-                snoozedCount,
-                snoozedCount.toString()
+                shownSnoozed,
+                shownSnoozed.toString()
             )
             AlertChip(
                 icon = Icons.Outlined.Notifications,
-                text = snoozedCount.toString(),
+                text = shownSnoozed.toString(),
                 onClick = onRestoreSnoozed,
                 modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = description }
             )
@@ -471,14 +473,23 @@ private fun AlertChip(
     }
 }
 
+private val AlertSpacing = 8.dp
 private val StackEdgeInset = 12.dp
 private val StackEdgeHeight = 6.dp
 
-/** Lays the element half over whatever comes before it, so only its lower half takes up room. */
-private fun Modifier.hangOverAbove() = layout { measurable, constraints ->
+/**
+ * Lays the element half over whatever comes before it, across that one's [gap], by [fraction].
+ * Only its lower half and its own [gap] take up room then, and at 0 it sits fully below.
+ */
+private fun Modifier.hangOverAbove(fraction: () -> Float, gap: Dp) = layout { measurable, constraints ->
     val placeable = measurable.measure(constraints)
-    val lift = placeable.height / 2
-    layout(placeable.width, placeable.height - lift) { placeable.place(0, -lift) }
+    val half = placeable.height / 2
+    val gapPx = gap.roundToPx()
+    val shown = fraction()
+    val lift = ((half + gapPx) * shown).roundToInt()
+    layout(placeable.width, placeable.height + gapPx - (half * shown).roundToInt()) {
+        placeable.place(0, -lift)
+    }
 }
 
 private val SnoozeSaver = listSaver<SnapshotStateMap<String, String>, String>(

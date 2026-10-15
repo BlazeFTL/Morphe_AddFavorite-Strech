@@ -1441,18 +1441,6 @@ private fun <T : Any> InfoSlot(value: T?, content: @Composable (T) -> Unit) {
     }
 }
 
-/** [value], or the last one it held once it is gone, so content animating out has something to show. */
-@Composable
-private fun <T : Any> rememberLatest(value: T?): T? {
-    val latest = remember { LatestValue<T>() }
-    if (value != null) latest.value = value
-    return value ?: latest.value
-}
-
-private class LatestValue<T : Any> {
-    var value: T? = null
-}
-
 @Composable
 private fun InfoRowWithAction(
     icon: ImageVector,

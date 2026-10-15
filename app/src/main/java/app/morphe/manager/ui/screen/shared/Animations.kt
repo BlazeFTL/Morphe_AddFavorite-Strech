@@ -9,9 +9,21 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import app.morphe.manager.ui.screen.shared.Animations.springSlideDownExit
+
+/** [value], or the last one it held once it is gone, so content animating out has something to show. */
+@Composable
+fun <T : Any> rememberLatest(value: T?): T? {
+    val latest = remember { LatestValue<T>() }
+    if (value != null) latest.value = value
+    return value ?: latest.value
+}
+
+private class LatestValue<T : Any> {
+    var value: T? = null
+}
 
 /**
  * Placement and fade animation for a lazy list row, so a list that filters, folds or reorders
@@ -33,8 +45,8 @@ fun Modifier.animatedListItem(itemScope: LazyItemScope): Modifier = with(itemSco
  * animation in the app at once.
  */
 object Animations {
-    // Private helper to avoid repeating tween specifications
-    private fun <T> defaultTween(
+    // Helper to avoid repeating tween specifications, also for motion that has to keep pace with these
+    fun <T> defaultTween(
         duration: Int = Defaults.ANIMATION_DURATION,
         easing: Easing = LinearOutSlowInEasing
     ) = tween<T>(duration, easing = easing)

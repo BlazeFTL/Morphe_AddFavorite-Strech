@@ -1,3 +1,17 @@
+# [1.36.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.3...v1.36.0-dev.4) (2026-10-15)
+
+
+### Bug Fixes
+
+* Keep the marks on an app's icon from outgrowing it under a large system font ([97a33ad](https://github.com/MorpheApp/morphe-manager/commit/97a33ad758c86a2f3a1c26557b14f072c4c73a94))
+
+
+### Features
+
+* Float the home and settings bottom bars over their content ([4b09591](https://github.com/MorpheApp/morphe-manager/commit/4b095914b347b0855b0145b206f6f06d490af629))
+* Keep the batch queue between visits so apps can be added to it later ([b619c47](https://github.com/MorpheApp/morphe-manager/commit/b619c47134a18f6a38d2bd93bb2fc8ec28a60e9e))
+* Stack the home screen alerts and let a swipe snooze them behind a bell ([8816901](https://github.com/MorpheApp/morphe-manager/commit/88169012ec42b59f6fff16b59f9058d5a11eda1b))
+
 # [1.36.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.2...v1.36.0-dev.3) (2026-10-14)
 
 

@@ -190,6 +190,7 @@ fun BatchPatcherScreen(
     }
 
     var showCancelDialog by remember { mutableStateOf(false) }
+    var showClearDialog by remember { mutableStateOf(false) }
 
     BackHandler {
         if (current?.isActive == true) showCancelDialog = true else onBackClick()
@@ -208,6 +209,21 @@ fun BatchPatcherScreen(
                 viewModel.cancel()
             },
             onDismiss = { showCancelDialog = false }
+        )
+    }
+
+    if (showClearDialog) {
+        ConfirmDialog(
+            title = stringResource(R.string.batch_queue_clear_title),
+            message = stringResource(R.string.batch_queue_clear_description),
+            primaryText = stringResource(R.string.yes),
+            secondaryText = stringResource(R.string.no),
+            onConfirm = {
+                showClearDialog = false
+                viewModel.clear()
+                onBackClick()
+            },
+            onDismiss = { showClearDialog = false }
         )
     }
 
@@ -491,7 +507,11 @@ fun BatchPatcherScreen(
         if (current?.phase == BatchPhase.FINISHED) viewModel.clear()
         onBackClick()
     }
-    val hasUnfinished = current?.items.orEmpty().any {
+    val isPreflight = current?.phase == BatchPhase.PREFLIGHT
+    val isFinished = current?.phase == BatchPhase.FINISHED
+    val patchedItems = if (isFinished) current?.patchedItems.orEmpty() else emptyList()
+    val hasPatched = patchedItems.isNotEmpty()
+    val hasUnfinished = isFinished && current?.items.orEmpty().any {
         it.state == BatchItemState.FAILED || it.state == BatchItemState.CANCELLED
     }
 
@@ -521,14 +541,23 @@ fun BatchPatcherScreen(
             subtitle = current?.let { batchSummary(it) }.orEmpty(),
             subtitleLoading = current == null,
             accentColor = accent,
-            actions = if (current?.phase == BatchPhase.FINISHED && (hasUnfinished || current.patchedItems.isNotEmpty())) {
+            actions = if (isPreflight || hasPatched || hasUnfinished) {
                 {
+                    // Kept out of the footer, where the button beside Start only closes the screen
+                    if (isPreflight) {
+                        TitleAction(
+                            icon = Icons.Outlined.Delete,
+                            contentDescription = stringResource(R.string.clear),
+                            onClick = { showClearDialog = true },
+                            style = TitleActionStyle.Destructive
+                        )
+                    }
                     // Every APK the run made in one go, for sending them on together
-                    if (current.patchedItems.isNotEmpty()) {
+                    if (hasPatched) {
                         TitleAction(
                             icon = Icons.Outlined.Share,
                             contentDescription = stringResource(R.string.share),
-                            onClick = { share(current.patchedItems) },
+                            onClick = { share(patchedItems) },
                             style = TitleActionStyle.Accent
                         )
                     }
@@ -641,12 +670,13 @@ private fun BatchDialogButtons(
     onClose: () -> Unit
 ) {
     when (state?.phase) {
+        // Closing keeps the queue for apps added later
         BatchPhase.PREFLIGHT -> AppDialogButtonRow(
             primaryText = stringResource(R.string.batch_patch_start),
             primaryIcon = Icons.Outlined.PlayArrow,
             onPrimaryClick = onStart,
             primaryEnabled = state.runnable.isNotEmpty(),
-            secondaryText = stringResource(android.R.string.cancel),
+            secondaryText = stringResource(R.string.close),
             onSecondaryClick = onClose
         )
 

@@ -15,6 +15,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.PlaylistAdd
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -29,6 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.batch.BatchRunState
+import app.morphe.manager.domain.batch.SavedBatchQueue
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
@@ -45,9 +47,12 @@ data class AlertState(val visible: Boolean, val onShow: () -> Unit)
 @Immutable
 data class RepatchAlertState(val count: Int, val visible: Boolean, val onShow: () -> Unit)
 
-/** The batch queue while it patches or holds results nobody closed yet, and the tap back to it. */
+/**
+ * The batch queue while it waits to be started, patches or holds results nobody closed yet, and
+ * the tap back to it. [saved] is the queue being prepared, which outlives the process.
+ */
 @Immutable
-data class BatchQueueAlertState(val run: BatchRunState?, val onShow: () -> Unit)
+data class BatchQueueAlertState(val run: BatchRunState?, val saved: SavedBatchQueue?, val onShow: () -> Unit)
 
 /** Transient state driving the bundle-update progress snackbar. */
 @Immutable
@@ -190,6 +195,21 @@ fun NotificationsOverlay(
                     (batchRun?.failed ?: 0).toString(),
                     (batchRun?.skipped ?: 0).toString()
                 ),
+                onShowDetails = notifications.batchQueue.onShow,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            val queuedCount = notifications.batchQueue.saved?.queuedCount ?: 0
+            AlertSnackbar(
+                visible = queuedCount > 0 && !batchRunning && !batchFinished,
+                tone = SemanticTone.Primary,
+                icon = Icons.AutoMirrored.Outlined.PlaylistAdd,
+                title = pluralStringResource(
+                    R.plurals.batch_queue_pending_count,
+                    queuedCount,
+                    queuedCount.toString()
+                ),
+                subtitle = stringResource(R.string.batch_queue_pending_subtitle),
                 onShowDetails = notifications.batchQueue.onShow,
                 modifier = Modifier.fillMaxWidth()
             )

@@ -236,21 +236,19 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         private set
 
     /**
-     * Plans the run once. Re-entering the screen while a queue is alive keeps the existing
-     * state instead of throwing away progress, and a run that already covers exactly these
-     * apps is reused so rotation does not restart planning.
+     * Adds [targets] to the queue being prepared, so re-entering the screen with the same apps
+     * changes nothing. A finished run is kept for its own apps and replaced for any others.
      */
     fun ensurePlan(targets: List<BatchTarget>, useMount: Boolean) {
         // Two cards can stand for the same install, such as a mount and a renamed build of one
         // app, and the queue lists each install once
         val queued = targets.distinctBy { it.id }
         val current = state.value
-        if (current != null) {
-            if (current.phase == BatchPhase.PLANNING || current.phase == BatchPhase.RUNNING) return
+        if (current?.phase == BatchPhase.FINISHED) {
             if (current.targets == queued) return
             coordinator.clear()
         }
-        coordinator.plan(queued, useMount, BatchInstallPolicy.SAVE_ONLY)
+        coordinator.enqueue(queued, useMount)
     }
 
     fun requestAttach(packageName: String) {

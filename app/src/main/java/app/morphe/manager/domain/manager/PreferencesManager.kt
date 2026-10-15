@@ -203,6 +203,9 @@ class PreferencesManager(
     /** On-disk cache of the remote source blocklist (JSON), so offline launches still enforce it. */
     val blocklistCache = stringPreference("blocklist_cache", "")
 
+    /** Batch queue prepared but not started yet (JSON), empty when there is none. */
+    val batchQueue = stringPreference("batch_queue", "")
+
     /** Tracks whether the user has explicitly toggled the custom file picker preference. */
     val customFilePickerUserConfigured = booleanPreference("custom_file_picker_user_configured", false)
 

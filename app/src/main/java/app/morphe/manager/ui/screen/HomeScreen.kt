@@ -110,6 +110,7 @@ fun HomeScreen(
     val showOtherAppsButton by homeViewModel.apps.showOtherAppsButton.collectAsStateWithLifecycle()
     val showSearchButton by homeViewModel.apps.showSearchButton.collectAsStateWithLifecycle()
     val batchRun by homeViewModel.batchRun.collectAsStateWithLifecycle()
+    val savedBatchQueue by homeViewModel.savedBatchQueue.collectAsStateWithLifecycle()
     val showSortButtonPref by homeAppButtonPrefs.showSortButton.collectAsStateWithLifecycle()
     val homeAppFilterModePref by homeAppButtonPrefs.filterMode.collectAsStateWithLifecycle()
     val useExpertMode by prefs.useExpertMode.getAsState()
@@ -176,6 +177,19 @@ fun HomeScreen(
     val repatchableApps = remember(homeAppItems) { homeAppItems.filter { it.showsUpdateBadge } }
 
     val batchInProgressText = stringResource(R.string.batch_patch_in_progress)
+    val openBatchQueue: (List<BatchTarget>, Boolean) -> Unit = { targets, useMount ->
+        when {
+            availablePatches <= 0 -> context.toast(sourcesLoadingText)
+            homeViewModel.android11BugActive -> homeViewModel.showAndroid11Dialog = true
+            targets.isEmpty() -> Unit
+            // A live queue keeps its own selection, so open it instead of swapping the apps
+            homeViewModel.batchPatchRunning -> {
+                context.toast(batchInProgressText)
+                onStartBatchPatch(targets, useMount)
+            }
+            else -> onStartBatchPatch(targets, useMount)
+        }
+    }
     val startBatchPatch: (List<HomeAppItem>) -> Unit = { items ->
         // A card that stands for an install queues that install, so cloned copies are each
         // rebuilt as themselves rather than collapsing into the app they came from
@@ -185,19 +199,9 @@ fun HomeScreen(
                 repatchedPackageName = item.installedApp?.trackingKey
             )
         }
-        when {
-            availablePatches <= 0 -> context.toast(sourcesLoadingText)
-            homeViewModel.android11BugActive -> homeViewModel.showAndroid11Dialog = true
-            targets.isEmpty() -> Unit
-            // A live queue keeps its own selection, so open it instead of swapping the apps
-            homeViewModel.batchPatchRunning -> {
-                context.toast(batchInProgressText)
-                onStartBatchPatch(targets, false)
-            }
-            // The queue installs through the standard installer, never by mounting, so the
-            // single-app mount choice must not carry over into the patches it resolves
-            else -> onStartBatchPatch(targets, false)
-        }
+        // The queue installs through the standard installer, never by mounting, so the
+        // single-app mount choice must not carry over into the patches it resolves
+        openBatchQueue(targets, false)
     }
 
     // Handle patch trigger from dialog
@@ -289,9 +293,14 @@ fun HomeScreen(
                         onShow = { startBatchPatch(repatchableApps) }
                     ),
                     // Reopened on its own apps, so the batch screen keeps the run instead of
-                    // planning a new one
-                    batchQueue = BatchQueueAlertState(batchRun) {
-                        batchRun?.let { onStartBatchPatch(it.targets, it.useMount) }
+                    // planning a new one. A queue left by an earlier process is only stored
+                    batchQueue = BatchQueueAlertState(batchRun, savedBatchQueue) {
+                        val run = batchRun
+                        val saved = savedBatchQueue
+                        when {
+                            run != null -> onStartBatchPatch(run.targets, run.useMount)
+                            saved != null -> openBatchQueue(saved.targets, saved.useMount)
+                        }
                     },
                     bundleUpdate = BundleUpdateState(
                         visible = homeViewModel.showBundleUpdateSnackbar,
@@ -308,7 +317,8 @@ fun HomeScreen(
                     filterMode = HomeAppFilterMode.fromPreference(homeAppFilterModePref),
                     categoryState = homeAppCategoryState,
                     categoryViewMode = homeAppCategoryViewMode,
-                    sourceGroups = homeAppSourceGroups
+                    sourceGroups = homeAppSourceGroups,
+                    batchQueuePending = savedBatchQueue != null
                 ),
                 appActions = HomeAppActions(
                     onAppClick = { item ->

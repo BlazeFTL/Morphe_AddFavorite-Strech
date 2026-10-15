@@ -29,6 +29,7 @@ import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.domain.apk.*
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
 import app.morphe.manager.domain.batch.BatchRunState
+import app.morphe.manager.domain.batch.SavedBatchQueue
 import app.morphe.manager.domain.batch.mergeNewlyAdded
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.installer.InstallerManager
@@ -772,6 +773,9 @@ class HomeViewModel(
      * it keeps patching, and home is then the only way back to it.
      */
     val batchRun: StateFlow<BatchRunState?> = batchPatchCoordinator.state
+
+    /** The queue waiting to be started, which apps are added to from here. */
+    val savedBatchQueue: StateFlow<SavedBatchQueue?> = batchPatchCoordinator.savedQueue
 
     /**
      * Guard entry-point for all patching flows.

@@ -476,7 +476,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="batch_patch_state_no_patches">No patches</string>
     <string name="batch_patch_policy_install">Install when finished</string>
     <string name="batch_patch_policy_install_description">Installs every patched app right after the queue finishes. Off keeps the APKs for later</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Stop batch patching?</string>
     <string name="batch_patch_stop_description">The app being patched right now and everything still queued will be cancelled</string>
@@ -485,6 +485,10 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="batch_patch_install_failed">Install failed</string>
     <string name="batch_patch_in_progress">Batch patching is already running</string>
     <string name="batch_patch_nothing_outdated">Every patched app is up to date</string>
+    <string name="batch_queue_add_action">Add to queue</string>
+    <string name="batch_queue_pending_subtitle">Tap to review and start</string>
+    <string name="batch_queue_clear_title">Clear the queue?</string>
+    <string name="batch_queue_clear_description">All apps will be removed from the queue</string>
     <string name="shortcut_repatch_short">Re-patch</string>
     <string name="shortcut_repatch_long">Re-patch outdated apps</string>
     <string name="shortcut_check_updates_short">Check updates</string>

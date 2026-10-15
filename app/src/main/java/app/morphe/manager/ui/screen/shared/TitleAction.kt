@@ -67,7 +67,7 @@ fun TitleAction(
         TitleActionStyle.Plain -> null
         TitleActionStyle.Accent -> accent?.copy(alpha = AccentAlpha.LEAD) ?: MaterialTheme.colorScheme.primaryContainer
         // Neutral on any header, with the red kept to the icon, where it warns rather than decorates
-        TitleActionStyle.Destructive -> MaterialTheme.colorScheme.surfaceVariant
+        TitleActionStyle.Destructive -> neutralContainer(accent)
         TitleActionStyle.Toggle -> if (active) {
             accent ?: MaterialTheme.colorScheme.primaryContainer
         } else {

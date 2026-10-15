@@ -80,7 +80,9 @@ data class HomeAppListUi(
     val filterMode: HomeAppFilterMode,
     val categoryState: HomeAppCategoryState,
     val categoryViewMode: HomeAppCategoryViewMode,
-    val sourceGroups: List<HomeAppSourceGroup>
+    val sourceGroups: List<HomeAppSourceGroup>,
+    /** Whether a batch queue is waiting to be started, which patching a selection adds to. */
+    val batchQueuePending: Boolean = false
 )
 
 /** Callbacks fired from an app card. */

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.home
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.PlaylistAdd
 import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.FolderOpen
@@ -135,7 +136,9 @@ internal fun HomeAppsFooterBars(
     val context = LocalContext.current
     val reinstallLabel = stringResource(R.string.reinstall)
     val uninstallLabel = stringResource(R.string.uninstall)
-    val patchSelectedLabel = stringResource(R.string.batch_patch_action)
+    val patchSelectedLabel = stringResource(
+        if (apps.batchQueuePending) R.string.batch_queue_add_action else R.string.batch_patch_action
+    )
     val patchSourcesLabel = stringResource(R.string.sources_management_title)
     val moveToCategoryLabel = stringResource(R.string.home_category_move_to)
     val reorderListLabel = stringResource(R.string.reorder_list)
@@ -179,7 +182,7 @@ internal fun HomeAppsFooterBars(
     val actions = buildList {
         add(
             SelectionAction(
-                icon = Icons.Outlined.AutoFixHigh,
+                icon = if (apps.batchQueuePending) Icons.AutoMirrored.Outlined.PlaylistAdd else Icons.Outlined.AutoFixHigh,
                 label = patchSelectedLabel,
                 onClick = {
                     appActions.onPatchMultiple(selectedAppItems)

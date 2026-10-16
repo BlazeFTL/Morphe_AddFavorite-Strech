@@ -120,9 +120,6 @@ private fun ContributorSection(
                     title = contributor.name,
                     subtitle = "github.com/${contributor.organisation}"
                 )
-                if (index < contributors.lastIndex) {
-                    SettingsDivider()
-                }
             }
         }
     }

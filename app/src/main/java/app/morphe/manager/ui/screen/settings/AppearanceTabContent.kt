@@ -296,7 +296,6 @@ private fun LanguageAndDisplaySection(
                 }
             }
         )
-        SettingsDivider()
         SettingsItem(
             onClick = onUiScaleClick,
             title = stringResource(R.string.settings_appearance_ui_scale),
@@ -362,16 +361,13 @@ private fun ThemeSection(
             enter = Animations.expandFadeEnter,
             exit = Animations.shrinkFadeExit
         ) {
-            Column {
-                SettingsSwitchItem(
-                    title = stringResource(R.string.settings_appearance_pure_black),
-                    subtitle = stringResource(R.string.settings_appearance_pure_black_description),
-                    icon = Icons.Outlined.Contrast,
-                    checked = pureBlackTheme,
-                    onToggle = onPureBlackToggle
-                )
-                SettingsDivider()
-            }
+            SettingsSwitchItem(
+                title = stringResource(R.string.settings_appearance_pure_black),
+                subtitle = stringResource(R.string.settings_appearance_pure_black_description),
+                icon = Icons.Outlined.Contrast,
+                checked = pureBlackTheme,
+                onToggle = onPureBlackToggle
+            )
         }
 
         // Monochrome already trades every app's and source's color for its own accent
@@ -380,16 +376,13 @@ private fun ThemeSection(
             enter = Animations.expandFadeEnter,
             exit = Animations.shrinkFadeExit
         ) {
-            Column {
-                SettingsSwitchItem(
-                    title = stringResource(R.string.settings_appearance_color_accents),
-                    subtitle = stringResource(R.string.settings_appearance_color_accents_description),
-                    icon = Icons.Outlined.FormatColorFill,
-                    checked = colorAccents,
-                    onToggle = onColorAccentsToggle
-                )
-                SettingsDivider()
-            }
+            SettingsSwitchItem(
+                title = stringResource(R.string.settings_appearance_color_accents),
+                subtitle = stringResource(R.string.settings_appearance_color_accents_description),
+                icon = Icons.Outlined.FormatColorFill,
+                checked = colorAccents,
+                onToggle = onColorAccentsToggle
+            )
         }
 
         SettingsSwitchItem(
@@ -400,15 +393,11 @@ private fun ThemeSection(
             onToggle = onOutlinesToggle
         )
 
-        SettingsDivider()
-
         BackgroundSettingsItem(
             selectedBackground = backgroundType,
             selectedInterval = randomInterval,
             onClick = onBackgroundClick
         )
-
-        SettingsDivider()
 
         AppIconSettingsItem()
     }
@@ -442,11 +431,13 @@ private fun ColorsSection(
             enter = Animations.expandFadeEnter,
             exit = Animations.shrinkFadeExit
         ) {
-            AccentColorSelector(
-                selectedColorHex = accentColorHex,
-                onColorSelected = onAccentSelected,
-                dynamicColorEnabled = !showAccent
-            )
+            SettingsItemCard(onClick = null) {
+                AccentColorSelector(
+                    selectedColorHex = accentColorHex,
+                    onColorSelected = onAccentSelected,
+                    dynamicColorEnabled = !showAccent
+                )
+            }
         }
 
         AnimatedVisibility(
@@ -454,15 +445,12 @@ private fun ColorsSection(
             enter = Animations.expandFadeEnter,
             exit = Animations.shrinkFadeExit
         ) {
-            Column {
-                if (showAccent) SettingsDivider()
-                SettingsItem(
-                    onClick = onAppCardColorsClick,
-                    title = stringResource(R.string.settings_appearance_app_card_colors),
-                    subtitle = stringResource(appCardColorMode.descriptionResId),
-                    leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
-                )
-            }
+            SettingsItem(
+                onClick = onAppCardColorsClick,
+                title = stringResource(R.string.settings_appearance_app_card_colors),
+                subtitle = stringResource(appCardColorMode.descriptionResId),
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
+            )
         }
     }
 }
@@ -492,7 +480,6 @@ private fun HomeScreenSection(
             checked = showGreetingPhrases,
             onToggle = onGreetingPhrasesToggle
         )
-        SettingsDivider()
         SettingsSwitchItem(
             title = stringResource(R.string.settings_appearance_repatch_notice),
             subtitle = stringResource(R.string.settings_appearance_repatch_notice_description),
@@ -500,7 +487,6 @@ private fun HomeScreenSection(
             checked = showRepatchNotice,
             onToggle = onRepatchNoticeToggle
         )
-        SettingsDivider()
         SettingsSwitchItem(
             title = stringResource(R.string.settings_appearance_sort_button),
             subtitle = stringResource(R.string.settings_appearance_sort_button_description),

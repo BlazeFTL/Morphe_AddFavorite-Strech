@@ -24,13 +24,19 @@ import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.FolderOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.onPlaced
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
@@ -56,6 +62,9 @@ fun cardFill(): Color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorSche
 /**
  * Elevated card with proper Material 3 theming.
  * Base card for all other card types.
+ *
+ * In a [SettingsGroup] it is a row of the group, shaped and outlined by its place among the rows,
+ * and [cornerRadius] goes unused. Cards inside it are cards again.
  */
 @Composable
 fun SurfaceCard(
@@ -69,24 +78,54 @@ fun SurfaceCard(
     color: Color = cardFill(),
     content: @Composable () -> Unit
 ) {
+    val group = LocalSegmentRegistry.current
+    val row = remember { Any() }
+    val shape = if (group == null) {
+        RoundedCornerShape(cornerRadius)
+    } else {
+        // A row settling into its place takes its shape at once, only later moves ease it over
+        val memory = remember { RowPlacement() }
+        val placed = group.isPlaced(row)
+        SideEffect { memory.placed = placed }
+        DisposableEffect(group) { onDispose { group.remove(row) } }
+        animateCornersAsState(group.shape(row), animate = memory.placed)
+    }
+    val border = when {
+        showBorder -> CardBorder.of(borderColor)
+        group != null -> CardBorder.of(appAccentBorder(null))
+        else -> null
+    }
+
     Surface(
         modifier = modifier
+            .then(
+                if (group != null) {
+                    Modifier
+                        .padding(vertical = SegmentGap / 2)
+                        .onPlaced { group.place(row, it.positionInRoot().y) }
+                } else Modifier
+            )
             .fillMaxWidth()
-            .clip(RoundedCornerShape(cornerRadius))
+            .clip(shape)
             .then(
                 if (onClick != null) {
                     Modifier.clickable(enabled = enabled, onClick = onClick)
                 } else Modifier
             ),
-        shape = RoundedCornerShape(cornerRadius),
+        shape = shape,
         color = ThemeTraitsDefaults.surfaceColor(color),
         contentColor = MaterialTheme.colorScheme.onSurface,
         tonalElevation = ThemeTraitsDefaults.cardElevation(elevation),
         shadowElevation = 0.dp,
-        border = if (showBorder) CardBorder.of(borderColor) else null
+        border = border
     ) {
-        content()
+        CompositionLocalProvider(LocalSegmentRegistry provides null, content = content)
     }
+}
+
+/** Whether a row of a [SettingsGroup] had its place by the last composition. */
+private class RowPlacement {
+    var placed = false
 }
 
 /**
@@ -530,19 +569,6 @@ fun SectionCard(
         modifier = modifier
     ) {
         if (accentColor == null) content() else ProvideCardAccent(accentColor, fill, content)
-    }
-}
-
-/**
- * Standard grouped-settings container. Wraps a stack of settings items in a single card.
- */
-@Composable
-fun SettingsGroup(
-    modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    SectionCard(modifier = modifier) {
-        Column(content = content)
     }
 }
 

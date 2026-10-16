@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -23,69 +24,84 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 
-/** Corner on the edges of a connected group, as round as any other button. */
-private val OuterCorner = CornerSize(50)
-
-/** Corner where two buttons of a connected group meet, nearly square so they read as one piece. */
+/** Corner where two members of a connected group meet, nearly square so they read as one piece. */
 private val InnerCorner = CornerSize(4.dp)
 
 /**
- * Shapes of the buttons of a connected group: fully rounded on the group's own edges and nearly
- * square where two buttons meet. Space the buttons by `ButtonGroupDefaults.ConnectedSpaceBetween`.
+ * Shapes of the members of a connected group: [outer] on the group's own edges and nearly square
+ * where two meet. Members are spaced by `ButtonGroupDefaults.ConnectedSpaceBetween`.
  */
-object ConnectedShapes {
-    val Leading = RoundedCornerShape(
-        topStart = OuterCorner,
-        bottomStart = OuterCorner,
+@Immutable
+class ConnectedShapes private constructor(outer: CornerSize) {
+    private val single = RoundedCornerShape(outer)
+
+    val leading = RoundedCornerShape(
+        topStart = outer,
+        bottomStart = outer,
         topEnd = InnerCorner,
         bottomEnd = InnerCorner
     )
-    val Middle = RoundedCornerShape(InnerCorner)
-    val Trailing = RoundedCornerShape(
+    val middle = RoundedCornerShape(InnerCorner)
+    val trailing = RoundedCornerShape(
         topStart = InnerCorner,
         bottomStart = InnerCorner,
-        topEnd = OuterCorner,
-        bottomEnd = OuterCorner
+        topEnd = outer,
+        bottomEnd = outer
     )
-    val Top = RoundedCornerShape(
-        topStart = OuterCorner,
-        topEnd = OuterCorner,
+    val top = RoundedCornerShape(
+        topStart = outer,
+        topEnd = outer,
         bottomStart = InnerCorner,
         bottomEnd = InnerCorner
     )
-    val Bottom = RoundedCornerShape(
+    val bottom = RoundedCornerShape(
         topStart = InnerCorner,
         topEnd = InnerCorner,
-        bottomStart = OuterCorner,
-        bottomEnd = OuterCorner
+        bottomStart = outer,
+        bottomEnd = outer
     )
 
-    /** Shape of the button at [index] of a row of [count], a plain pill for one on its own. */
+    /** Shape of the member at [index] of a row of [count], rounded all round for one on its own. */
     fun inRow(index: Int, count: Int): RoundedCornerShape = when {
-        count == 1 -> Defaults.PillShape
-        index == 0 -> Leading
-        index == count - 1 -> Trailing
-        else -> Middle
+        count == 1 -> single
+        index == 0 -> leading
+        index == count - 1 -> trailing
+        else -> middle
     }
 
-    /** Shape of the button at [index] of a column of [count], a plain pill for one on its own. */
+    /** Shape of the member at [index] of a column of [count], rounded all round for one on its own. */
     fun inColumn(index: Int, count: Int): RoundedCornerShape = when {
-        count == 1 -> Defaults.PillShape
-        index == 0 -> Top
-        index == count - 1 -> Bottom
-        else -> Middle
+        count == 1 -> single
+        index == 0 -> top
+        index == count - 1 -> bottom
+        else -> middle
+    }
+
+    companion object {
+        /** For a group of buttons, as round as any other button. */
+        val Pill = ConnectedShapes(CornerSize(50))
+
+        /** For a segmented list, rounded as the section cards it takes the place of. */
+        val Card = ConnectedShapes(CornerSize(Defaults.CornerLargeIncreased))
     }
 }
 
 /**
  * [target] with its corners easing over from the shape it had before, so a button that is picked,
- * or moves to another place in its group, rounds out rather than jumping.
+ * or moves to another place in its group, rounds out rather than jumping. Without [animate] the
+ * corners take [target] at once, for a shape that is only now being settled.
  */
 @Composable
-fun animateCornersAsState(target: CornerBasedShape): CornerBasedShape {
+fun animateCornersAsState(target: CornerBasedShape, animate: Boolean = true): CornerBasedShape {
     val transition = remember { CornerTransition(target) }
     LaunchedEffect(target) {
         if (target == transition.to) return@LaunchedEffect
+        if (!animate) {
+            transition.from = target
+            transition.to = target
+            transition.progress = 1f
+            return@LaunchedEffect
+        }
         // Set together before the next frame, so an interrupted change carries on from where it is
         transition.from = transition.current()
         transition.to = target

@@ -562,14 +562,16 @@ private fun ColorOptionWithPresets(
     val isCustom = entries.none { (_, preset) -> preset == value }
 
     OptionCard(heading) {
-        // The choices the app gives everywhere, one card to a named preset, named in the type of
+        // The choices the app gives everywhere, one row to a named preset, named in the type of
         // the option cards they sit in
-        named.forEach { (label, preset) ->
-            RadioSelectionCard(
-                selected = preset == value,
-                onSelect = { onPresetSelect(preset) }
-            ) {
-                CardHeadingText(name = label, description = null, modifier = Modifier.weight(1f))
+        SettingsGroup {
+            named.forEach { (label, preset) ->
+                RadioSelectionCard(
+                    selected = preset == value,
+                    onSelect = { onPresetSelect(preset) }
+                ) {
+                    CardHeadingText(name = label, description = null, modifier = Modifier.weight(1f))
+                }
             }
         }
 

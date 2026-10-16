@@ -1590,7 +1590,7 @@ private fun ActionGroup(actions: List<ActionItem>, modifier: Modifier = Modifier
                         action = action,
                         settled = settled.value,
                         inRow = true,
-                        shape = ConnectedShapes.inRow(index, actions.size),
+                        shape = ConnectedShapes.Pill.inRow(index, actions.size),
                         stacked = !besideFits
                     )
                 }
@@ -1602,7 +1602,7 @@ private fun ActionGroup(actions: List<ActionItem>, modifier: Modifier = Modifier
                         action = action,
                         settled = settled.value,
                         inRow = false,
-                        shape = ConnectedShapes.inColumn(index, actions.size),
+                        shape = ConnectedShapes.Pill.inColumn(index, actions.size),
                         stacked = false
                     )
                 }

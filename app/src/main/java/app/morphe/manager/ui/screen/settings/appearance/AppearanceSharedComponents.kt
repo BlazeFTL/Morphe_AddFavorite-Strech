@@ -70,7 +70,7 @@ fun <T> OptionGroup(
             val interactionSource = remember { MutableInteractionSource() }
             item(
                 option,
-                ConnectedShapes.inRow(index, items.size),
+                ConnectedShapes.Pill.inRow(index, items.size),
                 interactionSource,
                 Modifier.buttonGroupItem(interactionSource)
             )

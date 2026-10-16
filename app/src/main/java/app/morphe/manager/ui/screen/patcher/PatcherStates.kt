@@ -758,7 +758,7 @@ private fun InstallActions(
             ResultActionButton(
                 modifier = Modifier.buttonGroupItem(installInteraction, enabled = !isInstalling),
                 interactionSource = installInteraction,
-                shape = ConnectedShapes.Leading,
+                shape = ConnectedShapes.Pill.leading,
                 text = stringResource(
                     when {
                         isInstalling -> if (usingMountInstall) {
@@ -798,7 +798,7 @@ private fun InstallActions(
                 text = stringResource(R.string.save),
                 enabled = !isSaving,
                 showProgress = isSaving,
-                shape = ConnectedShapes.Middle,
+                shape = ConnectedShapes.Pill.middle,
                 interactionSource = saveInteraction,
                 modifier = Modifier.buttonGroupItem(
                     saveInteraction,
@@ -811,7 +811,7 @@ private fun InstallActions(
                 onClick = onShare,
                 icon = Icons.Outlined.Share,
                 text = stringResource(R.string.share),
-                shape = ConnectedShapes.Trailing,
+                shape = ConnectedShapes.Pill.trailing,
                 interactionSource = shareInteraction,
                 modifier = Modifier.buttonGroupItem(
                     shareInteraction,

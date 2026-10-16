@@ -150,13 +150,15 @@ private fun ApkDownloadHelperDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
-            helpers.forEach { helper ->
-                RadioSelectionCard(
-                    selected = selected == helper,
-                    onSelect = { selected = helper },
-                    title = helper.label,
-                    description = helper.componentName.packageName
-                )
+            SettingsGroup {
+                helpers.forEach { helper ->
+                    RadioSelectionCard(
+                        selected = selected == helper,
+                        onSelect = { selected = helper },
+                        title = helper.label,
+                        description = helper.componentName.packageName
+                    )
+                }
             }
 
             Notice(

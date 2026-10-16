@@ -140,7 +140,6 @@ fun StorageManagementDialog(
                     description = stringResource(R.string.settings_system_original_apks_description),
                     onClick = { apkDialog = ApkManagementType.ORIGINAL }
                 )
-                SettingsDivider()
                 DataRow(
                     icon = Icons.Outlined.Apps,
                     accentColor = StorageColors.PatchedApks,
@@ -159,7 +158,6 @@ fun StorageManagementDialog(
                     bytes = stats.httpCacheBytes,
                     onClear = { viewModel.clearHttpCache(onCleared) }
                 )
-                SettingsDivider()
                 CacheActionRow(
                     icon = Icons.Outlined.Share,
                     accentColor = StorageColors.InstallerShare,
@@ -168,7 +166,6 @@ fun StorageManagementDialog(
                     bytes = stats.installerShareBytes,
                     onClear = { viewModel.clearInstallerShareCache(onCleared) }
                 )
-                SettingsDivider()
                 CacheActionRow(
                     icon = Icons.Outlined.Build,
                     accentColor = StorageColors.PatcherWorkspace,
@@ -177,7 +174,6 @@ fun StorageManagementDialog(
                     bytes = stats.patcherWorkspaceBytes,
                     onClear = { viewModel.clearPatcherWorkspace(onCleared) }
                 )
-                SettingsDivider()
                 CacheActionRow(
                     icon = Icons.Outlined.HourglassEmpty,
                     accentColor = StorageColors.Temporary,
@@ -186,7 +182,6 @@ fun StorageManagementDialog(
                     bytes = stats.temporaryBytes,
                     onClear = { viewModel.clearTemporary(onCleared) }
                 )
-                SettingsDivider()
                 CacheActionRow(
                     icon = Icons.Outlined.DeleteSweep,
                     accentColor = MaterialTheme.colorScheme.error,
@@ -234,28 +229,30 @@ private fun CacheActionRow(
     bytes: Long,
     onClear: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(Defaults.SpaceLarge),
-        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
-    ) {
-        IconTextRow(
-            leadingContent = { ThemedIcon(icon = icon, tint = accentColor) },
-            title = title,
-            description = description
-        )
-        CardActionRow(
-            actions = listOf(
-                CardAction(
-                    icon = Icons.Outlined.DeleteSweep,
-                    label = "${stringResource(R.string.clear)} (${LocalContext.current.formatBytes(bytes)})",
-                    onClick = onClear,
-                    enabled = bytes > 0L,
-                    destructive = true
+    SettingsItemCard(onClick = null) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Defaults.SpaceLarge),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
+        ) {
+            IconTextRow(
+                leadingContent = { ThemedIcon(icon = icon, tint = accentColor) },
+                title = title,
+                description = description
+            )
+            CardActionRow(
+                actions = listOf(
+                    CardAction(
+                        icon = Icons.Outlined.DeleteSweep,
+                        label = "${stringResource(R.string.clear)} (${LocalContext.current.formatBytes(bytes)})",
+                        onClick = onClear,
+                        enabled = bytes > 0L,
+                        destructive = true
+                    )
                 )
             )
-        )
+        }
     }
 }
 

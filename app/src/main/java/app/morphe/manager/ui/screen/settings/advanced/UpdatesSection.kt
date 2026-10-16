@@ -68,8 +68,6 @@ fun UpdatesSettingsItem(
             subtitle = stringResource(R.string.settings_advanced_updates_manager_prereleases_description)
         )
 
-        SettingsDivider()
-
         // Allow updates on metered connections
         SettingsSwitchItem(
             checked = allowMeteredUpdates,

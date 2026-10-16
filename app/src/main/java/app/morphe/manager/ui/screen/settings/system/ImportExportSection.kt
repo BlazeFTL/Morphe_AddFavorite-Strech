@@ -115,8 +115,6 @@ fun ImportExportSection(
                 subtitle = stringResource(R.string.settings_system_signing_key_description)
             )
 
-            SettingsDivider()
-
             SettingsItem(
                 onClick = { showSettingsDialog = true },
                 leadingContent = { ThemedIcon(icon = Icons.Outlined.Settings) },
@@ -234,7 +232,7 @@ private fun SettingsBackupContents(
     selected: Set<SettingsSection>,
     onToggle: (SettingsSection) -> Unit
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)) {
+    SettingsGroup {
         SettingsSection.entries.forEach { section ->
             val isSelected = section in selected
             RadioSelectionCard(

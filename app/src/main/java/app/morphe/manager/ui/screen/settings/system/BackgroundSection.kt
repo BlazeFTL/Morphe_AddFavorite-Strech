@@ -66,8 +66,6 @@ fun BackgroundSection(
                 }
             )
 
-            SettingsDivider()
-
             SettingsItem(
                 onClick = onNotificationsClick,
                 title = stringResource(R.string.settings_system_notifications),

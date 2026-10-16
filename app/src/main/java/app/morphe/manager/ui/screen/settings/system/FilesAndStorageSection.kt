@@ -98,8 +98,6 @@ fun FilesAndStorageSection(
 
             // Patch Selections (Expert mode only)
             if (useExpertMode) {
-                SettingsDivider()
-
                 SettingsItem(
                     onClick = { showPatchSelectionDialog.value = true },
                     title = stringResource(R.string.settings_system_patch_selections_title),
@@ -128,8 +126,6 @@ fun FilesAndStorageSection(
                         subtitle = stringResource(R.string.settings_system_custom_file_picker_description)
                     )
                 }
-
-                if (showFilePicker && showApkDownloadHelpers) SettingsDivider()
 
                 if (showApkDownloadHelpers) {
                     SettingsItem(

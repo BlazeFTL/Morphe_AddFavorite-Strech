@@ -979,26 +979,28 @@ fun DeepLinkAddSourceDialog(
         details = if (packageName == null) null else {
             {
                 SettingsGroup {
-                    IconTextRow(
-                        modifier = Modifier.padding(Defaults.SpaceLarge),
-                        leadingContent = {
-                            AppIcon(
-                                packageName = packageName,
-                                contentDescription = null,
-                                modifier = Modifier.size(SourceRowIconSize),
-                                placeholderGradientColors = appGradientColors
-                                    ?: AppCardColorDefaults.defaultGradientColors
+                    SettingsItemCard(onClick = null) {
+                        IconTextRow(
+                            modifier = Modifier.padding(Defaults.SpaceLarge),
+                            leadingContent = {
+                                AppIcon(
+                                    packageName = packageName,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(SourceRowIconSize),
+                                    placeholderGradientColors = appGradientColors
+                                        ?: AppCardColorDefaults.defaultGradientColors
+                                )
+                            },
+                            title = appName ?: packageName,
+                            description = stringResource(
+                                when {
+                                    !isAdded -> R.string.deep_link_add_source_only_app
+                                    isAppLeftOut -> R.string.sources_apps_left_out
+                                    else -> R.string.sources_apps_brought
+                                }
                             )
-                        },
-                        title = appName ?: packageName,
-                        description = stringResource(
-                            when {
-                                !isAdded -> R.string.deep_link_add_source_only_app
-                                isAppLeftOut -> R.string.sources_apps_left_out
-                                else -> R.string.sources_apps_brought
-                            }
                         )
-                    )
+                    }
                 }
             }
         },
@@ -1113,12 +1115,7 @@ fun SimpleBundleSelectDialog(
             )
         }
     ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-            modifier = Modifier
-                .fillMaxWidth()
-                .selectableGroup()
-        ) {
+        SettingsGroup(modifier = Modifier.selectableGroup()) {
             val preInstalledLabel = stringResource(R.string.sources_dialog_preinstalled)
             val remoteLabel = stringResource(R.string.sources_dialog_remote)
             val localLabel = stringResource(R.string.sources_dialog_local)

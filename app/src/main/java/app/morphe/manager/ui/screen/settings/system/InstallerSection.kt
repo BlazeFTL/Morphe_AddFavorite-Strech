@@ -264,71 +264,73 @@ fun InstallerSelectionDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
-            visibleOptions.forEach { option ->
-                val enabled = option.availability.available
-                val isSelected = selectedToken == option.token
-                val isShizukuOption = option.token.isShizukuToken()
-                val showShizukuAction = isShizukuOption &&
-                        option.availability.reason in shizukuPromptReasons &&
-                        onOpenShizuku != null
+            SettingsGroup {
+                visibleOptions.forEach { option ->
+                    val enabled = option.availability.available
+                    val isSelected = selectedToken == option.token
+                    val isShizukuOption = option.token.isShizukuToken()
+                    val showShizukuAction = isShizukuOption &&
+                            option.availability.reason in shizukuPromptReasons &&
+                            onOpenShizuku != null
 
-                // Build state description for accessibility
-                val stateDesc = buildString {
-                    append(if (isSelected) selectedState else notSelectedState)
-                    if (!enabled) {
-                        append(", ")
-                        append(disabledState)
-                    }
-                }
-
-                val shizukuFooterText = if (isSelected &&
-                    isShizukuOption &&
-                    inlineShizukuStatus != null &&
-                    !inlineShizukuStatus!!.availability.available
-                ) {
-                    inlineShizukuStatus!!.availability.reason?.let { stringResource(it) }
-                        ?: stringResource(R.string.installer_shizuku_status_issue)
-                } else null
-
-                val showStatusAction =
-                    isSelected && isShizukuOption && shizukuStatusProvider != null
-                val openLabel = stringResource(R.string.installer_action_open_shizuku)
-                val statusLabel = stringResource(R.string.installer_shizuku_status_action)
-
-                InstallerOptionItem(
-                    option = option,
-                    selected = isSelected,
-                    enabled = enabled,
-                    onSelect = { if (enabled) currentSelection.value = option.token },
-                    stateDescription = stateDesc,
-                    footerText = shizukuFooterText,
-                    // Shizuku's fixes sit in its own card, under what is wrong with it
-                    footerActions = if (showShizukuAction || showStatusAction) {
-                        {
-                            if (showShizukuAction) {
-                                ActionPillButton(
-                                    onClick = { runCatching { onOpenShizuku.invoke() } },
-                                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                                    contentDescription = openLabel,
-                                    label = openLabel,
-                                    colors = ActionPillColors.primary(),
-                                    modifier = Modifier.weight(1f)
-                                )
-                            }
-                            if (showStatusAction) {
-                                ActionPillButton(
-                                    onClick = { showShizukuStatus = true },
-                                    icon = Icons.Outlined.Info,
-                                    contentDescription = statusLabel,
-                                    label = statusLabel,
-                                    modifier = Modifier.weight(1f)
-                                )
-                            }
+                    // Build state description for accessibility
+                    val stateDesc = buildString {
+                        append(if (isSelected) selectedState else notSelectedState)
+                        if (!enabled) {
+                            append(", ")
+                            append(disabledState)
                         }
+                    }
+
+                    val shizukuFooterText = if (isSelected &&
+                        isShizukuOption &&
+                        inlineShizukuStatus != null &&
+                        !inlineShizukuStatus!!.availability.available
+                    ) {
+                        inlineShizukuStatus!!.availability.reason?.let { stringResource(it) }
+                            ?: stringResource(R.string.installer_shizuku_status_issue)
                     } else null
-                )
+
+                    val showStatusAction =
+                        isSelected && isShizukuOption && shizukuStatusProvider != null
+                    val openLabel = stringResource(R.string.installer_action_open_shizuku)
+                    val statusLabel = stringResource(R.string.installer_shizuku_status_action)
+
+                    InstallerOptionItem(
+                        option = option,
+                        selected = isSelected,
+                        enabled = enabled,
+                        onSelect = { if (enabled) currentSelection.value = option.token },
+                        stateDescription = stateDesc,
+                        footerText = shizukuFooterText,
+                        // Shizuku's fixes sit in its own card, under what is wrong with it
+                        footerActions = if (showShizukuAction || showStatusAction) {
+                            {
+                                if (showShizukuAction) {
+                                    ActionPillButton(
+                                        onClick = { runCatching { onOpenShizuku.invoke() } },
+                                        icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                                        contentDescription = openLabel,
+                                        label = openLabel,
+                                        colors = ActionPillColors.primary(),
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                                if (showStatusAction) {
+                                    ActionPillButton(
+                                        onClick = { showShizukuStatus = true },
+                                        icon = Icons.Outlined.Info,
+                                        contentDescription = statusLabel,
+                                        label = statusLabel,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                            }
+                        } else null
+                    )
+                }
             }
 
             val showPlayStoreToggle = selectedToken.supportsPlayStoreMode() &&
@@ -344,17 +346,7 @@ fun InstallerSelectionDialog(
 
             ModuleUnmountNotice(visible = currentSelection.value == InstallerManager.Token.AutoSaved)
 
-            // A divider belongs only between rows that are actually on screen
-            val toggleRows = listOf(
-                showPlayStoreToggle,
-                showAutoInstallToggle,
-                showPromptToggle
-            )
-            fun dividerBefore(row: Int) = toggleRows.take(row).any { it }
-
-            if (toggleRows.any { it }) {
-                SettingsDivider(fullWidth = true)
-
+            if (showPlayStoreToggle || showAutoInstallToggle || showPromptToggle) {
                 SettingsGroup {
                     AnimatedVisibility(
                         visible = showPlayStoreToggle,
@@ -382,7 +374,6 @@ fun InstallerSelectionDialog(
                         exit = Animations.shrinkFadeExit
                     ) {
                         Column {
-                            if (dividerBefore(1)) SettingsDivider()
                             SettingsSwitchItem(
                                 checked = autoInstallEnabled,
                                 onToggle = {
@@ -403,28 +394,24 @@ fun InstallerSelectionDialog(
                                 enter = Animations.expandFadeEnter,
                                 exit = Animations.shrinkFadeExit
                             ) {
-                                Column {
-                                    SettingsDivider()
-                                    SettingsSwitchItem(
-                                        checked = autoUninstallEnabled,
-                                        onToggle = {
-                                            if (autoUninstallEnabled) {
-                                                onAutoUninstallToggle?.invoke(false)
-                                            } else {
-                                                pendingAutoUninstallConfirm = true
-                                            }
-                                        },
-                                        leadingContent = { ThemedIcon(icon = Icons.Outlined.Delete, size = 28.dp) },
-                                        title = stringResource(R.string.settings_auto_uninstall_with_shizuku),
-                                        subtitle = stringResource(R.string.settings_auto_uninstall_with_shizuku_description)
-                                    )
-                                }
+                                SettingsSwitchItem(
+                                    checked = autoUninstallEnabled,
+                                    onToggle = {
+                                        if (autoUninstallEnabled) {
+                                            onAutoUninstallToggle?.invoke(false)
+                                        } else {
+                                            pendingAutoUninstallConfirm = true
+                                        }
+                                    },
+                                    leadingContent = { ThemedIcon(icon = Icons.Outlined.Delete, size = 28.dp) },
+                                    title = stringResource(R.string.settings_auto_uninstall_with_shizuku),
+                                    subtitle = stringResource(R.string.settings_auto_uninstall_with_shizuku_description)
+                                )
                             }
                         }
                     }
 
                     if (showPromptToggle) {
-                        if (dividerBefore(2)) SettingsDivider()
                         SettingsSwitchItem(
                             checked = installerPromptEnabled,
                             onToggle = {

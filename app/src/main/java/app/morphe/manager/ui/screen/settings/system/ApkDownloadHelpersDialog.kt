@@ -78,7 +78,6 @@ fun ApkDownloadHelpersDialog(
         ) {
             SettingsGroup {
                 helpers.forEachIndexed { index, helper ->
-                    if (index > 0) SettingsDivider()
 
                     val trusted = helper.packageName in trustedPackages
                     val info = details[helper.packageName]

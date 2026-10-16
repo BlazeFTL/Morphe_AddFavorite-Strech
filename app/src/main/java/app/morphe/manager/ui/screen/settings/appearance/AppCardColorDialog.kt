@@ -176,7 +176,6 @@ fun AppCardColorDialog(
                             followsBundle = AppCardColorDefaults.isBundleColor(draftStartColorHex),
                             onClick = { editingStop = AppCardColorStop.START }
                         )
-                        SettingsDivider()
                         AppCardColorItem(
                             title = stringResource(R.string.settings_appearance_app_card_colors_middle),
                             stop = AppCardColorStop.MIDDLE,
@@ -184,7 +183,6 @@ fun AppCardColorDialog(
                             followsBundle = AppCardColorDefaults.isBundleColor(draftMiddleColorHex),
                             onClick = { editingStop = AppCardColorStop.MIDDLE }
                         )
-                        SettingsDivider()
                         AppCardColorItem(
                             title = stringResource(R.string.settings_appearance_app_card_colors_end),
                             stop = AppCardColorStop.END,

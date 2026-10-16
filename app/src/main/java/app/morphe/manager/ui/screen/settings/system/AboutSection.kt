@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.Defaults
-import app.morphe.manager.ui.screen.shared.SettingsDivider
 import app.morphe.manager.ui.screen.shared.SettingsGroup
 import app.morphe.manager.ui.screen.shared.SettingsItem
 import app.morphe.manager.ui.screen.shared.rememberMorpheLogoBitmap
@@ -53,16 +52,12 @@ fun AboutSection(
             }
         )
 
-        SettingsDivider()
-
         SettingsItem(
             icon = Icons.AutoMirrored.Outlined.Article,
             title = stringResource(R.string.changelog),
             subtitle = stringResource(R.string.changelog_description),
             onClick = onChangelogClick
         )
-
-        SettingsDivider()
 
         // Next to the changelog rather than with the backups: logs are what a bug report asks for
         SettingsItem(
@@ -73,8 +68,6 @@ fun AboutSection(
         )
 
         if (onStartTour != null) {
-            SettingsDivider()
-
             SettingsItem(
                 icon = Icons.Outlined.Lightbulb,
                 title = stringResource(R.string.onboarding_restart_title),

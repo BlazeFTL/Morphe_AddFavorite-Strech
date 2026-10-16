@@ -957,7 +957,7 @@ private fun BundleManagementCard(
                                     contentDescription = openInBrowser + " " + bundle.displayTitle,
                                     label = openInBrowser,
                                     tooltip = openInBrowser,
-                                    shape = ConnectedShapes.Leading
+                                    shape = ConnectedShapes.Pill.leading
                                 )
 
                                 if (actions.onShare != null) {
@@ -966,7 +966,7 @@ private fun BundleManagementCard(
                                         icon = Icons.Outlined.Share,
                                         contentDescription = share + " " + bundle.displayTitle,
                                         tooltip = share,
-                                        shape = ConnectedShapes.Middle
+                                        shape = ConnectedShapes.Pill.middle
                                     )
                                 }
 
@@ -975,7 +975,7 @@ private fun BundleManagementCard(
                                     icon = Icons.Outlined.BugReport,
                                     contentDescription = reportIssue + " " + bundle.displayTitle,
                                     tooltip = reportIssue,
-                                    shape = ConnectedShapes.Trailing
+                                    shape = ConnectedShapes.Pill.trailing
                                 )
                             }
                         }

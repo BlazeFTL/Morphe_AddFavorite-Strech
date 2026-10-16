@@ -217,8 +217,6 @@ fun NotificationsDialog(
                     Column {
                         // FCM pushes updates as they land, so the polling interval only matters without GMS
                         if (!settingsViewModel.hasGms) {
-                            SettingsDivider()
-
                             SettingsItem(
                                 onClick = { showIntervalDialog = true },
                                 leadingContent = { ThemedIcon(icon = Icons.Outlined.Schedule) },
@@ -226,8 +224,6 @@ fun NotificationsDialog(
                                 subtitle = stringResource(updateCheckInterval.labelResId)
                             )
                         }
-
-                        SettingsDivider()
 
                         // Manager and patch updates have channels of their own, tuned where Android keeps them
                         SettingsItem(
@@ -256,7 +252,6 @@ fun NotificationsDialog(
                     exit = Animations.shrinkFadeExit
                 ) {
                     Column {
-                        SettingsDivider()
                         SoundSelectorItem(
                             title = stringResource(R.string.settings_system_notifications_success_sound),
                             icon = Icons.Outlined.CheckCircle,
@@ -264,7 +259,6 @@ fun NotificationsDialog(
                             defaultLabel = defaultLabel,
                             onClick = { showSourcePickerFor = SoundKind.Success }
                         )
-                        SettingsDivider()
                         SoundSelectorItem(
                             title = stringResource(R.string.settings_system_notifications_error_sound),
                             icon = Icons.Outlined.ErrorOutline,
@@ -324,14 +318,12 @@ private fun SoundSourceDialog(
                 title = stringResource(R.string.settings_system_notifications_sound_pick_ringtone),
                 leadingContent = { ThemedIcon(icon = Icons.Outlined.MusicNote) }
             )
-            SettingsDivider()
             SettingsItem(
                 onClick = onPickFile,
                 title = stringResource(R.string.settings_system_notifications_sound_pick_file),
                 leadingContent = { ThemedIcon(icon = Icons.Outlined.FolderOpen) }
             )
             if (canReset) {
-                SettingsDivider()
                 SettingsItem(
                     onClick = onReset,
                     title = stringResource(R.string.settings_system_notifications_sound_reset),

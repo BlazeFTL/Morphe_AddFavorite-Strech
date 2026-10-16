@@ -5,6 +5,8 @@
 
 package app.morphe.manager.ui.screen.home
 
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import app.morphe.manager.domain.manager.HomeAppCategory
 import app.morphe.manager.ui.model.HomeAppItem
@@ -27,6 +29,8 @@ internal data class CategoryNameRequest(
 @Stable
 internal class HomeAppsSectionState(
     val selectedPackages: SelectionState<String>,
+    /** The app list's scroll, which the screen around the list follows too. */
+    val listState: LazyListState,
     initialOrder: List<String>,
     initialSourceGroupOrder: List<Int>,
     initialCategoryOrder: List<String>,
@@ -127,9 +131,11 @@ internal fun rememberHomeAppsSectionState(
     hasContent: Boolean,
 ): HomeAppsSectionState {
     val selectedPackages = rememberSelectionState<String>()
-    return remember(selectedPackages) {
+    val listState = rememberLazyListState()
+    return remember(selectedPackages, listState) {
         HomeAppsSectionState(
             selectedPackages = selectedPackages,
+            listState = listState,
             initialOrder = initialOrder,
             initialSourceGroupOrder = initialSourceGroupOrder,
             initialCategoryOrder = initialCategoryOrder,

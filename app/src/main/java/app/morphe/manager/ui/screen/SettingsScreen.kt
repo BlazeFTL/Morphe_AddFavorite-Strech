@@ -325,21 +325,21 @@ fun SettingsScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (landscape) {
-            // Landscape: sidebar navigation + content panel
+            // Landscape: sidebar navigation + content panel, the content running on under the status bar
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .statusBarsPadding()
                     .navigationBarsPadding()
             ) {
                 LandscapeNavPanel(
+                    modifier = Modifier.statusBarsPadding(),
                     currentTab = currentTab,
                     onTabSelected = { tab -> selectedTabIndex = tab.ordinal },
                     onBack = { backPressedDispatcher?.onBackPressed() },
                     onAppearanceTabPositioned = { globalOnboardingState?.appearanceTabBounds = it },
                     onSystemTabPositioned = { globalOnboardingState?.systemTabBounds = it }
                 )
-                VerticalDivider(modifier = Modifier.padding(vertical = 20.dp))
+                VerticalDivider(modifier = Modifier.statusBarsPadding().padding(vertical = 20.dp))
                 Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
                     AnimatedContent(
                         targetState = currentTab,
@@ -348,16 +348,12 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxSize()
                     ) { tab -> TabContent(tab) }
 
-                    ListScrollbar(scrollState = currentScrollState)
+                    ListScrollbar(scrollState = currentScrollState, modifier = Modifier.statusBarsPadding())
                 }
             }
         } else {
-            // Portrait: horizontal pager + bottom navigation
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .statusBarsPadding()
-            ) {
+            // Portrait: horizontal pager + bottom navigation, the tabs running on under the status bar
+            Column(modifier = Modifier.fillMaxSize()) {
                 // Invisible back button for TalkBack - must be first in column so it's announced first
                 Box(
                     modifier = Modifier
@@ -394,10 +390,13 @@ fun SettingsScreen(
                         ) { page -> TabContent(SettingsTab.entries[page]) }
                     }
 
-                    ListScrollbar(scrollState = currentScrollState)
+                    ListScrollbar(scrollState = currentScrollState, modifier = Modifier.statusBarsPadding())
                 }
             }
         }
+
+        val scrolledUnder by remember(currentScrollState) { derivedStateOf { currentScrollState.value > 0 } }
+        StatusBarScrim(scrolledUnder = scrolledUnder)
     }
 }
 

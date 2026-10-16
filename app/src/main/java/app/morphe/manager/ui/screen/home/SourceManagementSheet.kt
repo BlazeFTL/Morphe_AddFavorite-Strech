@@ -367,7 +367,7 @@ fun BundleManagementSheet(
                         enter = Animations.expandFadeEnter,
                         exit = Animations.shrinkFadeExit
                     ) {
-                        HomeSearchTextField(
+                        ListSearchField(
                             value = search.query,
                             onValueChange = { search.query = it },
                             label = stringResource(R.string.sources_search),

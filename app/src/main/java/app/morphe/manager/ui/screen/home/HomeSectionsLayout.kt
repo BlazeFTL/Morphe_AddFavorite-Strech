@@ -18,7 +18,6 @@ import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
@@ -267,6 +266,11 @@ fun SectionsLayout(
             )
         }
 
+        val scrolledUnder by remember(sectionState) {
+            derivedStateOf { sectionState.listState.canScrollBackward }
+        }
+        StatusBarScrim(scrolledUnder = scrolledUnder)
+
         val maxCardWidth = if (isLandscape()) LandscapeMaxCardWidth else Defaults.ContentMaxWidth
         NotificationsOverlay(
             notifications = notifications,
@@ -316,6 +320,15 @@ private fun AdaptiveContent(
         footerBar.contentBottom = it.boundsInWindow().bottom
     }
 
+    // Heads the list rather than sitting above it, so it scrolls away with the cards
+    val greeting: (@Composable () -> Unit)? = greetingMessage?.takeIf { it.isNotEmpty() }?.let { message ->
+        { GreetingSection(message = message, onRefresh = chromeActions.onRefreshGreeting) }
+    }
+    // The list starts below the status bar it scrolls on under, a step further down in a grouped
+    // view with no greeting, so its first header does not sit flush against the top
+    val listTopPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() +
+            if (greeting == null && isGroupedAppView) Defaults.SpaceExtraLarge else 0.dp
+
     // Both layouts feed the list the same and only set it in their own padding
     val appsSection = @Composable { horizontalPadding: Dp, showFadeOverlay: Boolean ->
         MainAppsSection(
@@ -333,6 +346,8 @@ private fun AdaptiveContent(
             footerBar = footerBar,
             bottomBarHeight = bottomBarHeight,
             showFadeOverlay = showFadeOverlay,
+            header = greeting,
+            topPadding = listTopPadding,
             fillHeight = isGroupedAppView,
             modifier = if (isGroupedAppView) Modifier.fillMaxSize() else Modifier.fillMaxWidth()
         )
@@ -344,11 +359,11 @@ private fun AdaptiveContent(
             Row(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
-                    .statusBarsPadding(),
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 HomeSidebarPanel(
+                    modifier = Modifier.statusBarsPadding(),
                     showSearchButton = chromeFlags.showSearchButton && !isAppsEmpty,
                     searchActive = searchState.visible,
                     isExpertModeEnabled = chromeFlags.isExpertModeEnabled,
@@ -362,7 +377,7 @@ private fun AdaptiveContent(
                     onSourcesPositioned = onboardingState?.let { s -> { b -> s.sourcesButtonBounds = b } },
                     onSettingsPositioned = onboardingState?.let { s -> { b -> s.settingsButtonBounds = b } }
                 )
-                VerticalDivider(modifier = Modifier.padding(vertical = 20.dp))
+                VerticalDivider(modifier = Modifier.statusBarsPadding().padding(vertical = 20.dp))
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -381,14 +396,6 @@ private fun AdaptiveContent(
                             verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            if (!greetingMessage.isNullOrEmpty()) {
-                                GreetingSection(
-                                    message = greetingMessage,
-                                    modifier = Modifier.widthIn(max = maxCardWidth).fillMaxWidth(),
-                                    onRefresh = chromeActions.onRefreshGreeting
-                                )
-                                Spacer(modifier = Modifier.height(itemSpacing))
-                            }
                             Box(modifier = Modifier.weight(1f, fill = isGroupedAppView)) {
                                 appsSection(0.dp, false)
                             }
@@ -422,20 +429,7 @@ private fun AdaptiveContent(
                     .then(trackContentBottom),
                 verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center
             ) {
-                // Section 2: Greeting - when disabled, show a small top spacer so
-                // the app cards don't sit flush against the top of the screen
-                if (!greetingMessage.isNullOrEmpty()) {
-                    GreetingSection(
-                        message = greetingMessage,
-                        modifier = Modifier.padding(horizontal = contentPadding),
-                        onRefresh = chromeActions.onRefreshGreeting
-                    )
-                    Spacer(modifier = Modifier.height(itemSpacing))
-                } else if (isGroupedAppView) {
-                    Spacer(modifier = Modifier.height(Defaults.SpaceExtraLarge))
-                }
-
-                // Section 3: Scrollable app buttons
+                // Scrollable app buttons, headed by the greeting
                 Box(modifier = Modifier.weight(1f, fill = isGroupedAppView)) {
                     appsSection(contentPadding, true)
                 }
@@ -481,11 +475,10 @@ private fun HomeFooterControls(
  */
 @Composable
 private fun GreetingSection(
-    message: String?,
+    message: String,
     modifier: Modifier = Modifier,
     onRefresh: (() -> Unit)? = null
 ) {
-    if (message.isNullOrEmpty()) return
     val refreshLabel = stringResource(R.string.refresh)
     Box(
         modifier = modifier.then(
@@ -533,6 +526,10 @@ internal fun MainAppsSection(
     maxCardWidth: Dp = 500.dp,
     onboardingState: OnboardingState? = null,
     showFadeOverlay: Boolean = true,
+    // Heads the list and scrolls away with it, such as the greeting
+    header: (@Composable () -> Unit)? = null,
+    // Room above the first row, for the status bar the list scrolls on under
+    topPadding: Dp = 0.dp,
     // When false, the section wraps its content vertically so the parent can center it as a
     // single block together with the greeting; when true, it takes the full available height
     // so the footer keeps a stable position while groups expand or collapse.
@@ -802,7 +799,7 @@ internal fun MainAppsSection(
             ?.mapTo(linkedSetOf()) { it.id }
     }
 
-    val listState = rememberLazyListState()
+    val listState = state.listState
 
     fun movePackagesInOrder(
         order: List<String>,
@@ -1042,30 +1039,37 @@ internal fun MainAppsSection(
             label = "home_empty_state"
         ) { empty ->
             if (empty) {
-                if (isAllHiddenState) {
-                    EmptyState(
-                        message = stringResource(R.string.home_all_apps_hidden_title),
-                        icon = Icons.Outlined.VisibilityOff,
-                        subtitle = stringResource(R.string.home_all_apps_hidden_subtitle),
-                        action = CardAction(
-                            icon = Icons.Outlined.Visibility,
-                            label = pluralStringResource(R.plurals.home_app_show_hidden_count, hiddenAppItems.size, hiddenAppItems.size.toString()),
-                            onClick = { state.showHiddenAppsDialog = true }
-                        ),
-                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                } else {
-                    EmptyState(
-                        message = stringResource(R.string.home_no_apps_title),
-                        icon = Icons.Outlined.Inbox,
-                        subtitle = stringResource(R.string.home_no_apps_subtitle, stringResource(R.string.sources_management_title)),
-                        action = CardAction(
-                            icon = Icons.Outlined.Source,
-                            label = stringResource(R.string.sources_management_title),
-                            onClick = onBundlesClick
-                        ),
-                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                Column(
+                    modifier = Modifier.padding(top = topPadding),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(itemSpacing)
+                ) {
+                    header?.invoke()
+                    if (isAllHiddenState) {
+                        EmptyState(
+                            message = stringResource(R.string.home_all_apps_hidden_title),
+                            icon = Icons.Outlined.VisibilityOff,
+                            subtitle = stringResource(R.string.home_all_apps_hidden_subtitle),
+                            action = CardAction(
+                                icon = Icons.Outlined.Visibility,
+                                label = pluralStringResource(R.plurals.home_app_show_hidden_count, hiddenAppItems.size, hiddenAppItems.size.toString()),
+                                onClick = { state.showHiddenAppsDialog = true }
+                            ),
+                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    } else {
+                        EmptyState(
+                            message = stringResource(R.string.home_no_apps_title),
+                            icon = Icons.Outlined.Inbox,
+                            subtitle = stringResource(R.string.home_no_apps_subtitle, stringResource(R.string.sources_management_title)),
+                            action = CardAction(
+                                icon = Icons.Outlined.Source,
+                                label = stringResource(R.string.sources_management_title),
+                                onClick = onBundlesClick
+                            ),
+                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             } else {
                 Box(
@@ -1073,59 +1077,42 @@ internal fun MainAppsSection(
                         .widthIn(max = maxCardWidth)
                         .then(if (fillHeight) Modifier.fillMaxSize() else Modifier.fillMaxWidth())
                 ) {
-                    Column(
-                        modifier = if (fillHeight) Modifier.fillMaxSize() else Modifier.fillMaxWidth()
-                    ) {
-                        // Search bar
-                        AnimatedVisibility(
-                            visible = searchState.visible,
-                            enter = Animations.expandFadeEnter,
-                            exit = Animations.shrinkFadeExit
-                        ) {
-                            HomeSearchTextField(
-                                value = searchQuery,
-                                onValueChange = searchState.onQueryChange,
-                                requestFocus = searchState.visible,
-                                modifier = Modifier
-                                    .padding(horizontal = horizontalPadding)
-                                    .padding(bottom = Defaults.SpaceSmall)
+                    // Vertical fade overlay drawn on top of LazyColumn.
+                    // The overlay is pointer-transparent so swipe gestures pass through
+                    Box(modifier = if (fillHeight) Modifier.fillMaxSize() else Modifier.fillMaxWidth()) {
+                        // Clears the action bar, plus itemSpacing for a consistent card gap.
+                        // Eased rather than switched, since a centered list that wraps its
+                        // content moves by half of it and would jump the cards
+                        val footerClearance by animateDpAsState(
+                            targetValue = if (footerBarOverlap > 0.dp) {
+                                footerBarOverlap + itemSpacing
+                            } else {
+                                0.dp
+                            },
+                            animationSpec = tween(Defaults.ANIMATION_DURATION, easing = FastOutSlowInEasing),
+                            label = "footerClearance"
+                        )
+                        // Cached so the LazyColumn doesn't allocate a new PaddingValues on
+                        // every recomposition (which can be per-frame under scroll)
+                        val listContentPadding = remember(horizontalPadding, topPadding, footerClearance) {
+                            PaddingValues(
+                                start = horizontalPadding,
+                                top = topPadding,
+                                end = horizontalPadding,
+                                bottom = footerClearance
                             )
                         }
-
-                        // Vertical fade overlay drawn on top of LazyColumn.
-                        // The overlay is pointer-transparent so swipe gestures pass through
-                        Box(
-                            modifier = if (fillHeight) {
-                                Modifier.weight(1f).fillMaxWidth()
-                            } else {
-                                Modifier.fillMaxWidth()
-                            }
-                        ) {
-                            // Clears the action bar, plus itemSpacing for a consistent card gap.
-                            // Eased rather than switched, since a centered list that wraps its
-                            // content moves by half of it and would jump the cards
-                            val footerClearance by animateDpAsState(
-                                targetValue = if (footerBarOverlap > 0.dp) {
-                                    footerBarOverlap + itemSpacing
-                                } else {
-                                    0.dp
-                                },
-                                animationSpec = tween(Defaults.ANIMATION_DURATION, easing = FastOutSlowInEasing),
-                                label = "footerClearance"
-                            )
-                            // Cached so the LazyColumn doesn't allocate a new PaddingValues on
-                            // every recomposition (which can be per-frame under scroll)
-                            val listContentPadding = remember(horizontalPadding, footerClearance) {
-                                PaddingValues(
-                                    start = horizontalPadding,
-                                    end = horizontalPadding,
-                                    bottom = footerClearance
-                                )
-                            }
-                            val listArrangement = remember(itemSpacing, isGroupedAppView) {
-                                if (isGroupedAppView) Arrangement.spacedBy(itemSpacing)
-                                else Arrangement.spacedBy(itemSpacing, Alignment.CenterVertically)
-                            }
+                        val listArrangement = remember(itemSpacing, isGroupedAppView) {
+                            if (isGroupedAppView) Arrangement.spacedBy(itemSpacing)
+                            else Arrangement.spacedBy(itemSpacing, Alignment.CenterVertically)
+                        }
+                        // The search field heads the list, so the list goes back up to it as it opens. At
+                        // once, so the field is in place before it takes focus
+                        LaunchedEffect(searchState.visible) {
+                            if (searchState.visible) listState.scrollToItem(0)
+                        }
+                        // A focused row comes out from under the status bar and the footer bar
+                        ProvideBringIntoViewInsets(top = topPadding, bottom = footerClearance) {
                             LazyColumn(
                                 state = listState,
                                 modifier = (if (fillHeight) Modifier.fillMaxSize() else Modifier.fillMaxWidth())
@@ -1137,6 +1124,20 @@ internal fun MainAppsSection(
                                 verticalArrangement = listArrangement,
                                 contentPadding = listContentPadding
                             ) {
+                                if (header != null) item(key = "header") { header() }
+
+                                if (searchState.visible) {
+                                    item(key = "search") {
+                                        ListSearchField(
+                                            value = searchQuery,
+                                            onValueChange = searchState.onQueryChange,
+                                            label = stringResource(R.string.home_search_apps),
+                                            requestFocus = true,
+                                            modifier = Modifier.animateItem()
+                                        )
+                                    }
+                                }
+
                                 // Cold start: homeAppItems still empty - show placeholder shimmer cards
                                 if (state.isLoading && homeAppItems.isEmpty()) {
                                     items(3, key = { "placeholder_$it" }) { index ->
@@ -1214,81 +1215,59 @@ internal fun MainAppsSection(
                                     )
                                 }
                             }
+                        }
 
-                            // Vertical fade overlay drawn on top of LazyColumn.
-                            // The overlay is pointer-transparent so swipe gestures pass through.
-                            // Derived, so a scroll recomposes only when an edge starts or stops
-                            // hiding rows rather than on every frame the offset moves
-                            val canScrollUp by remember(listState) {
-                                derivedStateOf {
-                                    listState.firstVisibleItemIndex > 0 ||
-                                            listState.firstVisibleItemScrollOffset > 0
-                                }
-                            }
-                            val canScrollDown by remember(listState) {
-                                derivedStateOf { listState.canScrollForward }
-                            }
-                            val topAlpha by animateFloatAsState(
-                                targetValue = if (canScrollUp) 1f else 0f,
-                                animationSpec = tween(150),
-                                label = "fade_top_alpha"
-                            )
-                            val bottomAlpha by animateFloatAsState(
-                                targetValue = if (canScrollDown) 1f else 0f,
-                                animationSpec = tween(150),
-                                label = "fade_bottom_alpha"
-                            )
-                            if (showFadeOverlay) {
-                                val bgColor = MaterialTheme.colorScheme.background
-                                val fadePx = with(LocalDensity.current) { 8.dp.toPx() } // Fade size
-                                Box(
-                                    modifier = Modifier
-                                        .matchParentSize()
-                                        .drawWithContent {
-                                            drawContent()
-                                            // Each rect is bound to its own band. Left unbounded it
-                                            // covers the whole list, and the clamped tail of the
-                                            // gradient still costs a blend pass over every pixel
-                                            if (topAlpha > 0f) {
-                                                drawRect(
-                                                    brush = Brush.verticalGradient(
-                                                        colors = listOf(bgColor, Color.Transparent),
-                                                        startY = 0f,
-                                                        endY = fadePx
-                                                    ),
-                                                    size = Size(size.width, fadePx),
-                                                    alpha = topAlpha
-                                                )
-                                            }
-                                            if (bottomAlpha > 0f) {
-                                                drawRect(
-                                                    brush = Brush.verticalGradient(
-                                                        colors = listOf(Color.Transparent, bgColor),
-                                                        startY = size.height - fadePx,
-                                                        endY = size.height
-                                                    ),
-                                                    topLeft = Offset(0f, size.height - fadePx),
-                                                    size = Size(size.width, fadePx),
-                                                    alpha = bottomAlpha
-                                                )
-                                            }
+                        // Vertical fade overlay drawn on top of LazyColumn.
+                        // The overlay is pointer-transparent so swipe gestures pass through.
+                        // Derived, so a scroll recomposes only when an edge starts or stops
+                        // hiding rows rather than on every frame the offset moves
+                        val canScrollDown by remember(listState) {
+                            derivedStateOf { listState.canScrollForward }
+                        }
+                        val bottomAlpha by animateFloatAsState(
+                            targetValue = if (canScrollDown) 1f else 0f,
+                            animationSpec = tween(150),
+                            label = "fade_bottom_alpha"
+                        )
+                        if (showFadeOverlay) {
+                            val bgColor = MaterialTheme.colorScheme.background
+                            val fadePx = with(LocalDensity.current) { 8.dp.toPx() } // Fade size
+                            Box(
+                                modifier = Modifier
+                                    .matchParentSize()
+                                    .drawWithContent {
+                                        drawContent()
+                                        // Each rect is bound to its own band. Left unbounded it
+                                        // covers the whole list, and the clamped tail of the
+                                        // gradient still costs a blend pass over every pixel
+                                        if (bottomAlpha > 0f) {
+                                            drawRect(
+                                                brush = Brush.verticalGradient(
+                                                    colors = listOf(Color.Transparent, bgColor),
+                                                    startY = size.height - fadePx,
+                                                    endY = size.height
+                                                ),
+                                                topLeft = Offset(0f, size.height - fadePx),
+                                                size = Size(size.width, fadePx),
+                                                alpha = bottomAlpha
+                                            )
                                         }
-                                )
-                            }
-
-                            ListScrollbar(
-                                listState = listState,
-                                alphabetTargets = scrollTargets,
-                                alphabetMode = alphabetScrollMode
-                            )
-
-                            // Lifted clear of whichever bar covers the bottom of the list
-                            ScrollToTopButton(
-                                listState = listState,
-                                extraBottomPadding = footerBarOverlap
+                                    }
                             )
                         }
 
+                        ListScrollbar(
+                            listState = listState,
+                            modifier = Modifier.padding(top = topPadding),
+                            alphabetTargets = scrollTargets,
+                            alphabetMode = alphabetScrollMode
+                        )
+
+                        // Lifted clear of whichever bar covers the bottom of the list
+                        ScrollToTopButton(
+                            listState = listState,
+                            extraBottomPadding = footerBarOverlap
+                        )
                     }
 
                     val footerBarContent: @Composable (Modifier) -> Unit = { barModifier ->

@@ -334,7 +334,7 @@ private fun HeaderContent(
                 enter = Animations.expandFadeEnter,
                 exit = Animations.shrinkFadeExit
             ) {
-                AppDialogSearchTextField(
+                ListSearchField(
                     value = search.query,
                     onValueChange = { search.query = it },
                     label = label,

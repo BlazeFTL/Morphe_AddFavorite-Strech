@@ -6,9 +6,13 @@
 package app.morphe.manager.ui.screen.settings
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import app.morphe.manager.ui.screen.shared.Defaults
+import app.morphe.manager.ui.screen.shared.SectionTitle
 import app.morphe.manager.ui.screen.shared.contentPadding
 import app.morphe.manager.ui.screen.shared.rememberWindowSize
 
@@ -18,13 +22,17 @@ import app.morphe.manager.ui.screen.shared.rememberWindowSize
  */
 internal val LocalSettingsTabBottomPadding = staticCompositionLocalOf { Defaults.SpaceLarge }
 
-/** Padding every settings tab puts around its content. */
+/**
+ * Padding every settings tab puts around its content, which starts below the status bar it
+ * scrolls on under. A tab opens on a [SectionTitle], which brings room of its own above it, so the
+ * top takes only what makes up the rest.
+ */
 @Composable
 internal fun settingsTabPadding(): PaddingValues {
     val horizontal = rememberWindowSize().contentPadding
     return PaddingValues(
         start = horizontal,
-        top = Defaults.SpaceLarge,
+        top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + Defaults.SpaceSmall,
         end = horizontal,
         bottom = LocalSettingsTabBottomPadding.current
     )

@@ -7,7 +7,9 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -28,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.layout.onPlaced
@@ -198,11 +201,50 @@ fun FloatingPillRoundAction(
 }
 
 /**
- * Dims what scrolls under a bar floating over the bottom of the screen gradually toward the edge,
+ * Dims what scrolls under a bar floating over the screen gradually toward the screen's [edge],
  * into [background], rather than cutting it off, while it stays visible around the bar.
  */
-fun Modifier.floatingBarScrim(background: Color): Modifier =
-    background(Brush.verticalGradient(0f to Color.Transparent, 1f to background.copy(alpha = 0.9f)))
+fun Modifier.floatingBarScrim(background: Color, edge: Alignment.Vertical = Alignment.Bottom): Modifier {
+    val stops = Array(ScrimSteps + 1) { step ->
+        val fraction = step / ScrimSteps.toFloat()
+        // Held near full by the edge, where a bar sits over it, and eased at both ends, so the
+        // dimming has no edge where it starts or where it runs out
+        val fromEdge = if (edge == Alignment.Top) fraction else 1f - fraction
+        val falloff = 1f - fromEdge * fromEdge * fromEdge
+        fraction to background.copy(alpha = ScrimAlpha * falloff * falloff)
+    }
+    return background(Brush.verticalGradient(*stops))
+}
+
+/** How far a scrim dims what lies under it at its fullest, enough to leave a bar legible over it. */
+private const val ScrimAlpha = 0.9f
+
+/** Color stops the scrim's falloff is drawn through, enough for it to read as one curve. */
+private const val ScrimSteps = 12
+
+/**
+ * Dims what scrolls up under the status bar in one even falloff from the screen's edge, as
+ * [floatingBarScrim] does under a bar at the bottom, for a screen whose content runs on to its top.
+ * It fades in once [scrolledUnder] says the content has moved up under it, so content at rest just
+ * below the status bar is left as drawn.
+ */
+@Composable
+fun BoxScope.StatusBarScrim(scrolledUnder: Boolean) {
+    val alpha by animateFloatAsState(
+        targetValue = if (scrolledUnder) 1f else 0f,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "status_bar_scrim"
+    )
+    Spacer(
+        modifier = Modifier
+            .align(Alignment.TopCenter)
+            .fillMaxWidth()
+            .graphicsLayer { this.alpha = alpha }
+            .floatingBarScrim(MaterialTheme.colorScheme.background, edge = Alignment.Top)
+            .windowInsetsPadding(WindowInsets.statusBars.only(WindowInsetsSides.Top))
+            .height(Defaults.SpaceExtraExtraLarge)
+    )
+}
 
 /**
  * Lays [content] out under bars floating over its edges, a [topBar] over the top and a [bottomBar]

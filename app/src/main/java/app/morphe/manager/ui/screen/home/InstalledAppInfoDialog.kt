@@ -44,7 +44,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
@@ -501,9 +500,30 @@ fun InstalledAppInfoDialog(
         onDismissRequest = onDismiss,
         title = null,
         dismissOnClickOutside = true,
-        padding = DialogPadding.None,
         accentColor = infoAccentColor,
-        footer = null
+        // Only once the app is known, so a slow load does not head an empty dialog
+        header = installedApp?.takeIf { !isLoading }?.let { app ->
+            {
+                InstalledAppHeader(
+                    installedApp = app,
+                    appInfo = appInfo,
+                    packageName = packageName,
+                    appLabel = appLabel,
+                    accentColor = infoAccentColor
+                )
+            }
+        },
+        footer = {
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        padding = DialogPadding.Compact,
+        scrollable = false,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true
     ) {
         AnimatedContent(
             targetState = isLoading || installedApp == null,
@@ -513,7 +533,9 @@ fun InstalledAppInfoDialog(
                 val enter = if (targetState) Animations.fadeIn else EnterTransition.None
                 enter togetherWith Animations.fadeOut
             },
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
             label = "installedAppInfo"
         ) { loading ->
             // installedApp is re-checked here so the body below keeps its non-null smart cast
@@ -531,28 +553,6 @@ fun InstalledAppInfoDialog(
             // Starts together with the dialog's own enter, and only once content is here to
             // animate, so a slow load does not skip the cascade
             LaunchedEffect(Unit) { entered.value = true }
-
-            val windowSize = rememberWindowSize()
-            val landscape = isLandscape()
-
-            // Both layouts show the same pieces and only place them differently
-            val relativeTime = remember(installedApp.patchedAt) { installedApp.patchedAt?.let { getRelativeTimeString(it) } }
-
-            // What the install is, then when it was made. The clone chip sits between them: it
-            // qualifies the install the same way its type does, rather than dating it
-            val installBadges = buildList {
-                add(installedApp.installType.badge.let { (icon, label) -> icon to stringResource(label) })
-                if (installedApp.isClone) {
-                    add(AppStateIcons.Clone to stringResource(R.string.clone))
-                }
-                relativeTime?.let { add(Icons.Outlined.Schedule to it) }
-            }
-            val badges = @Composable {
-                installBadges.forEach { (icon, label) ->
-                    AppAccentBadge(text = label, accentColor = infoAccentColor, icon = icon)
-                }
-            }
-            val compactHeader = landscape && windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
 
             // Writes the module again from the saved builds and mounts it, reinstalling the
             // matching original first when another version replaced it
@@ -615,54 +615,6 @@ fun InstalledAppInfoDialog(
                 )
             } else null
 
-            // The app's header pinned over its information. The header inset sets its band in from
-            // the panel's edges, which it otherwise reaches out to and up under the status bar
-            val infoPanel = @Composable { modifier: Modifier, headerInset: Dp, bottomInset: Dp, content: LazyListScope.() -> Unit ->
-                Column(modifier = modifier) {
-                    CompositionLocalProvider(LocalDialogHorizontalInset provides Defaults.SpaceLarge) {
-                        ListDialogHeader(
-                            icon = { iconModifier ->
-                                // Resolved by name when the record has no metadata to show. A record
-                                // whose artifacts are gone carries no icon either, and the glass
-                                // placeholder tinted to the app's accent is what the home card shows
-                                // for it
-                                AppIcon(
-                                    packageInfo = appInfo,
-                                    packageName = packageName,
-                                    contentDescription = null,
-                                    placeholderGradientColors = listOf(infoAccentColor),
-                                    modifier = iconModifier.clip(RoundedCornerShape(DialogHeaderDefaults.IconCornerRadius))
-                                )
-                            },
-                            title = appLabel,
-                            subtitle = (appInfo?.versionName ?: installedApp.version).withVersionPrefix(),
-                            accentColor = infoAccentColor,
-                            // Wraps rather than clips: a clone carries a chip more than other installs do
-                            badges = if (compactHeader) null else { { badges() } },
-                            // Compact mode: chips column on the right
-                            actions = if (compactHeader) {
-                                {
-                                    Column(
-                                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-                                        horizontalAlignment = Alignment.End
-                                    ) {
-                                        badges()
-                                    }
-                                }
-                            } else null,
-                            modifier = Modifier
-                                .statusBarsPadding()
-                                .padding(horizontal = Defaults.SpaceLarge + headerInset)
-                        )
-                    }
-
-                    DialogLazyList(
-                        modifier = Modifier.weight(1f).fillMaxWidth(),
-                        contentPadding = PaddingValues(bottom = bottomInset),
-                        content = content
-                    )
-                }
-            }
             val actions = @Composable { modifier: Modifier ->
                 ActionsSection(
                     // Left out where a banner above already carries it
@@ -694,13 +646,6 @@ fun InstalledAppInfoDialog(
                     modifier = modifier
                 )
             }
-            val closeButton = @Composable { modifier: Modifier ->
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.close),
-                    onClick = onDismiss,
-                    modifier = modifier.fillMaxWidth()
-                )
-            }
             // Stagger index counter: hero header is index 0, the banners always 1, so later indices
             // hold whatever banners show. They share the info's row, since an empty row of their
             // own counts as scrolled past and fades the list's top while it rests there
@@ -719,8 +664,7 @@ fun InstalledAppInfoDialog(
                             onPatch = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
                             onShowUpdateChangelog = onShowUpdateChangelog,
                             onIgnoreVersion = onIgnoreVersion,
-                            onOpenAppLinks = { showAppLinksDialog.value = true },
-                            modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)
+                            onOpenAppLinks = { showAppLinksDialog.value = true }
                         )
                         StaggeredItem(entered = entered.value, index = 2) {
                             InfoSection(
@@ -733,109 +677,31 @@ fun InstalledAppInfoDialog(
                                 appLinksStatus = viewModel.appLinksStatus,
                                 onShowPatches = { showAppliedPatchesDialog.value = true },
                                 onOpenAppLinks = { showAppLinksDialog.value = true },
-                                accentColor = infoAccentColor,
-                                modifier = Modifier
-                                    .padding(horizontal = Defaults.SpaceLarge)
-                                    .padding(top = Defaults.SpaceMedium)
+                                accentColor = infoAccentColor
                             )
                         }
                     }
                 }
             }
 
-            if (landscape) {
-                // Landscape layout: left sidebar has actions, right panel has header + info
-                Row(modifier = Modifier.fillMaxSize()) {
-                    // Left sidebar: centered buttons (scrollable when height is small)
-                    Column(
-                        modifier = Modifier
-                            .width(220.dp)
-                            .fillMaxHeight()
-                            .statusBarsPadding()
-                            .navigationBarsPadding()
-                            .padding(horizontal = Defaults.SpaceLarge)
-                    ) {
-                        BoxWithConstraints(modifier = Modifier.fillMaxWidth().weight(1f)) {
-                            val availableHeight = maxHeight
-                            val sidebarScrollState = rememberScrollState()
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .heightIn(min = availableHeight)
-                                    .verticalScrollFade(sidebarScrollState)
-                                    .verticalScroll(sidebarScrollState),
-                                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium, Alignment.CenterVertically)
-                            ) {
-                                StaggeredItem(entered = entered.value, index = 1) {
-                                    actions(Modifier.fillMaxWidth())
-                                }
-                                if (!viewModel.hasOriginalApk) {
-                                    StaggeredItem(entered = entered.value, index = 2) {
-                                        noSavedApkNotice(Modifier)
-                                    }
-                                }
-                                StaggeredItem(entered = entered.value, index = 1) {
-                                    closeButton(Modifier)
-                                }
-                            }
-                        }
-                    }
+            DialogLazyList(modifier = Modifier.fillMaxSize()) {
+                infoItems()
 
-                    VerticalDivider(modifier = Modifier.statusBarsPadding().navigationBarsPadding().padding(vertical = Defaults.SpaceLarge))
-
-                    infoPanel(
-                        Modifier
-                            .weight(1f)
-                            .fillMaxHeight()
-                            .navigationBarsPadding(),
-                        Defaults.SpaceLarge,
-                        // Nothing below it but the screen's edge, so the list keeps clear of it
-                        Defaults.SpaceExtraLarge,
-                        infoItems
-                    )
-                }
-            } else {
-                // Single-column layout for phones, held to the width other dialogs stop at
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    // Ends right above the close button, whose own margin makes the gap, as a dialog footer's does
-                    infoPanel(Modifier.weight(1f).widthIn(max = Defaults.ContentMaxWidth).fillMaxWidth(), 0.dp, 0.dp) {
-                        infoItems()
-
-                        item(key = "actions") {
-                            StaggeredItem(entered = entered.value, index = 3) {
-                                actions(
-                                    Modifier
-                                        .padding(horizontal = Defaults.SpaceLarge)
-                                        .padding(top = Defaults.SpaceMedium)
-                                )
-                            }
-                        }
-
-                        if (!viewModel.hasOriginalApk) {
-                            item(key = "no_saved_apk") {
-                                StaggeredItem(entered = entered.value, index = 4) {
-                                    noSavedApkNotice(
-                                        Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = Defaults.SpaceLarge)
-                                            .padding(top = Defaults.SpaceMedium)
-                                    )
-                                }
-                            }
-                        }
-                    }
+                item(key = "actions") {
                     StaggeredItem(entered = entered.value, index = 3) {
-                        // The dialog's footer, so messages stand above it and its margin as they do a footer's
-                        closeButton(
-                            Modifier
-                                .keepsClearOfMessages()
-                                .widthIn(max = Defaults.ContentMaxWidth)
-                                .navigationBarsPadding()
-                                .padding(Defaults.SpaceLarge)
-                        )
+                        actions(Modifier.padding(top = Defaults.SpaceMedium))
+                    }
+                }
+
+                if (!viewModel.hasOriginalApk) {
+                    item(key = "no_saved_apk") {
+                        StaggeredItem(entered = entered.value, index = 4) {
+                            noSavedApkNotice(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = Defaults.SpaceMedium)
+                            )
+                        }
                     }
                 }
             }
@@ -844,7 +710,69 @@ fun InstalledAppInfoDialog(
 }
 
 /**
- * The banners above an installed app's information. Each carries the gap above it, so a hidden
+ * The head of an installed app's information: its icon, name and version over chips saying what
+ * the install is and when it was made, beside the name instead on a screen wide enough for both.
+ */
+@Composable
+private fun InstalledAppHeader(
+    installedApp: InstalledApp,
+    appInfo: PackageInfo?,
+    packageName: String,
+    appLabel: String,
+    accentColor: Color
+) {
+    val relativeTime = remember(installedApp.patchedAt) { installedApp.patchedAt?.let { getRelativeTimeString(it) } }
+
+    // What the install is, then when it was made. The clone chip sits between them: it
+    // qualifies the install the same way its type does, rather than dating it
+    val installBadges = buildList {
+        add(installedApp.installType.badge.let { (icon, label) -> icon to stringResource(label) })
+        if (installedApp.isClone) {
+            add(AppStateIcons.Clone to stringResource(R.string.clone))
+        }
+        relativeTime?.let { add(Icons.Outlined.Schedule to it) }
+    }
+    val badges = @Composable {
+        installBadges.forEach { (icon, label) ->
+            AppAccentBadge(text = label, accentColor = accentColor, icon = icon)
+        }
+    }
+    val compactHeader = isLandscape() && rememberWindowSize().widthSizeClass == WindowWidthSizeClass.Expanded
+
+    ListDialogHeader(
+        icon = { iconModifier ->
+            // Resolved by name when the record has no metadata to show. A record whose artifacts
+            // are gone carries no icon either, and the glass placeholder tinted to the app's accent
+            // is what the home card shows for it
+            AppIcon(
+                packageInfo = appInfo,
+                packageName = packageName,
+                contentDescription = null,
+                placeholderGradientColors = listOf(accentColor),
+                modifier = iconModifier.clip(RoundedCornerShape(DialogHeaderDefaults.IconCornerRadius))
+            )
+        },
+        title = appLabel,
+        subtitle = (appInfo?.versionName ?: installedApp.version).withVersionPrefix(),
+        accentColor = accentColor,
+        // Wraps rather than clips: a clone carries a chip more than other installs do
+        badges = if (compactHeader) null else { { badges() } },
+        // A wide screen sets the chips in a column beside the name
+        actions = if (compactHeader) {
+            {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
+                    horizontalAlignment = Alignment.End
+                ) {
+                    badges()
+                }
+            }
+        } else null
+    )
+}
+
+/**
+ * The banners above an installed app's information. Each carries the gap below it, so a hidden
  * one leaves no space behind in a list that spaces nothing of its own.
  */
 @Composable
@@ -1041,8 +969,8 @@ private fun BannerSlot(
         exit = Animations.shrinkFadeExit
     ) {
         Column {
-            Spacer(Modifier.height(Defaults.SpaceMedium))
             StaggeredItem(entered = entered, index = staggerIndex, content = content)
+            Spacer(Modifier.height(Defaults.SpaceMedium))
         }
     }
 }

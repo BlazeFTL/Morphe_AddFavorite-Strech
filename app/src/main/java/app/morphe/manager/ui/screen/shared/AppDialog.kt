@@ -99,9 +99,7 @@ enum class DialogPadding {
     /** 32dp at the sides and 16dp above and below, with system bar insets. */
     Normal,
     /** 16dp all round, with system bar insets. */
-    Compact,
-    /** No padding and no insets, the caller handles layout entirely. */
-    None
+    Compact
 }
 
 /**
@@ -367,24 +365,6 @@ private fun DialogContent(
     val textColor = if (isDarkTheme) Color.White else Color.Black
     val secondaryTextColor =
         if (isDarkTheme) Color.White.copy(alpha = 0.7f) else Color.Black.copy(alpha = 0.7f)
-
-    if (padding == DialogPadding.None) {
-        CompositionLocalProvider(
-            LocalDialogTextColor provides textColor,
-            LocalDialogSecondaryTextColor provides secondaryTextColor,
-            LocalContentColor provides textColor
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .pointerInput(Unit) { detectTapGestures { /* Consume clicks */ } }
-            ) {
-                content()
-                bottomBar?.invoke()
-            }
-        }
-        return
-    }
 
     // Horizontal inset is applied per-section below rather than on this outer Box, so the content
     // Box stays full width and its ListScrollbar can sit flush with the dialog edge instead of

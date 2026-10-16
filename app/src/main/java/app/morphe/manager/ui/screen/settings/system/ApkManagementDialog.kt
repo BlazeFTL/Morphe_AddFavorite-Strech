@@ -197,7 +197,6 @@ private fun PatchedApksContent(
     val context = LocalContext.current
     val messages = koinInject<UserMessages>()
     val scope = rememberCoroutineScope()
-    val saveApkSuccessText = stringResource(R.string.save_apk_success)
     val patchedApksDeletedText = stringResource(R.string.settings_system_patched_apks_deleted)
     val apksDeletedAllText = stringResource(R.string.settings_system_apks_deleted_all)
     val apksDeleteFailedText = stringResource(R.string.settings_system_apks_delete_failed)
@@ -365,25 +364,7 @@ private fun PatchedApksContent(
         }
     }
 
-    var itemToExport by remember { mutableStateOf<ApkItemData?>(null) }
-    val exportLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.CreateDocument(APK_MIMETYPE)
-    ) { uri ->
-        val item = itemToExport ?: return@rememberLauncherForActivityResult
-        itemToExport = null
-        uri?.let {
-            scope.launch {
-                withContext(Dispatchers.IO) {
-                    item.file?.let { file ->
-                        context.contentResolver.openOutputStream(it)?.use { out ->
-                            file.inputStream().use { input -> input.copyTo(out) }
-                        }
-                    }
-                }
-                messages.show(saveApkSuccessText)
-            }
-        }
-    }
+    val exporter = rememberApkExporter()
 
     ApkManagementDialogContent(
         meta = ApkListMeta(
@@ -411,8 +392,7 @@ private fun PatchedApksContent(
                 }
             },
             onExport = { item ->
-                itemToExport = item
-                exportLauncher.launch("${item.displayName.replace(" ", "_")}.apk")
+                item.file?.let { exporter.export(it, "${item.displayName.replace(" ", "_")}.apk") }
             },
             onInstall = { item ->
                 if (item.installType == InstallType.MOUNT) {
@@ -475,7 +455,6 @@ private fun OriginalApksContent(
     val context = LocalContext.current
     val messages = koinInject<UserMessages>()
     val scope = rememberCoroutineScope()
-    val saveApkSuccessText = stringResource(R.string.save_apk_success)
     val originalApksDeletedText = stringResource(R.string.settings_system_original_apks_deleted)
     val apksDeletedAllText = stringResource(R.string.settings_system_apks_deleted_all)
     val repository: OriginalApkRepository = koinInject()
@@ -597,25 +576,7 @@ private fun OriginalApksContent(
         }
     }
 
-    var itemToExport by remember { mutableStateOf<ApkItemData?>(null) }
-    val exportLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.CreateDocument(APK_MIMETYPE)
-    ) { uri ->
-        val item = itemToExport ?: return@rememberLauncherForActivityResult
-        itemToExport = null
-        uri?.let {
-            scope.launch {
-                withContext(Dispatchers.IO) {
-                    item.file?.let { file ->
-                        context.contentResolver.openOutputStream(it)?.use { out ->
-                            file.inputStream().use { input -> input.copyTo(out) }
-                        }
-                    }
-                }
-                messages.show(saveApkSuccessText)
-            }
-        }
-    }
+    val exporter = rememberApkExporter()
 
     ApkManagementDialogContent(
         meta = ApkListMeta(
@@ -643,8 +604,7 @@ private fun OriginalApksContent(
                 }
             },
             onExport = { item ->
-                itemToExport = item
-                exportLauncher.launch("${item.displayName.replace(" ", "_")}.apk")
+                item.file?.let { exporter.export(it, "${item.displayName.replace(" ", "_")}.apk") }
             },
             onInstall = { item -> startInstallQueue(installRequests(listOf(item))) },
             onInstallSelected = { selectedItems -> startInstallQueue(installRequests(selectedItems)) },

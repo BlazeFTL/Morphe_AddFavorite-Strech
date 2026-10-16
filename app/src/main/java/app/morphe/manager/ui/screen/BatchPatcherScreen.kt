@@ -7,8 +7,6 @@ package app.morphe.manager.ui.screen
 
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.BackHandler
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
@@ -380,27 +378,9 @@ fun BatchPatcherScreen(
     }
 
     // Saving a patched APK somewhere the user picks, the same export the single-app flow and
-    // the saved APK list offer. Held as state because the file name is built from the item
-    var exportItem by remember { mutableStateOf<BatchPatchItem?>(null) }
-    val exportSuccessMessage = stringResource(R.string.save_apk_success)
-    val exportFailedMessage = stringResource(R.string.saved_app_export_failed)
+    // the saved APK list offer
     val context = LocalContext.current
-    val messages = koinInject<UserMessages>()
-    val exportLauncher = rememberLauncherForActivityResult(CreateDocument(APK_MIMETYPE)) { uri ->
-        val file = exportItem?.patchedFile
-        exportItem = null
-        if (file != null && uri != null) {
-            installViewModel.export(file, uri) { success ->
-                messages.show(if (success) exportSuccessMessage else exportFailedMessage)
-                if (success) viewModel.postPatchPrompts.trigger()
-            }
-        }
-    }
-
-    LaunchedEffect(exportItem) {
-        val item = exportItem ?: return@LaunchedEffect
-        exportLauncher.launch(item.exportFileName())
-    }
+    val exporter = rememberApkExporter { exported -> if (exported) viewModel.postPatchPrompts.trigger() }
 
     // Shared under the names a save would give them, so each app can be told apart where it lands
     fun share(items: List<BatchPatchItem>) {
@@ -645,7 +625,7 @@ fun BatchPatcherScreen(
                         }
                         ?.let { { viewModel.beginSourcePick(item) } },
                     onInstall = request?.let { { startInstallQueue(listOf(it)) } },
-                    onExport = item.patchedFile?.let { { exportItem = item } },
+                    onExport = item.patchedFile?.let { file -> { exporter.export(file, item.exportFileName()) } },
                     onShare = item.patchedFile?.let { { share(listOf(item)) } },
                     onOpen = item.installedPackageName
                         ?.takeIf { item.installOutcome == BatchInstallOutcome.INSTALLED }

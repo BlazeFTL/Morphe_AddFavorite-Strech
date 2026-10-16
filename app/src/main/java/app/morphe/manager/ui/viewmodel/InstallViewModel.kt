@@ -8,7 +8,6 @@ package app.morphe.manager.ui.viewmodel
 import android.app.Application
 import android.content.*
 import android.content.pm.PackageInfo
-import android.net.Uri
 import android.os.SystemClock
 import android.util.Log
 import androidx.annotation.StringRes
@@ -1079,18 +1078,6 @@ class InstallViewModel(
         } finally {
             mountOperation = null
         }
-    }
-
-    /**
-     * Export patched app to URI.
-     */
-    fun export(outputFile: File, uri: Uri?, onComplete: (Boolean) -> Unit = {}) = viewModelScope.launch {
-        if (uri == null) {
-            onComplete(false)
-            return@launch
-        }
-
-        onComplete(app.exportApkTo(outputFile, uri))
     }
 
     /**

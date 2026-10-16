@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.home
 
 import android.content.pm.PackageInfo
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -245,10 +243,6 @@ fun InstalledAppInfoDialog(
             ?: KnownApps.getAppName(packageName)
     }
 
-    // Export strings
-    val exportSuccessMessage = stringResource(R.string.save_apk_success)
-    val exportFailedMessage = stringResource(R.string.saved_app_export_failed)
-
     // Export file name
     val exportFileName = remember(installedApp?.currentPackageName, appInfo?.versionName, appliedBundles) {
         val app = installedApp ?: return@remember "morphe_export.apk"
@@ -261,18 +255,7 @@ fun InstalledAppInfoDialog(
         ))
     }
 
-    val exportSavedLauncher = rememberLauncherForActivityResult(CreateDocument(APK_MIMETYPE)) { uri ->
-        val savedFile = viewModel.savedApkFile()
-        if (savedFile != null && uri != null) {
-            installViewModel.export(savedFile, uri) { success ->
-                if (success) {
-                    messages.show(exportSuccessMessage)
-                } else {
-                    messages.show(exportFailedMessage)
-                }
-            }
-        }
-    }
+    val exporter = rememberApkExporter()
 
     // Refresh app state on every launch
     LaunchedEffect(Unit) {
@@ -686,7 +669,7 @@ fun InstalledAppInfoDialog(
                         installedApp = installedApp,
                         restoreOfferedAbove = mountRestore != null,
                         onInstallSavedCopy = installSavedCopy,
-                        onExport = { exportSavedLauncher.launch(exportFileName) },
+                        onExport = { viewModel.savedApkFile()?.let { exporter.export(it, exportFileName) } },
                         onUninstall = { showUninstallConfirm.value = true },
                         onDelete = { showDeleteDialog.value = true }
                     ),

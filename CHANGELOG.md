@@ -1,3 +1,24 @@
+# [1.36.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.9...v1.36.0-dev.10) (2026-10-16)
+
+
+### Bug Fixes
+
+* Keep messages clear of the app dialog's close button ([4722059](https://github.com/MorpheApp/morphe-manager/commit/4722059e20ad99ff953a93b5b83e687b1a2e924d))
+* Shape the dialog search field as a Material search bar, its name held in place ([d8f42d0](https://github.com/MorpheApp/morphe-manager/commit/d8f42d0a9f8150b2f08e008bb9f150e396feca8a))
+* Space the app dialog's close button like a dialog footer ([cd19fba](https://github.com/MorpheApp/morphe-manager/commit/cd19fbab032259eb59b59dd044f6b546e095cdd5))
+
+
+### Features
+
+* Float list dialog headers over their content, blurred beneath ([d523dd6](https://github.com/MorpheApp/morphe-manager/commit/d523dd614c163497c462b18b9b3e0a2ce984f012))
+* Float the footer of full-height dialogs over their content ([612ff63](https://github.com/MorpheApp/morphe-manager/commit/612ff6338947f8fc5453fc3c25ffeb9d37b01c07))
+* Fold a list dialog's secondary header rows away as its list scrolls on ([54f12e4](https://github.com/MorpheApp/morphe-manager/commit/54f12e4dbc8f565eacd91cb93eb9c8d3535eac03))
+* Lay the app details out as a full-height dialog like the other lists ([b3e4958](https://github.com/MorpheApp/morphe-manager/commit/b3e4958ed658a26cc972ae1e1fce91c81b6ec7c7))
+* Lead the app dialog's build actions with one button and offer sharing beside it ([2f45b26](https://github.com/MorpheApp/morphe-manager/commit/2f45b2677b5f7e3500076f1aa102e2b26ac4de68))
+* Run home and settings on under the status bar, dimmed once scrolled beneath it ([b3d88ba](https://github.com/MorpheApp/morphe-manager/commit/b3d88ba05a8837de14503d74ab8f53d0256f4309))
+* Save APKs through one shared exporter that reports failed copies ([cc4d17c](https://github.com/MorpheApp/morphe-manager/commit/cc4d17c3665aa2f82675005478b45dd3f7e37d1c))
+* Space dialog lists by card kind and share their search header ([11438f3](https://github.com/MorpheApp/morphe-manager/commit/11438f3221da7b7c0285e06ee3d6396f15b88cac))
+
 # [1.36.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.8...v1.36.0-dev.9) (2026-10-16)
 
 

@@ -469,14 +469,7 @@ fun ExpertModeDialog(
                     onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
                 )
 
-                if (filteredPatches != null) {
-                    ListScrollbar(
-                        listState = singleBundleList,
-                        modifier = Modifier
-                            .offset(x = LocalDialogHorizontalInset.current)
-                            .padding(barInsets)
-                    )
-                }
+                if (filteredPatches != null) DialogScrollIndicators(listState = singleBundleList)
             } else if (displayedBundles.isEmpty()) {
                 // Nothing matched anywhere, so there is no tab to draw. The pager state
                 // outlives this, so clearing the filter hands the open source back
@@ -508,14 +501,7 @@ fun ExpertModeDialog(
                 // Single overlay for the whole pager, tracking whichever page is current,
                 // instead of one per page - a page-local scrollbar would be clipped by the
                 // pager before it could reach the true dialog edge
-                headBundle?.let { pageListStates[it.uid] }?.let { currentPageList ->
-                    ListScrollbar(
-                        listState = currentPageList,
-                        modifier = Modifier
-                            .offset(x = LocalDialogHorizontalInset.current)
-                            .padding(barInsets)
-                    )
-                }
+                headBundle?.let { pageListStates[it.uid] }?.let { DialogScrollIndicators(listState = it) }
             }
         }
     }

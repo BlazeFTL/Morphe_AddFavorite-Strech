@@ -85,8 +85,7 @@ fun FloatingPillBar(
         modifier = modifier
             .keepsClearOfMessages()
             .fillMaxWidth()
-            .floatingBarScrim(MaterialTheme.colorScheme.background)
-            .navigationBarsPadding(),
+            .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal)),
         contentAlignment = Alignment.Center
     ) {
         Row(
@@ -94,6 +93,9 @@ fun FloatingPillBar(
                 .widthIn(max = Defaults.ContentMaxWidth)
                 .fillMaxWidth()
                 .padding(horizontal = horizontalPadding)
+                // Dims only as wide as the content, so a scrollbar in the margin stays clear
+                .floatingBarScrim(MaterialTheme.colorScheme.background)
+                .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Bottom))
                 .padding(bottom = Defaults.SpaceMedium),
             // No spacing of its own: a trailing action brings its gap along, see [AnimatedRowPill]
             horizontalArrangement = Arrangement.Center,

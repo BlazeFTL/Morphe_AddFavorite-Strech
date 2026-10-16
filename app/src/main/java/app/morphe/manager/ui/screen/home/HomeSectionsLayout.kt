@@ -1258,7 +1258,7 @@ internal fun MainAppsSection(
 
                         ListScrollbar(
                             listState = listState,
-                            modifier = Modifier.padding(top = topPadding),
+                            modifier = Modifier.scrollbarSystemBarsPadding(),
                             alphabetTargets = scrollTargets,
                             alphabetMode = alphabetScrollMode
                         )

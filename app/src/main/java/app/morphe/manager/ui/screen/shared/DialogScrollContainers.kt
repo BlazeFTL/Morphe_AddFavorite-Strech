@@ -22,9 +22,8 @@ import androidx.compose.ui.unit.dp
 val DialogListSpacing = Defaults.SpaceMedium
 
 /**
- * A dialog's lazy list, fading at whichever end has more to show, with a [ListScrollbar] and a
- * [ScrollToTopButton] set out at the dialog's true edge rather than its content inset, its ends
- * leaving room for the header and footer floating over a full-height dialog, see [LocalDialogBarInsets].
+ * A dialog's lazy list, fading at whichever end has more to show, with [DialogScrollIndicators]
+ * over it. Its ends leave room for the bars floating over a [ListDialog], see [LocalDialogBarInsets].
  */
 @Composable
 fun DialogLazyList(
@@ -36,7 +35,6 @@ fun DialogLazyList(
     content: LazyListScope.() -> Unit
 ) {
     val barInsets = LocalDialogBarInsets.current
-    val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
 
     Box(modifier = modifier) {
         LazyColumn(
@@ -50,8 +48,7 @@ fun DialogLazyList(
             content = content
         )
 
-        ListScrollbar(listState = state, modifier = edgeOffset.padding(barInsets))
-        ScrollToTopButton(listState = state, modifier = edgeOffset, extraBottomPadding = barInsets.calculateBottomPadding())
+        DialogScrollIndicators(listState = state)
     }
 }
 
@@ -68,7 +65,6 @@ fun DialogScrollColumn(
     content: @Composable ColumnScope.() -> Unit
 ) {
     val barInsets = LocalDialogBarInsets.current
-    val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
 
     Box(modifier = modifier) {
         Column(
@@ -81,9 +77,35 @@ fun DialogScrollColumn(
             content = content
         )
 
-        ListScrollbar(scrollState = state, modifier = edgeOffset.padding(barInsets))
-        ScrollToTopButton(scrollState = state, modifier = edgeOffset, extraBottomPadding = barInsets.calculateBottomPadding())
+        DialogScrollIndicators(scrollState = state)
     }
+}
+
+/**
+ * A dialog list's [ListScrollbar] and [ScrollToTopButton], set out at the dialog's true edge rather
+ * than its content inset and clear of the bars floating over a [ListDialog].
+ */
+@Composable
+fun BoxScope.DialogScrollIndicators(listState: LazyListState) {
+    val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
+    ListScrollbar(listState = listState, modifier = edgeOffset.padding(LocalDialogScrollbarInsets.current))
+    ScrollToTopButton(
+        listState = listState,
+        modifier = edgeOffset,
+        extraBottomPadding = LocalDialogBarInsets.current.calculateBottomPadding()
+    )
+}
+
+/** [DialogScrollIndicators] for content laid out in full, see [DialogScrollColumn]. */
+@Composable
+fun BoxScope.DialogScrollIndicators(scrollState: ScrollState) {
+    val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
+    ListScrollbar(scrollState = scrollState, modifier = edgeOffset.padding(LocalDialogScrollbarInsets.current))
+    ScrollToTopButton(
+        scrollState = scrollState,
+        modifier = edgeOffset,
+        extraBottomPadding = LocalDialogBarInsets.current.calculateBottomPadding()
+    )
 }
 
 /** These paddings and [other] together, such as room for the bars floating over a list. */

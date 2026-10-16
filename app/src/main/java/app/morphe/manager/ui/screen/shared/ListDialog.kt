@@ -27,6 +27,12 @@ import dev.chrisbanes.haze.rememberHazeState
  */
 val LocalDialogBarInsets = compositionLocalOf { PaddingValues(0.dp) }
 
+/**
+ * Room a [ListDialog] keeps at the ends of its scrollbar: a step under the header, and the same
+ * step above the screen's bottom edge, as the footer floats over the list rather than ending it.
+ */
+val LocalDialogScrollbarInsets = compositionLocalOf { PaddingValues(0.dp) }
+
 /** What the header floating over a [ListDialog]'s content blurs, see [ListDialogHeader]. */
 internal val LocalDialogHeaderHaze = staticCompositionLocalOf<HazeState?> { null }
 
@@ -135,9 +141,7 @@ private fun ListDialogLayout(
                         modifier = Modifier
                             .keepsClearOfMessages()
                             .fillMaxWidth()
-                            .floatingBarScrim(background)
-                            .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
-                            .padding(vertical = Defaults.SpaceLarge),
+                            .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal)),
                         contentAlignment = Alignment.Center
                     ) {
                         Box(
@@ -145,6 +149,10 @@ private fun ListDialogLayout(
                                 .widthIn(max = Defaults.ContentMaxWidth)
                                 .fillMaxWidth()
                                 .padding(horizontal = ListDialogInset)
+                                // Dims only as wide as the rows, so the scrollbar in the margin stays clear
+                                .floatingBarScrim(background)
+                                .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Bottom))
+                                .padding(vertical = Defaults.SpaceLarge)
                         ) {
                             CompositionLocalProvider(LocalDialogButtonBackdrop provides background, content = footer)
                         }
@@ -158,8 +166,18 @@ private fun ListDialogLayout(
     ) { headerHeight, bottomHeight ->
         // The list starts a step below the header, as a dialog's content starts below its top
         val topInset = if (header != null) headerHeight + Defaults.SpaceMedium else 0.dp
+        // Only a bottom bar hides what scrolls under it, so the scrollbar runs on past a footer
+        val scrollbarBottom = if (bottomBar != null) {
+            bottomHeight
+        } else {
+            WindowInsets.systemBars.exclude(WindowInsets.ime).asPaddingValues().calculateBottomPadding() + Defaults.SpaceMedium
+        }
         CompositionLocalProvider(
             LocalDialogBarInsets provides PaddingValues(top = topInset, bottom = bottomHeight),
+            LocalDialogScrollbarInsets provides PaddingValues(
+                top = if (header != null) topInset else Defaults.SpaceMedium,
+                bottom = scrollbarBottom
+            ),
             LocalDialogHeaderCollapse provides collapse.takeIf { header != null }
         ) {
             Box(

@@ -348,7 +348,8 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxSize()
                     ) { tab -> TabContent(tab) }
 
-                    ListScrollbar(scrollState = currentScrollState, modifier = Modifier.statusBarsPadding())
+                    ListScrollbar(scrollState = currentScrollState, modifier = Modifier.scrollbarSystemBarsPadding())
+                    ScrollToTopButton(scrollState = currentScrollState)
                 }
             }
         } else {
@@ -390,7 +391,8 @@ fun SettingsScreen(
                         ) { page -> TabContent(SettingsTab.entries[page]) }
                     }
 
-                    ListScrollbar(scrollState = currentScrollState, modifier = Modifier.statusBarsPadding())
+                    ListScrollbar(scrollState = currentScrollState, modifier = Modifier.scrollbarSystemBarsPadding())
+                    ScrollToTopButton(scrollState = currentScrollState, extraBottomPadding = navigationHeight)
                 }
             }
         }

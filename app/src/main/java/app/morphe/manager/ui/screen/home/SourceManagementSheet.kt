@@ -544,6 +544,8 @@ fun BundleManagementSheet(
 
                     ListScrollbar(
                         listState = listState,
+                        // The same step at both ends as on the screens, so the end shows past rounded corners
+                        modifier = Modifier.padding(vertical = Defaults.SpaceMedium),
                         alphabetTargets = sourceScrollTargets,
                         alphabetMode = alphabetScrollMode
                     )

@@ -348,7 +348,7 @@ private fun SectionFilterSheet(
                     }
                 }
 
-                ListScrollbar(scrollState = scrollState)
+                ListScrollbar(scrollState = scrollState, modifier = Modifier.padding(vertical = Defaults.SpaceMedium))
             }
         }
     }

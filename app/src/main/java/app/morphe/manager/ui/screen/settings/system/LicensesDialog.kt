@@ -8,7 +8,6 @@ package app.morphe.manager.ui.screen.settings.system
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
@@ -25,12 +24,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withLink
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.DialogPadding
-import app.morphe.manager.ui.screen.shared.ListScrollbar
-import app.morphe.manager.ui.screen.shared.LocalDialogHorizontalInset
+import app.morphe.manager.ui.screen.shared.DialogScrollIndicators
 import app.morphe.manager.ui.screen.shared.dialogTextColor
 import app.morphe.manager.ui.screen.shared.AppDialog
 import app.morphe.manager.ui.screen.shared.AppDialogOutlinedButton
-import app.morphe.manager.ui.screen.shared.ScrollToTopButton
 import app.morphe.manager.ui.screen.shared.verticalScrollFade
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
@@ -146,15 +143,7 @@ fun LicensesDialog(onDismiss: () -> Unit) {
                 }
             )
 
-            ListScrollbar(
-                listState = lazyListState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-
-            ScrollToTopButton(
-                listState = lazyListState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
+            DialogScrollIndicators(listState = lazyListState)
         }
     }
 }

@@ -52,7 +52,7 @@ private val ScrollbarMinThumbHeight = 36.dp
 private val AlphabetThumbHeight = 28.dp
 private val AlphabetBubbleWidth = 58.dp
 private val AlphabetBubbleHeight = 42.dp
-private val AlphabetBubbleGap = 14.dp
+private val AlphabetBubbleGap = Defaults.SpaceLarge
 
 /** How long the scrollbar stays visible after scrolling stops. */
 private val ScrollbarIdleTimeout = 650.milliseconds
@@ -433,7 +433,7 @@ private fun AlphabetScrollCallout(
     ) {
         Surface(
             modifier = Modifier.size(AlphabetBubbleWidth, AlphabetBubbleHeight),
-            shape = RoundedCornerShape(18.dp),
+            shape = RoundedCornerShape(Defaults.CornerLarge),
             color = colors.primary,
             contentColor = colors.onPrimary,
             border = CardBorder.of(colors.onPrimary.copy(alpha = 0.2f)),

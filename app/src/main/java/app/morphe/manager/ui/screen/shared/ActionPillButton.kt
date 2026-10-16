@@ -295,7 +295,7 @@ private fun PillContent(
     if (label != null) {
         Row(
             modifier = Modifier.padding(horizontal = PillTextPadding),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
             verticalAlignment = Alignment.CenterVertically
         ) {
             PillIcon(icon = icon, iconSize = iconSize, contentDescription = contentDescription)
@@ -581,7 +581,7 @@ fun CardActionRow(
         val singleActionMinWidth = maxWidth / 2
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = if (hasBoth) Arrangement.spacedBy(8.dp) else Arrangement.Center
+            horizontalArrangement = if (hasBoth) Arrangement.spacedBy(Defaults.SpaceSmall) else Arrangement.Center
         ) {
             actions.forEach { action ->
                 ActionPillButton(

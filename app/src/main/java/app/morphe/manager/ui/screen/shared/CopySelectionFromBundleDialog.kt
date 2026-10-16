@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 
 /**
@@ -93,7 +92,7 @@ fun CopySelectionFromBundleDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
             // Headed by the app the selection lands on, with the source it lands in, while the
             // question the list below answers sits right above it
@@ -103,7 +102,7 @@ fun CopySelectionFromBundleDialog(
                 },
                 title = target.appDisplayName,
                 subtitle = target.bundleName,
-                modifier = Modifier.padding(bottom = Defaults.ContentPaddingSmall)
+                modifier = Modifier.padding(bottom = Defaults.SpaceSmall)
             )
             Text(
                 text = stringResource(R.string.copy_selection_title),
@@ -146,7 +145,7 @@ private fun ColumnScope.CandidateList(
         modifier = Modifier
             .fillMaxWidth()
             .weight(1f, fill = false),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
     ) {
         items(
             items = candidates.withIndex().toList(),
@@ -186,11 +185,11 @@ private fun CandidateRow(
     ) {
         Column(
             modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 Text(
                     text = candidate.bundleName,

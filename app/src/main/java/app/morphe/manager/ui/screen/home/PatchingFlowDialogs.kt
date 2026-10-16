@@ -120,7 +120,7 @@ internal fun ApkAvailabilityDialog(
         footer = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 // Main action buttons
                 AppDialogButtonRow(
@@ -194,7 +194,7 @@ internal fun ApkAvailabilityDialog(
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (isExpertMode && offeredVersions.isNotEmpty()) {
@@ -395,7 +395,7 @@ internal fun UnsupportedVersionWarningDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
             VersionPanel(
                 color = tone.container.copy(alpha = 0.3f),
@@ -487,7 +487,7 @@ fun InvalidSignatureDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Notice(
@@ -530,7 +530,7 @@ fun SplitApkWarningDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
         }
@@ -566,7 +566,7 @@ fun ExperimentalVersionWarningDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
         }
@@ -603,7 +603,7 @@ fun WrongPackageDialog(
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
             ) {
                 // The two are read against each other, so the tone carries which is which
                 MonospaceValuePanel(
@@ -656,7 +656,7 @@ internal fun NoCompatibleVersionsDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
         }
@@ -701,7 +701,7 @@ private fun SelectableVersionListCard(
         modifier = modifier
             .fillMaxWidth()
             .selectableGroup(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
     ) {
         versions.groupBy { it.bundleUid }.forEach { (bundleUid, section) ->
             key(bundleUid) {
@@ -832,7 +832,7 @@ private fun VersionPanel(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
+        shape = RoundedCornerShape(Defaults.CornerLarge),
         color = color,
         tonalElevation = 1.dp,
         border = border
@@ -880,8 +880,8 @@ private fun VersionRow(
                 } else Modifier
             )
             .then(if (contentDescription != null) Modifier.semantics { this.contentDescription = contentDescription } else Modifier)
-            .padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            .padding(horizontal = Defaults.SpaceLarge, vertical = Defaults.SpaceMedium),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // The app's own round check, in its color, as the other pickers mark their pick
@@ -896,10 +896,10 @@ private fun VersionRow(
             modifier = Modifier
                 .weight(1f)
                 .then(if (enabled) Modifier else Modifier.alpha(Defaults.DISABLED_ALPHA)),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
         ) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -920,8 +920,8 @@ private fun VersionRow(
             }
             if (badgeTags.size > 1) {
                 FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
                 ) {
                     badgeTags.forEach { VersionTagBadge(it) }
                 }
@@ -959,7 +959,7 @@ private fun VersionDetailsLine(buildCode: Long?, onHandTags: List<VersionTag>) {
     }
 
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
         verticalArrangement = Arrangement.spacedBy(2.dp),
         itemVerticalAlignment = Alignment.CenterVertically
     ) {
@@ -971,7 +971,7 @@ private fun VersionDetailsLine(buildCode: Long?, onHandTags: List<VersionTag>) {
                 Text(text = "·", style = MaterialTheme.typography.bodySmall, color = color)
             }
             Row(
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(

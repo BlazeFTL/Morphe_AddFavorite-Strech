@@ -69,7 +69,7 @@ fun MultiSelectShell(
             color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.background),
             shadowElevation = 8.dp
         ) {
-            Box(modifier = Modifier.navigationBarsPadding().padding(bottom = 4.dp)) { content() }
+            Box(modifier = Modifier.navigationBarsPadding().padding(bottom = Defaults.SpaceExtraSmall)) { content() }
         }
     }
 }
@@ -106,7 +106,7 @@ fun PanelHeader(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
+            .padding(horizontal = Defaults.SpaceLarge, vertical = Defaults.SpaceMedium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(modifier = Modifier.weight(1f)) { title() }
@@ -114,7 +114,7 @@ fun PanelHeader(
         // panel's own
         CompositionLocalProvider(LocalDialogTextColor provides LocalContentColor.current) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                 verticalAlignment = Alignment.CenterVertically,
                 content = actions
             )
@@ -145,9 +145,9 @@ fun PanelSubtitle(text: String) {
 }
 
 /** Gap between a panel's edge and the plate a pressed action row lights up. */
-private val PanelActionInset = Defaults.ContentPaddingSmall
+private val PanelActionInset = Defaults.SpaceSmall
 
-private val PanelActionShape = RoundedCornerShape(Defaults.CompactCornerRadius)
+private val PanelActionShape = RoundedCornerShape(Defaults.CornerMedium)
 
 /** What an action of a panel does, as far as its color goes. */
 enum class ActionTone { Neutral, Primary, Secondary, Tertiary, Destructive }
@@ -249,7 +249,7 @@ fun PanelActions(actions: List<SelectionAction>, enabled: Boolean = true) {
         val startsDestructiveGroup = action.tone == ActionTone.Destructive &&
                 index > 0 && actions[index - 1].tone != ActionTone.Destructive
         if (startsDestructiveGroup) {
-            SettingsDivider(modifier = Modifier.padding(vertical = 4.dp))
+            SettingsDivider(modifier = Modifier.padding(vertical = Defaults.SpaceExtraSmall))
         }
         // Keyed so a row keeps its own state when an action ahead of it comes or goes
         key(action.label) {
@@ -299,9 +299,9 @@ fun PanelRow(
             .clip(PanelActionShape)
             .heightIn(min = 48.dp)
             .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
-            .padding(horizontal = Defaults.ContentPadding - PanelActionInset),
+            .padding(horizontal = Defaults.SpaceLarge - PanelActionInset),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         if (icon != null) {
             Icon(

@@ -142,7 +142,7 @@ fun AddSourceDialog(
                             modifier = Modifier.fillMaxWidth()
                         )
                         // As far as the buttons under it stand apart, so the three read as one grid
-                        Spacer(modifier = Modifier.height(Defaults.ItemSpacing))
+                        Spacer(modifier = Modifier.height(Defaults.SpaceMedium))
                     }
                 }
                 AppDialogButtonRow(
@@ -330,7 +330,7 @@ private fun RemoteTabContent(state: RemoteLinksState) {
     val inputCheck = state.inputCheck
     val noLinksMessage = stringResource(R.string.sources_dialog_paste_no_links)
 
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
+    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)) {
         AppDialogTextField(
             value = state.input,
             onValueChange = state::onInputChange,
@@ -373,7 +373,7 @@ private fun RemoteTabContent(state: RemoteLinksState) {
         AnimatedVisibility(visible = inputCheck != null) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 val (icon, color, text) = when (inputCheck) {
                     is RemoteUrlCheck.Rejected -> Triple(
@@ -399,8 +399,8 @@ private fun RemoteTabContent(state: RemoteLinksState) {
             // A sentence rather than a name, so it leads the card as text instead of heading it
             LabeledSection {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
+                    modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Info,
@@ -442,8 +442,8 @@ private fun UrlFormatRow(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
+        modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)
     ) {
         Icon(
             imageVector = icon,
@@ -470,7 +470,7 @@ private fun LocalTabContent(
     // remote tab's field keeps room above its outline for its label to rise into, so this page
     // starts as far down for both to open at one line
     Column(
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
         modifier = Modifier.padding(top = OutlinedFieldLabelRoom)
     ) {
         if (entries.isEmpty()) {
@@ -515,7 +515,7 @@ private val OutlinedFieldLabelRoom = 8.dp
 private fun LocalFilesDropZone(onPickFiles: () -> Unit) {
     val edgeColor = dialogSecondaryTextColor().copy(alpha = 0.5f)
     // Filled and rounded as the remote tab's hint card is, so the two tabs open alike
-    val shape = RoundedCornerShape(Defaults.SectionCornerRadius)
+    val shape = RoundedCornerShape(Defaults.CornerLargeIncreased)
 
     Box(
         modifier = Modifier
@@ -530,7 +530,7 @@ private fun LocalFilesDropZone(onPickFiles: () -> Unit) {
                     color = edgeColor,
                     topLeft = Offset(inset, inset),
                     size = Size(size.width - stroke.width, size.height - stroke.width),
-                    cornerRadius = CornerRadius(Defaults.SectionCornerRadius.toPx() - inset),
+                    cornerRadius = CornerRadius(Defaults.CornerLargeIncreased.toPx() - inset),
                     style = stroke
                 )
             }
@@ -541,7 +541,7 @@ private fun LocalFilesDropZone(onPickFiles: () -> Unit) {
             subtitle = stringResource(R.string.sources_dialog_local_file_tap_hint),
             icon = Icons.Outlined.UploadFile,
             // About as tall as the remote tab's hint card, so switching tabs barely moves the dialog
-            contentPadding = PaddingValues(horizontal = Defaults.ContentPadding, vertical = 12.dp),
+            contentPadding = PaddingValues(horizontal = Defaults.SpaceLarge, vertical = Defaults.SpaceMedium),
             iconSize = 40.dp
         )
     }
@@ -616,7 +616,7 @@ fun RenameBundleDialog(
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             AppDialogTextField(
                 value = textValue,
@@ -999,7 +999,7 @@ private fun BundleChangelogContent(
     ) { current ->
         when (current) {
             BundleChangelogState.Loading -> ChangelogListLoading(
-                modifier = Modifier.padding(top = Defaults.ItemSpacing)
+                modifier = Modifier.padding(top = Defaults.SpaceMedium)
             )
             is BundleChangelogState.Error -> ChangelogError(error = current.throwable)
             is BundleChangelogState.Entries -> {
@@ -1010,7 +1010,7 @@ private fun BundleChangelogContent(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = Defaults.ItemSpacing)
+                            .padding(top = Defaults.SpaceMedium)
                     )
                 } else {
                     // The release the app was patched with, the point its changes are counted from,
@@ -1032,7 +1032,7 @@ private fun BundleChangelogContent(
                             stringResource(R.string.changelog_patched_with, it.withVersionPrefix().isolateLtr())
                         },
                         // The gap under the header is the list's own, so releases scroll up to its edge
-                        contentPadding = PaddingValues(top = Defaults.ItemSpacing)
+                        contentPadding = PaddingValues(top = Defaults.SpaceMedium)
                     )
                 }
             }
@@ -1225,7 +1225,7 @@ fun SourceAppsDialog(
                     // Opaque, so rows scrolled under the gap stay hidden
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.ItemSpacing)
+                        .padding(top = Defaults.SpaceMedium)
                 )
             }
 

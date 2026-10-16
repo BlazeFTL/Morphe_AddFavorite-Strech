@@ -339,14 +339,14 @@ internal fun DownloadInstructionsDialog(
 
             // On a card of their own, as the version lists before them are, numbered down a rail
             SurfaceCard(
-                cornerRadius = Defaults.SettingsCornerRadius,
+                cornerRadius = Defaults.CornerLarge,
                 showBorder = true,
                 color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
             ) {
                 Column(
                     modifier = Modifier.padding(
-                        horizontal = Defaults.ContentPadding,
-                        vertical = Defaults.ItemSpacing
+                        horizontal = Defaults.SpaceLarge,
+                        vertical = Defaults.SpaceMedium
                     )
                 ) {
                     steps.forEachIndexed { index, step ->
@@ -430,11 +430,11 @@ private fun SiteDownloadButton(
                 color = buttonColor
             ) {
                 Column(
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+                    modifier = Modifier.padding(horizontal = Defaults.SpaceMedium, vertical = 10.dp),
                     verticalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
@@ -519,7 +519,7 @@ private fun InstructionStep(
 
     Row(
         modifier = Modifier.height(IntrinsicSize.Min),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
     ) {
         Column(
             modifier = Modifier.fillMaxHeight(),
@@ -544,8 +544,8 @@ private fun InstructionStep(
             modifier = Modifier
                 .weight(1f)
                 // Past the last step there is no rail to leave room for
-                .padding(top = 3.dp, bottom = if (isLast) 0.dp else Defaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                .padding(top = Defaults.SpaceExtraSmall, bottom = if (isLast) 0.dp else Defaults.SpaceLarge),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
             content = content
         )
     }

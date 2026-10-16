@@ -442,15 +442,15 @@ private fun ResultLayout(
             if (actions != null) {
                 // A wider gap than inside either row, so the actions and the bar read as two groups
                 ResultActionsDock(
-                    horizontalPadding = Defaults.ContentPadding,
-                    bottomPadding = Defaults.ItemSpacing * 2,
+                    horizontalPadding = Defaults.SpaceLarge,
+                    bottomPadding = Defaults.SpaceMedium * 2,
                     content = actions
                 )
             } else {
                 // The bar keeps no gap above itself, so the scrolling content is held off it here
-                Spacer(Modifier.height(Defaults.ItemSpacing))
+                Spacer(Modifier.height(Defaults.SpaceMedium))
             }
-            bottomBar(Defaults.ContentPadding)
+            bottomBar(Defaults.SpaceLarge)
         }
     }
 }
@@ -463,13 +463,13 @@ private fun ResultLayout(
 @Composable
 private fun ResultActionsDock(
     horizontalPadding: Dp,
-    bottomPadding: Dp = Defaults.ItemSpacing,
+    bottomPadding: Dp = Defaults.SpaceMedium,
     content: @Composable () -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = Defaults.ItemSpacing, bottom = bottomPadding),
+            .padding(top = Defaults.SpaceMedium, bottom = bottomPadding),
         contentAlignment = Alignment.TopCenter
     ) {
         Box(
@@ -560,7 +560,7 @@ private fun ResultHeader(status: ResultStatus, packageName: String, windowSize: 
             ResultIcon(status, packageName, iconSize = 64.dp)
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
             ) {
                 ResultBadge(status)
                 AppLabel(
@@ -583,7 +583,7 @@ private fun ResultHeader(status: ResultStatus, packageName: String, windowSize: 
         ResultBadge(status)
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
         ) {
             AppLabel(
                 packageName = packageName,
@@ -746,7 +746,7 @@ private fun InstallActions(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
     ) {
         // One connected group, so the file buttons read as part of the install rather than as a
         // row of their own. They take its height, which a large font can raise
@@ -870,7 +870,7 @@ private fun ResultActionButton(
             .heightIn(min = PatcherActionHeight),
         shape = rememberPressShape(interactionSource, shape, enabled = !busy),
         colors = buttonColors,
-        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
+        contentPadding = PaddingValues(horizontal = Defaults.SpaceExtraLarge, vertical = Defaults.SpaceMedium)
     ) {
         if (busy) {
             CircularProgressIndicator(
@@ -881,7 +881,7 @@ private fun ResultActionButton(
         } else {
             ThemedIcon(icon = icon, tint = LocalContentColor.current)
         }
-        Spacer(Modifier.width(12.dp))
+        Spacer(Modifier.width(Defaults.SpaceMedium))
         // Follows a mount install through its steps with a fade rather than a jump
         CrossfadeText(
             text = text,

@@ -87,7 +87,7 @@ fun ConfirmDialog(
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
             ) {
                 subject?.invoke()
                 if (items.isNotEmpty()) {
@@ -119,7 +119,7 @@ fun ConfirmSubject(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         icon(Modifier.size(64.dp))
         Text(

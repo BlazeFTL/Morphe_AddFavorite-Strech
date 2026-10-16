@@ -264,7 +264,7 @@ fun InstallerSelectionDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
             visibleOptions.forEach { option ->
                 val enabled = option.availability.available
@@ -549,7 +549,7 @@ private fun AutoUninstallWarningDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             Notice(
                 text = stringResource(R.string.settings_auto_uninstall_warning_risk),
@@ -626,7 +626,7 @@ private fun ShizukuStatusDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
             if (current != null) {
                 Notice(
@@ -694,7 +694,7 @@ private fun ShizukuStatusDialog(
                 CircularProgressIndicator(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .padding(16.dp)
+                        .padding(Defaults.SpaceLarge)
                 )
             }
         }
@@ -762,7 +762,7 @@ fun InstallerOptionItem(
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
                 ) {
                     (reasonText ?: footerText)?.let { text ->
                         val tint = if (footerText != null) {
@@ -771,7 +771,7 @@ fun InstallerOptionItem(
                             MaterialTheme.colorScheme.onSurfaceVariant
                         }
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
@@ -790,7 +790,7 @@ fun InstallerOptionItem(
                     footerActions?.let { actions ->
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                             content = actions
                         )
                     }
@@ -883,7 +883,7 @@ fun InstallerUnavailableDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             // Error reason badge
             if (reasonText != null) {
@@ -940,7 +940,7 @@ fun PlayStoreInstallerWarningDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             // A risk the user can avoid by turning off updates, not a failure
             Notice(
@@ -986,7 +986,7 @@ fun PrePatchInstallerDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             // Root Mount option
             SettingsItem(

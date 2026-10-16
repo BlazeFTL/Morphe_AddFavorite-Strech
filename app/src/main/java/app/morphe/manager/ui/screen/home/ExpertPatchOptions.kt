@@ -269,9 +269,9 @@ internal fun PatchOptionsDialog(
                 .weight(1f)
                 .verticalScrollFade(scrollState)
                 .verticalScroll(scrollState)
-                .padding(vertical = Defaults.ItemSpacing),
+                .padding(vertical = Defaults.SpaceMedium),
             // Spaced as the patch list the dialog opens from
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
             // What the patch does leads into its options
             if (!patch.description.isNullOrBlank()) {
@@ -602,7 +602,7 @@ private fun ColorOptionWithPresets(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = Defaults.ItemSpacing),
+                        .padding(top = Defaults.SpaceMedium),
                     label = "colorOptionSwatchName"
                 )
             }
@@ -776,7 +776,7 @@ private fun ListStringInputOption(
     OptionCard(heading) {
         if (value.isNotEmpty()) {
             // A chip already keeps a touch target's height around it, which spaces the lines
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)) {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
                 value.forEachIndexed { index, item ->
                     AppInputChip(
                         label = item,
@@ -787,7 +787,7 @@ private fun ListStringInputOption(
         }
 
         Row(
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AppDialogTextField(

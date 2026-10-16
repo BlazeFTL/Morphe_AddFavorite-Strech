@@ -444,7 +444,7 @@ private fun SelectionList(
     DialogLazyList(
         modifier = Modifier.fillMaxWidth(),
         state = listState,
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
         pinnedFirstRow = true
     ) {
         // Kept while the field is closed, so its share of the spacing makes the gap under the
@@ -458,7 +458,7 @@ private fun SelectionList(
                 // Opaque, so rows scrolled under the gap stay hidden
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
-                    .padding(top = Defaults.ItemSpacing)
+                    .padding(top = Defaults.SpaceMedium)
             )
         }
 
@@ -552,8 +552,8 @@ private fun PackageSelectionItem(
                                 multiSelect.onEnterSelection(packageName)
                             }
                         )
-                        .padding(Defaults.ContentPadding),
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+                        .padding(Defaults.SpaceLarge),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // App icon
@@ -567,7 +567,7 @@ private fun PackageSelectionItem(
                     // App info
                     Column(
                         modifier = Modifier.weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
                     ) {
                         Text(
                             text = displayName,
@@ -587,7 +587,7 @@ private fun PackageSelectionItem(
                         )
 
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             StatusBadge(
@@ -634,11 +634,11 @@ private fun PackageSelectionItem(
                 ) {
                     Column(
                         modifier = Modifier.padding(
-                            start = Defaults.ContentPadding,
-                            end = Defaults.ContentPadding,
-                            bottom = Defaults.ContentPadding
+                            start = Defaults.SpaceLarge,
+                            end = Defaults.SpaceLarge,
+                            bottom = Defaults.SpaceLarge
                         ),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
                     ) {
                         bundleMap.forEach { (bundleUid, patchCount) ->
                             BundleSelectionItem(
@@ -710,7 +710,7 @@ private fun BundleSelectionItem(
 
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
     ) {
         SettingsDivider(fullWidth = true)
 
@@ -954,7 +954,7 @@ private fun PatchDetailsDialog(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(Defaults.ContentPaddingExpanded),
+                    .padding(Defaults.SpaceExtraExtraLarge),
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator()

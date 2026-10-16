@@ -51,8 +51,8 @@ internal fun HomeSidebarPanel(
             .width(220.dp)
             .fillMaxHeight()
             .navigationBarsPadding()
-            .padding(horizontal = 12.dp, vertical = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing, Alignment.CenterVertically)
+            .padding(horizontal = Defaults.SpaceMedium, vertical = Defaults.SpaceExtraLarge),
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium, Alignment.CenterVertically)
     ) {
         if (showSearchButton) {
             ActionGlassButton(

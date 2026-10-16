@@ -237,7 +237,7 @@ internal fun PatchGroupHeader(
                         tone = SemanticTone.Primary,
                         // The bare number is meaningless read out, and the row merges its children
                         modifier = Modifier
-                            .padding(end = Defaults.ContentPaddingSmall)
+                            .padding(end = Defaults.SpaceSmall)
                             .clearAndSetSemantics { contentDescription = selectedLabel }
                     )
                 }
@@ -254,14 +254,14 @@ internal fun PatchGroupHeader(
                 }
             }
         },
-        cornerRadius = Defaults.SettingsCornerRadius,
+        cornerRadius = Defaults.CornerLarge,
         color = appAccentCardFill(accentColor),
         borderColor = accentColor?.let { appAccentBorder(it) },
         below = badges?.let { content ->
             {
                 FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                     content = content
                 )
             }

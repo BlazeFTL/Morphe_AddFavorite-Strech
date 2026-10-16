@@ -384,7 +384,7 @@ fun SettingsScreen(
                 ) { navigationHeight ->
                     // The tabs scroll on under the floating navigation, and end clear of it
                     CompositionLocalProvider(
-                        LocalSettingsTabBottomPadding provides navigationHeight + Defaults.ItemSpacing
+                        LocalSettingsTabBottomPadding provides navigationHeight + Defaults.SpaceMedium
                     ) {
                         HorizontalPager(
                             state = pagerState,
@@ -415,15 +415,15 @@ private fun LandscapeNavPanel(
         modifier = modifier
             .width(220.dp)
             .fillMaxHeight()
-            .padding(horizontal = 12.dp, vertical = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+            .padding(horizontal = Defaults.SpaceMedium, vertical = Defaults.SpaceExtraLarge),
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
     ) {
         // Centered in the room above Back, so the two never close up on a short screen
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing, Alignment.CenterVertically)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium, Alignment.CenterVertically)
         ) {
             SettingsTab.entries.forEach { tab ->
                 val positionedModifier = when (tab) {

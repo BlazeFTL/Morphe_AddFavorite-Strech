@@ -256,7 +256,7 @@ fun NotificationsOverlay(
         // and those past the last step wait out of sight behind it
         val step = StackPeekStep.toPx()
         val inset = StackPeekInset.toPx()
-        val sidePadding = Defaults.ContentPadding.toPx()
+        val sidePadding = Defaults.SpaceLarge.toPx()
         val leadBottom = foldedHeight - gap
         val peek = step * (depth - 1f).coerceIn(0f, StackPeekCount.toFloat()) * (1f - unfolded)
         val tops = IntArray(cards.size)
@@ -549,7 +549,7 @@ private fun AlertStackControls(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Defaults.ContentPadding),
+            .padding(horizontal = Defaults.SpaceLarge),
         horizontalArrangement = Arrangement.End
     ) {
         AnimatedRowPill(visible = stacked > 0, gap = AlertSpacing) {
@@ -592,8 +592,8 @@ private fun AlertChip(
         shadowElevation = 2.dp
     ) {
         Row(
-            modifier = Modifier.padding(start = 10.dp, end = 12.dp, top = 6.dp, bottom = 6.dp),
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            modifier = Modifier.padding(start = Defaults.SpaceSmall, end = Defaults.SpaceMedium, top = Defaults.SpaceSmall, bottom = Defaults.SpaceSmall),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -808,8 +808,8 @@ private fun StatusCard(
         enabled = onClick != null,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = Defaults.ContentPadding),
-        shape = RoundedCornerShape(Defaults.CardCornerRadius),
+            .padding(horizontal = Defaults.SpaceLarge),
+        shape = RoundedCornerShape(Defaults.CornerLarge),
         color = containerColor,
         border = CardBorder.of(borderColor),
         shadowElevation = 2.dp
@@ -817,8 +817,8 @@ private fun StatusCard(
         Row(
             modifier = Modifier
                 .animateContentSize()
-                .padding(14.dp),
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+                .padding(Defaults.SpaceLarge),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
             verticalAlignment = Alignment.CenterVertically
         ) {
             leading()

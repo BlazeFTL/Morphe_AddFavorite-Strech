@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.backgrounds.LocalBackdropInDialog
@@ -130,7 +129,7 @@ fun BackgroundPickerDialog(
                     icon = Icons.Outlined.Celebration,
                     tone = SemanticTone.Primary,
                     density = NoticeDensity.Compact,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    modifier = Modifier.padding(bottom = Defaults.SpaceSmall)
                 )
             }
 
@@ -151,9 +150,9 @@ fun BackgroundPickerDialog(
                 enter = Animations.expandFadeEnter,
                 exit = Animations.shrinkFadeExit
             ) {
-                Column(modifier = Modifier.padding(top = 8.dp)) {
+                Column(modifier = Modifier.padding(top = Defaults.SpaceSmall)) {
                     SettingsDivider(
-                        modifier = Modifier.padding(vertical = 4.dp),
+                        modifier = Modifier.padding(vertical = Defaults.SpaceExtraSmall),
                         fullWidth = true
                     )
 
@@ -167,7 +166,7 @@ fun BackgroundPickerDialog(
                         OptionGrid(
                             items = RandomInterval.entries,
                             columns = RandomInterval.entries.size,
-                            modifier = Modifier.padding(top = 8.dp)
+                            modifier = Modifier.padding(top = Defaults.SpaceSmall)
                         ) { interval, itemModifier ->
                             ModernIconOptionCard(
                                 selected = selectedInterval == interval,
@@ -180,7 +179,7 @@ fun BackgroundPickerDialog(
                         }
                     }
 
-                    SettingsGroup(modifier = Modifier.padding(top = 8.dp)) {
+                    SettingsGroup(modifier = Modifier.padding(top = Defaults.SpaceSmall)) {
                         SettingsSwitchItem(
                             title = stringResource(R.string.settings_appearance_parallax_effect),
                             subtitle = stringResource(R.string.settings_appearance_parallax_effect_description),
@@ -194,7 +193,7 @@ fun BackgroundPickerDialog(
 
             // Kept out of the block above: an event also brings its own greetings, which a
             // background of NONE does not switch off
-            SettingsGroup(modifier = Modifier.padding(top = 8.dp)) {
+            SettingsGroup(modifier = Modifier.padding(top = Defaults.SpaceSmall)) {
                 SettingsSwitchItem(
                     title = stringResource(R.string.settings_appearance_seasonal_themes),
                     subtitle = stringResource(R.string.settings_appearance_seasonal_themes_description),

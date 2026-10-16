@@ -250,7 +250,7 @@ fun ExpertModeDialog(
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
             Column {
                 // Headed by the app, as its other dialogs are. A lone source takes the subtitle's
@@ -318,7 +318,7 @@ fun ExpertModeDialog(
                     value = search.query,
                     onValueChange = { search.query = it },
                     label = searchLabel,
-                    modifier = Modifier.padding(top = Defaults.ContentPaddingSmall)
+                    modifier = Modifier.padding(top = Defaults.SpaceSmall)
                 )
             }
 
@@ -501,7 +501,7 @@ fun ExpertModeDialog(
                         lockStateOf = lockStateOf,
                         holdsUniversalPatches = holdsUniversalPatches,
                         onExpandUniversal = { patchSections.setExpanded(it, UNIVERSAL_GROUP_KEY, true) },
-                        modifier = Modifier.padding(vertical = Defaults.ContentPaddingSmall)
+                        modifier = Modifier.padding(vertical = Defaults.SpaceSmall)
                     )
 
                     // Pager
@@ -631,7 +631,7 @@ private fun SourceTab(
         // which leaves the first flush with the list below. Nothing above or below, so the row
         // keeps the same spacing to the header and the controls as a lone source's layout does
         modifier = Modifier
-            .padding(end = Defaults.ContentPaddingSmall)
+            .padding(end = Defaults.SpaceSmall)
             .clip(Defaults.PillShape)
             .background(fill),
         selectedContentColor = if (accent != null) {
@@ -642,9 +642,9 @@ private fun SourceTab(
         unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = Defaults.ItemSpacing, vertical = Defaults.ContentPaddingSmall),
+            modifier = Modifier.padding(horizontal = Defaults.SpaceMedium, vertical = Defaults.SpaceSmall),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
             if (source != null) {
                 BundleIcon(bundle = source, modifier = Modifier.size(24.dp), enabled = source.enabled)
@@ -809,7 +809,7 @@ private fun BundlePatchList(
         modifier = modifier
             .fillMaxSize()
             .verticalScrollFade(listState),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
     ) {
         if (bundle.uid in markers.prereleaseNotices) prereleaseNotice()
 

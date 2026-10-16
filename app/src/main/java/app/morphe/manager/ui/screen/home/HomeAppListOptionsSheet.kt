@@ -95,7 +95,7 @@ internal fun HomeAppListOptionsSheet(
             modifier = Modifier
                 .fillMaxWidth()
                 .navigationBarsPadding()
-                .padding(bottom = Defaults.ContentPaddingSmall)
+                .padding(bottom = Defaults.SpaceSmall)
         ) {
             PanelHeader(title = { PanelTitle(text = stringResource(R.string.home_app_list_options_title)) }) {
                 TitleAction(

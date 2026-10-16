@@ -218,7 +218,7 @@ fun OnboardingShowcase(
                         color = Color.Black,
                         topLeft = Offset(cx - hw, cy - hh),
                         size = Size(hw * 2, hh * 2),
-                        cornerRadius = CornerRadius(20.dp.toPx()),
+                        cornerRadius = CornerRadius(Defaults.CornerLargeIncreased.toPx()),
                         blendMode = BlendMode.Clear
                     )
                 }
@@ -260,12 +260,12 @@ private fun OnboardingCard(
     // Drawn and headed like a selection panel, the other surface that floats over the home screen
     Surface(
         modifier = modifier.widthIn(max = 380.dp),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(Defaults.CornerLargeIncreased),
         color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.background),
         shadowElevation = 8.dp,
         border = CardBorder.neutral
     ) {
-        Column(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
+        Column(modifier = Modifier.padding(bottom = Defaults.SpaceLarge)) {
             PanelHeader(
                 title = {
                     Column {
@@ -285,14 +285,14 @@ private fun OnboardingCard(
                 text = description,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+                modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)
             )
-            Spacer(Modifier.height(Defaults.ContentPadding))
+            Spacer(Modifier.height(Defaults.SpaceLarge))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = Defaults.ContentPadding),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(horizontal = Defaults.SpaceLarge),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 if (onPrevious != null) {
                     val back = stringResource(R.string.back)

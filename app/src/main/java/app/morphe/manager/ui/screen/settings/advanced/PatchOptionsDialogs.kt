@@ -273,9 +273,9 @@ private fun SettingsOptionsDialog(
                 .weight(1f)
                 .verticalScrollFade(scrollState)
                 .verticalScroll(scrollState)
-                .padding(vertical = Defaults.ItemSpacing),
+                .padding(vertical = Defaults.SpaceMedium),
             // Spaced as the options edited while patching
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
             if (hasOptions) {
                 content()

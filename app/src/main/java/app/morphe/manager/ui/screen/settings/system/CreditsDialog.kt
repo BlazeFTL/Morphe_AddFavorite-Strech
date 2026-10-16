@@ -77,7 +77,7 @@ fun CreditsDialog(onDismiss: () -> Unit) {
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             ContributorSection(
                 label = stringResource(R.string.credits_current_development),
@@ -106,7 +106,7 @@ private fun ContributorSection(
     contributors: List<Contributor>,
     onContributorClick: (Contributor) -> Unit
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)) {
+    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
         Text(
             text = label,
             style = MaterialTheme.typography.labelMedium,

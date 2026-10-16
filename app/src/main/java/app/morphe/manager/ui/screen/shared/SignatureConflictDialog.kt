@@ -67,7 +67,7 @@ fun SignatureConflictDialog(
         }
     ) {
         if (onIgnore != null) {
-            Spacer(Modifier.height(Defaults.ContentPadding))
+            Spacer(Modifier.height(Defaults.SpaceLarge))
 
             Text(
                 text = stringResource(R.string.install_ignore_signature_description),

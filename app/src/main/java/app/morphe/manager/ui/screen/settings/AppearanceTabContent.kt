@@ -114,7 +114,7 @@ fun AppearanceTabContent(
             .verticalScrollFade(scrollState)
             .verticalScroll(scrollState)
             .padding(settingsTabPadding()),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         LanguageAndDisplaySection(
             appLanguage = appLanguage,

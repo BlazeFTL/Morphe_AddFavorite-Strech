@@ -68,7 +68,7 @@ private data class HomeAppCardStyle(
     /** Fill of the mark on the icon, denser than a chip's: it is too small to lean on a label. */
     val markContainerColor: Color,
     val cardColor: Color,
-    val cardRadius: Dp = 24.dp,
+    val cardRadius: Dp = Defaults.CornerLargeIncreased,
     val cardHeight: Dp = 80.dp,
     val contentPadding: Dp = 16.dp,
     val contentSpacing: Dp = 16.dp,
@@ -408,7 +408,7 @@ private fun InstalledAppCard(
                 // Badge height is reserved whether a badge is showing, otherwise the row
                 // grows around it and nudges the app name above out of place
                 modifier = Modifier.height(statusBadgeHeight),
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Fills the row so the chip is pinned to the card edge rather than trailing

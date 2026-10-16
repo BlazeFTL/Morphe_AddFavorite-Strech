@@ -101,7 +101,7 @@ private fun ColorSwatch(
     enabled: Boolean = true,
     size: Dp = SwatchSize
 ) {
-    val shape = RoundedCornerShape(Defaults.CompactCornerRadius)
+    val shape = RoundedCornerShape(Defaults.CornerMedium)
     val scheme = MaterialTheme.colorScheme
     val selectedLabel = stringResource(R.string.selected)
     val notSelectedLabel = stringResource(R.string.not_selected)
@@ -306,7 +306,7 @@ private fun NoColorSwatch(
     enabled: Boolean,
     size: Dp
 ) {
-    val shape = RoundedCornerShape(Defaults.CompactCornerRadius)
+    val shape = RoundedCornerShape(Defaults.CornerMedium)
     val scheme = MaterialTheme.colorScheme
     val label = stringResource(R.string.not_selected)
     val selectedLabel = stringResource(R.string.selected)
@@ -350,7 +350,7 @@ private fun CustomColorSwatch(
     enabled: Boolean,
     size: Dp
 ) {
-    val shape = RoundedCornerShape(Defaults.CompactCornerRadius)
+    val shape = RoundedCornerShape(Defaults.CornerMedium)
     val label = stringResource(R.string.custom_color)
     val scheme = MaterialTheme.colorScheme
 

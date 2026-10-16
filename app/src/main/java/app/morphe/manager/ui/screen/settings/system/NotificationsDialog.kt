@@ -37,7 +37,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
@@ -186,7 +185,7 @@ fun NotificationsDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
             SettingsGroup {
                 SettingsSwitchItem(
@@ -429,20 +428,20 @@ private fun UpdateCheckIntervalDialog(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(vertical = Defaults.SpaceLarge),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             // Current value chip
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+                shape = RoundedCornerShape(Defaults.CornerMedium),
                 color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
                 border = CardBorder.tinted(MaterialTheme.colorScheme.primary)
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(Defaults.SpaceLarge),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
                 ) {
                     Text(
                         text = stringResource(selectedInterval.labelResId),
@@ -460,7 +459,7 @@ private fun UpdateCheckIntervalDialog(
             }
 
             // Slider
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
                 Slider(
                     state = sliderState,
                     onValueChange = { sliderState.value = it },

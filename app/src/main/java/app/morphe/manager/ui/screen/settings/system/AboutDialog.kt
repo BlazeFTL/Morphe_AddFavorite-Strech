@@ -120,13 +120,13 @@ fun AboutDialog(
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraLarge)
         ) {
             // App icon on a plain tile, the way the manager sets off every other object it shows
             Box(
                 modifier = Modifier
                     .size(100.dp)
-                    .background(neutralVeil(dialogTextColor()), RoundedCornerShape(24.dp)),
+                    .background(neutralVeil(dialogTextColor()), RoundedCornerShape(Defaults.CornerExtraLarge)),
                 contentAlignment = Alignment.Center
             ) {
                 val icon = rememberDrawablePainter(
@@ -139,14 +139,14 @@ fun AboutDialog(
                     contentDescription = null,
                     modifier = Modifier
                         .size(80.dp)
-                        .clip(RoundedCornerShape(20.dp))
+                        .clip(RoundedCornerShape(Defaults.CornerLargeIncreased))
                 )
             }
 
             // App Name & Version
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
             ) {
                 Text(
                     text = stringResource(R.string.app_name),
@@ -159,7 +159,7 @@ fun AboutDialog(
                     style = MaterialTheme.typography.bodyMedium,
                     color = secondaryColor,
                     modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
+                        .clip(RoundedCornerShape(Defaults.CornerSmall))
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null
@@ -177,7 +177,7 @@ fun AboutDialog(
                                     view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                             }
                         }
-                        .padding(horizontal = 12.dp, vertical = 4.dp)
+                        .padding(horizontal = Defaults.SpaceMedium, vertical = Defaults.SpaceExtraSmall)
                 )
             }
 

@@ -124,7 +124,7 @@ fun Notice(
 
     Surface(
         modifier = if (isCentered) modifier.wrapContentWidth() else modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+        shape = RoundedCornerShape(Defaults.CornerMedium),
         color = tone.container,
         border = CardBorder.tinted(tone.accent)
     ) {

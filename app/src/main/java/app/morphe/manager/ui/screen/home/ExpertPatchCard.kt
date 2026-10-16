@@ -232,7 +232,7 @@ internal fun PatchCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(Defaults.ContentPadding),
+                    .padding(Defaults.SpaceLarge),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -241,7 +241,7 @@ internal fun PatchCard(
                 SelectionCheckIndicator(
                     state = if (isEnabled) ToggleableState.On else ToggleableState.Off,
                     enabled = !lockState.blocksToggle(isEnabled),
-                    modifier = Modifier.padding(end = Defaults.ItemSpacing)
+                    modifier = Modifier.padding(end = Defaults.SpaceMedium)
                 )
 
                 // Patch info, with the "New" badge inline
@@ -320,14 +320,14 @@ internal fun PatchCard(
                         .fillMaxWidth()
                         .background(colors.onSurface.copy(alpha = 0.06f))
                         .padding(
-                            horizontal = Defaults.ContentPadding,
-                            vertical = Defaults.ContentPaddingSmall,
+                            horizontal = Defaults.SpaceLarge,
+                            vertical = Defaults.SpaceSmall,
                         ),
                     contentAlignment = Alignment.Center,
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                     ) {
                         Icon(
                             imageVector = when (lockState) {

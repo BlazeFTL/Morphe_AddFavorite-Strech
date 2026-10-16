@@ -46,7 +46,7 @@ fun SelectionTile(
             if (stateDescription != null) this.stateDescription = stateDescription
             if (contentDescription != null) this.contentDescription = contentDescription
         },
-        shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
+        shape = RoundedCornerShape(Defaults.CornerLarge),
         color = containerColor,
         contentColor = GlassButtonDefaults.contentColor(selected)
             .readableOn(containerColor, MaterialTheme.colorScheme.surface),

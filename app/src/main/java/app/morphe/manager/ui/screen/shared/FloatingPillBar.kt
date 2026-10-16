@@ -94,7 +94,7 @@ fun FloatingPillBar(
                 .widthIn(max = Defaults.ContentMaxWidth)
                 .fillMaxWidth()
                 .padding(horizontal = horizontalPadding)
-                .padding(bottom = Defaults.ItemSpacing),
+                .padding(bottom = Defaults.SpaceMedium),
             // No spacing of its own: a trailing action brings its gap along, see [AnimatedRowPill]
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -150,7 +150,7 @@ fun FloatingPillBar(
  * A row's own spacing would hold that gap until the pill is gone and then drop it at once.
  */
 @Composable
-fun AnimatedRowPill(visible: Boolean, gap: Dp = FloatingPillSpacing, content: @Composable () -> Unit) {
+fun AnimatedRowPill(visible: Boolean, gap: Dp = Defaults.SpaceSmall, content: @Composable () -> Unit) {
     AnimatedVisibility(visible = visible, enter = Animations.pillEnter, exit = Animations.pillExit) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(gap))
@@ -387,7 +387,6 @@ private fun pillLabelWeights(labels: List<String>, width: Dp): List<Float>? {
 }
 
 private val FloatingPillHeight = 64.dp
-private val FloatingPillSpacing = 6.dp
 private val FloatingPillElevation = 3.dp
 private val PillActionHeight = 52.dp
 private val PillInset = 6.dp

@@ -194,7 +194,7 @@ fun ManagerChangelogDialog(
             when (content) {
                 UpdateDialogContent.DetailsLoading -> ChangelogListLoading(
                     withSummary = hasUpdate || expectsUpdate,
-                    modifier = Modifier.padding(top = Defaults.ItemSpacing)
+                    modifier = Modifier.padding(top = Defaults.SpaceMedium)
                 )
 
                 UpdateDialogContent.DetailsFailed -> updateViewModel.changelogError?.let { ChangelogError(it) }
@@ -207,7 +207,7 @@ fun ManagerChangelogDialog(
                         older = older,
                         badges = mapOf(BuildConfig.VERSION_NAME to ChangelogBadge.INSTALLED),
                         // The gap under the header is the list's own, so releases scroll up to its edge
-                        contentPadding = PaddingValues(top = Defaults.ItemSpacing),
+                        contentPadding = PaddingValues(top = Defaults.SpaceMedium),
                         header = when {
                             // Everything the user is about to install, summed up above the releases themselves
                             newReleases.isNotEmpty() -> {
@@ -504,9 +504,9 @@ private fun UpdateCompletedContent(version: String?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = Defaults.ContentPaddingExpanded),
+            .padding(vertical = Defaults.SpaceExtraExtraLarge),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingMedium)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraLarge)
     ) {
         Surface(
             shape = CircleShape,

@@ -95,7 +95,7 @@ fun ModernIconOptionCard(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(Defaults.ItemSpacing),
+                .padding(Defaults.SpaceMedium),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -111,7 +111,7 @@ fun ModernIconOptionCard(
                 }.copy(alpha = if (enabled) 1f else 0.5f),
                 modifier = Modifier.size(iconSize)
             )
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(Defaults.SpaceExtraSmall))
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodySmall,

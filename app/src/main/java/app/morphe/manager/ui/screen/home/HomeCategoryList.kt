@@ -30,6 +30,7 @@ import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppCategoryState
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.CardBorder
+import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.GlassButtonDefaults
 import app.morphe.manager.ui.screen.shared.MorpheLauncherLogo
 import app.morphe.manager.ui.screen.shared.appAccentBorder
@@ -192,7 +193,7 @@ internal fun HomeGlassCategoryRow(
     onLongClick: (() -> Unit)? = null,
     leading: (@Composable () -> Unit)? = null,
     count: String? = null,
-    cornerRadius: Dp = 20.dp,
+    cornerRadius: Dp = Defaults.CornerLargeIncreased,
     color: Color? = null,
     borderColor: Color? = null,
     below: (@Composable () -> Unit)? = null,
@@ -228,15 +229,15 @@ internal fun HomeGlassCategoryRow(
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(min = 48.dp)
-                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                    .padding(horizontal = Defaults.SpaceMedium, vertical = Defaults.SpaceSmall),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 leading?.invoke()
                 Row(
                     modifier = Modifier.weight(1f),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
                 ) {
                     Text(
                         text = title,
@@ -258,7 +259,7 @@ internal fun HomeGlassCategoryRow(
                 trailing()
             }
             if (below != null) {
-                Box(modifier = Modifier.padding(start = 12.dp, end = 12.dp, bottom = 12.dp)) { below() }
+                Box(modifier = Modifier.padding(start = Defaults.SpaceMedium, end = Defaults.SpaceMedium, bottom = Defaults.SpaceMedium)) { below() }
             }
         }
     }
@@ -360,7 +361,7 @@ private fun SourceCategoryIcon(
                     imageVector = Icons.Outlined.Source,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(4.dp)
+                    modifier = Modifier.padding(Defaults.SpaceExtraSmall)
                 )
             }
         }

@@ -405,7 +405,7 @@ fun FilePicker(
                 breadcrumbs = breadcrumbs,
                 showStorages = showStorages,
                 onOpen = { currentDir = it },
-                modifier = Modifier.padding(top = Defaults.ItemSpacing)
+                modifier = Modifier.padding(top = Defaults.SpaceMedium)
             )
         }
 
@@ -414,7 +414,7 @@ fun FilePicker(
             value = search.query,
             onValueChange = { search.query = it },
             label = stringResource(R.string.search),
-            modifier = Modifier.padding(top = Defaults.ItemSpacing)
+            modifier = Modifier.padding(top = Defaults.SpaceMedium)
         )
 
         // A folder slides in from the side it lies on, deeper ones from the end and the ones
@@ -485,7 +485,7 @@ private fun FolderTrail(
             .fillMaxWidth()
             .horizontalScrollFade(scrollState)
             .horizontalScroll(scrollState),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (showStorages) {
@@ -583,7 +583,7 @@ private fun FolderListing(
 
     DialogLazyList(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = Defaults.ItemSpacing),
+        contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
         verticalArrangement = Arrangement.spacedBy(CompactCardSpacing)
     ) {
         val contents = dirContents
@@ -762,7 +762,7 @@ private fun FilePickerRow(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(CompactCardIconSize)
-                    .clip(RoundedCornerShape(Defaults.CompactCornerRadius))
+                    .clip(RoundedCornerShape(Defaults.CornerMedium))
             )
 
             else -> CompactCardIconTile {

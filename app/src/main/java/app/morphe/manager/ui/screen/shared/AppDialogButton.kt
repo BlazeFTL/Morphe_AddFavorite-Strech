@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.util.isDarkBackground
 
 private val DialogButtonHorizontalPadding = 16.dp
-private val DialogButtonVerticalPadding = 14.dp
 private val DialogButtonIconSpacing = 8.dp
 
 /** Resolved colors for a dialog button variant. */
@@ -133,7 +132,7 @@ private fun DialogButton(
     val border = if (filled) CardBorder.of(colors.borderColor) else BorderStroke(1.dp, colors.borderColor)
     val contentPadding = PaddingValues(
         horizontal = DialogButtonHorizontalPadding,
-        vertical = DialogButtonVerticalPadding
+        vertical = Defaults.SpaceLarge
     )
     val content: @Composable RowScope.() -> Unit = {
         DialogButtonContent(text = text, icon = icon, textSuffix = textSuffix, filled = filled)
@@ -204,7 +203,7 @@ private fun RowScope.DialogButtonContent(
     )
 
     if (textSuffix != null) {
-        Spacer(Modifier.width(4.dp))
+        Spacer(Modifier.width(Defaults.SpaceExtraSmall))
         Text(
             text = textSuffix,
             style = MaterialTheme.typography.labelLarge,
@@ -283,7 +282,7 @@ fun AppDialogActions(
 private fun ActionColumn(actions: List<DialogAction>, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding / 2)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
     ) {
         actions.forEachIndexed { index, action ->
             DialogActionButton(
@@ -299,7 +298,7 @@ private fun ActionColumn(actions: List<DialogAction>, modifier: Modifier = Modif
 private fun ActionRow(actions: List<DialogAction>, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
     ) {
         // Reversed so the primary action sits on the right, but emphasis still follows
         // the priority order the caller listed
@@ -400,7 +399,7 @@ internal fun actionsFitInRow(actions: List<DialogAction>, availableWidth: Dp): B
     // A suffix is marqueed rather than sized, so it never fits a shared row
     if (actions.any { it.textSuffix != null }) return false
 
-    val slotWidth = (availableWidth - Defaults.ItemSpacing * (actions.size - 1)) / actions.size
+    val slotWidth = (availableWidth - Defaults.SpaceMedium * (actions.size - 1)) / actions.size
     return slotWidth > 0.dp && actions.indices.all { labelWidths[it] + actions[it].labelInset() <= slotWidth }
 }
 

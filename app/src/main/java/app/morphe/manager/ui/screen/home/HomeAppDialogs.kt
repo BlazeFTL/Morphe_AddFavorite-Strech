@@ -313,7 +313,7 @@ internal fun HiddenAppsDialog(
                                     endConfig = rememberPatchesSwipeAction(item.packageName),
                                     modifier = Modifier
                                         .matchParentSize()
-                                        .clip(RoundedCornerShape(24.dp))
+                                        .clip(RoundedCornerShape(Defaults.CornerLargeIncreased))
                                 )
                             }
                         ) {
@@ -420,7 +420,7 @@ fun AppPatchSourcesDialog(
     ) {
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
             items(items = rows, key = { (uid, _, _) -> uid }) { (uid, title, counts) ->
                 val (held, reaches) = counts

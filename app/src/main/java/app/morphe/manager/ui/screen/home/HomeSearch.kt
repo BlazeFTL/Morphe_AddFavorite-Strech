@@ -127,7 +127,7 @@ internal fun LazyListScope.hiddenSearchAndShowHiddenItems(
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 8.dp, bottom = 4.dp)
+                    .padding(top = Defaults.SpaceSmall, bottom = Defaults.SpaceExtraSmall)
                     .animateItem()
             )
         }
@@ -150,10 +150,10 @@ internal fun LazyListScope.hiddenSearchAndShowHiddenItems(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 32.dp)
+                    .padding(vertical = Defaults.SpaceExtraExtraLarge)
                     .animateItem(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 Icon(
                     imageVector = Icons.Outlined.SearchOff,

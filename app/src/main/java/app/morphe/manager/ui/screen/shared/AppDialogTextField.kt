@@ -90,8 +90,8 @@ fun AppDialogTextField(
         trailingIcon = {
             if (isPassword || showClearButton || onFolderPickerClick != null || onFilePickerClick != null) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    modifier = Modifier.padding(end = 4.dp)
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
+                    modifier = Modifier.padding(end = Defaults.SpaceExtraSmall)
                 ) {
                     // Password visibility toggle
                     if (isPassword) {
@@ -168,7 +168,7 @@ fun AppDialogTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+        shape = RoundedCornerShape(Defaults.CornerMedium),
         colors = morpheDialogTextFieldColors(dialogTextColor())
     )
 }
@@ -217,7 +217,7 @@ fun AppDialogSearchTextField(
             enabled = enabled,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 4.dp)
+                .padding(bottom = Defaults.SpaceExtraSmall)
                 .focusRequester(focusRequester)
         )
     }
@@ -344,9 +344,9 @@ fun AppDialogDropdownTextField(
             singleLine = singleLine,
             trailingIcon = {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(end = 4.dp)
+                    modifier = Modifier.padding(end = Defaults.SpaceExtraSmall)
                 ) {
                     // Folder picker button
                     if (onFolderPickerClick != null) {
@@ -418,7 +418,7 @@ fun AppDialogDropdownTextField(
                         Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled)
                     }
                 ),
-            shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+            shape = RoundedCornerShape(Defaults.CornerMedium),
             colors = morpheDialogTextFieldColors(dialogTextColor())
         )
 

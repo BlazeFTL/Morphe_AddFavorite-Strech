@@ -136,7 +136,7 @@ fun AppCardColorDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             AppCardColorPreview(
                 colors = previewColors,
@@ -147,7 +147,7 @@ fun AppCardColorDialog(
             OptionGrid(
                 items = MODE_OPTIONS,
                 columns = MODE_COLUMNS,
-                spacing = Defaults.ItemSpacing
+                spacing = Defaults.SpaceMedium
             ) { (optionMode, icon), itemModifier ->
                 ModernIconOptionCard(
                     selected = draftMode == optionMode,
@@ -260,12 +260,12 @@ fun AppCardColorMiniPreview(
     Box(
         modifier = modifier
             .size(width = width, height = height)
-            .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(Defaults.CornerSmall))
             .appCardColorPreviewBackground(colors)
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.outline.copy(alpha = 0.45f),
-                shape = RoundedCornerShape(10.dp)
+                shape = RoundedCornerShape(Defaults.CornerSmall)
             )
     )
 }

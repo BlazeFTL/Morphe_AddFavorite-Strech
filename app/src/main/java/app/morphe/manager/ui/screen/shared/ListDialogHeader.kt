@@ -48,9 +48,9 @@ object DialogHeaderDefaults {
 
     /** Rounding that keeps an app icon's own shape at [IconSize]. */
     val IconCornerRadius = 14.dp
-    val IconSpacing = Defaults.ItemSpacing
+    val IconSpacing = Defaults.SpaceMedium
     val TextSpacing = 2.dp
-    val VerticalPadding = Defaults.ItemSpacing
+    val VerticalPadding = Defaults.SpaceMedium
 
     val titleStyle: TextStyle
         @Composable get() = MaterialTheme.typography.headerTitle
@@ -253,7 +253,7 @@ fun ListDialogHeader(
             ProvideAccent(accentColor) {
                 StatusBadgeRow(
                     modifier = Modifier
-                        .padding(top = Defaults.ContentPaddingSmall)
+                        .padding(top = Defaults.SpaceSmall)
                         .animateContentSize(Animations.listSpring(dampingRatio = Spring.DampingRatioNoBouncy))
                         .headerBadgeEntrance(entrance),
                     content = badges
@@ -285,7 +285,7 @@ fun ListDialogHeaderIcon(icon: ImageVector, color: Color, modifier: Modifier = M
  * with the list under it.
  */
 private fun Modifier.headerBand(color: Color, bleed: Dp, statusBarHeight: Dp): Modifier = drawBehind {
-    val corner = CornerRadius(Defaults.CardCornerRadius.toPx())
+    val corner = CornerRadius(Defaults.CornerLarge.toPx())
     val band = RoundRect(
         left = -bleed.toPx(),
         top = -statusBarHeight.toPx(),

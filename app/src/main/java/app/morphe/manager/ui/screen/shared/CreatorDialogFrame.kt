@@ -17,7 +17,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.util.KnownApps
 
@@ -88,9 +87,9 @@ fun CreatorDialogFrame(
                 .weight(1f)
                 .verticalScrollFade(scrollState)
                 .verticalScroll(scrollState)
-                .padding(vertical = Defaults.ItemSpacing),
+                .padding(vertical = Defaults.SpaceMedium),
             // Spaced as the option cards that open the creator
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
             content = content
         )
     }
@@ -126,10 +125,10 @@ private fun CreatorGuideDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             sections.forEach { (sectionTitle, body) ->
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)) {
                     Text(
                         text = sectionTitle,
                         style = MaterialTheme.typography.bodyMedium,

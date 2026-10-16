@@ -37,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.SelectableCard
 import app.morphe.manager.ui.screen.shared.appAccentContent
 import app.morphe.manager.ui.screen.shared.rememberAppColor
@@ -116,7 +117,7 @@ internal fun SwipeBackground(
                         .padding(end = 20.dp)
                         .graphicsLayer { alpha = startProgress },
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
                 ) {
                     Icon(
                         imageVector = startConfig.icon,
@@ -155,7 +156,7 @@ internal fun SwipeBackground(
                         .padding(start = 20.dp)
                         .graphicsLayer { alpha = endProgress },
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
                 ) {
                     Icon(
                         imageVector = endConfig.icon,
@@ -367,7 +368,7 @@ internal fun DynamicAppCard(
                     endConfig = endConfig,
                     modifier = Modifier
                         .matchParentSize()
-                        .clip(RoundedCornerShape(24.dp))
+                        .clip(RoundedCornerShape(Defaults.CornerLargeIncreased))
                 )
             }
         ) {
@@ -462,7 +463,7 @@ internal fun HiddenSearchAppCard(
                     endConfig = endConfig,
                     modifier = Modifier
                         .matchParentSize()
-                        .clip(RoundedCornerShape(24.dp))
+                        .clip(RoundedCornerShape(Defaults.CornerLargeIncreased))
                 )
             }
         ) {

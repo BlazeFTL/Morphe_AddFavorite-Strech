@@ -898,7 +898,7 @@ private fun ApkManagementDialogContent(
 
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
             pinnedFirstRow = true
         ) {
             // Kept while the field is closed, so its share of the spacing makes the gap under
@@ -912,13 +912,13 @@ private fun ApkManagementDialogContent(
                     // Opaque, so rows scrolled under the gap stay hidden
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.ItemSpacing)
+                        .padding(top = Defaults.SpaceMedium)
                 )
             }
 
             if (retentionToggle != null) {
                 item(key = "retention") {
-                    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)) {
                         SettingsSwitchItem(
                             checked = retentionToggle.checked,
                             onToggle = { retentionToggle.onCheckedChange(!retentionToggle.checked) },
@@ -1066,8 +1066,8 @@ private fun ApkItemCard(
                                 onToggleSelection()
                             }
                         )
-                        .padding(Defaults.ContentPadding),
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+                        .padding(Defaults.SpaceLarge),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // App icon
@@ -1081,7 +1081,7 @@ private fun ApkItemCard(
                     // App info
                     Column(
                         modifier = Modifier.weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
                     ) {
                         Text(
                             text = data.displayName,
@@ -1126,8 +1126,8 @@ private fun ApkItemCard(
                         // Action buttons
                         ActionPillRow(
                             modifier = Modifier.padding(
-                                horizontal = Defaults.ContentPadding,
-                                vertical = Defaults.ItemSpacing
+                                horizontal = Defaults.SpaceLarge,
+                                vertical = Defaults.SpaceMedium
                             )
                         ) {
                             if (onShare != null) {

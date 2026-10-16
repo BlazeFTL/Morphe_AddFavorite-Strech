@@ -109,7 +109,7 @@ fun InstalledAppPickerDialog(
 
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
             pinnedFirstRow = true,
             userScrollEnabled = !isLoading
         ) {
@@ -124,7 +124,7 @@ fun InstalledAppPickerDialog(
                     // Opaque, so rows scrolled under the gap stay hidden
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.ItemSpacing)
+                        .padding(top = Defaults.SpaceMedium)
                 )
             }
 

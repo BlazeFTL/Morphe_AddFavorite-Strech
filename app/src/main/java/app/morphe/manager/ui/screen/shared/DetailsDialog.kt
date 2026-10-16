@@ -61,8 +61,8 @@ fun DetailsDialog(
 
         DialogScrollColumn(
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(vertical = Defaults.ItemSpacing),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
             content = content
         )
     }

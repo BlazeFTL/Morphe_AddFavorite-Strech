@@ -148,7 +148,7 @@ private fun ApkDownloadHelperDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
             helpers.forEach { helper ->
                 RadioSelectionCard(

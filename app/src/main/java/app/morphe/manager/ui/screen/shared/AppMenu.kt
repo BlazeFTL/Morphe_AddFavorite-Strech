@@ -24,9 +24,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 private val MenuItemInset = 6.dp
-private val MenuShape = RoundedCornerShape(Defaults.CompactCornerRadius)
+private val MenuShape = RoundedCornerShape(Defaults.CornerMedium)
 // Inset from the menu's edge by as much as it is rounded less, so both corners share a center
-private val MenuItemShape = RoundedCornerShape(Defaults.CompactCornerRadius - MenuItemInset)
+private val MenuItemShape = RoundedCornerShape(Defaults.CornerMedium - MenuItemInset)
 private val MenuShadowElevation = 6.dp
 
 /** Card color of the app's surfaces, which a menu takes so it reads as one of them. */

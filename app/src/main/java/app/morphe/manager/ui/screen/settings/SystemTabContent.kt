@@ -64,7 +64,7 @@ fun SystemTabContent(
             .verticalScrollFade(scrollState)
             .verticalScroll(scrollState)
             .padding(settingsTabPadding()),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         // Installers
         SectionTitle(

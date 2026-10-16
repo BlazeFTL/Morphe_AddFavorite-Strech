@@ -195,7 +195,7 @@ fun ColorPickerDialog(
         if (landscape) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
             ) {
                 AnimatedVisibility(
                     visible = enabled,
@@ -207,7 +207,7 @@ fun ColorPickerDialog(
                 }
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
                 ) {
                     preview()
                     switch()
@@ -216,7 +216,7 @@ fun ColorPickerDialog(
                         enter = Animations.expandFadeEnter,
                         exit = Animations.shrinkFadeExit
                     ) {
-                        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
                             swatches()
                             strip()
                         }
@@ -229,7 +229,7 @@ fun ColorPickerDialog(
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             preview()
             switch()
@@ -241,7 +241,7 @@ fun ColorPickerDialog(
                 enter = Animations.expandFadeEnter,
                 exit = Animations.shrinkFadeExit
             ) {
-                Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
+                Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
                     swatches()
                     panel()
                     strip()
@@ -265,7 +265,7 @@ private fun ColorPreview(color: Color, gradient: List<Color>?, label: String, he
         modifier = Modifier
             .fillMaxWidth()
             .height(height)
-            .clip(RoundedCornerShape(Defaults.CompactCornerRadius))
+            .clip(RoundedCornerShape(Defaults.CornerMedium))
             .then(
                 if (gradient != null) {
                     Modifier.background(Brush.horizontalGradient(gradient))

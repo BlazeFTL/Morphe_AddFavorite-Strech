@@ -181,7 +181,7 @@ private fun IconBuilder(
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         LayeredIconPreview(
             background = pending.background,
@@ -369,7 +369,7 @@ private fun AppIconCard(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(Defaults.ItemSpacing),
+                .padding(Defaults.SpaceMedium),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -377,7 +377,7 @@ private fun AppIconCard(
                 LayeredIconPreview(background = background, mark = mark, size = iconSize)
             }
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(Defaults.SpaceExtraSmall))
 
             // Icon name
             Text(

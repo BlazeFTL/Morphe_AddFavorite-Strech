@@ -43,8 +43,8 @@ fun CardHeader(
         modifier = modifier
             .fillMaxWidth()
             .background(accentColor?.copy(alpha = AccentAlpha.CARD) ?: neutralVeil())
-            .padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ContentPaddingSmall),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+            .padding(horizontal = Defaults.SpaceLarge, vertical = Defaults.SpaceSmall),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         when {
@@ -65,7 +65,7 @@ fun CardHeader(
             trailing != null && wrapTrailing -> FlowRow(
                 modifier = Modifier.weight(1f),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
                 itemVerticalAlignment = Alignment.CenterVertically
             ) {
                 CardHeaderTitle(title, description)

@@ -91,7 +91,7 @@ fun SegmentedTabs(
     selectedIndex: Int,
     onSelect: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    spacing: Dp = Defaults.ContentPadding,
+    spacing: Dp = Defaults.SpaceLarge,
     compact: Boolean = false,
     fillHeight: Boolean = false,
     selectorPadding: PaddingValues = PaddingValues(),
@@ -230,8 +230,8 @@ private fun SegmentedSelector(
                                 role = Role.Tab,
                                 onClick = { onSelect(index) }
                             )
-                            .padding(horizontal = Defaults.ContentPaddingSmall),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                            .padding(horizontal = Defaults.SpaceSmall),
+                        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall, Alignment.CenterHorizontally),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(

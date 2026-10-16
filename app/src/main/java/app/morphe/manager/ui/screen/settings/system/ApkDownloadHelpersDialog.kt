@@ -74,7 +74,7 @@ fun ApkDownloadHelpersDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
             SettingsGroup {
                 helpers.forEachIndexed { index, helper ->

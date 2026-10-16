@@ -76,7 +76,7 @@ fun AdvancedTabContent(
             .verticalScroll(scrollState)
             .animateContentSize()
             .padding(settingsTabPadding()),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         // Updates section
         SectionTitle(
@@ -129,7 +129,7 @@ fun AdvancedTabContent(
             label = "expert_mode_crossfade"
         ) { expertMode ->
             if (expertMode) {
-                Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
+                Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
                     SettingsGroup {
                         // GitHub PAT
                         GitHubPatSettingsItem(
@@ -151,7 +151,7 @@ fun AdvancedTabContent(
                     }
                 }
             } else {
-                Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
+                Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
                     // Patch Options (Simple mode only)
                     SectionTitle(
                         text = stringResource(R.string.settings_advanced_patch_options),

@@ -16,7 +16,7 @@ import app.morphe.manager.ui.screen.shared.rememberWindowSize
  * Space a settings tab leaves under its last card. A navigation bar below the tab brings padding
  * of its own, so the screen showing one lowers this to keep the gap the size of every other.
  */
-internal val LocalSettingsTabBottomPadding = staticCompositionLocalOf { Defaults.ContentPadding }
+internal val LocalSettingsTabBottomPadding = staticCompositionLocalOf { Defaults.SpaceLarge }
 
 /** Padding every settings tab puts around its content. */
 @Composable
@@ -24,7 +24,7 @@ internal fun settingsTabPadding(): PaddingValues {
     val horizontal = rememberWindowSize().contentPadding
     return PaddingValues(
         start = horizontal,
-        top = Defaults.ContentPadding,
+        top = Defaults.SpaceLarge,
         end = horizontal,
         bottom = LocalSettingsTabBottomPadding.current
     )

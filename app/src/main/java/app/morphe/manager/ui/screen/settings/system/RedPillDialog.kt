@@ -9,7 +9,6 @@ import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -124,12 +123,12 @@ private fun Pill(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
     ) {
         Box(
             modifier = Modifier
                 .size(width = 108.dp, height = 52.dp)
-                .clip(RoundedCornerShape(percent = 50))
+                .clip(Defaults.PillShape)
                 .background(Brush.verticalGradient(colors))
                 .clickable(onClick = onClick),
             contentAlignment = Alignment.Center

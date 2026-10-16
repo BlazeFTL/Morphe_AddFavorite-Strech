@@ -125,8 +125,8 @@ fun StorageManagementDialog(
 
         DialogScrollColumn(
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(vertical = Defaults.ItemSpacing),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             key(histogramNonce) {
                 StorageHistogram(segments = stats.toSegments(), loading = loading)
@@ -237,8 +237,8 @@ private fun CacheActionRow(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(Defaults.ContentPadding),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            .padding(Defaults.SpaceLarge),
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         IconTextRow(
             leadingContent = { ThemedIcon(icon = icon, tint = accentColor) },

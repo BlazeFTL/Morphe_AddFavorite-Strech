@@ -98,7 +98,7 @@ fun ChangelogList(
     ) {
         if (header != null) {
             item("changelog_header") {
-                Box(modifier = Modifier.padding(bottom = Defaults.ContentPaddingMedium)) {
+                Box(modifier = Modifier.padding(bottom = Defaults.SpaceExtraLarge)) {
                     header()
                 }
             }
@@ -133,7 +133,7 @@ fun ChangelogList(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = Defaults.ContentPaddingMedium)
+                        .padding(top = Defaults.SpaceExtraLarge)
                 )
             }
 
@@ -185,7 +185,7 @@ fun ChangelogFooter(
         ) { shown ->
             AppDialogActions(
                 actions = shown,
-                modifier = Modifier.padding(bottom = Defaults.ContentPadding / 2)
+                modifier = Modifier.padding(bottom = Defaults.SpaceLarge / 2)
             )
         }
 

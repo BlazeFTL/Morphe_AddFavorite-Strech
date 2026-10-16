@@ -25,7 +25,6 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
@@ -61,7 +60,7 @@ fun PatcherTuningSection(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         SectionTitle(
             text = stringResource(R.string.settings_advanced_patcher),
@@ -95,7 +94,7 @@ fun PatcherTuningSection(
                 )
             } else {
                 IconTextRow(
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(Defaults.SpaceLarge),
                     leadingContent = {
                         ThemedIcon(
                             icon = Icons.Outlined.Memory,

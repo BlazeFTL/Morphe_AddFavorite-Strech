@@ -64,7 +64,7 @@ private const val EnterMillis = 200
 @Composable
 fun PatcherBottomActionBar(
     modifier: Modifier = Modifier,
-    horizontalPadding: Dp = Defaults.ContentPadding,
+    horizontalPadding: Dp = Defaults.SpaceLarge,
 
     // Visibility control
     showCancelButton: Boolean = true,
@@ -110,7 +110,7 @@ fun PatcherBottomActionBar(
             labels = labels,
             style = GlassButtonDefaults.labelStyle,
             width = barWidth - horizontalPadding * 2,
-            spacing = Defaults.ItemSpacing,
+            spacing = Defaults.SpaceMedium,
             // What a button spends on everything but the label
             inset = GlassButtonDefaults.HorizontalPadding * 2 + GlassButtonDefaults.IconSize +
                     GlassButtonDefaults.IconLabelSpacing
@@ -122,9 +122,9 @@ fun PatcherBottomActionBar(
                 .align(Alignment.Center)
                 // The gap between buttons and the gap below them are one rhythm, so the
                 // bar reads as evenly spaced rather than wider in one direction
-                .padding(bottom = Defaults.ItemSpacing)
+                .padding(bottom = Defaults.SpaceMedium)
                 .padding(horizontal = horizontalPadding),
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Left: Result / Cancel / Logs button
@@ -303,7 +303,7 @@ internal fun PatcherActionCallout(
     icon: ImageVector? = null,
     containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
     contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
-    horizontalPadding: Dp = Defaults.ContentPadding
+    horizontalPadding: Dp = Defaults.SpaceLarge
 ) {
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val barWidth = maxWidth.coerceAtMost(Defaults.ContentMaxWidth)
@@ -315,13 +315,13 @@ internal fun PatcherActionCallout(
                 .padding(horizontal = horizontalPadding)
         ) {
             Surface(
-                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+                shape = RoundedCornerShape(Defaults.CornerMedium),
                 color = containerColor,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Row(
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                    modifier = Modifier.padding(horizontal = Defaults.SpaceMedium, vertical = Defaults.SpaceSmall),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall, Alignment.CenterHorizontally),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (icon != null) {
@@ -343,7 +343,7 @@ internal fun PatcherActionCallout(
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
             ) {
                 repeat(slots) { index ->
                     Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.TopCenter) {

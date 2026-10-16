@@ -89,16 +89,16 @@ fun PatchOptionsSection(
         )
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
         when {
             isBundleUpdating -> {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
+                    modifier = Modifier.fillMaxWidth().padding(vertical = Defaults.SpaceLarge),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     CircularProgressIndicator(modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
-                    Spacer(modifier = Modifier.width(12.dp))
+                    Spacer(modifier = Modifier.width(Defaults.SpaceMedium))
                     Text(
                         text = stringResource(R.string.settings_advanced_patch_options_loading),
                         style = MaterialTheme.typography.bodyMedium,
@@ -234,7 +234,7 @@ private fun AppPatchOptionsCard(
                 text = stringResource(R.string.settings_advanced_patch_options_no_available),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = Defaults.SpaceSmall)
             )
         }
     }

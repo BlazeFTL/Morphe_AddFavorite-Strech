@@ -22,7 +22,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 
 /** Expandable surface with a header icon, title, and collapsible content. */
 @Composable
@@ -39,8 +38,8 @@ fun ExpandableSurface(
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(Defaults.CompactCornerRadius)),
-        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+            .clip(RoundedCornerShape(Defaults.CornerMedium)),
+        shape = RoundedCornerShape(Defaults.CornerMedium),
         color = headerTint.copy(alpha = 0.05f),
         border = CardBorder.tinted(headerTint)
     ) {
@@ -50,12 +49,12 @@ fun ExpandableSurface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { expanded = !expanded }
-                    .padding(12.dp),
+                    .padding(Defaults.SpaceMedium),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.weight(1f)
                 ) {

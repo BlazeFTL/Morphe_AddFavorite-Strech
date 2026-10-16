@@ -204,7 +204,7 @@ internal fun PatchListDialog(
                 DialogLazyList(
                     modifier = Modifier.fillMaxSize(),
                     state = listState,
-                    verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
                     pinnedFirstRow = true
                 ) {
                     // A row of the list rather than a field above it, so the rows below ease into
@@ -219,7 +219,7 @@ internal fun PatchListDialog(
                             // Opaque, so rows scrolled under the gap stay hidden
                             modifier = Modifier
                                 .background(MaterialTheme.colorScheme.background)
-                                .padding(top = Defaults.ItemSpacing)
+                                .padding(top = Defaults.SpaceMedium)
                         )
                     }
 
@@ -351,8 +351,8 @@ private fun SectionFilterSheet(
                     modifier = Modifier
                         .verticalScrollFade(scrollState)
                         .verticalScroll(scrollState)
-                        .padding(start = Defaults.ContentPadding, end = Defaults.ContentPadding, bottom = Defaults.ContentPadding),
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                        .padding(start = Defaults.SpaceLarge, end = Defaults.SpaceLarge, bottom = Defaults.SpaceLarge),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
                 ) {
                     AppFilterChip(
                         selected = selectedKey == null,
@@ -422,15 +422,15 @@ internal fun PatchItemCard(
         // The badges on the card take the app's color, as its edge does
         ProvideCardAccent(badgeAccent, cardColor) {
             Column(
-                modifier = Modifier.padding(Defaults.ContentPadding),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+                modifier = Modifier.padding(Defaults.SpaceLarge),
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
             ) {
                 PatchCardText(name = patch.displayName, description = patch.description)
 
                 if (versions.isNotEmpty() || options.isNotEmpty() || isExpertOnly) {
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
+                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
                     ) {
                         VersionBadges(
                             versions = versions,
@@ -465,16 +465,16 @@ internal fun PatchItemCard(
                         enter = Animations.expandFadeEnter,
                         exit = Animations.shrinkFadeExit
                     ) {
-                        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
                             options.forEach { option ->
                                 Surface(
                                     modifier = Modifier.fillMaxWidth(),
-                                    shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+                                    shape = RoundedCornerShape(Defaults.CornerMedium),
                                     color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
                                 ) {
                                     Column(
-                                        modifier = Modifier.padding(Defaults.ItemSpacing),
-                                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                                        modifier = Modifier.padding(Defaults.SpaceMedium),
+                                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
                                     ) {
                                         Text(
                                             text = option.title,

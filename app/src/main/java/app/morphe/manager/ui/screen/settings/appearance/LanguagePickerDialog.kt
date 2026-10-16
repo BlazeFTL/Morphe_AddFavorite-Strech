@@ -86,7 +86,7 @@ fun LanguagePickerDialog(
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             state = listState,
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
             pinnedFirstRow = true
         ) {
             // Kept while the field is closed, so its share of the spacing makes the gap under
@@ -100,7 +100,7 @@ fun LanguagePickerDialog(
                     // Opaque, so rows scrolled under the gap stay hidden
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.ItemSpacing)
+                        .padding(top = Defaults.SpaceMedium)
                 )
             }
 

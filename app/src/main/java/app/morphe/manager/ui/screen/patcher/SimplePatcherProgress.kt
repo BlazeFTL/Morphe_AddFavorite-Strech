@@ -327,7 +327,7 @@ private fun CircularProgressWithStats(
                 color = MaterialTheme.colorScheme.onBackground
             )
 
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(Defaults.SpaceSmall))
 
             val totalPatchesText = pluralStringResource(
                 R.plurals.patch_count,

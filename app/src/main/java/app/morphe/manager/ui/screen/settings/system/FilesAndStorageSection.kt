@@ -81,7 +81,7 @@ fun FilesAndStorageSection(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         SectionTitle(
             text = stringResource(R.string.settings_system_files),

@@ -702,7 +702,7 @@ fun LowDiskSpaceDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Notice(
@@ -733,7 +733,7 @@ fun MeteredPatchingDialog(
         footer = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 AppDialogButton(
                     text = stringResource(R.string.home_outdated_patches_dialog_update_and_patch),
@@ -753,7 +753,7 @@ fun MeteredPatchingDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Notice(
@@ -802,7 +802,7 @@ private fun AddSourceConfirmDialog(
         }
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -810,7 +810,7 @@ private fun AddSourceConfirmDialog(
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
@@ -835,7 +835,7 @@ private fun AddSourceConfirmDialog(
                     style = MaterialTheme.typography.bodyLarge,
                     color = dialogSecondaryTextColor(),
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top = Defaults.ContentPaddingSmall)
+                    modifier = Modifier.padding(top = Defaults.SpaceSmall)
                 )
             }
 
@@ -854,11 +854,11 @@ private fun AddSourceConfirmDialog(
                 // A line rather than a card, so it reads as a reminder and not as a second question
                 val color = SemanticTone.Warning.accent
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = Defaults.ContentPaddingSmall)
+                        .padding(horizontal = Defaults.SpaceSmall)
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Warning,
@@ -980,7 +980,7 @@ fun DeepLinkAddSourceDialog(
             {
                 SettingsGroup {
                     IconTextRow(
-                        modifier = Modifier.padding(Defaults.ContentPadding),
+                        modifier = Modifier.padding(Defaults.SpaceLarge),
                         leadingContent = {
                             AppIcon(
                                 packageName = packageName,
@@ -1114,7 +1114,7 @@ fun SimpleBundleSelectDialog(
         }
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
             modifier = Modifier
                 .fillMaxWidth()
                 .selectableGroup()
@@ -1166,10 +1166,10 @@ fun SimpleBundleSelectDialog(
                     }
                     Column(
                         modifier = Modifier.weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
                     ) {
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
@@ -1215,7 +1215,7 @@ fun SimpleBundleSelectDialog(
                 text = stringResource(R.string.home_simple_bundle_select_remember),
                 checked = rememberChoice.value,
                 onCheckedChange = { rememberChoice.value = it },
-                modifier = Modifier.padding(top = Defaults.ContentPaddingSmall)
+                modifier = Modifier.padding(top = Defaults.SpaceSmall)
             )
         }
     }

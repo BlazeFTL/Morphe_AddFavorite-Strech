@@ -46,66 +46,6 @@ import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.readableOn
 
-// Constants
-object Defaults {
-    val CardElevation = 2.dp
-    val CardCornerRadius = 16.dp
-    val CompactCornerRadius = 12.dp
-    val SettingsCornerRadius = 14.dp
-    val SectionCornerRadius = 18.dp
-
-    val IconSize = 24.dp
-    val IconSizeSmall = 20.dp
-
-    val MinTouchTarget = 48.dp
-
-    /** Roomier than [MinTouchTarget], for rows that carry an action rather than merely allow one. */
-    val TallTouchTarget = 52.dp
-
-    // Button metrics, kept together so the families stay comparable at a glance.
-    // Heights climb with how much the button is meant to carry: a pill sits in a card row,
-    // a glass button is a tab, a dialog button is the action the whole dialog exists for.
-
-    /** Compact pill holding an icon alone. */
-    val PillHeight = 36.dp
-
-    /** Pill that carries a label next to its icon. */
-    val PillHeightLarge = 40.dp
-
-    /** Fully rounded shape of every button, pill or not. A connected group takes [ConnectedShapes]. */
-    val PillShape = RoundedCornerShape(50)
-
-    /** Height of a glass tab or toggle. Matches [MinTouchTarget]. */
-    val GlassButtonHeight = MinTouchTarget
-
-    /** Height of a dialog action button. Matches [TallTouchTarget]. */
-    val DialogButtonHeight = TallTouchTarget
-
-    /** Width a centered content column stops at, so a bar under one lines up with its cards. */
-    val ContentMaxWidth = 560.dp
-
-    val ContentPaddingSmall = 8.dp
-    val ContentPadding = 16.dp
-    val ContentPaddingMedium = 24.dp
-    val ContentPaddingExpanded = 32.dp
-    val ItemSpacing = 12.dp
-
-    // Animation durations
-    /** Duration used for dialog enter/exit and overlay transitions. */
-    const val ANIMATION_DURATION = 220
-    /** Shorter fade duration used inside spring-based exit transitions. */
-    const val ANIMATION_DURATION_SHORT = 180
-    /** Duration used for screen-level enter transitions (navigation push). */
-    const val SCREEN_ENTER_DURATION = 320
-
-    // Dialog animation scale
-    /** Initial/target scale for dialog enter/exit scale animation. */
-    const val DIALOG_SCALE = 0.95f
-
-    /** Material's opacity for content that is present but out of reach. */
-    const val DISABLED_ALPHA = 0.38f
-}
-
 /**
  * Fill of a plain card, which cards standing for an app or a source take too, leaving their color to
  * the edge and controls, since filled ones read as a wash of color on a colored dialog.
@@ -123,7 +63,7 @@ fun SurfaceCard(
     onClick: (() -> Unit)? = null,
     enabled: Boolean = true,
     elevation: Dp = Defaults.CardElevation,
-    cornerRadius: Dp = Defaults.CardCornerRadius,
+    cornerRadius: Dp = Defaults.CornerLarge,
     showBorder: Boolean = false,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
     color: Color = cardFill(),
@@ -158,7 +98,7 @@ fun SettingsDivider(
     fullWidth: Boolean = false
 ) {
     HorizontalDivider(
-        modifier = if (fullWidth) modifier else modifier.padding(horizontal = Defaults.ContentPadding),
+        modifier = if (fullWidth) modifier else modifier.padding(horizontal = Defaults.SpaceLarge),
         color = ThemeTraitsDefaults.dividerColor()
     )
 }
@@ -190,7 +130,7 @@ fun ToggleRow(
 
     Column(modifier = modifier) {
         if (showDivider) {
-            SettingsDivider(modifier = Modifier.padding(top = 4.dp), fullWidth = true)
+            SettingsDivider(modifier = Modifier.padding(top = Defaults.SpaceExtraSmall), fullWidth = true)
         }
         Row(
             modifier = rowModifier
@@ -205,9 +145,9 @@ fun ToggleRow(
                 .semantics {
                     stateDescription = if (checked) enabledLabel else disabledLabel
                 }
-                .padding(vertical = Defaults.ContentPaddingSmall, horizontal = 4.dp),
+                .padding(vertical = Defaults.SpaceSmall, horizontal = Defaults.SpaceExtraSmall),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             if (icon != null) {
                 ThemedIcon(icon = icon, tint = iconTint)
@@ -370,7 +310,7 @@ fun IconTextRow(
     descriptionStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     descriptionColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     trailingContent: @Composable (() -> Unit)? = null,
-    spacing: Dp = Defaults.ItemSpacing
+    spacing: Dp = Defaults.SpaceMedium
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -420,7 +360,7 @@ fun SettingsItemCard(
         onClick = onClick,
         enabled = enabled,
         elevation = 1.dp,
-        cornerRadius = Defaults.SettingsCornerRadius,
+        cornerRadius = Defaults.CornerLarge,
         showBorder = showBorder,
         borderColor = borderColor,
         color = color,
@@ -506,7 +446,7 @@ fun SettingsItem(
         modifier = modifier
     ) {
         IconTextRow(
-            modifier = Modifier.padding(Defaults.ContentPadding),
+            modifier = Modifier.padding(Defaults.SpaceLarge),
             leadingContent = leadingContent ?: icon?.let { { ThemedIcon(icon = it) } },
             title = title,
             description = subtitle,
@@ -515,7 +455,7 @@ fun SettingsItem(
                 else -> {
                     {
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             statusContent()
@@ -583,7 +523,7 @@ fun SectionCard(
     SurfaceCard(
         onClick = onClick,
         elevation = Defaults.CardElevation,
-        cornerRadius = Defaults.SectionCornerRadius,
+        cornerRadius = Defaults.CornerLargeIncreased,
         showBorder = true,
         borderColor = appAccentBorder(accentColor),
         color = fill,
@@ -620,12 +560,12 @@ fun SectionTitle(
             .fillMaxWidth()
             // The extra room above ties the title to the section below rather than the one above
             .padding(
-                start = Defaults.ContentPadding,
-                end = Defaults.ContentPadding,
-                top = Defaults.ContentPaddingSmall
+                start = Defaults.SpaceLarge,
+                end = Defaults.SpaceLarge,
+                top = Defaults.SpaceSmall
             )
             .semantics { heading() },
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
@@ -660,8 +600,8 @@ fun DeleteListItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Defaults.ContentPadding),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            .padding(horizontal = Defaults.SpaceLarge),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         ThemedIcon(
@@ -695,13 +635,13 @@ fun InfoStatBox(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+        shape = RoundedCornerShape(Defaults.CornerMedium),
         color = containerColor
     ) {
         Column(
-            modifier = Modifier.padding(Defaults.ContentPadding),
+            modifier = Modifier.padding(Defaults.SpaceLarge),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
         ) {
             Text(
                 text = value,
@@ -737,7 +677,7 @@ fun EmptyState(
     subtitle: String? = null,
     action: CardAction? = null,
     contentColor: Color = dialogSecondaryTextColor(),
-    contentPadding: PaddingValues = PaddingValues(32.dp),
+    contentPadding: PaddingValues = PaddingValues(Defaults.SpaceExtraExtraLarge),
     iconSize: Dp = 56.dp
 ) {
     Column(
@@ -748,7 +688,7 @@ fun EmptyState(
             .widthIn(max = Defaults.ContentMaxWidth)
             .padding(contentPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
     ) {
         if (icon != null) {
             Icon(
@@ -782,7 +722,7 @@ fun EmptyState(
                 label = action.label,
                 large = true,
                 enabled = action.enabled,
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier.padding(top = Defaults.SpaceExtraSmall)
             )
         }
     }

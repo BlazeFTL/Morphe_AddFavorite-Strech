@@ -278,7 +278,7 @@ private fun HeaderEditor(
         label = "header_guides"
     )
     val selectImage = stringResource(R.string.adaptive_icon_select_image)
-    val shape = RoundedCornerShape(Defaults.CompactCornerRadius)
+    val shape = RoundedCornerShape(Defaults.CornerMedium)
 
     val input = if (picture != null) {
         Modifier.imageTransformGestures(
@@ -316,7 +316,7 @@ private fun HeaderEditor(
     ) {
         if (picture == null) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
@@ -343,7 +343,7 @@ private fun AppBarPreview(
     picture: PickedImage?,
     transform: ImageTransform
 ) {
-    val shape = RoundedCornerShape(Defaults.CompactCornerRadius)
+    val shape = RoundedCornerShape(Defaults.CornerMedium)
 
     Row(
         modifier = Modifier
@@ -395,12 +395,12 @@ private fun AppBarPreview(
                     contentDescription = null,
                     tint = theme.content,
                     modifier = Modifier
-                        .padding(12.dp)
+                        .padding(Defaults.SpaceMedium)
                         .size(Defaults.IconSize)
                 )
                 Box(
                     modifier = Modifier
-                        .padding(start = 8.dp, end = 12.dp)
+                        .padding(start = Defaults.SpaceSmall, end = Defaults.SpaceMedium)
                         .size(32.dp)
                         .clip(CircleShape)
                         .background(theme.field)

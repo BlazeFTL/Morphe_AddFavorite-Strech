@@ -432,7 +432,7 @@ private fun AdaptiveContent(
                     )
                     Spacer(modifier = Modifier.height(itemSpacing))
                 } else if (isGroupedAppView) {
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(Defaults.SpaceExtraLarge))
                 }
 
                 // Section 3: Scrollable app buttons
@@ -468,7 +468,7 @@ private fun HomeFooterControls(
                 onClick = onOtherAppsClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 12.dp),
+                    .padding(bottom = Defaults.SpaceMedium),
                 role = Role.Button,
                 hapticFeedback = true
             )
@@ -1088,7 +1088,7 @@ internal fun MainAppsSection(
                                 requestFocus = searchState.visible,
                                 modifier = Modifier
                                     .padding(horizontal = horizontalPadding)
-                                    .padding(bottom = 8.dp)
+                                    .padding(bottom = Defaults.SpaceSmall)
                             )
                         }
 

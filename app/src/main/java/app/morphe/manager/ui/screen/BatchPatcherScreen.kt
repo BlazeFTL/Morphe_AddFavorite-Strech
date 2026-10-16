@@ -578,8 +578,8 @@ fun BatchPatcherScreen(
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             state = listState,
-            contentPadding = PaddingValues(top = Defaults.ItemSpacing),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+            contentPadding = PaddingValues(top = Defaults.SpaceMedium),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
             if (current == null) return@DialogLazyList
 
@@ -708,10 +708,10 @@ private fun BatchRunHeader(state: BatchRunState) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = Defaults.ContentPadding)
-            .padding(top = Defaults.ContentPaddingSmall),
+            .padding(horizontal = Defaults.SpaceLarge)
+            .padding(top = Defaults.SpaceSmall),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
     ) {
         AnimatedContent(
             targetState = state.processed to state.total,
@@ -815,8 +815,8 @@ private fun BatchItemCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(Defaults.ContentPadding),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+                    .padding(Defaults.SpaceLarge),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AppIcon(
@@ -827,7 +827,7 @@ private fun BatchItemCard(
 
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
                 ) {
                     // The name gets a line to itself: badges beside it grow with translation
                     // and would push it out of the card entirely
@@ -918,8 +918,8 @@ private fun BatchItemCard(
                     SettingsDivider()
                     ActionPillRow(
                         modifier = Modifier.padding(
-                            horizontal = Defaults.ContentPadding,
-                            vertical = Defaults.ItemSpacing
+                            horizontal = Defaults.SpaceLarge,
+                            vertical = Defaults.SpaceMedium
                         )
                     ) {
                         val selectApkLabel = stringResource(R.string.home_select_apk_title)
@@ -997,8 +997,8 @@ private fun BatchItemCard(
                     SettingsDivider()
                     ActionPillRow(
                         modifier = Modifier.padding(
-                            horizontal = Defaults.ContentPadding,
-                            vertical = Defaults.ItemSpacing
+                            horizontal = Defaults.SpaceLarge,
+                            vertical = Defaults.SpaceMedium
                         )
                     ) {
                         if (failed) {

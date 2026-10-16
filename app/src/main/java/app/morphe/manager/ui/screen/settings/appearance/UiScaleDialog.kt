@@ -60,8 +60,8 @@ fun UiScaleDialog(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = Defaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+                .padding(vertical = Defaults.SpaceLarge),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             InfoStatBox(
                 value = "${selectedScale.toUiScalePercent()}%",
@@ -70,7 +70,7 @@ fun UiScaleDialog(
                 valueColor = dialogTextColor()
             )
 
-            Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)) {
+            Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
                 ScaleSliderRow(
                     value = selectedScale,
                     // Snapped here rather than on read, so the handle rests on the stops the scale has

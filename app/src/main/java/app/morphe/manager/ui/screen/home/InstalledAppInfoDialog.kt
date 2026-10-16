@@ -625,7 +625,7 @@ fun InstalledAppInfoDialog(
             // the panel's edges, which it otherwise reaches out to and up under the status bar
             val infoPanel = @Composable { modifier: Modifier, headerInset: Dp, content: LazyListScope.() -> Unit ->
                 Column(modifier = modifier) {
-                    CompositionLocalProvider(LocalDialogHorizontalInset provides Defaults.ContentPadding) {
+                    CompositionLocalProvider(LocalDialogHorizontalInset provides Defaults.SpaceLarge) {
                         ListDialogHeader(
                             icon = { iconModifier ->
                                 // Resolved by name when the record has no metadata to show. A record
@@ -649,7 +649,7 @@ fun InstalledAppInfoDialog(
                             actions = if (compactHeader) {
                                 {
                                     Column(
-                                        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                                         horizontalAlignment = Alignment.End
                                     ) {
                                         badges()
@@ -658,13 +658,13 @@ fun InstalledAppInfoDialog(
                             } else null,
                             modifier = Modifier
                                 .statusBarsPadding()
-                                .padding(horizontal = Defaults.ContentPadding + headerInset)
+                                .padding(horizontal = Defaults.SpaceLarge + headerInset)
                         )
                     }
 
                     DialogLazyList(
                         modifier = Modifier.weight(1f).fillMaxWidth(),
-                        contentPadding = PaddingValues(bottom = Defaults.ContentPaddingMedium),
+                        contentPadding = PaddingValues(bottom = Defaults.SpaceExtraLarge),
                         content = content
                     )
                 }
@@ -725,7 +725,7 @@ fun InstalledAppInfoDialog(
                             onShowUpdateChangelog = onShowUpdateChangelog,
                             onIgnoreVersion = onIgnoreVersion,
                             onOpenAppLinks = { showAppLinksDialog.value = true },
-                            modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+                            modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)
                         )
                         StaggeredItem(entered = entered.value, index = 2) {
                             InfoSection(
@@ -740,8 +740,8 @@ fun InstalledAppInfoDialog(
                                 onOpenAppLinks = { showAppLinksDialog.value = true },
                                 accentColor = infoAccentColor,
                                 modifier = Modifier
-                                    .padding(horizontal = Defaults.ContentPadding)
-                                    .padding(top = Defaults.ItemSpacing)
+                                    .padding(horizontal = Defaults.SpaceLarge)
+                                    .padding(top = Defaults.SpaceMedium)
                             )
                         }
                     }
@@ -758,7 +758,7 @@ fun InstalledAppInfoDialog(
                             .fillMaxHeight()
                             .statusBarsPadding()
                             .navigationBarsPadding()
-                            .padding(horizontal = Defaults.ContentPadding)
+                            .padding(horizontal = Defaults.SpaceLarge)
                     ) {
                         BoxWithConstraints(modifier = Modifier.fillMaxWidth().weight(1f)) {
                             val availableHeight = maxHeight
@@ -769,7 +769,7 @@ fun InstalledAppInfoDialog(
                                     .heightIn(min = availableHeight)
                                     .verticalScrollFade(sidebarScrollState)
                                     .verticalScroll(sidebarScrollState),
-                                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing, Alignment.CenterVertically)
+                                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium, Alignment.CenterVertically)
                             ) {
                                 StaggeredItem(entered = entered.value, index = 1) {
                                     actions(Modifier.fillMaxWidth())
@@ -786,14 +786,14 @@ fun InstalledAppInfoDialog(
                         }
                     }
 
-                    VerticalDivider(modifier = Modifier.statusBarsPadding().navigationBarsPadding().padding(vertical = Defaults.ContentPadding))
+                    VerticalDivider(modifier = Modifier.statusBarsPadding().navigationBarsPadding().padding(vertical = Defaults.SpaceLarge))
 
                     infoPanel(
                         Modifier
                             .weight(1f)
                             .fillMaxHeight()
                             .navigationBarsPadding(),
-                        Defaults.ContentPadding,
+                        Defaults.SpaceLarge,
                         infoItems
                     )
                 }
@@ -810,8 +810,8 @@ fun InstalledAppInfoDialog(
                             StaggeredItem(entered = entered.value, index = 3) {
                                 actions(
                                     Modifier
-                                        .padding(horizontal = Defaults.ContentPadding)
-                                        .padding(top = Defaults.ItemSpacing)
+                                        .padding(horizontal = Defaults.SpaceLarge)
+                                        .padding(top = Defaults.SpaceMedium)
                                 )
                             }
                         }
@@ -822,8 +822,8 @@ fun InstalledAppInfoDialog(
                                     noSavedApkNotice(
                                         Modifier
                                             .fillMaxWidth()
-                                            .padding(horizontal = Defaults.ContentPadding)
-                                            .padding(top = Defaults.ItemSpacing)
+                                            .padding(horizontal = Defaults.SpaceLarge)
+                                            .padding(top = Defaults.SpaceMedium)
                                     )
                                 }
                             }
@@ -834,8 +834,8 @@ fun InstalledAppInfoDialog(
                             Modifier
                                 .widthIn(max = Defaults.ContentMaxWidth)
                                 .navigationBarsPadding()
-                                .padding(horizontal = Defaults.ContentPadding)
-                                .padding(vertical = Defaults.ItemSpacing)
+                                .padding(horizontal = Defaults.SpaceLarge)
+                                .padding(vertical = Defaults.SpaceMedium)
                         )
                     }
                 }
@@ -1042,7 +1042,7 @@ private fun BannerSlot(
         exit = Animations.shrinkFadeExit
     ) {
         Column {
-            Spacer(Modifier.height(Defaults.ItemSpacing))
+            Spacer(Modifier.height(Defaults.SpaceMedium))
             StaggeredItem(entered = entered, index = staggerIndex, content = content)
         }
     }
@@ -1113,24 +1113,24 @@ private fun WarningBanner(
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(Defaults.ItemSpacing))
-                .cardBorder(CardBorder.of(borderColor), RoundedCornerShape(Defaults.ItemSpacing))
+                .clip(RoundedCornerShape(Defaults.CornerMedium))
+                .cardBorder(CardBorder.of(borderColor), RoundedCornerShape(Defaults.CornerMedium))
                 .background(fill)
-                .padding(Defaults.ItemSpacing),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                .padding(Defaults.SpaceMedium),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Header with icon
             Row(
                 modifier = Modifier.wrapContentWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
                     tint = headingColor,
-                    modifier = Modifier.size(Defaults.ContentPadding)
+                    modifier = Modifier.size(Defaults.SpaceLarge)
                 )
                 Text(
                     text = title,
@@ -1165,7 +1165,7 @@ private fun WarningBanner(
             // Buttons sit as far apart as the dialog's own, only the text over them sits closer
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
             ) {
                 // Action button
                 PrimaryActionButton(
@@ -1277,7 +1277,7 @@ private fun InfoSection(
 
     // Edged like the app's cards elsewhere, so the panel reads as part of the app's dialog
     SurfaceCard(
-        cornerRadius = Defaults.CardCornerRadius,
+        cornerRadius = Defaults.CornerLarge,
         showBorder = true,
         borderColor = appAccentBorder(accentColor),
         color = cardFill(),
@@ -1556,7 +1556,7 @@ private fun ActionsSection(
 ) {
     Column(
         modifier = modifier.animateContentSize(animationSpec = tween(Defaults.ANIMATION_DURATION)),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
     ) {
         primary?.let { PrimaryActionButton(action = it, modifier = Modifier.fillMaxWidth()) }
         // A fixed set of groups, so each keeps its place in composition as others empty out
@@ -1673,7 +1673,7 @@ private val StackedLabelInset = StackedTilePadding * 2
 /** Label of a button that holds it beside its icon, and what such a button spends on the rest. */
 private val SideLabelStyle: TextStyle
     @Composable get() = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold)
-private val SideLabelInset = Defaults.ContentPadding * 2 + ActionIconSize + Defaults.ContentPaddingSmall
+private val SideLabelInset = Defaults.SpaceLarge * 2 + ActionIconSize + Defaults.SpaceSmall
 
 /**
  * Shared Surface shell for all action buttons. Callers pick the colors of a button in reach, and
@@ -1716,7 +1716,7 @@ private fun ActionButton(
                 verticalArrangement = Arrangement.Center
             ) {
                 LoadingOrIcon(action.isLoading, action, content)
-                Spacer(Modifier.height(3.dp))
+                Spacer(Modifier.height(Defaults.SpaceExtraSmall))
                 // Steps through a running mount install, which a fade carries from one to the next
                 CrossfadeText(
                     text = action.text,
@@ -1729,12 +1729,12 @@ private fun ActionButton(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = Defaults.ContentPadding),
+                    .padding(horizontal = Defaults.SpaceLarge),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 LoadingOrIcon(action.isLoading, action, content)
-                Spacer(Modifier.width(Defaults.ContentPaddingSmall))
+                Spacer(Modifier.width(Defaults.SpaceSmall))
                 CrossfadeText(
                     text = action.text,
                     style = SideLabelStyle,

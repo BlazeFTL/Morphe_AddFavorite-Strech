@@ -41,7 +41,7 @@ fun BackgroundSection(
         }
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
+    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
         SectionTitle(
             text = stringResource(R.string.settings_system_background),
             icon = Icons.Outlined.PhoneAndroid

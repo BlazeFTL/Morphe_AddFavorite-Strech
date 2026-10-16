@@ -27,7 +27,6 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 
 /**
@@ -161,7 +160,7 @@ fun RangeSliderOptionInput(
         editing = editing,
         readout = {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 SliderValuePill(
@@ -180,7 +179,7 @@ fun RangeSliderOptionInput(
         input = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 SliderTextInput(
                     value = position.start,
@@ -260,7 +259,7 @@ private fun SliderOptionFrame(
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
     ) {
         slider()
 

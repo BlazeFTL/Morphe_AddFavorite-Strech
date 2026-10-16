@@ -1,0 +1,11 @@
+# The patcher runs in its own process, which records no profile of the code it runs, so without
+# these rules that code is never compiled ahead of time and runs interpreted until the JIT compiles
+# it. Patching with the code compiled is about 12% faster.
+HSPLapp/morphe/patcher/**;->**(**)**
+HSPLapp/morphe/manager/patcher/**;->**(**)**
+HSPLcom/reandroid/**;->**(**)**
+HSPLcom/android/tools/smali/**;->**(**)**
+HSPLcom/android/apksig/**;->**(**)**
+HSPLcom/android/tools/build/apkzlib/**;->**(**)**
+HSPLkotlin/**;->**(**)**
+HSPLkotlinx/coroutines/**;->**(**)**

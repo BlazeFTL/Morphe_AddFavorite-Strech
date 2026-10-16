@@ -38,6 +38,7 @@ import com.github.pgreze.process.Redirect
 import com.github.pgreze.process.process
 import kotlinx.coroutines.*
 import java.io.File
+import java.io.IOException
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.time.Duration
@@ -294,6 +295,19 @@ class ProcessRuntime(
                     put("LD_PRELOAD", propOverride)
                     put("PROP_dalvik.vm.heapgrowthlimit", heapSizeString)
                     put("PROP_dalvik.vm.heapsize", heapSizeString)
+                    // ART is tuned to keep little of the heap free, so with the hundreds of MB the patcher
+                    // keeps alive it collects garbage after every few dozen MB allocated. More free space
+                    // makes far fewer collections, which saves CPU time, battery and heat.
+                    put("PROP_dalvik.vm.heapminfree", "${memoryLimit / 12}m")
+                    put("PROP_dalvik.vm.heapmaxfree", "${memoryLimit / 3}m")
+                    put("PROP_dalvik.vm.heaptargetutilization", "0.5")
+                    if (usesDeviceCompiledBootImage()) {
+                        // An app cannot read this property, so to app_process the boot image compiled
+                        // on the device looks unverified, and it falls back to the image in the system
+                        // image, which a mainline update of ART makes invalid. It then runs without
+                        // a boot image at all, with the core libraries interpreted until compiled.
+                        put("PROP_odsign.verification.success", "1")
+                    }
                 } else {
                     Log.w(tag, "Skipping prop override on Android ${Build.VERSION.SDK_INT}")
                 }
@@ -463,6 +477,19 @@ class ProcessRuntime(
         const val CONNECT_TO_APP_ACTION = "CONNECT_TO_APP_ACTION"
         const val INTENT_BUNDLE_KEY = "BUNDLE"
         const val BUNDLE_BINDER_KEY = "BINDER"
+
+        private const val DEVICE_COMPILED_BOOT_IMAGE_DIR = "/data/misc/apexdata/com.android.art/dalvik-cache/"
+
+        /**
+         * Whether this process runs with the boot image compiled on the device, which zygote only uses
+         * once odsign verified it. This process inherited the boot image zygote mapped.
+         */
+        private fun usesDeviceCompiledBootImage() = try {
+            File("/proc/self/maps").useLines { lines -> lines.any { DEVICE_COMPILED_BOOT_IMAGE_DIR in it } }
+        } catch (e: IOException) {
+            Log.w(tag, "Could not read the memory maps of this process", e)
+            false
+        }
 
         private fun resolvePropOverride(context: Context) = findPropOverrideLibrary(context)
         private fun resolveAppProcessBin(context: Context): String {

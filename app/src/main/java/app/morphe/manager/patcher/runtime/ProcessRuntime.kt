@@ -18,6 +18,9 @@ import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
 import app.morphe.manager.BuildConfig
+import app.morphe.manager.data.platform.Filesystem
+import app.morphe.manager.domain.manager.PreferencesManager
+import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.LibraryResolver
 import app.morphe.manager.patcher.logger.Logger
 import app.morphe.manager.patcher.runtime.process.*
@@ -34,7 +37,6 @@ import app.morphe.manager.util.tag
 import com.github.pgreze.process.Redirect
 import com.github.pgreze.process.process
 import kotlinx.coroutines.*
-import org.koin.core.component.inject
 import java.io.File
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
@@ -156,12 +158,14 @@ fun lowerMemoryLimit(limit: Int): Int {
  */
 class ProcessRuntime(
     private val context: Context,
+    fs: Filesystem,
+    patchBundlesRepo: PatchBundleRepository,
+    prefs: PreferencesManager,
+    private val pm: PM,
+    private val appScope: AppCoroutineScope,
     // On Android Q and below, memory retry loop is unreliable - skip it and let the caller fall back
     private val skipMemoryRetry: Boolean = Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q
-) : Runtime() {
-    private val pm: PM by inject()
-    private val appScope: AppCoroutineScope by inject()
-
+) : Runtime(fs, patchBundlesRepo, prefs) {
     private suspend fun awaitBinderConnection(): IPatcherProcess {
         val binderFuture = CompletableDeferred<IPatcherProcess>()
         val receiver = object : BroadcastReceiver() {

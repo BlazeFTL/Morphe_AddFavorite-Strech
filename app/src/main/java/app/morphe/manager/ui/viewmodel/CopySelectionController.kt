@@ -23,8 +23,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 /** Patches and options one copy contributes, already filtered against the target bundle. */
 data class CopiedSelection(
@@ -38,14 +36,14 @@ data class CopiedSelection(
  * result lands differs per host.
  */
 @Stable
-class CopySelectionController : KoinComponent {
-    private val app: Application by inject()
-    private val messages: UserMessages by inject()
-    private val patchSelectionRepository: PatchSelectionRepository by inject()
-    private val patchBundleRepository: PatchBundleRepository by inject()
-    private val optionsRepository: PatchOptionsRepository by inject()
-    private val appDataResolver: AppDataResolver by inject()
-
+class CopySelectionController(
+    private val app: Application,
+    private val messages: UserMessages,
+    private val patchSelectionRepository: PatchSelectionRepository,
+    private val patchBundleRepository: PatchBundleRepository,
+    private val optionsRepository: PatchOptionsRepository,
+    private val appDataResolver: AppDataResolver
+) {
     /** Target bundle uid for the in-flight picker; null while it is closed. */
     var targetBundleUid by mutableStateOf<Int?>(null)
         private set

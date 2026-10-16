@@ -55,8 +55,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.io.File
 
 /**
@@ -214,20 +212,22 @@ class BatchPatchEdit(
  * the batch screen keeps a queue going. This ViewModel only owns screen state such as which
  * item a file picker was opened for.
  */
-class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost {
-    private val app: Application by inject()
-    private val messages: UserMessages by inject()
-    private val fs: Filesystem by inject()
-    private val pm: PM by inject()
-    private val coordinator: BatchPatchCoordinator by inject()
-    private val installedAppRepository: InstalledAppRepository by inject()
-    private val patchBundleRepository: PatchBundleRepository by inject()
-    private val patchSelectionRepository: PatchSelectionRepository by inject()
-    private val downloadUrlResolver: DownloadUrlResolver by inject()
-    private val versionCatalog: AppVersionCatalog by inject()
-    private val localApkSources: LocalApkSources by inject()
-    private val prefs: PreferencesManager by inject()
-
+class BatchPatcherViewModel(
+    private val app: Application,
+    private val messages: UserMessages,
+    private val fs: Filesystem,
+    private val pm: PM,
+    private val coordinator: BatchPatchCoordinator,
+    private val installedAppRepository: InstalledAppRepository,
+    private val patchBundleRepository: PatchBundleRepository,
+    private val patchSelectionRepository: PatchSelectionRepository,
+    private val downloadUrlResolver: DownloadUrlResolver,
+    private val versionCatalog: AppVersionCatalog,
+    private val localApkSources: LocalApkSources,
+    private val prefs: PreferencesManager,
+    /** Picker behind the copy-from-another-bundle action of the editor. */
+    val editCopy: CopySelectionController
+) : ViewModel(), ApkDownloadHelperHost {
     val state = coordinator.state
 
     /** Notification and tour prompts raised once the queue installs or saves an app. */
@@ -440,9 +440,6 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
     /** Patch selection editor for one queued app, null when none is open. */
     var edit: BatchPatchEdit? by mutableStateOf(null)
         private set
-
-    /** Picker behind the copy-from-another-bundle action of the editor. */
-    val editCopy = CopySelectionController()
 
     /**
      * Opens the editor for [item], scoping the patch list to the exact APK version the queue

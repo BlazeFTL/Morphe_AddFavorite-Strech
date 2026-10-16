@@ -66,6 +66,7 @@ import app.morphe.manager.data.room.bundles.Source as SourceInfo
 class PatchBundleRepository(
     private val app: Application,
     private val messages: UserMessages,
+    private val remoteBundleServices: RemoteBundleServices,
     private val networkInfo: NetworkInfo,
     private val prefs: PreferencesManager,
     private val blocklistRepository: BlocklistRepository,
@@ -622,6 +623,7 @@ class PatchBundleRepository(
                 SourceInfo.API.SENTINEL,
                 true, // Morphe always auto updates
                 enabled,
+                remoteBundleServices,
                 usePrerelease = prefs.bundlePrereleasesEnabled.getBlocking().contains(uid.toString()),
             )
 
@@ -637,6 +639,7 @@ class PatchBundleRepository(
                 source.url.toString(),
                 autoUpdate,
                 enabled,
+                remoteBundleServices,
                 usePrerelease = shouldUsePrerelease(uid, source.url.toString()),
             )
             is SourceInfo.GitHubPullRequest -> GitHubPullRequestBundle(
@@ -650,7 +653,8 @@ class PatchBundleRepository(
                 dir,
                 source.url.toString(),
                 autoUpdate,
-                enabled
+                enabled,
+                remoteBundleServices
             )
         }
     }
@@ -1406,7 +1410,7 @@ class PatchBundleRepository(
     /**
      * Shows an appropriate message for a per-bundle download failure.
      */
-    private suspend fun handleBundleDownloadError(e: Exception, bundle: RemotePatchBundle) {
+    private fun handleBundleDownloadError(e: Exception, bundle: RemotePatchBundle) {
         val code = e.httpCodeOrNull()
         Log.e(tag, "Failed to update bundle ${bundle.name} (HTTP $code)", e)
         if (code != null && code in 400..499

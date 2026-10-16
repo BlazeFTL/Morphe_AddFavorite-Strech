@@ -60,9 +60,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
-import org.koin.core.component.inject
 import java.io.File
 import java.io.IOException
 import java.util.UUID
@@ -82,23 +79,22 @@ private val SummarisedLogPrefixes = listOf(
 
 @OptIn(SavedStateHandleSaveableApi::class)
 class PatcherViewModel(
-    private val input: Patcher.ViewModelParams
-) : ViewModel(), KoinComponent, StepProgressProvider {
-    private val app: Application by inject()
-    private val messages: UserMessages by inject()
-    private val fs: Filesystem by inject()
-    private val pm: PM by inject()
-    private val workerRepository: WorkerRepository by inject()
-    private val patchBundleRepository: PatchBundleRepository by inject()
-    private val patchSelectionRepository: PatchSelectionRepository by inject()
-    private val patchOptionsRepository: PatchOptionsRepository by inject()
-    private val installedAppRepository: InstalledAppRepository by inject()
-    private val prefs: PreferencesManager by inject()
-    private val patchOptionsPrefs: PatchOptionsPreferencesManager by inject()
-    private val originalApkRepository: OriginalApkRepository by inject()
-    private val installerManager: InstallerManager by inject()
-    private val savedStateHandle: SavedStateHandle = get()
-
+    private val input: Patcher.ViewModelParams,
+    private val app: Application,
+    private val messages: UserMessages,
+    private val fs: Filesystem,
+    private val pm: PM,
+    private val workerRepository: WorkerRepository,
+    private val patchBundleRepository: PatchBundleRepository,
+    private val patchSelectionRepository: PatchSelectionRepository,
+    private val patchOptionsRepository: PatchOptionsRepository,
+    private val installedAppRepository: InstalledAppRepository,
+    private val prefs: PreferencesManager,
+    private val patchOptionsPrefs: PatchOptionsPreferencesManager,
+    private val originalApkRepository: OriginalApkRepository,
+    private val installerManager: InstallerManager,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel(), StepProgressProvider {
     private var savedPatchedApp by savedStateHandle.saveableVar { false }
 
     private val saveOriginalApkMutex = Mutex()

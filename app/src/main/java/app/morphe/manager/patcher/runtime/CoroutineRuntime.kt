@@ -11,6 +11,9 @@
 package app.morphe.manager.patcher.runtime
 
 import android.content.Context
+import app.morphe.manager.data.platform.Filesystem
+import app.morphe.manager.domain.manager.PreferencesManager
+import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.Session
 import app.morphe.manager.patcher.logger.Logger
 import app.morphe.manager.patcher.patch.PatchBundle
@@ -25,7 +28,12 @@ import java.io.File
 /**
  * Simple [Runtime] implementation that runs the patcher using coroutines.
  */
-class CoroutineRuntime(private val context: Context) : Runtime() {
+class CoroutineRuntime(
+    private val context: Context,
+    fs: Filesystem,
+    patchBundlesRepo: PatchBundleRepository,
+    prefs: PreferencesManager
+) : Runtime(fs, patchBundlesRepo, prefs) {
     override suspend fun execute(
         inputFile: String,
         outputFile: String,

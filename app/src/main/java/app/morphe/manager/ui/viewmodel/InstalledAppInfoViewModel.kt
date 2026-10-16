@@ -44,27 +44,23 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.io.File
 
 class InstalledAppInfoViewModel(
-    packageName: String
-) : ViewModel(), KoinComponent {
-
-    private val context: Application by inject()
-    private val messages: UserMessages by inject()
-    private val pm: PM by inject()
-    private val installedAppRepository: InstalledAppRepository by inject()
-    private val patchBundleRepository: PatchBundleRepository by inject()
-    private val rootInstaller: RootInstaller by inject()
-    private val installerManager: InstallerManager by inject()
-    private val originalApkRepository: OriginalApkRepository by inject()
-    private val applicationScope: AppCoroutineScope by inject()
-    private val localApkSources: LocalApkSources by inject()
-    private val appLinksManager: AppLinksManager by inject()
-    private val prefs: PreferencesManager by inject()
-
+    packageName: String,
+    private val context: Application,
+    private val messages: UserMessages,
+    private val pm: PM,
+    private val installedAppRepository: InstalledAppRepository,
+    private val patchBundleRepository: PatchBundleRepository,
+    private val rootInstaller: RootInstaller,
+    private val installerManager: InstallerManager,
+    private val originalApkRepository: OriginalApkRepository,
+    private val applicationScope: AppCoroutineScope,
+    private val localApkSources: LocalApkSources,
+    private val appLinksManager: AppLinksManager,
+    private val prefs: PreferencesManager
+) : ViewModel() {
     lateinit var onBackClick: () -> Unit
     var onAppStateChanged: ((packageName: String) -> Unit)? = null
 

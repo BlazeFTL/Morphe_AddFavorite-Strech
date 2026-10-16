@@ -146,7 +146,9 @@ class HomeViewModel(
     private val batchPatchCoordinator: BatchPatchCoordinator,
     private val downloadUrlResolver: DownloadUrlResolver,
     versionCatalog: AppVersionCatalog,
-    private val localApkSources: LocalApkSources
+    private val localApkSources: LocalApkSources,
+    /** Picker behind the copy-from-another-bundle action of the expert-mode dialog. */
+    val expertModeCopy: CopySelectionController
 ) : ViewModel(), ApkDownloadHelperHost {
     /** The app list on the home screen. */
     val apps = HomeApps(
@@ -280,9 +282,6 @@ class HomeViewModel(
     // Whether the run this dialog configures reaches patches that declare other app versions,
     // so bulk actions offer the same set the selection was built from
     private var expertModeAllowIncompatible = false
-
-    /** Picker behind the copy-from-another-bundle action of the expert-mode dialog. */
-    val expertModeCopy = CopySelectionController()
 
     /**
      * A file picked in the add source dialog, with the bundle name its manifest declares and what

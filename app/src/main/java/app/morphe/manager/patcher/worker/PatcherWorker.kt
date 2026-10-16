@@ -40,6 +40,7 @@ import app.morphe.manager.domain.manager.KeystoreManager
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
+import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.worker.Worker
 import app.morphe.manager.domain.worker.WorkerRepository
 import app.morphe.manager.patcher.logger.Logger
@@ -58,8 +59,6 @@ import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -69,17 +68,23 @@ typealias ProgressEventHandler = (name: String?, state: State?, message: String?
 
 class PatcherWorker(
     context: Context,
-    parameters: WorkerParameters
-) : Worker<PatcherWorker.Args>(context, parameters), KoinComponent {
-    private val workerRepository: WorkerRepository by inject()
-    private val prefs: PreferencesManager by inject()
-    private val keystoreManager: KeystoreManager by inject()
-    private val pm: PM by inject()
-    private val fs: Filesystem by inject()
-    private val installedAppRepository: InstalledAppRepository by inject()
-    private val originalApkRepository: OriginalApkRepository by inject()
-    private val rootInstaller: RootInstaller by inject()
-    private val installerManager: InstallerManager by inject()
+    parameters: WorkerParameters,
+    private val workerRepository: WorkerRepository,
+    private val prefs: PreferencesManager,
+    private val keystoreManager: KeystoreManager,
+    private val pm: PM,
+    private val fs: Filesystem,
+    private val installedAppRepository: InstalledAppRepository,
+    private val originalApkRepository: OriginalApkRepository,
+    private val rootInstaller: RootInstaller,
+    private val installerManager: InstallerManager,
+    private val patchBundleRepository: PatchBundleRepository,
+    private val appScope: AppCoroutineScope
+) : Worker<PatcherWorker.Args>(context, parameters) {
+    private fun coroutineRuntime() = CoroutineRuntime(applicationContext, fs, patchBundleRepository, prefs)
+
+    private fun processRuntime() =
+        ProcessRuntime(applicationContext, fs, patchBundleRepository, prefs, pm, appScope)
 
     class Args(
         val input: SelectedApp,
@@ -446,11 +451,7 @@ class PatcherWorker(
             }
 
             // Execute patching. ProcessRuntime has its own retry loop that reduces memory on OOM
-            val runtime = if (useProcessRuntime) {
-                ProcessRuntime(applicationContext)
-            } else {
-                CoroutineRuntime(applicationContext)
-            }
+            val runtime = if (useProcessRuntime) processRuntime() else coroutineRuntime()
 
             val options = args.options.restrictTo(args.selectedPatches)
 
@@ -501,7 +502,7 @@ class PatcherWorker(
                 onRestart()
                 args.logger.logCoroutineHeap()
 
-                CoroutineRuntime(applicationContext).execute(
+                coroutineRuntime().execute(
                     inputFile.absolutePath,
                     patchedApk.absolutePath,
                     args.packageName,

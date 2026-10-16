@@ -34,8 +34,6 @@ import app.morphe.manager.network.service.AssetDownloader
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import kotlinx.coroutines.*
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.io.File
 import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
@@ -45,18 +43,18 @@ import kotlin.time.Duration.Companion.seconds
  * installer. The download is staged at a fixed path, so this must live as a single instance
  * shared by every screen that shows update or changelog UI.
  */
-class UpdateViewModel : ViewModel(), KoinComponent {
-    private val app: Application by inject()
-    private val messages: UserMessages by inject()
-    private val morpheAPI: MorpheAPI by inject()
-    private val managerUpdateRepository: ManagerUpdateRepository by inject()
-    private val assetDownloader: AssetDownloader by inject()
-    private val sessionInstaller: SessionInstaller by inject()
-    private val networkInfo: NetworkInfo by inject()
-    private val fs: Filesystem by inject()
-    private val prefs: PreferencesManager by inject()
-    private val installerManager: InstallerManager by inject()
-
+class UpdateViewModel(
+    private val app: Application,
+    private val messages: UserMessages,
+    private val morpheAPI: MorpheAPI,
+    private val managerUpdateRepository: ManagerUpdateRepository,
+    private val assetDownloader: AssetDownloader,
+    private val sessionInstaller: SessionInstaller,
+    private val networkInfo: NetworkInfo,
+    fs: Filesystem,
+    private val prefs: PreferencesManager,
+    private val installerManager: InstallerManager
+) : ViewModel() {
     private var pendingExternalInstall: InstallerManager.InstallPlan.External? = null
     private var externalInstallTimeoutJob: Job? = null
 

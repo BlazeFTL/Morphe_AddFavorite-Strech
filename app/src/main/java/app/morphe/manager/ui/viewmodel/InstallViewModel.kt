@@ -27,8 +27,6 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import kotlinx.coroutines.*
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.io.File
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -46,19 +44,19 @@ val MountStage.labelRes: Int
  * Centralized view model for all installation operations, mounting/unmounting and exporting.
  * Handles installation with support for multiple installers (Standard, Shizuku, Root, External).
  */
-class InstallViewModel : ViewModel(), KoinComponent {
-    private val app: Application by inject()
-    private val messages: UserMessages by inject()
-    private val pm: PM by inject()
-    private val rootInstaller: RootInstaller by inject()
-    private val sessionInstaller: SessionInstaller by inject()
-    private val installerManager: InstallerManager by inject()
-    private val prefs: PreferencesManager by inject()
-    private val appDataResolver: AppDataResolver by inject()
-    private val originalApkRepository: OriginalApkRepository by inject()
-    private val installedAppRepository: InstalledAppRepository by inject()
-    private val applicationScope: AppCoroutineScope by inject()
-
+class InstallViewModel(
+    private val app: Application,
+    private val messages: UserMessages,
+    private val pm: PM,
+    private val rootInstaller: RootInstaller,
+    private val sessionInstaller: SessionInstaller,
+    private val installerManager: InstallerManager,
+    private val prefs: PreferencesManager,
+    private val appDataResolver: AppDataResolver,
+    private val originalApkRepository: OriginalApkRepository,
+    private val installedAppRepository: InstalledAppRepository,
+    private val applicationScope: AppCoroutineScope
+) : ViewModel() {
     /**
      * Current installation state.
      */

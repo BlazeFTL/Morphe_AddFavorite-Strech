@@ -71,6 +71,7 @@ import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.ui.viewmodel.labelRes
 import app.morphe.manager.util.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
@@ -253,6 +254,14 @@ fun InstalledAppInfoDialog(
             patchBundleVersions = appliedBundles.mapNotNull { it.version?.takeIf(String::isNotBlank) },
             patchBundleNames = appliedBundles.map { it.title }.filter(String::isNotBlank)
         ))
+    }
+
+    val scope = rememberCoroutineScope()
+    // Offered under the name an export would suggest, so the file lands the same either way
+    val shareSaved: () -> Unit = {
+        viewModel.savedApkFile()?.let { file ->
+            scope.launch { context.shareApks(listOf(file)) { exportFileName } }
+        }
     }
 
     val exporter = rememberApkExporter()
@@ -670,6 +679,7 @@ fun InstalledAppInfoDialog(
                         restoreOfferedAbove = mountRestore != null,
                         onInstallSavedCopy = installSavedCopy,
                         onExport = { viewModel.savedApkFile()?.let { exporter.export(it, exportFileName) } },
+                        onShare = shareSaved,
                         onUninstall = { showUninstallConfirm.value = true },
                         onDelete = { showDeleteDialog.value = true }
                     ),
@@ -1442,6 +1452,7 @@ private fun installedAppActionGroups(
     restoreOfferedAbove: Boolean,
     onInstallSavedCopy: () -> Unit,
     onExport: () -> Unit,
+    onShare: () -> Unit,
     onUninstall: () -> Unit,
     onDelete: () -> Unit
 ): List<List<ActionItem>> {
@@ -1450,23 +1461,29 @@ private fun installedAppActionGroups(
     val stageLabel = installViewModel.installState.stageLabel()
     val packageName = installedApp.currentPackageName
 
+    val canOpen = installedApp.installType != InstallType.SAVED && viewModel.appInfo != null &&
+            viewModel.isInstalledOnDevice
+
+    // Led by opening the app, or by installing the saved build where it cannot be opened, with the
+    // rest beside it as icons and the file's own actions last, as the patcher's result sets them out
     val use = buildList {
-        if (installedApp.installType != InstallType.SAVED && viewModel.appInfo != null && viewModel.isInstalledOnDevice) {
+        if (canOpen) {
             add(ActionItem(stringResource(R.string.open), Icons.AutoMirrored.Outlined.Launch, viewModel::launch))
         }
 
         if (viewModel.hasSavedCopy) {
-            add(ActionItem(stringResource(R.string.export), Icons.Outlined.Save, onExport))
-            add(
-                ActionItem(
-                    text = stageLabel ?: stringResource(
-                        if (viewModel.isInstalledOnDevice) R.string.reinstall else R.string.install
-                    ),
-                    icon = Icons.Outlined.InstallMobile,
-                    onClick = onInstallSavedCopy,
-                    isLoading = isInstalling
-                )
+            val install = ActionItem(
+                text = stageLabel ?: stringResource(
+                    if (viewModel.isInstalledOnDevice) R.string.reinstall else R.string.install
+                ),
+                icon = Icons.Outlined.InstallMobile,
+                onClick = onInstallSavedCopy,
+                isLoading = isInstalling,
+                iconOnly = canOpen
             )
+            add(install)
+            add(ActionItem(stringResource(R.string.export), Icons.Outlined.Save, onExport, iconOnly = true))
+            add(ActionItem(stringResource(R.string.share), Icons.Outlined.Share, onShare, iconOnly = true))
         }
     }
 
@@ -1541,33 +1558,50 @@ private fun ActionsSection(
     groups: List<List<ActionItem>>,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier.animateContentSize(animationSpec = tween(Defaults.ANIMATION_DURATION)),
-        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
-    ) {
-        primary?.let { PrimaryActionButton(action = it, modifier = Modifier.fillMaxWidth()) }
-        // A fixed set of groups, so each keeps its place in composition as others empty out
-        groups.forEach { group ->
-            if (group.isNotEmpty()) ActionGroup(actions = group)
+    BoxWithConstraints(modifier = modifier.animateContentSize(animationSpec = tween(Defaults.ANIMATION_DURATION))) {
+        // The groups split evenly label their actions one way, so a pair with room beside its icons
+        // still sets its labels under them when another pair has to
+        val sideLabels = groups
+            .filter { group -> group.size > 1 && group.none { it.iconOnly } }
+            .all { group ->
+                labelsFitSlots(
+                    labels = group.map { it.text },
+                    style = SideLabelStyle,
+                    width = maxWidth,
+                    spacing = ButtonGroupDefaults.ConnectedSpaceBetween,
+                    inset = SideLabelInset
+                )
+            }
+
+        Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)) {
+            primary?.let { PrimaryActionButton(action = it, modifier = Modifier.fillMaxWidth()) }
+            // A fixed set of groups, so each keeps its place in composition as others empty out
+            groups.forEach { group ->
+                if (group.isNotEmpty()) ActionGroup(actions = group, sideLabels = sideLabels || group.any { it.iconOnly })
+            }
         }
     }
 }
 
 /**
  * Actions that belong together, joined into one piece: a row with labels beside or under the icons,
- * or a column of full-width buttons once a row would cut any translation short.
+ * or a column of full-width buttons once a row would cut any translation short. In a row the
+ * [ActionItem.iconOnly] ones keep to squares and the rest share what is left.
+ *
+ * @param sideLabels Whether labels may sit beside their icons, given room for them.
  */
 @Composable
-private fun ActionGroup(actions: List<ActionItem>, modifier: Modifier = Modifier) {
+private fun ActionGroup(actions: List<ActionItem>, modifier: Modifier = Modifier, sideLabels: Boolean = true) {
     // Actions there when the group appears are drawn in place; only later arrivals fade
     val settled = remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { settled.value = true }
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
-        val labels = actions.map { it.text }
+        val labels = actions.filterNot { it.iconOnly }.map { it.text }
         val spacing = ButtonGroupDefaults.ConnectedSpaceBetween
-        val besideFits = labelsFitSlots(labels, SideLabelStyle, maxWidth, spacing, SideLabelInset)
-        val underFits = labelsFitSlots(labels, StackedLabelStyle, maxWidth, spacing, StackedLabelInset)
+        val labelWidth = maxWidth - (IconTileWidth + spacing) * actions.count { it.iconOnly }
+        val besideFits = sideLabels && labelsFitSlots(labels, SideLabelStyle, labelWidth, spacing, SideLabelInset)
+        val underFits = labelsFitSlots(labels, StackedLabelStyle, labelWidth, spacing, StackedLabelInset)
         val inRow = actions.size > 1 && (besideFits || underFits)
 
         if (inRow) {
@@ -1599,6 +1633,7 @@ private fun ActionGroup(actions: List<ActionItem>, modifier: Modifier = Modifier
 }
 
 /** One action of an [ActionGroup], fading in unless the group was [settled] without it. */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GroupedAction(
     action: ActionItem,
@@ -1616,12 +1651,37 @@ private fun GroupedAction(
             visibleState = appeared,
             enter = Animations.fadeIn,
             modifier = if (inRow) {
-                Modifier.buttonGroupItem(interactionSource, enabled = action.enabled && !action.isLoading)
+                Modifier.buttonGroupItem(
+                    interactionSource,
+                    enabled = action.enabled && !action.isLoading,
+                    width = IconTileWidth.takeIf { action.iconOnly },
+                    minWidth = Defaults.MinTouchTarget.takeIf { action.iconOnly }
+                )
             } else {
                 Modifier.fillMaxWidth()
             }
         ) {
-            TileActionButton(action = action, shape = shape, stacked = stacked, interactionSource = interactionSource)
+            val iconOnly = inRow && action.iconOnly
+            val button = @Composable {
+                TileActionButton(
+                    action = action,
+                    shape = shape,
+                    stacked = stacked,
+                    iconOnly = iconOnly,
+                    interactionSource = interactionSource
+                )
+            }
+            // Named by a tooltip once its label is left out, and only then, so the two never repeat
+            if (iconOnly) {
+                TooltipBox(
+                    positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
+                    tooltip = { PlainTooltip { Text(action.text) } },
+                    state = rememberTooltipState(),
+                    content = button
+                )
+            } else {
+                button()
+            }
         }
     }
 }
@@ -1632,7 +1692,9 @@ private data class ActionItem(
     val onClick: () -> Unit,
     val enabled: Boolean = true,
     val isDestructive: Boolean = false,
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    /** Shown as its icon alone beside the action leading its row, see [ActionGroup]. */
+    val iconOnly: Boolean = false
 )
 
 /** Shared loading/icon content used by action buttons. */
@@ -1650,6 +1712,10 @@ private fun LoadingOrIcon(isLoading: Boolean, action: ActionItem, tint: Color) {
 }
 
 private val ActionIconSize = 22.dp
+
+/** Width of an action shown as its icon alone, square with the buttons' height. */
+private val IconTileWidth = Defaults.TallTouchTarget
+
 private val StackedTilePadding = 8.dp
 
 /** Label of a tile that holds it under its icon, and what such a tile spends on the rest. */
@@ -1675,6 +1741,7 @@ private fun ActionButton(
     shape: Shape,
     modifier: Modifier = Modifier,
     stacked: Boolean = false,
+    iconOnly: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val isEnabled = action.enabled && !action.isLoading
@@ -1687,14 +1754,20 @@ private fun ActionButton(
     Surface(
         onClick = action.onClick,
         enabled = isEnabled,
-        modifier = modifier.height(Defaults.TallTouchTarget),
+        modifier = modifier
+            .height(Defaults.TallTouchTarget)
+            .then(if (iconOnly) Modifier.semantics { contentDescription = action.text } else Modifier),
         shape = rememberPressShape(interactionSource, shape, isEnabled),
         color = container,
         contentColor = content,
         border = CardBorder.of(border),
         interactionSource = interactionSource
     ) {
-        if (stacked) {
+        if (iconOnly) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                LoadingOrIcon(action.isLoading, action, content)
+            }
+        } else if (stacked) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -1753,12 +1826,16 @@ private fun PrimaryActionButton(
     )
 }
 
-/** A secondary action of an [ActionGroup], [stacked] with its label under the icon or beside it. */
+/**
+ * A secondary action of an [ActionGroup], [stacked] with its label under the icon or beside it, or
+ * shown as the icon alone when [iconOnly].
+ */
 @Composable
 private fun TileActionButton(
     action: ActionItem,
     shape: Shape,
     stacked: Boolean,
+    iconOnly: Boolean,
     interactionSource: MutableInteractionSource
 ) {
     // One veil for every tile, so only the primary action wears a color and destructive ones their red
@@ -1776,6 +1853,7 @@ private fun TileActionButton(
         shape = shape,
         modifier = Modifier.fillMaxWidth(),
         stacked = stacked,
+        iconOnly = iconOnly,
         interactionSource = interactionSource
     )
 }

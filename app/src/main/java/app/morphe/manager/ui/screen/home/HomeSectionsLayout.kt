@@ -266,10 +266,7 @@ fun SectionsLayout(
             )
         }
 
-        val scrolledUnder by remember(sectionState) {
-            derivedStateOf { sectionState.listState.canScrollBackward }
-        }
-        StatusBarScrim(scrolledUnder = scrolledUnder)
+        StatusBarScrim()
 
         val maxCardWidth = if (isLandscape()) LandscapeMaxCardWidth else Defaults.ContentMaxWidth
         NotificationsOverlay(

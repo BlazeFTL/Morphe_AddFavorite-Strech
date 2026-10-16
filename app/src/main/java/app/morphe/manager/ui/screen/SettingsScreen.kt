@@ -397,8 +397,7 @@ fun SettingsScreen(
             }
         }
 
-        val scrolledUnder by remember(currentScrollState) { derivedStateOf { currentScrollState.value > 0 } }
-        StatusBarScrim(scrolledUnder = scrolledUnder)
+        StatusBarScrim()
     }
 }
 

@@ -1089,7 +1089,6 @@ fun SourceAppsDialog(
     val sourceMuteRepository: SourceMuteRepository = koinInject()
     val installedAppRepository: InstalledAppRepository = koinInject()
     val scope = rememberCoroutineScope()
-    val itemSpacing = rememberWindowSize().itemSpacing
 
     // Every source, so a disabled one still lists what it would bring once switched back on
     val bundleInfo by patchBundleRepository.allBundlesInfoFlow.collectAsStateWithLifecycle(emptyMap())
@@ -1178,12 +1177,13 @@ fun SourceAppsDialog(
         SearchFieldBackHandler(search)
 
         // Headed by the source, as its patches are
+        val searchLabel = stringResource(R.string.home_search_apps)
         ListDialogHeader(
             icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
             title = src.displayTitle,
             subtitle = pluralStringResource(R.plurals.home_category_app_count, apps.size, apps.size.toString()),
             search = search,
-            searchLabel = stringResource(R.string.home_search_apps),
+            searchLabel = searchLabel,
             // A lone app leaves nothing to search through
             searchEnabled = apps.size > 1,
             // Answers for everything in view at once, so keeping a few apps out of hundreds is
@@ -1212,23 +1212,10 @@ fun SourceAppsDialog(
 
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(itemSpacing),
+            verticalArrangement = Arrangement.spacedBy(DialogListSpacing),
             pinnedFirstRow = true
         ) {
-            // Kept while the field is closed, so its share of the spacing makes the gap under
-            // the header
-            stickyHeader(key = "search") {
-                AppDialogSearchHeader(
-                    visible = search.visible,
-                    value = search.query,
-                    onValueChange = { search.query = it },
-                    label = stringResource(R.string.home_search_apps),
-                    // Opaque, so rows scrolled under the gap stay hidden
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.SpaceMedium)
-                )
-            }
+            dialogSearchHeader(search, label = searchLabel)
 
             // Scrolls with the apps, so it gives the list its room back once read
             item(key = "description") {

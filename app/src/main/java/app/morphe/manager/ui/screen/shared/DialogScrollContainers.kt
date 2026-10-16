@@ -17,6 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+/** Gap between the cards of a dialog's list, see [CompactCardSpacing] for compact ones. */
+val DialogListSpacing = Defaults.SpaceMedium
+
 /**
  * A dialog's lazy list, fading at whichever end has more to show, with a [ListScrollbar] and a
  * [ScrollToTopButton] set out at the dialog's true edge rather than its content inset.

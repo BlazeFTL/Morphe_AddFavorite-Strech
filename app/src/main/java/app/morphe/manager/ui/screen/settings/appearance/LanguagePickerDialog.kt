@@ -5,11 +5,9 @@
 
 package app.morphe.manager.ui.screen.settings.appearance
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.SearchOff
@@ -72,6 +70,7 @@ fun LanguagePickerDialog(
         SearchFieldBackHandler(search)
 
         val accent = MaterialTheme.colorScheme.primary
+        val searchLabel = stringResource(R.string.search)
         ListDialogHeader(
             icon = { modifier ->
                 ListDialogHeaderIcon(icon = Icons.Outlined.Language, color = accent, modifier = modifier)
@@ -80,30 +79,17 @@ fun LanguagePickerDialog(
             // The language in effect, so the choice reads before the list is scrolled to it
             subtitle = LanguageRepository.getLanguage(currentLanguage, context).displayName,
             search = search,
-            searchLabel = stringResource(R.string.search),
+            searchLabel = searchLabel,
             accentColor = accent
         )
 
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             state = listState,
-            verticalArrangement = Arrangement.spacedBy(SegmentGap),
+            verticalArrangement = Arrangement.spacedBy(DialogListSpacing),
             pinnedFirstRow = true
         ) {
-            // Kept while the field is closed, so its share of the spacing, topped up to a full step
-            // below it, makes the gap under the header
-            stickyHeader(key = "search") {
-                AppDialogSearchHeader(
-                    visible = search.visible,
-                    value = search.query,
-                    onValueChange = { search.query = it },
-                    label = stringResource(R.string.search),
-                    // Opaque, so rows scrolled under the gap stay hidden
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.SpaceMedium, bottom = Defaults.SpaceMedium - SegmentGap)
-                )
-            }
+            dialogSearchHeader(search, label = searchLabel)
 
             if (filteredLanguages.isEmpty()) {
                 item(key = "empty_state") {
@@ -115,12 +101,11 @@ fun LanguagePickerDialog(
                 }
             }
 
-            itemsIndexed(items = filteredLanguages, key = { _, language -> language.code }) { index, language ->
+            items(items = filteredLanguages, key = { it.code }) { language ->
                 LanguageItem(
                     language = language,
                     isSelected = currentLanguage == language.code,
                     onClick = { onLanguageSelected(language.code) },
-                    shape = ConnectedShapes.Card.inColumn(index, filteredLanguages.size),
                     modifier = Modifier.animatedListItem(this)
                 )
             }
@@ -136,7 +121,6 @@ private fun LanguageItem(
     language: LanguageOption,
     isSelected: Boolean,
     onClick: () -> Unit,
-    shape: CornerBasedShape,
     modifier: Modifier = Modifier
 ) {
     val stateDescription = stringResource(
@@ -147,7 +131,6 @@ private fun LanguageItem(
         onSelect = onClick,
         modifier = modifier,
         stateDescription = stateDescription,
-        shape = shape,
         leadingContent = {
             SelectionLeadingBox(selected = isSelected, size = 40.dp) {
                 Text(

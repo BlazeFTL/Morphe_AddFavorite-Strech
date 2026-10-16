@@ -10,7 +10,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
@@ -204,24 +203,12 @@ internal fun PatchListDialog(
                 DialogLazyList(
                     modifier = Modifier.fillMaxSize(),
                     state = listState,
-                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
+                    verticalArrangement = Arrangement.spacedBy(DialogListSpacing),
                     pinnedFirstRow = true
                 ) {
                     // A row of the list rather than a field above it, so the rows below ease into
-                    // place as it comes and goes. The row stays while the field is closed, and its
-                    // share of the spacing makes the gap under the header
-                    stickyHeader(key = "search") {
-                        AppDialogSearchHeader(
-                            visible = search.visible,
-                            value = search.query,
-                            onValueChange = { search.query = it },
-                            label = searchLabel,
-                            // Opaque, so rows scrolled under the gap stay hidden
-                            modifier = Modifier
-                                .background(MaterialTheme.colorScheme.background)
-                                .padding(top = Defaults.SpaceMedium)
-                        )
-                    }
+                    // place as it comes and goes
+                    dialogSearchHeader(search, label = searchLabel)
 
                     if (notice != null) item(key = "notice") { notice() }
 

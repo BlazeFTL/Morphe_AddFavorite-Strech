@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -75,6 +74,7 @@ fun InstalledAppPickerDialog(
             AppFilter.SystemOnly -> Icons.Outlined.Android to stringResource(R.string.home_installed_app_picker_filter_system)
         }
         val accent = MaterialTheme.colorScheme.primary
+        val searchLabel = stringResource(R.string.home_search_apps)
         ListDialogHeader(
             icon = { modifier ->
                 ListDialogHeaderIcon(icon = Icons.Outlined.Apps, color = accent, modifier = modifier)
@@ -88,7 +88,7 @@ fun InstalledAppPickerDialog(
             ).joinToString("\n"),
             subtitleLoading = isLoading,
             search = search,
-            searchLabel = stringResource(R.string.home_search_apps),
+            searchLabel = searchLabel,
             searchEnabled = !isLoading,
             accentColor = accent
         ) {
@@ -109,24 +109,11 @@ fun InstalledAppPickerDialog(
 
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
+            verticalArrangement = Arrangement.spacedBy(CompactCardSpacing),
             pinnedFirstRow = true,
             userScrollEnabled = !isLoading
         ) {
-            // Kept while the field is closed, so its share of the spacing makes the gap under
-            // the header
-            stickyHeader(key = "search") {
-                AppDialogSearchHeader(
-                    visible = search.visible,
-                    value = search.query,
-                    onValueChange = { search.query = it },
-                    label = stringResource(R.string.home_search_apps),
-                    // Opaque, so rows scrolled under the gap stay hidden
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.SpaceMedium)
-                )
-            }
+            dialogSearchHeader(search, label = searchLabel, spacing = CompactCardSpacing)
 
             if (isLoading) {
                 items(10) { ShimmerCompactListCard(descriptionLines = 2) }

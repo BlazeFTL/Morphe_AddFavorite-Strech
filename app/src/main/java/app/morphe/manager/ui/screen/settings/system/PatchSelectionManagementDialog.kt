@@ -10,7 +10,6 @@ import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
@@ -441,26 +440,14 @@ private fun SelectionList(
         }
     }
 
+    val searchLabel = stringResource(R.string.home_search_apps)
     DialogLazyList(
         modifier = Modifier.fillMaxWidth(),
         state = listState,
-        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
+        verticalArrangement = Arrangement.spacedBy(DialogListSpacing),
         pinnedFirstRow = true
     ) {
-        // Kept while the field is closed, so its share of the spacing makes the gap under the
-        // header
-        stickyHeader(key = "search") {
-            AppDialogSearchHeader(
-                visible = search.visible,
-                value = search.query,
-                onValueChange = { search.query = it },
-                label = stringResource(R.string.home_search_apps),
-                // Opaque, so rows scrolled under the gap stay hidden
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(top = Defaults.SpaceMedium)
-            )
-        }
+        dialogSearchHeader(search, label = searchLabel)
 
         if (displayEntries.isEmpty()) {
             // No matches for the current search query

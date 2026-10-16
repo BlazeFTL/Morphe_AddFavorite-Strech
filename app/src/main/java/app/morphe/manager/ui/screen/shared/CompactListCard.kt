@@ -24,7 +24,7 @@ val CompactCardIconSize = 36.dp
 /** Size of a glyph drawn on a [CompactCardIconTile]. */
 val CompactCardGlyphSize = 20.dp
 
-/** Gap between the [CompactListCard]s of a list. */
+/** Gap between the [CompactListCard]s of a list, closer than full cards as they are short. */
 val CompactCardSpacing = Defaults.SpaceSmall
 
 private val CompactCardPadding = PaddingValues(Defaults.SpaceMedium)

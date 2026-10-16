@@ -14,7 +14,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
@@ -48,7 +47,6 @@ import androidx.compose.ui.unit.dp
  *                        since a screen reader offers to turn a checkbox off and a radio never.
  * @param accentColor     Color of what the card stands for, or the surrounding one, see [LocalAccent].
  *                        A selected card wears it on its edge and indicator, never as a fill.
- * @param shape           The card's place in a lazy segmented list, see [ConnectedShapes.inColumn].
  */
 @Composable
 fun RadioSelectionCard(
@@ -63,7 +61,6 @@ fun RadioSelectionCard(
     leadingContent: (@Composable () -> Unit)? = null,
     footerContent: (@Composable () -> Unit)? = null,
     accentColor: Color? = LocalAccent.current,
-    shape: CornerBasedShape? = null,
     content: @Composable RowScope.() -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
@@ -93,7 +90,6 @@ fun RadioSelectionCard(
         showBorder = true,
         borderColor = borderColor,
         color = fill,
-        shape = shape,
         modifier = modifier.semantics {
             this.role = role
             this.selected = selected

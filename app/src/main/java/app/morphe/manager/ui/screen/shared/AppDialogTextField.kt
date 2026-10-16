@@ -6,7 +6,9 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -33,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 
@@ -256,6 +259,37 @@ fun AppDialogSearchHeader(
             requestFocus = true,
             modifier = modifier.then(StayInPlaceElement)
         )
+    }
+}
+
+/**
+ * [AppDialogSearchHeader] as the sticky first row of a [DialogLazyList]. The row stays while the
+ * field is closed, so the gap under the dialog's header holds either way.
+ *
+ * @param spacing The list's gap between rows, which the row tops up to a full step below it.
+ */
+fun LazyListScope.dialogSearchHeader(
+    search: SearchFieldState,
+    label: String,
+    spacing: Dp = DialogListSpacing
+) {
+    stickyHeader(key = "search") {
+        // Opaque, so rows scrolled under the gap stay hidden. The bottom padding sits outside the
+        // field and tops the list's spacing up to a full step below it
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(bottom = Defaults.SpaceMedium - spacing)
+        ) {
+            AppDialogSearchHeader(
+                visible = search.visible,
+                value = search.query,
+                onValueChange = { search.query = it },
+                label = label,
+                modifier = Modifier.padding(top = Defaults.SpaceMedium)
+            )
+        }
     }
 }
 

@@ -142,7 +142,7 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
  * Head of a list dialog that names what the list belongs to: its [icon], [title] and a
  * [subtitle] summing the list up, with the list's search field and its toggle where it has one.
  *
- * The header sits on a band like the app details' one. As an [AppDialog]'s header it floats over
+ * The header sits on a band like the app details' one. As a [ListDialog]'s header it floats over
  * the list, the band reaching the screen's edges and blurring the rows scrolling under it, and solid
  * where the platform cannot blur. Anywhere else the band sits in line, giving the list an edge to
  * stop at.
@@ -156,7 +156,7 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
  *
  * @param accentColor Color of the app the list belongs to, which tints the band and the title
  *   actions and badges on it, or null for a neutral band and actions in the theme's palette. The
- *   dialog's own by default, see [AppDialog].
+ *   dialog's own by default, see [ListDialog].
  * @param badges What the whole list shares, in a row under the title as the app details keep theirs,
  *   folding away with the [collapsible] part.
  * @param content More of the list's head, under the title, that stays in place however far the

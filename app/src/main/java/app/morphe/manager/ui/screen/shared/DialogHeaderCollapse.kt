@@ -22,7 +22,7 @@ import androidx.compose.ui.layout.layout
 import kotlin.math.roundToInt
 
 /**
- * How far the collapsible part of a header floating over a full-height [AppDialog] has folded away
+ * How far the collapsible part of a header floating over a [ListDialog] has folded away
  * under the rest of it, following the list's scroll: it folds as the list moves on and unfolds as
  * soon as it moves back, so what it holds is a short scroll up away wherever the list is.
  *

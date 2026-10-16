@@ -28,7 +28,7 @@ private val DialogButtonHorizontalPadding = 16.dp
 private val DialogButtonIconSpacing = 8.dp
 
 /**
- * What dialog buttons are laid on when content scrolls on beneath them, see [AppDialog]'s
+ * What dialog buttons are laid on when content scrolls on beneath them, see [ListDialog]'s
  * floating footer. Their fills take it in, so nothing shows through them, and an outlined one is
  * filled with it alone. Unspecified where nothing but the dialog's background lies behind.
  */

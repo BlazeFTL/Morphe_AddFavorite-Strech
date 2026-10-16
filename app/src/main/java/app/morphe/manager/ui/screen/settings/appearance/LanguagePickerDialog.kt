@@ -53,7 +53,7 @@ fun LanguagePickerDialog(
     val listState = rememberLazyListState()
 
     val accent = MaterialTheme.colorScheme.primary
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
         header = {
             ListDialogHeader(
@@ -74,10 +74,6 @@ fun LanguagePickerDialog(
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         SearchFieldBackHandler(search)

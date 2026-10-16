@@ -497,7 +497,7 @@ fun BatchPatcherScreen(
     }
 
     val accent = MaterialTheme.colorScheme.primary
-    AppDialog(
+    ListDialog(
         onDismissRequest = close,
         header = {
             // Headed like the other lists, with how the run stands where the subtitle goes
@@ -551,11 +551,7 @@ fun BatchPatcherScreen(
                 onInstallAll = { startInstallQueue(installRequests) },
                 onClose = close
             )
-        },
-        scrollable = false,
-        padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true
+        }
     ) {
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),

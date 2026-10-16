@@ -276,10 +276,8 @@ fun ExpertModeDialog(
         allPatchesInfo.firstOrNull()?.first
     }
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
-        title = null,
-        dismissOnClickOutside = false,
         accentColor = appColor,
         header = {
             // Headed by the app, as its other dialogs are. A lone source takes the subtitle's
@@ -406,10 +404,6 @@ fun ExpertModeDialog(
                 )
             )
         },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         SearchFieldBackHandler(search)

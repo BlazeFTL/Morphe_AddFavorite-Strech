@@ -136,14 +136,10 @@ fun ManagerChangelogDialog(
         onDispose { updateViewModel.resetOlderManagerEntries() }
     }
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
-        scrollable = false,
         // The timeline gives up its leading edge to the rail, so the list takes the wider layout.
         // The header holds the top, and progress and results sit centered in the room below it
-        padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         header = {
             // Headed by Morphe itself, as a source's changelog is by the source. The version is the
             // one on its way where there is one, so a download names what it fetches

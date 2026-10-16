@@ -30,7 +30,7 @@ fun DetailsDialog(
     actions: List<DialogAction> = emptyList(),
     content: @Composable ColumnScope.() -> Unit
 ) {
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismissRequest,
         accentColor = accentColor,
         header = {
@@ -54,11 +54,7 @@ fun DetailsDialog(
                     AppDialogActions(actions = others + close, layout = DialogButtonLayout.Vertical)
                 }
             }
-        },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true
+        }
     ) {
         DialogScrollColumn(
             modifier = Modifier.weight(1f),

@@ -496,9 +496,8 @@ fun InstalledAppInfoDialog(
     }
 
     // Main Dialog
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
-        title = null,
         dismissOnClickOutside = true,
         accentColor = infoAccentColor,
         // Only once the app is known, so a slow load does not head an empty dialog
@@ -519,11 +518,7 @@ fun InstalledAppInfoDialog(
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )
-        },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true
+        }
     ) {
         AnimatedContent(
             targetState = isLoading || installedApp == null,

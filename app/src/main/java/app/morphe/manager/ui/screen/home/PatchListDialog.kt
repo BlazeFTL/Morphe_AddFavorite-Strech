@@ -126,9 +126,8 @@ internal fun PatchListDialog(
     val searchLabel = stringResource(R.string.expert_mode_search)
     val hasSections = sections.size > 1
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
-        title = null,
         accentColor = accentColor,
         header = {
             ListDialogHeader(
@@ -166,10 +165,6 @@ internal fun PatchListDialog(
             }
         },
         footer = { PatchListFooter(onClose = onDismiss) },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         // Back closes the search, then the filter, before the dialog itself. The last handler

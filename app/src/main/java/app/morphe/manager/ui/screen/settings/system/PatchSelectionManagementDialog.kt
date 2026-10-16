@@ -306,7 +306,7 @@ private fun PatchSelectionManagementDialogContent(
     val search = rememberSearchFieldState(searchable = isSearchable)
     val canResetAll = !multiSelect.isSelectionMode && selections.isNotEmpty()
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
         header = {
             val accent = MaterialTheme.colorScheme.primary
@@ -367,10 +367,6 @@ private fun PatchSelectionManagementDialogContent(
                 }
             }
         } else null,
-        scrollable = false,
-        padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         SearchFieldBackHandler(search)

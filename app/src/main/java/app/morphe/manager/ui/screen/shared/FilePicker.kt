@@ -278,7 +278,7 @@ fun FilePicker(
         currentDir = if (atStorageRoot) null else currentDir?.parentFile
     }
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = {
             when {
                 search.visible -> search.collapse()
@@ -405,10 +405,6 @@ fun FilePicker(
                 }
             }
         },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         // A folder slides in from the side it lies on, deeper ones from the end and the ones

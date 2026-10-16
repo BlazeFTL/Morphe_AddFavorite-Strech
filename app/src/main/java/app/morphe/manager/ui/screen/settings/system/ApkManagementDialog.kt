@@ -723,7 +723,7 @@ private fun ApkManagementDialogContent(
         }
     }
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = {
             if (!isExporting) onDismissRequest()
         },
@@ -851,10 +851,6 @@ private fun ApkManagementDialogContent(
                 }
             }
         } else null,
-        scrollable = false,
-        padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         SearchFieldBackHandler(search)

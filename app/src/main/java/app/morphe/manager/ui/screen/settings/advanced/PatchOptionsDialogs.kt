@@ -237,7 +237,7 @@ private fun SettingsOptionsDialog(
     saveEnabled: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(packageName),
         header = {
@@ -258,10 +258,6 @@ private fun SettingsOptionsDialog(
                 onSecondaryClick = onDismiss
             )
         },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         DialogScrollColumn(

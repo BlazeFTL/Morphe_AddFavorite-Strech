@@ -598,7 +598,6 @@ fun RenameBundleDialog(
         onDismissRequest = onDismissRequest,
         title = stringResource(R.string.sources_dialog_display_name),
         description = stringResource(R.string.sources_dialog_rename),
-        dismissOnClickOutside = false,
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.ok),
@@ -908,18 +907,12 @@ fun BundleChangelogDialog(
         onLoad = loadOlder
     )
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismissRequest,
         accentColor = rememberSourceHeaderColor(src),
         // Start fetch only after the dialog enter animation completes so the shimmer
         // is always visible first, even when data is cached and would resolve instantly
         onEntered = { if (fetchTrigger == 0) fetchTrigger = 1 },
-        scrollable = false,
-        // The timeline gives up its leading edge to the rail, so the list takes the wider layout.
-        // The header holds the top, and an error sits centered in the room below it
-        padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         // Releases show only their versions, so the header names whose they are, and which app
         // they were narrowed to. It stays the same through loading, so nothing shifts once the
         // entries arrive
@@ -1157,7 +1150,7 @@ fun SourceAppsDialog(
         onDismissRequest()
     }
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = ::dismiss,
         accentColor = rememberSourceHeaderColor(src),
         // Headed by the source, as its patches are
@@ -1201,10 +1194,6 @@ fun SourceAppsDialog(
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         SearchFieldBackHandler(search)

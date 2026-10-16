@@ -33,12 +33,12 @@ import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 /**
  * Slide-up surface hosting a selection panel or a reorder bar. It sits on the bottom edge of the
  * screen like a sheet, with its content kept clear of the navigation bar, so it is meant for the
- * home screen's footer dock and the [AppDialog] bottom bar. Keeps the surface, elevation and
+ * home screen's footer dock and the [ListDialog] bottom bar. Keeps the surface, elevation and
  * enter/exit animations the same everywhere a selection is made.
  *
  * @param onBack Closes the panel on back, which then follows the predictive gesture down like
  * an [AppBottomSheet] does. Required so no panel is left to a back handler that cannot animate
- * it, such as the dismissal of the [AppDialog] it is docked to.
+ * it, such as the dismissal of the [ListDialog] it is docked to.
  */
 @Composable
 fun MultiSelectShell(

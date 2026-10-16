@@ -87,12 +87,8 @@ fun StorageManagementDialog(
     // Nothing has been read until the first reading lands, and a real one always has room free
     val loading = stats == StorageStats.Empty
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismissRequest,
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         header = {
             // Headed like the other lists, with how much Morphe holds against what is left free
             // where the subtitle goes, above the breakdown that scrolls under it

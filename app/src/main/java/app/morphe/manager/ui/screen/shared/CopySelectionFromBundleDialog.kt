@@ -73,7 +73,7 @@ fun CopySelectionFromBundleDialog(
         stringResource(R.string.copy)
     }
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(target.packageName),
         // Headed by the app the selection lands on, with the source it lands in, while the
@@ -84,7 +84,16 @@ fun CopySelectionFromBundleDialog(
                     AppIcon(packageName = target.packageName, contentDescription = null, modifier = modifier)
                 },
                 title = target.appDisplayName,
-                subtitle = target.bundleName
+                subtitle = target.bundleName,
+                content = {
+                    Text(
+                        text = stringResource(R.string.copy_selection_title),
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = dialogTextColor(),
+                        modifier = Modifier.padding(top = Defaults.SpaceMedium)
+                    )
+                }
             )
         },
         footer = {
@@ -96,58 +105,45 @@ fun CopySelectionFromBundleDialog(
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
             )
-        },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top
+        }
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
-        ) {
-            Text(
-                text = stringResource(R.string.copy_selection_title),
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold,
-                color = dialogTextColor()
-            )
-
-            when {
-                candidates == null -> Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f),
-                    contentAlignment = Alignment.Center
-                ) {
-                    PulsingLogoWithCaption(caption = stringResource(R.string.loading))
-                }
-                visibleCandidates.isEmpty() -> EmptyState(
-                    message = stringResource(R.string.copy_selection_empty),
-                    icon = Icons.Outlined.FolderOff
-                )
-                else -> CandidateList(
-                    candidates = visibleCandidates,
-                    selectedIndex = selectedIndex,
-                    onSelect = { selectedIndex = it }
-                )
+        if (candidates == null) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                PulsingLogoWithCaption(caption = stringResource(R.string.loading))
             }
+        } else {
+            CandidateList(
+                candidates = visibleCandidates,
+                selectedIndex = selectedIndex,
+                onSelect = { selectedIndex = it }
+            )
         }
     }
 }
 
 @Composable
-private fun ColumnScope.CandidateList(
+private fun CandidateList(
     candidates: List<CopySelectionCandidate>,
     selectedIndex: Int,
     onSelect: (Int) -> Unit
 ) {
     val sourcesByUid = rememberSourcesByUid()
     DialogLazyList(
-        modifier = Modifier
-            .fillMaxWidth()
-            .weight(1f, fill = false),
+        modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
     ) {
+        if (candidates.isEmpty()) {
+            item(key = "empty_state") {
+                EmptyState(
+                    message = stringResource(R.string.copy_selection_empty),
+                    icon = Icons.Outlined.FolderOff
+                )
+            }
+        }
+
         items(
             items = candidates.withIndex().toList(),
             key = { (_, c) -> "${c.bundleUid}:${c.packageName}" }

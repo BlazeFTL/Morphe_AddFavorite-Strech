@@ -40,7 +40,7 @@ fun Modifier.animatedListItem(itemScope: LazyItemScope): Modifier = with(itemSco
 }
 
 /**
- * Shared [EnterTransition] and [ExitTransition] for all AppDialog instances and
+ * Shared [EnterTransition] and [ExitTransition] for all AppDialog and ListDialog instances and
  * dialog-level AnimatedVisibility wrappers. Changing these values updates every dialog
  * animation in the app at once.
  */

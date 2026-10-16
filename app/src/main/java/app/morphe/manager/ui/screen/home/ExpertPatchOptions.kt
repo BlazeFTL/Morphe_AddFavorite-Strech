@@ -224,7 +224,7 @@ internal fun PatchOptionsDialog(
     val anyChanged = options.any { !optionValueEquals(valueOf(it), it.default) }
 
     val showColorPicker = remember { mutableStateOf<Pair<String, String>?>(null) }
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
         accentColor = accentColor,
         header = {
@@ -254,10 +254,6 @@ internal fun PatchOptionsDialog(
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         DialogScrollColumn(

@@ -41,7 +41,7 @@ fun CreatorDialogFrame(
 ) {
     var showGuide by remember { mutableStateOf(false) }
 
-    AppDialog(
+    ListDialog(
         onDismissRequest = { if (!isCreating) onDismiss() },
         accentColor = rememberAppColor(packageName),
         header = {
@@ -69,10 +69,6 @@ fun CreatorDialogFrame(
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         overlay = {
             ContentOverlay(visible = isCreating) {
                 PulsingLogoWithCaption(caption = stringResource(R.string.creating))

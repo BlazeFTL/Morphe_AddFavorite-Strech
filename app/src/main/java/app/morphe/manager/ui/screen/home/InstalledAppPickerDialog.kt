@@ -56,13 +56,9 @@ fun InstalledAppPickerDialog(
         AppFilter.SystemOnly -> Icons.Outlined.Android to stringResource(R.string.home_installed_app_picker_filter_system)
     }
     val accent = MaterialTheme.colorScheme.primary
-    AppDialog(
+    ListDialog(
         onDismissRequest = onDismiss,
         dismissOnClickOutside = true,
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
         hideFooterWhileTyping = true,
         header = {
             ListDialogHeader(

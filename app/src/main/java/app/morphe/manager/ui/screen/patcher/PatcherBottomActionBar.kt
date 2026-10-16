@@ -242,7 +242,7 @@ internal fun PatcherActionButton(
     tone: BottomActionTone = BottomActionTone.Neutral,
     enabled: Boolean = true,
     showProgress: Boolean = false,
-    shape: Shape = GlassButtonDefaults.ButtonShape
+    shape: Shape = Defaults.ButtonShape
 ) {
     val button: @Composable (Modifier) -> Unit = { buttonModifier ->
         ActionGlassButton(

@@ -11,9 +11,9 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Launch
@@ -756,7 +756,7 @@ private fun InstallActions(
         ) {
             ResultActionButton(
                 modifier = Modifier.weight(1f),
-                shape = ConnectedLeadingShape,
+                shape = ConnectedShapes.Card.leading,
                 text = stringResource(
                     when {
                         isInstalling -> if (usingMountInstall) {
@@ -796,7 +796,7 @@ private fun InstallActions(
                 text = stringResource(R.string.save),
                 enabled = !isSaving,
                 showProgress = isSaving,
-                shape = ConnectedMiddleShape,
+                shape = ConnectedShapes.Card.middle,
                 modifier = Modifier
                     .width(PatcherActionHeight)
                     .fillMaxHeight()
@@ -805,7 +805,7 @@ private fun InstallActions(
                 onClick = onShare,
                 icon = Icons.Outlined.Share,
                 text = stringResource(R.string.share),
-                shape = ConnectedTrailingShape,
+                shape = ConnectedShapes.Card.trailing,
                 modifier = Modifier
                     .width(PatcherActionHeight)
                     .fillMaxHeight()
@@ -838,7 +838,7 @@ private fun ResultActionButton(
     failed: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    shape: Shape = RoundedCornerShape(Defaults.CardCornerRadius),
+    shape: Shape = Defaults.ButtonShape,
     busy: Boolean = false
 ) {
     val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
@@ -850,14 +850,16 @@ private fun ResultActionButton(
     } else {
         ButtonDefaults.buttonColors(containerColor = accent, contentColor = appAccentContent(accent))
     }
+    val interactionSource = remember { MutableInteractionSource() }
 
     Button(
         onClick = onClick,
         enabled = !busy,
+        interactionSource = interactionSource,
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = PatcherActionHeight),
-        shape = shape,
+        shape = rememberPressShape(interactionSource, shape, enabled = !busy),
         colors = buttonColors,
         contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
     ) {
@@ -880,21 +882,3 @@ private fun ResultActionButton(
         )
     }
 }
-
-/** Corner where two buttons of a connected group meet, nearly square so they read as one piece. */
-private val ConnectedInnerCorner = 4.dp
-
-// Shapes of a connected group: the card radius on its outer edges, the inner corner between buttons
-private val ConnectedLeadingShape = RoundedCornerShape(
-    topStart = Defaults.CardCornerRadius,
-    bottomStart = Defaults.CardCornerRadius,
-    topEnd = ConnectedInnerCorner,
-    bottomEnd = ConnectedInnerCorner
-)
-private val ConnectedMiddleShape = RoundedCornerShape(ConnectedInnerCorner)
-private val ConnectedTrailingShape = RoundedCornerShape(
-    topStart = ConnectedInnerCorner,
-    bottomStart = ConnectedInnerCorner,
-    topEnd = Defaults.CardCornerRadius,
-    bottomEnd = Defaults.CardCornerRadius
-)

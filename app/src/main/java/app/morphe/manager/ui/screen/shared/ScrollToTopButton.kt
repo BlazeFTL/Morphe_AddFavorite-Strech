@@ -131,7 +131,7 @@ private fun ScrollToTopButtonImpl(
         // Nearly opaque rather than glass, since it floats over rows of text
         Surface(
             onClick = rememberHapticClick(onClick),
-            shape = CircleShape,
+            shape = rememberPressShape(interactionSource, CircleShape),
             color = MaterialTheme.colorScheme.surface.copy(alpha = 0.72f),
             contentColor = MaterialTheme.colorScheme.onSurface,
             // Edged in the dialog's color, as its outlined buttons are
@@ -142,7 +142,6 @@ private fun ScrollToTopButtonImpl(
             interactionSource = interactionSource,
             modifier = Modifier
                 .size(ButtonSize)
-                .pressScale(interactionSource, label = "scroll_to_top_press_scale")
         ) {
             Box(contentAlignment = Alignment.Center) {
                 Icon(

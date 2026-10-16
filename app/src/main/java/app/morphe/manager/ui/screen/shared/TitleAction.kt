@@ -78,16 +78,16 @@ fun TitleAction(
     }
 
     val interactionSource = remember { MutableInteractionSource() }
-    val pressedModifier = sizedModifier.pressScale(
-        interactionSource = interactionSource,
-        enabled = enabled,
-        label = "title_action_press_scale"
-    )
 
     if (containerColor == null) {
         IconButton(
             onClick = onClick,
-            modifier = pressedModifier,
+            // No circle to round, so the flat variant sinks under a press instead
+            modifier = sizedModifier.pressScale(
+                interactionSource = interactionSource,
+                enabled = enabled,
+                label = "title_action_press_scale"
+            ),
             enabled = enabled,
             interactionSource = interactionSource
         ) {
@@ -107,9 +107,10 @@ fun TitleAction(
 
         FilledTonalIconButton(
             onClick = onClick,
-            modifier = pressedModifier,
+            modifier = sizedModifier,
             enabled = enabled,
             interactionSource = interactionSource,
+            shape = rememberPressShape(interactionSource, IconButtonDefaults.filledShape, enabled),
             colors = IconButtonDefaults.filledTonalIconButtonColors(
                 containerColor = containerColor,
                 contentColor = contentColor,

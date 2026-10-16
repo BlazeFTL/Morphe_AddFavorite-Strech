@@ -470,7 +470,6 @@ private fun HomeFooterControls(
                     .fillMaxWidth()
                     .padding(bottom = 12.dp),
                 role = Role.Button,
-                pressScale = true,
                 hapticFeedback = true
             )
         }

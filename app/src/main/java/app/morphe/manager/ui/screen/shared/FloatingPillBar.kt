@@ -182,9 +182,8 @@ fun FloatingPillRoundAction(
             onClick = rememberHapticClick(onClick),
             modifier = Modifier
                 .size(FloatingPillHeight)
-                .pressScale(interactionSource, label = "floating_round_press_scale")
                 .semantics { contentDescription = label },
-            shape = CircleShape,
+            shape = rememberPressShape(interactionSource, CircleShape),
             color = floatingPillColor(colors.container),
             contentColor = colors.content,
             border = CardBorder.of(colors.border),
@@ -296,19 +295,21 @@ private fun RowScope.PillAction(
     val contentColor by animateColorAsState(colors.content, label = "pill_action_content")
     val description = item.contentDescription ?: item.label
     val interactionSource = remember { MutableInteractionSource() }
+    val shape = rememberPressShape(interactionSource, CircleShape)
 
     val action: @Composable () -> Unit = {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(PillActionHeight)
-                .pressScale(interactionSource, label = "pill_action_press_scale")
-                .clip(CircleShape)
+                // Without a fill of its own the slot has no outline to round, so it sinks instead
+                .pressScale(interactionSource, enabled = !filled, label = "pill_action_press_scale")
+                .clip(shape)
                 .then(
                     if (filled) {
                         Modifier
-                            .background(colors.container, CircleShape)
-                            .border(SelectedEdgeWidth, colors.border, CircleShape)
+                            .background(colors.container, shape)
+                            .border(SelectedEdgeWidth, colors.border, shape)
                     } else {
                         Modifier
                     }

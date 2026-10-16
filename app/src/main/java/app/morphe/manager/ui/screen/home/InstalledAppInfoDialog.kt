@@ -1646,14 +1646,8 @@ private fun ActionButton(
     Surface(
         onClick = action.onClick,
         enabled = isEnabled,
-        modifier = modifier
-            .height(Defaults.TallTouchTarget)
-            .pressScale(
-                interactionSource = interactionSource,
-                enabled = isEnabled,
-                label = "info_action_press_scale"
-            ),
-        shape = RoundedCornerShape(Defaults.CardCornerRadius),
+        modifier = modifier.height(Defaults.TallTouchTarget),
+        shape = rememberPressShape(interactionSource, Defaults.ButtonShape, isEnabled),
         color = container,
         contentColor = content,
         border = CardBorder.of(border),

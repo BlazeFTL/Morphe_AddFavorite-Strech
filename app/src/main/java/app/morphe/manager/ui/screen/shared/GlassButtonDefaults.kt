@@ -5,12 +5,10 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -23,9 +21,6 @@ import app.morphe.manager.ui.theme.isDarkTheme
  * Retune once here to shift the palette everywhere consistently.
  */
 object GlassButtonDefaults {
-    /** Corner radius of the whole glass button family, kept in step with the dialog buttons. */
-    val ButtonShape: Shape = RoundedCornerShape(Defaults.CardCornerRadius)
-
     val IconSize = Defaults.IconSize
     val HorizontalPadding = 12.dp
     val IconLabelSpacing = 8.dp

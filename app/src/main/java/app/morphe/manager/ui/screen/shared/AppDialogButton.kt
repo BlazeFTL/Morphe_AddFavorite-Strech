@@ -9,7 +9,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -130,14 +129,8 @@ private fun DialogButton(
     val interactionSource = remember { MutableInteractionSource() }
 
     // A floor rather than a fixed height, so a large font grows the button instead of clipping its label
-    val buttonModifier = modifier
-        .heightIn(min = Defaults.DialogButtonHeight)
-        .pressScale(
-            interactionSource = interactionSource,
-            enabled = enabled,
-            label = "dialog_button_press_scale"
-        )
-    val shape = RoundedCornerShape(Defaults.CardCornerRadius)
+    val buttonModifier = modifier.heightIn(min = Defaults.DialogButtonHeight)
+    val shape = rememberPressShape(interactionSource, Defaults.ButtonShape, enabled)
     // An outlined button is drawn by its edge alone, so it keeps one whatever the outlines setting says
     val border = if (filled) CardBorder.of(colors.borderColor) else BorderStroke(1.dp, colors.borderColor)
     val contentPadding = PaddingValues(

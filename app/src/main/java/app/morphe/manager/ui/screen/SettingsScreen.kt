@@ -440,7 +440,6 @@ private fun LandscapeNavPanel(
                     selected = currentTab == tab,
                     onClick = { onTabSelected(tab) },
                     modifier = Modifier.fillMaxWidth().then(positionedModifier),
-                    pressScale = true,
                     hapticFeedback = true,
                     showLabel = true
                 )

@@ -45,7 +45,7 @@ fun GlassButton(
     contentDescription: String? = null,
     containerColor: Color = GlassButtonDefaults.containerColor(selected),
     contentColor: Color = GlassButtonDefaults.contentColor(selected),
-    shape: Shape = GlassButtonDefaults.ButtonShape,
+    shape: Shape = Defaults.ButtonShape,
     borderColor: Color = GlassButtonDefaults.borderColor(selected),
     iconSize: Dp = GlassButtonDefaults.IconSize,
     height: Dp = Defaults.GlassButtonHeight,
@@ -53,7 +53,6 @@ fun GlassButton(
     iconLabelSpacing: Dp = GlassButtonDefaults.IconLabelSpacing,
     textStyle: TextStyle = GlassButtonDefaults.labelStyle,
     role: Role = Role.Tab,
-    pressScale: Boolean = false,
     hapticFeedback: Boolean = false,
     showLabel: Boolean = selected
 ) {
@@ -89,19 +88,15 @@ fun GlassButton(
 
     val interactionSource = remember { MutableInteractionSource() }
     val clickHandler = if (hapticFeedback) rememberHapticClick(onClick) else onClick
+    val pressShape = rememberPressShape(interactionSource, shape, enabled)
 
     Surface(
         onClick = clickHandler,
         modifier = modifier
             .height(height)
-            .pressScale(
-                interactionSource = interactionSource,
-                enabled = pressScale,
-                label = "glass_button_press_scale"
-            )
             // Mirror the surface shape on the outer modifier so the ripple stays inside
             // the rounded bounds instead of drawing a square
-            .clip(shape)
+            .clip(pressShape)
             .semantics {
                 this.role = role
                 if (isSelectable) this.selected = selected
@@ -109,7 +104,7 @@ fun GlassButton(
             },
         color = containerColor,
         contentColor = contentColor,
-        shape = shape,
+        shape = pressShape,
         border = CardBorder.of(borderColor),
         interactionSource = interactionSource,
         enabled = enabled
@@ -184,7 +179,7 @@ fun ActionGlassButton(
     showProgress: Boolean = false,
     contentDescription: String? = null,
     stateDescription: String? = null,
-    shape: Shape = GlassButtonDefaults.ButtonShape,
+    shape: Shape = Defaults.ButtonShape,
     height: Dp = Defaults.GlassButtonHeight
 ) {
     val colors = tone.colors()
@@ -221,7 +216,6 @@ fun ActionGlassButton(
         shape = shape,
         height = height,
         role = Role.Button,
-        pressScale = true,
         hapticFeedback = true,
         showLabel = showLabel
     )

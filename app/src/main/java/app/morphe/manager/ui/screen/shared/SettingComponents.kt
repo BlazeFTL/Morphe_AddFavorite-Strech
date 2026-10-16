@@ -75,6 +75,9 @@ object Defaults {
     /** Fully rounded shape shared by the pill buttons. */
     val PillShape = RoundedCornerShape(50)
 
+    /** Shape of every other button, glass, dialog and result actions alike, rounded as a card is. */
+    val ButtonShape = RoundedCornerShape(CardCornerRadius)
+
     /** Height of a glass tab or toggle. Matches [MinTouchTarget]. */
     val GlassButtonHeight = MinTouchTarget
 

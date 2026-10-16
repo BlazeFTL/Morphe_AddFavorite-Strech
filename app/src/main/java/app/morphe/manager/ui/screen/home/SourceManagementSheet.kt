@@ -943,10 +943,12 @@ private fun BundleManagementCard(
                             }
                         }
 
-                        // Repository actions, as wide as the four pill action bar below
+                        // Repository actions, as wide as the four pill action bar below. Connected,
+                        // since every one of them leads out to the repository
                         if (bundle is RemotePatchBundle) {
                             ActionPillRow(
                                 modifier = Modifier.padding(vertical = 4.dp),
+                                spacing = ButtonGroupDefaults.ConnectedSpaceBetween,
                                 stretchLabelsTo = 4
                             ) {
                                 ActionPillButton(
@@ -954,7 +956,8 @@ private fun BundleManagementCard(
                                     icon = Icons.AutoMirrored.Outlined.OpenInNew,
                                     contentDescription = openInBrowser + " " + bundle.displayTitle,
                                     label = openInBrowser,
-                                    tooltip = openInBrowser
+                                    tooltip = openInBrowser,
+                                    shape = ConnectedShapes.Pill.leading
                                 )
 
                                 if (actions.onShare != null) {
@@ -962,7 +965,8 @@ private fun BundleManagementCard(
                                         onClick = actions.onShare,
                                         icon = Icons.Outlined.Share,
                                         contentDescription = share + " " + bundle.displayTitle,
-                                        tooltip = share
+                                        tooltip = share,
+                                        shape = ConnectedShapes.Pill.middle
                                     )
                                 }
 
@@ -970,7 +974,8 @@ private fun BundleManagementCard(
                                     onClick = actions.onReportIssue,
                                     icon = Icons.Outlined.BugReport,
                                     contentDescription = reportIssue + " " + bundle.displayTitle,
-                                    tooltip = reportIssue
+                                    tooltip = reportIssue,
+                                    shape = ConnectedShapes.Pill.trailing
                                 )
                             }
                         }

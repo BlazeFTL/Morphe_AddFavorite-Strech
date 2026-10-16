@@ -490,9 +490,9 @@ fun BatchPatcherScreen(
     }
     val isPreflight = current?.phase == BatchPhase.PREFLIGHT
     val isFinished = current?.phase == BatchPhase.FINISHED
-    val patchedItems = if (isFinished) current?.patchedItems.orEmpty() else emptyList()
+    val patchedItems = if (isFinished) current.patchedItems else emptyList()
     val hasPatched = patchedItems.isNotEmpty()
-    val hasUnfinished = isFinished && current?.items.orEmpty().any {
+    val hasUnfinished = isFinished && current.items.any {
         it.state == BatchItemState.FAILED || it.state == BatchItemState.CANCELLED
     }
 

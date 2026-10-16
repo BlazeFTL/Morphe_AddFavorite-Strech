@@ -59,8 +59,8 @@
     <string name="home_app_filter_clones">Kloner</string>
     <string name="home_app_filter_clones_description">Appar byggda under eget paketnamn, installerade bredvid originalet</string>
     <string name="home_app_grouping_all_apps_description">En lista över alla appar</string>
-    <string name="home_app_grouping_sources_description">Appar från tillhandahållaren av källan</string>
-    <string name="home_app_grouping_custom_description">Appar i kategorier du skapar</string>
+    <string name="home_app_grouping_sources_description">Appar under tilläggskällan som tillhandahåller dem</string>
+    <string name="home_app_grouping_custom_description">Appar i kategorier som du skapar</string>
     <string name="home_app_sort_manual_description">Tryck länge på en app och tryck sedan på knappen för att ändra ordning</string>
     <string name="home_app_sort_recommended">Rekommenderad ordning</string>
     <string name="home_app_sort_recommended_description">Installerade och fästa appar först</string>
@@ -164,17 +164,17 @@
     <string name="sources_management_report_issue">Rapportera ett problem</string>
     <string name="sources_management_failed_to_open_url">Det gick inte att öppna webbadressen</string>
     <string name="sources_apps">Appar</string>
-    <string name="sources_apps_description">Appar som har markerats kommer från denna källa. Tryck på en app för att utesluta den eller återinföra den. En app försvinner från hemskärmen när ingen källa längre tillhandahåller den, om du inte har patchat den</string>
+    <string name="sources_apps_description">De markerade apparna kommer från den här källan. Tryck på en app för att utesluta den eller inkludera den igen. En app tas bort från startskärmen om ingen källa inkluderar den, förutom om du har modifierat den</string>
     <string name="sources_apps_brought">Tillhandahålls av den här källan</string>
     <string name="sources_apps_left_out">Utesluts från den här källan</string>
     <string name="sources_apps_bring_back">Ta tillbaka</string>
     <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
-    <string name="sources_apps_stays_patched">Behålls som patchad</string>
+    <string name="sources_apps_stays_patched">Behålls som modifierad</string>
     <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
     <string name="sources_apps_new">Nytt</string>
-    <string name="sources_apps_new_apps">Hämta nya appar</string>
+    <string name="sources_apps_new_apps">Inkludera nya appar</string>
     <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
-    <string name="sources_apps_new_apps_description">Appar som läggs till senare visas på hemskärmen</string>
+    <string name="sources_apps_new_apps_description">Appar som läggs till senare visas på startskärmen</string>
     <string name="sources_management_prerelease_toggle">Förhandsversioner av tillägg</string>
     <string name="sources_management_prerelease_toggle_description">Får tidig åtkomst till nya experimentella tilläggsversioner</string>
     <string name="sources_prerelease_warning_title">Aktivera förhandsversioner av tillägg?</string>
@@ -222,7 +222,7 @@
     <string name="sources_dialog_choose_apps_description">Välj vilka av dess appar som du vill behålla när källan har lästs in</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Tilläggskällor från tredje part</string>
-    <string name="sources_dialog_community_notice_message">"Tilläggskällor från communityn skapas och underhålls av sina egna författare. Morphe varken granskar eller verifierar tillägg från tredje part och är inte ansvarig för deras innehåll eller vad de gör på din enhet.
+    <string name="sources_dialog_community_notice_message">"Tilläggskällor från communityn skapas och underhålls av sina egna upphovspersoner. Morphe varken granskar eller verifierar tillägg från tredje part och är inte ansvarig för deras innehåll eller vad de gör på din enhet.
 
 Allt du lägger till från den här webbplatsen används på egen risk"</string>
     <string name="sources_update_success">Uppdateringen lyckades</string>
@@ -473,7 +473,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="batch_queue_add_action">Lägg till i kön</string>
     <string name="batch_queue_pending_subtitle">Tryck för att granska och starta</string>
     <string name="batch_queue_clear_title">Rensa kön?</string>
-    <string name="batch_queue_clear_description">Alla appar kommer att tas bort från kön</string>
+    <string name="batch_queue_clear_description">Alla appar tas bort från kön</string>
     <string name="shortcut_repatch_short">Modifiera igen</string>
     <string name="shortcut_repatch_long">Modifiera inaktuella appar igen</string>
     <string name="shortcut_check_updates_short">Sök efter uppdateringar</string>
@@ -524,7 +524,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="app_links_all_verified">Alla stödda länkar är konfigurerade för att öppnas i den här appen</string>
     <string name="app_links_fix">Åtgärda länkar</string>
     <string name="configure">Konfigurera</string>
-    <string name="patcher_rename_title">Detta kommer att installera en klon</string>
+    <string name="patcher_rename_title">Detta installerar en klon</string>
     <string name="patcher_rename_description">Tilläggen byggde den här appen under ett eget paketnamn, så om den installeras läggs en klon till bredvid &lt;b&gt;%s&lt;/b&gt; istället för att uppdatera den</string>
     <string name="patcher_rename_result_package">Installeras som</string>
     <string name="patcher_rename_replaces">En app är redan installerad under det namnet och kommer att ersättas</string>
@@ -850,7 +850,7 @@ Om du avinstallerar raderas alla appdata permanent"</string>
 
 Tillägg påverkas inte: aktivera förhandsversioner av tillägg för varje källa i listan över tilläggskällor"</string>
     <string name="settings_advanced_updates_allow_metered">Uppdateringar via mobildata</string>
-    <string name="settings_advanced_updates_allow_metered_description">Laddar ned uppdateringar för Morphe och patchar via mobildata</string>
+    <string name="settings_advanced_updates_allow_metered_description">Laddar ned uppdateringar för Morphe och tillägg via mobildata</string>
     <string name="settings_advanced_updates_background_notifications">Aviseringar om uppdateringar i bakgrunden</string>
     <string name="settings_advanced_updates_background_notifications_description">Sök regelbundet efter uppdateringar i bakgrunden och avisera när de är tillgängliga</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Pushmeddelanden om nya versioner, även när appen är stängd</string>
@@ -889,11 +889,11 @@ Tillägg påverkas inte: aktivera förhandsversioner av tillägg för varje käl
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert">Expertinställningar</string>
     <string name="settings_advanced_expert_mode">Expertläge</string>
-    <string name="settings_advanced_expert_mode_description">Låser upp avancerade patchinställningar och patchalternativ</string>
+    <string name="settings_advanced_expert_mode_description">Låser upp avancerade modifieringsinställningar och tilläggsalternativ</string>
     <string name="settings_advanced_expert_mode_dialog_title">Aktivera expertläge?</string>
     <string name="settings_advanced_expert_mode_dialog_message">Expertläget ger mer kontroll över hur tilläggen tillämpas, men om du felaktigt konfigurerar inställningarna i expertläget kan det leda till att appen inte fungerar</string>
     <string name="settings_advanced_strip_unused_libs">Optimera för enhetsarkitektur</string>
-    <string name="settings_advanced_strip_unused_libs_description">Tar bort oanvända plattformsspecifika bibliotek och APK-delar</string>
+    <string name="settings_advanced_strip_unused_libs_description">Tar bort plattformsspecifika bibliotek och delade APK-moduler som inte används</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat_description">Krävs för att använda hämtningsbegäranden som källor</string>
     <string name="settings_advanced_github_pat_configured">Token konfigurerades</string>
@@ -1087,7 +1087,7 @@ Information: %2$s"</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importera och exportera</string>
     <string name="settings_system_signing_key">Signeringsnyckel</string>
-    <string name="settings_system_signing_key_description">Säkerhetskopierar eller återställer nyckeln som signerar patchade appar</string>
+    <string name="settings_system_signing_key_description">Säkerhetskopierar eller återställer nyckeln som signerar modifierade appar</string>
     <string name="settings_system_signing_key_dialog_description">Varje app som Morphe modifierar signeras med den här nyckeln. Spara en kopia: utan den kan modifierade appar bara uppdateras efter att de har avinstallerats</string>
     <string name="settings_system_signing_key_missing">Morphe skapar en i samband med din första modifiering</string>
     <string name="settings_system_signing_key_created">Skapad %s</string>
@@ -1329,7 +1329,7 @@ Information: %2$s"</string>
     <string name="continue_">Fortsätt</string>
     <string name="version">Version</string>
     <!-- Who made a patch source, as a field label -->
-    <string name="author">Upphovsman</string>
+    <string name="author">Upphovsperson</string>
     <!-- A file a patch source is added from, as a field label -->
     <string name="file">Fil</string>
     <string name="clone">Klona</string>

@@ -143,9 +143,6 @@ object Animations {
     val expandFadeEnter = expandVertically(defaultTween()) + fadeIn
     val shrinkFadeExit = shrinkVertically(defaultTween()) + fadeOut
 
-    val expandVertEnter = expandVertically(defaultTween())
-    val shrinkVertExit = shrinkVertically(defaultTween())
-
     // Horizontal expand/Shrink
     val expandHorizFadeIn = expandHorizontally(defaultTween()) + fadeIn
     val shrinkHorizFadeOut = shrinkHorizontally(defaultTween()) + fadeOut
@@ -171,7 +168,7 @@ object Animations {
             scaleIn(tween(Defaults.ANIMATION_DURATION, delay, LinearOutSlowInEasing), initialScale = 0.8f)
     }
 
-    // Push transitions (Settings screen slides up over home, returns by sliding down)
+    // Push transitions (a page such as a settings category slides up over home, returns by sliding down)
     val pushEnter = slideInVertically(
         animationSpec = defaultTween(Defaults.SCREEN_ENTER_DURATION, FastOutSlowInEasing)
     ) { it } + fadeIn(defaultTween(Defaults.SCREEN_ENTER_DURATION))

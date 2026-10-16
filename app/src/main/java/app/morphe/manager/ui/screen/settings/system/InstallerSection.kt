@@ -16,9 +16,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
@@ -42,8 +39,7 @@ import kotlin.time.Duration.Companion.seconds
 @Composable
 fun InstallerSection(
     settingsViewModel: SettingsViewModel,
-    onShowInstallerDialog: () -> Unit,
-    onInstallerItemPositioned: ((Rect) -> Unit)? = null
+    onShowInstallerDialog: () -> Unit
 ) {
     val primaryPreference by settingsViewModel.prefs.installerPrimary.getAsState()
     val primaryToken = remember(primaryPreference) {
@@ -71,17 +67,11 @@ fun InstallerSection(
         ?: primaryEntries.value.firstOrNull()
 
     if (primaryEntry != null) {
-        Box(
-            modifier = if (onInstallerItemPositioned != null)
-                Modifier.onGloballyPositioned { coords -> onInstallerItemPositioned(coords.boundsInWindow()) }
-            else Modifier
-        ) {
-            InstallerSettingsItem(
-                title = stringResource(R.string.installer_settings_title),
-                entry = primaryEntry,
-                onClick = onShowInstallerDialog
-            )
-        }
+        InstallerSettingsItem(
+            title = stringResource(R.string.installer_settings_title),
+            entry = primaryEntry,
+            onClick = onShowInstallerDialog
+        )
     }
 }
 

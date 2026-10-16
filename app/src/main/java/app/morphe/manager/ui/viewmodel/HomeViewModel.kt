@@ -181,7 +181,6 @@ class HomeViewModel(
 
     // Dialog visibility states
     var showAndroid11Dialog by mutableStateOf(false)
-    var showBundleManagementSheet by mutableStateOf(false)
     var showAddSourceDialog by mutableStateOf(false)
     var bundleToRename by mutableStateOf<PatchBundleSource?>(null)
     var showRenameBundleDialog by mutableStateOf(false)
@@ -1085,7 +1084,6 @@ class HomeViewModel(
         dismissInstalledAppInfo()
         showNoCompatibleVersionsDialog = null
         showAndroid11Dialog = false
-        showBundleManagementSheet = false
         showRenameBundleDialog = false
         bundleToRename = null
         showAddSourceDialog = false

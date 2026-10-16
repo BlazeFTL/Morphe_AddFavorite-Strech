@@ -32,12 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.BundleSourceType
-import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.bundleAvatarUrl
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.ownerAvatarUrl
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
-import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.bundles.recommended
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.SourceMuteRepository
@@ -45,6 +43,7 @@ import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.patcher.UnusableOptionPathsDialog
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.screen.sources.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
 import app.morphe.manager.util.*
@@ -64,7 +63,7 @@ fun HomeDialogs(
     storagePickerLauncher: () -> Unit,
     openBundlePicker: () -> Unit,
     patchesItem: MutableState<HomeAppItem?>,
-    globalOnboardingState: GlobalOnboardingState? = null
+    onSourceAdded: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val messages = koinInject<UserMessages>()
@@ -472,62 +471,6 @@ fun HomeDialogs(
         }
     }
 
-    // Replacing the file of a local source keeps its uid, so the patch selection and options
-    // stay attached instead of being stranded on a freshly added second source
-    val openLocalBundleUpdatePicker = rememberAdaptiveFilePicker(
-        mimeTypes = MPP_FILE_MIME_TYPES,
-        onResult = { uri ->
-            val uid = homeViewModel.localBundleUpdateUid
-            homeViewModel.localBundleUpdateUid = null
-            if (uri != null && uid != null) homeViewModel.updateLocalSource(uid, uri)
-        }
-    )
-
-    // Bundle management sheet
-    if (homeViewModel.showBundleManagementSheet) {
-        BundleManagementSheet(
-            onDismissRequest = { homeViewModel.showBundleManagementSheet = false },
-            // The sheet stays under the dialog, so nothing shows through while it opens
-            onAddSource = { homeViewModel.showAddSourceDialog = true },
-            onDelete = { bundle ->
-                scope.launch {
-                    homeViewModel.patchBundleRepository.remove(bundle)
-                }
-            },
-            onDisable = { bundle ->
-                scope.launch {
-                    homeViewModel.patchBundleRepository.disable(bundle)
-                }
-            },
-            onUpdate = { bundle ->
-                if (bundle is RemotePatchBundle) {
-                    scope.launch {
-                        // A source that failed to load may hold a broken jar of the current version,
-                        // which a plain version check would keep
-                        homeViewModel.patchBundleRepository.update(
-                            bundle,
-                            force = bundle.state is PatchBundleSource.State.Failed,
-                            showMessage = true
-                        )
-                    }
-                } else {
-                    homeViewModel.localBundleUpdateUid = bundle.uid
-                    openLocalBundleUpdatePicker()
-                }
-            },
-            onRename = { bundle ->
-                homeViewModel.bundleToRename = bundle
-                homeViewModel.showRenameBundleDialog = true
-            },
-            onReorder = { orderedUids ->
-                scope.launch {
-                    homeViewModel.patchBundleRepository.reorderBundles(orderedUids)
-                }
-            },
-            globalOnboardingState = globalOnboardingState
-        )
-    }
-
     // Add bundle dialog
     if (homeViewModel.showAddSourceDialog) {
         AddSourceDialog(
@@ -537,13 +480,13 @@ fun HomeDialogs(
             },
             onRemoteSubmit = { urls, chooseApps ->
                 homeViewModel.showAddSourceDialog = false
-                homeViewModel.showBundleManagementSheet = false
                 homeViewModel.createRemoteSources(urls, chooseApps)
+                onSourceAdded()
             },
             onLocalSubmit = { chooseApps ->
                 homeViewModel.showAddSourceDialog = false
-                homeViewModel.showBundleManagementSheet = false
                 homeViewModel.importPickedBundles(chooseApps)
+                onSourceAdded()
             },
             onLocalPick = openBundlePicker,
             onLocalRemove = homeViewModel::unpickBundle,

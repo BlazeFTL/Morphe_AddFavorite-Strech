@@ -1345,6 +1345,22 @@ Details: %2$s"</string>
     <string name="patches">Patches</string>
     <string name="home">Home</string>
     <string name="settings">Settings</string>
+    <string name="apps">Apps</string>
+    <!-- Sections the settings page lists, each opening a page of its own. A summary names what the section holds -->
+    <string name="settings_section_patching">Patching</string>
+    <string name="settings_group_manager">Manager</string>
+    <string name="settings_section_appearance_summary">Language, theme, colors and home screen</string>
+    <string name="settings_section_patches_summary">Expert mode, patch selections and options</string>
+    <string name="settings_section_patcher_summary">How the patcher runs and where APKs come from</string>
+    <string name="settings_section_performance">Performance</string>
+    <string name="settings_section_original_apks">Original APKs</string>
+    <string name="settings_section_storage">Storage</string>
+    <string name="settings_section_updates_summary">Updates of the manager and its sources</string>
+    <string name="settings_section_installer_summary">How patched apps are installed</string>
+    <string name="settings_section_files">Files &amp; backups</string>
+    <string name="settings_section_files_summary">Storage, saved APKs, import and export</string>
+    <string name="settings_section_background_summary">Notifications and checks in the background</string>
+    <string name="settings_section_about_summary">Version, changelog, logs and the tour</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="all">All</string>

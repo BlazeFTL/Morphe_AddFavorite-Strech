@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 private const val GITHUB_PAT_NAME = "GitHub Personal Access Token"
 
 /**
- * GitHub PAT settings item for Advanced tab.
+ * GitHub PAT settings item, a row of the updates group.
  */
 @Composable
 fun GitHubPatSettingsItem(

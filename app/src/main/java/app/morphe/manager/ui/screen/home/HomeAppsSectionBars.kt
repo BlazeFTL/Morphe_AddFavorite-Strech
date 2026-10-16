@@ -69,9 +69,9 @@ internal fun HomeFooterBarDock(host: HomeFooterBarHost, modifier: Modifier = Mod
 }
 
 /**
- * The bar that occupies the footer slot: app multi-select and reorder, or the category context
- * actions. Only one is ever visible - [HomeAppsSectionState] keeps the modes exclusive - so they
- * live together here, out of the section body.
+ * The bar that occupies the footer slot: app multi-select and reorder, the category context
+ * actions, or the options the list is arranged by. Only one is ever visible - [HomeAppsSectionState]
+ * keeps the modes exclusive - so they live together here, out of the section body.
  */
 @Composable
 internal fun HomeAppsFooterBars(
@@ -164,7 +164,7 @@ internal fun HomeAppsFooterBars(
         // A lone card is not a group, so keeping it highlighted only dims everything else for nothing
         if (selectedPackages.size == 1) selectedPackages.clear()
         state.isMultiSelectMode = false
-        searchState.onClose()
+        searchState.onClear()
         groupedSelectionPackages?.let { scopePackages ->
             val scopedItems = sourceOrder
                 ?.mapNotNull { itemsByPackage[it] }
@@ -325,7 +325,7 @@ internal fun HomeAppsFooterBars(
             // already reflects the current source list when reorder begins
             state.activeCategoryId = null
             state.activeSourceUid = null
-            searchState.onClose()
+            searchState.onClear()
             state.isCategoryReorderMode = true
         },
         onExitReorder = {
@@ -343,5 +343,17 @@ internal fun HomeAppsFooterBars(
         onBack = { state.closeCategoryBar() },
         modifier = modifier,
         showEditActions = state.activeSourceUid == null && !isSourceCategoryView
+    )
+
+    HomeAppListOptionsBar(
+        visible = state.isListOptionsOpen,
+        sortMode = apps.sortMode,
+        filterMode = apps.filterMode,
+        groupingMode = apps.categoryViewMode,
+        onSortModeChange = appActions.onSortModeChange,
+        onFilterModeChange = appActions.onFilterModeChange,
+        onGroupingModeChange = appActions.onCategoryViewModeChange,
+        onClose = { state.isListOptionsOpen = false },
+        modifier = modifier
     )
 }

@@ -21,22 +21,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 
 /**
- * Patcher tuning: process runtime, native library stripping and external batch patch triggers.
+ * How the patcher runs: process runtime, native library stripping and external batch patch triggers.
  */
 @Composable
 fun PatcherTuningSection(
     settingsViewModel: SettingsViewModel,
-    modifier: Modifier = Modifier,
-    onProcessRuntimePositioned: ((Rect) -> Unit)? = null
+    modifier: Modifier = Modifier
 ) {
     val prefs = settingsViewModel.prefs
     val useProcessRuntime by prefs.useProcessRuntime.getAsState()
@@ -63,16 +59,13 @@ fun PatcherTuningSection(
         verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
     ) {
         SectionTitle(
-            text = stringResource(R.string.settings_advanced_patcher),
+            text = stringResource(R.string.settings_section_performance),
             icon = Icons.Outlined.Speed
         )
 
         SettingsGroup {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 SettingsItem(
-                    modifier = if (onProcessRuntimePositioned != null)
-                        Modifier.onGloballyPositioned { coords -> onProcessRuntimePositioned(coords.boundsInWindow()) }
-                    else Modifier,
                     onClick = { showProcessRuntimeDialog.value = true },
                     title = stringResource(R.string.settings_system_process_runtime),
                     subtitle = if (useProcessRuntime)

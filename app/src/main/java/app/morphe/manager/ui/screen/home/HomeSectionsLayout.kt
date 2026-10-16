@@ -8,7 +8,6 @@ package app.morphe.manager.ui.screen.home
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -21,7 +20,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -31,14 +29,11 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.input.pointer.PointerEventPass
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.pluralStringResource
@@ -63,7 +58,7 @@ import org.koin.compose.koinInject
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import kotlin.time.Duration.Companion.milliseconds
 
-/** Cards get more room where the layout splits into two columns and each holds only it's half. */
+/** Cards get more room in landscape, where the list has a pane of its own beside the navigation. */
 private val LandscapeMaxCardWidth = 700.dp
 
 internal fun HomeCategoryGroup.selectionKey(): String =
@@ -114,155 +109,98 @@ class HomeAppActions(
     val onAssignAppsToCategory: (Set<String>, String?) -> Unit
 )
 
-/** Callbacks for surrounding chrome elements. */
+/** Callbacks of what stands around the list: the toolbar, the greeting and the empty state. */
 @Stable
 class HomeChromeActions(
     val onOtherAppsClick: () -> Unit,
-    val onBundlesClick: () -> Unit,
-    val onSettingsClick: () -> Unit,
+    val onOpenSources: () -> Unit,
     val onRefreshGreeting: (() -> Unit)?
 )
 
-/** Flags that control which chrome elements are shown. */
+/** Which actions the toolbar over the list offers. */
 @Immutable
 data class HomeChromeFlags(
     val showSearchButton: Boolean,
     val showSortButton: Boolean,
-    val showOtherAppsButton: Boolean,
-    val isExpertModeEnabled: Boolean
+    val showOtherAppsButton: Boolean
 )
 
-/** Search bar visibility, query and mutation callbacks. */
+/** The apps search: its query, and the callbacks that change or clear it. */
 @Stable
 class HomeSearchState(
-    val visible: Boolean,
     val query: String,
     val onQueryChange: (String) -> Unit,
-    val onToggle: () -> Unit,
-    val onClose: () -> Unit
+    val onClear: () -> Unit
 )
 
 /**
- * Home screen layout with dynamic app buttons:
- * 1. Notifications section
- * 2. Greeting message section
- * 3. Dynamic app buttons
- * 4. Other apps button
- * 5. Bottom action bar
+ * The apps page of the main screen: the list of apps headed by the greeting and the toolbar, with
+ * notifications over it and the bars of a selection or a reorder docked over its lower edge.
+ *
+ * @param state The list's selection and reorder, held by the screen, whose navigation gives way to
+ *   the docked bars.
+ * @param bottomBarHeight Height of the navigation floating over the page, which the list ends clear of.
  */
 @Composable
-fun SectionsLayout(
+internal fun SectionsLayout(
     notifications: HomeNotificationsUi,
     apps: HomeAppListUi,
     appActions: HomeAppActions,
     chromeActions: HomeChromeActions,
     chromeFlags: HomeChromeFlags,
     greetingMessage: String?,
+    state: HomeAppsSectionState,
+    bottomBarHeight: Dp,
     onboardingState: OnboardingState? = null
 ) {
     val windowSize = rememberWindowSize()
 
-    // Search state hoisted here so both AdaptiveContent and HomeBottomActionBar share it
-    val searchVisible = remember { mutableStateOf(false) }
-    val searchQuery = remember { mutableStateOf("") }
-    LaunchedEffect(searchVisible.value) { if (!searchVisible.value) searchQuery.value = "" }
-    // Auto-close search if the button disappears
+    var searchQuery by remember { mutableStateOf("") }
+    // A search the toolbar no longer offers would go on filtering with no field to clear it from
     LaunchedEffect(chromeFlags.showSearchButton) {
-        if (!chromeFlags.showSearchButton) searchVisible.value = false
+        if (!chromeFlags.showSearchButton) searchQuery = ""
     }
-
-    // Back gesture closes search (registered before the footer bars' own back handling, so an open bar takes priority)
-    BackHandler(enabled = searchVisible.value) { searchVisible.value = false }
+    // Back clears the search (registered before the footer bars' own back handling, so an open bar takes priority)
+    BackHandler(enabled = searchQuery.isNotEmpty()) { searchQuery = "" }
 
     val searchState = HomeSearchState(
-        visible = searchVisible.value,
-        query = searchQuery.value,
-        onQueryChange = { searchQuery.value = it },
-        onToggle = { searchVisible.value = !searchVisible.value },
-        onClose = { searchVisible.value = false }
+        query = searchQuery,
+        onQueryChange = { searchQuery = it },
+        onClear = { searchQuery = "" }
     )
-    var showListOptionsSheet by remember { mutableStateOf(false) }
     // The saved filter applies only while the sort button is there to undo it. Not written back
     // when the button goes, since it is also absent while the list is still loading
     val filterMode = if (chromeFlags.showSortButton) apps.filterMode else HomeAppFilterMode.ALL
     val onClearFilter = { appActions.onFilterModeChange(HomeAppFilterMode.ALL) }
-
-    // Held here rather than in the section, since the footer bar docks over the bottom action
-    // bar, which hides while it is up
-    val sectionState = rememberHomeAppsSectionState(
-        initialOrder = apps.visible.map { it.id },
-        initialSourceGroupOrder = apps.sourceGroups.map { it.uid },
-        initialCategoryOrder = apps.categoryState.categories.map { it.id },
-        hasContent = apps.visible.isNotEmpty() || apps.hidden.isNotEmpty(),
-    )
     val footerBar = remember { HomeFooterBarHost() }
-
-    if (showListOptionsSheet) {
-        HomeAppListOptionsSheet(
-            sortMode = apps.sortMode,
-            filterMode = filterMode,
-            groupingMode = apps.categoryViewMode,
-            onSortModeChange = appActions.onSortModeChange,
-            onFilterModeChange = appActions.onFilterModeChange,
-            onGroupingModeChange = appActions.onCategoryViewModeChange,
-            onDismiss = { showListOptionsSheet = false }
-        )
+    // The options share the footer slot, so they make way for a selection or a reorder started
+    // under them, and for the sort button going
+    LaunchedEffect(state.isEditing, chromeFlags.showSortButton) {
+        if (state.isEditing || !chromeFlags.showSortButton) state.isListOptionsOpen = false
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
         val barHaze = rememberHazeState()
-        // Main layout structure. In portrait the list runs on under the navigation bar and the
-        // floating bottom bar takes the inset, so cards keep scrolling to the edge of the screen
-        FloatingBarsLayout(
-            modifier = Modifier
-                .fillMaxSize()
-                .then(if (isLandscape()) Modifier.navigationBarsPadding() else Modifier),
-            bottomBar = {
-                // Section 5: Bottom action bar, floating over the lower edge of the list
-                if (!isLandscape()) {
-                    CompositionLocalProvider(LocalBackdropHaze provides barHaze) {
-                        HomeBottomActionBar(
-                            modifier = Modifier.coveredByFooterBar(sectionState.isFooterBarVisible),
-                            onBundlesClick = chromeActions.onBundlesClick,
-                            onSettingsClick = chromeActions.onSettingsClick,
-                            isExpertModeEnabled = chromeFlags.isExpertModeEnabled,
-                            showSearchButton = chromeFlags.showSearchButton,
-                            showSortButton = chromeFlags.showSortButton,
-                            showOtherAppsButton = chromeFlags.showOtherAppsButton,
-                            onOtherAppsClick = chromeActions.onOtherAppsClick,
-                            sortMode = apps.sortMode,
-                            filterMode = filterMode,
-                            searchActive = searchState.visible,
-                            onSearchClick = searchState.onToggle,
-                            onSortClick = { showListOptionsSheet = true },
-                            onSourcesPositioned = onboardingState?.let { s -> { b -> s.sourcesButtonBounds = b } },
-                            onSettingsPositioned = onboardingState?.let { s -> { b -> s.settingsButtonBounds = b } }
-                        )
-                    }
-                }
-            }
-        ) { _, bottomBarHeight ->
-            AdaptiveContent(
-                // What the floating bar blurs as the list scrolls on under it
-                modifier = Modifier.hazeSource(barHaze),
-                windowSize = windowSize,
-                greetingMessage = greetingMessage,
-                apps = apps,
-                appActions = appActions,
-                searchState = searchState,
-                chromeActions = chromeActions,
-                chromeFlags = chromeFlags,
-                filterMode = filterMode,
-                onClearFilter = onClearFilter,
-                onSortClick = { showListOptionsSheet = true },
-                state = sectionState,
-                footerBar = footerBar,
-                bottomBarHeight = bottomBarHeight,
-                onboardingState = onboardingState
-            )
-        }
+        AdaptiveContent(
+            // What the docked bars blur as the list scrolls on under them
+            modifier = Modifier.hazeSource(barHaze),
+            windowSize = windowSize,
+            greetingMessage = greetingMessage,
+            apps = apps,
+            appActions = appActions,
+            searchState = searchState,
+            chromeActions = chromeActions,
+            chromeFlags = chromeFlags,
+            filterMode = filterMode,
+            onClearFilter = onClearFilter,
+            onSortClick = { state.isListOptionsOpen = !state.isListOptionsOpen },
+            state = state,
+            footerBar = footerBar,
+            bottomBarHeight = bottomBarHeight,
+            onboardingState = onboardingState
+        )
 
-        // In landscape the bar docks inside the list pane instead, clear of the sidebar
+        // In landscape the bar docks inside the list pane instead
         if (!isLandscape()) {
             CompositionLocalProvider(LocalBackdropHaze provides barHaze) {
                 HomeFooterBarDock(
@@ -274,8 +212,6 @@ fun SectionsLayout(
                 )
             }
         }
-
-        StatusBarScrim()
 
         val maxCardWidth = if (isLandscape()) LandscapeMaxCardWidth else Defaults.ContentMaxWidth
         NotificationsOverlay(
@@ -289,7 +225,8 @@ fun SectionsLayout(
 }
 
 /**
- * Adaptive content layout that switches between portrait and landscape modes.
+ * The list in its pane: across the page in portrait, or in the middle of the page in landscape,
+ * where the bars of a selection dock inside that pane.
  */
 @Composable
 private fun AdaptiveContent(
@@ -311,14 +248,9 @@ private fun AdaptiveContent(
 ) {
     val contentPadding = windowSize.contentPadding
     val itemSpacing = windowSize.itemSpacing
-    val useTwoColumns = isLandscape()
-    val maxCardWidth = if (useTwoColumns) LandscapeMaxCardWidth else Defaults.ContentMaxWidth
+    val landscape = isLandscape()
+    val maxCardWidth = if (landscape) LandscapeMaxCardWidth else Defaults.ContentMaxWidth
 
-    // True empty state: loaded and no items from any bundle: all disabled or no sources
-    val isAppsEmpty by remember(apps.visible, apps.installedAppsLoading) {
-        derivedStateOf { !apps.installedAppsLoading && apps.visible.isEmpty() }
-    }
-    val showOtherAppsFooter = !isAppsEmpty && chromeFlags.showOtherAppsButton
     // Grouped views reserve the full list area so the footer keeps a stable position when
     // groups expand or collapse; the flat All-apps view lets the list wrap to its content
     // so the greeting and cards center together as one block
@@ -331,6 +263,22 @@ private fun AdaptiveContent(
     val greeting: (@Composable () -> Unit)? = greetingMessage?.takeIf { it.isNotEmpty() }?.let { message ->
         { GreetingSection(message = message, onRefresh = chromeActions.onRefreshGreeting) }
     }
+    val toolbar: (@Composable () -> Unit)? = if (
+        chromeFlags.showSearchButton || chromeFlags.showSortButton || chromeFlags.showOtherAppsButton
+    ) {
+        {
+            HomeAppsToolbar(
+                searchState = searchState.takeIf { chromeFlags.showSearchButton },
+                showSort = chromeFlags.showSortButton,
+                sortEnabled = !state.isEditing,
+                sortOpen = state.isListOptionsOpen,
+                sortMode = apps.sortMode,
+                filterMode = filterMode,
+                onSortClick = onSortClick,
+                onPatchFileClick = chromeActions.onOtherAppsClick.takeIf { chromeFlags.showOtherAppsButton }
+            )
+        }
+    } else null
     // The list starts below the status bar it scrolls on under, a step further down in a grouped
     // view with no greeting, so its first header does not sit flush against the top
     val listTopPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() +
@@ -345,7 +293,7 @@ private fun AdaptiveContent(
             searchState = searchState,
             filterMode = filterMode,
             onClearFilter = onClearFilter,
-            onBundlesClick = chromeActions.onBundlesClick,
+            onOpenSources = chromeActions.onOpenSources,
             itemSpacing = itemSpacing,
             horizontalPadding = horizontalPadding,
             maxCardWidth = maxCardWidth,
@@ -354,125 +302,49 @@ private fun AdaptiveContent(
             bottomBarHeight = bottomBarHeight,
             showFadeOverlay = showFadeOverlay,
             header = greeting,
+            toolbar = toolbar,
             topPadding = listTopPadding,
             fillHeight = isGroupedAppView,
             modifier = if (isGroupedAppView) Modifier.fillMaxSize() else Modifier.fillMaxWidth()
         )
     }
 
-    Column(modifier = modifier.fillMaxSize()) {
-        if (useTwoColumns) {
-            // Sidebar layout for landscape
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                HomeSidebarPanel(
-                    modifier = Modifier.statusBarsPadding(),
-                    showSearchButton = chromeFlags.showSearchButton && !isAppsEmpty,
-                    searchActive = searchState.visible,
-                    isExpertModeEnabled = chromeFlags.isExpertModeEnabled,
-                    showSortButton = chromeFlags.showSortButton,
-                    sortMode = apps.sortMode,
-                    filterMode = filterMode,
-                    onSearchClick = searchState.onToggle,
-                    onSortClick = onSortClick,
-                    onBundlesClick = chromeActions.onBundlesClick,
-                    onSettingsClick = chromeActions.onSettingsClick,
-                    onSourcesPositioned = onboardingState?.let { s -> { b -> s.sourcesButtonBounds = b } },
-                    onSettingsPositioned = onboardingState?.let { s -> { b -> s.settingsButtonBounds = b } }
-                )
-                VerticalDivider(modifier = Modifier.statusBarsPadding().padding(vertical = 20.dp))
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .padding(horizontal = contentPadding)
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
-                                .then(trackContentBottom),
-                            verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Box(modifier = Modifier.weight(1f, fill = isGroupedAppView)) {
-                                appsSection(0.dp, false)
-                            }
-                        }
-                        // Footer stays pinned to the bottom of the pane regardless of view mode
-                        HomeFooterControls(
-                            showOtherApps = showOtherAppsFooter,
-                            onOtherAppsClick = chromeActions.onOtherAppsClick,
-                            itemSpacing = itemSpacing,
-                            modifier = Modifier
-                                .widthIn(max = maxCardWidth)
-                                .fillMaxWidth()
-                                .coveredByFooterBar(state.isFooterBarVisible)
-                        )
-                    }
-                    HomeFooterBarDock(
-                        host = footerBar,
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .widthIn(max = maxCardWidth)
-                            .fillMaxWidth()
-                    )
-                }
-            }
-        } else {
-            // Single-column layout for compact windows (portrait)
+    if (landscape) {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = contentPadding)
+        ) {
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .then(trackContentBottom),
-                verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center
+                verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Scrollable app buttons, headed by the greeting
                 Box(modifier = Modifier.weight(1f, fill = isGroupedAppView)) {
-                    appsSection(contentPadding, true)
+                    appsSection(0.dp, false)
                 }
             }
-        }
-    }
-}
-
-/**
- * Fixed area below the app list that hosts the "Other apps" button.
- */
-@Composable
-private fun HomeFooterControls(
-    showOtherApps: Boolean,
-    onOtherAppsClick: () -> Unit,
-    itemSpacing: Dp,
-    modifier: Modifier = Modifier
-) {
-    AnimatedVisibility(
-        visible = showOtherApps,
-        modifier = modifier,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
-        Column {
-            Spacer(modifier = Modifier.height(itemSpacing))
-            GlassButton(
-                label = stringResource(R.string.home_other_apps_action),
-                selected = false,
-                onClick = onOtherAppsClick,
+            HomeFooterBarDock(
+                host = footerBar,
                 modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .widthIn(max = maxCardWidth)
                     .fillMaxWidth()
-                    .padding(bottom = Defaults.SpaceMedium),
-                role = Role.Button,
-                hapticFeedback = true
             )
+        }
+    } else {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .then(trackContentBottom),
+            verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center
+        ) {
+            // Scrollable app buttons, headed by the greeting
+            Box(modifier = Modifier.weight(1f, fill = isGroupedAppView)) {
+                appsSection(contentPadding, true)
+            }
         }
     }
 }
@@ -523,7 +395,7 @@ internal fun MainAppsSection(
     searchState: HomeSearchState,
     filterMode: HomeAppFilterMode,
     onClearFilter: () -> Unit,
-    onBundlesClick: () -> Unit,
+    onOpenSources: () -> Unit,
     footerBar: HomeFooterBarHost,
     modifier: Modifier = Modifier,
     // Height of the bar floating over the list's lower edge, which the list keeps clear of
@@ -535,6 +407,8 @@ internal fun MainAppsSection(
     showFadeOverlay: Boolean = true,
     // Heads the list and scrolls away with it, such as the greeting
     header: (@Composable () -> Unit)? = null,
+    // Follows the header and scrolls away with it too
+    toolbar: (@Composable () -> Unit)? = null,
     // Room above the first row, for the status bar the list scrolls on under
     topPadding: Dp = 0.dp,
     // When false, the section wraps its content vertically so the parent can center it as a
@@ -571,7 +445,7 @@ internal fun MainAppsSection(
             isFooterSlotReserved = false
         }
     }
-    // Clears whichever bar reaches into the list: the floating bottom bar always, the docked one
+    // Clears whichever bar reaches into the list: the floating navigation always, the docked one
     // while in its slot, at the height it was last measured at
     val dockedBarOverlap = with(LocalDensity.current) {
         if (isFooterSlotReserved) footerBar.listOverlapPx.toDp() else 0.dp
@@ -1072,7 +946,7 @@ internal fun MainAppsSection(
                             action = CardAction(
                                 icon = Icons.Outlined.Source,
                                 label = stringResource(R.string.sources_management_title),
-                                onClick = onBundlesClick
+                                onClick = onOpenSources
                             ),
                             contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -1113,11 +987,6 @@ internal fun MainAppsSection(
                             if (isGroupedAppView) Arrangement.spacedBy(itemSpacing)
                             else Arrangement.spacedBy(itemSpacing, Alignment.CenterVertically)
                         }
-                        // The search field heads the list, so the list goes back up to it as it opens. At
-                        // once, so the field is in place before it takes focus
-                        LaunchedEffect(searchState.visible) {
-                            if (searchState.visible) listState.scrollToItem(0)
-                        }
                         // A focused row comes out from under the status bar and the footer bar
                         ProvideBringIntoViewInsets(top = topPadding, bottom = footerClearance) {
                             LazyColumn(
@@ -1132,18 +1001,7 @@ internal fun MainAppsSection(
                                 contentPadding = listContentPadding
                             ) {
                                 if (header != null) item(key = "header") { header() }
-
-                                if (searchState.visible) {
-                                    item(key = "search") {
-                                        ListSearchField(
-                                            value = searchQuery,
-                                            onValueChange = searchState.onQueryChange,
-                                            label = stringResource(R.string.home_search_apps),
-                                            requestFocus = true,
-                                            modifier = Modifier.animateItem()
-                                        )
-                                    }
-                                }
+                                if (toolbar != null) item(key = "toolbar") { toolbar() }
 
                                 // Cold start: homeAppItems still empty - show placeholder shimmer cards
                                 if (state.isLoading && homeAppItems.isEmpty()) {
@@ -1303,35 +1161,6 @@ internal fun MainAppsSection(
             }
         }
     }
-}
-
-/**
- * Fades out home chrome the docked footer bar stands in for while it is [covered], and keeps
- * taps and screen readers off it meanwhile. It keeps its place in the layout, so nothing above
- * it moves when the bar comes and goes.
- */
-@Composable
-private fun Modifier.coveredByFooterBar(covered: Boolean): Modifier {
-    val alpha by animateFloatAsState(
-        targetValue = if (covered) 0f else 1f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-        label = "footer_chrome_alpha"
-    )
-    return graphicsLayer { this.alpha = alpha }.then(
-        if (covered) {
-            Modifier
-                .clearAndSetSemantics {}
-                .pointerInput(Unit) {
-                    awaitPointerEventScope {
-                        while (true) {
-                            awaitPointerEvent(PointerEventPass.Initial).changes.forEach { it.consume() }
-                        }
-                    }
-                }
-        } else {
-            Modifier
-        }
-    )
 }
 
 private fun LazyListScope.filterEmptyState(

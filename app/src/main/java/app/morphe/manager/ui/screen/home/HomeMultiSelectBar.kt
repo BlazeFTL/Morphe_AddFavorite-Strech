@@ -70,7 +70,7 @@ internal fun MultiSelectBar(
         )
     )
 
-    MultiSelectShell(
+    DockedPanel(
         visible = visible,
         modifier = modifier,
         onBack = { if (reorder?.isActive == true) reorder.onCancel() else onCancel() }
@@ -143,7 +143,7 @@ internal fun CategoryActionBar(
         )
     )
 
-    MultiSelectShell(visible = visible, modifier = modifier, onBack = onBack) {
+    DockedPanel(visible = visible, modifier = modifier, onBack = onBack) {
         AnimatedContent(
             targetState = category.inReorderMode,
             transitionSpec = Animations.fadeCrossfade(200),

@@ -54,6 +54,33 @@ class PatchSelectionMultiSelect(
 )
 
 /**
+ * Entry into the patch selections expert mode saves per app and source, a row of the group it
+ * is placed in.
+ */
+@Composable
+fun PatchSelectionsItem(
+    settingsViewModel: SettingsViewModel,
+    importExportViewModel: ImportExportViewModel
+) {
+    var showDialog by remember { mutableStateOf(false) }
+
+    if (showDialog) {
+        PatchSelectionManagementDialog(
+            settingsViewModel = settingsViewModel,
+            importExportViewModel = importExportViewModel,
+            onDismiss = { showDialog = false }
+        )
+    }
+
+    SettingsItem(
+        onClick = { showDialog = true },
+        title = stringResource(R.string.settings_system_patch_selections_title),
+        subtitle = stringResource(R.string.settings_system_patch_selections_description),
+        leadingContent = { ThemedIcon(icon = Icons.Outlined.Tune) }
+    )
+}
+
+/**
  * Dialog for managing patch selections.
  */
 @Composable
@@ -349,7 +376,7 @@ private fun PatchSelectionManagementDialogContent(
         },
         bottomBar = if (multiSelect.isSelectionMode) {
             {
-                MultiSelectShell(visible = true, onBack = onExitSelection) {
+                DockedPanel(visible = true, onBack = onExitSelection) {
                     SelectionActionBar(
                         selectedCount = multiSelect.selectedPackages.size,
                         totalCount = selections.size,

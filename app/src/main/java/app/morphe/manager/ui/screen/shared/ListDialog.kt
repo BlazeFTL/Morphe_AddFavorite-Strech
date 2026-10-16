@@ -42,7 +42,7 @@ private val ListDialogInset = Defaults.SpaceLarge
  *   where the platform can blur and folds its collapsible part away as the list scrolls on.
  * @param footer The dialog's buttons.
  * @param bottomBar Bar standing in for the [footer] while there is one, such as a
- *   [MultiSelectShell] while a selection is being made. It clears the navigation bar itself.
+ *   [DockedPanel] while a selection is being made. It clears the navigation bar itself.
  * @param accentColor Color of the app or source the list is about, see [DialogShell].
  * @param dismissOnClickOutside Whether clicking outside the content dismisses the dialog.
  * @param hideFooterWhileTyping Folds the [footer] away while the keyboard is up, for a list whose

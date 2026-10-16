@@ -240,7 +240,7 @@ internal fun HiddenAppsDialog(
         },
         bottomBar = if (isMultiSelectMode.value) {
             {
-                MultiSelectShell(
+                DockedPanel(
                     visible = true,
                     onBack = {
                         isMultiSelectMode.value = false

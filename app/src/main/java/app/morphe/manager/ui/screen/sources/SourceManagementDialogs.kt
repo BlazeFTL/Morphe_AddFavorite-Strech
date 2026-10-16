@@ -3,7 +3,7 @@
  * https://github.com/MorpheApp/morphe-manager
  */
 
-package app.morphe.manager.ui.screen.home
+package app.morphe.manager.ui.screen.sources
 
 import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
@@ -61,6 +61,7 @@ import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.domain.repository.appsBrought
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.appIconColorOf
+import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel.PickedBundle
 import app.morphe.manager.util.*

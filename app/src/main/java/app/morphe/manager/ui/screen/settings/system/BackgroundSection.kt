@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import android.os.PowerManager
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
@@ -41,37 +39,30 @@ fun BackgroundSection(
         }
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
-        SectionTitle(
-            text = stringResource(R.string.settings_system_background),
-            icon = Icons.Outlined.PhoneAndroid
+    SettingsGroup {
+        SettingsItem(
+            onClick = {
+                context.requestIgnoreBatteryOptimizations()
+            },
+            title = stringResource(R.string.settings_system_battery_optimization),
+            subtitle = stringResource(R.string.settings_system_battery_optimization_description),
+            leadingContent = { ThemedIcon(icon = Icons.Outlined.BatterySaver) },
+            statusContent = {
+                StatusCircleIcon(
+                    icon = if (isIgnoringBatteryOptimizations) Icons.Outlined.Check else Icons.Outlined.Warning,
+                    containerColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.primaryContainer
+                    else SemanticTone.Warning.container,
+                    contentColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.onPrimaryContainer
+                    else SemanticTone.Warning.content
+                )
+            }
         )
 
-        SettingsGroup {
-            SettingsItem(
-                onClick = {
-                    context.requestIgnoreBatteryOptimizations()
-                },
-                title = stringResource(R.string.settings_system_battery_optimization),
-                subtitle = stringResource(R.string.settings_system_battery_optimization_description),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.BatterySaver) },
-                statusContent = {
-                    StatusCircleIcon(
-                        icon = if (isIgnoringBatteryOptimizations) Icons.Outlined.Check else Icons.Outlined.Warning,
-                        containerColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.primaryContainer
-                        else SemanticTone.Warning.container,
-                        contentColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.onPrimaryContainer
-                        else SemanticTone.Warning.content
-                    )
-                }
-            )
-
-            SettingsItem(
-                onClick = onNotificationsClick,
-                title = stringResource(R.string.settings_system_notifications),
-                subtitle = stringResource(R.string.settings_system_notifications_description),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.NotificationsActive) }
-            )
-        }
+        SettingsItem(
+            onClick = onNotificationsClick,
+            title = stringResource(R.string.settings_system_notifications),
+            subtitle = stringResource(R.string.settings_system_notifications_description),
+            leadingContent = { ThemedIcon(icon = Icons.Outlined.NotificationsActive) }
+        )
     }
 }

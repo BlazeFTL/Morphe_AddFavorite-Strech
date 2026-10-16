@@ -14,10 +14,11 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 
 /**
- * Updates section settings items for the Advanced tab.
+ * Updates of the manager and its sources: pre-releases, metered connections and, in expert mode,
+ * the GitHub token the update checks are made with.
  */
 @Composable
-fun UpdatesSettingsItem(
+fun UpdatesSection(
     settingsViewModel: SettingsViewModel,
     onManagerPrereleasesToggle: () -> Unit
 ) {
@@ -26,6 +27,9 @@ fun UpdatesSettingsItem(
     val allowMeteredUpdates by prefs.allowMeteredUpdates.getAsState()
     val useManagerPrereleases by prefs.useManagerPrereleases.getAsState()
     val usePatchesPrereleases by prefs.bundlePrereleasesEnabled.getAsState()
+    val useExpertMode by prefs.useExpertMode.getAsState()
+    val gitHubPat by prefs.gitHubPat.getAsState()
+    val includeGitHubPatInExports by prefs.includeGitHubPatInExports.getAsState()
     val showPrereleaseWarning = remember { mutableStateOf(false) }
 
     fun applyManagerPrereleases() {
@@ -76,5 +80,13 @@ fun UpdatesSettingsItem(
             title = stringResource(R.string.settings_advanced_updates_allow_metered),
             subtitle = stringResource(R.string.settings_advanced_updates_allow_metered_description)
         )
+
+        if (useExpertMode) {
+            GitHubPatSettingsItem(
+                currentPat = gitHubPat,
+                currentIncludeInExport = includeGitHubPatInExports,
+                onSave = { pat, include -> settingsViewModel.setGitHubPat(pat, include) }
+            )
+        }
     }
 }

@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.CircleShape
@@ -32,6 +33,8 @@ import app.morphe.manager.R
  * itself: a filled pill in the shape of a Material search bar.
  *
  * @param requestFocus Opens the keyboard on first composition, for fields revealed by a toggle.
+ * @param glass Draws the field as the glass buttons are, for one standing among them on a screen
+ *   rather than in a dialog's header.
  */
 @Composable
 fun ListSearchField(
@@ -40,7 +43,8 @@ fun ListSearchField(
     label: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    requestFocus: Boolean = false
+    requestFocus: Boolean = false,
+    glass: Boolean = false
 ) {
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -53,8 +57,9 @@ fun ListSearchField(
     }
 
     val textColor = dialogTextColor()
-    // The fill of the toggle that opens it, so the field reads as that button drawn out over the header
-    val container = accentStepContainer(LocalAccent.current)
+    // In a header, the fill of the toggle that opens it, so the field reads as that button drawn out
+    val container = if (glass) GlassButtonDefaults.containerColor() else accentStepContainer(LocalAccent.current)
+    val edge = if (glass) CardBorder.neutral else null
     TextField(
         value = value,
         onValueChange = onValueChange,
@@ -101,6 +106,7 @@ fun ListSearchField(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = SearchFieldHeight)
+            .then(if (edge != null) Modifier.border(edge, CircleShape) else Modifier)
             .focusRequester(focusRequester)
     )
 }

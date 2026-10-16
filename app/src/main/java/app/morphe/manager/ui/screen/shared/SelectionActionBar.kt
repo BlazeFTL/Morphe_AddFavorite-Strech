@@ -31,17 +31,19 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 
 /**
- * Slide-up surface hosting a selection panel or a reorder bar. It sits on the bottom edge of the
- * screen like a sheet, with its content kept clear of the navigation bar, so it is meant for the
- * home screen's footer dock and the [ListDialog] bottom bar. Keeps the surface, blur and
- * enter/exit animations the same everywhere a selection is made.
+ * Slide-up surface docked over the bottom of a list: a selection panel, a reorder bar, or the
+ * options the list is arranged by. It sits on the bottom edge of the screen like a sheet, its
+ * content clear of the navigation bar. Unlike a sheet it leaves the list above it live.
+ *
+ * Meant for the home screen's footer dock and the [ListDialog] bottom bar, so the surface, blur and
+ * enter/exit animations stay the same everywhere one is docked.
  *
  * @param onBack Closes the panel on back, which then follows the predictive gesture down like
  * an [AppBottomSheet] does. Required so no panel is left to a back handler that cannot animate
  * it, such as the dismissal of the [ListDialog] it is docked to.
  */
 @Composable
-fun MultiSelectShell(
+fun DockedPanel(
     visible: Boolean,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -95,7 +97,7 @@ fun <T> rememberWhileVisible(visible: Boolean, value: T): T {
 }
 
 /**
- * Top line of a panel in a [MultiSelectShell] or of an [AppBottomSheet]: what it is about at the
+ * Top line of a panel in a [DockedPanel] or of an [AppBottomSheet]: what it is about at the
  * start, and its controls, if any, at the end, which are [TitleAction]s so they read like the
  * ones in a dialog's title row.
  */
@@ -169,7 +171,7 @@ data class SelectionAction(
 
 /**
  * Selection panel: the "N selected" counter with SelectAll (or DeselectAll) and Cancel, over every
- * one of [actions] as a row under its full name. Meant to be placed inside a [MultiSelectShell].
+ * one of [actions] as a row under its full name. Meant to be placed inside a [DockedPanel].
  *
  * None of the actions has anything to act on until something is selected.
  */
@@ -239,7 +241,7 @@ fun SelectionActionBar(
 }
 
 /**
- * The actions of a panel in a [MultiSelectShell], one row each under its full name, so what every
+ * The actions of a panel in a [DockedPanel], one row each under its full name, so what every
  * one does reads without guessing from an icon. Nothing is folded away, and the rows are kept
  * short enough for the panel to leave the list above it usable. Destructive actions are kept
  * apart from the rest by a divider. [enabled] holds them all back at once, as an empty selection
@@ -276,7 +278,7 @@ private fun PanelActionRow(action: SelectionAction, enabled: Boolean) {
 }
 
 /**
- * One row of a panel in a [MultiSelectShell] or an [AppBottomSheet]: [icon] and [title] at the
+ * One row of a panel in a [DockedPanel] or an [AppBottomSheet]: [icon] and [title] at the
  * start and [trailing] after it, such as the value the row opens, which takes what the title leaves
  * of the row. Every row of a panel is one of these, so its actions and its settings read as one list.
  */

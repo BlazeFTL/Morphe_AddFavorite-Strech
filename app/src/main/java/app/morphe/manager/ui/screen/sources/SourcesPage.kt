@@ -3,7 +3,7 @@
  * https://github.com/MorpheApp/morphe-manager
  */
 
-package app.morphe.manager.ui.screen.home
+package app.morphe.manager.ui.screen.sources
 
 import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
@@ -28,14 +27,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
-import androidx.compose.ui.graphics.Paint
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -49,13 +42,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.*
-import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isDefault
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isHeldBack
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
@@ -66,8 +59,10 @@ import app.morphe.manager.domain.repository.BlocklistRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.domain.repository.appsBrought
+import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.patcher.IncompatiblePatcherVersionDialog
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.util.*
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
@@ -75,29 +70,76 @@ import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import java.util.Locale
 
-/** Enough placeholder rows to fill the sheet on open without implying a count. */
+/** Enough placeholder rows to fill the page on open without implying a count. */
 private val SourceShimmerRows = (0 until 4).toList()
 
-/** Share of a source's disc its fallback glyph takes, the 24dp a 44dp disc has always given it. */
-private const val BUNDLE_GLYPH_FRACTION = 0.55f
-
-/** How far a switched off source's icon and the lines under its name fade back. */
-private const val DISABLED_SOURCE_ALPHA = 0.7f
-
 /**
- * Bottom sheet for managing patch bundles.
+ * The sources page of the main screen: every patch source as a card folding out its details and
+ * actions, searched, sorted and dragged into order from the page's header.
+ *
+ * @param bottomBarHeight Height of the navigation floating over the page, which the list ends clear of.
+ * @param onboardingState Set while the tour runs, which points into the first source.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BundleManagementSheet(
-    onDismissRequest: () -> Unit,
+fun SourcesPage(
+    homeViewModel: HomeViewModel,
+    bottomBarHeight: Dp,
+    onboardingState: OnboardingState? = null
+) {
+    val scope = rememberCoroutineScope()
+    val repository = homeViewModel.patchBundleRepository
+
+    // Replacing the file of a local source keeps its uid, so the patch selection and options
+    // stay attached instead of being stranded on a freshly added second source
+    val openLocalBundleUpdatePicker = rememberAdaptiveFilePicker(
+        mimeTypes = MPP_FILE_MIME_TYPES,
+        onResult = { uri ->
+            val uid = homeViewModel.localBundleUpdateUid
+            homeViewModel.localBundleUpdateUid = null
+            if (uri != null && uid != null) homeViewModel.updateLocalSource(uid, uri)
+        }
+    )
+
+    SourcesPageContent(
+        bottomBarHeight = bottomBarHeight,
+        onboardingState = onboardingState,
+        onAddSource = { homeViewModel.showAddSourceDialog = true },
+        onDelete = { bundle -> scope.launch { repository.remove(bundle) } },
+        onDisable = { bundle -> scope.launch { repository.disable(bundle) } },
+        onUpdate = { bundle ->
+            if (bundle is RemotePatchBundle) {
+                scope.launch {
+                    // A source that failed to load may hold a broken jar of the current version,
+                    // which a plain version check would keep
+                    repository.update(
+                        bundle,
+                        force = bundle.state is PatchBundleSource.State.Failed,
+                        showMessage = true
+                    )
+                }
+            } else {
+                homeViewModel.localBundleUpdateUid = bundle.uid
+                openLocalBundleUpdatePicker()
+            }
+        },
+        onRename = { bundle ->
+            homeViewModel.bundleToRename = bundle
+            homeViewModel.showRenameBundleDialog = true
+        },
+        onReorder = { orderedUids -> scope.launch { repository.reorderBundles(orderedUids) } }
+    )
+}
+
+@Composable
+private fun SourcesPageContent(
+    bottomBarHeight: Dp,
+    onboardingState: OnboardingState?,
     onAddSource: () -> Unit,
     onDelete: (PatchBundleSource) -> Unit,
     onDisable: (PatchBundleSource) -> Unit,
     onUpdate: (PatchBundleSource) -> Unit,
     onRename: (PatchBundleSource) -> Unit,
-    onReorder: (List<Int>) -> Unit,
-    globalOnboardingState: GlobalOnboardingState? = null
+    onReorder: (List<Int>) -> Unit
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
     val prefs: PreferencesManager = koinInject()
@@ -130,7 +172,8 @@ fun BundleManagementSheet(
         }
     }
 
-    val showSheetOnboarding = globalOnboardingState?.sheetOnboardingActive == true
+    // The tour points into the first source, so it stays open while the tour runs
+    val isTourRunning = onboardingState != null
 
     val bundleToDelete = remember { mutableStateOf<PatchBundleSource?>(null) }
     // Set when the user flips pre-releases on: the toggle waits for confirmation first,
@@ -146,13 +189,13 @@ fun BundleManagementSheet(
     // Drag-and-drop state
     val listState = rememberLazyListState()
     var listWindowY by remember { mutableFloatStateOf(0f) }
-    LaunchedEffect(globalOnboardingState) {
-        globalOnboardingState?.onScrollToFirstSource = {
+    LaunchedEffect(onboardingState) {
+        onboardingState?.onScrollToFirstSource = {
             scope.launch { listState.animateScrollToItem(0) }
         }
-        globalOnboardingState?.onScrollToPrerelease = {
+        onboardingState?.onScrollToPrerelease = {
             scope.launch {
-                val bounds = globalOnboardingState.sourcesPrereleaseBounds ?: return@launch
+                val bounds = onboardingState.sourcesPrereleaseBounds ?: return@launch
                 val offset = (bounds.top - listWindowY).coerceAtLeast(0f).toInt()
                 listState.animateScrollToItem(0, offset)
             }
@@ -258,7 +301,8 @@ fun BundleManagementSheet(
         }
     }
 
-    AppBottomSheet(onDismissRequest = onDismissRequest) {
+    val horizontalPadding = rememberWindowSize().contentPadding
+    Box(modifier = Modifier.fillMaxSize()) {
         val context = LocalContext.current
         val messages = koinInject<UserMessages>()
         val uriHandler = LocalUriHandler.current
@@ -279,25 +323,24 @@ fun BundleManagementSheet(
             context.startActivity(Intent.createChooser(intent, null))
         }
 
-        // Registered inside the sheet content so it outranks the sheet's own dismiss handler
+        // Registered inside the page so it outranks the main screen's own back handling
         SearchFieldBackHandler(search)
 
         Box {
-            Column(Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + Defaults.SpaceLarge)
+            ) {
                 // Header - outside scrollable area
-                PanelHeader(
-                    title = {
-                        Column {
-                            PanelTitle(text = stringResource(R.string.sources_management_title))
-                            PanelSubtitle(
-                                text = pluralStringResource(
-                                    R.plurals.sources_management_subtitle,
-                                    sources.size,
-                                    sources.size.toString()
-                                )
-                            )
-                        }
-                    }
+                PageHeader(
+                    title = stringResource(R.string.sources),
+                    subtitle = pluralStringResource(
+                        R.plurals.sources_management_subtitle,
+                        sources.size,
+                        sources.size.toString()
+                    ),
+                    modifier = Modifier.padding(horizontal = horizontalPadding)
                 ) {
                     AnimatedVisibility(visible = isSearchable) {
                         Row(
@@ -341,10 +384,10 @@ fun BundleManagementSheet(
                         icon = Icons.Default.Add,
                         contentDescription = stringResource(R.string.add),
                         onClick = onAddSource,
-                        style = TitleActionStyle.Neutral
+                        style = TitleActionStyle.Accent
                     )
                 }
-                Column(modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)) {
+                Column(modifier = Modifier.padding(horizontal = horizontalPadding)) {
                     AnimatedVisibility(
                         visible = search.visible,
                         enter = Animations.expandFadeEnter,
@@ -364,13 +407,11 @@ fun BundleManagementSheet(
                     Spacer(Modifier.height(Defaults.SpaceSmall))
                 }
 
-                // Bundle cards. The navigation bar inset goes on the box, so the scrollbar and the
-                // scroll-to-top button above the list stop short of it along with the list
+                // Bundle cards, running on under the navigation floating over the page
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f, fill = false)
-                        .navigationBarsPadding()
+                        .weight(1f)
                 ) {
                     val listRowResizing = remember { ListRowResizing() }
                     CompositionLocalProvider(LocalListRowResizing provides listRowResizing) {
@@ -382,9 +423,9 @@ fun BundleManagementSheet(
                                 .verticalScrollFade(listState),
                             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
                             contentPadding = PaddingValues(
-                                start = Defaults.SpaceLarge,
-                                end = Defaults.SpaceLarge,
-                                bottom = Defaults.SpaceLarge
+                                start = horizontalPadding,
+                                end = horizontalPadding,
+                                bottom = bottomBarHeight + Defaults.SpaceLarge
                             )
                         ) {
                             if (isLoadingSources) {
@@ -481,7 +522,7 @@ fun BundleManagementSheet(
                                             onDelete = { bundleToDelete.value = bundle }
                                         ),
                                         expanded = isSingleDefaultBundle || bundle.uid in expandedBundleUids ||
-                                            (showSheetOnboarding && isFirstCard),
+                                            (isTourRunning && isFirstCard),
                                         onToggleExpanded = {
                                             expandedBundleUids = if (bundle.uid in expandedBundleUids) {
                                                 expandedBundleUids - bundle.uid
@@ -509,9 +550,9 @@ fun BundleManagementSheet(
                                         },
                                         tourTargets = if (isFirstCard) {
                                             SourceCardTourTargets(
-                                                onPatchesPositioned = { globalOnboardingState?.sourcesPatchesBounds = it },
-                                                onVersionPositioned = { globalOnboardingState?.sourcesVersionBounds = it },
-                                                onPrereleasePositioned = { globalOnboardingState?.sourcesPrereleaseBounds = it }
+                                                onPatchesPositioned = { onboardingState?.sourcesPatchesBounds = it },
+                                                onVersionPositioned = { onboardingState?.sourcesVersionBounds = it },
+                                                onPrereleasePositioned = { onboardingState?.sourcesPrereleaseBounds = it }
                                             )
                                         } else null,
                                         modifier = Modifier.zIndex(if (itemIsDragging) 1f else 0f)
@@ -524,12 +565,12 @@ fun BundleManagementSheet(
                     ListScrollbar(
                         listState = listState,
                         // The same step at both ends as on the screens, so the end shows past rounded corners
-                        modifier = Modifier.padding(vertical = Defaults.SpaceMedium),
+                        modifier = Modifier.padding(top = Defaults.SpaceMedium, bottom = bottomBarHeight + Defaults.SpaceMedium),
                         alphabetTargets = sourceScrollTargets,
                         alphabetMode = alphabetScrollMode
                     )
 
-                    ScrollToTopButton(listState = listState)
+                    ScrollToTopButton(listState = listState, extraBottomPadding = bottomBarHeight)
                 }
             }
         }
@@ -657,7 +698,7 @@ private data class SourceAppCount(val brought: Int, val listed: Int, val unseen:
 /** What a source card reports about its source, beyond the source itself. */
 private data class SourceCardInfo(
     val patchCount: Int,
-    /** Patches matching the sheet's search, or null while nothing is searched. */
+    /** Patches matching the page's search, or null while nothing is searched. */
     val patchMatchCount: Int?,
     val appCount: SourceAppCount,
     val updateInfo: PatchBundleRepository.ManualBundleUpdateInfo?,
@@ -721,7 +762,7 @@ private fun BundleManagementCard(
     val isEnabled = bundle.enabled && !isBlocked
     val isUnavailable = info.metadataFetchError != null || bundle.state is PatchBundleSource.State.Missing
 
-    // Neutral fill for all, so the sheet reads as one list; a working source keeps its color on the edge
+    // Neutral fill for all, so the page reads as one list; a working source keeps its color on the edge
     // and controls, a disabled one drops it rather than turn red, which stays for an unusable source
     val accentColor = usableAppAccent(rememberBundleAccent(bundle).takeIf { isEnabled && !isUnavailable })
     val cardColor = when {
@@ -754,6 +795,8 @@ private fun BundleManagementCard(
         shape = RoundedCornerShape(Defaults.CornerLarge),
         tonalElevation = if (isDragging) 8.dp else 3.dp,
         color = animatedColor,
+        // The fill is a blend of the card's own, which the theme has no content color paired with
+        contentColor = MaterialTheme.colorScheme.onSurface,
         border = CardBorder.of(animatedBorderColor)
     ) {
         ProvideCardAccent(accentColor, cardColor) {
@@ -1243,7 +1286,7 @@ private fun BundleCardHeader(
 }
 
 /**
- * Header badge for a state a source can enter and leave while the sheet is open, easing in and out
+ * Header badge for a state a source can enter and leave while the page is open, easing in and out
  * beside the badges that stay.
  */
 @Composable
@@ -1286,134 +1329,9 @@ private fun Modifier.reportBounds(onPositioned: ((Rect) -> Unit)?): Modifier =
     if (onPositioned == null) this else onGloballyPositioned { onPositioned(it.boundsInWindow()) }
 
 /**
- * @param accentColor Color of the card the badge sits on, the surrounding one by default, see
- *   [LocalAccent]. Null for the neutral badge.
- */
-@Composable
-fun BundleTypeBadge(
-    type: BundleSourceType,
-    modifier: Modifier = Modifier,
-    accentColor: Color? = LocalAccent.current
-) {
-    val text = when (type) {
-        BundleSourceType.PreInstalled -> stringResource(R.string.sources_dialog_preinstalled)
-        BundleSourceType.Remote -> stringResource(R.string.sources_dialog_remote)
-        BundleSourceType.Local -> stringResource(R.string.sources_dialog_local)
-    }
-    AppAccentBadge(text = text, modifier = modifier, accentColor = accentColor)
-}
-
-/**
  * Color a source's own dialogs head themselves with: its icon's, or the theme's accent where the
  * icon has none. A source that is off keeps it, since its dialogs say so in words of their own.
  */
 @Composable
 internal fun rememberSourceHeaderColor(bundle: PatchBundleSource): Color =
     rememberBundleAccent(bundle) ?: MaterialTheme.colorScheme.primary
-
-@Composable
-fun BundleIcon(
-    bundle: PatchBundleSource,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    metadataFetchError: Throwable? = null
-) {
-    val avatarUrls = bundle.avatarUrls
-    val hasMetadataError = metadataFetchError != null
-    val hasBundleError = bundle.state is PatchBundleSource.State.Failed
-    val isMissing = bundle.state is PatchBundleSource.State.Missing
-
-    val animatedColor by animateColorAsState(
-        targetValue = when {
-            bundle.isDefault -> Color.White
-            hasBundleError -> MaterialTheme.colorScheme.errorContainer
-            // Matches the icon below, which a missing source wears as well
-            hasMetadataError || isMissing -> SemanticTone.Warning.container
-            enabled -> MaterialTheme.colorScheme.primaryContainer
-            else -> MaterialTheme.colorScheme.surfaceVariant.distinctFromCard()
-        },
-        label = "bundle_icon_color"
-    )
-
-    val animatedAlpha by animateFloatAsState(
-        targetValue = if (enabled) 1f else DISABLED_SOURCE_ALPHA,
-        label = "bundle_icon_alpha"
-    )
-    // Drained of color as well as faded, since a faded photo alone reads as murky rather than off
-    val animatedSaturation by animateFloatAsState(
-        targetValue = if (enabled) 1f else 0f,
-        label = "bundle_icon_saturation"
-    )
-
-    Surface(
-        modifier = modifier
-            .graphicsLayer { alpha = animatedAlpha }
-            .saturation(animatedSaturation),
-        shape = CircleShape,
-        color = animatedColor
-    ) {
-        when {
-            bundle.isDefault -> MorpheLauncherLogo(modifier = Modifier.fillMaxSize())
-
-            hasBundleError -> {
-                Icon(
-                    imageVector = Icons.Outlined.ErrorOutline,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onErrorContainer,
-                    modifier = Modifier.bundleGlyph()
-                )
-            }
-
-            hasMetadataError || isMissing -> {
-                Icon(
-                    imageVector = Icons.Outlined.CloudOff,
-                    contentDescription = null,
-                    tint = SemanticTone.Warning.content,
-                    modifier = Modifier.bundleGlyph()
-                )
-            }
-
-            avatarUrls.primary != null -> {
-                RemoteAvatar(
-                    url = avatarUrls.primary,
-                    fallbackUrl = avatarUrls.fallback,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-
-            else -> {
-                Icon(
-                    imageVector = Icons.Outlined.Source,
-                    contentDescription = null,
-                    tint = if (enabled)
-                        MaterialTheme.colorScheme.onPrimaryContainer
-                    else
-                        MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.bundleGlyph()
-                )
-            }
-        }
-    }
-}
-
-/**
- * Sizes a source's fallback glyph as a share of its disc, so the glyph keeps its proportions on a
- * small disc such as a tab's instead of a fixed inset leaving it a speck.
- */
-private fun Modifier.bundleGlyph(): Modifier = wrapContentSize().fillMaxSize(BUNDLE_GLYPH_FRACTION)
-
-/** Draws the content at [saturation], from 0 for grayscale to 1 for its own colors. */
-private fun Modifier.saturation(saturation: Float): Modifier = drawWithCache {
-    // Full color skips the offscreen layer, which every source that is on would otherwise pay for
-    if (saturation >= 1f) return@drawWithCache onDrawWithContent { drawContent() }
-    val paint = Paint().apply {
-        colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(saturation) })
-    }
-    onDrawWithContent {
-        drawIntoCanvas { canvas ->
-            canvas.saveLayer(size.toRect(), paint)
-            drawContent()
-            canvas.restore()
-        }
-    }
-}

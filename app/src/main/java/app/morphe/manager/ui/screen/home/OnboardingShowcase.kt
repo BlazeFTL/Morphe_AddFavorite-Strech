@@ -38,11 +38,13 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import app.morphe.manager.ui.screen.settings.SettingsCategory
 import app.morphe.manager.ui.screen.shared.ActionPillButton
 import app.morphe.manager.ui.screen.shared.ActionPillColors
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.CardBorder
 import app.morphe.manager.ui.screen.shared.Defaults
+import app.morphe.manager.ui.screen.shared.MainPage
 import app.morphe.manager.ui.screen.shared.PanelHeader
 import app.morphe.manager.ui.screen.shared.PanelSubtitle
 import app.morphe.manager.ui.screen.shared.PanelTitle
@@ -60,37 +62,21 @@ data class StepDef(
     val onShow: (() -> Unit)? = null
 )
 
-/** Holds the window-space bounds for each home-screen spotlight target. */
+/**
+ * Where the tour's spotlight targets sit in the window, and the hooks it moves the main screen
+ * with. Handed to the screen only while the tour runs.
+ */
 class OnboardingState {
-    var sourcesButtonBounds by mutableStateOf<Rect?>(null)
     var firstAppCardBounds by mutableStateOf<Rect?>(null)
-    var settingsButtonBounds by mutableStateOf<Rect?>(null)
     var swipeActive by mutableStateOf(false)
-}
-
-/** Holds window-space bounds and nav callbacks for Settings-screen spotlight targets. */
-class GlobalOnboardingState {
-    // Sources sheet
+    val navigationBounds = mutableStateMapOf<MainPage, Rect>()
     var sourcesPatchesBounds by mutableStateOf<Rect?>(null)
     var sourcesVersionBounds by mutableStateOf<Rect?>(null)
     var sourcesPrereleaseBounds by mutableStateOf<Rect?>(null)
-    var sheetOnboardingActive by mutableStateOf(false)
-    // Settings screen
-    var appearanceTabBounds by mutableStateOf<Rect?>(null)
-    var themeSelectorBounds by mutableStateOf<Rect?>(null)
-    var expertModeBounds by mutableStateOf<Rect?>(null)
-    var systemTabBounds by mutableStateOf<Rect?>(null)
-    var installerSectionBounds by mutableStateOf<Rect?>(null)
-    var processRuntimeBounds by mutableStateOf<Rect?>(null)
-    var filePickerBounds by mutableStateOf<Rect?>(null)
-    var onNavigateToAppearanceTab: (() -> Unit)? = null
-    var onNavigateToSystemTab: (() -> Unit)? = null
-    var onScrollToThemeSelector: (() -> Unit)? = null
-    var onScrollToInstaller: (() -> Unit)? = null
-    var onScrollToProcessRuntime: (() -> Unit)? = null
-    var onScrollToFilePicker: (() -> Unit)? = null
+    val settingsCategoryBounds = mutableStateMapOf<SettingsCategory, Rect>()
+    /** The page the current step is on, which the main screen turns to. */
+    var page by mutableStateOf<MainPage?>(null)
     var onScrollToFirstSource: (() -> Unit)? = null
-    var onScrollToExpertMode: (() -> Unit)? = null
     var onScrollToPrerelease: (() -> Unit)? = null
 }
 
@@ -102,26 +88,16 @@ class GlobalOnboardingState {
 fun OnboardingShowcase(
     steps: List<StepDef>,
     onComplete: () -> Unit,
-    onSkip: () -> Unit = onComplete,
-    stepOffset: Int = 0,
-    totalStepsOverride: Int? = null,
-    initialStep: Int = 0,
-    onPhaseBack: (() -> Unit)? = null
+    onSkip: () -> Unit = onComplete
 ) {
     if (steps.isEmpty()) return
-    var step by remember { mutableIntStateOf(initialStep.coerceIn(0, steps.size - 1)) }
+    var step by remember { mutableIntStateOf(0) }
 
     BackHandler {
-        when {
-            step > 0 -> step -= 1
-            onPhaseBack != null -> onPhaseBack()
-            else -> onSkip()
-        }
+        if (step > 0) step -= 1 else onSkip()
     }
     val stepDef = steps[step]
     val bounds = stepDef.getBounds()
-    val displayStep = stepOffset + step + 1
-    val displayTotal = totalStepsOverride ?: steps.size
 
     LaunchedEffect(step) { steps[step].onShow?.invoke() }
 
@@ -227,14 +203,10 @@ fun OnboardingShowcase(
             OnboardingCard(
                 title = stringResource(stepDef.titleRes),
                 description = stringResource(stepDef.descRes),
-                step = displayStep,
-                totalSteps = displayTotal,
+                step = step + 1,
+                totalSteps = steps.size,
                 onNext = { if (step < steps.size - 1) step++ else onComplete() },
-                onPrevious = when {
-                    step > 0 -> { { step -= 1 } }
-                    onPhaseBack != null -> onPhaseBack
-                    else -> null
-                },
+                onPrevious = if (step > 0) { { step -= 1 } } else null,
                 onSkip = onSkip,
                 modifier = Modifier
                     .align(Alignment.TopStart)

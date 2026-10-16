@@ -64,8 +64,7 @@ class FloatingPillItem(
 
 /**
  * Screen-level actions or tabs on a pill floating over the bottom of the content, which scrolls
- * on beneath it to the edge of the screen. [trailing] sits beside the pill, for a single action
- * that stands apart, see [FloatingPillRoundAction].
+ * on beneath it to the edge of the screen.
  *
  * The bar takes the navigation bar inset itself, so the content under it should not, and should
  * leave room for the bar's height at the end of its scroll, which [FloatingBarsLayout] hands it.
@@ -74,8 +73,7 @@ class FloatingPillItem(
 fun FloatingPillBar(
     items: List<FloatingPillItem>,
     modifier: Modifier = Modifier,
-    horizontalPadding: Dp = rememberWindowSize().contentPadding,
-    trailing: @Composable RowScope.() -> Unit = {}
+    horizontalPadding: Dp = rememberWindowSize().contentPadding
 ) {
     Box(
         modifier = modifier
@@ -90,7 +88,6 @@ fun FloatingPillBar(
                 .padding(horizontal = horizontalPadding)
                 .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Bottom))
                 .padding(bottom = Defaults.SpaceMedium),
-            // No spacing of its own: a trailing action brings its gap along, see [AnimatedRowPill]
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -134,8 +131,6 @@ fun FloatingPillBar(
                     }
                 }
             }
-
-            trailing()
         }
     }
 }
@@ -150,48 +145,6 @@ fun AnimatedRowPill(visible: Boolean, gap: Dp = Defaults.SpaceSmall, content: @C
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(gap))
             content()
-        }
-    }
-}
-
-/** A round action standing beside the pill of a [FloatingPillBar], labeled by its tooltip. */
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun FloatingPillRoundAction(
-    icon: ImageVector,
-    label: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    tone: BottomActionTone = BottomActionTone.Accent
-) {
-    val colors = tone.colors()
-    TooltipBox(
-        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
-        tooltip = { PlainTooltip { Text(label) } },
-        state = rememberTooltipState(),
-        modifier = modifier
-    ) {
-        val interactionSource = remember { MutableInteractionSource() }
-        val shape = rememberPressShape(interactionSource, CircleShape)
-        Surface(
-            onClick = rememberHapticClick(onClick),
-            modifier = Modifier
-                .size(FloatingPillHeight)
-                .glassFill(colors.container, shape)
-                .semantics { contentDescription = label },
-            shape = shape,
-            color = Color.Transparent,
-            contentColor = colors.content,
-            border = CardBorder.of(colors.border),
-            interactionSource = interactionSource
-        ) {
-            Box(contentAlignment = Alignment.Center) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    modifier = Modifier.size(Defaults.IconSize)
-                )
-            }
         }
     }
 }

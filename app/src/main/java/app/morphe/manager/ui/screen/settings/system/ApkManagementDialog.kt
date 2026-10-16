@@ -763,7 +763,7 @@ private fun ApkManagementDialogContent(
         },
         bottomBar = if (isMultiSelectMode) {
             {
-                MultiSelectShell(
+                DockedPanel(
                     visible = true,
                     onBack = { selection.clear(); isMultiSelectMode = false }
                 ) {

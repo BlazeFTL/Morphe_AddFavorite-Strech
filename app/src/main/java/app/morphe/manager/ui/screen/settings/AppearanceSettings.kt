@@ -8,10 +8,7 @@ package app.morphe.manager.ui.screen.settings
 import android.app.Activity
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Sort
 import androidx.compose.material.icons.outlined.*
@@ -19,11 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.boundsInParent
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
@@ -45,26 +38,23 @@ import app.morphe.manager.util.AppLocale
 import app.morphe.manager.util.MORPHE_WEBSITE_URL
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
-import kotlin.math.roundToInt
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * Appearance tab content.
+ * The appearance section of the settings: language and scale, theme, colors and the home screen.
  */
 @Composable
-fun AppearanceTabContent(
-    theme: Theme,
-    themeStyle: ThemeStyle,
-    pureBlackTheme: Boolean,
-    customAccentColorHex: String?,
-    themeViewModel: ThemeSettingsViewModel,
-    homeAppButtonPrefs: HomeAppButtonPreferences = koinInject(),
-    scrollState: ScrollState = rememberScrollState(),
-    onThemeSelectorPositioned: ((Rect) -> Unit)? = null,
-    onThemeSelectorScrollTarget: ((Int) -> Unit)? = null
+fun AppearanceSettings(
+    themeViewModel: ThemeSettingsViewModel = koinViewModel(),
+    homeAppButtonPrefs: HomeAppButtonPreferences = koinInject()
 ) {
     val scope = rememberCoroutineScope()
+    val theme by themeViewModel.prefs.theme.getAsState()
+    val themeStyle by themeViewModel.prefs.themeStyle.getAsState()
+    val pureBlackTheme by themeViewModel.prefs.pureBlackTheme.getAsState()
+    val customAccentColorHex by themeViewModel.prefs.customAccentColor.getAsState()
     val context = LocalContext.current
     val supportsDynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val appLanguage by AppLocale.selected.collectAsStateWithLifecycle()
@@ -108,14 +98,7 @@ fun AppearanceTabContent(
         if (!showAppCardColorSetting) showAppCardColorDialog.value = false
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScrollFade(scrollState)
-            .verticalScroll(scrollState)
-            .padding(settingsTabPadding()),
-        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
-    ) {
+    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
         LanguageAndDisplaySection(
             appLanguage = appLanguage,
             uiScale = uiScale,
@@ -138,9 +121,7 @@ fun AppearanceTabContent(
             onOutlinesToggle = { themeViewModel.toggleOutlines(outlines) },
             backgroundType = backgroundType,
             randomInterval = randomInterval,
-            onBackgroundClick = { showBackgroundDialog.value = true },
-            onSelectorPositioned = onThemeSelectorPositioned,
-            onSelectorScrollTarget = onThemeSelectorScrollTarget
+            onBackgroundClick = { showBackgroundDialog.value = true }
         )
 
         ColorsSection(
@@ -187,7 +168,7 @@ fun AppearanceTabContent(
     ) {
         AppCardColorDialog(
             mode = appCardColorMode,
-            accentColorHex = customAccentColorHex.orEmpty(),
+            accentColorHex = customAccentColorHex,
             startColorHex = appCardColorValues.startHex,
             middleColorHex = appCardColorValues.middleHex,
             endColorHex = appCardColorValues.endHex,
@@ -325,35 +306,20 @@ private fun ThemeSection(
     onOutlinesToggle: () -> Unit,
     backgroundType: BackgroundType,
     randomInterval: RandomInterval,
-    onBackgroundClick: () -> Unit,
-    onSelectorPositioned: ((Rect) -> Unit)?,
-    onSelectorScrollTarget: ((Int) -> Unit)?
+    onBackgroundClick: () -> Unit
 ) {
     SectionTitle(
         text = stringResource(R.string.settings_appearance_theme),
         icon = Icons.Outlined.Palette
     )
 
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .then(
-                if (onSelectorPositioned != null || onSelectorScrollTarget != null)
-                    Modifier.onGloballyPositioned { coords ->
-                        onSelectorPositioned?.invoke(coords.boundsInWindow())
-                        onSelectorScrollTarget?.invoke(coords.boundsInParent().top.roundToInt())
-                    }
-                else Modifier
-            )
-    ) {
-        ThemeSelector(
-            theme = theme,
-            onThemeSelected = onThemeSelected,
-            style = themeStyle,
-            supportsDynamicColor = supportsDynamicColor,
-            onStyleSelected = onStyleSelected
-        )
-    }
+    ThemeSelector(
+        theme = theme,
+        onThemeSelected = onThemeSelected,
+        style = themeStyle,
+        supportsDynamicColor = supportsDynamicColor,
+        onStyleSelected = onStyleSelected
+    )
 
     SettingsGroup {
         AnimatedVisibility(

@@ -822,16 +822,12 @@ class HomeApps(
     val showSwipeGestureHint = MutableStateFlow(false)
 
     /**
-     * Whether the "Other apps" button should be visible.
-     * Hidden while no apps are loaded; shown in expert mode or when a third-party source is active.
+     * Whether the "Other apps" button should be visible: once the apps have loaded, and only with
+     * a third-party source active, since the default source's apps are all on the list already.
      */
     val showOtherAppsButton: StateFlow<Boolean> =
-        combine(
-            homeAppState,
-            hasThirdPartySource,
-            prefs.useExpertMode.flow
-        ) { state, thirdParty, expertMode ->
-            !state?.visible.isNullOrEmpty() && (expertMode || thirdParty)
+        combine(homeAppState, hasThirdPartySource) { state, thirdParty ->
+            !state?.visible.isNullOrEmpty() && thirdParty
         }.stateIn(scope, SharingStarted.Eagerly, false)
 
     /**

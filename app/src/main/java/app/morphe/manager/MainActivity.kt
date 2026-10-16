@@ -30,11 +30,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -45,6 +41,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.domain.manager.HomeAppButtonPreferences
 import app.morphe.manager.domain.manager.PreferencesManager
@@ -53,33 +50,31 @@ import app.morphe.manager.ui.model.navigation.*
 import app.morphe.manager.ui.screen.BatchPatcherScreen
 import app.morphe.manager.ui.screen.HomeScreen
 import app.morphe.manager.ui.screen.PatcherScreen
-import app.morphe.manager.ui.screen.SettingsScreen
 import app.morphe.manager.ui.screen.home.*
+import app.morphe.manager.ui.screen.settings.SettingsCategory
+import app.morphe.manager.ui.screen.settings.SettingsCategoryScreen
 import app.morphe.manager.ui.screen.shared.AnimatedBackground
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.BackgroundType
+import app.morphe.manager.ui.screen.shared.MainPage
 import app.morphe.manager.ui.screen.shared.MessageHost
 import app.morphe.manager.ui.screen.shared.RandomBackground
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberRandomBackground
+import app.morphe.manager.ui.screen.sources.BundleChangelogHost
+import app.morphe.manager.ui.screen.sources.BundleChangelogRequest
 import app.morphe.manager.ui.theme.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.MainViewModel
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
 import app.morphe.manager.util.*
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeoutOrNull
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.parametersOf
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.seconds
 import org.koin.androidx.viewmodel.ext.android.getViewModel as getActivityViewModel
-
-private enum class OnboardingPhase { HOME, SHEET, SETTINGS, DONE }
 
 class MainActivity : AppCompatActivity() {
 
@@ -475,127 +470,88 @@ private fun MorpheManager(vm: MainViewModel) {
     // Set by HomeViewModel.resolvePrePatchInstallerChoice()
     val usingMountInstallState = remember { mutableStateOf(false) }
 
-    // Unified onboarding
-    val wantsOnboardingTour = remember { mutableStateOf(false) }
-    var onboardingPhase by remember { mutableStateOf(OnboardingPhase.HOME) }
-    var phaseInitialStep by remember { mutableIntStateOf(0) }
-    val showOnboarding = wantsOnboardingTour.value && onboardingPhase != OnboardingPhase.DONE
-    var showOnboardingOverlay by remember { mutableStateOf(true) }
-    val homeOnboardingState = remember { OnboardingState() }
-    val globalOnboardingState = remember { GlobalOnboardingState() }
+    // Onboarding tour, run over the main screen from its first step
+    var showOnboarding by remember { mutableStateOf(false) }
+    val onboardingState = remember { OnboardingState() }
 
-    val homeSteps = remember(homeOnboardingState) {
+    val onboardingSteps = remember(onboardingState) {
+        fun category(category: SettingsCategory) = onboardingState.settingsCategoryBounds[category]
         listOf(
             StepDef(
                 R.string.onboarding_swipe_title, R.string.onboarding_swipe_desc,
-                getBounds = { homeOnboardingState.firstAppCardBounds },
+                getBounds = { onboardingState.firstAppCardBounds },
                 onShow = {
-                    homeOnboardingState.swipeActive = true
+                    onboardingState.page = MainPage.APPS
+                    onboardingState.swipeActive = true
                     homeViewModel.apps.triggerSwipeGestureHint()
                 }
             ),
             StepDef(
                 R.string.sources_management_title, R.string.onboarding_sources_desc,
-                getBounds = { homeOnboardingState.sourcesButtonBounds },
+                getBounds = { onboardingState.navigationBounds[MainPage.SOURCES] },
                 onShow = {
-                    homeOnboardingState.swipeActive = false
+                    onboardingState.page = MainPage.APPS
+                    onboardingState.swipeActive = false
                     homeViewModel.apps.markSwipeGestureHintShown()
                 }
-            )
-        )
-    }
-
-    val settingsSteps = remember(homeOnboardingState, globalOnboardingState) {
-        listOf(
+            ),
+            StepDef(
+                R.string.patches, R.string.onboarding_sources_patches_desc,
+                getBounds = { onboardingState.sourcesPatchesBounds },
+                onShow = {
+                    onboardingState.page = MainPage.SOURCES
+                    onboardingState.onScrollToFirstSource?.invoke()
+                }
+            ),
+            StepDef(
+                R.string.changelog, R.string.onboarding_sources_version_desc,
+                getBounds = { onboardingState.sourcesVersionBounds }
+            ),
+            StepDef(
+                R.string.sources_management_prerelease_toggle, R.string.onboarding_sources_prerelease_desc,
+                getBounds = { onboardingState.sourcesPrereleaseBounds },
+                onShow = {
+                    onboardingState.page = MainPage.SOURCES
+                    onboardingState.onScrollToPrerelease?.invoke()
+                }
+            ),
             StepDef(
                 R.string.settings, R.string.onboarding_settings_desc,
-                getBounds = { homeOnboardingState.settingsButtonBounds },
-                onShow = { navController.popBackStack(HomeScreen, false) }
+                getBounds = { onboardingState.navigationBounds[MainPage.SETTINGS] }
             ),
             StepDef(
-                R.string.appearance, R.string.onboarding_appearance_tab_desc,
-                getBounds = { globalOnboardingState.appearanceTabBounds },
-                onShow = {
-                    scope.launch {
-                        navController.navigate(Settings) { launchSingleTop = true }
-                        // Wait for SettingsScreen to compose and register callbacks (skipped if already there)
-                        withTimeoutOrNull(2.seconds) {
-                            while (globalOnboardingState.onNavigateToAppearanceTab == null) {
-                                delay(16.milliseconds)
-                            }
-                        }
-                        globalOnboardingState.onNavigateToAppearanceTab?.invoke()
-                    }
-                }
+                R.string.patches, R.string.onboarding_expert_mode_desc,
+                getBounds = { category(SettingsCategory.PATCHES) },
+                onShow = { onboardingState.page = MainPage.SETTINGS }
             ),
             StepDef(
-                R.string.settings_appearance_theme, R.string.onboarding_appearance_theme_desc,
-                getBounds = { globalOnboardingState.themeSelectorBounds },
-                onShow = {
-                    globalOnboardingState.onNavigateToAppearanceTab?.invoke()
-                    globalOnboardingState.onScrollToThemeSelector?.invoke()
-                }
-            ),
-            StepDef(
-                R.string.settings_advanced_expert_mode, R.string.onboarding_expert_mode_desc,
-                getBounds = { globalOnboardingState.expertModeBounds },
-                onShow = { globalOnboardingState.onScrollToExpertMode?.invoke() }
-            ),
-            StepDef(
-                R.string.settings_system_process_runtime, R.string.onboarding_system_process_runtime_desc,
-                getBounds = { globalOnboardingState.processRuntimeBounds },
-                onShow = { globalOnboardingState.onScrollToProcessRuntime?.invoke() }
-            ),
-            StepDef(
-                R.string.onboarding_system_tab_title, R.string.onboarding_system_tab_desc,
-                getBounds = { globalOnboardingState.systemTabBounds },
-                onShow = { globalOnboardingState.onNavigateToSystemTab?.invoke() }
+                R.string.settings_advanced_patcher, R.string.onboarding_system_file_picker_desc,
+                getBounds = { category(SettingsCategory.PATCHER) }
             ),
             StepDef(
                 R.string.installer, R.string.onboarding_system_installer_desc,
-                getBounds = { globalOnboardingState.installerSectionBounds },
-                onShow = { globalOnboardingState.onScrollToInstaller?.invoke() }
+                getBounds = { category(SettingsCategory.INSTALLER) }
             ),
             StepDef(
-                R.string.settings_system_custom_file_picker, R.string.onboarding_system_file_picker_desc,
-                getBounds = { globalOnboardingState.filePickerBounds },
-                onShow = { globalOnboardingState.onScrollToFilePicker?.invoke() }
+                R.string.appearance, R.string.onboarding_appearance_tab_desc,
+                getBounds = { category(SettingsCategory.APPEARANCE) }
             )
         )
     }
 
-    val sheetSteps = remember(globalOnboardingState) {
-        listOf(
-            StepDef(
-                titleRes = R.string.patches,
-                descRes = R.string.onboarding_sources_patches_desc,
-                getBounds = { globalOnboardingState.sourcesPatchesBounds },
-                onShow = { globalOnboardingState.onScrollToFirstSource?.invoke() }
-            ),
-            StepDef(
-                titleRes = R.string.changelog,
-                descRes = R.string.onboarding_sources_version_desc,
-                getBounds = { globalOnboardingState.sourcesVersionBounds }
-            ),
-            StepDef(
-                titleRes = R.string.sources_management_prerelease_toggle,
-                descRes = R.string.onboarding_sources_prerelease_desc,
-                getBounds = { globalOnboardingState.sourcesPrereleaseBounds },
-                onShow = { globalOnboardingState.onScrollToPrerelease?.invoke() }
-            )
-        )
-    }
-
-    val totalOnboardingSteps = homeSteps.size + sheetSteps.size + settingsSteps.size
-
-    // Every entry point starts the tour from its first step on the home screen
+    // Every entry point starts the tour from its first step on the apps page
     val startOnboardingTour: () -> Unit = {
         // The tour points at app cards, which a saved filter could leave out of the list
         homeAppButtonPrefs.setFilterMode(null)
-        onboardingPhase = OnboardingPhase.HOME
-        phaseInitialStep = 0
-        showOnboardingOverlay = true
-        wantsOnboardingTour.value = true
+        showOnboarding = true
+    }
+    // Finishing and skipping both end the tour back on the apps
+    val finishOnboardingTour: () -> Unit = {
+        onboardingState.swipeActive = false
+        homeViewModel.apps.markSwipeGestureHintShown()
+        onboardingState.page = MainPage.APPS
+        showOnboarding = false
+        scope.launch { prefs.firstLaunch.update(false) }
     }
     val declineOnboardingTour: () -> Unit = {
         scope.launch { prefs.firstLaunch.update(false) }
@@ -643,9 +599,10 @@ private fun MorpheManager(vm: MainViewModel) {
                 }
 
                 HomeScreen(
-                    onSettingsClick = { navController.navigate(Settings) },
-                    onboardingState = if (showOnboarding && onboardingPhase == OnboardingPhase.HOME) homeOnboardingState else null,
-                    globalOnboardingState = if (showOnboarding) globalOnboardingState else null,
+                    onOpenSettingsCategory = { category ->
+                        navController.navigate(SettingsDetail(category.name)) { launchSingleTop = true }
+                    },
+                    onboardingState = onboardingState.takeIf { showOnboarding },
                     onStartQuickPatch = { params ->
                         entry.lifecycleScope.launch {
                             navController.navigateComplex(Patcher, params)
@@ -713,17 +670,20 @@ private fun MorpheManager(vm: MainViewModel) {
                 )
             }
 
-            composable<Settings>(
+            composable<SettingsDetail>(
                 enterTransition = { Animations.pushEnter },
                 popExitTransition = { Animations.pushExit }
-            ) {
-                SettingsScreen(
+            ) { entry ->
+                // Back to the main screen however it was asked for, so a second tap never leaves it
+                val backToMain: () -> Unit = { navController.popBackStack(HomeScreen, false) }
+                SettingsCategoryScreen(
+                    category = SettingsCategory.valueOf(entry.toRoute<SettingsDetail>().category),
                     homeViewModel = homeViewModel,
-                    globalOnboardingState = if (showOnboarding) globalOnboardingState else null,
+                    onBack = backToMain,
                     onStartTour = if (!showOnboarding) {
                         {
                             startOnboardingTour()
-                            navController.popBackStack(HomeScreen, false)
+                            backToMain()
                         }
                     } else null
                 )
@@ -731,140 +691,7 @@ private fun MorpheManager(vm: MainViewModel) {
         }
 
         if (showOnboarding) {
-            val currentSteps = when (onboardingPhase) {
-                OnboardingPhase.HOME -> homeSteps
-                OnboardingPhase.SHEET -> sheetSteps
-                OnboardingPhase.SETTINGS -> settingsSteps
-                else -> null
-            }
-            if (currentSteps != null && showOnboardingOverlay) {
-                val phaseOffset = when (onboardingPhase) {
-                    OnboardingPhase.HOME -> 0
-                    OnboardingPhase.SHEET -> homeSteps.size
-                    OnboardingPhase.SETTINGS -> homeSteps.size + sheetSteps.size
-                    else -> 0
-                }
-                val onComplete: () -> Unit = {
-                    when (onboardingPhase) {
-                        OnboardingPhase.HOME -> {
-                            phaseInitialStep = 0
-                            homeOnboardingState.swipeActive = false
-                            homeViewModel.apps.markSwipeGestureHintShown()
-                            homeViewModel.showBundleManagementSheet = true
-                            globalOnboardingState.sheetOnboardingActive = true
-                            scope.launch {
-                                withTimeoutOrNull(3.seconds) {
-                                    while (globalOnboardingState.sourcesPatchesBounds == null) {
-                                        delay(16.milliseconds)
-                                    }
-                                }
-                                onboardingPhase = OnboardingPhase.SHEET
-                            }
-                        }
-                        OnboardingPhase.SHEET -> {
-                            phaseInitialStep = 0
-                            globalOnboardingState.sheetOnboardingActive = false
-                            homeViewModel.showBundleManagementSheet = false
-                            onboardingPhase = OnboardingPhase.SETTINGS
-                        }
-                        OnboardingPhase.SETTINGS -> {
-                            onboardingPhase = OnboardingPhase.DONE
-                            scope.launch {
-                                prefs.firstLaunch.update(false)
-                                navController.popBackStack(HomeScreen, false)
-                            }
-                        }
-                        else -> {}
-                    }
-                }
-                val phaseBack: (() -> Unit)? = when (onboardingPhase) {
-                    OnboardingPhase.SHEET -> {
-                        {
-                            scope.launch {
-                                showOnboardingOverlay = false
-                                globalOnboardingState.sheetOnboardingActive = false
-                                homeViewModel.showBundleManagementSheet = false
-                                delay(300.milliseconds)
-                                phaseInitialStep = homeSteps.size - 1
-                                onboardingPhase = OnboardingPhase.HOME
-                                showOnboardingOverlay = true
-                            }
-                        }
-                    }
-                    OnboardingPhase.SETTINGS -> {
-                        {
-                            scope.launch {
-                                showOnboardingOverlay = false
-                                navController.popBackStack(HomeScreen, false)
-                                delay(300.milliseconds)
-                                globalOnboardingState.sourcesPatchesBounds = null
-                                homeViewModel.showBundleManagementSheet = true
-                                globalOnboardingState.sheetOnboardingActive = true
-                                withTimeoutOrNull(3.seconds) {
-                                    while (globalOnboardingState.sourcesPatchesBounds == null) {
-                                        delay(16.milliseconds)
-                                    }
-                                }
-                                phaseInitialStep = sheetSteps.size - 1
-                                onboardingPhase = OnboardingPhase.SHEET
-                                showOnboardingOverlay = true
-                            }
-                        }
-                    }
-                    else -> null
-                }
-                val onSkip: () -> Unit = {
-                    homeOnboardingState.swipeActive = false
-                    homeViewModel.apps.markSwipeGestureHintShown()
-                    globalOnboardingState.sheetOnboardingActive = false
-                    homeViewModel.showBundleManagementSheet = false
-                    onboardingPhase = OnboardingPhase.DONE
-                    scope.launch {
-                        prefs.firstLaunch.update(false)
-                        navController.popBackStack(HomeScreen, false)
-                    }
-                }
-
-                if (onboardingPhase == OnboardingPhase.SHEET) {
-                    // Render in a Dialog window so the overlay appears above the sheet's popup window
-                    Dialog(
-                        onDismissRequest = {},
-                        properties = DialogProperties(
-                            usePlatformDefaultWidth = false,
-                            dismissOnBackPress = false,
-                            dismissOnClickOutside = false,
-                            decorFitsSystemWindows = false
-                        )
-                    ) {
-                        val dialogWindow = (LocalView.current.parent as? DialogWindowProvider)?.window
-                        SideEffect {
-                            dialogWindow?.setDimAmount(0f)
-                            dialogWindow?.setBackgroundDrawableResource(android.R.color.transparent)
-                        }
-                        OnboardingShowcase(
-                            steps = currentSteps,
-                            stepOffset = phaseOffset,
-                            totalStepsOverride = totalOnboardingSteps,
-                            initialStep = phaseInitialStep,
-                            onComplete = onComplete,
-                            onSkip = onSkip,
-                            onPhaseBack = phaseBack
-                        )
-                    }
-                } else {
-                    key(onboardingPhase) {
-                        OnboardingShowcase(
-                            steps = currentSteps,
-                            stepOffset = phaseOffset,
-                            totalStepsOverride = totalOnboardingSteps,
-                            initialStep = phaseInitialStep,
-                            onComplete = onComplete,
-                            onSkip = onSkip,
-                            onPhaseBack = phaseBack
-                        )
-                    }
-                }
-            }
+            OnboardingShowcase(steps = onboardingSteps, onComplete = finishOnboardingTour)
         }
     }
 }

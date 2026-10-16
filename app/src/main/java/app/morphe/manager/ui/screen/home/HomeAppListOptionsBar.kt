@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Sort
 import androidx.compose.material.icons.outlined.Category
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.outlined.Restore
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -44,7 +44,7 @@ internal fun homeAppListOptionsStateDescription(
     stringResource(sortMode.labelRes)
 }
 
-/** One way of arranging the home list, its options and the one picked, as a row of the sheet. */
+/** One way of arranging the home list, its options and the one picked, as a row of the panel. */
 private class ListOptionSection<T>(
     @param:StringRes val titleRes: Int,
     val icon: ImageVector,
@@ -60,18 +60,20 @@ private class ListOptionSection<T>(
 
 /**
  * How the home list is sorted, filtered and grouped: one row for each with the option picked, which
- * opens its options in a menu. The sheet stays low, so the list behind it shows each change.
+ * opens its options in a menu. Docked under the list rather than over it, so the list rearranges
+ * itself above the panel with each change.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun HomeAppListOptionsSheet(
+internal fun HomeAppListOptionsBar(
+    visible: Boolean,
     sortMode: HomeAppSortMode,
     filterMode: HomeAppFilterMode,
     groupingMode: HomeAppCategoryViewMode,
     onSortModeChange: (HomeAppSortMode) -> Unit,
     onFilterModeChange: (HomeAppFilterMode) -> Unit,
     onGroupingModeChange: (HomeAppCategoryViewMode) -> Unit,
-    onDismiss: () -> Unit
+    onClose: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val sections = listOf(
         ListOptionSection(
@@ -90,13 +92,8 @@ internal fun HomeAppListOptionsSheet(
     // Index of the section whose menu is open, if any
     var openSection by remember { mutableStateOf<Int?>(null) }
 
-    AppBottomSheet(onDismissRequest = onDismiss) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .navigationBarsPadding()
-                .padding(bottom = Defaults.SpaceSmall)
-        ) {
+    DockedPanel(visible = visible, onBack = onClose, modifier = modifier) {
+        Column(modifier = Modifier.padding(bottom = Defaults.SpaceSmall)) {
             PanelHeader(title = { PanelTitle(text = stringResource(R.string.home_app_list_options_title)) }) {
                 TitleAction(
                     icon = Icons.Outlined.Restore,
@@ -104,6 +101,12 @@ internal fun HomeAppListOptionsSheet(
                     onClick = { sections.forEach { it.reset() } },
                     style = TitleActionStyle.Accent,
                     enabled = sections.any { it.isChanged }
+                )
+                TitleAction(
+                    icon = Icons.Outlined.Close,
+                    contentDescription = stringResource(R.string.close),
+                    onClick = onClose,
+                    style = TitleActionStyle.Neutral
                 )
             }
             sections.forEachIndexed { index, section ->

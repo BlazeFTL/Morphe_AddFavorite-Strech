@@ -7,9 +7,11 @@ package app.morphe.manager.ui.screen
 
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Engineering
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
@@ -29,11 +31,16 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.home.*
+import app.morphe.manager.ui.screen.settings.SettingsCategory
+import app.morphe.manager.ui.screen.settings.SettingsPage
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
+import app.morphe.manager.ui.screen.shared.MainPage
+import app.morphe.manager.ui.screen.shared.MainPagerScaffold
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberInstallQueue
+import app.morphe.manager.ui.screen.sources.SourcesPage
 import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.viewmodel.*
 import app.morphe.manager.util.*
@@ -44,12 +51,15 @@ import org.koin.compose.koinInject
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * Home Screen with 5-section layout.
+ * The main screen: the sources, the apps and the settings as pages side by side, see
+ * [MainPagerScaffold], with the dialogs any of them can raise.
+ *
+ * @param onOpenSettingsCategory Opens one category of the settings as a page of its own.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HomeScreen(
-    onSettingsClick: () -> Unit,
+    onOpenSettingsCategory: (SettingsCategory) -> Unit,
     onStartQuickPatch: (Patcher.ViewModelParams) -> Unit,
     onStartBatchPatch: (List<BatchTarget>, Boolean) -> Unit,
     homeViewModel: HomeViewModel = koinViewModel(),
@@ -58,7 +68,6 @@ fun HomeScreen(
     usingMountInstallState: MutableState<Boolean>,
     bundleUpdateProgress: PatchBundleRepository.BundleUpdateProgress?,
     onboardingState: OnboardingState? = null,
-    globalOnboardingState: GlobalOnboardingState? = null,
     patchTriggerPackage: String? = null,
     onPatchTriggerHandled: () -> Unit = {},
     installViewModel: InstallViewModel = koinViewModel()
@@ -69,6 +78,15 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
     val sourcesLoadingText = stringResource(R.string.home_sources_are_loading)
     val otherAppsText = stringResource(R.string.home_other_apps)
+    val settingsLabel = stringResource(R.string.settings)
+    val expertModeLabel = stringResource(R.string.settings_advanced_expert_mode)
+
+    val pagerState = rememberPagerState(initialPage = MainPage.APPS.ordinal) { MainPage.entries.size }
+    val openPage: (MainPage) -> Unit = { page ->
+        scope.launch { pagerState.animateScrollToPage(page.ordinal) }
+    }
+    val tourPage = onboardingState?.page
+    LaunchedEffect(tourPage) { tourPage?.let { pagerState.animateScrollToPage(it.ordinal) } }
 
     // Dialog states
     val showUpdateDetailsDialog = remember { mutableStateOf(false) }
@@ -121,6 +139,15 @@ fun HomeScreen(
     val showSortButtonPref by homeAppButtonPrefs.showSortButton.collectAsStateWithLifecycle()
     val homeAppFilterModePref by homeAppButtonPrefs.filterMode.collectAsStateWithLifecycle()
     val useExpertMode by prefs.useExpertMode.getAsState()
+
+    // Held here rather than in the list, since the bars it docks over the list stand in for the
+    // navigation, which gives way to them
+    val sectionState = rememberHomeAppsSectionState(
+        initialOrder = homeAppItems.map { it.id },
+        initialSourceGroupOrder = homeAppSourceGroups.map { it.uid },
+        initialCategoryOrder = homeAppCategoryState.categories.map { it.id },
+        hasContent = homeAppItems.isNotEmpty() || hiddenAppItems.isNotEmpty()
+    )
 
     // Gesture hint: shown once per bundle addition, in-memory
     val showGestureHint by homeViewModel.apps.showSwipeGestureHint.collectAsStateWithLifecycle()
@@ -262,7 +289,8 @@ fun HomeScreen(
         storagePickerLauncher = { openApkPicker() },
         openBundlePicker = { openBundlePicker() },
         patchesItem = patchesSheetItem,
-        globalOnboardingState = globalOnboardingState
+        // The new source's apps come up on the list, so that is where adding one ends
+        onSourceAdded = { openPage(MainPage.APPS) }
     )
 
     InstallerFlowDialogs(installViewModel = installViewModel)
@@ -279,150 +307,175 @@ fun HomeScreen(
         )
     }
 
-    // Main content with pull-to-refresh
     val pullToRefreshState = rememberPullToRefreshState()
-    PullToRefreshBox(
-        isRefreshing = isRefreshing,
-        onRefresh = onRefresh,
-        modifier = Modifier.fillMaxSize(),
-        state = pullToRefreshState,
-        indicator = {
-            PullToRefreshDefaults.LoadingIndicator(
-                state = pullToRefreshState,
-                isRefreshing = isRefreshing,
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .statusBarsPadding()
-            )
-        }
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            SectionsLayout(
-                notifications = HomeNotificationsUi(
-                    managerUpdate = AlertState(hasManagerUpdate) { showUpdateDetailsDialog.value = true },
-                    outdatedManager = AlertState(hasOutdatedManagerSources) { homeViewModel.showBundleManagementSheet = true },
-                    heldBackSources = AlertState(hasHeldBackSources) { homeViewModel.showBundleManagementSheet = true },
-                    blockedSources = AlertState(hasBlockedSources) { homeViewModel.showBundleManagementSheet = true },
-                    metadataErrors = AlertState(hasMetadataErrors) { homeViewModel.showBundleManagementSheet = true },
-                    meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) { onSettingsClick() },
-                    repatchAvailable = RepatchAlertState(
-                        count = repatchableApps.size,
-                        visible = showRepatchNotice,
-                        onShow = { startBatchPatch(repatchableApps) }
-                    ),
-                    // Reopened on its own apps, so the batch screen keeps the run instead of
-                    // planning a new one. A queue left by an earlier process is only stored
-                    batchQueue = BatchQueueAlertState(batchRun, savedBatchQueue) {
-                        val run = batchRun
-                        val saved = savedBatchQueue
-                        when {
-                            run != null -> onStartBatchPatch(run.targets, run.useMount)
-                            saved != null -> openBatchQueue(saved.targets, saved.useMount)
-                        }
-                    },
-                    bundleUpdate = BundleUpdateState(
-                        visible = homeViewModel.showBundleUpdateSnackbar,
-                        status = homeViewModel.snackbarStatus,
-                        progress = bundleUpdateProgress
-                    )
-                ),
-                apps = HomeAppListUi(
-                    visible = homeAppItems,
-                    hidden = hiddenAppItems,
-                    installedAppsLoading = bundlePipelineLoading || homeViewModel.installedAppsLoading,
-                    showGestureHint = showGestureHint,
-                    sortMode = homeAppSortMode,
-                    filterMode = HomeAppFilterMode.fromPreference(homeAppFilterModePref),
-                    categoryState = homeAppCategoryState,
-                    categoryViewMode = homeAppCategoryViewMode,
-                    sourceGroups = homeAppSourceGroups,
-                    batchQueuePending = savedBatchQueue != null
-                ),
-                appActions = HomeAppActions(
-                    onAppClick = { item ->
-                        homeViewModel.handleAppClick(
-                            packageName = item.packageName,
-                            availablePatches = availablePatches,
-                            bundleUpdateInProgress = false,
-                            android11BugActive = homeViewModel.android11BugActive,
-                            installedApp = item.installedApp
-                        )
-                        item.installedApp?.let {
-                            homeViewModel.openInstalledAppInfo(it.currentPackageName)
-                        }
-                    },
-                    onHideApp = { packageName -> homeViewModel.apps.hideApp(packageName) },
-                    onHideMultiple = { packageNames -> packageNames.forEach { homeViewModel.apps.hideApp(it) } },
-                    onUninstallMultiple = { items -> homeViewModel.uninstallApps(items) },
-                    onReinstallMultiple = { items -> startBatchReinstall(items) },
-                    onPatchMultiple = { items -> startBatchPatch(items) },
-                    onUnhideApp = { packageName -> homeViewModel.apps.unhideApp(packageName) },
-                    onShowPatches = { item -> patchesSheetItem.value = item },
-                    onGestureHintShown = {
-                        homeViewModel.apps.markSwipeGestureHintShown()
-                        if (onboardingState != null && onboardingState.swipeActive) {
-                            scope.launch {
-                                delay(600.milliseconds)
-                                if (onboardingState.swipeActive) homeViewModel.apps.triggerSwipeGestureHint()
-                            }
-                        }
-                    },
-                    onSaveOrder = { packageNames -> homeViewModel.apps.saveAppOrder(packageNames) },
-                    onSaveSourceOrder = { sourceUid, packageNames ->
-                        homeViewModel.apps.saveAppSourceOrder(sourceUid, packageNames)
-                    },
-                    onResetOrder = { homeViewModel.apps.resetAppOrder() },
-                    onResetSourceOrder = { sourceUid -> homeViewModel.apps.resetAppSourceOrder(sourceUid) },
-                    onSaveSourceGroupOrder = { sourceUids ->
-                        homeViewModel.apps.saveAppSourceGroupOrder(sourceUids)
-                    },
-                    onSortModeChange = { mode -> homeViewModel.apps.setAppSortMode(mode) },
-                    onFilterModeChange = { mode ->
-                        homeAppButtonPrefs.setFilterMode(mode.name.takeIf { mode.isActive })
-                    },
-                    onCategoryViewModeChange = { mode -> homeViewModel.apps.setAppCategoryViewMode(mode) },
-                    onCreateCategory = { name -> homeViewModel.apps.createAppCategory(name) },
-                    onRenameCategory = { categoryId, name ->
-                        homeViewModel.apps.renameAppCategory(categoryId, name)
-                    },
-                    onDeleteCategory = { categoryId -> homeViewModel.apps.deleteAppCategory(categoryId) },
-                    onSaveCategoryOrder = { categoryIds ->
-                        homeViewModel.apps.saveAppCategoryOrder(categoryIds)
-                    },
-                    onToggleCategoryCollapsed = { categoryId ->
-                        homeViewModel.apps.toggleAppCategoryCollapsed(categoryId)
-                    },
-                    onToggleSourceGroupCollapsed = { sourceUid ->
-                        homeViewModel.apps.toggleAppSourceGroupCollapsed(sourceUid)
-                    },
-                    onAssignAppsToCategory = { packageNames, categoryId ->
-                        homeViewModel.apps.assignAppsToCategory(packageNames, categoryId)
-                    }
-                ),
-                chromeActions = HomeChromeActions(
-                    onOtherAppsClick = {
-                        if (availablePatches <= 0) {
-                            messages.show(sourcesLoadingText)
-                        } else {
-                            homeViewModel.pendingPackageName = null
-                            homeViewModel.pendingAppName = otherAppsText
-                            homeViewModel.pendingRecommendedVersion = null
-                            homeViewModel.showFilePickerPromptDialog = true
-                        }
-                    },
-                    onBundlesClick = { homeViewModel.showBundleManagementSheet = true },
-                    onSettingsClick = onSettingsClick,
-                    onRefreshGreeting = onRefresh
-                ),
-                chromeFlags = HomeChromeFlags(
-                    showSearchButton = showSearchButton,
-                    showSortButton = showSearchButton && showSortButtonPref,
-                    showOtherAppsButton = showOtherAppsButton,
-                    isExpertModeEnabled = useExpertMode
-                ),
-                greetingMessage = greetingMessage,
+    MainPagerScaffold(
+        pagerState = pagerState,
+        navigationCovered = sectionState.isFooterBarVisible,
+        // The tour moves between the pages itself, and a swipe would leave its spotlight behind
+        swipeEnabled = onboardingState == null,
+        settingsIcon = if (useExpertMode) Icons.Outlined.Engineering else MainPage.SETTINGS.icon,
+        settingsDescription = if (useExpertMode) "$settingsLabel, $expertModeLabel" else null,
+        onItemPositioned = onboardingState?.let { tour -> { page, bounds -> tour.navigationBounds[page] = bounds } }
+    ) { page, bottomBarHeight ->
+        when (page) {
+            MainPage.SOURCES -> SourcesPage(
+                homeViewModel = homeViewModel,
+                bottomBarHeight = bottomBarHeight,
                 onboardingState = onboardingState
             )
+
+            MainPage.SETTINGS -> SettingsPage(
+                onOpenCategory = onOpenSettingsCategory,
+                bottomBarHeight = bottomBarHeight,
+                onCategoryPositioned = onboardingState?.let { tour ->
+                    { category, bounds -> tour.settingsCategoryBounds[category] = bounds }
+                }
+            )
+
+            MainPage.APPS -> PullToRefreshBox(
+                isRefreshing = isRefreshing,
+                onRefresh = onRefresh,
+                modifier = Modifier.fillMaxSize(),
+                state = pullToRefreshState,
+                indicator = {
+                    PullToRefreshDefaults.LoadingIndicator(
+                        state = pullToRefreshState,
+                        isRefreshing = isRefreshing,
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .statusBarsPadding()
+                    )
+                }
+            ) {
+                SectionsLayout(
+                    notifications = HomeNotificationsUi(
+                        managerUpdate = AlertState(hasManagerUpdate) { showUpdateDetailsDialog.value = true },
+                        outdatedManager = AlertState(hasOutdatedManagerSources) { openPage(MainPage.SOURCES) },
+                        heldBackSources = AlertState(hasHeldBackSources) { openPage(MainPage.SOURCES) },
+                        blockedSources = AlertState(hasBlockedSources) { openPage(MainPage.SOURCES) },
+                        metadataErrors = AlertState(hasMetadataErrors) { openPage(MainPage.SOURCES) },
+                        meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) {
+                            onOpenSettingsCategory(SettingsCategory.UPDATES)
+                        },
+                        repatchAvailable = RepatchAlertState(
+                            count = repatchableApps.size,
+                            visible = showRepatchNotice,
+                            onShow = { startBatchPatch(repatchableApps) }
+                        ),
+                        // Reopened on its own apps, so the batch screen keeps the run instead of
+                        // planning a new one. A queue left by an earlier process is only stored
+                        batchQueue = BatchQueueAlertState(batchRun, savedBatchQueue) {
+                            val run = batchRun
+                            val saved = savedBatchQueue
+                            when {
+                                run != null -> onStartBatchPatch(run.targets, run.useMount)
+                                saved != null -> openBatchQueue(saved.targets, saved.useMount)
+                            }
+                        },
+                        bundleUpdate = BundleUpdateState(
+                            visible = homeViewModel.showBundleUpdateSnackbar,
+                            status = homeViewModel.snackbarStatus,
+                            progress = bundleUpdateProgress
+                        )
+                    ),
+                    apps = HomeAppListUi(
+                        visible = homeAppItems,
+                        hidden = hiddenAppItems,
+                        installedAppsLoading = bundlePipelineLoading || homeViewModel.installedAppsLoading,
+                        showGestureHint = showGestureHint,
+                        sortMode = homeAppSortMode,
+                        filterMode = HomeAppFilterMode.fromPreference(homeAppFilterModePref),
+                        categoryState = homeAppCategoryState,
+                        categoryViewMode = homeAppCategoryViewMode,
+                        sourceGroups = homeAppSourceGroups,
+                        batchQueuePending = savedBatchQueue != null
+                    ),
+                    appActions = HomeAppActions(
+                        onAppClick = { item ->
+                            homeViewModel.handleAppClick(
+                                packageName = item.packageName,
+                                availablePatches = availablePatches,
+                                bundleUpdateInProgress = false,
+                                android11BugActive = homeViewModel.android11BugActive,
+                                installedApp = item.installedApp
+                            )
+                            item.installedApp?.let {
+                                homeViewModel.openInstalledAppInfo(it.currentPackageName)
+                            }
+                        },
+                        onHideApp = { packageName -> homeViewModel.apps.hideApp(packageName) },
+                        onHideMultiple = { packageNames -> packageNames.forEach { homeViewModel.apps.hideApp(it) } },
+                        onUninstallMultiple = { items -> homeViewModel.uninstallApps(items) },
+                        onReinstallMultiple = { items -> startBatchReinstall(items) },
+                        onPatchMultiple = { items -> startBatchPatch(items) },
+                        onUnhideApp = { packageName -> homeViewModel.apps.unhideApp(packageName) },
+                        onShowPatches = { item -> patchesSheetItem.value = item },
+                        onGestureHintShown = {
+                            homeViewModel.apps.markSwipeGestureHintShown()
+                            if (onboardingState != null && onboardingState.swipeActive) {
+                                scope.launch {
+                                    delay(600.milliseconds)
+                                    if (onboardingState.swipeActive) homeViewModel.apps.triggerSwipeGestureHint()
+                                }
+                            }
+                        },
+                        onSaveOrder = { packageNames -> homeViewModel.apps.saveAppOrder(packageNames) },
+                        onSaveSourceOrder = { sourceUid, packageNames ->
+                            homeViewModel.apps.saveAppSourceOrder(sourceUid, packageNames)
+                        },
+                        onResetOrder = { homeViewModel.apps.resetAppOrder() },
+                        onResetSourceOrder = { sourceUid -> homeViewModel.apps.resetAppSourceOrder(sourceUid) },
+                        onSaveSourceGroupOrder = { sourceUids ->
+                            homeViewModel.apps.saveAppSourceGroupOrder(sourceUids)
+                        },
+                        onSortModeChange = { mode -> homeViewModel.apps.setAppSortMode(mode) },
+                        onFilterModeChange = { mode ->
+                            homeAppButtonPrefs.setFilterMode(mode.name.takeIf { mode.isActive })
+                        },
+                        onCategoryViewModeChange = { mode -> homeViewModel.apps.setAppCategoryViewMode(mode) },
+                        onCreateCategory = { name -> homeViewModel.apps.createAppCategory(name) },
+                        onRenameCategory = { categoryId, name ->
+                            homeViewModel.apps.renameAppCategory(categoryId, name)
+                        },
+                        onDeleteCategory = { categoryId -> homeViewModel.apps.deleteAppCategory(categoryId) },
+                        onSaveCategoryOrder = { categoryIds ->
+                            homeViewModel.apps.saveAppCategoryOrder(categoryIds)
+                        },
+                        onToggleCategoryCollapsed = { categoryId ->
+                            homeViewModel.apps.toggleAppCategoryCollapsed(categoryId)
+                        },
+                        onToggleSourceGroupCollapsed = { sourceUid ->
+                            homeViewModel.apps.toggleAppSourceGroupCollapsed(sourceUid)
+                        },
+                        onAssignAppsToCategory = { packageNames, categoryId ->
+                            homeViewModel.apps.assignAppsToCategory(packageNames, categoryId)
+                        }
+                    ),
+                    chromeActions = HomeChromeActions(
+                        onOtherAppsClick = {
+                            if (availablePatches <= 0) {
+                                messages.show(sourcesLoadingText)
+                            } else {
+                                homeViewModel.pendingPackageName = null
+                                homeViewModel.pendingAppName = otherAppsText
+                                homeViewModel.pendingRecommendedVersion = null
+                                homeViewModel.showFilePickerPromptDialog = true
+                            }
+                        },
+                        onOpenSources = { openPage(MainPage.SOURCES) },
+                        onRefreshGreeting = onRefresh
+                    ),
+                    chromeFlags = HomeChromeFlags(
+                        showSearchButton = showSearchButton,
+                        showSortButton = showSearchButton && showSortButtonPref,
+                        showOtherAppsButton = showOtherAppsButton
+                    ),
+                    greetingMessage = greetingMessage,
+                    state = sectionState,
+                    bottomBarHeight = bottomBarHeight,
+                    onboardingState = onboardingState
+                )
+            }
         }
     }
 }

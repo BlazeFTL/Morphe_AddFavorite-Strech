@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Save
@@ -42,7 +40,6 @@ fun CreatorDialogFrame(
     content: @Composable ColumnScope.() -> Unit
 ) {
     var showGuide by remember { mutableStateOf(false) }
-    val scrollState = rememberScrollState()
 
     AppDialog(
         onDismissRequest = { if (!isCreating) onDismiss() },
@@ -81,13 +78,11 @@ fun CreatorDialogFrame(
             )
         }
 
-        Column(
+        DialogScrollColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f)
-                .verticalScrollFade(scrollState)
-                .verticalScroll(scrollState)
-                .padding(vertical = Defaults.SpaceMedium),
+                .weight(1f),
+            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
             // Spaced as the option cards that open the creator
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
             content = content

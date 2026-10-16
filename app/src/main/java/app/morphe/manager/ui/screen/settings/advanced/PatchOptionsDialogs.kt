@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.settings.advanced
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.Text
@@ -239,8 +237,6 @@ private fun SettingsOptionsDialog(
     saveEnabled: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val scrollState = rememberScrollState()
-
     AppDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(packageName),
@@ -267,13 +263,11 @@ private fun SettingsOptionsDialog(
             subtitle = KnownApps.getAppName(packageName)
         )
 
-        Column(
+        DialogScrollColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f)
-                .verticalScrollFade(scrollState)
-                .verticalScroll(scrollState)
-                .padding(vertical = Defaults.SpaceMedium),
+                .weight(1f),
+            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
             // Spaced as the options edited while patching
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {

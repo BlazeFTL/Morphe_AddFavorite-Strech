@@ -13,8 +13,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -23,6 +26,16 @@ import app.morphe.manager.util.isDarkBackground
 
 private val DialogButtonHorizontalPadding = 16.dp
 private val DialogButtonIconSpacing = 8.dp
+
+/**
+ * What dialog buttons are laid on when content scrolls on beneath them, see [AppDialog]'s
+ * floating footer. Their fills take it in, so nothing shows through them, and an outlined one is
+ * filled with it alone. Unspecified where nothing but the dialog's background lies behind.
+ */
+val LocalDialogButtonBackdrop = staticCompositionLocalOf { Color.Unspecified }
+
+// A fill laid on the backdrop, if there is one, so it looks the same but hides what lies under it
+private fun Color.over(backdrop: Color): Color = if (backdrop.isSpecified) compositeOver(backdrop) else this
 
 /** Resolved colors for a dialog button variant. */
 private data class DialogButtonColors(
@@ -123,6 +136,7 @@ private fun DialogButton(
     textSuffix: String? = null
 ) {
     val colors = resolveButtonColors(isDestructive, filled)
+    val backdrop = LocalDialogButtonBackdrop.current
     val interactionSource = remember { MutableInteractionSource() }
 
     // A floor rather than a fixed height, so a large font grows the button instead of clipping its label
@@ -146,9 +160,9 @@ private fun DialogButton(
             interactionSource = interactionSource,
             shape = shape,
             colors = ButtonDefaults.buttonColors(
-                containerColor = colors.containerColor,
+                containerColor = colors.containerColor.over(backdrop),
                 contentColor = colors.contentColor,
-                disabledContainerColor = colors.containerColor.copy(alpha = 0.5f),
+                disabledContainerColor = colors.containerColor.copy(alpha = 0.5f).over(backdrop),
                 disabledContentColor = colors.contentColor.copy(alpha = 0.5f)
             ),
             border = border,
@@ -163,9 +177,9 @@ private fun DialogButton(
             interactionSource = interactionSource,
             shape = shape,
             colors = ButtonDefaults.outlinedButtonColors(
-                containerColor = Color.Transparent,
+                containerColor = Color.Transparent.over(backdrop),
                 contentColor = colors.contentColor,
-                disabledContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent.over(backdrop),
                 disabledContentColor = colors.contentColor.copy(alpha = 0.4f)
             ),
             border = border,

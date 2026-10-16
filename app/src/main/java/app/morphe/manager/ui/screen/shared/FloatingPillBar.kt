@@ -78,15 +78,11 @@ fun FloatingPillBar(
     horizontalPadding: Dp = rememberWindowSize().contentPadding,
     trailing: @Composable RowScope.() -> Unit = {}
 ) {
-    val background = MaterialTheme.colorScheme.background
-
-    // Content scrolling under the bar dims gradually toward the bottom edge of the screen rather
-    // than being cut off, while staying visible around the pill
     Box(
         modifier = modifier
             .keepsClearOfMessages()
             .fillMaxWidth()
-            .background(Brush.verticalGradient(0f to Color.Transparent, 1f to background.copy(alpha = 0.9f)))
+            .floatingBarScrim(MaterialTheme.colorScheme.background)
             .navigationBarsPadding(),
         contentAlignment = Alignment.Center
     ) {
@@ -200,6 +196,13 @@ fun FloatingPillRoundAction(
         }
     }
 }
+
+/**
+ * Dims what scrolls under a bar floating over the bottom of the screen gradually toward the edge,
+ * into [background], rather than cutting it off, while it stays visible around the bar.
+ */
+fun Modifier.floatingBarScrim(background: Color): Modifier =
+    background(Brush.verticalGradient(0f to Color.Transparent, 1f to background.copy(alpha = 0.9f)))
 
 /**
  * Lays [content] out under a [bar] floating over its bottom edge. The bar's height reaches the

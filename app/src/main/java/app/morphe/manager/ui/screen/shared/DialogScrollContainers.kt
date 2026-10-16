@@ -15,6 +15,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /** Gap between the cards of a dialog's list, see [CompactCardSpacing] for compact ones. */
@@ -36,6 +38,7 @@ fun DialogLazyList(
     userScrollEnabled: Boolean = true,
     content: LazyListScope.() -> Unit
 ) {
+    val footerInset = LocalDialogBottomInset.current
     val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
 
     Box(modifier = modifier) {
@@ -44,14 +47,14 @@ fun DialogLazyList(
             modifier = Modifier
                 .fillMaxWidth()
                 .verticalScrollFade(state, pinnedFirstRow = pinnedFirstRow),
-            contentPadding = contentPadding,
+            contentPadding = contentPadding.plusBottom(footerInset),
             verticalArrangement = verticalArrangement,
             userScrollEnabled = userScrollEnabled,
             content = content
         )
 
-        ListScrollbar(listState = state, modifier = edgeOffset)
-        ScrollToTopButton(listState = state, modifier = edgeOffset)
+        ListScrollbar(listState = state, modifier = edgeOffset.padding(bottom = footerInset))
+        ScrollToTopButton(listState = state, modifier = edgeOffset, extraBottomPadding = footerInset)
     }
 }
 
@@ -67,6 +70,7 @@ fun DialogScrollColumn(
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     content: @Composable ColumnScope.() -> Unit
 ) {
+    val footerInset = LocalDialogBottomInset.current
     val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
 
     Box(modifier = modifier) {
@@ -75,12 +79,25 @@ fun DialogScrollColumn(
                 .fillMaxWidth()
                 .verticalScrollFade(state)
                 .verticalScroll(state)
-                .padding(contentPadding),
+                .padding(contentPadding.plusBottom(footerInset)),
             verticalArrangement = verticalArrangement,
             content = content
         )
 
-        ListScrollbar(scrollState = state, modifier = edgeOffset)
-        ScrollToTopButton(scrollState = state, modifier = edgeOffset)
+        ListScrollbar(scrollState = state, modifier = edgeOffset.padding(bottom = footerInset))
+        ScrollToTopButton(scrollState = state, modifier = edgeOffset, extraBottomPadding = footerInset)
     }
+}
+
+/** These paddings with [extra] more at the bottom, such as room for a bar floating over it. */
+@Composable
+private fun PaddingValues.plusBottom(extra: Dp): PaddingValues {
+    if (extra == 0.dp) return this
+    val direction = LocalLayoutDirection.current
+    return PaddingValues(
+        start = calculateStartPadding(direction),
+        top = calculateTopPadding(),
+        end = calculateEndPadding(direction),
+        bottom = calculateBottomPadding() + extra
+    )
 }

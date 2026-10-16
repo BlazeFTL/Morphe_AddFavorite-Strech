@@ -8,10 +8,8 @@ package app.morphe.manager.ui.screen.home
 import android.graphics.drawable.Drawable
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
 import androidx.compose.material.icons.outlined.Add
@@ -226,8 +224,6 @@ internal fun PatchOptionsDialog(
     val anyChanged = options.any { !optionValueEquals(valueOf(it), it.default) }
 
     val showColorPicker = remember { mutableStateOf<Pair<String, String>?>(null) }
-    val scrollState = rememberScrollState()
-
     AppDialog(
         onDismissRequest = onDismiss,
         accentColor = accentColor,
@@ -263,13 +259,11 @@ internal fun PatchOptionsDialog(
             )
         }
 
-        Column(
+        DialogScrollColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f)
-                .verticalScrollFade(scrollState)
-                .verticalScroll(scrollState)
-                .padding(vertical = Defaults.SpaceMedium),
+                .weight(1f),
+            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
             // Spaced as the patch list the dialog opens from
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {

@@ -32,8 +32,6 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
 import app.morphe.manager.ui.theme.isDarkTheme
-import dev.chrisbanes.haze.hazeSource
-import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -395,7 +393,6 @@ private fun CompactDialogContent(
                 // edge while the scrollable column keeps its own horizontal inset. Scrolling is
                 // also what carries a focused field up into the room the keyboard leaves above it
                 val scrollState = if (scrollable) rememberScrollState() else null
-                val haze = rememberHazeState()
                 Box(modifier = Modifier.weight(1f, fill = false)) {
                     Column(
                         modifier = Modifier
@@ -405,7 +402,6 @@ private fun CompactDialogContent(
                                     // Ahead of the padding, so the fade spans the dialog's full
                                     // width and clips nothing that reaches into the padding
                                     Modifier
-                                        .hazeSource(haze)
                                         .verticalScrollFade(scrollState)
                                         .padding(horizontal = horizontalPadding)
                                         .verticalScroll(scrollState)
@@ -418,7 +414,7 @@ private fun CompactDialogContent(
 
                     if (scrollState != null) {
                         ListScrollbar(scrollState = scrollState)
-                        ScrollToTopButton(scrollState = scrollState, haze = haze)
+                        ScrollToTopButton(scrollState = scrollState)
                     }
                 }
 

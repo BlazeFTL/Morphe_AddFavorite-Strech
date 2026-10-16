@@ -11,7 +11,6 @@ import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
@@ -24,13 +23,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import dev.chrisbanes.haze.HazeState
 import kotlinx.coroutines.launch
 
 private val ButtonSize: Dp = 44.dp
@@ -40,16 +37,13 @@ private val DefaultScrollThresholdDp: Dp = 600.dp
 /**
  * Floating "scroll to top" button for a LazyColumn.
  * Auto-hides when the list is near the top; place inside a Box that overlays the list.
- *
- * @param haze The list it floats over, which it then blurs, or null to draw it near opaque.
  */
 @Composable
 fun BoxScope.ScrollToTopButton(
     listState: LazyListState,
     modifier: Modifier = Modifier,
     firstVisibleItemThreshold: Int = 3,
-    extraBottomPadding: Dp = 0.dp,
-    haze: HazeState? = null
+    extraBottomPadding: Dp = 0.dp
 ) {
     val visible by remember(listState, firstVisibleItemThreshold) {
         derivedStateOf { listState.firstVisibleItemIndex >= firstVisibleItemThreshold }
@@ -58,24 +52,20 @@ fun BoxScope.ScrollToTopButton(
         visible = visible,
         scrollToTop = { listState.animateScrollToTop() },
         modifier = modifier.align(Alignment.BottomEnd),
-        extraBottomPadding = extraBottomPadding,
-        haze = haze
+        extraBottomPadding = extraBottomPadding
     )
 }
 
 /**
  * Floating "scroll to top" button for a Column with verticalScroll.
  * Auto-hides when content is near the top; place inside a Box that overlays the content.
- *
- * @param haze The content it floats over, which it then blurs, or null to draw it near opaque.
  */
 @Composable
 fun BoxScope.ScrollToTopButton(
     scrollState: ScrollState,
     modifier: Modifier = Modifier,
     scrollThreshold: Dp = DefaultScrollThresholdDp,
-    extraBottomPadding: Dp = 0.dp,
-    haze: HazeState? = null
+    extraBottomPadding: Dp = 0.dp
 ) {
     val thresholdPx = with(LocalDensity.current) { scrollThreshold.toPx().toInt() }
     val visible by remember(scrollState, thresholdPx) {
@@ -85,8 +75,7 @@ fun BoxScope.ScrollToTopButton(
         visible = visible,
         scrollToTop = { scrollState.animateScrollTo(0) },
         modifier = modifier.align(Alignment.BottomEnd),
-        extraBottomPadding = extraBottomPadding,
-        haze = haze
+        extraBottomPadding = extraBottomPadding
     )
 }
 
@@ -120,8 +109,7 @@ private fun ScrollToTopButtonImpl(
     visible: Boolean,
     scrollToTop: suspend () -> Unit,
     modifier: Modifier = Modifier,
-    extraBottomPadding: Dp = 0.dp,
-    haze: HazeState? = null
+    extraBottomPadding: Dp = 0.dp
 ) {
     val scope = rememberCoroutineScope()
     // A scroll made in code bypasses the header, so it is unfolded alongside
@@ -143,13 +131,11 @@ private fun ScrollToTopButtonImpl(
         )
     ) {
         val interactionSource = remember { MutableInteractionSource() }
-        val shape = rememberPressShape(interactionSource, CircleShape)
-        val surface = MaterialTheme.colorScheme.surface
         Surface(
             onClick = rememberHapticClick(onClick),
-            shape = shape,
-            // Blurs the rows of text it floats over where it can, else stays nearly opaque over them
-            color = if (haze != null) Color.Transparent else surface.copy(alpha = 0.72f),
+            shape = rememberPressShape(interactionSource, CircleShape),
+            // Solid, so the rows of text it floats over never show through it
+            color = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface,
             // Edged in the dialog's color, as its outlined buttons are
             border = CardBorder.of(
@@ -157,14 +143,9 @@ private fun ScrollToTopButtonImpl(
                     ?: MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
             ),
             interactionSource = interactionSource,
-            modifier = Modifier
-                .size(ButtonSize)
+            modifier = Modifier.size(ButtonSize)
         ) {
-            // Inside rather than on the Surface, which widens to the minimum touch target past its outline
-            Box(
-                modifier = if (haze != null) Modifier.fillMaxSize().glassFill(surface, shape, haze) else Modifier,
-                contentAlignment = Alignment.Center
-            ) {
+            Box(contentAlignment = Alignment.Center) {
                 Icon(
                     imageVector = Icons.Rounded.KeyboardArrowUp,
                     contentDescription = label,

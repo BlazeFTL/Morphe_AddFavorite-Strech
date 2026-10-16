@@ -69,8 +69,6 @@ import app.morphe.manager.domain.repository.appsBrought
 import app.morphe.manager.ui.screen.patcher.IncompatiblePatcherVersionDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
-import dev.chrisbanes.haze.hazeSource
-import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import sh.calvin.reorderable.ReorderableItem
@@ -374,14 +372,12 @@ fun BundleManagementSheet(
                         .weight(1f, fill = false)
                         .navigationBarsPadding()
                 ) {
-                    val listHaze = rememberHazeState()
                     val listRowResizing = remember { ListRowResizing() }
                     CompositionLocalProvider(LocalListRowResizing provides listRowResizing) {
                         LazyColumn(
                             state = listState,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .hazeSource(listHaze)
                                 .onGloballyPositioned { coords -> listWindowY = coords.boundsInWindow().top }
                                 .verticalScrollFade(listState),
                             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
@@ -533,7 +529,7 @@ fun BundleManagementSheet(
                         alphabetMode = alphabetScrollMode
                     )
 
-                    ScrollToTopButton(listState = listState, haze = listHaze)
+                    ScrollToTopButton(listState = listState)
                 }
             }
         }

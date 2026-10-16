@@ -343,16 +343,15 @@ fun SettingsScreen(
                 )
                 VerticalDivider(modifier = Modifier.statusBarsPadding().padding(vertical = 20.dp))
                 Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                    val tabHaze = rememberHazeState()
                     AnimatedContent(
                         targetState = currentTab,
                         transitionSpec = Animations.fadeCrossfade(200),
                         label = "settings_tab_landscape",
-                        modifier = Modifier.fillMaxSize().hazeSource(tabHaze)
+                        modifier = Modifier.fillMaxSize()
                     ) { tab -> TabContent(tab) }
 
                     ListScrollbar(scrollState = currentScrollState, modifier = Modifier.scrollbarSystemBarsPadding())
-                    ScrollToTopButton(scrollState = currentScrollState, haze = tabHaze)
+                    ScrollToTopButton(scrollState = currentScrollState)
                 }
             }
         } else {
@@ -399,7 +398,7 @@ fun SettingsScreen(
                     }
 
                     ListScrollbar(scrollState = currentScrollState, modifier = Modifier.scrollbarSystemBarsPadding())
-                    ScrollToTopButton(scrollState = currentScrollState, extraBottomPadding = navigationHeight, haze = barHaze)
+                    ScrollToTopButton(scrollState = currentScrollState, extraBottomPadding = navigationHeight)
                 }
             }
         }

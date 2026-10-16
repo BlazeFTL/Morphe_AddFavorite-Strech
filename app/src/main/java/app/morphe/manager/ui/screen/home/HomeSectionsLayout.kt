@@ -1118,14 +1118,11 @@ internal fun MainAppsSection(
                         LaunchedEffect(searchState.visible) {
                             if (searchState.visible) listState.scrollToItem(0)
                         }
-                        // The list the scroll-to-top button blurs, apart from the screen's own, which holds the button
-                        val listHaze = rememberHazeState()
                         // A focused row comes out from under the status bar and the footer bar
                         ProvideBringIntoViewInsets(top = topPadding, bottom = footerClearance) {
                             LazyColumn(
                                 state = listState,
                                 modifier = (if (fillHeight) Modifier.fillMaxSize() else Modifier.fillMaxWidth())
-                                    .hazeSource(listHaze)
                                     .nestedScroll(pullToRefreshGuard),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 // Center items vertically in the flat All-apps view when the list
@@ -1276,8 +1273,7 @@ internal fun MainAppsSection(
                         // Lifted clear of whichever bar covers the bottom of the list
                         ScrollToTopButton(
                             listState = listState,
-                            extraBottomPadding = footerBarOverlap,
-                            haze = listHaze
+                            extraBottomPadding = footerBarOverlap
                         )
                     }
 

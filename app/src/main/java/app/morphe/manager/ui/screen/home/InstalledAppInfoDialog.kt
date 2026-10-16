@@ -608,7 +608,7 @@ fun InstalledAppInfoDialog(
 
             // The app's header pinned over its information. The header inset sets its band in from
             // the panel's edges, which it otherwise reaches out to and up under the status bar
-            val infoPanel = @Composable { modifier: Modifier, headerInset: Dp, content: LazyListScope.() -> Unit ->
+            val infoPanel = @Composable { modifier: Modifier, headerInset: Dp, bottomInset: Dp, content: LazyListScope.() -> Unit ->
                 Column(modifier = modifier) {
                     CompositionLocalProvider(LocalDialogHorizontalInset provides Defaults.SpaceLarge) {
                         ListDialogHeader(
@@ -649,7 +649,7 @@ fun InstalledAppInfoDialog(
 
                     DialogLazyList(
                         modifier = Modifier.weight(1f).fillMaxWidth(),
-                        contentPadding = PaddingValues(bottom = Defaults.SpaceExtraLarge),
+                        contentPadding = PaddingValues(bottom = bottomInset),
                         content = content
                     )
                 }
@@ -779,6 +779,8 @@ fun InstalledAppInfoDialog(
                             .fillMaxHeight()
                             .navigationBarsPadding(),
                         Defaults.SpaceLarge,
+                        // Nothing below it but the screen's edge, so the list keeps clear of it
+                        Defaults.SpaceExtraLarge,
                         infoItems
                     )
                 }
@@ -788,7 +790,8 @@ fun InstalledAppInfoDialog(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    infoPanel(Modifier.weight(1f).widthIn(max = Defaults.ContentMaxWidth).fillMaxWidth(), 0.dp) {
+                    // Ends right above the close button, whose own margin makes the gap, as a dialog footer's does
+                    infoPanel(Modifier.weight(1f).widthIn(max = Defaults.ContentMaxWidth).fillMaxWidth(), 0.dp, 0.dp) {
                         infoItems()
 
                         item(key = "actions") {
@@ -819,8 +822,7 @@ fun InstalledAppInfoDialog(
                             Modifier
                                 .widthIn(max = Defaults.ContentMaxWidth)
                                 .navigationBarsPadding()
-                                .padding(horizontal = Defaults.SpaceLarge)
-                                .padding(vertical = Defaults.SpaceMedium)
+                                .padding(Defaults.SpaceLarge)
                         )
                     }
                 }

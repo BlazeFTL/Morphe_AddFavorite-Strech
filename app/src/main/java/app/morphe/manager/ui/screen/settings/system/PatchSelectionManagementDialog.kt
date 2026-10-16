@@ -12,7 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -30,17 +29,19 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.ImportExportViewModel
+import app.morphe.manager.ui.viewmodel.SelectionApp
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.*
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 /** Snapshot of package/bundle selection counts. */
 @Immutable
 data class PatchSelectionData(
     val selections: Map<String, Map<Int, Int>>,
     val totalSelections: Int,
-    val bundleNames: Map<Int, String>
+    val bundleNames: Map<Int, String>,
+    /** The apps of [selections] named and in order, null while their names are being resolved. */
+    val apps: List<SelectionApp>?
 )
 
 /** Multi-select state and its mutation callbacks. */
@@ -72,6 +73,7 @@ fun PatchSelectionManagementDialog(
 
     val selections by settingsViewModel.selectionsSummary.collectAsStateWithLifecycle()
     val bundleNames by settingsViewModel.bundleNames.collectAsStateWithLifecycle()
+    val selectionApps by remember { settingsViewModel.selectionApps() }.collectAsStateWithLifecycle(initialValue = null)
 
     val totalSelections = remember(selections) {
         selections.values.sumOf { bundleMap -> bundleMap.values.sum() }
@@ -95,7 +97,8 @@ fun PatchSelectionManagementDialog(
         data = PatchSelectionData(
             selections = selections,
             totalSelections = totalSelections,
-            bundleNames = bundleNames
+            bundleNames = bundleNames,
+            apps = selectionApps
         ),
         multiSelect = PatchSelectionMultiSelect(
             selectedPackages = selectedPackages,
@@ -106,7 +109,6 @@ fun PatchSelectionManagementDialog(
             },
             onToggleSelection = { pkg -> selectedPackages.toggle(pkg) }
         ),
-        settingsViewModel = settingsViewModel,
         importExportViewModel = importExportViewModel,
         onDismiss = onDismiss,
         onShowResetAllConfirmation = { showResetAllConfirmation.value = true },
@@ -275,7 +277,6 @@ fun PatchSelectionManagementDialog(
 private fun PatchSelectionManagementDialogContent(
     data: PatchSelectionData,
     multiSelect: PatchSelectionMultiSelect,
-    settingsViewModel: SettingsViewModel,
     importExportViewModel: ImportExportViewModel,
     onDismiss: () -> Unit,
     onShowResetAllConfirmation: () -> Unit,
@@ -371,16 +372,17 @@ private fun PatchSelectionManagementDialogContent(
     ) {
         SearchFieldBackHandler(search)
 
+        val apps = data.apps
         if (selections.isEmpty()) {
             EmptyState(
                 message = stringResource(R.string.settings_system_no_patches_or_options),
                 modifier = Modifier.padding(LocalDialogBarInsets.current)
             )
-        } else {
+        } else if (apps != null) {
             SelectionList(
-                data = data,
+                apps = apps,
+                bundleNames = data.bundleNames,
                 multiSelect = multiSelect,
-                settingsViewModel = settingsViewModel,
                 importExportViewModel = importExportViewModel,
                 search = search,
                 onSetResetTarget = onSetResetTarget,
@@ -397,9 +399,9 @@ private fun PatchSelectionManagementDialogContent(
  */
 @Composable
 private fun SelectionList(
-    data: PatchSelectionData,
+    apps: List<SelectionApp>,
+    bundleNames: Map<Int, String>,
     multiSelect: PatchSelectionMultiSelect,
-    settingsViewModel: SettingsViewModel,
     importExportViewModel: ImportExportViewModel,
     search: SearchFieldState,
     onSetResetTarget: (ResetTarget) -> Unit,
@@ -407,45 +409,31 @@ private fun SelectionList(
     onOpenCopyFromBundle: (CopyTarget) -> Unit,
     onImport: () -> Unit
 ) {
-    val selections = data.selections
     val listState = rememberLazyListState()
     val expandedPackages = remember { mutableStateOf<Set<String>>(emptySet()) }
-
-    // Resolved here rather than per row: the list sorts by these names, and each row would
-    // otherwise repeat the same lookup. Falls back to the package name while one is in flight.
-    val resolvedApps = remember(selections) {
-        mutableStateMapOf<String, Pair<String, AppDataSource>>()
-    }
-    LaunchedEffect(selections) {
-        resolvedApps.clear()
-        selections.keys.forEach { packageName ->
-            launch { resolvedApps[packageName] = settingsViewModel.resolveAppDisplayName(packageName) }
+    // Named and in order already, so the search only narrows them down
+    val shownApps = remember(apps, search.query) {
+        val query = search.query
+        if (query.isBlank()) apps
+        else apps.filter {
+            it.packageName.contains(query, ignoreCase = true) || it.displayName.contains(query, ignoreCase = true)
         }
     }
 
-    // Derived so the list re-filters and re-sorts as display names finish resolving
-    val displayEntries by remember(selections) {
-        derivedStateOf {
-            val query = search.query
-            val displayNameOf = { packageName: String ->
-                resolvedApps[packageName]?.first ?: packageName
-            }
-            selections.entries
-                .filter { (packageName, _) ->
-                    query.isBlank() ||
-                        packageName.contains(query, ignoreCase = true) ||
-                        displayNameOf(packageName).contains(query, ignoreCase = true)
-                }
-                .sortedBy { (packageName, _) -> displayNameOf(packageName).lowercase(Locale.ROOT) }
+    val toggleExpanded = { packageName: String ->
+        expandedPackages.value = if (packageName in expandedPackages.value) {
+            expandedPackages.value - packageName
+        } else {
+            expandedPackages.value + packageName
         }
     }
 
     DialogLazyList(
         modifier = Modifier.fillMaxWidth(),
         state = listState,
-        verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
+        verticalArrangement = Arrangement.spacedBy(SegmentGap)
     ) {
-        if (displayEntries.isEmpty()) {
+        if (shownApps.isEmpty()) {
             // No matches for the current search query
             item(key = "search_empty") {
                 EmptyState(
@@ -453,197 +441,60 @@ private fun SelectionList(
                     icon = Icons.Outlined.SearchOff
                 )
             }
-        } else {
-            // List of packages with selections
-            items(
-                items = displayEntries,
-                key = { it.key }
-            ) { (packageName, bundleMap) ->
-                val (displayName, appDataSource) = resolvedApps[packageName]
-                    ?: (packageName to AppDataSource.INSTALLED)
-                PackageSelectionItem(
+        }
+
+        // Each app a block: its header, then a row for every source it has a selection from and
+        // one resetting them all
+        shownApps.forEach { app ->
+            val packageName = app.packageName
+            val bundleMap = app.bundles
+            // Folded in selection mode, so a tap on the header always selects the app
+            val expanded = packageName in expandedPackages.value && !multiSelect.isSelectionMode
+            val rows = if (expanded) bundleMap.size + 2 else 1
+
+            item(key = packageName) {
+                PackageSelectionHeader(
                     packageName = packageName,
-                    displayName = displayName,
-                    appDataSource = appDataSource,
+                    displayName = app.displayName,
+                    appDataSource = app.dataSource,
                     bundleMap = bundleMap,
-                    bundleNames = data.bundleNames,
-                    importExportViewModel = importExportViewModel,
-                    onSetResetTarget = onSetResetTarget,
-                    onShowPatchDetails = onShowPatchDetails,
-                    onOpenCopyFromBundle = onOpenCopyFromBundle,
-                    onImport = onImport,
                     multiSelect = multiSelect,
-                    expanded = packageName in expandedPackages.value,
-                    onToggleExpanded = {
-                        expandedPackages.value = if (packageName in expandedPackages.value) {
-                            expandedPackages.value - packageName
-                        } else {
-                            expandedPackages.value + packageName
-                        }
-                    }
+                    expanded = expanded,
+                    onToggleExpanded = { toggleExpanded(packageName) },
+                    segment = ListSegment.of(0, rows),
+                    modifier = Modifier.animatedListItem(this)
                 )
             }
-        }
-    }
-}
 
-/**
- * Individual package selection item.
- */
-@Composable
-private fun PackageSelectionItem(
-    packageName: String,
-    displayName: String,
-    appDataSource: AppDataSource,
-    bundleMap: Map<Int, Int>,
-    bundleNames: Map<Int, String>,
-    importExportViewModel: ImportExportViewModel,
-    onSetResetTarget: (ResetTarget) -> Unit,
-    onShowPatchDetails: (PatchDetailsTarget) -> Unit,
-    onOpenCopyFromBundle: (CopyTarget) -> Unit,
-    onImport: () -> Unit,
-    multiSelect: PatchSelectionMultiSelect,
-    expanded: Boolean,
-    onToggleExpanded: () -> Unit
-) {
-    val view = LocalView.current
-    val isSelected = multiSelect.selectedPackages.contains(packageName)
-    val isSelectionMode = multiSelect.isSelectionMode
-
-    val totalPatches = remember(bundleMap) { bundleMap.values.sum() }
-    // In selection mode force cards closed so nested bundle taps do not race with tap-to-toggle
-    val effectiveExpanded = expanded && !isSelectionMode
-
-    SelectableCard(
-        modifier = Modifier.fillMaxWidth(),
-        isSelected = isSelected,
-        isSelectionMode = isSelectionMode
-    ) {
-        // Worn the way the home screen wears it, so the app reads as itself here too
-        SectionCard(accentColor = rememberAppColor(packageName)) {
-            Column {
-                // Header with app icon
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .combinedClickable(
-                            onClick = {
-                                if (isSelectionMode) multiSelect.onToggleSelection(packageName) else onToggleExpanded()
+            if (expanded) {
+                bundleMap.entries.forEachIndexed { index, (bundleUid, patchCount) ->
+                    item(key = "$packageName:$bundleUid") {
+                        BundleSelectionItem(
+                            packageName = packageName,
+                            bundleUid = bundleUid,
+                            bundleName = bundleNames[bundleUid],
+                            patchCount = patchCount,
+                            importExportViewModel = importExportViewModel,
+                            onReset = { onSetResetTarget(ResetTarget.PackageBundle(packageName, bundleUid)) },
+                            onShowDetails = {
+                                onShowPatchDetails(PatchDetailsTarget(packageName, bundleUid, app.displayName))
                             },
-                            onLongClick = {
-                                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-                                multiSelect.onEnterSelection(packageName)
-                            }
-                        )
-                        .padding(Defaults.SpaceLarge),
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // App icon
-                    AppIcon(
-                        packageName = packageName,
-                        contentDescription = displayName,
-                        modifier = Modifier.size(48.dp),
-                        preferredSource = appDataSource
-                    )
-
-                    // App info
-                    Column(
-                        modifier = Modifier.weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
-                    ) {
-                        Text(
-                            text = displayName,
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.SemiBold,
-                            color = dialogTextColor()
-                        )
-
-                        // Cloned copies of an app carry the same name, so the package is what
-                        // says which of them a selection belongs to
-                        Text(
-                            text = packageName,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = dialogSecondaryTextColor(),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            StatusBadge(
-                                text = pluralStringResource(
-                                    R.plurals.patch_count,
-                                    totalPatches,
-                                    totalPatches.toString()
-                                ),
-                                tone = SemanticTone.Primary
-                            )
-
-                            if (bundleMap.size > 1) {
-                                StatusBadge(
-                                    text = pluralStringResource(
-                                        R.plurals.source_count,
-                                        bundleMap.size,
-                                        bundleMap.size.toString()
-                                    ),
-                                    tone = SemanticTone.Neutral
-                                )
-                            }
-                        }
-                    }
-
-                    // Expand icon (hidden in selection mode)
-                    AnimatedVisibility(
-                        visible = !isSelectionMode,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
-                        ExpandChevron(
-                            expanded = effectiveExpanded,
-                            tint = dialogSecondaryTextColor(),
-                            announced = true
+                            onCopyFromBundle = {
+                                onOpenCopyFromBundle(CopyTarget(packageName, bundleUid, app.displayName))
+                            },
+                            onImport = onImport,
+                            segment = ListSegment.of(index + 1, rows),
+                            modifier = Modifier.animatedListItem(this)
                         )
                     }
                 }
 
-                // Expanded content
-                AnimatedVisibility(
-                    visible = effectiveExpanded,
-                    enter = Animations.expandTopFadeIn,
-                    exit = Animations.shrinkTopFadeOut
-                ) {
-                    Column(
-                        modifier = Modifier.padding(
-                            start = Defaults.SpaceLarge,
-                            end = Defaults.SpaceLarge,
-                            bottom = Defaults.SpaceLarge
-                        ),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
+                item(key = "$packageName:reset") {
+                    SelectionSegment(
+                        packageName = packageName,
+                        segment = ListSegment.of(rows - 1, rows),
+                        modifier = Modifier.animatedListItem(this)
                     ) {
-                        bundleMap.forEach { (bundleUid, patchCount) ->
-                            BundleSelectionItem(
-                                packageName = packageName,
-                                bundleUid = bundleUid,
-                                bundleName = bundleNames[bundleUid],
-                                patchCount = patchCount,
-                                importExportViewModel = importExportViewModel,
-                                onReset = { onSetResetTarget(ResetTarget.PackageBundle(packageName, bundleUid)) },
-                                onShowDetails = {
-                                    onShowPatchDetails(PatchDetailsTarget(packageName, bundleUid, displayName))
-                                },
-                                onCopyFromBundle = {
-                                    onOpenCopyFromBundle(CopyTarget(packageName, bundleUid, displayName))
-                                },
-                                onImport = onImport
-                            )
-                        }
-
-                        SettingsDivider(fullWidth = true)
-
-                        // Reset all for this package
                         CardActionRow(
                             actions = listOf(
                                 CardAction(
@@ -652,7 +503,8 @@ private fun PackageSelectionItem(
                                     onClick = { onSetResetTarget(ResetTarget.Package(packageName)) },
                                     destructive = true
                                 )
-                            )
+                            ),
+                            modifier = Modifier.padding(Defaults.SpaceLarge)
                         )
                     }
                 }
@@ -662,7 +514,142 @@ private fun PackageSelectionItem(
 }
 
 /**
- * Individual bundle selection item.
+ * One row of an app's block, edged in the app's color the way the home screen wears it, so the
+ * app reads as itself here too.
+ */
+@Composable
+private fun SelectionSegment(
+    packageName: String,
+    segment: ListSegment,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    SectionCard(
+        accentColor = rememberAppColor(packageName),
+        shape = segment.shape,
+        modifier = modifier.endsBlock(segment.endsBlock),
+        content = content
+    )
+}
+
+/**
+ * Header of an app's block: the app, how many patches its selections hold and across how many
+ * sources. A tap folds the block out, or selects the app while a selection is being made.
+ */
+@Composable
+private fun PackageSelectionHeader(
+    packageName: String,
+    displayName: String,
+    appDataSource: AppDataSource,
+    bundleMap: Map<Int, Int>,
+    multiSelect: PatchSelectionMultiSelect,
+    expanded: Boolean,
+    onToggleExpanded: () -> Unit,
+    segment: ListSegment,
+    modifier: Modifier = Modifier
+) {
+    val view = LocalView.current
+    val isSelected = multiSelect.selectedPackages.contains(packageName)
+    val isSelectionMode = multiSelect.isSelectionMode
+    val totalPatches = remember(bundleMap) { bundleMap.values.sum() }
+
+    // The gap below goes outside the selection, so the check sits on the card rather than the gap
+    SelectableCard(
+        modifier = modifier.endsBlock(segment.endsBlock),
+        isSelected = isSelected,
+        isSelectionMode = isSelectionMode
+    ) {
+        SelectionSegment(packageName = packageName, segment = segment.copy(endsBlock = false)) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .combinedClickable(
+                        onClick = {
+                            if (isSelectionMode) multiSelect.onToggleSelection(packageName) else onToggleExpanded()
+                        },
+                        onLongClick = {
+                            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                            multiSelect.onEnterSelection(packageName)
+                        }
+                    )
+                    .padding(Defaults.SpaceLarge),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                AppIcon(
+                    packageName = packageName,
+                    contentDescription = displayName,
+                    modifier = Modifier.size(48.dp),
+                    preferredSource = appDataSource
+                )
+
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
+                ) {
+                    Text(
+                        text = displayName,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = dialogTextColor()
+                    )
+
+                    // Cloned copies of an app carry the same name, so the package is what
+                    // says which of them a selection belongs to
+                    Text(
+                        text = packageName,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = dialogSecondaryTextColor(),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        StatusBadge(
+                            text = pluralStringResource(
+                                R.plurals.patch_count,
+                                totalPatches,
+                                totalPatches.toString()
+                            ),
+                            tone = SemanticTone.Primary
+                        )
+
+                        if (bundleMap.size > 1) {
+                            StatusBadge(
+                                text = pluralStringResource(
+                                    R.plurals.source_count,
+                                    bundleMap.size,
+                                    bundleMap.size.toString()
+                                ),
+                                tone = SemanticTone.Neutral
+                            )
+                        }
+                    }
+                }
+
+                // Hidden in selection mode, where a tap selects rather than folds
+                AnimatedVisibility(
+                    visible = !isSelectionMode,
+                    enter = Animations.expandFadeEnter,
+                    exit = Animations.shrinkFadeExit
+                ) {
+                    ExpandChevron(
+                        expanded = expanded,
+                        tint = dialogSecondaryTextColor(),
+                        announced = true
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Row of an app's block for one source it has a selection from: how many patches the selection
+ * holds, which opens them, and what can be done with it.
  */
 @Composable
 private fun BundleSelectionItem(
@@ -674,7 +661,9 @@ private fun BundleSelectionItem(
     onReset: () -> Unit,
     onShowDetails: () -> Unit,
     onCopyFromBundle: () -> Unit,
-    onImport: () -> Unit
+    onImport: () -> Unit,
+    segment: ListSegment,
+    modifier: Modifier = Modifier
 ) {
 
     // Display bundle name or fallback to "Bundle #N"
@@ -691,59 +680,59 @@ private fun BundleSelectionItem(
         }
     }
 
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
-    ) {
-        SettingsDivider(fullWidth = true)
+    SelectionSegment(packageName = packageName, segment = segment, modifier = modifier) {
+        Column(
+            modifier = Modifier.padding(Defaults.SpaceLarge),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
+        ) {
+            InfoPanel {
+                InfoRow(
+                    icon = Icons.Outlined.Extension,
+                    label = displayName,
+                    value = patchCountText,
+                    onClick = onShowDetails
+                )
+            }
 
-        InfoPanel {
-            InfoRow(
-                icon = Icons.Outlined.Extension,
-                label = displayName,
-                value = patchCountText,
-                onClick = onShowDetails
-            )
-        }
+            ActionPillRow {
+                val copyLabel = stringResource(R.string.copy)
+                ActionPillButton(
+                    onClick = onCopyFromBundle,
+                    icon = Icons.Outlined.ContentCopy,
+                    contentDescription = copyLabel,
+                    tooltip = copyLabel
+                )
 
-        ActionPillRow {
-            val copyLabel = stringResource(R.string.copy)
-            ActionPillButton(
-                onClick = onCopyFromBundle,
-                icon = Icons.Outlined.ContentCopy,
-                contentDescription = copyLabel,
-                tooltip = copyLabel
-            )
+                val importLabel = stringResource(R.string.import_)
+                ActionPillButton(
+                    onClick = onImport,
+                    icon = Icons.Outlined.Download,
+                    contentDescription = importLabel,
+                    tooltip = importLabel
+                )
 
-            val importLabel = stringResource(R.string.import_)
-            ActionPillButton(
-                onClick = onImport,
-                icon = Icons.Outlined.Download,
-                contentDescription = importLabel,
-                tooltip = importLabel
-            )
+                val exportLabel = stringResource(R.string.export)
+                ActionPillButton(
+                    onClick = {
+                        val fileName = importExportViewModel.getPackageBundleDataExportFileName(
+                            packageName, bundleUid, bundleName
+                        )
+                        exportLauncher.launch(fileName)
+                    },
+                    icon = Icons.Outlined.Upload,
+                    contentDescription = exportLabel,
+                    tooltip = exportLabel
+                )
 
-            val exportLabel = stringResource(R.string.export)
-            ActionPillButton(
-                onClick = {
-                    val fileName = importExportViewModel.getPackageBundleDataExportFileName(
-                        packageName, bundleUid, bundleName
-                    )
-                    exportLauncher.launch(fileName)
-                },
-                icon = Icons.Outlined.Upload,
-                contentDescription = exportLabel,
-                tooltip = exportLabel
-            )
-
-            val resetLabel = stringResource(R.string.reset)
-            ActionPillButton(
-                onClick = onReset,
-                icon = Icons.Outlined.Restore,
-                contentDescription = resetLabel,
-                tooltip = resetLabel,
-                destructive = true
-            )
+                val resetLabel = stringResource(R.string.reset)
+                ActionPillButton(
+                    onClick = onReset,
+                    icon = Icons.Outlined.Restore,
+                    contentDescription = resetLabel,
+                    tooltip = resetLabel,
+                    destructive = true
+                )
+            }
         }
     }
 }

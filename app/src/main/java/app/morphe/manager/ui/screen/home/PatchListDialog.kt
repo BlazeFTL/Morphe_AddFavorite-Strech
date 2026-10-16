@@ -368,7 +368,7 @@ private fun SectionFilterSheet(
  * and the options fold out from a badge naming how many there are.
  *
  * @param packageName App the block lists the patch under, whose versions the card compares.
- * @param shape Its place among the rows of its block, see [PatchSegment].
+ * @param shape Its place among the rows of its block, see [ListSegment].
  */
 @Composable
 internal fun PatchItemCard(

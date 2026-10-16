@@ -9,6 +9,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -37,10 +38,27 @@ import app.morphe.manager.worker.UpdateCheckWorker
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.*
+import java.util.Locale
+
+/**
+ * An app with saved patch selections: its name as resolved for display, where that came from, and
+ * how many patches each source it has a selection from holds, by source uid.
+ */
+@Immutable
+data class SelectionApp(
+    val packageName: String,
+    val displayName: String,
+    val dataSource: AppDataSource,
+    val bundles: Map<Int, Int>
+)
 
 class SettingsViewModel(
     val prefs: PreferencesManager,
@@ -289,6 +307,26 @@ class SettingsViewModel(
     val selectionsSummary: StateFlow<Map<String, Map<Int, Int>>> =
         selectionRepository.getSelectionsSummaryFlow()
             .stateIn(viewModelScope, SharingStarted.Eagerly, emptyMap())
+
+    /**
+     * The apps with saved selections, each with its name resolved and in name order, emitted once
+     * every name of a summary is in, so a list of them opens already in its order. Cold, so the
+     * names are resolved for whoever collects it now rather than kept from an earlier look.
+     */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun selectionApps(): Flow<List<SelectionApp>> =
+        selectionRepository.getSelectionsSummaryFlow()
+            .mapLatest { summary ->
+                coroutineScope {
+                    summary.map { (packageName, bundles) ->
+                        async {
+                            val data = appDataResolver.resolveAppData(packageName)
+                            SelectionApp(packageName, data.displayName, data.source, bundles)
+                        }
+                    }.awaitAll()
+                }.sortedBy { it.displayName.lowercase(Locale.ROOT) }
+            }
+            .flowOn(Dispatchers.IO)
 
     /** Bundle uid → bundle name */
     val bundleNames: StateFlow<Map<Int, String>> =

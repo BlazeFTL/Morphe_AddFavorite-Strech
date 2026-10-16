@@ -186,7 +186,7 @@ internal fun <T> rememberPatchGroups(
  *
  * @param leading Drawn in place of [icon], for a block that stands for an app or a source.
  * @param badges What the whole block shares, such as the app versions, under the title.
- * @param shape Its place among the rows of the block it heads, see [PatchSegment].
+ * @param shape Its place among the rows of the block it heads, see [ListSegment].
  */
 @Composable
 internal fun PatchGroupHeader(
@@ -273,35 +273,13 @@ internal fun PatchGroupHeader(
 }
 
 /**
- * Gap between the blocks of a patch list. The rows of one block stand [SegmentGap] apart, as a
- * segmented list's do, so the list is spaced by that and each block keeps the rest below it.
- */
-private val PatchBlockGap = DialogListSpacing
-
-/**
- * Room below a row that ends a block, or stands apart from the blocks such as a notice, so the
- * list spaces the blocks [PatchBlockGap] apart. Set at once rather than eased: the rows around a
- * fold already glide into place with the list, and a gap easing shut would lift a row that only
- * just appeared under it.
- */
-internal fun Modifier.endsBlock(ends: Boolean = true): Modifier =
-    if (ends) padding(bottom = PatchBlockGap - SegmentGap) else this
-
-/**
- * Where a row stands in its block: [shape] rounds it on the block's own edges and nearly square
- * where it meets the next, and [endsBlock] keeps the gap below the last, see [Modifier.endsBlock].
- */
-@Immutable
-internal data class PatchSegment(val shape: CornerBasedShape, val endsBlock: Boolean)
-
-/**
  * Header gathering every group of [patchGroupRows] into one block, such as the app a section of
  * a longer list is for. [content] draws it in the place it is handed, and a [folded] one stands alone.
  */
 internal class PatchBlockHead(
     val key: Any,
     val folded: Boolean,
-    val content: @Composable LazyItemScope.(PatchSegment) -> Unit
+    val content: @Composable LazyItemScope.(ListSegment) -> Unit
 )
 
 /** One row of a block as [patchGroupRows] lays it out. */
@@ -319,7 +297,7 @@ private sealed interface PatchBlockRow<out T> {
  * There is nothing worth folding away when the list is a single block, and a filter already
  * narrows it far enough that a fold would only hide results, so both keep every block open.
  *
- * [row] draws one patch in the [PatchSegment] it is handed and stays with the caller, since the
+ * [row] draws one patch in the [ListSegment] it is handed and stays with the caller, since the
  * lists differ in what a row carries and in what it can be toggled into.
  *
  * [folds] is a plain snapshot rather than the state holder itself: this builder runs while the
@@ -334,7 +312,7 @@ internal fun <T> LazyListScope.patchGroupRows(
     onToggle: (PatchGroup<T>) -> Unit,
     accentColor: Color? = null,
     head: PatchBlockHead? = null,
-    row: @Composable LazyItemScope.(T, PatchSegment) -> Unit
+    row: @Composable LazyItemScope.(T, ListSegment) -> Unit
 ) {
     val alwaysOpen = isFiltering || groups.size == 1
     val groupRows = { group: PatchGroup<T> ->
@@ -352,10 +330,7 @@ internal fun <T> LazyListScope.patchGroupRows(
 
     blocks.forEach { block ->
         block.forEachIndexed { index, blockRow ->
-            val segment = PatchSegment(
-                shape = ConnectedShapes.Card.inColumn(index, block.size),
-                endsBlock = index == block.lastIndex
-            )
+            val segment = ListSegment.of(index, block.size)
             when (blockRow) {
                 PatchBlockRow.Head -> if (head != null) item(key = head.key) { head.content(this, segment) }
 

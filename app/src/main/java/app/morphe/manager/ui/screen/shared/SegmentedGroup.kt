@@ -8,10 +8,13 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonGroupDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +25,37 @@ import androidx.compose.ui.Modifier
 
 /** Gap between the rows of a segmented list, the one a connected group of buttons keeps. */
 val SegmentGap = ButtonGroupDefaults.ConnectedSpaceBetween
+
+/**
+ * Gap between the blocks of a lazy segmented list. Its rows stand [SegmentGap] apart, so the list
+ * is spaced by that and each block keeps the rest below it, see [Modifier.endsBlock].
+ */
+private val SegmentBlockGap = DialogListSpacing
+
+/**
+ * Where a row of a lazy list stands in its block, the place a [SettingsGroup] works out for its
+ * rows on its own: [shape] rounds it on the block's edges and nearly square where it meets the
+ * next, and [endsBlock] keeps the gap below the last.
+ */
+@Immutable
+data class ListSegment(val shape: CornerBasedShape, val endsBlock: Boolean) {
+    companion object {
+        /** The segment at [index] of a block of [count] rows. */
+        fun of(index: Int, count: Int) = ListSegment(
+            shape = ConnectedShapes.Card.inColumn(index, count),
+            endsBlock = index == count - 1
+        )
+    }
+}
+
+/**
+ * Room below a row that ends a block of a lazy segmented list, or stands apart from the blocks
+ * such as a notice, so the list spaces the blocks [SegmentBlockGap] apart. Set at once rather than
+ * eased: the rows around a fold already glide into place with the list, and a gap easing shut
+ * would lift a row that only just appeared under it.
+ */
+fun Modifier.endsBlock(ends: Boolean = true): Modifier =
+    if (ends) padding(bottom = SegmentBlockGap - SegmentGap) else this
 
 /**
  * Settings that belong together, each row a segment of one group: rounded on the group's own

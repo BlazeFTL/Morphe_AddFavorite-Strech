@@ -159,7 +159,7 @@ private fun tonalIconColors(
 /**
  * Individual patch card with toggle and options button.
  *
- * @param shape Its place among the rows of its block, see [PatchSegment].
+ * @param shape Its place among the rows of its block, see [ListSegment].
  */
 @Composable
 internal fun PatchCard(

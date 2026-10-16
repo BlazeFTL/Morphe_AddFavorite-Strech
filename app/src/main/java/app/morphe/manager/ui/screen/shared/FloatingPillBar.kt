@@ -77,8 +77,6 @@ fun FloatingPillBar(
     horizontalPadding: Dp = rememberWindowSize().contentPadding,
     trailing: @Composable RowScope.() -> Unit = {}
 ) {
-    // A pill that blurs stands out on its own, so the content runs on to the screen's edge undimmed
-    val blurs = LocalBackdropHaze.current != null
     Box(
         modifier = modifier
             .keepsClearOfMessages()
@@ -91,8 +89,6 @@ fun FloatingPillBar(
                 .widthIn(max = Defaults.ContentMaxWidth)
                 .fillMaxWidth()
                 .padding(horizontal = horizontalPadding)
-                // Dims only as wide as the content, so a scrollbar in the margin stays clear
-                .then(if (blurs) Modifier else Modifier.floatingBarScrim(MaterialTheme.colorScheme.background))
                 .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Bottom))
                 .padding(bottom = Defaults.SpaceMedium),
             // No spacing of its own: a trailing action brings its gap along, see [AnimatedRowPill]
@@ -202,31 +198,9 @@ fun FloatingPillRoundAction(
 }
 
 /**
- * Dims what scrolls under a bar floating over the screen gradually toward the screen's [edge],
- * into [background], rather than cutting it off, while it stays visible around the bar.
- */
-fun Modifier.floatingBarScrim(background: Color, edge: Alignment.Vertical = Alignment.Bottom): Modifier {
-    val stops = Array(ScrimSteps + 1) { step ->
-        val fraction = step / ScrimSteps.toFloat()
-        // Held near full by the edge, where a bar sits over it, and eased at both ends, so the
-        // dimming has no edge where it starts or where it runs out
-        val fromEdge = if (edge == Alignment.Top) fraction else 1f - fraction
-        val falloff = 1f - fromEdge * fromEdge * fromEdge
-        fraction to background.copy(alpha = ScrimAlpha * falloff * falloff)
-    }
-    return background(Brush.verticalGradient(*stops))
-}
-
-/** How far a scrim dims what lies under it at its fullest, enough to leave a bar legible over it. */
-private const val ScrimAlpha = 0.9f
-
-/** Color stops the scrim's falloff is drawn through, enough for it to read as one curve. */
-private const val ScrimSteps = 12
-
-/**
- * Dims what scrolls up under the status bar in one even falloff from the screen's edge, as
- * [floatingBarScrim] does under a bar at the bottom, for a screen whose content runs on to its top.
- * It ends with the status bar, so content at rest just below it is never dimmed.
+ * Dims what scrolls up under the status bar in one even falloff from the screen's edge, for a
+ * screen whose content runs on to its top, so the bar's icons stay legible over it. It ends with
+ * the status bar, so content at rest just below it is never dimmed.
  */
 @Composable
 fun BoxScope.StatusBarScrim() {
@@ -236,10 +210,29 @@ fun BoxScope.StatusBarScrim() {
             .fillMaxWidth()
             // Clear of the screen's sides, where a scrollbar runs on past the content
             .padding(horizontal = Defaults.SpaceMedium)
-            .floatingBarScrim(MaterialTheme.colorScheme.background, edge = Alignment.Top)
+            .statusBarScrim(MaterialTheme.colorScheme.background)
             .windowInsetsTopHeight(WindowInsets.statusBars)
     )
 }
+
+/**
+ * [background] held near full by the screen's edge and eased at both ends, so the dimming has no
+ * edge where it starts or where it runs out.
+ */
+private fun Modifier.statusBarScrim(background: Color): Modifier {
+    val stops = Array(ScrimSteps + 1) { step ->
+        val fraction = step / ScrimSteps.toFloat()
+        val falloff = 1f - fraction * fraction * fraction
+        fraction to background.copy(alpha = ScrimAlpha * falloff * falloff)
+    }
+    return background(Brush.verticalGradient(*stops))
+}
+
+/** How far the scrim dims what lies under it at its fullest, enough to leave the bar legible over it. */
+private const val ScrimAlpha = 0.9f
+
+/** Color stops the scrim's falloff is drawn through, enough for it to read as one curve. */
+private const val ScrimSteps = 12
 
 /**
  * Lays [content] out under bars floating over its edges, a [topBar] over the top and a [bottomBar]

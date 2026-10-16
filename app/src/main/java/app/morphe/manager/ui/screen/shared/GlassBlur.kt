@@ -22,9 +22,12 @@ import dev.chrisbanes.haze.blur.HazeColorEffect
 import dev.chrisbanes.haze.blur.hazeBlur
 
 /**
- * What the headers, bars and panels floating over a screen or a [ListDialog] blur, handed down
- * from the content they float over. Null where nothing is, which leaves them solid, and in a
- * dialog or sheet of its own, whose window cannot draw the one it was opened from.
+ * What the headers, bars, panels and buttons floating over a screen or a [ListDialog] blur,
+ * handed down from the content they float over. Null where nothing is, which leaves them solid.
+ *
+ * Provided only to what floats over the content marked as its source, never inside that content,
+ * where a surface would blur the layer it is drawn into. A dialog or sheet resets it to null, as
+ * its window cannot draw the one it was opened from.
  */
 val LocalBackdropHaze = staticCompositionLocalOf<HazeState?> { null }
 

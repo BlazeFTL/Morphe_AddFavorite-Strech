@@ -71,7 +71,7 @@ private const val MinAlphabetTargets = 5
 
 /**
  * Keeps a screen's scrollbar an even step clear of the system bars its content runs on under, so
- * both ends show past the screen's rounded corners and the scrims laid under the bars.
+ * both ends show past the screen's rounded corners.
  */
 fun Modifier.scrollbarSystemBarsPadding(): Modifier =
     statusBarsPadding()

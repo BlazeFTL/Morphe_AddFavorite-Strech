@@ -7,7 +7,6 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
@@ -98,7 +97,6 @@ private fun ListDialogLayout(
     footerFolded: Boolean,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val background = MaterialTheme.colorScheme.background
     val haze = rememberHazeState()
     val collapse = remember { DialogHeaderCollapse() }
     FloatingBarsLayout(
@@ -117,46 +115,45 @@ private fun ListDialogLayout(
             }
         },
         bottomBar = {
-            when {
-                bottomBar != null -> Box(
-                    modifier = Modifier
-                        .keepsClearOfMessages()
-                        .widthIn(max = Defaults.ContentMaxWidth)
-                        .fillMaxWidth()
-                ) {
-                    // Blurs the list as the header does
-                    CompositionLocalProvider(LocalBackdropHaze provides haze, content = bottomBar)
-                }
-
-                footer != null -> AnimatedVisibility(
-                    visible = !footerFolded,
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
-                    Box(
+            // Blurs the list as the header does, the footer's buttons included
+            CompositionLocalProvider(LocalBackdropHaze provides haze) {
+                when {
+                    bottomBar != null -> Box(
                         modifier = Modifier
                             .keepsClearOfMessages()
+                            .widthIn(max = Defaults.ContentMaxWidth)
                             .fillMaxWidth()
-                            .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal)),
-                        contentAlignment = Alignment.Center
+                    ) {
+                        bottomBar()
+                    }
+
+                    footer != null -> AnimatedVisibility(
+                        visible = !footerFolded,
+                        enter = Animations.expandFadeEnter,
+                        exit = Animations.shrinkFadeExit
                     ) {
                         Box(
                             modifier = Modifier
-                                .widthIn(max = Defaults.ContentMaxWidth)
+                                .keepsClearOfMessages()
                                 .fillMaxWidth()
-                                .padding(horizontal = ListDialogInset)
-                                // Dims only as wide as the rows, so the scrollbar in the margin stays clear
-                                .floatingBarScrim(background)
-                                .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Bottom))
-                                .padding(vertical = Defaults.SpaceLarge)
+                                .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
+                                .padding(vertical = Defaults.SpaceLarge),
+                            contentAlignment = Alignment.Center
                         ) {
-                            CompositionLocalProvider(LocalDialogButtonBackdrop provides background, content = footer)
+                            Box(
+                                modifier = Modifier
+                                    .widthIn(max = Defaults.ContentMaxWidth)
+                                    .fillMaxWidth()
+                                    .padding(horizontal = ListDialogInset)
+                            ) {
+                                footer()
+                            }
                         }
                     }
-                }
 
-                // Nothing floats over the content, which still ends clear of the navigation bar
-                else -> Spacer(Modifier.fillMaxWidth().windowInsetsBottomHeight(WindowInsets.systemBars))
+                    // Nothing floats over the content, which still ends clear of the navigation bar
+                    else -> Spacer(Modifier.fillMaxWidth().windowInsetsBottomHeight(WindowInsets.systemBars))
+                }
             }
         }
     ) { headerHeight, bottomHeight ->

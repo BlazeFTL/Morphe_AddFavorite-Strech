@@ -34,6 +34,9 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
 import app.morphe.manager.ui.theme.isDarkTheme
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import kotlin.time.Duration.Companion.milliseconds
 
 /** The primary text color of dialog content, read through [dialogTextColor]. */
@@ -61,11 +64,15 @@ fun dialogSecondaryTextColor(): Color =
 val LocalDialogHorizontalInset = compositionLocalOf { 0.dp }
 
 /**
- * Height of the footer or bottom bar floating over the bottom of a full-height [AppDialog]'s
- * content, which a scrolling list leaves as room at its end so its last row can come out from
- * under it. Zero in a compact dialog, whose footer sits under the content.
+ * Room a full-height [AppDialog] keeps at its content's ends for the header and the footer or
+ * bottom bar floating over them, which a scrolling list leaves as padding so its first and last
+ * rows can come out from under them. None in a compact dialog, whose header and footer sit among
+ * its content.
  */
-val LocalDialogBottomInset = compositionLocalOf { 0.dp }
+val LocalDialogBarInsets = compositionLocalOf { PaddingValues(0.dp) }
+
+/** What a header floating over a full-height [AppDialog]'s content blurs, see [ListDialogHeader]. */
+internal val LocalDialogHeaderHaze = staticCompositionLocalOf<HazeState?> { null }
 
 
 /**
@@ -106,6 +113,9 @@ enum class DialogPadding {
  *   every dialog and held in place with it while the content below scrolls. Plain text or an
  *   [AnnotatedString] for one with emphasis.
  * @param titleTrailingContent Optional actions displayed after the title, laid out in a row.
+ * @param header Heads the dialog, such as a [ListDialogHeader]. In a dialog that fills its height it
+ * floats over the top of the content, which scrolls on beneath it blurred where the platform can
+ * blur, and anywhere else it leads the content.
  * @param footer Optional footer content.
  * @param accentColor Color of the app or source the dialog is about. Its header, content and
  *   buttons all take it on through [LocalAccent], so the dialog reads as one surface in that color.
@@ -121,10 +131,10 @@ enum class DialogPadding {
  * @param backdrop Drawn over the dialog's own background and under its content, for a dialog
  * that previews something full screen, such as the background picker.
  * @param fillContentHeight Whether the content area claims the whole screen, for list dialogs. Their
- * content runs on to the screen's edge, as the home screen's list does, under the footer or bottom
- * bar floating over it, and a list leaves room for that at its end through [LocalDialogBottomInset].
- * Compact dialogs leave it false so their content and buttons stay together as one centered block.
- * Default is false.
+ * content runs on to the screen's edges, as the home screen's list does, under the [header] and the
+ * footer or bottom bar floating over it, and a list leaves room for them at its ends through
+ * [LocalDialogBarInsets]. Compact dialogs leave it false so their content and buttons stay together
+ * as one centered block. Default is false.
  * @param hideFooterWhileTyping Folds the [footer] away while the keyboard is up, for a list dialog
  * whose search wants every row of room it can get. A dialog whose buttons act on what is typed
  * leaves it off, so they stay above the keyboard. Default is false.
@@ -138,6 +148,7 @@ fun AppDialog(
     title: String? = null,
     description: CharSequence? = null,
     titleTrailingContent: (@Composable RowScope.() -> Unit)? = null,
+    header: (@Composable () -> Unit)? = null,
     footer: (@Composable () -> Unit)? = null,
     accentColor: Color? = null,
     bottomBar: (@Composable () -> Unit)? = null,
@@ -210,6 +221,7 @@ fun AppDialog(
                             title = title,
                             description = description,
                             titleTrailingContent = titleTrailingContent,
+                            header = header,
                             footer = footer,
                             bottomBar = bottomBar,
                             isDarkTheme = isDarkTheme,
@@ -340,6 +352,7 @@ private fun DialogContent(
     title: String?,
     description: CharSequence?,
     titleTrailingContent: (@Composable RowScope.() -> Unit)?,
+    header: (@Composable () -> Unit)?,
     footer: (@Composable () -> Unit)?,
     bottomBar: (@Composable () -> Unit)?,
     isDarkTheme: Boolean,
@@ -390,11 +403,12 @@ private fun DialogContent(
         Defaults.SpaceLarge
     }
     val footerFolded = hideFooterWhileTyping && WindowInsets.isImeVisible
-    val body = @Composable { modifier: Modifier, inlineFooter: (@Composable () -> Unit)? ->
+    val body = @Composable { modifier: Modifier, inlineHeader: (@Composable () -> Unit)?, inlineFooter: (@Composable () -> Unit)? ->
         DialogBody(
             title = title,
             description = description,
             titleTrailingContent = titleTrailingContent,
+            header = inlineHeader,
             footer = inlineFooter,
             horizontalPadding = horizontalPadding,
             scrollable = scrollable,
@@ -413,12 +427,13 @@ private fun DialogContent(
     ) {
         if (fillContentHeight) {
             FullHeightLayout(
+                header = header,
                 footer = footer,
                 bottomBar = bottomBar,
                 footerFolded = footerFolded,
                 horizontalPadding = horizontalPadding,
                 topPadding = topPadding,
-                body = { modifier -> body(modifier, null) }
+                body = { modifier -> body(modifier, null, null) }
             )
         } else {
             CompactLayout(
@@ -429,6 +444,7 @@ private fun DialogContent(
                     // A docked bar stands in for the footer while there is one
                     body(
                         modifier,
+                        header,
                         footer?.takeIf { bottomBar == null }?.let { footer ->
                             {
                                 FoldingFooter(folded = footerFolded) {
@@ -451,12 +467,14 @@ private fun DialogContent(
 }
 
 /**
- * The [body] of a list dialog, running on to the screen's edge, or to the keyboard while it is up,
- * under the [bottomBar] or else the [footer] floating over it. Laid out the same with either, so
- * the content keeps its state as a selection bar comes and goes.
+ * The [body] of a list dialog, running on to the screen's edges, or to the keyboard while it is up,
+ * under the [header] floating over its top and the [bottomBar] or else the [footer] over its
+ * bottom. Laid out the same with either, so the content keeps its state as a selection bar comes
+ * and goes.
  */
 @Composable
 private fun FullHeightLayout(
+    header: (@Composable () -> Unit)?,
     footer: (@Composable () -> Unit)?,
     bottomBar: (@Composable () -> Unit)?,
     footerFolded: Boolean,
@@ -465,11 +483,15 @@ private fun FullHeightLayout(
     body: @Composable (Modifier) -> Unit
 ) {
     val background = MaterialTheme.colorScheme.background
-    FloatingPillBarLayout(
+    val haze = rememberHazeState()
+    FloatingBarsLayout(
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.ime.only(WindowInsetsSides.Bottom)),
-        bar = {
+        topBar = {
+            if (header != null) CompositionLocalProvider(LocalDialogHeaderHaze provides haze, content = header)
+        },
+        bottomBar = {
             when {
                 bottomBar != null -> Box(
                     modifier = Modifier
@@ -505,13 +527,24 @@ private fun FullHeightLayout(
                 else -> Spacer(Modifier.fillMaxWidth().windowInsetsBottomHeight(WindowInsets.systemBars))
             }
         }
-    ) { barHeight ->
-        CompositionLocalProvider(LocalDialogBottomInset provides barHeight) {
+    ) { headerHeight, bottomHeight ->
+        // The list starts a step below the header, as the content of a dialog without one starts below its top
+        val topInset = if (header != null) headerHeight + Defaults.SpaceMedium else 0.dp
+        CompositionLocalProvider(LocalDialogBarInsets provides PaddingValues(top = topInset, bottom = bottomHeight)) {
             body(
                 Modifier
                     .fillMaxSize()
-                    .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
-                    .padding(top = topPadding)
+                    // What the header blurs, laid from the screen's top edge when it clears the bar
+                    .hazeSource(haze)
+                    .then(
+                        if (header != null) {
+                            Modifier.windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal))
+                        } else {
+                            Modifier
+                                .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
+                                .padding(top = topPadding)
+                        }
+                    )
             )
         }
     }
@@ -582,14 +615,15 @@ private fun FoldingFooter(folded: Boolean, content: @Composable () -> Unit) {
 }
 
 /**
- * The title, description and content of a dialog, with the [footer] under them when it sits
- * inline rather than floating over them.
+ * The title, description and content of a dialog, with the [header] over them and the [footer]
+ * under them when they sit inline rather than floating over them.
  */
 @Composable
 private fun DialogBody(
     title: String?,
     description: CharSequence?,
     titleTrailingContent: (@Composable RowScope.() -> Unit)?,
+    header: (@Composable () -> Unit)?,
     footer: (@Composable () -> Unit)?,
     horizontalPadding: Dp,
     scrollable: Boolean,
@@ -606,6 +640,17 @@ private fun DialogBody(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = contentArrangement
         ) {
+            // Set a step above the content, as a header floating over a full-height dialog is
+            header?.let { header ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = horizontalPadding, end = horizontalPadding, bottom = Defaults.SpaceMedium)
+                ) {
+                    header()
+                }
+            }
+
             // Title section. The headline's tall line box already adds space below the
             // text, so a small gap reads as much as the one above the footer
             val titleAlign =
@@ -678,7 +723,7 @@ private fun DialogBody(
             // focused field up into the room the keyboard inset leaves above it
             // LazyColumn callers pass scrollable=false and wire up their own scrollbar
             val scrollState = if (scrollable) rememberScrollState() else null
-            val footerInset = LocalDialogBottomInset.current
+            val barInsets = LocalDialogBarInsets.current
             Box(
                 modifier = Modifier.weight(1f, fill = fillContentHeight)
             ) {
@@ -693,7 +738,7 @@ private fun DialogBody(
                                     .verticalScrollFade(scrollState)
                                     .padding(horizontal = horizontalPadding)
                                     .verticalScroll(scrollState)
-                                    .padding(bottom = footerInset)
+                                    .padding(barInsets)
                             } else {
                                 Modifier.padding(horizontal = horizontalPadding)
                             }
@@ -703,8 +748,8 @@ private fun DialogBody(
                 }
 
                 if (scrollState != null) {
-                    ListScrollbar(scrollState = scrollState, modifier = Modifier.padding(bottom = footerInset))
-                    ScrollToTopButton(scrollState = scrollState, extraBottomPadding = footerInset)
+                    ListScrollbar(scrollState = scrollState, modifier = Modifier.padding(barInsets))
+                    ScrollToTopButton(scrollState = scrollState, extraBottomPadding = barInsets.calculateBottomPadding())
                 }
             }
 

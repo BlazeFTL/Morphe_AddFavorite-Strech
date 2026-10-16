@@ -44,6 +44,22 @@ fun CreatorDialogFrame(
     AppDialog(
         onDismissRequest = { if (!isCreating) onDismiss() },
         accentColor = rememberAppColor(packageName),
+        header = {
+            ListDialogHeader(
+                icon = { modifier ->
+                    AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
+                },
+                title = title,
+                subtitle = KnownApps.getAppName(packageName)
+            ) {
+                TitleAction(
+                    icon = Icons.Outlined.Info,
+                    contentDescription = guideTitle,
+                    onClick = { showGuide = true },
+                    style = TitleActionStyle.Accent
+                )
+            }
+        },
         footer = {
             AppDialogButton(
                 text = title,
@@ -63,26 +79,10 @@ fun CreatorDialogFrame(
             }
         }
     ) {
-        ListDialogHeader(
-            icon = { modifier ->
-                AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
-            },
-            title = title,
-            subtitle = KnownApps.getAppName(packageName)
-        ) {
-            TitleAction(
-                icon = Icons.Outlined.Info,
-                contentDescription = guideTitle,
-                onClick = { showGuide = true },
-                style = TitleActionStyle.Accent
-            )
-        }
-
         DialogScrollColumn(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
             // Spaced as the option cards that open the creator
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
             content = content

@@ -69,7 +69,7 @@ class FloatingPillItem(
  * that stands apart, see [FloatingPillRoundAction].
  *
  * The bar takes the navigation bar inset itself, so the content under it should not, and should
- * leave room for the bar's height at the end of its scroll, which [FloatingPillBarLayout] hands it.
+ * leave room for the bar's height at the end of its scroll, which [FloatingBarsLayout] hands it.
  */
 @Composable
 fun FloatingPillBar(
@@ -205,48 +205,53 @@ fun Modifier.floatingBarScrim(background: Color): Modifier =
     background(Brush.verticalGradient(0f to Color.Transparent, 1f to background.copy(alpha = 0.9f)))
 
 /**
- * Lays [content] out under a [bar] floating over its bottom edge. The bar's height reaches the
- * content in the same pass, so the content ends clear of it from the first frame.
+ * Lays [content] out under bars floating over its edges, a [topBar] over the top and a [bottomBar]
+ * over the bottom. Their heights reach the content in the same pass, so it ends clear of them from
+ * the first frame.
  */
 @Composable
-fun FloatingPillBarLayout(
-    bar: @Composable () -> Unit,
+fun FloatingBarsLayout(
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.(barHeight: Dp) -> Unit
+    topBar: @Composable () -> Unit = {},
+    bottomBar: @Composable () -> Unit = {},
+    content: @Composable BoxScope.(topHeight: Dp, bottomHeight: Dp) -> Unit
 ) {
     val currentContent = rememberUpdatedState(content)
     val contentSlot = remember { HeightKeyedContent(currentContent) }
 
     SubcomposeLayout(modifier) { constraints ->
-        val barPlaceables = subcompose(FloatingPillBarSlot.Bar, bar)
-            .map { it.measure(constraints.copy(minWidth = 0, minHeight = 0)) }
-        val barHeight = barPlaceables.maxOfOrNull { it.height } ?: 0
-        val contentPlaceables = subcompose(FloatingPillBarSlot.Content, contentSlot.at(barHeight.toDp()))
+        val barConstraints = constraints.copy(minWidth = 0, minHeight = 0)
+        val topPlaceables = subcompose(FloatingBarsSlot.Top, topBar).map { it.measure(barConstraints) }
+        val bottomPlaceables = subcompose(FloatingBarsSlot.Bottom, bottomBar).map { it.measure(barConstraints) }
+        val topHeight = topPlaceables.maxOfOrNull { it.height } ?: 0
+        val bottomHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
+        val contentPlaceables = subcompose(FloatingBarsSlot.Content, contentSlot.at(topHeight.toDp(), bottomHeight.toDp()))
             .map { it.measure(constraints) }
 
         layout(constraints.maxWidth, constraints.maxHeight) {
             contentPlaceables.forEach { it.place(0, 0) }
-            barPlaceables.forEach {
+            topPlaceables.forEach { it.place((constraints.maxWidth - it.width) / 2, 0) }
+            bottomPlaceables.forEach {
                 it.place((constraints.maxWidth - it.width) / 2, constraints.maxHeight - it.height)
             }
         }
     }
 }
 
-private enum class FloatingPillBarSlot { Bar, Content }
+private enum class FloatingBarsSlot { Top, Bottom, Content }
 
 /**
- * Content slot kept as the same lambda until the bar's height moves, since a subcomposition
- * handed a new lambda recomposes on every measure. The content is read from state.
+ * Content slot kept as the same lambda until a bar's height moves, since a subcomposition handed
+ * a new lambda recomposes on every measure. The content is read from state.
  */
-private class HeightKeyedContent(private val content: State<@Composable BoxScope.(Dp) -> Unit>) {
-    private var height: Dp? = null
+private class HeightKeyedContent(private val content: State<@Composable BoxScope.(Dp, Dp) -> Unit>) {
+    private var heights: Pair<Dp, Dp>? = null
     private var slot: @Composable () -> Unit = {}
 
-    fun at(height: Dp): @Composable () -> Unit {
-        if (height != this.height) {
-            this.height = height
-            slot = { Box(Modifier.fillMaxSize()) { content.value(this, height) } }
+    fun at(top: Dp, bottom: Dp): @Composable () -> Unit {
+        if (heights != top to bottom) {
+            heights = top to bottom
+            slot = { Box(Modifier.fillMaxSize()) { content.value(this, top, bottom) } }
         }
         return slot
     }

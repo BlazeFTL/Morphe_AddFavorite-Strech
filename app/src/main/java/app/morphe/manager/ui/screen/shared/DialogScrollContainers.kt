@@ -16,7 +16,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /** Gap between the cards of a dialog's list, see [CompactCardSpacing] for compact ones. */
@@ -24,9 +23,8 @@ val DialogListSpacing = Defaults.SpaceMedium
 
 /**
  * A dialog's lazy list, fading at whichever end has more to show, with a [ListScrollbar] and a
- * [ScrollToTopButton] set out at the dialog's true edge rather than its content inset.
- *
- * @param pinnedFirstRow Whether the first row sticks to the top, see [verticalScrollFade].
+ * [ScrollToTopButton] set out at the dialog's true edge rather than its content inset, its ends
+ * leaving room for the header and footer floating over a full-height dialog, see [LocalDialogBarInsets].
  */
 @Composable
 fun DialogLazyList(
@@ -34,11 +32,10 @@ fun DialogLazyList(
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
-    pinnedFirstRow: Boolean = false,
     userScrollEnabled: Boolean = true,
     content: LazyListScope.() -> Unit
 ) {
-    val footerInset = LocalDialogBottomInset.current
+    val barInsets = LocalDialogBarInsets.current
     val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
 
     Box(modifier = modifier) {
@@ -46,15 +43,15 @@ fun DialogLazyList(
             state = state,
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScrollFade(state, pinnedFirstRow = pinnedFirstRow),
-            contentPadding = contentPadding.plusBottom(footerInset),
+                .verticalScrollFade(state),
+            contentPadding = contentPadding + barInsets,
             verticalArrangement = verticalArrangement,
             userScrollEnabled = userScrollEnabled,
             content = content
         )
 
-        ListScrollbar(listState = state, modifier = edgeOffset.padding(bottom = footerInset))
-        ScrollToTopButton(listState = state, modifier = edgeOffset, extraBottomPadding = footerInset)
+        ListScrollbar(listState = state, modifier = edgeOffset.padding(barInsets))
+        ScrollToTopButton(listState = state, modifier = edgeOffset, extraBottomPadding = barInsets.calculateBottomPadding())
     }
 }
 
@@ -70,7 +67,7 @@ fun DialogScrollColumn(
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val footerInset = LocalDialogBottomInset.current
+    val barInsets = LocalDialogBarInsets.current
     val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
 
     Box(modifier = modifier) {
@@ -79,25 +76,24 @@ fun DialogScrollColumn(
                 .fillMaxWidth()
                 .verticalScrollFade(state)
                 .verticalScroll(state)
-                .padding(contentPadding.plusBottom(footerInset)),
+                .padding(contentPadding + barInsets),
             verticalArrangement = verticalArrangement,
             content = content
         )
 
-        ListScrollbar(scrollState = state, modifier = edgeOffset.padding(bottom = footerInset))
-        ScrollToTopButton(scrollState = state, modifier = edgeOffset, extraBottomPadding = footerInset)
+        ListScrollbar(scrollState = state, modifier = edgeOffset.padding(barInsets))
+        ScrollToTopButton(scrollState = state, modifier = edgeOffset, extraBottomPadding = barInsets.calculateBottomPadding())
     }
 }
 
-/** These paddings with [extra] more at the bottom, such as room for a bar floating over it. */
+/** These paddings and [other] together, such as room for the bars floating over a list. */
 @Composable
-private fun PaddingValues.plusBottom(extra: Dp): PaddingValues {
-    if (extra == 0.dp) return this
+private operator fun PaddingValues.plus(other: PaddingValues): PaddingValues {
     val direction = LocalLayoutDirection.current
     return PaddingValues(
-        start = calculateStartPadding(direction),
-        top = calculateTopPadding(),
-        end = calculateEndPadding(direction),
-        bottom = calculateBottomPadding() + extra
+        start = calculateStartPadding(direction) + other.calculateStartPadding(direction),
+        top = calculateTopPadding() + other.calculateTopPadding(),
+        end = calculateEndPadding(direction) + other.calculateEndPadding(direction),
+        bottom = calculateBottomPadding() + other.calculateBottomPadding()
     )
 }

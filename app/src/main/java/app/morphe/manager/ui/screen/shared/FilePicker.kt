@@ -315,108 +315,102 @@ fun FilePicker(
                 )
             }
         },
+        header = {
+            val accent = MaterialTheme.colorScheme.primary
+            ListDialogHeader(
+                icon = { modifier ->
+                    ListDialogHeaderIcon(
+                        icon = if (allowFolderSelection) Icons.Outlined.Folder else Icons.AutoMirrored.Outlined.InsertDriveFile,
+                        color = accent,
+                        modifier = modifier
+                    )
+                },
+                title = stringResource(
+                    when {
+                        allowFolderSelection -> R.string.select_folder
+                        multiple -> R.string.select_files
+                        else -> R.string.select_file
+                    }
+                ),
+                // What the picker takes where it narrows the files down, else where it is
+                subtitle = allowedExtensions?.sorted()?.joinToString(" · ") { ".$it" }
+                    ?: breadcrumbs.lastOrNull()?.first.orEmpty(),
+                search = search,
+                searchLabel = stringResource(R.string.search),
+                searchEnabled = currentDir != null,
+                accentColor = accent,
+                content = {
+                    // With a single storage its list holds nothing the trail does not already lead to
+                    val showStorages = roots.size > 1
+                    if (showStorages || breadcrumbs.isNotEmpty()) {
+                        FolderTrail(
+                            breadcrumbs = breadcrumbs,
+                            showStorages = showStorages,
+                            onOpen = { currentDir = it },
+                            modifier = Modifier.padding(top = Defaults.SpaceMedium)
+                        )
+                    }
+                }
+            ) {
+                Box {
+                    TitleAction(
+                        icon = Icons.AutoMirrored.Outlined.Sort,
+                        contentDescription = stringResource(R.string.sort),
+                        onClick = { showViewMenu = true },
+                        style = TitleActionStyle.Toggle,
+                        active = showViewMenu
+                    )
+                    AppDropdownMenu(
+                        expanded = showViewMenu,
+                        onDismissRequest = { showViewMenu = false }
+                    ) {
+                        SortMode.entries.forEach { mode ->
+                            AppDropdownMenuItem(
+                                text = stringResource(mode.labelRes()),
+                                selected = sortMode == mode,
+                                onClick = {
+                                    sortMode = mode
+                                    showViewMenu = false
+                                    coroutineScope.launch { prefs.filePickerSortMode.update(mode.name) }
+                                }
+                            )
+                        }
+                        SettingsDivider(fullWidth = true)
+                        AppDropdownMenuItem(
+                            text = stringResource(R.string.file_picker_show_hidden_files),
+                            trailing = {
+                                SelectionCheckIndicator(
+                                    if (showHiddenFiles) ToggleableState.On else ToggleableState.Off
+                                )
+                            },
+                            modifier = Modifier.semantics { role = Role.Checkbox },
+                            onClick = {
+                                val next = !showHiddenFiles
+                                showHiddenFiles = next
+                                coroutineScope.launch { prefs.filePickerShowHiddenFiles.update(next) }
+                            }
+                        )
+                        // Picks up what changed on disk while the picker was open, such as a file
+                        // just downloaded or access just granted
+                        AppDropdownMenuItem(
+                            text = stringResource(R.string.refresh),
+                            onClick = {
+                                // Counts are read once per folder, so they go too to be read afresh
+                                folderItemCountCache.evictAll()
+                                refreshKey++
+                                showViewMenu = false
+                            }
+                        )
+                    }
+                }
+            }
+        },
         padding = DialogPadding.Compact,
         scrollable = false,
         contentArrangement = Arrangement.Top,
         fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
-        val accent = MaterialTheme.colorScheme.primary
-        ListDialogHeader(
-            icon = { modifier ->
-                ListDialogHeaderIcon(
-                    icon = if (allowFolderSelection) Icons.Outlined.Folder else Icons.AutoMirrored.Outlined.InsertDriveFile,
-                    color = accent,
-                    modifier = modifier
-                )
-            },
-            title = stringResource(
-                when {
-                    allowFolderSelection -> R.string.select_folder
-                    multiple -> R.string.select_files
-                    else -> R.string.select_file
-                }
-            ),
-            // What the picker takes where it narrows the files down, else where it is
-            subtitle = allowedExtensions?.sorted()?.joinToString(" · ") { ".$it" }
-                ?: breadcrumbs.lastOrNull()?.first.orEmpty(),
-            search = search,
-            searchLabel = stringResource(R.string.search),
-            searchEnabled = currentDir != null,
-            accentColor = accent
-        ) {
-            Box {
-                TitleAction(
-                    icon = Icons.AutoMirrored.Outlined.Sort,
-                    contentDescription = stringResource(R.string.sort),
-                    onClick = { showViewMenu = true },
-                    style = TitleActionStyle.Toggle,
-                    active = showViewMenu
-                )
-                AppDropdownMenu(
-                    expanded = showViewMenu,
-                    onDismissRequest = { showViewMenu = false }
-                ) {
-                    SortMode.entries.forEach { mode ->
-                        AppDropdownMenuItem(
-                            text = stringResource(mode.labelRes()),
-                            selected = sortMode == mode,
-                            onClick = {
-                                sortMode = mode
-                                showViewMenu = false
-                                coroutineScope.launch { prefs.filePickerSortMode.update(mode.name) }
-                            }
-                        )
-                    }
-                    SettingsDivider(fullWidth = true)
-                    AppDropdownMenuItem(
-                        text = stringResource(R.string.file_picker_show_hidden_files),
-                        trailing = {
-                            SelectionCheckIndicator(
-                                if (showHiddenFiles) ToggleableState.On else ToggleableState.Off
-                            )
-                        },
-                        modifier = Modifier.semantics { role = Role.Checkbox },
-                        onClick = {
-                            val next = !showHiddenFiles
-                            showHiddenFiles = next
-                            coroutineScope.launch { prefs.filePickerShowHiddenFiles.update(next) }
-                        }
-                    )
-                    // Picks up what changed on disk while the picker was open, such as a file
-                    // just downloaded or access just granted
-                    AppDropdownMenuItem(
-                        text = stringResource(R.string.refresh),
-                        onClick = {
-                            // Counts are read once per folder, so they go too to be read afresh
-                            folderItemCountCache.evictAll()
-                            refreshKey++
-                            showViewMenu = false
-                        }
-                    )
-                }
-            }
-        }
-
-        // With a single storage its list holds nothing the trail does not already lead to
-        val showStorages = roots.size > 1
-        if (showStorages || breadcrumbs.isNotEmpty()) {
-            FolderTrail(
-                breadcrumbs = breadcrumbs,
-                showStorages = showStorages,
-                onOpen = { currentDir = it },
-                modifier = Modifier.padding(top = Defaults.SpaceMedium)
-            )
-        }
-
-        AppDialogSearchHeader(
-            visible = search.visible,
-            value = search.query,
-            onValueChange = { search.query = it },
-            label = stringResource(R.string.search),
-            modifier = Modifier.padding(top = Defaults.SpaceMedium)
-        )
-
         // A folder slides in from the side it lies on, deeper ones from the end and the ones
         // above from the start, so moving about the tree reads as moving along it
         AnimatedContent(
@@ -583,7 +577,6 @@ private fun FolderListing(
 
     DialogLazyList(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
         verticalArrangement = Arrangement.spacedBy(CompactCardSpacing)
     ) {
         val contents = dirContents

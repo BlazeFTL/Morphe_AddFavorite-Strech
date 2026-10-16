@@ -211,11 +211,11 @@ fun SectionsLayout(
     Box(modifier = Modifier.fillMaxSize()) {
         // Main layout structure. In portrait the list runs on under the navigation bar and the
         // floating bottom bar takes the inset, so cards keep scrolling to the edge of the screen
-        FloatingPillBarLayout(
+        FloatingBarsLayout(
             modifier = Modifier
                 .fillMaxSize()
                 .then(if (isLandscape()) Modifier.navigationBarsPadding() else Modifier),
-            bar = {
+            bottomBar = {
                 // Section 5: Bottom action bar, floating over the lower edge of the list
                 if (!isLandscape()) {
                     HomeBottomActionBar(
@@ -237,7 +237,7 @@ fun SectionsLayout(
                     )
                 }
             }
-        ) { bottomBarHeight ->
+        ) { _, bottomBarHeight ->
             AdaptiveContent(
                 windowSize = windowSize,
                 greetingMessage = greetingMessage,

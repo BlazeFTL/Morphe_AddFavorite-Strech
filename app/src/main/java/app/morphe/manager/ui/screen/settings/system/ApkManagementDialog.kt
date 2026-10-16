@@ -728,6 +728,32 @@ private fun ApkManagementDialogContent(
             if (!isExporting) onDismissRequest()
         },
         accentColor = meta.accentColor,
+        header = {
+            ListDialogHeader(
+                icon = { modifier ->
+                    ListDialogHeaderIcon(icon = meta.icon, color = meta.accentColor, modifier = modifier)
+                },
+                title = meta.title,
+                subtitle = listOf(
+                    pluralStringResource(R.plurals.settings_system_apks_count, meta.count, meta.count.toString()),
+                    // The bare size: the count before it already says what it is the size of
+                    context.formatBytes(meta.totalSize)
+                ).joinToString(" · "),
+                // Sums the list up once the files are counted
+                subtitleLoading = meta.isLoading,
+                search = search,
+                searchLabel = stringResource(R.string.home_search_apps),
+                searchEnabled = isSearchable
+            ) {
+                TitleAction(
+                    icon = Icons.Outlined.DeleteForever,
+                    contentDescription = stringResource(R.string.delete_all),
+                    onClick = { showDeleteAllConfirmation = true },
+                    style = TitleActionStyle.Destructive,
+                    enabled = canDeleteAll
+                )
+            }
+        },
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -833,39 +859,10 @@ private fun ApkManagementDialogContent(
     ) {
         SearchFieldBackHandler(search)
 
-        ListDialogHeader(
-            icon = { modifier ->
-                ListDialogHeaderIcon(icon = meta.icon, color = meta.accentColor, modifier = modifier)
-            },
-            title = meta.title,
-            subtitle = listOf(
-                pluralStringResource(R.plurals.settings_system_apks_count, meta.count, meta.count.toString()),
-                // The bare size: the count before it already says what it is the size of
-                context.formatBytes(meta.totalSize)
-            ).joinToString(" · "),
-            // Sums the list up once the files are counted
-            subtitleLoading = meta.isLoading,
-            search = search,
-            searchLabel = stringResource(R.string.search),
-            searchEnabled = isSearchable
-        ) {
-            TitleAction(
-                icon = Icons.Outlined.DeleteForever,
-                contentDescription = stringResource(R.string.delete_all),
-                onClick = { showDeleteAllConfirmation = true },
-                style = TitleActionStyle.Destructive,
-                enabled = canDeleteAll
-            )
-        }
-
-        val searchLabel = stringResource(R.string.home_search_apps)
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(DialogListSpacing),
-            pinnedFirstRow = true
+            verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
         ) {
-            dialogSearchHeader(search, label = searchLabel)
-
             if (retentionToggle != null) {
                 item(key = "retention") {
                     Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)) {

@@ -76,6 +76,17 @@ fun CopySelectionFromBundleDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(target.packageName),
+        // Headed by the app the selection lands on, with the source it lands in, while the
+        // question the list below answers sits right under it
+        header = {
+            ListDialogHeader(
+                icon = { modifier ->
+                    AppIcon(packageName = target.packageName, contentDescription = null, modifier = modifier)
+                },
+                title = target.appDisplayName,
+                subtitle = target.bundleName
+            )
+        },
         footer = {
             AppDialogButtonRow(
                 primaryText = confirmLabel,
@@ -94,16 +105,6 @@ fun CopySelectionFromBundleDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {
-            // Headed by the app the selection lands on, with the source it lands in, while the
-            // question the list below answers sits right above it
-            ListDialogHeader(
-                icon = { modifier ->
-                    AppIcon(packageName = target.packageName, contentDescription = null, modifier = modifier)
-                },
-                title = target.appDisplayName,
-                subtitle = target.bundleName,
-                modifier = Modifier.padding(bottom = Defaults.SpaceSmall)
-            )
             Text(
                 text = stringResource(R.string.copy_selection_title),
                 style = MaterialTheme.typography.titleSmall,

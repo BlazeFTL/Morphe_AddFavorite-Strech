@@ -50,6 +50,12 @@ fun InstalledAppPickerDialog(
                 }
             }
     }
+    val (filterIcon, filterLabel) = when (appFilter) {
+        AppFilter.All -> Icons.Outlined.FilterList to stringResource(R.string.home_category_all_apps)
+        AppFilter.UserOnly -> Icons.Outlined.Person to stringResource(R.string.home_installed_app_picker_filter_user)
+        AppFilter.SystemOnly -> Icons.Outlined.Android to stringResource(R.string.home_installed_app_picker_filter_system)
+    }
+    val accent = MaterialTheme.colorScheme.primary
     AppDialog(
         onDismissRequest = onDismiss,
         dismissOnClickOutside = true,
@@ -58,6 +64,39 @@ fun InstalledAppPickerDialog(
         contentArrangement = Arrangement.Top,
         fillContentHeight = true,
         hideFooterWhileTyping = true,
+        header = {
+            ListDialogHeader(
+                icon = { modifier ->
+                    ListDialogHeaderIcon(icon = Icons.Outlined.Apps, color = accent, modifier = modifier)
+                },
+                title = stringResource(R.string.home_installed_app_picker_title),
+                // The filter names itself here, so switching it says what the list now holds. A line
+                // each, as the filter's name is a phrase that would otherwise break partway
+                subtitle = listOf(
+                    pluralStringResource(R.plurals.home_category_app_count, filtered.size, filtered.size.toString()),
+                    filterLabel
+                ).joinToString("\n"),
+                subtitleLoading = isLoading,
+                search = search,
+                searchLabel = stringResource(R.string.home_search_apps),
+                searchEnabled = !isLoading,
+                accentColor = accent
+            ) {
+                TitleAction(
+                    icon = filterIcon,
+                    contentDescription = filterLabel,
+                    onClick = {
+                        appFilter = when (appFilter) {
+                            AppFilter.All -> AppFilter.UserOnly
+                            AppFilter.UserOnly -> AppFilter.SystemOnly
+                            AppFilter.SystemOnly -> AppFilter.All
+                        }
+                    },
+                    style = TitleActionStyle.Toggle,
+                    active = appFilter != AppFilter.All
+                )
+            }
+        },
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(android.R.string.cancel),
@@ -68,53 +107,11 @@ fun InstalledAppPickerDialog(
     ) {
         SearchFieldBackHandler(search)
 
-        val (filterIcon, filterLabel) = when (appFilter) {
-            AppFilter.All -> Icons.Outlined.FilterList to stringResource(R.string.home_category_all_apps)
-            AppFilter.UserOnly -> Icons.Outlined.Person to stringResource(R.string.home_installed_app_picker_filter_user)
-            AppFilter.SystemOnly -> Icons.Outlined.Android to stringResource(R.string.home_installed_app_picker_filter_system)
-        }
-        val accent = MaterialTheme.colorScheme.primary
-        val searchLabel = stringResource(R.string.home_search_apps)
-        ListDialogHeader(
-            icon = { modifier ->
-                ListDialogHeaderIcon(icon = Icons.Outlined.Apps, color = accent, modifier = modifier)
-            },
-            title = stringResource(R.string.home_installed_app_picker_title),
-            // The filter names itself here, so switching it says what the list now holds. A line
-            // each, as the filter's name is a phrase that would otherwise break partway
-            subtitle = listOf(
-                pluralStringResource(R.plurals.home_category_app_count, filtered.size, filtered.size.toString()),
-                filterLabel
-            ).joinToString("\n"),
-            subtitleLoading = isLoading,
-            search = search,
-            searchLabel = searchLabel,
-            searchEnabled = !isLoading,
-            accentColor = accent
-        ) {
-            TitleAction(
-                icon = filterIcon,
-                contentDescription = filterLabel,
-                onClick = {
-                    appFilter = when (appFilter) {
-                        AppFilter.All -> AppFilter.UserOnly
-                        AppFilter.UserOnly -> AppFilter.SystemOnly
-                        AppFilter.SystemOnly -> AppFilter.All
-                    }
-                },
-                style = TitleActionStyle.Toggle,
-                active = appFilter != AppFilter.All
-            )
-        }
-
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(CompactCardSpacing),
-            pinnedFirstRow = true,
             userScrollEnabled = !isLoading
         ) {
-            dialogSearchHeader(search, label = searchLabel, spacing = CompactCardSpacing)
-
             if (isLoading) {
                 items(10) { ShimmerCompactListCard(descriptionLines = 2) }
             } else {

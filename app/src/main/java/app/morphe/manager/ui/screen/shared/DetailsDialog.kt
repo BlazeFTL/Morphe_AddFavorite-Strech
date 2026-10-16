@@ -33,6 +33,9 @@ fun DetailsDialog(
     AppDialog(
         onDismissRequest = onDismissRequest,
         accentColor = accentColor,
+        header = {
+            ListDialogHeader(icon = icon, title = title, subtitle = subtitle)
+        },
         footer = {
             val close = DialogAction(
                 text = stringResource(R.string.close),
@@ -57,11 +60,8 @@ fun DetailsDialog(
         contentArrangement = Arrangement.Top,
         fillContentHeight = true
     ) {
-        ListDialogHeader(icon = icon, title = title, subtitle = subtitle)
-
         DialogScrollColumn(
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
             content = content
         )

@@ -920,6 +920,17 @@ fun BundleChangelogDialog(
         padding = DialogPadding.Compact,
         contentArrangement = Arrangement.Top,
         fillContentHeight = true,
+        // Releases show only their versions, so the header names whose they are, and which app
+        // they were narrowed to. It stays the same through loading, so nothing shifts once the
+        // entries arrive
+        header = {
+            ListDialogHeader(
+                icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
+                title = src.displayTitle,
+                subtitle = subject?.appNames?.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
+                    ?: src.installedVersionSignature?.withVersionPrefix()?.isolateLtr().orEmpty()
+            )
+        },
         footer = {
             when (val current = state) {
                 is BundleChangelogState.Entries -> {
@@ -964,16 +975,6 @@ fun BundleChangelogDialog(
             }
         }
     ) {
-        // Releases show only their versions, so the header names whose they are, and which app
-        // they were narrowed to. It stays the same through loading, so nothing shifts once the
-        // entries arrive
-        ListDialogHeader(
-            icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
-            title = src.displayTitle,
-            subtitle = subject?.appNames?.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
-                ?: src.installedVersionSignature?.withVersionPrefix()?.isolateLtr().orEmpty()
-        )
-
         BundleChangelogContent(
             state = state,
             installedVersion = src.installedVersionSignature,
@@ -1000,7 +1001,7 @@ private fun BundleChangelogContent(
     ) { current ->
         when (current) {
             BundleChangelogState.Loading -> ChangelogListLoading(
-                modifier = Modifier.padding(top = Defaults.SpaceMedium)
+                modifier = Modifier.padding(LocalDialogBarInsets.current)
             )
             is BundleChangelogState.Error -> ChangelogError(error = current.throwable)
             is BundleChangelogState.Entries -> {
@@ -1011,7 +1012,7 @@ private fun BundleChangelogContent(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = Defaults.SpaceMedium)
+                            .padding(LocalDialogBarInsets.current)
                     )
                 } else {
                     // The release the app was patched with, the point its changes are counted from,
@@ -1031,9 +1032,7 @@ private fun BundleChangelogContent(
                         },
                         olderLabel = patchedVersion?.takeUnless { isPatchedListed }?.let {
                             stringResource(R.string.changelog_patched_with, it.withVersionPrefix().isolateLtr())
-                        },
-                        // The gap under the header is the list's own, so releases scroll up to its edge
-                        contentPadding = PaddingValues(top = Defaults.SpaceMedium)
+                        }
                     )
                 }
             }
@@ -1161,6 +1160,40 @@ fun SourceAppsDialog(
     AppDialog(
         onDismissRequest = ::dismiss,
         accentColor = rememberSourceHeaderColor(src),
+        // Headed by the source, as its patches are
+        header = {
+            ListDialogHeader(
+                icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
+                title = src.displayTitle,
+                subtitle = pluralStringResource(R.plurals.home_category_app_count, apps.size, apps.size.toString()),
+                search = search,
+                searchLabel = stringResource(R.string.home_search_apps),
+                // A lone app leaves nothing to search through
+                searchEnabled = apps.size > 1,
+                // Answers for everything in view at once, so keeping a few apps out of hundreds is
+                // one tap here and a few on the apps wanted
+                actions = {
+                    TitleAction(
+                        icon = if (allFilteredBrought) Icons.Outlined.RemoveDone else Icons.Outlined.DoneAll,
+                        contentDescription = stringResource(
+                            if (allFilteredBrought) R.string.deselect_all else R.string.select_all
+                        ),
+                        // Only the apps that change, so a few left out of hundreds write a few rows
+                        onClick = {
+                            bring(
+                                filtered.mapNotNull { (packageName, _) ->
+                                    packageName.takeIf { (it in broughtApps) == allFilteredBrought }
+                                },
+                                brought = !allFilteredBrought
+                            )
+                        },
+                        style = TitleActionStyle.Toggle,
+                        active = allFilteredBrought,
+                        enabled = filtered.isNotEmpty()
+                    )
+                }
+            )
+        },
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -1176,47 +1209,10 @@ fun SourceAppsDialog(
     ) {
         SearchFieldBackHandler(search)
 
-        // Headed by the source, as its patches are
-        val searchLabel = stringResource(R.string.home_search_apps)
-        ListDialogHeader(
-            icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
-            title = src.displayTitle,
-            subtitle = pluralStringResource(R.plurals.home_category_app_count, apps.size, apps.size.toString()),
-            search = search,
-            searchLabel = searchLabel,
-            // A lone app leaves nothing to search through
-            searchEnabled = apps.size > 1,
-            // Answers for everything in view at once, so keeping a few apps out of hundreds is
-            // one tap here and a few on the apps wanted
-            actions = {
-                TitleAction(
-                    icon = if (allFilteredBrought) Icons.Outlined.RemoveDone else Icons.Outlined.DoneAll,
-                    contentDescription = stringResource(
-                        if (allFilteredBrought) R.string.deselect_all else R.string.select_all
-                    ),
-                    // Only the apps that change, so a few left out of hundreds write a few rows
-                    onClick = {
-                        bring(
-                            filtered.mapNotNull { (packageName, _) ->
-                                packageName.takeIf { (it in broughtApps) == allFilteredBrought }
-                            },
-                            brought = !allFilteredBrought
-                        )
-                    },
-                    style = TitleActionStyle.Toggle,
-                    active = allFilteredBrought,
-                    enabled = filtered.isNotEmpty()
-                )
-            }
-        )
-
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(DialogListSpacing),
-            pinnedFirstRow = true
+            verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
         ) {
-            dialogSearchHeader(search, label = searchLabel)
-
             // Scrolls with the apps, so it gives the list its room back once read
             item(key = "description") {
                 Text(

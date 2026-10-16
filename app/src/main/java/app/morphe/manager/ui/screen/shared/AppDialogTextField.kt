@@ -5,10 +5,7 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,19 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.LayoutCoordinates
-import androidx.compose.ui.node.ModifierNodeElement
-import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.relocation.BringIntoViewModifierNode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 
@@ -177,8 +168,7 @@ fun AppDialogTextField(
 }
 
 /**
- * Search field for dialog lists, backed by an opaque surface so list items
- * scrolling underneath a sticky header stay hidden.
+ * Search field for dialog lists, which the list's [ListDialogHeader] holds.
  *
  * @param requestFocus Opens the keyboard on first composition, for fields revealed by a toggle.
  */
@@ -201,111 +191,23 @@ fun AppDialogSearchTextField(
         }
     }
 
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        AppDialogTextField(
-            value = value,
-            onValueChange = onValueChange,
-            label = { Text(label) },
-            leadingIcon = {
-                // The label already announces the field, so the icon stays decorative
-                Icon(
-                    imageVector = Icons.Outlined.Search,
-                    contentDescription = null
-                )
-            },
-            showClearButton = true,
-            enabled = enabled,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = Defaults.SpaceExtraSmall)
-                .focusRequester(focusRequester)
-        )
-    }
-}
-
-/**
- * Collapsible [AppDialogSearchTextField] for the sticky header of a dialog list.
- *
- * Kept as its own composable so no layout scope is in scope at the [AnimatedVisibility] call:
- * inside `stickyHeader` the innermost receiver is `LazyItemScope`, and an enclosing `ColumnScope`
- * would otherwise pull in the scoped overload, which cannot be called there.
- *
- * The field never asks the list to scroll it into view. It sits at the top, stuck to the list or
- * above it, so it is always in view, yet a list places a sticky row by its spot at its head: a
- * field taking focus deep into the list would scroll the list all the way back up to it.
- *
- * @param modifier Applied to the field, so it comes and goes along with it.
- */
-@Composable
-fun AppDialogSearchHeader(
-    visible: Boolean,
-    value: String,
-    onValueChange: (String) -> Unit,
-    label: String,
-    modifier: Modifier = Modifier
-) {
-    AnimatedVisibility(
-        visible = visible,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
-        AppDialogSearchTextField(
-            value = value,
-            onValueChange = onValueChange,
-            label = label,
-            requestFocus = true,
-            modifier = modifier.then(StayInPlaceElement)
-        )
-    }
-}
-
-/**
- * [AppDialogSearchHeader] as the sticky first row of a [DialogLazyList]. The row stays while the
- * field is closed, so the gap under the dialog's header holds either way.
- *
- * @param spacing The list's gap between rows, which the row tops up to a full step below it.
- */
-fun LazyListScope.dialogSearchHeader(
-    search: SearchFieldState,
-    label: String,
-    spacing: Dp = DialogListSpacing
-) {
-    stickyHeader(key = "search") {
-        // Opaque, so rows scrolled under the gap stay hidden. The bottom padding sits outside the
-        // field and tops the list's spacing up to a full step below it
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(bottom = Defaults.SpaceMedium - spacing)
-        ) {
-            AppDialogSearchHeader(
-                visible = search.visible,
-                value = search.query,
-                onValueChange = { search.query = it },
-                label = label,
-                modifier = Modifier.padding(top = Defaults.SpaceMedium)
+    AppDialogTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(label) },
+        leadingIcon = {
+            // The label already announces the field, so the icon stays decorative
+            Icon(
+                imageVector = Icons.Outlined.Search,
+                contentDescription = null
             )
-        }
-    }
-}
-
-/** Takes in the requests to bring what it wraps into view, and passes none of them on. */
-private data object StayInPlaceElement : ModifierNodeElement<StayInPlaceNode>() {
-    override fun create() = StayInPlaceNode()
-    override fun update(node: StayInPlaceNode) = Unit
-
-    // Holds nothing to show, so the inspector only needs its name
-    override fun InspectorInfo.inspectableProperties() {
-        name = "stayInPlace"
-    }
-}
-
-private class StayInPlaceNode : Modifier.Node(), BringIntoViewModifierNode {
-    override suspend fun bringIntoView(childCoordinates: LayoutCoordinates, boundsProvider: () -> Rect?) = Unit
+        },
+        showClearButton = true,
+        enabled = enabled,
+        modifier = modifier
+            .fillMaxWidth()
+            .focusRequester(focusRequester)
+    )
 }
 
 /**

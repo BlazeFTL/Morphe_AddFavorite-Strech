@@ -308,6 +308,31 @@ private fun PatchSelectionManagementDialogContent(
 
     AppDialog(
         onDismissRequest = onDismiss,
+        header = {
+            val accent = MaterialTheme.colorScheme.primary
+            ListDialogHeader(
+                icon = { modifier ->
+                    ListDialogHeaderIcon(icon = Icons.Outlined.Tune, color = accent, modifier = modifier)
+                },
+                title = stringResource(R.string.settings_system_patch_selections_title),
+                subtitle = listOf(
+                    pluralStringResource(R.plurals.package_count, selections.size, selections.size.toString()),
+                    pluralStringResource(R.plurals.patch_count, data.totalSelections, data.totalSelections.toString())
+                ).joinToString(" · "),
+                search = search,
+                searchLabel = stringResource(R.string.home_search_apps),
+                searchEnabled = isSearchable,
+                accentColor = accent
+            ) {
+                TitleAction(
+                    icon = Icons.Outlined.Restore,
+                    contentDescription = stringResource(R.string.reset),
+                    onClick = onShowResetAllConfirmation,
+                    style = TitleActionStyle.Destructive,
+                    enabled = canResetAll
+                )
+            }
+        },
         footer = {
             ImportExportFooter(
                 onImport = { openImportAllSelectionsPicker() },
@@ -350,32 +375,11 @@ private fun PatchSelectionManagementDialogContent(
     ) {
         SearchFieldBackHandler(search)
 
-        val accent = MaterialTheme.colorScheme.primary
-        ListDialogHeader(
-            icon = { modifier ->
-                ListDialogHeaderIcon(icon = Icons.Outlined.Tune, color = accent, modifier = modifier)
-            },
-            title = stringResource(R.string.settings_system_patch_selections_title),
-            subtitle = listOf(
-                pluralStringResource(R.plurals.package_count, selections.size, selections.size.toString()),
-                pluralStringResource(R.plurals.patch_count, data.totalSelections, data.totalSelections.toString())
-            ).joinToString(" · "),
-            search = search,
-            searchLabel = stringResource(R.string.search),
-            searchEnabled = isSearchable,
-            accentColor = accent
-        ) {
-            TitleAction(
-                icon = Icons.Outlined.Restore,
-                contentDescription = stringResource(R.string.reset),
-                onClick = onShowResetAllConfirmation,
-                style = TitleActionStyle.Destructive,
-                enabled = canResetAll
-            )
-        }
-
         if (selections.isEmpty()) {
-            EmptyState(message = stringResource(R.string.settings_system_no_patches_or_options))
+            EmptyState(
+                message = stringResource(R.string.settings_system_no_patches_or_options),
+                modifier = Modifier.padding(LocalDialogBarInsets.current)
+            )
         } else {
             SelectionList(
                 data = data,
@@ -440,15 +444,11 @@ private fun SelectionList(
         }
     }
 
-    val searchLabel = stringResource(R.string.home_search_apps)
     DialogLazyList(
         modifier = Modifier.fillMaxWidth(),
         state = listState,
-        verticalArrangement = Arrangement.spacedBy(DialogListSpacing),
-        pinnedFirstRow = true
+        verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
     ) {
-        dialogSearchHeader(search, label = searchLabel)
-
         if (displayEntries.isEmpty()) {
             // No matches for the current search query
             item(key = "search_empty") {

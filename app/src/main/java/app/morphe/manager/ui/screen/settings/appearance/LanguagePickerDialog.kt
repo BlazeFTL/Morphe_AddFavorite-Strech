@@ -52,8 +52,21 @@ fun LanguagePickerDialog(
 
     val listState = rememberLazyListState()
 
+    val accent = MaterialTheme.colorScheme.primary
     AppDialog(
         onDismissRequest = onDismiss,
+        header = {
+            ListDialogHeader(
+                icon = { modifier ->
+                    ListDialogHeaderIcon(icon = Icons.Outlined.Language, color = accent, modifier = modifier)
+                },
+                title = stringResource(R.string.settings_appearance_app_language),
+                // The language in effect, so the choice reads before the list is scrolled to it
+                subtitle = LanguageRepository.getLanguage(currentLanguage, context).displayName,
+                search = search,
+                accentColor = accent
+            )
+        },
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(android.R.string.cancel),
@@ -69,28 +82,11 @@ fun LanguagePickerDialog(
     ) {
         SearchFieldBackHandler(search)
 
-        val accent = MaterialTheme.colorScheme.primary
-        val searchLabel = stringResource(R.string.search)
-        ListDialogHeader(
-            icon = { modifier ->
-                ListDialogHeaderIcon(icon = Icons.Outlined.Language, color = accent, modifier = modifier)
-            },
-            title = stringResource(R.string.settings_appearance_app_language),
-            // The language in effect, so the choice reads before the list is scrolled to it
-            subtitle = LanguageRepository.getLanguage(currentLanguage, context).displayName,
-            search = search,
-            searchLabel = searchLabel,
-            accentColor = accent
-        )
-
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             state = listState,
-            verticalArrangement = Arrangement.spacedBy(DialogListSpacing),
-            pinnedFirstRow = true
+            verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
         ) {
-            dialogSearchHeader(search, label = searchLabel)
-
             if (filteredLanguages.isEmpty()) {
                 item(key = "empty_state") {
                     EmptyState(

@@ -227,6 +227,26 @@ internal fun PatchOptionsDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         accentColor = accentColor,
+        header = {
+            ListDialogHeader(
+                icon = { modifier ->
+                    AppIcon(packageName = packageName, icon = appIcon, contentDescription = null, modifier = modifier)
+                },
+                title = patch.displayName,
+                subtitle = listOf(
+                    appName,
+                    pluralStringResource(R.plurals.option_count, options.size, options.size.toString())
+                ).joinToString(" · ")
+            ) {
+                TitleAction(
+                    icon = Icons.Outlined.Restore,
+                    contentDescription = stringResource(R.string.reset),
+                    onClick = onReset,
+                    style = TitleActionStyle.Accent,
+                    enabled = anyChanged
+                )
+            }
+        },
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -240,30 +260,10 @@ internal fun PatchOptionsDialog(
         fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
-        ListDialogHeader(
-            icon = { modifier ->
-                AppIcon(packageName = packageName, icon = appIcon, contentDescription = null, modifier = modifier)
-            },
-            title = patch.displayName,
-            subtitle = listOf(
-                appName,
-                pluralStringResource(R.plurals.option_count, options.size, options.size.toString())
-            ).joinToString(" · ")
-        ) {
-            TitleAction(
-                icon = Icons.Outlined.Restore,
-                contentDescription = stringResource(R.string.reset),
-                onClick = onReset,
-                style = TitleActionStyle.Accent,
-                enabled = anyChanged
-            )
-        }
-
         DialogScrollColumn(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
             // Spaced as the patch list the dialog opens from
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {

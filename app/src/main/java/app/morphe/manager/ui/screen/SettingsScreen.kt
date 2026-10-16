@@ -369,11 +369,11 @@ fun SettingsScreen(
                         }
                 )
                 // Overlay sits outside the pager, which clips each page to its own bounds
-                FloatingPillBarLayout(
+                FloatingBarsLayout(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
-                    bar = {
+                    bottomBar = {
                         BottomNavigation(
                             currentTab = currentTab,
                             onTabSelected = { tab ->
@@ -383,7 +383,7 @@ fun SettingsScreen(
                             onSystemTabPositioned = { globalOnboardingState?.systemTabBounds = it }
                         )
                     }
-                ) { navigationHeight ->
+                ) { _, navigationHeight ->
                     // The tabs scroll on under the floating navigation, and end clear of it
                     CompositionLocalProvider(
                         LocalSettingsTabBottomPadding provides navigationHeight + Defaults.SpaceMedium

@@ -6,6 +6,7 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.EaseOutBack
@@ -15,6 +16,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
@@ -23,12 +25,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
@@ -41,6 +45,10 @@ import androidx.compose.ui.util.lerp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.ui.theme.headerTitle
+import dev.chrisbanes.haze.HazeInput
+import dev.chrisbanes.haze.blur.HazeBlurStyle
+import dev.chrisbanes.haze.blur.HazeColorEffect
+import dev.chrisbanes.haze.blur.hazeBlur
 
 /** How a dialog heads itself, shared by the list dialogs and the app details so they read alike. */
 object DialogHeaderDefaults {
@@ -132,21 +140,26 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
 
 /**
  * Head of a list dialog that names what the list belongs to: its [icon], [title] and a
- * [subtitle] summing the list up, with the toggle for the list's search field where it has one.
+ * [subtitle] summing the list up, with the list's search field and its toggle where it has one.
+ *
+ * The header sits on a band like the app details' one. As an [AppDialog]'s header it floats over
+ * the list, the band reaching the screen's edges and blurring the rows scrolling under it, and solid
+ * where the platform cannot blur. Anywhere else the band sits in line, giving the list an edge to
+ * stop at.
  *
  * @param subtitleLoading Shows a shimmer in place of the [subtitle] while the list it sums uploads,
  *   easing into the text once it is there.
  * @param search The list's search field, or null for a list short enough to go without one.
- * @param searchLabel What the field searches, as the toggle's description.
+ * @param searchLabel What the field searches, as its label and the toggle's description.
  * @param searchEnabled Whether there is anything to search yet. The toggle stays in place while
  *   there is not, so the title does not reflow when a loading list fills in.
- * The header sits on a band like the app details' one, which gives the list scrolling under it an
- * edge to stop at.
  *
  * @param accentColor Color of the app the list belongs to, which tints the band and the title
  *   actions and badges on it, or null for a neutral band and actions in the theme's palette. The
  *   dialog's own by default, see [AppDialog].
  * @param badges What the whole list shares, in a row under the title as the app details keep theirs.
+ * @param content More of the list's head, under the title and badges and above the search field,
+ *   such as where a file picker is in the folder tree.
  * @param actions Title actions drawn ahead of the search toggle.
  */
 @Composable
@@ -161,24 +174,78 @@ fun ListDialogHeader(
     searchEnabled: Boolean = true,
     accentColor: Color? = LocalAccent.current,
     badges: (@Composable FlowRowScope.() -> Unit)? = null,
+    content: (@Composable ColumnScope.() -> Unit)? = null,
     actions: (@Composable RowScope.() -> Unit)? = null
 ) {
-    val entrance = rememberDialogHeaderEntrance()
     // An accent read from a picture can land after the header is up, so the band eases into it
     val band by animateColorAsState(
         targetValue = appAccentFill(accentColor),
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "list_header_band"
     )
-    val bleed = LocalDialogHorizontalInset.current
-    val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+    val inset = LocalDialogHorizontalInset.current
+    val haze = LocalDialogHeaderHaze.current
+    val head = @Composable { headModifier: Modifier ->
+        HeaderContent(
+            icon = icon,
+            title = title,
+            subtitle = subtitle,
+            subtitleLoading = subtitleLoading,
+            search = search,
+            searchLabel = searchLabel,
+            searchEnabled = searchEnabled,
+            accentColor = accentColor,
+            badges = badges,
+            actions = actions,
+            content = content,
+            modifier = headModifier
+        )
+    }
 
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .headerBand(band, bleed, statusBarHeight)
-            .padding(vertical = DialogHeaderDefaults.VerticalPadding)
-    ) {
+    if (haze != null) {
+        val background = MaterialTheme.colorScheme.background
+        val style = remember(band, background) { bandBlurStyle(band, background) }
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .clip(BandShape)
+                .hazeBlur(HazeInput.Sources(haze), style)
+                .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)),
+            contentAlignment = Alignment.TopCenter
+        ) {
+            head(
+                Modifier
+                    .widthIn(max = Defaults.ContentMaxWidth)
+                    .fillMaxWidth()
+                    .padding(horizontal = inset)
+            )
+        }
+    } else {
+        val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+        head(modifier.fillMaxWidth().headerBand(band, inset, statusBarHeight))
+    }
+}
+
+/** What a [ListDialogHeader] holds, whichever way its band is drawn. */
+@Composable
+private fun HeaderContent(
+    icon: @Composable (Modifier) -> Unit,
+    title: String,
+    subtitle: String,
+    subtitleLoading: Boolean,
+    search: SearchFieldState?,
+    searchLabel: String?,
+    searchEnabled: Boolean,
+    accentColor: Color?,
+    badges: (@Composable FlowRowScope.() -> Unit)?,
+    actions: (@Composable RowScope.() -> Unit)?,
+    content: (@Composable ColumnScope.() -> Unit)?,
+    modifier: Modifier
+) {
+    val entrance = rememberDialogHeaderEntrance()
+    val label = searchLabel ?: stringResource(R.string.search)
+
+    Column(modifier = modifier.padding(vertical = DialogHeaderDefaults.VerticalPadding)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -236,7 +303,7 @@ fun ListDialogHeader(
                         if (search != null) {
                             TitleAction(
                                 icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                                contentDescription = searchLabel ?: stringResource(R.string.search),
+                                contentDescription = label,
                                 onClick = { search.toggle() },
                                 style = TitleActionStyle.Toggle,
                                 active = search.visible,
@@ -260,6 +327,22 @@ fun ListDialogHeader(
                 )
             }
         }
+        content?.invoke(this)
+        if (search != null) {
+            AnimatedVisibility(
+                visible = search.visible,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                AppDialogSearchTextField(
+                    value = search.query,
+                    onValueChange = { search.query = it },
+                    label = label,
+                    requestFocus = true,
+                    modifier = Modifier.padding(top = Defaults.SpaceMedium)
+                )
+            }
+        }
     }
 }
 
@@ -277,6 +360,22 @@ fun ListDialogHeaderIcon(icon: ImageVector, color: Color, modifier: Modifier = M
         modifier = modifier,
         size = DialogHeaderDefaults.IconSize
     )
+}
+
+/** The band's outline, rounded off below like the app details' header. */
+private val BandShape = RoundedCornerShape(bottomStart = Defaults.CornerLarge, bottomEnd = Defaults.CornerLarge)
+
+/**
+ * The band floating over a list: what scrolls under it blurred and laid under the band's color,
+ * thin enough to hint at the rows. Where nothing blurs, the band is as solid as one in line.
+ */
+private fun bandBlurStyle(band: Color, background: Color): HazeBlurStyle {
+    val solid = band.compositeOver(background)
+    return HazeBlurStyle {
+        backgroundColor(background)
+        colorEffects(listOf(HazeColorEffect.tint(solid.copy(alpha = 0.55f))))
+        fallbackColorEffect(HazeColorEffect.tint(solid))
+    }
 }
 
 /**

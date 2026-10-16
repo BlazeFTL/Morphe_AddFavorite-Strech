@@ -9,7 +9,6 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
@@ -65,8 +64,6 @@ data class OlderReleases(
  *   on the device, the patches a source holds, or the ones an app on the device was patched with.
  * @param olderLabel Heads the [older] releases, which are the earlier ones unless it says otherwise.
  * @param header Content above the timeline that scrolls along with it.
- * @param contentPadding Around the releases inside the list, so they scroll through it up to the
- *   list's edge rather than stopping short of it.
  */
 @Composable
 fun ChangelogList(
@@ -74,8 +71,7 @@ fun ChangelogList(
     older: OlderReleases? = null,
     badges: Map<String, ChangelogBadge> = emptyMap(),
     olderLabel: String? = null,
-    header: (@Composable () -> Unit)? = null,
-    contentPadding: PaddingValues = PaddingValues()
+    header: (@Composable () -> Unit)? = null
 ) {
     val listState = rememberLazyListState()
     val expansion = remember { ChangelogExpansion() }
@@ -93,8 +89,7 @@ fun ChangelogList(
 
     DialogLazyList(
         modifier = Modifier.fillMaxWidth(),
-        state = listState,
-        contentPadding = contentPadding
+        state = listState
     ) {
         if (header != null) {
             item("changelog_header") {

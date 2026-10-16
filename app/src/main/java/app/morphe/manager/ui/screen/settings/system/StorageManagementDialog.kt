@@ -84,12 +84,39 @@ fun StorageManagementDialog(
         )
     }
 
+    // Nothing has been read until the first reading lands, and a real one always has room free
+    val loading = stats == StorageStats.Empty
+
     AppDialog(
         onDismissRequest = onDismissRequest,
         padding = DialogPadding.Compact,
         scrollable = false,
         contentArrangement = Arrangement.Top,
         fillContentHeight = true,
+        header = {
+            // Headed like the other lists, with how much Morphe holds against what is left free
+            // where the subtitle goes, above the breakdown that scrolls under it
+            val accent = MaterialTheme.colorScheme.primary
+            ListDialogHeader(
+                icon = { modifier ->
+                    ListDialogHeaderIcon(icon = Icons.Outlined.Storage, color = accent, modifier = modifier)
+                },
+                title = stringResource(R.string.settings_system_storage_management_title),
+                subtitle = context.formatUsedFree(used = stats.appUsedBytes, free = stats.deviceFreeBytes),
+                subtitleLoading = loading,
+                accentColor = accent
+            ) {
+                TitleAction(
+                    icon = Icons.Outlined.Refresh,
+                    contentDescription = stringResource(R.string.refresh),
+                    onClick = {
+                        viewModel.refresh()
+                        histogramNonce++
+                    },
+                    style = TitleActionStyle.Accent
+                )
+            }
+        },
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -98,35 +125,8 @@ fun StorageManagementDialog(
             )
         }
     ) {
-        // Nothing has been read until the first reading lands, and a real one always has room free
-        val loading = stats == StorageStats.Empty
-
-        // Headed like the other lists, with how much Morphe holds against what is left free
-        // where the subtitle goes, above the breakdown that scrolls under it
-        val accent = MaterialTheme.colorScheme.primary
-        ListDialogHeader(
-            icon = { modifier ->
-                ListDialogHeaderIcon(icon = Icons.Outlined.Storage, color = accent, modifier = modifier)
-            },
-            title = stringResource(R.string.settings_system_storage_management_title),
-            subtitle = context.formatUsedFree(used = stats.appUsedBytes, free = stats.deviceFreeBytes),
-            subtitleLoading = loading,
-            accentColor = accent
-        ) {
-            TitleAction(
-                icon = Icons.Outlined.Refresh,
-                contentDescription = stringResource(R.string.refresh),
-                onClick = {
-                    viewModel.refresh()
-                    histogramNonce++
-                },
-                style = TitleActionStyle.Accent
-            )
-        }
-
         DialogScrollColumn(
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             key(histogramNonce) {

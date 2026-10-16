@@ -83,8 +83,7 @@ fun BoxScope.ScrollToTopButton(
 
 /**
  * Scrolls the list back to its start in one motion. [LazyListState.animateScrollToItem] travels by
- * estimated row sizes until the first row shows and then starts over for the rest of it, and a
- * sticky header, which counts as shown wherever the list is, sends it off course altogether. The
+ * estimated row sizes until the first row shows and then starts over for the rest of it. The
  * scroll position alone says where the list is, so from far off it jumps to a set distance from the
  * start and animates that exact distance back.
  */
@@ -94,11 +93,10 @@ private suspend fun LazyListState.animateScrollToTop() {
         return
     }
 
-    // How far down the list sits, estimated from the rows at the scroll position rather than a
-    // header pinned above them, and held to a screenful, so the jump stays within the rows the
-    // animation then passes over
+    // How far down the list sits, estimated from the rows in view and held to a screenful, so the
+    // jump stays within the rows the animation then passes over
     val layout = layoutInfo
-    val rows = layout.visibleItemsInfo.filter { it.index >= firstVisibleItemIndex }
+    val rows = layout.visibleItemsInfo
     val averageRow = rows.sumOf { it.size } / rows.size.coerceAtLeast(1) + layout.mainAxisItemSpacing
     val distance = minOf(
         layout.viewportSize.height,

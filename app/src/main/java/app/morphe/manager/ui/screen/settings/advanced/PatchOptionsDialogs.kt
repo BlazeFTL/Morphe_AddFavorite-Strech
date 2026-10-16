@@ -240,6 +240,15 @@ private fun SettingsOptionsDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(packageName),
+        header = {
+            ListDialogHeader(
+                icon = { modifier ->
+                    AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
+                },
+                title = title,
+                subtitle = KnownApps.getAppName(packageName)
+            )
+        },
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.save),
@@ -255,19 +264,10 @@ private fun SettingsOptionsDialog(
         fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
-        ListDialogHeader(
-            icon = { modifier ->
-                AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
-            },
-            title = title,
-            subtitle = KnownApps.getAppName(packageName)
-        )
-
         DialogScrollColumn(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            contentPadding = PaddingValues(vertical = Defaults.SpaceMedium),
             // Spaced as the options edited while patching
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
         ) {

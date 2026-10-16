@@ -496,8 +496,53 @@ fun BatchPatcherScreen(
         it.state == BatchItemState.FAILED || it.state == BatchItemState.CANCELLED
     }
 
+    val accent = MaterialTheme.colorScheme.primary
     AppDialog(
         onDismissRequest = close,
+        header = {
+            // Headed like the other lists, with how the run stands where the subtitle goes
+            ListDialogHeader(
+                icon = { modifier ->
+                    ListDialogHeaderIcon(icon = Icons.Outlined.AutoFixHigh, color = accent, modifier = modifier)
+                },
+                title = stringResource(R.string.batch_patch_title),
+                subtitle = current?.let { batchSummary(it) }.orEmpty(),
+                subtitleLoading = current == null,
+                accentColor = accent,
+                actions = if (isPreflight || hasPatched || hasUnfinished) {
+                    {
+                        // Kept out of the footer, where the button beside Start only closes the screen
+                        if (isPreflight) {
+                            TitleAction(
+                                icon = Icons.Outlined.Delete,
+                                contentDescription = stringResource(R.string.clear),
+                                onClick = { showClearDialog = true },
+                                style = TitleActionStyle.Destructive
+                            )
+                        }
+                        // Every APK the run made in one go, for sending them on together
+                        if (hasPatched) {
+                            TitleAction(
+                                icon = Icons.Outlined.Share,
+                                contentDescription = stringResource(R.string.share),
+                                onClick = { share(patchedItems) },
+                                style = TitleActionStyle.Accent
+                            )
+                        }
+                        if (hasUnfinished) {
+                            TitleAction(
+                                icon = Icons.Outlined.Refresh,
+                                contentDescription = stringResource(R.string.retry),
+                                onClick = viewModel::retryUnfinished,
+                                style = TitleActionStyle.Accent
+                            )
+                        }
+                    }
+                } else {
+                    null
+                }
+            )
+        },
         footer = {
             BatchDialogButtons(
                 state = current,
@@ -512,54 +557,9 @@ fun BatchPatcherScreen(
         contentArrangement = Arrangement.Top,
         fillContentHeight = true
     ) {
-        // Headed like the other lists, with how the run stands where the subtitle goes
-        val accent = MaterialTheme.colorScheme.primary
-        ListDialogHeader(
-            icon = { modifier ->
-                ListDialogHeaderIcon(icon = Icons.Outlined.AutoFixHigh, color = accent, modifier = modifier)
-            },
-            title = stringResource(R.string.batch_patch_title),
-            subtitle = current?.let { batchSummary(it) }.orEmpty(),
-            subtitleLoading = current == null,
-            accentColor = accent,
-            actions = if (isPreflight || hasPatched || hasUnfinished) {
-                {
-                    // Kept out of the footer, where the button beside Start only closes the screen
-                    if (isPreflight) {
-                        TitleAction(
-                            icon = Icons.Outlined.Delete,
-                            contentDescription = stringResource(R.string.clear),
-                            onClick = { showClearDialog = true },
-                            style = TitleActionStyle.Destructive
-                        )
-                    }
-                    // Every APK the run made in one go, for sending them on together
-                    if (hasPatched) {
-                        TitleAction(
-                            icon = Icons.Outlined.Share,
-                            contentDescription = stringResource(R.string.share),
-                            onClick = { share(patchedItems) },
-                            style = TitleActionStyle.Accent
-                        )
-                    }
-                    if (hasUnfinished) {
-                        TitleAction(
-                            icon = Icons.Outlined.Refresh,
-                            contentDescription = stringResource(R.string.retry),
-                            onClick = viewModel::retryUnfinished,
-                            style = TitleActionStyle.Accent
-                        )
-                    }
-                }
-            } else {
-                null
-            }
-        )
-
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             state = listState,
-            contentPadding = PaddingValues(top = Defaults.SpaceMedium),
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
             if (current == null) return@DialogLazyList

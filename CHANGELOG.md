@@ -1,3 +1,25 @@
+# [1.36.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.10...v1.36.0-dev.11) (2026-10-16)
+
+
+### Bug Fixes
+
+* Fill a search field like the header action that opens it ([50dda40](https://github.com/MorpheApp/morphe-manager/commit/50dda40955044e38e85dd0b03268c21710cc3470))
+* Fold a list dialog's header only as far as its list scrolls, easing it to an end once the list rests ([9486a76](https://github.com/MorpheApp/morphe-manager/commit/9486a76d6cb8afbd694338b7afc6c8bd32ceba8a))
+* Give the default light and dark schemes surface containers of their own ([ddaff32](https://github.com/MorpheApp/morphe-manager/commit/ddaff32c95b9e43e816642409a5c7bc63ebc64e1))
+* Hold the status bar scrim to the bar itself, always on, instead of fading it in once the list scrolls ([bff2542](https://github.com/MorpheApp/morphe-manager/commit/bff2542f0e94b11d6bce0fc50235f85b65b682c0))
+* Keep a message in one place over every surface, rounded, and take a long one down sooner ([9858168](https://github.com/MorpheApp/morphe-manager/commit/985816850a8a0c1986f573033facf7842082778c))
+* Lay the installer card's Shizuku actions out as a card's action row ([ca57763](https://github.com/MorpheApp/morphe-manager/commit/ca577630e011f9a733b2cb8dc79ac1c253cc3558))
+* Run a scrollbar past floating footers to an even gap at both ends, out of their scrims, with a scroll-to-top in expert mode and settings ([b8705fb](https://github.com/MorpheApp/morphe-manager/commit/b8705fb153bea6c51793d7285e5c315d7e76ca71))
+
+
+### Features
+
+* Blur what scrolls under a list dialog's footer buttons instead of dimming it ([409623e](https://github.com/MorpheApp/morphe-manager/commit/409623ea6acb7dca92f9c17c48c1a3fbb70ddb9a))
+* Blur what scrolls under the floating bars, selection panels and scroll-to-top button instead of shadowing them ([da7a68f](https://github.com/MorpheApp/morphe-manager/commit/da7a68f040230b78272d40fc6773ade6c13a34e0))
+* Give list dialogs a ListDialog of their own, hidden apps and copy selection among them ([9251a0e](https://github.com/MorpheApp/morphe-manager/commit/9251a0e6bdb88e59d1cfe5b2f8ab7dc7402fe17f))
+* Stand a patch list's rows together as segmented blocks under their app or category ([c56c6f1](https://github.com/MorpheApp/morphe-manager/commit/c56c6f10c67a0bad6bc16da03abb80f13517fffa))
+* Stand each app's saved patch selections together as a segmented block, named and ordered before it opens ([0eccdcf](https://github.com/MorpheApp/morphe-manager/commit/0eccdcfa6a78fa5951f67cc059784d4600b75ea6))
+
 # [1.36.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.9...v1.36.0-dev.10) (2026-10-16)
 
 

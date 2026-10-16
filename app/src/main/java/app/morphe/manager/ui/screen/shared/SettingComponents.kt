@@ -424,7 +424,7 @@ fun SettingsItemCard(
 fun ExpandChevron(
     expanded: Boolean,
     modifier: Modifier = Modifier,
-    tint: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    tint: Color = dialogSecondaryTextColor(),
     announced: Boolean = false
 ) {
     val rotation by animateFloatAsState(

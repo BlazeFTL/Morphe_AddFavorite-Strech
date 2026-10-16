@@ -410,14 +410,24 @@ internal fun PatchItemCard(
     ) {
         // The badges on the card take the app's color, as its edge does
         ProvideCardAccent(badgeAccent, cardColor) {
-            Column(
-                modifier = Modifier.padding(Defaults.SpaceLarge),
-                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
-            ) {
-                PatchCardText(name = patch.displayName, description = patch.description)
+            // The gaps go with what they part, so the options bring theirs as they fold out rather
+            // than the column opening it at once
+            Column(modifier = Modifier.padding(Defaults.SpaceLarge)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)) {
+                    PatchCardText(
+                        name = patch.displayName,
+                        description = patch.description,
+                        modifier = Modifier.weight(1f)
+                    )
+                    // The whole card folds the options out, and the chevron says so
+                    if (options.isNotEmpty()) {
+                        ExpandChevron(expanded = expandOptions, announced = true)
+                    }
+                }
 
                 if (versions.isNotEmpty() || options.isNotEmpty() || isExpertOnly) {
                     FlowRow(
+                        modifier = Modifier.padding(top = Defaults.SpaceMedium),
                         horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                         verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
                     ) {
@@ -431,7 +441,7 @@ internal fun PatchItemCard(
                         if (options.isNotEmpty()) {
                             AppAccentBadge(
                                 text = pluralStringResource(R.plurals.option_count, options.size, options.size.toString()),
-                                icon = if (expandOptions) Icons.Outlined.ExpandLess else Icons.Outlined.Tune,
+                                icon = Icons.Outlined.Tune,
                                 onClick = { expandOptions = !expandOptions }
                             )
                         }
@@ -449,12 +459,11 @@ internal fun PatchItemCard(
                 }
 
                 if (options.isNotEmpty()) {
-                    AnimatedVisibility(
-                        visible = expandOptions,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
-                        Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
+                    ListRowFold(visible = expandOptions) {
+                        Column(
+                            modifier = Modifier.padding(top = Defaults.SpaceMedium),
+                            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
+                        ) {
                             options.forEach { option ->
                                 Surface(
                                     modifier = Modifier.fillMaxWidth(),
@@ -527,7 +536,10 @@ private fun FoldingBadge(
     content: @Composable () -> Unit
 ) {
     val state = remember { MutableTransitionState(visible) }
-    state.targetState = visible
+    // A badge coming or going can wrap the row onto another line, resizing the card at once. It
+    // follows a frame behind, so the rows below have let go of their spring by the time it does
+    ListRowResizes(resizing = state.targetState != visible || !state.isIdle)
+    LaunchedEffect(visible) { state.targetState = visible }
 
     val enter = remember(order) { Animations.chipEnterStaggered(order) }
     // Gone at once: a badge fading out would hold its place, and the toggle after the run would

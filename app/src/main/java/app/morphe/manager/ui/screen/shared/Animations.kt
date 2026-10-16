@@ -8,8 +8,7 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
@@ -32,10 +31,63 @@ private class LatestValue<T : Any> {
  */
 @Composable
 fun Modifier.animatedListItem(itemScope: LazyItemScope): Modifier = with(itemScope) {
+    val resizing = LocalListRowResizing.current?.isActive == true
     this@animatedListItem.animateItem(
         fadeInSpec = tween(Defaults.ANIMATION_DURATION),
         fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-        placementSpec = Animations.listSpring()
+        placementSpec = if (resizing) null else Animations.listSpring()
+    )
+}
+
+/**
+ * Rows of a lazy list resizing in place, see [ListRowResizes]. The rows below would chase
+ * every frame of it with their placement spring and trail behind, opening and closing the gap
+ * under the row, so [animatedListItem] lets them follow its edge until it settles.
+ */
+@Stable
+class ListRowResizing {
+    internal var count by mutableIntStateOf(0)
+
+    val isActive: Boolean get() = count > 0
+}
+
+/** The [ListRowResizing] of the lazy list a row is in, null outside one. */
+val LocalListRowResizing = staticCompositionLocalOf<ListRowResizing?> { null }
+
+/** Marks the row this is in as resizing while [resizing] holds, see [ListRowResizing]. */
+@Composable
+fun ListRowResizes(resizing: Boolean) {
+    val rows = LocalListRowResizing.current ?: return
+    if (resizing) {
+        DisposableEffect(rows) {
+            rows.count++
+            onDispose { rows.count-- }
+        }
+    }
+}
+
+/**
+ * Content folding in and out of a lazy list row, unrolling under what stands above it. The rows
+ * below keep to the row's edge while it does, see [ListRowResizing].
+ */
+@Composable
+fun ListRowFold(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    enter: EnterTransition = Animations.expandTopFadeIn,
+    exit: ExitTransition = Animations.shrinkTopFadeOut,
+    content: @Composable AnimatedVisibilityScope.() -> Unit
+) {
+    val state = remember { MutableTransitionState(visible) }
+    state.targetState = visible
+    ListRowResizes(resizing = !state.isIdle)
+
+    AnimatedVisibility(
+        visibleState = state,
+        modifier = modifier,
+        enter = enter,
+        exit = exit,
+        content = content
     )
 }
 

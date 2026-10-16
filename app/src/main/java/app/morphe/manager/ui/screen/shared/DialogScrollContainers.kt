@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
@@ -39,19 +41,22 @@ fun DialogLazyList(
 ) {
     val barInsets = LocalDialogBarInsets.current
     val haze = rememberHazeState()
+    val rowResizing = remember { ListRowResizing() }
 
     Box(modifier = modifier) {
-        LazyColumn(
-            state = state,
-            modifier = Modifier
-                .fillMaxWidth()
-                .hazeSource(haze)
-                .verticalScrollFade(state),
-            contentPadding = contentPadding + barInsets,
-            verticalArrangement = verticalArrangement,
-            userScrollEnabled = userScrollEnabled,
-            content = content
-        )
+        CompositionLocalProvider(LocalListRowResizing provides rowResizing) {
+            LazyColumn(
+                state = state,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .hazeSource(haze)
+                    .verticalScrollFade(state),
+                contentPadding = contentPadding + barInsets,
+                verticalArrangement = verticalArrangement,
+                userScrollEnabled = userScrollEnabled,
+                content = content
+            )
+        }
 
         DialogScrollIndicators(listState = state, haze = haze)
     }

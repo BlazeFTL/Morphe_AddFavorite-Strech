@@ -636,11 +636,7 @@ private fun PackageSelectionHeader(
                     enter = Animations.expandFadeEnter,
                     exit = Animations.shrinkFadeExit
                 ) {
-                    ExpandChevron(
-                        expanded = expanded,
-                        tint = dialogSecondaryTextColor(),
-                        announced = true
-                    )
+                    ExpandChevron(expanded = expanded, announced = true)
                 }
             }
         }

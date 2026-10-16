@@ -75,7 +75,6 @@ fun ExpandableSurface(
                 ExpandChevron(
                     expanded = expanded,
                     modifier = Modifier.size(Defaults.IconSizeSmall),
-                    tint = dialogTextColor().copy(alpha = 0.7f),
                     announced = true
                 )
             }

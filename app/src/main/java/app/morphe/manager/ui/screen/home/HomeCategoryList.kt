@@ -235,7 +235,8 @@ internal fun HomeGlassCategoryRow(
                 .heightIn(min = 48.dp)
                 // A supporting line makes it a two-line item, which keeps more room around it
                 .padding(
-                    horizontal = Defaults.SpaceMedium,
+                    // Inset as the cards it heads, so a block keeps one edge
+                    horizontal = Defaults.SpaceLarge,
                     vertical = if (below != null) Defaults.SpaceMedium else Defaults.SpaceSmall
                 ),
             verticalAlignment = Alignment.CenterVertically,

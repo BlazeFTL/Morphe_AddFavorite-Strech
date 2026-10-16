@@ -464,8 +464,8 @@ fun ForwardChevronIcon(
 /**
  * Standard settings item. Pass [icon] for a simple icon leading, or [leadingContent] for custom leading.
  *
- * [statusContent] is placed ahead of [trailingContent] for rows that show a state indicator
- * next to the chevron, so call sites do not have to rebuild the trailing row themselves.
+ * [statusContent] takes the place of [trailingContent] for a row that shows its state, which says
+ * enough on its own that a chevron beside it would only crowd it.
  */
 @Composable
 fun SettingsItem(
@@ -489,20 +489,7 @@ fun SettingsItem(
             leadingContent = leadingContent ?: icon?.let { { ThemedIcon(icon = it) } },
             title = title,
             description = subtitle,
-            trailingContent = when (statusContent) {
-                null -> trailingContent
-                else -> {
-                    {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            statusContent()
-                            trailingContent?.invoke()
-                        }
-                    }
-                }
-            }
+            trailingContent = statusContent ?: trailingContent
         )
     }
 }

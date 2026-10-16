@@ -560,6 +560,7 @@ private fun AutoUninstallWarningDialog(
     }
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun ShizukuStatusDialog(
     statusProvider: () -> SessionInstaller.ShizukuStatus,
@@ -691,7 +692,7 @@ private fun ShizukuStatusDialog(
                     }
                 }
             } else {
-                CircularProgressIndicator(
+                LoadingIndicator(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(Defaults.SpaceLarge)

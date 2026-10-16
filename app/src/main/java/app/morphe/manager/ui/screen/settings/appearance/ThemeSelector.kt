@@ -111,14 +111,16 @@ private fun <T> ThemeOptionRow(
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onSurface
         )
-        OptionGrid(items = options, columns = options.size) { option, itemModifier ->
+        OptionGroup(items = options) { option, shape, interactionSource, itemModifier ->
             ModernIconOptionCard(
                 selected = option.value == selected,
                 onClick = { onSelected(option.value) },
                 icon = option.icon,
                 label = option.label,
                 modifier = itemModifier,
-                compact = true
+                compact = true,
+                shape = shape,
+                interactionSource = interactionSource
             )
         }
     }

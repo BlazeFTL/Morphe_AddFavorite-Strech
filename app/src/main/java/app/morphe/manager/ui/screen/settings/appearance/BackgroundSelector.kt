@@ -163,18 +163,19 @@ fun BackgroundPickerDialog(
                         exit = Animations.shrinkFadeExit
                     ) {
                         // Vertical tiles so the interval labels never truncate
-                        OptionGrid(
+                        OptionGroup(
                             items = RandomInterval.entries,
-                            columns = RandomInterval.entries.size,
                             modifier = Modifier.padding(top = Defaults.SpaceSmall)
-                        ) { interval, itemModifier ->
+                        ) { interval, shape, interactionSource, itemModifier ->
                             ModernIconOptionCard(
                                 selected = selectedInterval == interval,
                                 onClick = { onIntervalSelected(interval) },
                                 icon = intervalIcon(interval),
                                 label = stringResource(interval.labelResId),
                                 modifier = itemModifier,
-                                compact = true
+                                compact = true,
+                                shape = shape,
+                                interactionSource = interactionSource
                             )
                         }
                     }
@@ -208,7 +209,7 @@ fun BackgroundPickerDialog(
 
 private fun backgroundIcon(type: BackgroundType): ImageVector = when (type) {
     BackgroundType.CIRCLES   -> Icons.Outlined.Circle
-    BackgroundType.RINGS     -> Icons.Outlined.RadioButtonUnchecked
+    BackgroundType.RINGS     -> Icons.Outlined.Adjust
     BackgroundType.MESH      -> Icons.Outlined.Grid3x3
     BackgroundType.SPACE     -> Icons.Outlined.AutoAwesome
     BackgroundType.SHAPES    -> Icons.Outlined.Pentagon

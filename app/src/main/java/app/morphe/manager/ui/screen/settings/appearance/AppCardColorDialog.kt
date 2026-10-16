@@ -31,12 +31,10 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.LocalAppCardColorResolver
 import app.morphe.manager.util.*
 
-private const val MODE_COLUMNS = 2
-
 private val MODE_OPTIONS = listOf(
     AppCardColorMode.DEFAULT to Icons.Outlined.Apps,
     AppCardColorMode.ACCENT to Icons.Outlined.ColorLens,
-    AppCardColorMode.GRADIENT to Icons.Outlined.Palette,
+    AppCardColorMode.GRADIENT to Icons.Outlined.Gradient,
     AppCardColorMode.SOLID to Icons.Outlined.Circle
 )
 
@@ -144,17 +142,16 @@ fun AppCardColorDialog(
                 appColors = previewAppColors
             )
 
-            OptionGrid(
-                items = MODE_OPTIONS,
-                columns = MODE_COLUMNS,
-                spacing = Defaults.SpaceMedium
-            ) { (optionMode, icon), itemModifier ->
+            OptionGroup(items = MODE_OPTIONS) { (optionMode, icon), shape, interactionSource, itemModifier ->
                 ModernIconOptionCard(
                     selected = draftMode == optionMode,
                     onClick = { draftMode = optionMode },
                     icon = icon,
                     label = stringResource(optionMode.labelResId),
-                    modifier = itemModifier
+                    modifier = itemModifier,
+                    compact = true,
+                    shape = shape,
+                    interactionSource = interactionSource
                 )
             }
 

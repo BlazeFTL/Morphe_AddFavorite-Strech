@@ -259,8 +259,11 @@ fun ManagerTheme(
         LocalThemeTraits provides traits,
         LocalAppCardColorResolver provides appCardColorResolver
     ) {
-        MaterialTheme(
+        // Expressive, so Material's own components move on its springs and pick their expressive
+        // variants, in step with the app's own controls
+        MaterialExpressiveTheme(
             colorScheme = finalScheme,
+            motionScheme = MotionScheme.expressive(),
             typography = Typography,
             content = content
         )

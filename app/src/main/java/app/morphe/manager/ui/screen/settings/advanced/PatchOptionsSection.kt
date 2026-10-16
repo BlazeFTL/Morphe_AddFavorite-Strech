@@ -8,7 +8,8 @@ package app.morphe.manager.ui.screen.settings.advanced
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -17,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.PatchOptionKeys
@@ -37,6 +37,7 @@ import app.morphe.manager.util.KnownApps
  * Advanced patch options section.
  * Options are dynamically loaded from the patch bundle repository.
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun PatchOptionsSection(
     patchOptionsPrefs: PatchOptionsPreferencesManager,
@@ -97,7 +98,7 @@ fun PatchOptionsSection(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    CircularProgressIndicator(modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
+                    LoadingIndicator(modifier = Modifier.size(Defaults.SpaceExtraExtraLarge))
                     Spacer(modifier = Modifier.width(Defaults.SpaceMedium))
                     Text(
                         text = stringResource(R.string.settings_advanced_patch_options_loading),

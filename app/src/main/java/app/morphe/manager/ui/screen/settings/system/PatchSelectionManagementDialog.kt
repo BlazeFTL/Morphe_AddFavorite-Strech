@@ -898,6 +898,7 @@ private fun ConfirmResetPackageBundleDialog(
 /**
  * Dialog showing detailed patch selections and options for one package+bundle.
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun PatchDetailsDialog(
     packageName: String,
@@ -957,7 +958,7 @@ private fun PatchDetailsDialog(
                     .padding(Defaults.SpaceExtraExtraLarge),
                 contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                LoadingIndicator()
             }
         } else {
             if (entries.isNotEmpty()) {

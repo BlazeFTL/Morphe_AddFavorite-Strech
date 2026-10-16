@@ -552,7 +552,8 @@ private class PillRowDataNode(
 
 /**
  * Configuration for a single button rendered inside [CardActionRow].
- * Set [destructive] to true for actions styled with the error container palette.
+ * Set [destructive] to true for actions styled with the error container palette, or [primary] for
+ * the one the card leads to, such as the fix for what it reports.
  */
 @Immutable
 data class CardAction(
@@ -560,7 +561,8 @@ data class CardAction(
     val label: String,
     val onClick: () -> Unit,
     val enabled: Boolean = true,
-    val destructive: Boolean = false
+    val destructive: Boolean = false,
+    val primary: Boolean = false
 )
 
 /**
@@ -596,7 +598,12 @@ fun CardActionRow(
                     } else {
                         Modifier.widthIn(min = singleActionMinWidth)
                     },
-                    destructive = action.destructive
+                    destructive = action.destructive,
+                    colors = when {
+                        action.destructive -> ActionPillColors.destructive()
+                        action.primary -> ActionPillColors.primary()
+                        else -> ActionPillColors.neutral()
+                    }
                 )
             }
         }

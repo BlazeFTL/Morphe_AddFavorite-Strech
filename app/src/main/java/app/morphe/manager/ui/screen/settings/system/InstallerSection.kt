@@ -306,29 +306,19 @@ fun InstallerSelectionDialog(
                         stateDescription = stateDesc,
                         footerText = shizukuFooterText,
                         // Shizuku's fixes sit in its own card, under what is wrong with it
-                        footerActions = if (showShizukuAction || showStatusAction) {
-                            {
-                                if (showShizukuAction) {
-                                    ActionPillButton(
-                                        onClick = { runCatching { onOpenShizuku.invoke() } },
-                                        icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                                        contentDescription = openLabel,
-                                        label = openLabel,
-                                        colors = ActionPillColors.primary(),
-                                        modifier = Modifier.weight(1f)
-                                    )
-                                }
-                                if (showStatusAction) {
-                                    ActionPillButton(
-                                        onClick = { showShizukuStatus = true },
-                                        icon = Icons.Outlined.Info,
-                                        contentDescription = statusLabel,
-                                        label = statusLabel,
-                                        modifier = Modifier.weight(1f)
-                                    )
-                                }
-                            }
-                        } else null
+                        footerActions = listOfNotNull(
+                            CardAction(
+                                icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                                label = openLabel,
+                                onClick = { runCatching { onOpenShizuku?.invoke() } },
+                                primary = true
+                            ).takeIf { showShizukuAction },
+                            CardAction(
+                                icon = Icons.Outlined.Info,
+                                label = statusLabel,
+                                onClick = { showShizukuStatus = true }
+                            ).takeIf { showStatusAction }
+                        )
                     )
                 }
             }
@@ -708,7 +698,7 @@ fun InstallerOptionItem(
     onSelect: () -> Unit,
     stateDescription: String,
     footerText: String? = null,
-    footerActions: (@Composable RowScope.() -> Unit)? = null
+    footerActions: List<CardAction> = emptyList()
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -745,7 +735,7 @@ fun InstallerOptionItem(
                 }
             }
         } else null,
-        footerContent = if (reasonText != null || footerText != null || footerActions != null) {
+        footerContent = if (reasonText != null || footerText != null || footerActions.isNotEmpty()) {
             {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -775,13 +765,7 @@ fun InstallerOptionItem(
                             )
                         }
                     }
-                    footerActions?.let { actions ->
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-                            content = actions
-                        )
-                    }
+                    if (footerActions.isNotEmpty()) CardActionRow(actions = footerActions)
                 }
             }
         } else null

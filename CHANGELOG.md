@@ -1,3 +1,24 @@
+# [1.36.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.8...v1.36.0-dev.9) (2026-10-16)
+
+
+### Bug Fixes
+
+* Match the patcher bar height to the result actions and fold its glass wrappers into one ([b4e3ba2](https://github.com/MorpheApp/morphe-manager/commit/b4e3ba2228a9b9fa12256415b632635b992148e0))
+
+
+### Features
+
+* Join single-choice pickers into connected groups and move to Material's expressive loaders, menus and motion ([92b281e](https://github.com/MorpheApp/morphe-manager/commit/92b281e3a172c52d5ed8556284ce3f3dad53b2dd))
+* Join the install, save and share actions into one connected group ([13d92f7](https://github.com/MorpheApp/morphe-manager/commit/13d92f7b24283ce9a961090199cdfbb37d079170))
+* Let a settings row's status take the chevron's place ([76fe19e](https://github.com/MorpheApp/morphe-manager/commit/76fe19e468f93b0f46283fa6d9eb122903b15f2d))
+* Put corners and spacing on the Material scales and move the shared metrics into Defaults ([8d41942](https://github.com/MorpheApp/morphe-manager/commit/8d419427a20729e1f394d71e57e728b3bd4d4f7b))
+* Replace toasts with snackbars raised through an injected UserMessages ([db13671](https://github.com/MorpheApp/morphe-manager/commit/db13671e04241885d67825eee651e5e32fe7983d))
+* Round button corners down on press and widen pressed pills in their row ([4d69da0](https://github.com/MorpheApp/morphe-manager/commit/4d69da092c0102ec20cce890dadafcd68aa01b39))
+* Round every button fully and join the app info actions into button groups that widen on press ([7f06c00](https://github.com/MorpheApp/morphe-manager/commit/7f06c00797e047994cb3a013a7d1057e2ff991d5))
+* Segment the lazy option lists by each row's index ([b6c8485](https://github.com/MorpheApp/morphe-manager/commit/b6c84851fb6da2507bd6e52d91cb799cbdaa7fde))
+* Turn settings groups and option lists into Material's segmented lists ([eb5a062](https://github.com/MorpheApp/morphe-manager/commit/eb5a062c2152a2b3a38e1db3e8dfdb1745c4b4d7))
+* Turn the patch options cards into segmented groups headed in line with their rows ([6b08770](https://github.com/MorpheApp/morphe-manager/commit/6b087705d5692b058819262fc94a827b9c99f6e7))
+
 # [1.36.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.7...v1.36.0-dev.8) (2026-10-15)
 
 

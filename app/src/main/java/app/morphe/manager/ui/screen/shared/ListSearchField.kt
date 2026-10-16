@@ -53,7 +53,8 @@ fun ListSearchField(
     }
 
     val textColor = dialogTextColor()
-    val container = MaterialTheme.colorScheme.surfaceContainerHighest
+    // The fill of the toggle that opens it, so the field reads as that button drawn out over the header
+    val container = accentStepContainer(LocalAccent.current)
     TextField(
         value = value,
         onValueChange = onValueChange,

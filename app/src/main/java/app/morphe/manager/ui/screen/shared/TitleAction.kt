@@ -16,7 +16,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /** Visual style of a [TitleAction]. */
@@ -67,14 +66,14 @@ fun TitleAction(
         TitleActionStyle.Plain -> null
         TitleActionStyle.Accent -> accent?.copy(alpha = AccentAlpha.LEAD) ?: MaterialTheme.colorScheme.primaryContainer
         // Neutral on any header, with the red kept to the icon, where it warns rather than decorates
-        TitleActionStyle.Destructive -> neutralContainer(accent)
+        TitleActionStyle.Destructive -> accentStepContainer(accent)
         TitleActionStyle.Toggle -> if (active) {
             accent ?: MaterialTheme.colorScheme.primaryContainer
         } else {
-            neutralContainer(accent)
+            accentStepContainer(accent)
         }
 
-        TitleActionStyle.Neutral -> neutralContainer(accent)
+        TitleActionStyle.Neutral -> accentStepContainer(accent)
     }
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -127,8 +126,3 @@ fun TitleAction(
         }
     }
 }
-
-/** Circle of an action that is not engaged: a step over an accented header, or the theme's neutral. */
-@Composable
-private fun neutralContainer(accent: Color?): Color =
-    accent?.copy(alpha = AccentAlpha.STEP) ?: MaterialTheme.colorScheme.surfaceVariant

@@ -19,6 +19,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.unit.Velocity
 import kotlin.math.roundToInt
 
 /**
@@ -38,12 +39,28 @@ class DialogHeaderCollapse {
     // The collapsible part's height, as last measured. Read only while scrolling, so not observed
     private var range = 0
 
+    // Bumped on every drag step, so an easing in progress yields to the finger
+    private var drags = 0
+
     /** Moves [folded] along with the scroll of whatever list it is attached to. */
     val connection: NestedScrollConnection = object : NestedScrollConnection {
         override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-            folded = (folded - available.y).coerceIn(0f, range.toFloat())
+            if (source == NestedScrollSource.UserInput) drags++
+            return Offset.Zero
+        }
+
+        // Follows only what the list moved, so a list too short to scroll keeps it open. A pull past
+        // the start unfolds it too, since easing can fold more than the list has scrolled
+        override fun onPostScroll(consumed: Offset, available: Offset, source: NestedScrollSource): Offset {
+            folded = (folded - consumed.y - available.y.coerceAtLeast(0f)).coerceIn(0f, range.toFloat())
             // The header floats over the list, so the list scrolls the whole way regardless
             return Offset.Zero
+        }
+
+        // Once the list comes to rest, a partly folded header eases to the nearer end
+        override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity {
+            if (folded > 0f && folded < range) easeTo(if (folded < range / 2f) 0f else range.toFloat())
+            return Velocity.Zero
         }
     }
 
@@ -52,8 +69,13 @@ class DialogHeaderCollapse {
      * than a scroll, such as a page or a filter changing, which would otherwise open under a header
      * still folded from before.
      */
-    suspend fun unfold() {
-        animate(folded, 0f, animationSpec = tween(Defaults.ANIMATION_DURATION)) { value, _ -> folded = value }
+    suspend fun unfold() = easeTo(0f)
+
+    private suspend fun easeTo(target: Float) {
+        val drag = drags
+        animate(folded, target, animationSpec = tween(Defaults.ANIMATION_DURATION)) { value, _ ->
+            if (drags == drag) folded = value
+        }
     }
 
     internal fun measured(height: Int) {

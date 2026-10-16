@@ -140,9 +140,8 @@ fun AppDialog(
 }
 
 /**
- * What every fullscreen dialog shares: a window of its own drawn over the screen in the theme's
- * background, the messages raised while it is open, its entrance and exit, and the text colors
- * and [accentColor] its content takes on.
+ * What every fullscreen dialog shares: its own window in the theme's background, a host for
+ * messages, the entrance and exit, and the text colors and [accentColor] of its content.
  *
  * @param accentColor Color of the app or source the dialog is about. Its header, content and
  *   buttons all take it on through [LocalAccent], so the dialog reads as one surface in that color.

@@ -45,13 +45,12 @@ fun BoxScope.ScrollToTopButton(
     firstVisibleItemThreshold: Int = 3,
     extraBottomPadding: Dp = 0.dp
 ) {
-    val scope = rememberCoroutineScope()
     val visible by remember(listState, firstVisibleItemThreshold) {
         derivedStateOf { listState.firstVisibleItemIndex >= firstVisibleItemThreshold }
     }
     ScrollToTopButtonImpl(
         visible = visible,
-        onClick = { scope.launch { listState.animateScrollToTop() } },
+        scrollToTop = { listState.animateScrollToTop() },
         modifier = modifier.align(Alignment.BottomEnd),
         extraBottomPadding = extraBottomPadding
     )
@@ -68,14 +67,13 @@ fun BoxScope.ScrollToTopButton(
     scrollThreshold: Dp = DefaultScrollThresholdDp,
     extraBottomPadding: Dp = 0.dp
 ) {
-    val scope = rememberCoroutineScope()
     val thresholdPx = with(LocalDensity.current) { scrollThreshold.toPx().toInt() }
     val visible by remember(scrollState, thresholdPx) {
         derivedStateOf { scrollState.value >= thresholdPx }
     }
     ScrollToTopButtonImpl(
         visible = visible,
-        onClick = { scope.launch { scrollState.animateScrollTo(0) } },
+        scrollToTop = { scrollState.animateScrollTo(0) },
         modifier = modifier.align(Alignment.BottomEnd),
         extraBottomPadding = extraBottomPadding
     )
@@ -109,10 +107,17 @@ private suspend fun LazyListState.animateScrollToTop() {
 @Composable
 private fun ScrollToTopButtonImpl(
     visible: Boolean,
-    onClick: () -> Unit,
+    scrollToTop: suspend () -> Unit,
     modifier: Modifier = Modifier,
     extraBottomPadding: Dp = 0.dp
 ) {
+    val scope = rememberCoroutineScope()
+    // A scroll made in code bypasses the header, so it is unfolded alongside
+    val headerCollapse = LocalDialogHeaderCollapse.current
+    val onClick: () -> Unit = {
+        scope.launch { scrollToTop() }
+        if (headerCollapse != null) scope.launch { headerCollapse.unfold() }
+    }
     val a11y = rememberAccessibilityEnabled()
     val label = stringResource(R.string.accessibility_scroll_to_top)
 

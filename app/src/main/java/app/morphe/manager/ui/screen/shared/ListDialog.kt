@@ -22,9 +22,8 @@ import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
 
 /**
- * Room a [ListDialog] keeps at its content's ends for the header and the footer or bottom bar
- * floating over them, which a scrolling list leaves as padding so its first and last rows can come
- * out from under them. None anywhere else.
+ * Room at a [ListDialog]'s content ends for the bars floating over them. A scrolling list takes it
+ * as padding, so its first and last rows can come out from under them.
  */
 val LocalDialogBarInsets = compositionLocalOf { PaddingValues(0.dp) }
 
@@ -35,10 +34,9 @@ internal val LocalDialogHeaderHaze = staticCompositionLocalOf<HazeState?> { null
 private val ListDialogInset = Defaults.SpaceLarge
 
 /**
- * Fullscreen dialog built around a list it scrolls through. The content runs on to the screen's
- * edges, as the home screen's list does, under the [header] floating over its top and the [footer]
- * or [bottomBar] floating over its bottom, and a list leaves room for them at its ends through
- * [LocalDialogBarInsets]. A dialog whose content stands as one centered block is an [AppDialog].
+ * Fullscreen dialog built around a list. The content runs to the screen's edges under the floating
+ * [header] and [footer] or [bottomBar], leaving room for them through [LocalDialogBarInsets]. A
+ * dialog whose content stands as one centered block is an [AppDialog].
  *
  * @param header Heads the list, such as a [ListDialogHeader], which blurs what scrolls under it
  *   where the platform can blur and folds its collapsible part away as the list scrolls on.
@@ -87,9 +85,8 @@ fun ListDialog(
 }
 
 /**
- * The content of a [ListDialog], running on to the screen's edges, or to the keyboard while it is
- * up, under the [header] floating over its top and the [bottomBar] or else the [footer] over its
- * bottom. Laid out the same with either, so the content keeps its state as a selection bar comes
+ * The content of a [ListDialog] under its floating bars, down to the keyboard while it is up. The
+ * [bottomBar] and [footer] share one slot, so the content keeps its state as a selection bar comes
  * and goes.
  */
 @Composable

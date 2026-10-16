@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
@@ -439,7 +440,12 @@ private fun ResultLayout(
                 details()
             }
             if (actions != null) {
-                ResultActionsDock(horizontalPadding = Defaults.ContentPadding, content = actions)
+                // A wider gap than inside either row, so the actions and the bar read as two groups
+                ResultActionsDock(
+                    horizontalPadding = Defaults.ContentPadding,
+                    bottomPadding = Defaults.ItemSpacing * 2,
+                    content = actions
+                )
             } else {
                 // The bar keeps no gap above itself, so the scrolling content is held off it here
                 Spacer(Modifier.height(Defaults.ItemSpacing))
@@ -450,15 +456,20 @@ private fun ResultLayout(
 }
 
 /**
- * The result's actions held under its scrolling content, as wide as the bar below them. The gap
- * under them is the one the bar keeps below its own buttons, so in landscape the two line up.
+ * The result's actions held under its scrolling content, as wide as the bar below them. The
+ * default gap under them is the one the bar keeps below its own buttons, so in landscape the
+ * two line up.
  */
 @Composable
-private fun ResultActionsDock(horizontalPadding: Dp, content: @Composable () -> Unit) {
+private fun ResultActionsDock(
+    horizontalPadding: Dp,
+    bottomPadding: Dp = Defaults.ItemSpacing,
+    content: @Composable () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = Defaults.ItemSpacing),
+            .padding(top = Defaults.ItemSpacing, bottom = bottomPadding),
         contentAlignment = Alignment.TopCenter
     ) {
         Box(
@@ -737,13 +748,15 @@ private fun InstallActions(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
-        // The file buttons take the install button's height, which a large font can raise
+        // One connected group, so the file buttons read as part of the install rather than as a
+        // row of their own. They take its height, which a large font can raise
         Row(
             modifier = Modifier.height(IntrinsicSize.Min),
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+            horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
         ) {
             ResultActionButton(
                 modifier = Modifier.weight(1f),
+                shape = ConnectedLeadingShape,
                 text = stringResource(
                     when {
                         isInstalling -> if (usingMountInstall) {
@@ -783,6 +796,7 @@ private fun InstallActions(
                 text = stringResource(R.string.save),
                 enabled = !isSaving,
                 showProgress = isSaving,
+                shape = ConnectedMiddleShape,
                 modifier = Modifier
                     .width(PatcherActionHeight)
                     .fillMaxHeight()
@@ -791,6 +805,7 @@ private fun InstallActions(
                 onClick = onShare,
                 icon = Icons.Outlined.Share,
                 text = stringResource(R.string.share),
+                shape = ConnectedTrailingShape,
                 modifier = Modifier
                     .width(PatcherActionHeight)
                     .fillMaxHeight()
@@ -823,6 +838,7 @@ private fun ResultActionButton(
     failed: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    shape: Shape = RoundedCornerShape(Defaults.CardCornerRadius),
     busy: Boolean = false
 ) {
     val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
@@ -841,7 +857,7 @@ private fun ResultActionButton(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = PatcherActionHeight),
-        shape = RoundedCornerShape(Defaults.CardCornerRadius),
+        shape = shape,
         colors = buttonColors,
         contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
     ) {
@@ -864,3 +880,21 @@ private fun ResultActionButton(
         )
     }
 }
+
+/** Corner where two buttons of a connected group meet, nearly square so they read as one piece. */
+private val ConnectedInnerCorner = 4.dp
+
+// Shapes of a connected group: the card radius on its outer edges, the inner corner between buttons
+private val ConnectedLeadingShape = RoundedCornerShape(
+    topStart = Defaults.CardCornerRadius,
+    bottomStart = Defaults.CardCornerRadius,
+    topEnd = ConnectedInnerCorner,
+    bottomEnd = ConnectedInnerCorner
+)
+private val ConnectedMiddleShape = RoundedCornerShape(ConnectedInnerCorner)
+private val ConnectedTrailingShape = RoundedCornerShape(
+    topStart = ConnectedInnerCorner,
+    bottomStart = ConnectedInnerCorner,
+    topEnd = Defaults.CardCornerRadius,
+    bottomEnd = Defaults.CardCornerRadius
+)

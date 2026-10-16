@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
@@ -240,7 +241,8 @@ internal fun PatcherActionButton(
     showLabel: Boolean = false,
     tone: BottomActionTone = BottomActionTone.Neutral,
     enabled: Boolean = true,
-    showProgress: Boolean = false
+    showProgress: Boolean = false,
+    shape: Shape = GlassButtonDefaults.ButtonShape
 ) {
     val button: @Composable (Modifier) -> Unit = { buttonModifier ->
         ActionGlassButton(
@@ -252,6 +254,7 @@ internal fun PatcherActionButton(
             tone = tone,
             enabled = enabled,
             showProgress = showProgress,
+            shape = shape,
             height = PatcherActionHeight
         )
     }

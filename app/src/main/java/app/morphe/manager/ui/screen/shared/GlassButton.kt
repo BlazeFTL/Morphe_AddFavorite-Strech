@@ -184,6 +184,7 @@ fun ActionGlassButton(
     showProgress: Boolean = false,
     contentDescription: String? = null,
     stateDescription: String? = null,
+    shape: Shape = GlassButtonDefaults.ButtonShape,
     height: Dp = Defaults.GlassButtonHeight
 ) {
     val colors = tone.colors()
@@ -217,6 +218,7 @@ fun ActionGlassButton(
         containerColor = colors.container.dim(enabled),
         contentColor = colors.content.dim(enabled),
         borderColor = colors.border.dim(enabled),
+        shape = shape,
         height = height,
         role = Role.Button,
         pressScale = true,

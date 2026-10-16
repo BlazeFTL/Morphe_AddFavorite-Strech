@@ -157,9 +157,14 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
  * @param accentColor Color of the app the list belongs to, which tints the band and the title
  *   actions and badges on it, or null for a neutral band and actions in the theme's palette. The
  *   dialog's own by default, see [AppDialog].
- * @param badges What the whole list shares, in a row under the title as the app details keep theirs.
- * @param content More of the list's head, under the title and badges and above the search field,
- *   such as where a file picker is in the folder tree.
+ * @param badges What the whole list shares, in a row under the title as the app details keep theirs,
+ *   folding away with the [collapsible] part.
+ * @param content More of the list's head, under the title, that stays in place however far the
+ *   list scrolls, such as where a file picker is in the folder tree or the tabs between sources.
+ * @param collapsible What heads the list but is wanted only now and then, such as actions over
+ *   the whole of it. Under the [content], it folds away under the rest of the header together with
+ *   the [badges] as the list scrolls on, and comes back as the list scrolls back, see
+ *   [DialogHeaderCollapse]. Held in place where the header does not float over a list.
  * @param actions Title actions drawn ahead of the search toggle.
  */
 @Composable
@@ -175,6 +180,7 @@ fun ListDialogHeader(
     accentColor: Color? = LocalAccent.current,
     badges: (@Composable FlowRowScope.() -> Unit)? = null,
     content: (@Composable ColumnScope.() -> Unit)? = null,
+    collapsible: (@Composable ColumnScope.() -> Unit)? = null,
     actions: (@Composable RowScope.() -> Unit)? = null
 ) {
     // An accent read from a picture can land after the header is up, so the band eases into it
@@ -198,6 +204,7 @@ fun ListDialogHeader(
             badges = badges,
             actions = actions,
             content = content,
+            collapsible = collapsible,
             modifier = headModifier
         )
     }
@@ -240,6 +247,7 @@ private fun HeaderContent(
     badges: (@Composable FlowRowScope.() -> Unit)?,
     actions: (@Composable RowScope.() -> Unit)?,
     content: (@Composable ColumnScope.() -> Unit)?,
+    collapsible: (@Composable ColumnScope.() -> Unit)?,
     modifier: Modifier
 ) {
     val entrance = rememberDialogHeaderEntrance()
@@ -314,20 +322,28 @@ private fun HeaderContent(
                 }
             }
         }
-        if (badges != null) {
-            // A row that folds its chips out resizes on the list's own spring, as the list's rows do,
-            // without the settle, which would dip below the chips and clip them
-            ProvideAccent(accentColor) {
-                StatusBadgeRow(
-                    modifier = Modifier
-                        .padding(top = Defaults.SpaceSmall)
-                        .animateContentSize(Animations.listSpring(dampingRatio = Spring.DampingRatioNoBouncy))
-                        .headerBadgeEntrance(entrance),
-                    content = badges
-                )
+        content?.invoke(this)
+        if (badges != null || collapsible != null) {
+            val collapse = LocalDialogHeaderCollapse.current
+            Column(modifier = if (collapse != null) Modifier.foldsWith(collapse) else Modifier) {
+                if (badges != null) {
+                    // A row that folds its chips out resizes on the list's own spring, as the list's
+                    // rows do, without the settle, which would dip below the chips and clip them
+                    ProvideAccent(accentColor) {
+                        StatusBadgeRow(
+                            modifier = Modifier
+                                .padding(top = Defaults.SpaceSmall)
+                                .animateContentSize(Animations.listSpring(dampingRatio = Spring.DampingRatioNoBouncy))
+                                .headerBadgeEntrance(entrance),
+                            content = badges
+                        )
+                    }
+                }
+                if (collapsible != null) {
+                    Column(modifier = Modifier.padding(top = Defaults.SpaceSmall), content = collapsible)
+                }
             }
         }
-        content?.invoke(this)
         if (search != null) {
             AnimatedVisibility(
                 visible = search.visible,

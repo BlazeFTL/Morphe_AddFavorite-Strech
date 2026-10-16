@@ -464,12 +464,21 @@ private fun FullHeightLayout(
 ) {
     val background = MaterialTheme.colorScheme.background
     val haze = rememberHazeState()
+    val collapse = remember { DialogHeaderCollapse() }
     FloatingBarsLayout(
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.ime.only(WindowInsetsSides.Bottom)),
         topBar = {
-            if (header != null) CompositionLocalProvider(LocalDialogHeaderHaze provides haze, content = header)
+            if (header != null) {
+                Box(modifier = Modifier.holdsUnfoldedHeight(collapse)) {
+                    CompositionLocalProvider(
+                        LocalDialogHeaderHaze provides haze,
+                        LocalDialogHeaderCollapse provides collapse,
+                        content = header
+                    )
+                }
+            }
         },
         bottomBar = {
             when {
@@ -510,12 +519,17 @@ private fun FullHeightLayout(
     ) { headerHeight, bottomHeight ->
         // The list starts a step below the header, as the content of a dialog without one starts below its top
         val topInset = if (header != null) headerHeight + Defaults.SpaceMedium else 0.dp
-        CompositionLocalProvider(LocalDialogBarInsets provides PaddingValues(top = topInset, bottom = bottomHeight)) {
+        CompositionLocalProvider(
+            LocalDialogBarInsets provides PaddingValues(top = topInset, bottom = bottomHeight),
+            LocalDialogHeaderCollapse provides collapse.takeIf { header != null }
+        ) {
             body(
                 Modifier
                     .fillMaxSize()
                     // What the header blurs, laid from the screen's top edge when it clears the bar
                     .hazeSource(haze)
+                    // The list's scroll folds the header's collapsible part away and back
+                    .drivesHeaderCollapse(collapse)
                     .then(
                         if (header != null) {
                             Modifier.windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal))

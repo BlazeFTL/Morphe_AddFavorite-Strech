@@ -295,72 +295,49 @@ fun ExpertModeDialog(
                 ).joinToString("\n"),
                 search = search,
                 searchLabel = stringResource(R.string.expert_mode_search),
-                // What heads the patches rather than scrolls with them: the sources left out, the
-                // tabs between the rest and the controls of the one open
-                content = {
-                    Column(
-                        modifier = Modifier.padding(top = Defaults.SpaceSmall),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
-                    ) {
-                        // Above the tabs rather than inside one source's page: what it counts is
-                        // the sources that have no page here at all
-                        if (hiddenSourceCount > 0) {
-                            Notice(
-                                text = pluralStringResource(
-                                    R.plurals.expert_mode_hidden_sources_notice,
-                                    hiddenSourceCount,
-                                    hiddenSourceCount.toString()
-                                ),
-                                icon = Icons.Outlined.VisibilityOff,
-                                tone = SemanticTone.Neutral,
-                                density = NoticeDensity.Compact,
-                                modifier = Modifier.clickable(onClick = onShowHiddenSources)
-                            )
-                        }
-
-                        if (hasMultipleBundleLayout && displayedBundles.isNotEmpty()) {
-                            // The open tab is marked by a fill of its own rather than a line under it, and
-                            // the row fades out at an end it runs past, so there is plainly more to scroll to
-                            val tabScroll = rememberScrollState()
-                            SecondaryScrollableTabRow(
-                                selectedTabIndex = currentIndex,
-                                modifier = Modifier.horizontalScrollFade(tabScroll),
-                                scrollState = tabScroll,
-                                edgePadding = 0.dp,
-                                indicator = {},
-                                divider = {},
-                                containerColor = Color.Transparent
-                            ) {
-                                displayedBundles.forEachIndexed { index, (bundle, patches) ->
-                                    SourceTab(
-                                        source = sourcesByUid[bundle.uid],
-                                        name = bundle.name,
-                                        count = "${patches.count { it.second }}/${patches.size}",
-                                        selected = currentIndex == index,
-                                        onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } }
-                                    )
-                                }
+                // The tabs between the sources stay put, the controls of the open one fold away
+                // while the patches scroll
+                content = if (hasMultipleBundleLayout && displayedBundles.isNotEmpty()) {
+                    {
+                        // The open tab is marked by a fill of its own rather than a line under it, and
+                        // the row fades out at an end it runs past, so there is plainly more to scroll to
+                        val tabScroll = rememberScrollState()
+                        SecondaryScrollableTabRow(
+                            selectedTabIndex = currentIndex,
+                            modifier = Modifier
+                                .padding(top = Defaults.SpaceSmall)
+                                .horizontalScrollFade(tabScroll),
+                            scrollState = tabScroll,
+                            edgePadding = 0.dp,
+                            indicator = {},
+                            divider = {},
+                            containerColor = Color.Transparent
+                        ) {
+                            displayedBundles.forEachIndexed { index, (bundle, patches) ->
+                                SourceTab(
+                                    source = sourcesByUid[bundle.uid],
+                                    name = bundle.name,
+                                    count = "${patches.count { it.second }}/${patches.size}",
+                                    selected = currentIndex == index,
+                                    onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } }
+                                )
                             }
                         }
-
-                        if (headBundle != null) {
-                            // Kept in place on a tab the filters emptied, so the head keeps its height
-                            // and the bulk actions gray out instead of the whole row snapping away
-                            BundleControls(
-                                bundle = headBundle,
-                                patches = filteredPatchesByUid[headBundle.uid].orEmpty(),
-                                patchActions = patchActions,
-                                savedPatches = savedPatches,
-                                lockStateOf = lockStateOf,
-                                holdsUniversalPatches = holdsUniversalPatches,
-                                onExpandUniversal = { patchSections.setExpanded(it, UNIVERSAL_GROUP_KEY, true) }
-                            )
-
-                            RetirePrereleaseNotice(
-                                bundleUid = headBundle.uid.takeIf { it in prereleaseBundleUids },
-                                onRetire = { retireNotice(it) }
-                            )
-                        }
+                    }
+                } else null,
+                // Kept in place on a tab the filters emptied, so the head keeps its height and the
+                // bulk actions gray out instead of the whole row snapping away
+                collapsible = headBundle?.let { bundle ->
+                    {
+                        BundleControls(
+                            bundle = bundle,
+                            patches = filteredPatchesByUid[bundle.uid].orEmpty(),
+                            patchActions = patchActions,
+                            savedPatches = savedPatches,
+                            lockStateOf = lockStateOf,
+                            holdsUniversalPatches = holdsUniversalPatches,
+                            onExpandUniversal = { patchSections.setExpanded(it, UNIVERSAL_GROUP_KEY, true) }
+                        )
                     }
                 }
             ) {
@@ -439,6 +416,38 @@ fun ExpertModeDialog(
         // Back unwinds the filter before the dialog itself, the way the search field does
         BackHandler(enabled = isSelectedOnly) { selectedOnly.value = null }
 
+        RetirePrereleaseNotice(
+            bundleUid = headBundle?.uid?.takeIf { it in prereleaseBundleUids },
+            onRetire = { retireNotice(it) }
+        )
+
+        // Each source's page keeps its own scroll, so the controls of the one turned to come back
+        // into view rather than staying folded from the page left
+        val headerCollapse = LocalDialogHeaderCollapse.current
+        LaunchedEffect(pagerState.settledPage) { headerCollapse?.unfold() }
+
+        // Above every source's patches rather than inside one: what it counts is the sources that
+        // have no page here at all
+        val leadingRows: LazyListScope.() -> Unit = {
+            if (hiddenSourceCount > 0) {
+                item(key = "hidden-sources-notice") {
+                    Notice(
+                        text = pluralStringResource(
+                            R.plurals.expert_mode_hidden_sources_notice,
+                            hiddenSourceCount,
+                            hiddenSourceCount.toString()
+                        ),
+                        icon = Icons.Outlined.VisibilityOff,
+                        tone = SemanticTone.Neutral,
+                        density = NoticeDensity.Compact,
+                        modifier = Modifier
+                            .animatedListItem(this)
+                            .clickable(onClick = onShowHiddenSources)
+                    )
+                }
+            }
+        }
+
         val barInsets = LocalDialogBarInsets.current
         Box(
             modifier = Modifier
@@ -462,6 +471,7 @@ fun ExpertModeDialog(
                     lockStateOf = lockStateOf,
                     patchActions = patchActions,
                     accentColor = appColor,
+                    leadingRows = leadingRows,
                     onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
                 )
 
@@ -496,6 +506,7 @@ fun ExpertModeDialog(
                         lockStateOf = lockStateOf,
                         patchActions = patchActions,
                         accentColor = appColor,
+                        leadingRows = leadingRows,
                         onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
                     )
                 }
@@ -702,8 +713,7 @@ private fun BundleControls(
     savedPatches: PatchSelection,
     lockStateOf: (PatchInfo) -> PatchLockState,
     holdsUniversalPatches: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Boolean,
-    onExpandUniversal: (bundleUid: Int) -> Unit,
-    modifier: Modifier = Modifier
+    onExpandUniversal: (bundleUid: Int) -> Unit
 ) {
     val holdsUniversal = holdsUniversalPatches(bundle.uid, patches)
     val copySelection: (() -> Unit)? = patchActions.onCopyFromBundle?.let { copy ->
@@ -725,8 +735,7 @@ private fun BundleControls(
         onResetToDefault = { patchActions.onResetToDefault(bundle.uid) },
         onRestoreSaved = { patchActions.onRestoreSaved(bundle.uid) },
         onCopyFromBundle = copySelection,
-        hasSavedSelection = savedPatches[bundle.uid]?.isNotEmpty() == true,
-        modifier = modifier
+        hasSavedSelection = savedPatches[bundle.uid]?.isNotEmpty() == true
     )
 }
 
@@ -751,6 +760,7 @@ private fun BundlePatchList(
     lockStateOf: (PatchInfo) -> PatchLockState,
     patchActions: ExpertPatchActions,
     accentColor: Color?,
+    leadingRows: LazyListScope.() -> Unit,
     onConfigureOptions: (PatchInfo) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -780,6 +790,7 @@ private fun BundlePatchList(
         contentPadding = LocalDialogBarInsets.current,
         verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
     ) {
+        leadingRows()
         if (bundle.uid in markers.prereleaseNotices) prereleaseNotice()
 
         // Kept in the list rather than laid over it, so the message holds its place under a notice

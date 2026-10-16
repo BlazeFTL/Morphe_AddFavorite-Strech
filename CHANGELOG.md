@@ -1,3 +1,21 @@
+# [2.0.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.11...v2.0.0-dev.1) (2026-10-16)
+
+
+### Bug Fixes
+
+* Draw the scroll to top button solid everywhere, rather than glass over only some of the lists ([582de5b](https://github.com/MorpheApp/morphe-manager/commit/582de5b2496aac52977eb115c50be6b121eb73e3))
+* Fold a card's content out under a chevron, the rows below keeping to its edge, and inset group headers as the cards they head ([67c1e03](https://github.com/MorpheApp/morphe-manager/commit/67c1e03fc749e83b049c3752cead2788552d531f))
+
+
+### Features
+
+* Lay the home screen out as sources, apps and settings pages side by side ([acc6bed](https://github.com/MorpheApp/morphe-manager/commit/acc6bed613fa69ad4547220c5bfde0669a7f86e5))
+
+
+### BREAKING CHANGES
+
+* The home screen is now three pages, sources, apps and settings, switched by swiping or from the navigation pill. Sources open as a page instead of a sheet, settings are a list of categories each opening a page of its own, and the list is sorted, filtered and grouped from a panel docked under it.
+
 # [1.36.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v1.36.0-dev.10...v1.36.0-dev.11) (2026-10-16)
 
 

@@ -191,7 +191,7 @@ fun SelectionActionBar(
     val selectionToggleLabel = if (canToggleToDeselect) deselectAllLabel else selectAllLabel
     val hasSelection = selectedCount > 0
 
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier.keepsClearOfMessages().fillMaxWidth()) {
         PanelHeader(
             title = {
                 Column {

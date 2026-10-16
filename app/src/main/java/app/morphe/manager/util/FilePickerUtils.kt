@@ -28,6 +28,7 @@ import app.morphe.manager.R
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.ui.screen.shared.FilePicker
+import app.morphe.manager.ui.screen.shared.UserMessages
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -297,11 +298,12 @@ fun rememberAdaptiveMultiFilePicker(
 
 /**
  * [rememberAdaptiveFilePicker] for a single image, decoded off the main thread. [onLoaded] only
- * hears of images that decoded, anything else is reported with a toast.
+ * hears of images that decoded, anything else is reported with a message.
  */
 @Composable
 fun rememberImagePicker(onLoaded: (Bitmap) -> Unit): () -> Unit {
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val scope = rememberCoroutineScope()
     val currentOnLoaded by rememberUpdatedState(onLoaded)
     val loadFailedMessage = stringResource(R.string.image_load_failed)
@@ -323,7 +325,7 @@ fun rememberImagePicker(onLoaded: (Bitmap) -> Unit): () -> Unit {
                     }
                 }
                 if (bitmap != null) currentOnLoaded(bitmap)
-                else context.toast(loadFailedMessage)
+                else messages.show(loadFailedMessage)
             }
         }
     )

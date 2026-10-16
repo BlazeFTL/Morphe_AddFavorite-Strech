@@ -32,6 +32,7 @@ import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
+import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberInstallQueue
 import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.viewmodel.*
@@ -63,6 +64,7 @@ fun HomeScreen(
     installViewModel: InstallViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val view = LocalView.current
     val scope = rememberCoroutineScope()
     val sourcesLoadingText = stringResource(R.string.home_sources_are_loading)
@@ -195,12 +197,12 @@ fun HomeScreen(
     val batchInProgressText = stringResource(R.string.batch_patch_in_progress)
     val openBatchQueue: (List<BatchTarget>, Boolean) -> Unit = { targets, useMount ->
         when {
-            availablePatches <= 0 -> context.toast(sourcesLoadingText)
+            availablePatches <= 0 -> messages.show(sourcesLoadingText)
             homeViewModel.android11BugActive -> homeViewModel.showAndroid11Dialog = true
             targets.isEmpty() -> Unit
             // A live queue keeps its own selection, so open it instead of swapping the apps
             homeViewModel.batchPatchRunning -> {
-                context.toast(batchInProgressText)
+                messages.show(batchInProgressText)
                 onStartBatchPatch(targets, useMount)
             }
             else -> onStartBatchPatch(targets, useMount)
@@ -402,7 +404,7 @@ fun HomeScreen(
                 chromeActions = HomeChromeActions(
                     onOtherAppsClick = {
                         if (availablePatches <= 0) {
-                            context.toast(sourcesLoadingText)
+                            messages.show(sourcesLoadingText)
                         } else {
                             homeViewModel.pendingPackageName = null
                             homeViewModel.pendingAppName = otherAppsText

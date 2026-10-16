@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.util.toast
+import org.koin.compose.koinInject
 
 private val RED_PILL = listOf(Color(0xFFFF5A52), Color(0xFF8E0E0E))
 private val BLUE_PILL = listOf(Color(0xFF4FA8FF), Color(0xFF0B3C7A))
@@ -44,14 +44,14 @@ fun RedPillDialog(
     onDismiss: () -> Unit
 ) {
     val view = LocalView.current
-    val context = view.context
+    val messages = koinInject<UserMessages>()
     val message = stringResource(
         if (alreadyUnlocked) R.string.easter_egg_pill_message_again else R.string.easter_egg_pill_message
     )
-    val redToast = stringResource(
+    val redPillMessage = stringResource(
         if (alreadyUnlocked) R.string.easter_egg_pill_red_toast_again else R.string.easter_egg_pill_red_toast
     )
-    val blueToast = stringResource(
+    val bluePillMessage = stringResource(
         if (alreadyUnlocked) R.string.easter_egg_pill_blue_toast_again else R.string.easter_egg_pill_blue_toast
     )
 
@@ -93,7 +93,7 @@ fun RedPillDialog(
                     onClick = {
                         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                         onBluePill()
-                        context.toast(blueToast)
+                        messages.show(bluePillMessage)
                         onDismiss()
                     }
                 )
@@ -103,7 +103,7 @@ fun RedPillDialog(
                     onClick = {
                         view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                         onRedPill()
-                        context.toast(redToast)
+                        messages.show(redPillMessage)
                         onDismiss()
                     }
                 )

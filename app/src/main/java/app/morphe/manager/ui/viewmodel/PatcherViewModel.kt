@@ -50,6 +50,7 @@ import app.morphe.manager.patcher.worker.PatcherWorker
 import app.morphe.manager.ui.model.*
 import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.patcher.PatcherErrorInfo
+import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.restrictTo
 import app.morphe.patcher.patch.ApkArchitecture
@@ -84,6 +85,7 @@ class PatcherViewModel(
     private val input: Patcher.ViewModelParams
 ) : ViewModel(), KoinComponent, StepProgressProvider {
     private val app: Application by inject()
+    private val messages: UserMessages by inject()
     private val fs: Filesystem by inject()
     private val pm: PM by inject()
     private val workerRepository: WorkerRepository by inject()
@@ -937,21 +939,21 @@ class PatcherViewModel(
     }
 
     /**
-     * Shared post-export logic: persists the patched app record, shows a toast,
+     * Shared post-export logic: persists the patched app record, shows a message,
      * and raises the post-patch prompts on success.
      */
     private suspend fun finishExport(exportSucceeded: Boolean) {
         if (!exportSucceeded) {
-            app.toast(app.getString(R.string.saved_app_export_failed))
+            messages.show(R.string.saved_app_export_failed)
             return
         }
 
         val saved = persistPatchedApp(null, InstallType.SAVED)
 
         if (!saved) {
-            app.toast(app.getString(R.string.patched_app_save_failed_toast))
+            messages.show(R.string.patched_app_save_failed_toast)
         } else {
-            app.toast(app.getString(R.string.save_apk_success))
+            messages.show(R.string.save_apk_success)
             delay(2.seconds)
         }
 

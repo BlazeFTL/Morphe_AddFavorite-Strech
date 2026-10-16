@@ -270,13 +270,14 @@ fun BundleManagementSheet(
 
     AppBottomSheet(onDismissRequest = onDismissRequest) {
         val context = LocalContext.current
+        val messages = koinInject<UserMessages>()
         val uriHandler = LocalUriHandler.current
         val failedToOpenUrlText = stringResource(R.string.sources_management_failed_to_open_url)
         fun openUrl(url: String) {
             try {
                 uriHandler.openUri(url)
             } catch (_: Exception) {
-                context.toast(failedToOpenUrlText)
+                messages.show(failedToOpenUrlText)
             }
         }
 

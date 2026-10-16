@@ -37,6 +37,7 @@ import app.morphe.manager.ui.model.PostPatchPrompts
 import app.morphe.manager.ui.model.createApkDownloadHelperRequest
 import app.morphe.manager.ui.model.helperSignatureCheckAvailable
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
+import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
@@ -215,6 +216,7 @@ class BatchPatchEdit(
  */
 class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost {
     private val app: Application by inject()
+    private val messages: UserMessages by inject()
     private val fs: Filesystem by inject()
     private val pm: PM by inject()
     private val coordinator: BatchPatchCoordinator by inject()
@@ -373,7 +375,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         if (handOff(search.url)) {
             attachPrompt = search.item
         } else {
-            app.toast(app.getString(R.string.sources_management_failed_to_open_url))
+            messages.show(R.string.sources_management_failed_to_open_url)
         }
     }
 
@@ -424,7 +426,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         val item = apkSearch?.item ?: return
         if (packageName != item.packageName) {
             // The helper answered about an app the queue never asked to patch
-            app.toast(app.getString(R.string.home_apk_helper_wrong_package))
+            messages.show(R.string.home_apk_helper_wrong_package)
             return
         }
 
@@ -562,7 +564,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         viewModelScope.launch {
             val file = withContext(Dispatchers.IO) { copyToWorkspace(uri) }
             if (file == null) {
-                app.toast(app.getString(R.string.home_invalid_apk_io_error))
+                messages.show(R.string.home_invalid_apk_io_error)
                 return@launch
             }
             coordinator.attachApk(itemId, file)
@@ -572,21 +574,21 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
     fun toggleExcluded(itemId: String) = coordinator.toggleExcluded(itemId)
 
     /**
-     * Accepts an unsupported version. Confirmed with a toast because the card only swaps a
+     * Accepts an unsupported version. Confirmed with a message because the card only swaps a
      * badge, which does not say what was just taken on.
      */
     fun forceVersion(itemId: String) {
         coordinator.forceVersion(itemId)
-        app.toast(app.getString(R.string.batch_patch_force_version_done))
+        messages.show(R.string.batch_patch_force_version_done)
     }
 
     /**
-     * Accepts an APK signed by someone the sources do not vouch for. Confirmed with a toast for
+     * Accepts an APK signed by someone the sources do not vouch for. Confirmed with a message for
      * the same reason as [forceVersion]: the card only swaps a badge.
      */
     fun acceptUnverifiedSignature(itemId: String) {
         coordinator.acceptUnverifiedSignature(itemId)
-        app.toast(app.getString(R.string.batch_patch_accept_signature_done))
+        messages.show(R.string.batch_patch_accept_signature_done)
     }
 
     fun setPolicy(policy: BatchInstallPolicy) = coordinator.setPolicy(policy)

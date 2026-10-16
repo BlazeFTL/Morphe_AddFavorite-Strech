@@ -30,7 +30,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
@@ -59,7 +58,9 @@ import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.shared.AnimatedBackground
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.BackgroundType
+import app.morphe.manager.ui.screen.shared.MessageHost
 import app.morphe.manager.ui.screen.shared.RandomBackground
+import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberRandomBackground
 import app.morphe.manager.ui.theme.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
@@ -172,7 +173,9 @@ class MainActivity : AppCompatActivity() {
                 appCardColorMode = appCardColorMode,
                 appCardColorValues = appCardColorValues
             ) {
-                MorpheManager(vm)
+                MessageHost(modifier = Modifier.fillMaxSize()) {
+                    MorpheManager(vm)
+                }
             }
         }
     }
@@ -427,11 +430,11 @@ private fun MorpheManager(vm: MainViewModel) {
         }
     }
 
-    val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val nothingToRepatchText = stringResource(R.string.batch_patch_nothing_outdated)
     LaunchedEffect(vm.nothingToRepatch) {
         if (vm.nothingToRepatch) {
-            context.toast(nothingToRepatchText)
+            messages.show(nothingToRepatchText)
             vm.consumeNothingToRepatch()
         }
     }

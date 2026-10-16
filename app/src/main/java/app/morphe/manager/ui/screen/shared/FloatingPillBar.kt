@@ -84,6 +84,7 @@ fun FloatingPillBar(
     // than being cut off, while staying visible around the pill
     Box(
         modifier = modifier
+            .keepsClearOfMessages()
             .fillMaxWidth()
             .background(Brush.verticalGradient(0f to Color.Transparent, 1f to background.copy(alpha = 0.9f)))
             .navigationBarsPadding(),

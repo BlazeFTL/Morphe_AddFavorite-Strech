@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.home
 
-import android.widget.Toast
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
@@ -29,7 +28,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -39,6 +37,7 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
 import java.net.URI
+import org.koin.compose.koinInject
 
 /**
  * The site a download link leads to, and the instructions that match what it puts on screen.
@@ -400,8 +399,8 @@ private fun SiteDownloadButton(
     downloadColor: Color,
     isApkBundle: Boolean
 ) {
-    val context = LocalContext.current
-    val toasts = listOf(
+    val messages = koinInject<UserMessages>()
+    val nudges = listOf(
         stringResource(R.string.home_download_instructions_download_button_toast),
         stringResource(R.string.home_download_instructions_download_button_toast_2),
         stringResource(R.string.home_download_instructions_download_button_toast_3),
@@ -412,10 +411,7 @@ private fun SiteDownloadButton(
     var clickCount by remember { mutableIntStateOf(0) }
     val onClick = {
         clickCount++
-        context.toast(
-            string = toasts.getOrElse(clickCount - 1) { toasts.last() },
-            duration = Toast.LENGTH_LONG
-        )
+        messages.show(nudges.getOrElse(clickCount - 1) { nudges.last() }, long = true)
     }
 
     when (button) {

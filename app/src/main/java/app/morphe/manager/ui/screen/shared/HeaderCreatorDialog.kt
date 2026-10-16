@@ -44,6 +44,7 @@ import app.morphe.manager.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.compose.koinInject
 
 private const val MIN_SCALE = 0.3f
 private const val MAX_SCALE = 3f
@@ -157,6 +158,7 @@ fun HeaderCreatorDialog(
 ) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val layout = remember(packageName) { HeaderLayout.of(packageName) }
     val variants = remember(layout) { layout.themes.map(::HeaderVariant) }
 
@@ -171,11 +173,11 @@ fun HeaderCreatorDialog(
             val result = createHeaderFiles(context, uri, layout, variants)
             isCreating.value = false
             if (result != null) {
-                context.toast(successMessage)
+                messages.show(successMessage)
                 onHeaderCreated(result)
                 onDismiss()
             } else {
-                context.toast(failureMessage)
+                messages.show(failureMessage)
             }
         }
     }

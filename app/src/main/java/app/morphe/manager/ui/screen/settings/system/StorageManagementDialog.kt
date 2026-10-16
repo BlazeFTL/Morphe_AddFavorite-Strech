@@ -24,8 +24,8 @@ import app.morphe.manager.ui.viewmodel.StorageManagementViewModel
 import app.morphe.manager.util.formatBytes
 import app.morphe.manager.util.formatUsedFree
 import app.morphe.manager.util.openAppDetailsSettings
-import app.morphe.manager.util.toast
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun StorageManagementDialog(
@@ -33,6 +33,7 @@ fun StorageManagementDialog(
     viewModel: StorageManagementViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val stats by viewModel.stats.collectAsStateWithLifecycle()
 
     val nothingToClearText = stringResource(R.string.settings_system_storage_nothing_to_clear)
@@ -41,7 +42,7 @@ fun StorageManagementDialog(
     val onCleared: (Long) -> Unit = { freed ->
         val message = if (freed <= 0L) nothingToClearText
         else clearedTemplate.format(context.formatBytes(freed))
-        context.toast(message)
+        messages.show(message)
     }
 
     var apkDialog by remember { mutableStateOf<ApkManagementType?>(null) }

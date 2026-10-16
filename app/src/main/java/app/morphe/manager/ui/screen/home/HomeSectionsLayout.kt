@@ -40,7 +40,6 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.pluralStringResource
@@ -59,6 +58,7 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.KnownApps
 import kotlinx.coroutines.delay
+import org.koin.compose.koinInject
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -622,8 +622,8 @@ internal fun MainAppsSection(
     val placeholderGradients = remember { KnownApps.DEFAULT_SHIMMER_GRADIENTS }
 
     // Resolved outside the LazyColumn DSL scope since @Composable calls aren't allowed there
-    val context = LocalContext.current
-    val categoryActionsUnavailableToast = stringResource(R.string.home_category_actions_unavailable)
+    val messages = koinInject<UserMessages>()
+    val categoryActionsUnavailableMessage = stringResource(R.string.home_category_actions_unavailable)
 
     HomeAppsSectionDialogs(
         state = state,
@@ -1162,8 +1162,8 @@ internal fun MainAppsSection(
                                         appActions = appActions,
                                         categoryReorderableState = categoryReorderableState,
                                         haptic = haptic,
-                                        context = context,
-                                        categoryActionsUnavailableToast = categoryActionsUnavailableToast
+                                        messages = messages,
+                                        categoryActionsUnavailableMessage = categoryActionsUnavailableMessage
                                     )
 
                                     filterEmptyState(

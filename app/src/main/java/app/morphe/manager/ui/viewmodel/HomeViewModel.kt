@@ -16,7 +16,6 @@ import android.os.StatFs
 import android.graphics.drawable.Drawable
 import android.provider.OpenableColumns
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
@@ -45,6 +44,7 @@ import app.morphe.manager.patcher.split.SplitApkPreparer
 import app.morphe.manager.ui.model.*
 import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
+import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
@@ -127,6 +127,7 @@ data class InstalledAppPickerItem(
  */
 class HomeViewModel(
     private val app: Application,
+    private val messages: UserMessages,
     val patchBundleRepository: PatchBundleRepository,
     private val installedAppRepository: InstalledAppRepository,
     private val originalApkRepository: OriginalApkRepository,
@@ -787,7 +788,7 @@ class HomeViewModel(
         // A batch run owns the patcher worker for its whole duration, so starting a single
         // patch would replace the app the queue is currently working on
         if (batchPatchCoordinator.isRunning) {
-            app.toast(app.getString(R.string.batch_patch_in_progress))
+            messages.show(R.string.batch_patch_in_progress)
             return
         }
 
@@ -880,7 +881,7 @@ class HomeViewModel(
      * downloadable, so the banner can never point at an asset that is still uploading.
      */
     suspend fun checkForManagerUpdates() {
-        uiSafe(app, R.string.failed_to_check_updates, "Failed to check for updates") {
+        messages.reportingFailure(R.string.failed_to_check_updates, "Failed to check for updates") {
             managerUpdateRepository.refresh()
         }
     }
@@ -895,48 +896,25 @@ class HomeViewModel(
         }
     }
 
-    @SuppressLint("ShowToast")
-    private suspend fun <T> withPersistentImportToast(block: suspend () -> T): T = coroutineScope {
-        val progressToast = withContext(Dispatchers.Main) {
-            Toast.makeText(
-                app,
-                app.getString(R.string.importing_ellipsis),
-                Toast.LENGTH_SHORT
-            )
-        }
-        withContext(Dispatchers.Main) { progressToast.show() }
-
-        val toastRepeater = launch(Dispatchers.Main) {
-            try {
-                while (isActive) {
-                    delay(1_750.milliseconds)
-                    progressToast.show()
-                }
-            } catch (_: CancellationException) {
-                // Ignore cancellation
-            }
-        }
-
+    private suspend fun <T> withImportMessage(block: suspend () -> T): T {
+        val importing = messages.showUntilDismissed(R.string.importing_ellipsis)
         try {
             val result = block()
-            withContext(Dispatchers.Main) {
-                app.toast(app.getString(R.string.imported_successfully))
-            }
-            result
+            messages.show(R.string.imported_successfully)
+            return result
         } finally {
-            toastRepeater.cancel()
-            withContext(Dispatchers.Main) { progressToast.cancel() }
+            importing.dismiss()
         }
     }
 
     /**
      * Imports each file, as a new local source or into the one its uid names, one after another
-     * under one import toast. With [chooseApps] the app list of each new source opens once its
+     * under one import message. With [chooseApps] the app list of each new source opens once its
      * patches have loaded.
      */
     private fun importLocalSources(imports: List<Pair<Uri, Int?>>, chooseApps: Boolean) = viewModelScope.launch {
         val added = withContext(NonCancellable) {
-            withPersistentImportToast {
+            withImportMessage {
                 imports.mapNotNull { (uri, replacingUid) ->
                     importLocalFile(uri, replacingUid).takeIf { replacingUid == null }
                 }
@@ -1253,14 +1231,14 @@ class HomeViewModel(
                 }.onFailure { error ->
                     skipped++
                     if (error !is UninstallCancelledException) {
-                        app.toast(app.getString(R.string.uninstall_app_fail, error.simpleMessage()))
+                        messages.show(R.string.uninstall_app_fail, error.simpleMessage())
                     }
                 }
             }
 
-            if (unverified > 0) app.toast(app.getString(R.string.uninstall_app_unverified))
+            if (unverified > 0) messages.show(R.string.uninstall_app_unverified)
             app.batchActionSummary(R.plurals.batch_uninstall_summary, completed, skipped)
-                ?.let { app.toast(it) }
+                ?.let { messages.show(it) }
         }
     }
 
@@ -1281,7 +1259,7 @@ class HomeViewModel(
 
         // Check if patches are being fetched
         if (availablePatches <= 0 || bundleUpdateInProgress) {
-            app.toast(app.getString(R.string.home_sources_are_loading))
+            messages.show(R.string.home_sources_are_loading)
             return
         }
 
@@ -1479,7 +1457,7 @@ class HomeViewModel(
                     // Skip signature check: the installed APK may already be patched with our key
                     processSelectedAppIgnoringSignature(selectedApp)
                 } else {
-                    app.toast(app.getString(R.string.home_invalid_apk_io_error))
+                    messages.show(R.string.home_invalid_apk_io_error)
                     cleanupPendingData()
                 }
             } finally {
@@ -1508,7 +1486,7 @@ class HomeViewModel(
             // there is nothing left to check the installed build against
             if (pending == null) {
                 if (packageName !in compatibleVersions) {
-                    app.toast(app.getString(R.string.home_apk_helper_installed_unavailable))
+                    messages.show(R.string.home_apk_helper_installed_unavailable)
                     cleanupPendingData()
                     return@launch
                 }
@@ -1552,7 +1530,7 @@ class HomeViewModel(
      */
     private suspend fun stopHelperHandoff(packageName: String, @StringRes message: Int? = null) {
         processingApkSelection = false
-        message?.let { app.toast(app.getString(it)) }
+        message?.let { messages.show(it) }
 
         if (pendingSavedApkInfo == null) {
             pendingSavedApkInfo = withContext(Dispatchers.IO) { localApkSources.saved(packageName) }
@@ -1663,7 +1641,7 @@ class HomeViewModel(
                     // Version/versionCode check still runs via processSelectedApp.
                     processSelectedApp(selectedApp, skipSplitCheck = true)
                 } else {
-                    app.toast(app.getString(R.string.home_invalid_apk_io_error))
+                    messages.show(R.string.home_invalid_apk_io_error)
                     cleanupPendingData()
                 }
             } finally {
@@ -1674,13 +1652,13 @@ class HomeViewModel(
 
     /**
      * Called when an APK is shared to Morphe via the system share sheet.
-     * Shows a toast and returns early if expert mode is disabled.
+     * Shows a message and returns early if expert mode is disabled.
      * Otherwise, waits until [installedAppsLoading] is false before triggering [handleApkSelection].
      */
     fun handleExternalApkUri(uri: Uri) {
         viewModelScope.launch {
             if (!isExpertMode()) {
-                app.toast(app.getString(R.string.home_external_apk_expert_mode_required))
+                messages.show(R.string.home_external_apk_expert_mode_required)
                 return@launch
             }
             // Wait for patches to be ready. Cap at 30 s to avoid hanging forever when
@@ -1713,10 +1691,10 @@ class HomeViewModel(
                         pickedApkIcon = result.icon?.let { result.app.file to it }
                         processSelectedApp(result.app)
                     }
-                    is ApkLoadResult.Unreadable -> app.toast(app.getString(R.string.home_invalid_apk_unreadable))
-                    is ApkLoadResult.NotAnApk -> app.toast(app.getString(R.string.home_invalid_apk_not_an_apk))
-                    is ApkLoadResult.AlreadyPatched -> app.toast(app.getString(R.string.home_invalid_apk_already_patched))
-                    is ApkLoadResult.IoError -> app.toast(app.getString(R.string.home_invalid_apk_io_error))
+                    is ApkLoadResult.Unreadable -> messages.show(R.string.home_invalid_apk_unreadable)
+                    is ApkLoadResult.NotAnApk -> messages.show(R.string.home_invalid_apk_not_an_apk)
+                    is ApkLoadResult.AlreadyPatched -> messages.show(R.string.home_invalid_apk_already_patched)
+                    is ApkLoadResult.IoError -> messages.show(R.string.home_invalid_apk_io_error)
                 }
             } finally {
                 processingApkSelection = false
@@ -1732,7 +1710,7 @@ class HomeViewModel(
         val packageName = pendingPackageName
 
         if (savedInfo == null || packageName == null) {
-            app.toast(app.getString(R.string.home_app_info_repatch_no_original_apk))
+            messages.show(R.string.home_app_info_repatch_no_original_apk)
             cleanupPendingData()
             return
         }
@@ -1746,7 +1724,7 @@ class HomeViewModel(
                     try {
                         val file = File(savedInfo.filePath)
                         if (!file.exists()) {
-                            app.toast(app.getString(R.string.home_app_info_repatch_no_original_apk))
+                            messages.show(R.string.home_app_info_repatch_no_original_apk)
                             return@withContext null
                         }
 
@@ -1869,7 +1847,7 @@ class HomeViewModel(
 
         if (!hasAnything) {
             // Truly no patches exist for this package in any enabled bundle
-            app.toast(app.getString(R.string.home_no_patches_available))
+            messages.show(R.string.home_no_patches_available)
             if (selectedApp is SelectedApp.Local && selectedApp.temporary) {
                 selectedApp.file.delete()
             }
@@ -1988,7 +1966,7 @@ class HomeViewModel(
             .first()
 
         if (availableBundles.isEmpty()) {
-            app.toast(app.getString(R.string.home_no_patches_available))
+            messages.show(R.string.home_no_patches_available)
             cleanupPendingData()
             return
         }
@@ -2047,10 +2025,10 @@ class HomeViewModel(
                 // Count patches after validation
                 val patchesAfterValidation = validatedPatches.values.sumOf { it.size }
 
-                // Show toast if patches were removed
+                // Tell the user if patches were removed
                 val removedCount = patchesBeforeValidation - patchesAfterValidation
                 if (removedCount > 0) {
-                    app.toast(app.resources.getQuantityString(
+                    messages.show(app.resources.getQuantityString(
                         R.plurals.home_app_info_repatch_cleaned_invalid_data,
                         removedCount,
                         removedCount.toString()
@@ -2283,7 +2261,7 @@ class HomeViewModel(
     fun reopenPatchSelection(run: Patcher.ViewModelParams) {
         // A failed run leaves its input in place, but storage cleanup may have taken it since
         if ((run.selectedApp as? SelectedApp.Local)?.file?.exists() == false) {
-            app.toast(app.getString(R.string.home_invalid_apk_io_error))
+            messages.show(R.string.home_invalid_apk_io_error)
             return
         }
         pendingRepatchPackageName = run.targetPackageName
@@ -2713,7 +2691,7 @@ class HomeViewModel(
             showFilePickerPromptDialog = true
         } else {
             Log.w(tag, "Failed to open URL")
-            app.toast(app.getString(R.string.sources_management_failed_to_open_url))
+            messages.show(R.string.sources_management_failed_to_open_url)
             showDownloadInstructionsDialog = false
             cleanupPendingData()
         }

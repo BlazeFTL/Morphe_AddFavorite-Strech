@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -68,7 +67,7 @@ fun HomeDialogs(
     globalOnboardingState: GlobalOnboardingState? = null
 ) {
     val scope = rememberCoroutineScope()
-    val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
     val openApkDownloadHelper = rememberApkDownloadHelperAction(
         host = homeViewModel,
@@ -508,7 +507,7 @@ fun HomeDialogs(
                         homeViewModel.patchBundleRepository.update(
                             bundle,
                             force = bundle.state is PatchBundleSource.State.Failed,
-                            showToast = true
+                            showMessage = true
                         )
                     }
                 } else {
@@ -624,10 +623,10 @@ fun HomeDialogs(
                             homeViewModel.bundleToRename = null
                         }
                         PatchBundleRepository.DisplayNameUpdateResult.DUPLICATE -> {
-                            context.toast(duplicateNameError)
+                            messages.show(duplicateNameError)
                         }
                         PatchBundleRepository.DisplayNameUpdateResult.NOT_FOUND -> {
-                            context.toast(missingBundleError)
+                            messages.show(missingBundleError)
                         }
                     }
                 }

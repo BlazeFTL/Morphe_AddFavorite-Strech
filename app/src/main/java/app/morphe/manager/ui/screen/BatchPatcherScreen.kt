@@ -385,12 +385,13 @@ fun BatchPatcherScreen(
     val exportSuccessMessage = stringResource(R.string.save_apk_success)
     val exportFailedMessage = stringResource(R.string.saved_app_export_failed)
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val exportLauncher = rememberLauncherForActivityResult(CreateDocument(APK_MIMETYPE)) { uri ->
         val file = exportItem?.patchedFile
         exportItem = null
         if (file != null && uri != null) {
             installViewModel.export(file, uri) { success ->
-                context.toast(if (success) exportSuccessMessage else exportFailedMessage)
+                messages.show(if (success) exportSuccessMessage else exportFailedMessage)
                 if (success) viewModel.postPatchPrompts.trigger()
             }
         }

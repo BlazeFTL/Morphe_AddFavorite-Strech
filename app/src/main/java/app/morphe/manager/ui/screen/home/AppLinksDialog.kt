@@ -33,7 +33,6 @@ import app.morphe.manager.domain.links.AppLinksStatus
 import app.morphe.manager.domain.links.RepairCapability
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.openAppOpenByDefaultSettings
-import app.morphe.manager.util.toast
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
@@ -53,6 +52,7 @@ fun AppLinksDialog(
     onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val resources = LocalResources.current
     val scope = rememberCoroutineScope()
     val appLinksManager: AppLinksManager = koinInject()
@@ -80,7 +80,7 @@ fun AppLinksDialog(
                             val success = appLinksManager.repairAppLinks(packageName)
                             isRepairing = false
                             onRefresh()
-                            context.toast(
+                            messages.show(
                                 resources.getString(
                                     if (success) R.string.app_links_repair_success
                                     else R.string.app_links_repair_failed

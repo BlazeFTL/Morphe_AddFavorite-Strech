@@ -41,6 +41,7 @@ import app.morphe.manager.ui.screen.shared.ActionGlassButton
 import app.morphe.manager.ui.screen.shared.BottomActionTone
 import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.GlassButtonDefaults
+import app.morphe.manager.ui.screen.shared.keepsClearOfMessages
 import app.morphe.manager.ui.screen.shared.labelsFitSlots
 import app.morphe.manager.ui.screen.shared.rememberAccessibilityEnabled
 import kotlinx.coroutines.delay
@@ -104,7 +105,7 @@ fun PatcherBottomActionBar(
         listOf(leadingLabel, homeLabel, trailingLabel).filter { it.isNotEmpty() }
     }
 
-    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+    BoxWithConstraints(modifier = modifier.keepsClearOfMessages().fillMaxWidth()) {
         val barWidth = maxWidth.coerceAtMost(Defaults.ContentMaxWidth)
         val showLabels = labelsFitSlots(
             labels = labels,

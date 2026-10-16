@@ -31,6 +31,7 @@ import app.morphe.manager.domain.repository.ManagerUpdateRepository
 import app.morphe.manager.network.api.MorpheAPI
 import app.morphe.manager.network.dto.MorpheAsset
 import app.morphe.manager.network.service.AssetDownloader
+import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
@@ -46,6 +47,7 @@ import kotlin.time.Duration.Companion.seconds
  */
 class UpdateViewModel : ViewModel(), KoinComponent {
     private val app: Application by inject()
+    private val messages: UserMessages by inject()
     private val morpheAPI: MorpheAPI by inject()
     private val managerUpdateRepository: ManagerUpdateRepository by inject()
     private val assetDownloader: AssetDownloader by inject()
@@ -123,7 +125,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     private fun resolveUpdate() = viewModelScope.launch {
         isCheckingForUpdate = true
         try {
-            uiSafe(app, R.string.failed_to_download_update, "Failed to download Morphe Manager") {
+            messages.reportingFailure(R.string.failed_to_download_update, "Failed to download Morphe Manager") {
                 releaseInfo = managerUpdateRepository.getOrRefresh()
             }
         } finally {
@@ -151,13 +153,13 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     }
 
     fun downloadUpdate(ignoreInternetCheck: Boolean = false) = viewModelScope.launch {
-        uiSafe(app, R.string.failed_to_download_update, "Failed to download update") {
-            val release = releaseInfo ?: return@uiSafe
+        messages.reportingFailure(R.string.failed_to_download_update, "Failed to download update") {
+            val release = releaseInfo ?: return@reportingFailure
             val allowMeteredUpdates = prefs.allowMeteredUpdates.get()
 
             if (!allowMeteredUpdates && networkInfo.isMetered() && !ignoreInternetCheck) {
                 showInternetCheckDialog = true
-                return@uiSafe
+                return@reportingFailure
             }
 
             downloadedSize = 0L
@@ -213,7 +215,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         // install started from a dialog that outlived it has nothing left to hand over
         if (!hasDownloadedApk()) {
             resetToDownload()
-            app.toast(app.getString(R.string.update_download_missing))
+            messages.show(R.string.update_download_missing)
             return@launch
         }
 
@@ -273,14 +275,14 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     }
 
     /**
-     * Ends the attempt in [State.FAILED], showing [message] in the dialog and [toastMessage] as a toast.
+     * Ends the attempt in [State.FAILED], showing [message] in the dialog and [userMessage] as a snackbar.
      */
     private fun failInstall(
         message: String,
-        toastMessage: String = app.getString(R.string.install_app_fail, message)
+        userMessage: String = app.getString(R.string.install_app_fail, message)
     ) {
         installError = message
-        app.toast(toastMessage)
+        messages.show(userMessage)
         state = State.FAILED
     }
 
@@ -299,11 +301,11 @@ class UpdateViewModel : ViewModel(), KoinComponent {
             InstallResult.Success -> {
                 installError = ""
                 state = State.SUCCESS
-                app.toast(app.getString(R.string.install_app_success))
+                messages.show(R.string.install_app_success)
             }
             is InstallResult.Conflict -> {
                 val hint = app.getString(R.string.installer_hint_conflict)
-                failInstall(hint, toastMessage = hint)
+                failInstall(hint, userMessage = hint)
             }
             is InstallResult.Failure -> failInstall(result.message ?: "Unknown error")
         }
@@ -319,7 +321,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
             // Add FLAG_ACTIVITY_NEW_TASK since we're starting from Application context
             plan.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             app.startActivity(plan.intent)
-            app.toast(app.getString(R.string.installer_external_launched, plan.installerLabel))
+            messages.show(R.string.installer_external_launched, plan.installerLabel)
         } catch (error: ActivityNotFoundException) {
             installerManager.cleanup(plan)
             pendingExternalInstall = null
@@ -335,7 +337,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
                 installerManager.cleanup(plan)
                 pendingExternalInstall = null
                 val timedOut = app.getString(R.string.installer_external_timeout, plan.installerLabel)
-                failInstall(timedOut, toastMessage = timedOut)
+                failInstall(timedOut, userMessage = timedOut)
                 externalInstallTimeoutJob = null
             }
         }
@@ -349,7 +351,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
             externalInstallTimeoutJob?.cancel()
             externalInstallTimeoutJob = null
             installerManager.cleanup(plan)
-            app.toast(app.getString(R.string.installer_external_success, plan.installerLabel))
+            messages.show(R.string.installer_external_success, plan.installerLabel)
         } else {
             // Intent-based fallback - only care about our own package
             if (packageName != app.packageName) return
@@ -510,7 +512,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                // The list itself shows the failure next to its retry, so no toast on top
+                // The list itself shows the failure next to its retry, so no message on top
                 Log.e(tag, "Failed to load older releases", e)
                 olderEntriesFailed = true
             } finally {

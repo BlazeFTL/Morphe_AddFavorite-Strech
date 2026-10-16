@@ -325,6 +325,7 @@ internal fun remoteLinkIcon(link: String): ImageVector = REPOSITORY_HOST_ICONS[l
 @Composable
 private fun RemoteTabContent(state: RemoteLinksState) {
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val clipboard = LocalClipboard.current
     val scope = rememberCoroutineScope()
     val inputCheck = state.inputCheck
@@ -349,7 +350,7 @@ private fun RemoteTabContent(state: RemoteLinksState) {
                                     ?.takeIf { it.itemCount > 0 }
                                     ?.getItemAt(0)?.coerceToText(context)?.toString()
                                 if (text == null || !state.paste(text)) {
-                                    context.toast(noLinksMessage)
+                                    messages.show(noLinksMessage)
                                 }
                             }
                         }
@@ -650,7 +651,7 @@ fun BundlePatchesDialog(
     initialQuery: String = ""
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
-    val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     // Read across every source rather than the enabled ones alone: a disabled source is one the
     // user is still deciding about, and what it holds is what that decision is made on
     val patches by remember(src.uid) {
@@ -688,7 +689,7 @@ fun BundlePatchesDialog(
                 )
             }
         },
-        onExpertBadgeClick = { context.toast(expertBadgeTooltip) }
+        onExpertBadgeClick = { messages.show(expertBadgeTooltip) }
     )
 }
 

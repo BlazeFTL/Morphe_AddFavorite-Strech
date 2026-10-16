@@ -175,7 +175,8 @@ fun AppDialog(
     ) {
         DialogWindowEffect(isDarkTheme)
 
-        Box(
+        // A window of its own, so messages raised while it is open are shown in it
+        MessageHost(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
@@ -275,14 +276,16 @@ fun Overlay(
         ) {
             DialogWindowEffect(isDarkTheme)
 
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background.copy(alpha = backgroundAlpha))
-                    .pointerInput(Unit) { detectTapGestures { } },
-                contentAlignment = Alignment.Center,
-                content = content
-            )
+            MessageHost(modifier = Modifier.fillMaxSize()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background.copy(alpha = backgroundAlpha))
+                        .pointerInput(Unit) { detectTapGestures { } },
+                    contentAlignment = Alignment.Center,
+                    content = content
+                )
+            }
         }
     }
 }
@@ -535,6 +538,7 @@ private fun DialogContent(
                         ) {
                             Box(
                                 modifier = Modifier
+                                    .keepsClearOfMessages()
                                     .fillMaxWidth()
                                     .padding(
                                         start = horizontalPadding,
@@ -552,6 +556,7 @@ private fun DialogContent(
         if (bottomBar != null) {
             Box(
                 modifier = Modifier
+                    .keepsClearOfMessages()
                     .widthIn(max = Defaults.ContentMaxWidth)
                     .fillMaxWidth()
                     .imePadding()

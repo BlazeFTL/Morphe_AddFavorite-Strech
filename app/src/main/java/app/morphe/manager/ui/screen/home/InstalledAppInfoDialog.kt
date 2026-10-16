@@ -76,6 +76,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
+import org.koin.compose.koinInject
 
 data class AppliedPatchBundleUi(
     val uid: Int,
@@ -127,6 +128,7 @@ fun InstalledAppInfoDialog(
     settingsViewModel: SettingsViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val installedApp = viewModel.installedApp
     val appInfo = viewModel.appInfo
     val appliedPatches = viewModel.appliedPatches
@@ -264,9 +266,9 @@ fun InstalledAppInfoDialog(
         if (savedFile != null && uri != null) {
             installViewModel.export(savedFile, uri) { success ->
                 if (success) {
-                    context.toast(exportSuccessMessage)
+                    messages.show(exportSuccessMessage)
                 } else {
-                    context.toast(exportFailedMessage)
+                    messages.show(exportFailedMessage)
                 }
             }
         }
@@ -323,8 +325,8 @@ fun InstalledAppInfoDialog(
                 signatureConflict.value = installState
             }
             is InstallViewModel.InstallState.Error -> {
-                // Show error toast
-                context.toast(installState.message)
+                // Show the error
+                messages.show(installState.message)
             }
             else -> {}
         }

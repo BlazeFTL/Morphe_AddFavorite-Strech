@@ -18,7 +18,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -30,7 +29,7 @@ import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.PatchLockState
 import app.morphe.manager.patcher.patch.blocksToggle
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.util.toast
+import org.koin.compose.koinInject
 
 /**
  * Bundle controls: pill row with per-bundle bulk actions.
@@ -187,14 +186,14 @@ internal fun PatchCard(
         (listOf(patch.displayName, patchState) + badges).joinToString(", ")
     }
 
-    val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val lockedMessage = when (lockState) {
         PatchLockState.LOCKED_ON  -> stringResource(R.string.expert_mode_patch_required_by_installer)
         PatchLockState.LOCKED_OFF -> stringResource(R.string.expert_mode_patch_unavailable_for_installer)
         PatchLockState.NONE       -> null
     }
     val onCardClick: () -> Unit = if (lockState.blocksToggle(isEnabled) && lockedMessage != null) {
-        { context.toast(lockedMessage) }
+        { messages.show(lockedMessage) }
     } else onToggle
 
     val colors = MaterialTheme.colorScheme

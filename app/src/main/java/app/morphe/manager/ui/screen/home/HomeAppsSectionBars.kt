@@ -20,15 +20,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.ActionTone
 import app.morphe.manager.ui.screen.shared.SelectionAction
-import app.morphe.manager.util.withToast
+import app.morphe.manager.ui.screen.shared.UserMessages
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
 
 /**
  * Hands the apps section's footer bar to the screen that draws it. The bar acts on what the
@@ -133,7 +133,7 @@ internal fun HomeAppsFooterBars(
             selectedReinstallItems.size == selectedAppItems.size
     val contextActionIsUninstall = selectedAppItems.isNotEmpty() &&
             selectedInstalledItems.size == selectedAppItems.size
-    val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val reinstallLabel = stringResource(R.string.reinstall)
     val uninstallLabel = stringResource(R.string.uninstall)
     val patchSelectedLabel = stringResource(
@@ -244,7 +244,7 @@ internal fun HomeAppsFooterBars(
             SelectionAction(
                 icon = Icons.Outlined.VisibilityOff,
                 label = hideLabel,
-                onClick = context.withToast(hiddenMessage) {
+                onClick = messages.confirming(hiddenMessage) {
                     appActions.onHideMultiple(selectedPackages.keys.toSet())
                     state.exitMultiSelect()
                 },

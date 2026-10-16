@@ -140,7 +140,7 @@ data class BatchBundleRef(
  * @param restoreState State to return to when the user un-excludes the item.
  * @param patchedFile Populated after a successful run with the retained patched APK.
  * @param installOutcome Set once the user installs from the summary, so a failure is visible
- *   on the app it belongs to rather than only in a toast that is gone a moment later.
+ *   on the app it belongs to rather than only in a message that is gone a moment later.
  */
 data class BatchPatchItem(
     val target: BatchTarget,

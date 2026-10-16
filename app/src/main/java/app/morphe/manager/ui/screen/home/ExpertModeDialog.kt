@@ -29,7 +29,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
@@ -50,10 +49,10 @@ import app.morphe.manager.util.PatchSelection
 import app.morphe.manager.util.PatchSelectionUtils.hasCustomizedOptions
 import app.morphe.manager.util.PatchSelectionUtils.hasMissingRequiredOptions
 import app.morphe.manager.util.PatchSelectionUtils.hasUniversalToEnable
-import app.morphe.manager.util.toast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
+import org.koin.compose.koinInject
 
 /**
  * The patches the expert-mode dialog chooses from: every source's patches with whether each is
@@ -119,7 +118,7 @@ fun ExpertModeDialog(
     val selectedPatchForOptions = remember { mutableStateOf<Pair<Int, PatchInfo>?>(null) }
     val search = rememberSearchFieldState()
     val showMultipleSourcesWarning = remember { mutableStateOf(false) }
-    val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
 
     // Both markers are keyed by bundle, since the same patch name can come from several sources
     // with values of its own. Recomputed whenever the selected patches or options change
@@ -583,9 +582,9 @@ fun ExpertModeDialog(
                 patchActions.onResetOptions(bundleUid, patch.name)
             },
             onDismiss = {
-                // Show a toast if the patch still has unfilled required options
+                // Tell the user if the patch still has unfilled required options
                 if (patch.name in patchesWithMissingRequired[bundleUid].orEmpty()) {
-                    context.toast(missingOptionsMessage)
+                    messages.show(missingOptionsMessage)
                 }
                 selectedPatchForOptions.value = null
             }

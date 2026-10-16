@@ -22,8 +22,8 @@ import app.morphe.manager.data.room.apps.installed.reinstallsByMount
 import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.util.batchActionSummary
-import app.morphe.manager.util.toast
 import java.io.File
+import org.koin.compose.koinInject
 
 /**
  * A single install request queued by [rememberInstallQueue].
@@ -35,7 +35,7 @@ import java.io.File
  * @param onInstalled invoked with the installed package name after a successful install,
  *        before the next queue item starts.
  * @param onFailed invoked with the failure reason when an item is skipped or rejected, for
- *        callers that show per-item state instead of relying on the summary toast alone.
+ *        callers that show per-item state instead of relying on the summary message alone.
  */
 data class InstallQueueRequest(
     val file: File,
@@ -48,7 +48,7 @@ data class InstallQueueRequest(
 
 /**
  * Drives sequential installs through a shared [InstallViewModel]. Handles state
- * transitions, skips missing files and dismissed installer dialogs, and toasts a
+ * transitions, skips missing files and dismissed installer dialogs, and reports a
  * summary once the queue drains.
  *
  * Callers are responsible for placing [app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs]
@@ -66,6 +66,7 @@ fun rememberInstallQueue(
     onDrained: (installed: Int) -> Unit = {}
 ): (requests: List<InstallQueueRequest>) -> Unit {
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val conflictText = stringResource(R.string.installer_hint_conflict)
     var queue by remember { mutableStateOf<List<InstallQueueRequest>>(emptyList()) }
     var active by remember { mutableStateOf<InstallQueueRequest?>(null) }
@@ -79,7 +80,7 @@ fun rememberInstallQueue(
 
     fun showSummary() {
         context.batchActionSummary(completedPluralRes, completed, skipped)
-            ?.let { context.toast(it) }
+            ?.let { messages.show(it) }
         completed = 0
         skipped = 0
     }
@@ -154,7 +155,7 @@ fun rememberInstallQueue(
             is InstallViewModel.InstallState.Error -> {
                 skipped++
                 current.onFailed(state.message)
-                context.toast(state.message)
+                messages.show(state.message)
                 active = null
                 installViewModel.resetInstallState()
                 startNext()
@@ -162,7 +163,7 @@ fun rememberInstallQueue(
             is InstallViewModel.InstallState.Conflict -> {
                 skipped++
                 current.onFailed(conflictText)
-                context.toast(conflictText)
+                messages.show(conflictText)
                 active = null
                 installViewModel.resetInstallState()
                 startNext()

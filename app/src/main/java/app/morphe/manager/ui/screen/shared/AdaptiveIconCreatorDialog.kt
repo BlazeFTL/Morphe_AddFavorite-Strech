@@ -64,6 +64,7 @@ import app.morphe.manager.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.compose.koinInject
 
 /**
  * Configuration constants for adaptive icon creation.
@@ -190,6 +191,7 @@ fun AdaptiveIconCreatorDialog(
 ) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
 
     val foreground = remember { mutableStateOf<PickedImage?>(null) }
     val initialBackground = MaterialTheme.colorScheme.primaryContainer
@@ -233,11 +235,11 @@ fun AdaptiveIconCreatorDialog(
             )
             isCreating.value = false
             if (result != null) {
-                context.toast(successMessage)
+                messages.show(successMessage)
                 onIconCreated(result)
                 onDismiss()
             } else {
-                context.toast(failureMessage)
+                messages.show(failureMessage)
             }
         }
     }

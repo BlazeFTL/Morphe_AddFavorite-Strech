@@ -101,13 +101,16 @@ fun AppBottomSheet(
                 // On the dialogs' background the sheet has nothing but an edge of its own to tell
                 // it from the screen dimmed behind it. The sheet's modifier sits outside the offset
                 // it slides in by, so the edge goes around the content, handle included
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .sheetBorder(CardBorder.neutral, shape)
-                ) {
-                    if (showDragHandle) SheetDragHandle(contentColor, onDismissRequest)
-                    content()
+                // A window of its own, so messages raised while it is open are shown in it
+                MessageHost(modifier = Modifier.fillMaxWidth()) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .sheetBorder(CardBorder.neutral, shape)
+                    ) {
+                        if (showDragHandle) SheetDragHandle(contentColor, onDismissRequest)
+                        content()
+                    }
                 }
             }
         }

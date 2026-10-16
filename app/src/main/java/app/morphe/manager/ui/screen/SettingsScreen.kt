@@ -48,6 +48,7 @@ import app.morphe.manager.ui.viewmodel.*
 import app.morphe.manager.util.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 /** Settings tabs for bottom navigation. */
 private enum class SettingsTab(
@@ -75,6 +76,7 @@ fun SettingsScreen(
     onStartTour: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
     val coroutineScope = rememberCoroutineScope()
     val isTV = remember { context.isAndroidTv() }
     val wrongCredentialsText = stringResource(R.string.settings_system_import_keystore_wrong_credentials)
@@ -232,7 +234,7 @@ fun SettingsScreen(
                 coroutineScope.launch {
                     val result = importExportViewModel.tryKeystoreImport(alias, pass, storePass, format)
                     if (!result) {
-                        context.toast(wrongCredentialsText)
+                        messages.show(wrongCredentialsText)
                     }
                 }
             }

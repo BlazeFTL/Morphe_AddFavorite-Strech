@@ -376,7 +376,7 @@ class ManagerApplication : Application() {
 
     /**
      * Work that only pays off once a screen exists. A process started by an FCM push or a boot
-     * broadcast has nobody to show an update check to, and its failures toast over another app.
+     * broadcast has nobody to show an update check or its failures to.
      */
     private fun onFirstScreenCreated() {
         scope.launch(Dispatchers.Default) {

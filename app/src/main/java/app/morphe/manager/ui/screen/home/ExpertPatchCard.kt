@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -157,6 +158,8 @@ private fun tonalIconColors(
 
 /**
  * Individual patch card with toggle and options button.
+ *
+ * @param shape Its place among the rows of its block, see [PatchSegment].
  */
 @Composable
 internal fun PatchCard(
@@ -170,7 +173,8 @@ internal fun PatchCard(
     lockState: PatchLockState = PatchLockState.NONE,
     onToggle: () -> Unit,
     onConfigureOptions: () -> Unit,
-    hasOptions: Boolean
+    hasOptions: Boolean,
+    shape: CornerBasedShape? = null
 ) {
     // Localized strings for accessibility
     val settings = stringResource(R.string.settings)
@@ -216,6 +220,7 @@ internal fun PatchCard(
     SettingsItemCard(
         onClick = onCardClick,
         color = containerColor,
+        shape = shape,
         showBorder = true,
         borderColor = when {
             showMissingRequired -> colors.error.copy(alpha = 0.6f)

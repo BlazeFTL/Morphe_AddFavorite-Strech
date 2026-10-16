@@ -13,6 +13,7 @@ import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -200,9 +201,9 @@ internal fun PatchListDialog(
             DialogLazyList(
                 modifier = Modifier.fillMaxSize(),
                 state = listState,
-                verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
+                verticalArrangement = Arrangement.spacedBy(SegmentGap)
             ) {
-                if (notice != null) item(key = "notice") { notice() }
+                if (notice != null) item(key = "notice") { Box(Modifier.endsBlock()) { notice() } }
 
                 if (shownSections.isEmpty()) {
                     item(key = "empty_state") {
@@ -217,58 +218,65 @@ internal fun PatchListDialog(
                     val target = commonTargets[section.key]
                     val targetVersions = target?.versions.orEmpty().toList()
 
-                    if (hasSections) {
-                        item(key = "section_${section.key}") {
-                            var versionsExpanded by rememberSaveable(saveStateKey, section.key) {
-                                mutableStateOf(false)
-                            }
-                            PatchGroupHeader(
-                                title = section.title,
-                                count = groups.sumOf { it.items.size },
-                                isExpanded = !isFolded,
-                                onToggle = if (isFiltering) null else ({
-                                    foldedKeys = if (isFolded) foldedKeys - section.key
-                                    else foldedKeys + section.key
-                                }),
-                                leading = { section.icon(Modifier.size(24.dp)) },
-                                accentColor = section.accentColor,
-                                // The versions belong to the block's app, unless the list's header names them
-                                badges = if (headerTarget == null && targetVersions.isNotEmpty()) {
-                                    {
-                                        VersionBadges(
-                                            versions = targetVersions,
-                                            experimental = target?.experimentalVersions.orEmpty(),
-                                            expanded = versionsExpanded,
-                                            onToggle = { versionsExpanded = !versionsExpanded },
-                                            accentColor = section.accentColor
-                                        )
-                                    }
-                                } else null,
-                                modifier = Modifier.animatedListItem(this)
-                            )
+                    // A list of several apps heads each one's patches as a block of its own
+                    val head = if (!hasSections) null else PatchBlockHead(
+                        key = "section_${section.key}",
+                        folded = isFolded
+                    ) { segment ->
+                        var versionsExpanded by rememberSaveable(saveStateKey, section.key) {
+                            mutableStateOf(false)
                         }
+                        PatchGroupHeader(
+                            title = section.title,
+                            count = groups.sumOf { it.items.size },
+                            isExpanded = !isFolded,
+                            onToggle = if (isFiltering) null else ({
+                                foldedKeys = if (isFolded) foldedKeys - section.key
+                                else foldedKeys + section.key
+                            }),
+                            leading = { section.icon(Modifier.size(24.dp)) },
+                            accentColor = section.accentColor,
+                            // The versions belong to the block's app, unless the list's header names them
+                            badges = if (headerTarget == null && targetVersions.isNotEmpty()) {
+                                {
+                                    VersionBadges(
+                                        versions = targetVersions,
+                                        experimental = target?.experimentalVersions.orEmpty(),
+                                        expanded = versionsExpanded,
+                                        onToggle = { versionsExpanded = !versionsExpanded },
+                                        accentColor = section.accentColor
+                                    )
+                                }
+                            } else null,
+                            shape = segment.shape,
+                            modifier = Modifier
+                                .animatedListItem(this)
+                                .endsBlock(segment.endsBlock)
+                        )
                     }
 
-                    if (!isFolded) {
-                        patchGroupRows(
-                            sectionKey = section.key,
-                            groups = groups,
-                            key = { (index, _): IndexedValue<PatchInfo> -> "${section.key}:$index" },
-                            isFiltering = isFiltering,
-                            folds = patchFolds,
-                            onToggle = { group -> patchSections.toggle(section.key, group) },
-                            accentColor = section.accentColor
-                        ) { (_, patch) ->
-                            PatchItemCard(
-                                patch = patch,
-                                saveStateKey = "$saveStateKey:${section.key}",
-                                packageName = section.packageName,
-                                commonVersions = target?.versions,
-                                onExpertBadgeClick = onExpertBadgeClick,
-                                accentColor = section.accentColor,
-                                modifier = Modifier.animatedListItem(this)
-                            )
-                        }
+                    patchGroupRows(
+                        sectionKey = section.key,
+                        groups = groups,
+                        key = { (index, _): IndexedValue<PatchInfo> -> "${section.key}:$index" },
+                        isFiltering = isFiltering,
+                        folds = patchFolds,
+                        onToggle = { group -> patchSections.toggle(section.key, group) },
+                        accentColor = section.accentColor,
+                        head = head
+                    ) { (_, patch), segment ->
+                        PatchItemCard(
+                            patch = patch,
+                            saveStateKey = "$saveStateKey:${section.key}",
+                            packageName = section.packageName,
+                            commonVersions = target?.versions,
+                            onExpertBadgeClick = onExpertBadgeClick,
+                            accentColor = section.accentColor,
+                            shape = segment.shape,
+                            modifier = Modifier
+                                .animatedListItem(this)
+                                .endsBlock(segment.endsBlock)
+                        )
                     }
                 }
             }
@@ -360,6 +368,7 @@ private fun SectionFilterSheet(
  * and the options fold out from a badge naming how many there are.
  *
  * @param packageName App the block lists the patch under, whose versions the card compares.
+ * @param shape Its place among the rows of its block, see [PatchSegment].
  */
 @Composable
 internal fun PatchItemCard(
@@ -369,7 +378,8 @@ internal fun PatchItemCard(
     commonVersions: Set<String>?,
     modifier: Modifier = Modifier,
     onExpertBadgeClick: (() -> Unit)? = null,
-    accentColor: Color? = null
+    accentColor: Color? = null,
+    shape: CornerBasedShape? = null
 ) {
     var expandVersions by rememberSaveable(saveStateKey, patch.name, "versions") {
         mutableStateOf(false)
@@ -395,7 +405,8 @@ internal fun PatchItemCard(
         modifier = modifier,
         showBorder = true,
         borderColor = appAccentBorder(accentColor),
-        color = cardColor
+        color = cardColor,
+        shape = shape
     ) {
         // The badges on the card take the app's color, as its edge does
         ProvideCardAccent(badgeAccent, cardColor) {

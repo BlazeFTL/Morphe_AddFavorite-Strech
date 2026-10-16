@@ -438,6 +438,7 @@ fun ExpertModeDialog(
                         density = NoticeDensity.Compact,
                         modifier = Modifier
                             .animatedListItem(this)
+                            .endsBlock()
                             .clickable(onClick = onShowHiddenSources)
                     )
                 }
@@ -666,7 +667,9 @@ private fun RetirePrereleaseNotice(bundleUid: Int?, onRetire: (Int) -> Unit) {
 private fun LazyListScope.prereleaseNotice() = item(key = "prerelease-notice") {
     Notice(
         text = stringResource(R.string.expert_mode_prerelease_notice),
-        modifier = Modifier.animatedListItem(this),
+        modifier = Modifier
+            .animatedListItem(this)
+            .endsBlock(),
         icon = Icons.Outlined.WarningAmber,
         tone = SemanticTone.Warning,
         density = NoticeDensity.Compact
@@ -773,7 +776,7 @@ private fun BundlePatchList(
             .verticalScrollFade(listState),
         // Runs on under the head and footer floating over the list, and comes out from under them
         contentPadding = LocalDialogBarInsets.current,
-        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
+        verticalArrangement = Arrangement.spacedBy(SegmentGap)
     ) {
         leadingRows()
         if (bundle.uid in markers.prereleaseNotices) prereleaseNotice()
@@ -796,7 +799,7 @@ private fun BundlePatchList(
             folds = folds,
             onToggle = { group -> sectionState.toggle(bundle.uid, group) },
             accentColor = accentColor
-        ) { (patch, isEnabled) ->
+        ) { (patch, isEnabled), segment ->
             PatchCard(
                 patch = patch,
                 isEnabled = isEnabled,
@@ -808,7 +811,10 @@ private fun BundlePatchList(
                 onToggle = { patchActions.onPatchToggle(bundle.uid, patch.name) },
                 onConfigureOptions = { onConfigureOptions(patch) },
                 hasOptions = !patch.options.isNullOrEmpty(),
-                modifier = Modifier.animatedListItem(this)
+                shape = segment.shape,
+                modifier = Modifier
+                    .animatedListItem(this)
+                    .endsBlock(segment.endsBlock)
             )
         }
     }

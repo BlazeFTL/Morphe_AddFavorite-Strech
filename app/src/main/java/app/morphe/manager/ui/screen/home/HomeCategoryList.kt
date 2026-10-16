@@ -8,6 +8,7 @@ package app.morphe.manager.ui.screen.home
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -33,6 +34,7 @@ import app.morphe.manager.ui.screen.shared.CardBorder
 import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.GlassButtonDefaults
 import app.morphe.manager.ui.screen.shared.MorpheLauncherLogo
+import app.morphe.manager.ui.screen.shared.animateCornersAsState
 import app.morphe.manager.ui.screen.shared.appAccentBorder
 import app.morphe.manager.ui.screen.shared.appAccentCardFill
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
@@ -183,7 +185,9 @@ private fun List<HomeAppItem>.orderedByPackageOrder(packageOrder: List<String>):
  * on a non-tappable row.
  *
  * A non-null [color] replaces the frosted fill, for rows that belong to something already
- * carrying a color of its own. [below] goes under the row inside the same card.
+ * carrying a color of its own. [below] goes under the title, in its column, as a list item's
+ * supporting line does. A [shape] given outright, as a segment of a block takes from its place,
+ * is taken over [cornerRadius] and eased into as it changes.
  */
 @Composable
 internal fun HomeGlassCategoryRow(
@@ -194,12 +198,13 @@ internal fun HomeGlassCategoryRow(
     leading: (@Composable () -> Unit)? = null,
     count: String? = null,
     cornerRadius: Dp = Defaults.CornerLargeIncreased,
+    shape: CornerBasedShape? = null,
     color: Color? = null,
     borderColor: Color? = null,
     below: (@Composable () -> Unit)? = null,
     trailing: @Composable RowScope.() -> Unit = {}
 ) {
-    val shape = RoundedCornerShape(cornerRadius)
+    val shape = shape?.let { animateCornersAsState(it) } ?: RoundedCornerShape(cornerRadius)
     val containerColor = color ?: GlassButtonDefaults.containerColor()
     val borderColor = borderColor ?: GlassButtonDefaults.borderColor()
     val contentColor = MaterialTheme.colorScheme.onSurface
@@ -224,18 +229,24 @@ internal fun HomeGlassCategoryRow(
         shape = shape,
         border = CardBorder.of(borderColor)
     ) {
-        Column {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 48.dp)
-                    .padding(horizontal = Defaults.SpaceMedium, vertical = Defaults.SpaceSmall),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 48.dp)
+                // A supporting line makes it a two-line item, which keeps more room around it
+                .padding(
+                    horizontal = Defaults.SpaceMedium,
+                    vertical = if (below != null) Defaults.SpaceMedium else Defaults.SpaceSmall
+                ),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
+        ) {
+            leading?.invoke()
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
-                leading?.invoke()
                 Row(
-                    modifier = Modifier.weight(1f),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
                 ) {
@@ -256,11 +267,9 @@ internal fun HomeGlassCategoryRow(
                         )
                     }
                 }
-                trailing()
+                below?.invoke()
             }
-            if (below != null) {
-                Box(modifier = Modifier.padding(start = Defaults.SpaceMedium, end = Defaults.SpaceMedium, bottom = Defaults.SpaceMedium)) { below() }
-            }
+            trailing()
         }
     }
 }

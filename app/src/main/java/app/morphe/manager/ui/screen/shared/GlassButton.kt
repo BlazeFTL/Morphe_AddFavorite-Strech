@@ -21,11 +21,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.R
 import app.morphe.manager.util.readableOn
 
 /**
@@ -165,3 +167,64 @@ fun GlassButton(
         }
     }
 }
+
+/**
+ * A [GlassButton] for an action rather than a tab, its emphasis set by [tone]. Shared by the
+ * patcher's action bar and the landscape sidebars, so the buttons read the same wherever they sit.
+ */
+@Composable
+fun ActionGlassButton(
+    onClick: () -> Unit,
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+    text: String? = null,
+    showLabel: Boolean = false,
+    tone: BottomActionTone = BottomActionTone.Neutral,
+    enabled: Boolean = true,
+    showProgress: Boolean = false,
+    contentDescription: String? = null,
+    stateDescription: String? = null,
+    height: Dp = Defaults.GlassButtonHeight
+) {
+    val colors = tone.colors()
+    val loadingLabel = stringResource(R.string.loading)
+
+    val label = contentDescription ?: text
+    val accessibleLabel = remember(label, showProgress, loadingLabel) {
+        when {
+            label == null -> null
+            showProgress -> "$label, $loadingLabel"
+            else -> label
+        }
+    }
+
+    GlassButton(
+        label = text.orEmpty(),
+        selected = false,
+        onClick = onClick,
+        modifier = modifier.semantics {
+            if (stateDescription != null) {
+                this.stateDescription = stateDescription
+            }
+            if (showProgress) {
+                liveRegion = LiveRegionMode.Polite
+            }
+        },
+        icon = icon,
+        enabled = enabled,
+        showProgress = showProgress,
+        contentDescription = accessibleLabel,
+        containerColor = colors.container.dim(enabled),
+        contentColor = colors.content.dim(enabled),
+        borderColor = colors.border.dim(enabled),
+        height = height,
+        role = Role.Button,
+        pressScale = true,
+        hapticFeedback = true,
+        showLabel = showLabel
+    )
+}
+
+/** Halves the alpha of a resolved glass color while the button is disabled. */
+private fun Color.dim(enabled: Boolean): Color =
+    if (enabled) this else copy(alpha = alpha * 0.5f)

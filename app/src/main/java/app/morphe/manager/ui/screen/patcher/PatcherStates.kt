@@ -166,9 +166,6 @@ fun resultButton(
 private fun ResultStatus.color(): Color =
     if (tone == SemanticTone.Primary) LocalAccent.current ?: tone.accent else tone.accent
 
-/** Height of the action a result leads to, which the buttons beside it match. */
-private val ResultActionHeight = 56.dp
-
 /** Font scale from which the result screen condenses its header to leave room for the rest. */
 private const val CONDENSED_HEADER_FONT_SCALE = 1.3f
 
@@ -676,7 +673,7 @@ private fun ResultSummary(version: String?, patchCount: Int, sources: List<Patch
 private fun BackToGameCallout(visible: Boolean, horizontalPadding: Dp) {
     if (!visible) return
 
-    GlassActionCallout(
+    PatcherActionCallout(
         text = stringResource(R.string.patcher_back_to_game_hint, stringResource(R.string.logs)),
         // Logs comes first in a bar of Logs and Home
         slot = 0,
@@ -778,16 +775,25 @@ private fun InstallActions(
                     }
                 }
             )
-            ApkFileButton(
-                icon = Icons.Outlined.Save,
-                label = stringResource(R.string.save),
+            // Square as the install button is tall, named by a tooltip since a label would take
+            // the room the install button's own needs
+            PatcherActionButton(
                 onClick = onSave,
-                busy = isSaving
+                icon = Icons.Outlined.Save,
+                text = stringResource(R.string.save),
+                enabled = !isSaving,
+                showProgress = isSaving,
+                modifier = Modifier
+                    .width(PatcherActionHeight)
+                    .fillMaxHeight()
             )
-            ApkFileButton(
+            PatcherActionButton(
+                onClick = onShare,
                 icon = Icons.Outlined.Share,
-                label = stringResource(R.string.share),
-                onClick = onShare
+                text = stringResource(R.string.share),
+                modifier = Modifier
+                    .width(PatcherActionHeight)
+                    .fillMaxHeight()
             )
         }
 
@@ -834,7 +840,7 @@ private fun ResultActionButton(
         enabled = !busy,
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = ResultActionHeight),
+            .heightIn(min = PatcherActionHeight),
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         colors = buttonColors,
         contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
@@ -855,37 +861,6 @@ private fun ResultActionButton(
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
             textAlign = TextAlign.Center
-        )
-    }
-}
-
-/**
- * Saving or sharing the patched APK, beside the action it would otherwise crowd. Square as the
- * action is tall, named by a tooltip since a label would take the room the action's own needs.
- */
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun ApkFileButton(
-    icon: ImageVector,
-    label: String,
-    onClick: () -> Unit,
-    busy: Boolean = false
-) {
-    TooltipBox(
-        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
-        tooltip = { PlainTooltip { Text(label) } },
-        state = rememberTooltipState(),
-        modifier = Modifier
-            .width(ResultActionHeight)
-            .fillMaxHeight()
-    ) {
-        ActionGlassButton(
-            onClick = onClick,
-            icon = icon,
-            modifier = Modifier.fillMaxSize(),
-            contentDescription = label,
-            enabled = !busy,
-            showProgress = busy
         )
     }
 }

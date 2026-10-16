@@ -14,6 +14,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -64,7 +65,8 @@ fun cardFill(): Color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorSche
  * Base card for all other card types.
  *
  * In a [SettingsGroup] it is a row of the group, shaped and outlined by its place among the rows,
- * and [cornerRadius] goes unused. Cards inside it are cards again.
+ * and [cornerRadius] goes unused. Cards inside it are cards again. A [shape] given outright, as a
+ * lazy list does from each row's index, is taken over [cornerRadius] and eased into as it changes.
  */
 @Composable
 fun SurfaceCard(
@@ -76,12 +78,13 @@ fun SurfaceCard(
     showBorder: Boolean = false,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
     color: Color = cardFill(),
+    shape: CornerBasedShape? = null,
     content: @Composable () -> Unit
 ) {
     val group = LocalSegmentRegistry.current
     val row = remember { Any() }
     val shape = if (group == null) {
-        RoundedCornerShape(cornerRadius)
+        shape?.let { animateCornersAsState(it) } ?: RoundedCornerShape(cornerRadius)
     } else {
         // A row settling into its place takes its shape at once, only later moves ease it over
         val memory = remember { RowPlacement() }
@@ -393,6 +396,7 @@ fun SettingsItemCard(
     showBorder: Boolean = false,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
     color: Color = cardFill(),
+    shape: CornerBasedShape? = null,
     content: @Composable () -> Unit
 ) {
     SurfaceCard(
@@ -403,6 +407,7 @@ fun SettingsItemCard(
         showBorder = showBorder,
         borderColor = borderColor,
         color = color,
+        shape = shape,
         modifier = modifier
     ) {
         content()

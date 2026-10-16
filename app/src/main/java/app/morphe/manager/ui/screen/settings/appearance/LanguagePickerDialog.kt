@@ -7,8 +7,9 @@ package app.morphe.manager.ui.screen.settings.appearance
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.SearchOff
@@ -86,11 +87,11 @@ fun LanguagePickerDialog(
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             state = listState,
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
+            verticalArrangement = Arrangement.spacedBy(SegmentGap),
             pinnedFirstRow = true
         ) {
-            // Kept while the field is closed, so its share of the spacing makes the gap under
-            // the header
+            // Kept while the field is closed, so its share of the spacing, topped up to a full step
+            // below it, makes the gap under the header
             stickyHeader(key = "search") {
                 AppDialogSearchHeader(
                     visible = search.visible,
@@ -100,7 +101,7 @@ fun LanguagePickerDialog(
                     // Opaque, so rows scrolled under the gap stay hidden
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.SpaceMedium)
+                        .padding(top = Defaults.SpaceMedium, bottom = Defaults.SpaceMedium - SegmentGap)
                 )
             }
 
@@ -114,11 +115,12 @@ fun LanguagePickerDialog(
                 }
             }
 
-            items(items = filteredLanguages, key = { it.code }) { language ->
+            itemsIndexed(items = filteredLanguages, key = { _, language -> language.code }) { index, language ->
                 LanguageItem(
                     language = language,
                     isSelected = currentLanguage == language.code,
                     onClick = { onLanguageSelected(language.code) },
+                    shape = ConnectedShapes.Card.inColumn(index, filteredLanguages.size),
                     modifier = Modifier.animatedListItem(this)
                 )
             }
@@ -134,6 +136,7 @@ private fun LanguageItem(
     language: LanguageOption,
     isSelected: Boolean,
     onClick: () -> Unit,
+    shape: CornerBasedShape,
     modifier: Modifier = Modifier
 ) {
     val stateDescription = stringResource(
@@ -144,6 +147,7 @@ private fun LanguageItem(
         onSelect = onClick,
         modifier = modifier,
         stateDescription = stateDescription,
+        shape = shape,
         leadingContent = {
             SelectionLeadingBox(selected = isSelected, size = 40.dp) {
                 Text(

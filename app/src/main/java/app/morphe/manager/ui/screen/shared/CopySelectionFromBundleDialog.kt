@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -145,7 +146,7 @@ private fun ColumnScope.CandidateList(
         modifier = Modifier
             .fillMaxWidth()
             .weight(1f, fill = false),
-        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
+        verticalArrangement = Arrangement.spacedBy(SegmentGap)
     ) {
         items(
             items = candidates.withIndex().toList(),
@@ -155,6 +156,7 @@ private fun ColumnScope.CandidateList(
                 candidate = candidate,
                 selected = index == selectedIndex,
                 onSelect = { onSelect(index) },
+                shape = ConnectedShapes.Card.inColumn(index, candidates.size),
                 // Named after the source it copies from, so the card wears that source's color once picked
                 accentColor = sourcesByUid[candidate.bundleUid]?.let { rememberBundleAccent(it) }
             )
@@ -167,6 +169,7 @@ private fun CandidateRow(
     candidate: CopySelectionCandidate,
     selected: Boolean,
     onSelect: () -> Unit,
+    shape: CornerBasedShape,
     accentColor: Color? = null
 ) {
     val enabled = candidate.applicableCount > 0
@@ -181,7 +184,8 @@ private fun CandidateRow(
         onSelect = onSelect,
         enabled = enabled,
         contentDescription = "${candidate.packageDisplayName}, ${candidate.bundleName}, $availableText",
-        accentColor = accentColor
+        accentColor = accentColor,
+        shape = shape
     ) {
         Column(
             modifier = Modifier.weight(1f),

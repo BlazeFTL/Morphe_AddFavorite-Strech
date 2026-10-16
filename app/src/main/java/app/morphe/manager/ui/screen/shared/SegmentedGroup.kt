@@ -20,8 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 
-/** Gap between the rows of a [SettingsGroup], the one a connected group of buttons keeps. */
-internal val SegmentGap = ButtonGroupDefaults.ConnectedSpaceBetween
+/** Gap between the rows of a segmented list, the one a connected group of buttons keeps. */
+val SegmentGap = ButtonGroupDefaults.ConnectedSpaceBetween
 
 /**
  * Settings that belong together, each row a segment of one group: rounded on the group's own

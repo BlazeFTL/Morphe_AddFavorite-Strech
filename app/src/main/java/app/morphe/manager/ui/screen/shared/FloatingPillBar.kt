@@ -79,7 +79,6 @@ fun FloatingPillBar(
 ) {
     Box(
         modifier = modifier
-            .keepsClearOfMessages()
             .fillMaxWidth()
             .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal)),
         contentAlignment = Alignment.Center

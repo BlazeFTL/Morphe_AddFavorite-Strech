@@ -425,7 +425,6 @@ private fun CompactDialogContent(
                 if (footer != null) {
                     Box(
                         modifier = Modifier
-                            .keepsClearOfMessages()
                             .fillMaxWidth()
                             .padding(start = horizontalPadding, end = horizontalPadding, top = Defaults.SpaceLarge)
                     ) {

@@ -120,7 +120,6 @@ private fun ListDialogLayout(
                 when {
                     bottomBar != null -> Box(
                         modifier = Modifier
-                            .keepsClearOfMessages()
                             .widthIn(max = Defaults.ContentMaxWidth)
                             .fillMaxWidth()
                     ) {
@@ -134,7 +133,6 @@ private fun ListDialogLayout(
                     ) {
                         Box(
                             modifier = Modifier
-                                .keepsClearOfMessages()
                                 .fillMaxWidth()
                                 .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
                                 .padding(vertical = Defaults.SpaceLarge),

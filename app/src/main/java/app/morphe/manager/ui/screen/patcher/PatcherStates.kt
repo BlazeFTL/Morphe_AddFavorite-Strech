@@ -468,7 +468,6 @@ private fun ResultActionsDock(
 ) {
     Box(
         modifier = Modifier
-            .keepsClearOfMessages()
             .fillMaxWidth()
             .padding(top = Defaults.SpaceMedium, bottom = bottomPadding),
         contentAlignment = Alignment.TopCenter

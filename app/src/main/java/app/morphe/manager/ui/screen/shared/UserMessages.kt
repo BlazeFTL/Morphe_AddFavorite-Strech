@@ -6,40 +6,42 @@
 package app.morphe.manager.ui.screen.shared
 
 import android.content.Context
+import android.os.Build
+import android.view.accessibility.AccessibilityManager
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import app.morphe.manager.ManagerApplication
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Short messages for the user, shown as a snackbar on whichever surface is on top, see
@@ -102,6 +104,27 @@ class UserMessages {
 /** A button on a message, such as one undoing what the message reports. */
 class MessageAction(@param:StringRes val label: Int, val onClick: () -> Unit)
 
+/** How long a long message stays up, unless accessibility settings ask for longer. */
+private val LongMessageDuration = 6.seconds
+
+/**
+ * [LongMessageDuration], stretched to what the user's accessibility settings recommend for a
+ * message that holds text and, with [hasAction], a control, as Material stretches its own.
+ */
+private fun longMessageTimeout(accessibility: AccessibilityManager?, hasAction: Boolean): Duration {
+    if (accessibility == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return LongMessageDuration
+    val millis = LongMessageDuration.inWholeMilliseconds.toInt()
+    return accessibility.getRecommendedTimeoutMillis(
+        millis,
+        if (hasAction) {
+            AccessibilityManager.FLAG_CONTENT_TEXT or AccessibilityManager.FLAG_CONTENT_ICONS or
+                    AccessibilityManager.FLAG_CONTENT_CONTROLS
+        } else {
+            AccessibilityManager.FLAG_CONTENT_TEXT or AccessibilityManager.FLAG_CONTENT_ICONS
+        }
+    ).milliseconds
+}
+
 /** Takes down a message shown by [UserMessages.showUntilDismissed], wherever it has got to. */
 class MessageHandle internal constructor(private val dismissed: CompletableDeferred<Unit>) {
     fun dismiss() {
@@ -128,9 +151,15 @@ internal class MessageHostSlot {
     }
 
     suspend fun showAll(state: SnackbarHostState, context: Context) = coroutineScope {
+        val accessibility = context.getSystemService(AccessibilityManager::class.java)
         for (message in queue) {
             if (message.isDismissed) continue
             current = message
+            // Material's long duration keeps a message up for ten seconds, longer than one takes
+            // to read, so a long one is timed here and only a short one is left to Material
+            val timeout = if (message.long && message.dismissed == null) {
+                longMessageTimeout(accessibility, hasAction = message.action != null)
+            } else null
             val shown = launch {
                 val result = state.showSnackbar(
                     message = message.text(context),
@@ -138,18 +167,17 @@ internal class MessageHostSlot {
                     // One that stays up a while can be closed once read, a short one goes before
                     // a close button would be reached
                     withDismissAction = message.long,
-                    duration = when {
-                        message.dismissed != null -> SnackbarDuration.Indefinite
-                        message.long -> SnackbarDuration.Long
-                        else -> SnackbarDuration.Short
-                    }
+                    duration = if (message.long) SnackbarDuration.Indefinite else SnackbarDuration.Short
                 )
                 if (result == SnackbarResult.ActionPerformed) message.action?.onClick?.invoke()
             }
             // Cancelling the call takes the snackbar down with it
-            val watcher = message.dismissed?.let { dismissed -> launch { dismissed.await(); shown.cancel() } }
+            val watcher = launch {
+                message.dismissed?.await() ?: delay(timeout ?: return@launch)
+                shown.cancel()
+            }
             shown.join()
-            watcher?.cancel()
+            watcher.cancel()
             current = null
         }
     }
@@ -164,8 +192,8 @@ internal class MessageHostSlot {
 
 /**
  * [content] with the app's messages shown over its bottom edge while it is the top surface. The
- * snackbar rises above whatever inside marks itself with [keepsClearOfMessages], such as a bottom
- * bar, as Material places one over the bar of its screen.
+ * snackbar keeps one place on every surface, just clear of the navigation bar or the keyboard,
+ * over whatever bar the surface has there, rather than moving with the bars of each.
  */
 @Composable
 fun MessageHost(
@@ -176,57 +204,23 @@ fun MessageHost(
     val context = LocalContext.current
     val slot = remember { MessageHostSlot() }
     val state = remember { SnackbarHostState() }
-    val clearance = remember { MessageClearance() }
     DisposableEffect(messages, slot) {
         messages.attach(slot)
         onDispose { messages.detach(slot) }
     }
     LaunchedEffect(slot) { slot.showAll(state, context) }
 
-    Box(modifier = modifier.onPlaced { clearance.hostBottom = it.boundsInWindow().bottom }) {
-        CompositionLocalProvider(LocalMessageClearance provides clearance) {
-            content()
-        }
+    Box(modifier = modifier) {
+        content()
         SnackbarHost(
             hostState = state,
+            snackbar = { data -> Snackbar(snackbarData = data, shape = RoundedCornerShape(Defaults.CornerLarge)) },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
+                .windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.ime))
                 .widthIn(max = Defaults.ContentMaxWidth)
                 .fillMaxWidth()
-                // A bar already stands clear of the navigation bar, so its height covers that too
-                .then(
-                    if (clearance.height > 0f) {
-                        Modifier.padding(bottom = with(LocalDensity.current) { clearance.height.toDp() })
-                    } else {
-                        Modifier.navigationBarsPadding()
-                    }
-                )
                 .padding(horizontal = Defaults.SpaceLarge, vertical = Defaults.SpaceSmall)
         )
     }
-}
-
-/** Keeps the messages of the surface this sits in clear of it, for a bar along its bottom edge. */
-@Composable
-fun Modifier.keepsClearOfMessages(): Modifier {
-    val clearance = LocalMessageClearance.current ?: return this
-    val key = remember { Any() }
-    DisposableEffect(clearance) { onDispose { clearance.tops -= key } }
-    return onPlaced { coordinates ->
-        val top = coordinates.boundsInWindow().top
-        if (clearance.tops[key] != top) clearance.tops[key] = top
-    }
-}
-
-private val LocalMessageClearance = staticCompositionLocalOf<MessageClearance?> { null }
-
-/** How far up the bars of a surface reach, so its snackbar can stand above the highest. */
-@Stable
-private class MessageClearance {
-    val tops = mutableStateMapOf<Any, Float>()
-    var hostBottom by mutableFloatStateOf(0f)
-
-    /** Distance from the surface's bottom edge to the top of its highest bar, none without one. */
-    val height: Float
-        get() = tops.values.minOrNull()?.let { (hostBottom - it).coerceAtLeast(0f) } ?: 0f
 }

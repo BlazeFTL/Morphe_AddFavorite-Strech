@@ -95,6 +95,8 @@ fun AppBottomSheet(
             }
             // Shared with dialogs, so what the sheet holds is drawn in the sheet's own content color
             CompositionLocalProvider(
+                // A window of its own, which cannot draw what the one it opened from blurs
+                LocalBackdropHaze provides null,
                 LocalDialogTextColor provides contentColor,
                 LocalDialogSecondaryTextColor provides contentColor.copy(alpha = 0.7f)
             ) {

@@ -12,12 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
 
@@ -32,9 +30,6 @@ val LocalDialogBarInsets = compositionLocalOf { PaddingValues(0.dp) }
  * step above the screen's bottom edge, as the footer floats over the list rather than ending it.
  */
 val LocalDialogScrollbarInsets = compositionLocalOf { PaddingValues(0.dp) }
-
-/** What the header floating over a [ListDialog]'s content blurs, see [ListDialogHeader]. */
-internal val LocalDialogHeaderHaze = staticCompositionLocalOf<HazeState?> { null }
 
 /** Gap between a [ListDialog]'s content and the edges of the screen. */
 private val ListDialogInset = Defaults.SpaceLarge
@@ -114,7 +109,7 @@ private fun ListDialogLayout(
             if (header != null) {
                 Box(modifier = Modifier.holdsUnfoldedHeight(collapse)) {
                     CompositionLocalProvider(
-                        LocalDialogHeaderHaze provides haze,
+                        LocalBackdropHaze provides haze,
                         LocalDialogHeaderCollapse provides collapse,
                         content = header
                     )
@@ -129,7 +124,8 @@ private fun ListDialogLayout(
                         .widthIn(max = Defaults.ContentMaxWidth)
                         .fillMaxWidth()
                 ) {
-                    bottomBar()
+                    // Blurs the list as the header does
+                    CompositionLocalProvider(LocalBackdropHaze provides haze, content = bottomBar)
                 }
 
                 footer != null -> AnimatedVisibility(

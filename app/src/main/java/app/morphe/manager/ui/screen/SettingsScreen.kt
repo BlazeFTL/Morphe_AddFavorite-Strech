@@ -46,6 +46,8 @@ import app.morphe.manager.ui.screen.settings.system.*
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.*
 import app.morphe.manager.util.*
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
@@ -341,15 +343,16 @@ fun SettingsScreen(
                 )
                 VerticalDivider(modifier = Modifier.statusBarsPadding().padding(vertical = 20.dp))
                 Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                    val tabHaze = rememberHazeState()
                     AnimatedContent(
                         targetState = currentTab,
                         transitionSpec = Animations.fadeCrossfade(200),
                         label = "settings_tab_landscape",
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize().hazeSource(tabHaze)
                     ) { tab -> TabContent(tab) }
 
                     ListScrollbar(scrollState = currentScrollState, modifier = Modifier.scrollbarSystemBarsPadding())
-                    ScrollToTopButton(scrollState = currentScrollState)
+                    ScrollToTopButton(scrollState = currentScrollState, haze = tabHaze)
                 }
             }
         } else {
@@ -365,20 +368,23 @@ fun SettingsScreen(
                             onClick(action = { backPressedDispatcher?.onBackPressed(); true })
                         }
                 )
+                val barHaze = rememberHazeState()
                 // Overlay sits outside the pager, which clips each page to its own bounds
                 FloatingBarsLayout(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
                     bottomBar = {
-                        BottomNavigation(
-                            currentTab = currentTab,
-                            onTabSelected = { tab ->
-                                coroutineScope.launch { pagerState.animateScrollToPage(tab.ordinal) }
-                            },
-                            onAppearanceTabPositioned = { globalOnboardingState?.appearanceTabBounds = it },
-                            onSystemTabPositioned = { globalOnboardingState?.systemTabBounds = it }
-                        )
+                        CompositionLocalProvider(LocalBackdropHaze provides barHaze) {
+                            BottomNavigation(
+                                currentTab = currentTab,
+                                onTabSelected = { tab ->
+                                    coroutineScope.launch { pagerState.animateScrollToPage(tab.ordinal) }
+                                },
+                                onAppearanceTabPositioned = { globalOnboardingState?.appearanceTabBounds = it },
+                                onSystemTabPositioned = { globalOnboardingState?.systemTabBounds = it }
+                            )
+                        }
                     }
                 ) { _, navigationHeight ->
                     // The tabs scroll on under the floating navigation, and end clear of it
@@ -387,12 +393,13 @@ fun SettingsScreen(
                     ) {
                         HorizontalPager(
                             state = pagerState,
-                            modifier = Modifier.fillMaxSize()
+                            // What the floating navigation blurs as a tab scrolls on under it
+                            modifier = Modifier.fillMaxSize().hazeSource(barHaze)
                         ) { page -> TabContent(SettingsTab.entries[page]) }
                     }
 
                     ListScrollbar(scrollState = currentScrollState, modifier = Modifier.scrollbarSystemBarsPadding())
-                    ScrollToTopButton(scrollState = currentScrollState, extraBottomPadding = navigationHeight)
+                    ScrollToTopButton(scrollState = currentScrollState, extraBottomPadding = navigationHeight, haze = barHaze)
                 }
             }
         }

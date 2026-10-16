@@ -49,6 +49,8 @@ import app.morphe.manager.util.PatchSelection
 import app.morphe.manager.util.PatchSelectionUtils.hasCustomizedOptions
 import app.morphe.manager.util.PatchSelectionUtils.hasMissingRequiredOptions
 import app.morphe.manager.util.PatchSelectionUtils.hasUniversalToEnable
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
@@ -443,6 +445,8 @@ fun ExpertModeDialog(
         }
 
         val barInsets = LocalDialogBarInsets.current
+        // The list the scroll-to-top button blurs, apart from the dialog's own, which holds the button
+        val listHaze = rememberHazeState()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -466,10 +470,11 @@ fun ExpertModeDialog(
                     patchActions = patchActions,
                     accentColor = appColor,
                     leadingRows = leadingRows,
-                    onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
+                    onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it },
+                    modifier = Modifier.hazeSource(listHaze)
                 )
 
-                if (filteredPatches != null) DialogScrollIndicators(listState = singleBundleList)
+                if (filteredPatches != null) DialogScrollIndicators(listState = singleBundleList, haze = listHaze)
             } else if (displayedBundles.isEmpty()) {
                 // Nothing matched anywhere, so there is no tab to draw. The pager state
                 // outlives this, so clearing the filter hands the open source back
@@ -477,7 +482,7 @@ fun ExpertModeDialog(
             } else {
                 HorizontalPager(
                     state = pagerState,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize().hazeSource(listHaze)
                 ) { pageIndex ->
                     val (bundle, _) = displayedBundles.getOrNull(pageIndex) ?: return@HorizontalPager
                     val patches = filteredPatchesByUid[bundle.uid]
@@ -501,7 +506,7 @@ fun ExpertModeDialog(
                 // Single overlay for the whole pager, tracking whichever page is current,
                 // instead of one per page - a page-local scrollbar would be clipped by the
                 // pager before it could reach the true dialog edge
-                headBundle?.let { pageListStates[it.uid] }?.let { DialogScrollIndicators(listState = it) }
+                headBundle?.let { pageListStates[it.uid] }?.let { DialogScrollIndicators(listState = it, haze = listHaze) }
             }
         }
     }

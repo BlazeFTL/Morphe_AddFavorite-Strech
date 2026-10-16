@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.layout.onPlaced
@@ -78,6 +77,8 @@ fun FloatingPillBar(
     horizontalPadding: Dp = rememberWindowSize().contentPadding,
     trailing: @Composable RowScope.() -> Unit = {}
 ) {
+    // A pill that blurs stands out on its own, so the content runs on to the screen's edge undimmed
+    val blurs = LocalBackdropHaze.current != null
     Box(
         modifier = modifier
             .keepsClearOfMessages()
@@ -91,7 +92,7 @@ fun FloatingPillBar(
                 .fillMaxWidth()
                 .padding(horizontal = horizontalPadding)
                 // Dims only as wide as the content, so a scrollbar in the margin stays clear
-                .floatingBarScrim(MaterialTheme.colorScheme.background)
+                .then(if (blurs) Modifier else Modifier.floatingBarScrim(MaterialTheme.colorScheme.background))
                 .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Bottom))
                 .padding(bottom = Defaults.SpaceMedium),
             // No spacing of its own: a trailing action brings its gap along, see [AnimatedRowPill]
@@ -105,11 +106,11 @@ fun FloatingPillBar(
                     .weight(1f, fill = false)
                     .widthIn(max = PillInset * 2 + PillSlotMaxWidth * items.size)
                     .fillMaxWidth()
-                    .height(FloatingPillHeight),
+                    .height(FloatingPillHeight)
+                    .glassFill(GlassButtonDefaults.containerColor(), CircleShape),
                 shape = CircleShape,
-                color = floatingPillColor(GlassButtonDefaults.containerColor()),
-                border = CardBorder.of(GlassButtonDefaults.borderColor()),
-                shadowElevation = FloatingPillElevation
+                color = Color.Transparent,
+                border = CardBorder.of(GlassButtonDefaults.borderColor())
             ) {
                 BoxWithConstraints(modifier = Modifier.padding(horizontal = PillInset)) {
                     val weights = pillLabelWeights(items.map { it.label }, maxWidth)
@@ -176,16 +177,17 @@ fun FloatingPillRoundAction(
         modifier = modifier
     ) {
         val interactionSource = remember { MutableInteractionSource() }
+        val shape = rememberPressShape(interactionSource, CircleShape)
         Surface(
             onClick = rememberHapticClick(onClick),
             modifier = Modifier
                 .size(FloatingPillHeight)
+                .glassFill(colors.container, shape)
                 .semantics { contentDescription = label },
-            shape = rememberPressShape(interactionSource, CircleShape),
-            color = floatingPillColor(colors.container),
+            shape = shape,
+            color = Color.Transparent,
             contentColor = colors.content,
             border = CardBorder.of(colors.border),
-            shadowElevation = FloatingPillElevation,
             interactionSource = interactionSource
         ) {
             Box(contentAlignment = Alignment.Center) {
@@ -314,11 +316,6 @@ private fun SelectionIndicator(span: IntRange?, modifier: Modifier = Modifier) {
     )
 }
 
-/** A glass tint laid on the screen background, so content scrolling under it stays hidden. */
-@Composable
-private fun floatingPillColor(glass: Color): Color =
-    glass.compositeOver(MaterialTheme.colorScheme.background)
-
 /**
  * One action of the pill: its icon over a short label, in a [weight] share of the pill. A tone
  * other than neutral fills the slot, while a selected tab sits on the shared indicator instead.
@@ -431,7 +428,6 @@ private fun pillLabelWeights(labels: List<String>, width: Dp): List<Float>? {
 }
 
 private val FloatingPillHeight = 64.dp
-private val FloatingPillElevation = 3.dp
 private val PillActionHeight = 52.dp
 private val PillInset = 6.dp
 private val PillSlotMaxWidth = 96.dp

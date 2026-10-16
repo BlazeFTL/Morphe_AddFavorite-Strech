@@ -32,7 +32,6 @@ import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
@@ -45,10 +44,6 @@ import androidx.compose.ui.util.lerp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.ui.theme.headerTitle
-import dev.chrisbanes.haze.HazeInput
-import dev.chrisbanes.haze.blur.HazeBlurStyle
-import dev.chrisbanes.haze.blur.HazeColorEffect
-import dev.chrisbanes.haze.blur.hazeBlur
 
 /** How a dialog heads itself, shared by the list dialogs and the app details so they read alike. */
 object DialogHeaderDefaults {
@@ -190,7 +185,7 @@ fun ListDialogHeader(
         label = "list_header_band"
     )
     val inset = LocalDialogHorizontalInset.current
-    val haze = LocalDialogHeaderHaze.current
+    val haze = LocalBackdropHaze.current
     val head = @Composable { headModifier: Modifier ->
         HeaderContent(
             icon = icon,
@@ -210,13 +205,10 @@ fun ListDialogHeader(
     }
 
     if (haze != null) {
-        val background = MaterialTheme.colorScheme.background
-        val style = remember(band, background) { bandBlurStyle(band, background) }
         Box(
             modifier = modifier
                 .fillMaxWidth()
-                .clip(BandShape)
-                .hazeBlur(HazeInput.Sources(haze), style)
+                .glassFill(band, BandShape, haze)
                 .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)),
             contentAlignment = Alignment.TopCenter
         ) {
@@ -380,19 +372,6 @@ fun ListDialogHeaderIcon(icon: ImageVector, color: Color, modifier: Modifier = M
 
 /** The band's outline, rounded off below like the app details' header. */
 private val BandShape = RoundedCornerShape(bottomStart = Defaults.CornerLarge, bottomEnd = Defaults.CornerLarge)
-
-/**
- * The band floating over a list: what scrolls under it blurred and laid under the band's color,
- * thin enough to hint at the rows. Where nothing blurs, the band is as solid as one in line.
- */
-private fun bandBlurStyle(band: Color, background: Color): HazeBlurStyle {
-    val solid = band.compositeOver(background)
-    return HazeBlurStyle {
-        backgroundColor(background)
-        colorEffects(listOf(HazeColorEffect.tint(solid.copy(alpha = 0.55f))))
-        fallbackColorEffect(HazeColorEffect.tint(solid))
-    }
-}
 
 /**
  * Tints the header out to the dialog's edges and up under the status bar, rounded off below like

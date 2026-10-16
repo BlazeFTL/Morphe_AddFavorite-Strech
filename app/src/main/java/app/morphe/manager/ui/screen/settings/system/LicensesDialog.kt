@@ -38,6 +38,8 @@ import com.mikepenz.aboutlibraries.ui.compose.m3.chipColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.libraryColors
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 
 private const val NOTICE_UNIQUE_ID = "app.morphe.manager"
 private val urlRegex = Regex("(https?://[\\w./?=&%-]+)")
@@ -108,10 +110,12 @@ fun LicensesDialog(onDismiss: () -> Unit) {
             fundingChipColors = chipColors,
         )
 
+        val listHaze = rememberHazeState()
         Box(modifier = Modifier.weight(1f)) {
             LibrariesContainer(
                 modifier = Modifier
                     .fillMaxSize()
+                    .hazeSource(listHaze)
                     .verticalScrollFade(lazyListState),
                 libraries = libraries,
                 dialogLibrary = openDialog,
@@ -143,7 +147,7 @@ fun LicensesDialog(onDismiss: () -> Unit) {
                 }
             )
 
-            DialogScrollIndicators(listState = lazyListState)
+            DialogScrollIndicators(listState = lazyListState, haze = listHaze)
         }
     }
 }

@@ -56,6 +56,8 @@ import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.KnownApps
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
 import sh.calvin.reorderable.rememberReorderableLazyListState
@@ -208,6 +210,7 @@ fun SectionsLayout(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
+        val barHaze = rememberHazeState()
         // Main layout structure. In portrait the list runs on under the navigation bar and the
         // floating bottom bar takes the inset, so cards keep scrolling to the edge of the screen
         FloatingBarsLayout(
@@ -217,27 +220,31 @@ fun SectionsLayout(
             bottomBar = {
                 // Section 5: Bottom action bar, floating over the lower edge of the list
                 if (!isLandscape()) {
-                    HomeBottomActionBar(
-                        modifier = Modifier.coveredByFooterBar(sectionState.isFooterBarVisible),
-                        onBundlesClick = chromeActions.onBundlesClick,
-                        onSettingsClick = chromeActions.onSettingsClick,
-                        isExpertModeEnabled = chromeFlags.isExpertModeEnabled,
-                        showSearchButton = chromeFlags.showSearchButton,
-                        showSortButton = chromeFlags.showSortButton,
-                        showOtherAppsButton = chromeFlags.showOtherAppsButton,
-                        onOtherAppsClick = chromeActions.onOtherAppsClick,
-                        sortMode = apps.sortMode,
-                        filterMode = filterMode,
-                        searchActive = searchState.visible,
-                        onSearchClick = searchState.onToggle,
-                        onSortClick = { showListOptionsSheet = true },
-                        onSourcesPositioned = onboardingState?.let { s -> { b -> s.sourcesButtonBounds = b } },
-                        onSettingsPositioned = onboardingState?.let { s -> { b -> s.settingsButtonBounds = b } }
-                    )
+                    CompositionLocalProvider(LocalBackdropHaze provides barHaze) {
+                        HomeBottomActionBar(
+                            modifier = Modifier.coveredByFooterBar(sectionState.isFooterBarVisible),
+                            onBundlesClick = chromeActions.onBundlesClick,
+                            onSettingsClick = chromeActions.onSettingsClick,
+                            isExpertModeEnabled = chromeFlags.isExpertModeEnabled,
+                            showSearchButton = chromeFlags.showSearchButton,
+                            showSortButton = chromeFlags.showSortButton,
+                            showOtherAppsButton = chromeFlags.showOtherAppsButton,
+                            onOtherAppsClick = chromeActions.onOtherAppsClick,
+                            sortMode = apps.sortMode,
+                            filterMode = filterMode,
+                            searchActive = searchState.visible,
+                            onSearchClick = searchState.onToggle,
+                            onSortClick = { showListOptionsSheet = true },
+                            onSourcesPositioned = onboardingState?.let { s -> { b -> s.sourcesButtonBounds = b } },
+                            onSettingsPositioned = onboardingState?.let { s -> { b -> s.settingsButtonBounds = b } }
+                        )
+                    }
                 }
             }
         ) { _, bottomBarHeight ->
             AdaptiveContent(
+                // What the floating bar blurs as the list scrolls on under it
+                modifier = Modifier.hazeSource(barHaze),
                 windowSize = windowSize,
                 greetingMessage = greetingMessage,
                 apps = apps,
@@ -257,13 +264,15 @@ fun SectionsLayout(
 
         // In landscape the bar docks inside the list pane instead, clear of the sidebar
         if (!isLandscape()) {
-            HomeFooterBarDock(
-                host = footerBar,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .widthIn(max = Defaults.ContentMaxWidth)
-                    .fillMaxWidth()
-            )
+            CompositionLocalProvider(LocalBackdropHaze provides barHaze) {
+                HomeFooterBarDock(
+                    host = footerBar,
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .widthIn(max = Defaults.ContentMaxWidth)
+                        .fillMaxWidth()
+                )
+            }
         }
 
         StatusBarScrim()
@@ -297,6 +306,7 @@ private fun AdaptiveContent(
     state: HomeAppsSectionState,
     footerBar: HomeFooterBarHost,
     bottomBarHeight: Dp,
+    modifier: Modifier = Modifier,
     onboardingState: OnboardingState? = null
 ) {
     val contentPadding = windowSize.contentPadding
@@ -350,7 +360,7 @@ private fun AdaptiveContent(
         )
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize()) {
         if (useTwoColumns) {
             // Sidebar layout for landscape
             Row(
@@ -1108,11 +1118,14 @@ internal fun MainAppsSection(
                         LaunchedEffect(searchState.visible) {
                             if (searchState.visible) listState.scrollToItem(0)
                         }
+                        // The list the scroll-to-top button blurs, apart from the screen's own, which holds the button
+                        val listHaze = rememberHazeState()
                         // A focused row comes out from under the status bar and the footer bar
                         ProvideBringIntoViewInsets(top = topPadding, bottom = footerClearance) {
                             LazyColumn(
                                 state = listState,
                                 modifier = (if (fillHeight) Modifier.fillMaxSize() else Modifier.fillMaxWidth())
+                                    .hazeSource(listHaze)
                                     .nestedScroll(pullToRefreshGuard),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 // Center items vertically in the flat All-apps view when the list
@@ -1263,7 +1276,8 @@ internal fun MainAppsSection(
                         // Lifted clear of whichever bar covers the bottom of the list
                         ScrollToTopButton(
                             listState = listState,
-                            extraBottomPadding = footerBarOverlap
+                            extraBottomPadding = footerBarOverlap,
+                            haze = listHaze
                         )
                     }
 

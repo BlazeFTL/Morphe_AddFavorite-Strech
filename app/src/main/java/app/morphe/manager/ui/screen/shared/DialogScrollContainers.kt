@@ -17,6 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 
 /** Gap between the cards of a dialog's list, see [CompactCardSpacing] for compact ones. */
 val DialogListSpacing = Defaults.SpaceMedium
@@ -35,12 +38,14 @@ fun DialogLazyList(
     content: LazyListScope.() -> Unit
 ) {
     val barInsets = LocalDialogBarInsets.current
+    val haze = rememberHazeState()
 
     Box(modifier = modifier) {
         LazyColumn(
             state = state,
             modifier = Modifier
                 .fillMaxWidth()
+                .hazeSource(haze)
                 .verticalScrollFade(state),
             contentPadding = contentPadding + barInsets,
             verticalArrangement = verticalArrangement,
@@ -48,7 +53,7 @@ fun DialogLazyList(
             content = content
         )
 
-        DialogScrollIndicators(listState = state)
+        DialogScrollIndicators(listState = state, haze = haze)
     }
 }
 
@@ -65,11 +70,13 @@ fun DialogScrollColumn(
     content: @Composable ColumnScope.() -> Unit
 ) {
     val barInsets = LocalDialogBarInsets.current
+    val haze = rememberHazeState()
 
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .hazeSource(haze)
                 .verticalScrollFade(state)
                 .verticalScroll(state)
                 .padding(contentPadding + barInsets),
@@ -77,34 +84,39 @@ fun DialogScrollColumn(
             content = content
         )
 
-        DialogScrollIndicators(scrollState = state)
+        DialogScrollIndicators(scrollState = state, haze = haze)
     }
 }
 
 /**
  * A dialog list's [ListScrollbar] and [ScrollToTopButton], set out at the dialog's true edge rather
  * than its content inset and clear of the bars floating over a [ListDialog].
+ *
+ * @param haze The list, for the button to blur. A list of its own rather than the dialog's, which
+ *   the button is drawn as part of.
  */
 @Composable
-fun BoxScope.DialogScrollIndicators(listState: LazyListState) {
+fun BoxScope.DialogScrollIndicators(listState: LazyListState, haze: HazeState? = null) {
     val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
     ListScrollbar(listState = listState, modifier = edgeOffset.padding(LocalDialogScrollbarInsets.current))
     ScrollToTopButton(
         listState = listState,
         modifier = edgeOffset,
-        extraBottomPadding = LocalDialogBarInsets.current.calculateBottomPadding()
+        extraBottomPadding = LocalDialogBarInsets.current.calculateBottomPadding(),
+        haze = haze
     )
 }
 
 /** [DialogScrollIndicators] for content laid out in full, see [DialogScrollColumn]. */
 @Composable
-fun BoxScope.DialogScrollIndicators(scrollState: ScrollState) {
+fun BoxScope.DialogScrollIndicators(scrollState: ScrollState, haze: HazeState? = null) {
     val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
     ListScrollbar(scrollState = scrollState, modifier = edgeOffset.padding(LocalDialogScrollbarInsets.current))
     ScrollToTopButton(
         scrollState = scrollState,
         modifier = edgeOffset,
-        extraBottomPadding = LocalDialogBarInsets.current.calculateBottomPadding()
+        extraBottomPadding = LocalDialogBarInsets.current.calculateBottomPadding(),
+        haze = haze
     )
 }
 

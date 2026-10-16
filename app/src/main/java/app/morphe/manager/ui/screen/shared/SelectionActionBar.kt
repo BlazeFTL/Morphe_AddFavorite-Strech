@@ -33,7 +33,7 @@ import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 /**
  * Slide-up surface hosting a selection panel or a reorder bar. It sits on the bottom edge of the
  * screen like a sheet, with its content kept clear of the navigation bar, so it is meant for the
- * home screen's footer dock and the [ListDialog] bottom bar. Keeps the surface, elevation and
+ * home screen's footer dock and the [ListDialog] bottom bar. Keeps the surface, blur and
  * enter/exit animations the same everywhere a selection is made.
  *
  * @param onBack Closes the panel on back, which then follows the predictive gesture down like
@@ -58,16 +58,18 @@ fun MultiSelectShell(
         exit = Animations.springSlideDownExit,
         modifier = modifier
     ) {
+        val surface = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.background)
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
                 .predictiveBackSlide(backProgress)
+                // Tinted like an AppBottomSheet with an edge of its own, so a panel docked over a
+                // list reads as the same kind of surface as a sheet, blurring what scrolls under it
+                .glassFill(surface, SheetShape)
                 .sheetBorder(CardBorder.neutral, SheetShape),
             shape = SheetShape,
-            // Drawn like an AppBottomSheet, on the dialogs' background with an edge of its own, so
-            // a panel docked over a list reads as the same kind of surface as a sheet
-            color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.background),
-            shadowElevation = 8.dp
+            color = Color.Transparent,
+            contentColor = contentColorFor(surface)
         ) {
             Box(modifier = Modifier.navigationBarsPadding().padding(bottom = Defaults.SpaceExtraSmall)) { content() }
         }

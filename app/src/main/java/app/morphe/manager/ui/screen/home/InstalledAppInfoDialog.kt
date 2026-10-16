@@ -828,8 +828,10 @@ fun InstalledAppInfoDialog(
                         }
                     }
                     StaggeredItem(entered = entered.value, index = 3) {
+                        // The dialog's footer, so messages stand above it and its margin as they do a footer's
                         closeButton(
                             Modifier
+                                .keepsClearOfMessages()
                                 .widthIn(max = Defaults.ContentMaxWidth)
                                 .navigationBarsPadding()
                                 .padding(Defaults.SpaceLarge)

@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -31,9 +32,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -42,6 +41,7 @@ import app.morphe.manager.ui.screen.shared.ActionGlassButton
 import app.morphe.manager.ui.screen.shared.BottomActionTone
 import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.GlassButtonDefaults
+import app.morphe.manager.ui.screen.shared.labelsFitSlots
 import app.morphe.manager.ui.screen.shared.rememberAccessibilityEnabled
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -106,7 +106,15 @@ fun PatcherBottomActionBar(
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val barWidth = maxWidth.coerceAtMost(Defaults.ContentMaxWidth)
-        val showLabels = labelsFit(labels, barWidth, horizontalPadding)
+        val showLabels = labelsFitSlots(
+            labels = labels,
+            style = GlassButtonDefaults.labelStyle,
+            width = barWidth - horizontalPadding * 2,
+            spacing = Defaults.ItemSpacing,
+            // What a button spends on everything but the label
+            inset = GlassButtonDefaults.HorizontalPadding * 2 + GlassButtonDefaults.IconSize +
+                    GlassButtonDefaults.IconLabelSpacing
+        )
 
         Row(
             modifier = Modifier
@@ -242,35 +250,37 @@ internal fun PatcherActionButton(
     tone: BottomActionTone = BottomActionTone.Neutral,
     enabled: Boolean = true,
     showProgress: Boolean = false,
-    shape: Shape = Defaults.ButtonShape
+    shape: Shape = Defaults.PillShape,
+    interactionSource: MutableInteractionSource? = null
 ) {
-    val button: @Composable (Modifier) -> Unit = { buttonModifier ->
+    val button: @Composable () -> Unit = {
         ActionGlassButton(
             onClick = onClick,
             icon = icon,
-            modifier = buttonModifier,
+            modifier = Modifier.fillMaxSize(),
             text = text,
             showLabel = showLabel,
             tone = tone,
             enabled = enabled,
             showProgress = showProgress,
             shape = shape,
-            height = PatcherActionHeight
+            height = PatcherActionHeight,
+            interactionSource = interactionSource
         )
     }
 
-    // Only surface a tooltip when the label itself is hidden; otherwise the two would repeat.
-    // TooltipBox applies its modifier to a wrapper, so the button fills whatever that is given
-    if (showLabel) {
-        button(modifier)
-    } else {
-        TooltipBox(
-            positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
-            tooltip = { PlainTooltip { Text(text) } },
-            state = rememberTooltipState(),
-            modifier = modifier
-        ) {
-            button(Modifier.fillMaxSize())
+    // TooltipBox would bury the modifier in a wrapper a row can't read, so the Box carries it.
+    // A tooltip only for a hidden label, otherwise the two would repeat
+    Box(modifier = modifier, propagateMinConstraints = true) {
+        if (showLabel) {
+            button()
+        } else {
+            TooltipBox(
+                positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
+                tooltip = { PlainTooltip { Text(text) } },
+                state = rememberTooltipState(),
+                content = button
+            )
         }
     }
 }
@@ -357,29 +367,6 @@ private fun CalloutTail(color: Color) {
             },
             color = color
         )
-    }
-}
-
-/** Whether every one of [labels] fits its slot of a bar [barWidth] wide. */
-@Composable
-private fun labelsFit(labels: List<String>, barWidth: Dp, horizontalPadding: Dp): Boolean {
-    if (labels.isEmpty()) return false
-
-    val measurer = rememberTextMeasurer()
-    val style = GlassButtonDefaults.labelStyle
-    val density = LocalDensity.current
-
-    return remember(labels, barWidth, horizontalPadding, style, density, measurer) {
-        val slotWidth = (barWidth - horizontalPadding * 2 -
-                Defaults.ItemSpacing * (labels.size - 1)) / labels.size
-        // What a button spends on everything but the label
-        val inset = GlassButtonDefaults.HorizontalPadding * 2 +
-                GlassButtonDefaults.IconSize + GlassButtonDefaults.IconLabelSpacing
-        val labelWidth = slotWidth - inset
-        labelWidth > 0.dp && labels.all { label ->
-            val measured = with(density) { measurer.measure(label, style).size.width.toDp() }
-            measured <= labelWidth
-        }
     }
 }
 

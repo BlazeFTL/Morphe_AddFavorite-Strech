@@ -16,8 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -130,7 +128,7 @@ private fun DialogButton(
 
     // A floor rather than a fixed height, so a large font grows the button instead of clipping its label
     val buttonModifier = modifier.heightIn(min = Defaults.DialogButtonHeight)
-    val shape = rememberPressShape(interactionSource, Defaults.ButtonShape, enabled)
+    val shape = rememberPressShape(interactionSource, Defaults.PillShape, enabled)
     // An outlined button is drawn by its edge alone, so it keeps one whatever the outlines setting says
     val border = if (filled) CardBorder.of(colors.borderColor) else BorderStroke(1.dp, colors.borderColor)
     val contentPadding = PaddingValues(
@@ -397,23 +395,13 @@ private fun DialogActionButton(
 /** Whether every label fits the share of [availableWidth] its button would get in a single row. */
 @Composable
 internal fun actionsFitInRow(actions: List<DialogAction>, availableWidth: Dp): Boolean {
-    val measurer = rememberTextMeasurer()
-    val style = MaterialTheme.typography.labelLarge
-    val density = LocalDensity.current
+    val labelWidths = rememberLabelWidths(actions.map { it.text }, MaterialTheme.typography.labelLarge)
 
-    // Lambdas rebuilt on every recomposition would defeat the cache, so key on what is drawn
-    val key = actions.map { Triple(it.text, it.textSuffix, it.icon != null) }
+    // A suffix is marqueed rather than sized, so it never fits a shared row
+    if (actions.any { it.textSuffix != null }) return false
 
-    return remember(key, availableWidth, style, density, measurer) {
-        // A suffix is marqueed rather than sized, so it never fits a shared row
-        if (actions.any { it.textSuffix != null }) return@remember false
-
-        val slotWidth = (availableWidth - Defaults.ItemSpacing * (actions.size - 1)) / actions.size
-        slotWidth > 0.dp && actions.all { action ->
-            val labelWidth = with(density) { measurer.measure(action.text, style).size.width.toDp() }
-            labelWidth + action.labelInset() <= slotWidth
-        }
-    }
+    val slotWidth = (availableWidth - Defaults.ItemSpacing * (actions.size - 1)) / actions.size
+    return slotWidth > 0.dp && actions.indices.all { labelWidths[it] + actions[it].labelInset() <= slotWidth }
 }
 
 /** Width a dialog button spends on everything but its label. */

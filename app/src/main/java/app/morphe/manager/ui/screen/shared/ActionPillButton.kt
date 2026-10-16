@@ -53,8 +53,6 @@ import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 import kotlin.time.Duration.Companion.milliseconds
 
-private val PillShape = Defaults.PillShape
-
 /** Edge of a destructive pill, faded along with the pill while it is out of reach. */
 @Composable
 private fun destructiveBorder(enabled: Boolean): BorderStroke {
@@ -70,9 +68,6 @@ private val PillMinWidth = 72.dp
 
 /** Gap between the pills of an [ActionPillRow], unless it asks for another. */
 private val PillRowSpacing = 8.dp
-
-/** Share of its width a pressed pill of an [ActionPillRow] gains from its neighbors. */
-private const val PressedWidthRatio = 0.15f
 
 /** Narrowest an icon-only pill gets in a crowded [ActionPillRow], still a full touch target. */
 private val CompactPillWidth = 48.dp
@@ -188,7 +183,7 @@ fun ActionPillButton(
     confirmationState: PillConfirmationState = rememberPillConfirmationState(),
     destructive: Boolean = false,
     colors: IconButtonColors = if (destructive) ActionPillColors.destructive() else ActionPillColors.neutral(),
-    shape: Shape = PillShape
+    shape: Shape = Defaults.PillShape
 ) {
     val height = if (large) Defaults.PillHeightLarge else Defaults.PillHeight
     val minWidth = if (large) 80.dp else PillMinWidth
@@ -756,24 +751,6 @@ private fun pillWidths(
         }
     }
     return widths
-}
-
-/**
- * Widens each pill by [PressedWidthRatio] of its width at full [press], taking that room from the
- * pills either side of it, none of which drops below its [floor]. The row keeps its width.
- */
-private fun widenPressed(widths: IntArray, press: FloatArray, floor: IntArray) {
-    press.forEachIndexed { index, amount ->
-        if (amount == 0f) return@forEachIndexed
-        val neighbors = listOf(index - 1, index + 1).filter { it in widths.indices }
-        if (neighbors.isEmpty()) return@forEachIndexed
-        val wanted = (widths[index] * PressedWidthRatio * amount).roundToInt()
-        neighbors.forEach { neighbor ->
-            val cut = minOf(wanted / neighbors.size, (widths[neighbor] - floor[neighbor]).coerceAtLeast(0))
-            widths[neighbor] -= cut
-            widths[index] += cut
-        }
-    }
 }
 
 /**

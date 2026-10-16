@@ -45,7 +45,7 @@ fun GlassButton(
     contentDescription: String? = null,
     containerColor: Color = GlassButtonDefaults.containerColor(selected),
     contentColor: Color = GlassButtonDefaults.contentColor(selected),
-    shape: Shape = Defaults.ButtonShape,
+    shape: Shape = Defaults.PillShape,
     borderColor: Color = GlassButtonDefaults.borderColor(selected),
     iconSize: Dp = GlassButtonDefaults.IconSize,
     height: Dp = Defaults.GlassButtonHeight,
@@ -54,7 +54,8 @@ fun GlassButton(
     textStyle: TextStyle = GlassButtonDefaults.labelStyle,
     role: Role = Role.Tab,
     hapticFeedback: Boolean = false,
-    showLabel: Boolean = selected
+    showLabel: Boolean = selected,
+    interactionSource: MutableInteractionSource? = null
 ) {
     // Force the label on when there's no icon to render, otherwise the pill would collapse
     // to an empty click target
@@ -86,7 +87,8 @@ fun GlassButton(
     // The fill is translucent, so the caller's pairing describes a background that is never drawn
     val contentColor = animatedContentColor.readableOn(containerColor, MaterialTheme.colorScheme.surface)
 
-    val interactionSource = remember { MutableInteractionSource() }
+    @Suppress("NAME_SHADOWING")
+    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
     val clickHandler = if (hapticFeedback) rememberHapticClick(onClick) else onClick
     val pressShape = rememberPressShape(interactionSource, shape, enabled)
 
@@ -179,8 +181,9 @@ fun ActionGlassButton(
     showProgress: Boolean = false,
     contentDescription: String? = null,
     stateDescription: String? = null,
-    shape: Shape = Defaults.ButtonShape,
-    height: Dp = Defaults.GlassButtonHeight
+    shape: Shape = Defaults.PillShape,
+    height: Dp = Defaults.GlassButtonHeight,
+    interactionSource: MutableInteractionSource? = null
 ) {
     val colors = tone.colors()
     val loadingLabel = stringResource(R.string.loading)
@@ -217,7 +220,8 @@ fun ActionGlassButton(
         height = height,
         role = Role.Button,
         hapticFeedback = true,
-        showLabel = showLabel
+        showLabel = showLabel,
+        interactionSource = interactionSource
     )
 }
 

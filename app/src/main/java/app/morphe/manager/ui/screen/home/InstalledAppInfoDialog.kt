@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -39,6 +40,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -676,7 +678,7 @@ fun InstalledAppInfoDialog(
                         onClick = ::handlePatchClick,
                         enabled = availablePatches > 0
                     ).takeIf { !showsRebuildBanner && !viewModel.isAppDeleted },
-                    tiles = installedAppTiles(
+                    groups = installedAppActionGroups(
                         viewModel = viewModel,
                         installViewModel = installViewModel,
                         installedApp = installedApp,
@@ -686,7 +688,6 @@ fun InstalledAppInfoDialog(
                         onUninstall = { showUninstallConfirm.value = true },
                         onDelete = { showDeleteDialog.value = true }
                     ),
-                    singleColumn = landscape,
                     modifier = modifier
                 )
             }
@@ -1172,38 +1173,15 @@ private fun WarningBanner(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // Side by side, because the banner's own button is the one meant to stand out and a
-                // column of full-width buttons under it reads as three offers of equal weight
+                // One joined group, because the banner's own button is the one meant to stand out
+                // and separate buttons under it would read as offers of equal weight
                 val shownActions = rememberLatest(secondaryActions.takeIf { it.isNotEmpty() })
                 AnimatedVisibility(
                     visible = secondaryActions.isNotEmpty(),
                     enter = Animations.expandFadeEnter,
                     exit = Animations.shrinkFadeExit
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-                    ) {
-                        shownActions?.forEach { action ->
-                            // One that joins a row already on screen fades in rather than
-                            // popping up
-                            key(action.text) {
-                                val appeared = remember { MutableTransitionState(false) }
-                                appeared.targetState = true
-                                AnimatedVisibility(
-                                    visibleState = appeared,
-                                    enter = Animations.fadeIn,
-                                    modifier = Modifier.weight(1f)
-                                ) {
-                                    TileActionButton(
-                                        action = action,
-                                        horizontal = true,
-                                        modifier = Modifier.fillMaxWidth()
-                                    )
-                                }
-                            }
-                        }
-                    }
+                    shownActions?.let { ActionGroup(actions = it) }
                 }
             }
         }
@@ -1466,11 +1444,11 @@ private fun InfoRowWithAction(
 }
 
 /**
- * The tiles under an installed app's information, in the order they are laid out: what can be
- * done with it first, the destructive actions last.
+ * The actions under an installed app's information, grouped by what they do: using the patched
+ * build, its mount and removing it, so the destructive ones stand together and last.
  */
 @Composable
-private fun installedAppTiles(
+private fun installedAppActionGroups(
     viewModel: InstalledAppInfoViewModel,
     installViewModel: InstallViewModel,
     installedApp: InstalledApp,
@@ -1479,13 +1457,13 @@ private fun installedAppTiles(
     onExport: () -> Unit,
     onUninstall: () -> Unit,
     onDelete: () -> Unit
-): List<ActionItem> {
+): List<List<ActionItem>> {
     val isInstalling = installViewModel.installState is InstallViewModel.InstallState.Installing
     val isMountBusy = installViewModel.mountOperation != null
     val stageLabel = installViewModel.installState.stageLabel()
     val packageName = installedApp.currentPackageName
 
-    return buildList {
+    val use = buildList {
         if (installedApp.installType != InstallType.SAVED && viewModel.appInfo != null && viewModel.isInstalledOnDevice) {
             add(ActionItem(stringResource(R.string.open), Icons.AutoMirrored.Outlined.Launch, viewModel::launch))
         }
@@ -1503,8 +1481,10 @@ private fun installedAppTiles(
                 )
             )
         }
+    }
 
-        // A plain mount or remount, while reinstalling the saved build is the tile above
+    // A plain mount or remount, while reinstalling the saved build is in the group above
+    val mount = buildList {
         if (installedApp.installType == InstallType.MOUNT) {
             if (viewModel.isMounted) {
                 add(
@@ -1534,7 +1514,9 @@ private fun installedAppTiles(
                 )
             }
         }
+    }
 
+    val remove = buildList {
         if (viewModel.isInstalledOnDevice) {
             add(
                 ActionItem(
@@ -1556,6 +1538,8 @@ private fun installedAppTiles(
             )
         }
     }
+
+    return listOf(use, mount, remove)
 }
 
 /** The step a running mount install is on, in the words its buttons show. */
@@ -1563,12 +1547,11 @@ private fun installedAppTiles(
 private fun InstallViewModel.InstallState.stageLabel(): String? =
     (this as? InstallViewModel.InstallState.Installing)?.stage?.let { stringResource(it.labelRes) }
 
-/** The [primary] button over the [tiles], which sit in pairs or, in a [singleColumn], one a row. */
+/** The [primary] button over the [groups] of the rest, see [ActionGroup]. */
 @Composable
 private fun ActionsSection(
     primary: ActionItem?,
-    tiles: List<ActionItem>,
-    singleColumn: Boolean,
+    groups: List<List<ActionItem>>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -1576,25 +1559,82 @@ private fun ActionsSection(
         verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
         primary?.let { PrimaryActionButton(action = it, modifier = Modifier.fillMaxWidth()) }
+        // A fixed set of groups, so each keeps its place in composition as others empty out
+        groups.forEach { group ->
+            if (group.isNotEmpty()) ActionGroup(actions = group)
+        }
+    }
+}
 
-        if (singleColumn) {
-            tiles.forEach { action ->
-                TileActionButton(action = action, horizontal = true, modifier = Modifier.fillMaxWidth())
-            }
-        } else {
-            tiles.chunked(2).forEach { rowActions ->
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    rowActions.forEach { action ->
-                        TileActionButton(
-                            action = action,
-                            modifier = if (rowActions.size == 1) Modifier.fillMaxWidth() else Modifier.weight(1f)
-                        )
-                    }
+/**
+ * Actions that belong together, joined into one piece: a row with labels beside or under the icons,
+ * or a column of full-width buttons once a row would cut any translation short.
+ */
+@Composable
+private fun ActionGroup(actions: List<ActionItem>, modifier: Modifier = Modifier) {
+    // Actions there when the group appears are drawn in place; only later arrivals fade
+    val settled = remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { settled.value = true }
+
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val labels = actions.map { it.text }
+        val spacing = ButtonGroupDefaults.ConnectedSpaceBetween
+        val besideFits = labelsFitSlots(labels, SideLabelStyle, maxWidth, spacing, SideLabelInset)
+        val underFits = labelsFitSlots(labels, StackedLabelStyle, maxWidth, spacing, StackedLabelInset)
+        val inRow = actions.size > 1 && (besideFits || underFits)
+
+        if (inRow) {
+            ButtonGroupRow(spacing = spacing) {
+                actions.forEachIndexed { index, action ->
+                    GroupedAction(
+                        action = action,
+                        settled = settled.value,
+                        inRow = true,
+                        shape = ConnectedShapes.inRow(index, actions.size),
+                        stacked = !besideFits
+                    )
                 }
             }
+        } else {
+            Column(verticalArrangement = Arrangement.spacedBy(spacing)) {
+                actions.forEachIndexed { index, action ->
+                    GroupedAction(
+                        action = action,
+                        settled = settled.value,
+                        inRow = false,
+                        shape = ConnectedShapes.inColumn(index, actions.size),
+                        stacked = false
+                    )
+                }
+            }
+        }
+    }
+}
+
+/** One action of an [ActionGroup], fading in unless the group was [settled] without it. */
+@Composable
+private fun GroupedAction(
+    action: ActionItem,
+    settled: Boolean,
+    inRow: Boolean,
+    shape: Shape,
+    stacked: Boolean
+) {
+    // Keyed by the icon, which holds still while a running install steps its label through
+    key(action.icon) {
+        val interactionSource = remember { MutableInteractionSource() }
+        val appeared = remember { MutableTransitionState(!settled) }
+        appeared.targetState = true
+        AnimatedVisibility(
+            visibleState = appeared,
+            enter = Animations.fadeIn,
+            modifier = if (inRow) {
+                Modifier.buttonGroupItem(interactionSource, enabled = action.enabled && !action.isLoading)
+            } else {
+                Modifier.fillMaxWidth()
+            }
+        ) {
+            TileActionButton(action = action, shape = shape, stacked = stacked, interactionSource = interactionSource)
         }
     }
 }
@@ -1613,14 +1653,27 @@ private data class ActionItem(
 private fun LoadingOrIcon(isLoading: Boolean, action: ActionItem, tint: Color) {
     if (isLoading) {
         CircularProgressIndicator(
-            modifier = Modifier.size(22.dp),
+            modifier = Modifier.size(ActionIconSize),
             strokeWidth = 2.dp,
             color = tint
         )
     } else {
-        Icon(action.icon, null, modifier = Modifier.size(22.dp))
+        Icon(action.icon, null, modifier = Modifier.size(ActionIconSize))
     }
 }
+
+private val ActionIconSize = 22.dp
+private val StackedTilePadding = 8.dp
+
+/** Label of a tile that holds it under its icon, and what such a tile spends on the rest. */
+private val StackedLabelStyle: TextStyle
+    @Composable get() = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
+private val StackedLabelInset = StackedTilePadding * 2
+
+/** Label of a button that holds it beside its icon, and what such a button spends on the rest. */
+private val SideLabelStyle: TextStyle
+    @Composable get() = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold)
+private val SideLabelInset = Defaults.ContentPadding * 2 + ActionIconSize + Defaults.ContentPaddingSmall
 
 /**
  * Shared Surface shell for all action buttons. Callers pick the colors of a button in reach, and
@@ -1632,8 +1685,10 @@ private fun ActionButton(
     containerColor: Color,
     contentColor: Color,
     borderColor: Color,
+    shape: Shape,
     modifier: Modifier = Modifier,
-    vertical: Boolean = false
+    stacked: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val isEnabled = action.enabled && !action.isLoading
     // A button still loading is busy rather than unavailable, so only a disabled one is muted
@@ -1641,23 +1696,22 @@ private fun ActionButton(
     val container = if (action.enabled) containerColor else colors.surfaceVariant.copy(alpha = 0.4f)
     val content = if (action.enabled) contentColor else colors.onSurface.copy(alpha = 0.35f)
     val border = if (action.enabled) borderColor else colors.outlineVariant.copy(alpha = 0.2f)
-    val interactionSource = remember { MutableInteractionSource() }
 
     Surface(
         onClick = action.onClick,
         enabled = isEnabled,
         modifier = modifier.height(Defaults.TallTouchTarget),
-        shape = rememberPressShape(interactionSource, Defaults.ButtonShape, isEnabled),
+        shape = rememberPressShape(interactionSource, shape, isEnabled),
         color = container,
         contentColor = content,
         border = CardBorder.of(border),
         interactionSource = interactionSource
     ) {
-        if (vertical) {
+        if (stacked) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 8.dp),
+                    .padding(horizontal = StackedTilePadding),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -1666,8 +1720,7 @@ private fun ActionButton(
                 // Steps through a running mount install, which a fade carries from one to the next
                 CrossfadeText(
                     text = action.text,
-                    style = MaterialTheme.typography.labelMedium,
-                    fontWeight = FontWeight.SemiBold,
+                    style = StackedLabelStyle,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -1684,8 +1737,7 @@ private fun ActionButton(
                 Spacer(Modifier.width(Defaults.ContentPaddingSmall))
                 CrossfadeText(
                     text = action.text,
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
+                    style = SideLabelStyle,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -1709,16 +1761,18 @@ private fun PrimaryActionButton(
         containerColor = containerColor,
         contentColor = appAccentContent(containerColor),
         borderColor = accent?.copy(alpha = 0.35f) ?: MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f),
+        shape = Defaults.PillShape,
         modifier = modifier
     )
 }
 
-/** Tile button - vertical (icon+label) for grids, horizontal (icon+label) for lists. */
+/** A secondary action of an [ActionGroup], [stacked] with its label under the icon or beside it. */
 @Composable
 private fun TileActionButton(
     action: ActionItem,
-    modifier: Modifier = Modifier,
-    horizontal: Boolean = false
+    shape: Shape,
+    stacked: Boolean,
+    interactionSource: MutableInteractionSource
 ) {
     // One veil for every tile, so only the primary action wears a color and destructive ones their red
     ActionButton(
@@ -1732,8 +1786,10 @@ private fun TileActionButton(
             action.isDestructive -> destructiveEdgeColor()
             else -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
         },
-        modifier = modifier,
-        vertical = !horizontal
+        shape = shape,
+        modifier = Modifier.fillMaxWidth(),
+        stacked = stacked,
+        interactionSource = interactionSource
     )
 }
 

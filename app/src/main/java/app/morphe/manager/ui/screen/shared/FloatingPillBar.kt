@@ -39,7 +39,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -372,16 +371,11 @@ private fun RowScope.PillAction(
  */
 @Composable
 private fun pillLabelWeights(labels: List<String>, width: Dp): List<Float>? {
-    val measurer = rememberTextMeasurer()
-    val style = MaterialTheme.typography.labelSmall
-    val density = LocalDensity.current
+    val labelWidths = rememberLabelWidths(labels, MaterialTheme.typography.labelSmall)
 
-    return remember(labels, width, style, density, measurer) {
+    return remember(labelWidths, width) {
         if (labels.isEmpty()) return@remember null
-        val needed = labels.map { label ->
-            with(density) { measurer.measure(label, style, maxLines = 1).size.width.toDp() } +
-                PillLabelPadding * 2
-        }
+        val needed = labelWidths.map { it + PillLabelPadding * 2 }
         val total = needed.fold(0.dp) { sum, it -> sum + it }
         when {
             needed.all { it <= width / labels.size } -> labels.map { 1f }

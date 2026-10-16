@@ -750,13 +750,15 @@ private fun InstallActions(
     ) {
         // One connected group, so the file buttons read as part of the install rather than as a
         // row of their own. They take its height, which a large font can raise
-        Row(
-            modifier = Modifier.height(IntrinsicSize.Min),
-            horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
-        ) {
+        ButtonGroupRow {
+            val installInteraction = remember { MutableInteractionSource() }
+            val saveInteraction = remember { MutableInteractionSource() }
+            val shareInteraction = remember { MutableInteractionSource() }
+
             ResultActionButton(
-                modifier = Modifier.weight(1f),
-                shape = ConnectedShapes.Card.leading,
+                modifier = Modifier.buttonGroupItem(installInteraction, enabled = !isInstalling),
+                interactionSource = installInteraction,
+                shape = ConnectedShapes.Leading,
                 text = stringResource(
                     when {
                         isInstalling -> if (usingMountInstall) {
@@ -796,19 +798,26 @@ private fun InstallActions(
                 text = stringResource(R.string.save),
                 enabled = !isSaving,
                 showProgress = isSaving,
-                shape = ConnectedShapes.Card.middle,
-                modifier = Modifier
-                    .width(PatcherActionHeight)
-                    .fillMaxHeight()
+                shape = ConnectedShapes.Middle,
+                interactionSource = saveInteraction,
+                modifier = Modifier.buttonGroupItem(
+                    saveInteraction,
+                    enabled = !isSaving,
+                    width = PatcherActionHeight,
+                    minWidth = Defaults.MinTouchTarget
+                )
             )
             PatcherActionButton(
                 onClick = onShare,
                 icon = Icons.Outlined.Share,
                 text = stringResource(R.string.share),
-                shape = ConnectedShapes.Card.trailing,
-                modifier = Modifier
-                    .width(PatcherActionHeight)
-                    .fillMaxHeight()
+                shape = ConnectedShapes.Trailing,
+                interactionSource = shareInteraction,
+                modifier = Modifier.buttonGroupItem(
+                    shareInteraction,
+                    width = PatcherActionHeight,
+                    minWidth = Defaults.MinTouchTarget
+                )
             )
         }
 
@@ -838,8 +847,9 @@ private fun ResultActionButton(
     failed: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    shape: Shape = Defaults.ButtonShape,
-    busy: Boolean = false
+    shape: Shape = Defaults.PillShape,
+    busy: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
     val buttonColors = if (failed) {
@@ -850,7 +860,6 @@ private fun ResultActionButton(
     } else {
         ButtonDefaults.buttonColors(containerColor = accent, contentColor = appAccentContent(accent))
     }
-    val interactionSource = remember { MutableInteractionSource() }
 
     Button(
         onClick = onClick,

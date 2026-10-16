@@ -29,12 +29,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -586,19 +584,11 @@ fun PatcherErrorDialog(
 private fun DiagnosticsContent(sections: List<List<Pair<String, String>>>) {
     val bodySmall = MaterialTheme.typography.bodySmall
     val textStyle = remember(bodySmall) { bodySmall.copy(fontFamily = FontFamily.Monospace) }
-    val measurer = rememberTextMeasurer()
-    val density = LocalDensity.current
+    val widest = rememberLabelWidths(sections.flatten().map { it.first }, textStyle).maxOrNull() ?: 0.dp
 
     BoxWithConstraints {
-        val labelWidth = remember(sections, textStyle, density, maxWidth) {
-            val widest = sections.flatten().maxOfOrNull { (label, _) ->
-                measurer.measure(label, textStyle).size.width
-            } ?: 0
-            val available = maxWidth - Defaults.ContentPadding * 2 - Defaults.ContentPaddingSmall
-
-            with(density) { widest.toDp() }
-                .coerceAtMost(available * ErrorInfoLabelMaxFraction)
-        }
+        val available = maxWidth - Defaults.ContentPadding * 2 - Defaults.ContentPaddingSmall
+        val labelWidth = widest.coerceAtMost(available * ErrorInfoLabelMaxFraction)
 
         // The rows sit tight against each other, so the block keeps its distance from the
         // header above it and the card edge below rather than every row paying for it

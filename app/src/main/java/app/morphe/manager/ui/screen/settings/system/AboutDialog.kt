@@ -219,11 +219,13 @@ private fun SocialIconButton(
     onClick: () -> Unit,
     textColor: Color
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
     Surface(
         onClick = onClick,
         modifier = Modifier.size(52.dp),
-        shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
-        color = textColor.copy(alpha = 0.1f)
+        shape = rememberPressShape(interactionSource, Defaults.PillShape),
+        color = textColor.copy(alpha = 0.1f),
+        interactionSource = interactionSource
     ) {
         Box(contentAlignment = Alignment.Center) {
             Icon(

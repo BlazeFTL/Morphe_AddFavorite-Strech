@@ -72,11 +72,8 @@ object Defaults {
     /** Pill that carries a label next to its icon. */
     val PillHeightLarge = 40.dp
 
-    /** Fully rounded shape shared by the pill buttons. */
+    /** Fully rounded shape of every button, pill or not. A connected group takes [ConnectedShapes]. */
     val PillShape = RoundedCornerShape(50)
-
-    /** Shape of every other button, glass, dialog and result actions alike, rounded as a card is. */
-    val ButtonShape = RoundedCornerShape(CardCornerRadius)
 
     /** Height of a glass tab or toggle. Matches [MinTouchTarget]. */
     val GlassButtonHeight = MinTouchTarget

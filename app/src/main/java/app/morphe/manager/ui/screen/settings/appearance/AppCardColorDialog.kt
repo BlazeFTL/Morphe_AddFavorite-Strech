@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -145,24 +145,28 @@ fun DialogHostScope.AppCardColorDialog(
                 appColors = previewAppColors
             )
 
-            OptionGroup(items = MODE_OPTIONS) { (optionMode, icon), shape, interactionSource, itemModifier ->
-                ModernIconOptionCard(
-                    selected = draftMode == optionMode,
-                    onClick = { draftMode = optionMode },
-                    icon = icon,
-                    label = stringResource(optionMode.labelResId),
-                    modifier = itemModifier,
-                    compact = true,
-                    shape = shape,
-                    interactionSource = interactionSource
-                )
+            // Each mode carries its own description, so the choice reads without picking one first
+            SettingsGroup {
+                MODE_OPTIONS.forEach { (optionMode, icon) ->
+                    val selected = draftMode == optionMode
+                    RadioSelectionCard(
+                        selected = selected,
+                        onSelect = { draftMode = optionMode },
+                        title = stringResource(optionMode.labelResId),
+                        description = stringResource(optionMode.descriptionResId),
+                        leadingContent = {
+                            SelectionLeadingBox(selected = selected, size = 40.dp) {
+                                Icon(
+                                    imageVector = icon,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(22.dp)
+                                )
+                            }
+                        }
+                    )
+                }
             }
-
-            Text(
-                text = stringResource(draftMode.descriptionResId),
-                style = MaterialTheme.typography.bodyMedium,
-                color = dialogSecondaryTextColor()
-            )
 
             // A single crossfade keeps the dialog height from jumping twice when picker groups swap
             AnimatedContent(

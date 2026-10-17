@@ -25,6 +25,7 @@ import app.morphe.manager.ui.screen.shared.ActionGlassButton
 import app.morphe.manager.ui.screen.shared.BottomActionTone
 import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.ListSearchField
+import app.morphe.manager.ui.screen.shared.listOptionsStateDescription
 
 /**
  * What the apps page offers over its list: the search, the list's order and filter, and patching
@@ -76,7 +77,7 @@ internal fun HomeAppsToolbar(
                 modifier = Modifier.width(ToolbarHeight),
                 height = ToolbarHeight,
                 contentDescription = stringResource(R.string.sort),
-                stateDescription = homeAppListOptionsStateDescription(sortMode, filterMode),
+                stateDescription = listOptionsStateDescription(sortMode.labelRes, filterMode.labelRes.takeIf { filterMode.isActive }),
                 tone = when {
                     sortOpen -> BottomActionTone.Accent
                     filterMode.isActive -> BottomActionTone.Highlight

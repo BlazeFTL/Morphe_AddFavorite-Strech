@@ -8,8 +8,11 @@ package app.morphe.manager.ui.screen.home
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.PlaylistAdd
+import androidx.compose.material.icons.automirrored.outlined.Sort
 import androidx.compose.material.icons.outlined.AutoFixHigh
+import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.DeleteForever
+import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.InstallMobile
 import androidx.compose.material.icons.outlined.Reorder
@@ -22,10 +25,14 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
+import app.morphe.manager.domain.manager.HomeAppCategoryViewMode
+import app.morphe.manager.domain.manager.HomeAppSortMode
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.ActionTone
+import app.morphe.manager.ui.screen.shared.ListOptionsPanel
 import app.morphe.manager.ui.screen.shared.SelectionAction
 import app.morphe.manager.ui.screen.shared.UserMessages
+import app.morphe.manager.ui.screen.shared.listOptionSection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
@@ -346,14 +353,22 @@ internal fun HomeAppsFooterBars(
         showEditActions = state.activeSourceUid == null && !isSourceCategoryView
     )
 
-    HomeAppListOptionsBar(
+    ListOptionsPanel(
         visible = state.isListOptionsOpen,
-        sortMode = apps.sortMode,
-        filterMode = apps.filterMode,
-        groupingMode = apps.categoryViewMode,
-        onSortModeChange = appActions.onSortModeChange,
-        onFilterModeChange = appActions.onFilterModeChange,
-        onGroupingModeChange = appActions.onCategoryViewModeChange,
+        sections = listOf(
+            listOptionSection(
+                R.string.sort, Icons.AutoMirrored.Outlined.Sort, apps.sortMode, HomeAppSortMode.RECOMMENDED,
+                appActions.onSortModeChange
+            ),
+            listOptionSection(
+                R.string.filter, Icons.Outlined.FilterList, apps.filterMode, HomeAppFilterMode.ALL,
+                appActions.onFilterModeChange
+            ),
+            listOptionSection(
+                R.string.group, Icons.Outlined.Category, apps.categoryViewMode, HomeAppCategoryViewMode.ALL_APPS,
+                appActions.onCategoryViewModeChange
+            )
+        ),
         onClose = { state.isListOptionsOpen = false },
         modifier = modifier
     )

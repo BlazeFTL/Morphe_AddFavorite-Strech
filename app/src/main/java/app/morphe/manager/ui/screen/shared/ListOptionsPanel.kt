@@ -3,15 +3,12 @@
  * https://github.com/MorpheApp/morphe-manager
  */
 
-package app.morphe.manager.ui.screen.home
+package app.morphe.manager.ui.screen.shared
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Sort
-import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,29 +20,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.domain.manager.HomeAppCategoryViewMode
-import app.morphe.manager.domain.manager.HomeAppSortMode
-import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.domain.manager.SortModeSpec
 
-/**
- * The button carries both modes, so the sort mode alone only describes it while nothing is filtered.
- */
-@Composable
-internal fun homeAppListOptionsStateDescription(
-    sortMode: HomeAppSortMode,
-    filterMode: HomeAppFilterMode
-): String = if (filterMode.isActive) {
-    stringResource(
-        R.string.home_app_list_options_state_description,
-        stringResource(sortMode.labelRes),
-        stringResource(filterMode.labelRes)
-    )
-} else {
-    stringResource(sortMode.labelRes)
-}
-
-/** One way of arranging the home list, its options and the one picked, as a row of the panel. */
-private class ListOptionSection<T>(
+/** One way of arranging a list, its options and the one picked, as a row of a [ListOptionsPanel]. */
+class ListOptionSection<T>(
     @param:StringRes val titleRes: Int,
     val icon: ImageVector,
     val current: T,
@@ -58,37 +36,41 @@ private class ListOptionSection<T>(
     fun reset() = onSelect(default)
 }
 
+/** A [ListOptionSection] offering every mode of [T]. */
+@Composable
+inline fun <reified T> listOptionSection(
+    @StringRes titleRes: Int,
+    icon: ImageVector,
+    current: T,
+    default: T,
+    noinline onSelect: (T) -> Unit
+): ListOptionSection<T> where T : Enum<T>, T : SortModeSpec =
+    ListOptionSection(titleRes, icon, current, default, sortModeOptions<T>(), onSelect)
+
 /**
- * How the home list is sorted, filtered and grouped: one row for each with the option picked, which
- * opens its options in a menu. Docked under the list rather than over it, so the list rearranges
- * itself above the panel with each change.
+ * What the button opening a [ListOptionsPanel] says it holds: the order alone while nothing is
+ * filtered, and the filter with it once one narrows the list.
  */
 @Composable
-internal fun HomeAppListOptionsBar(
+fun listOptionsStateDescription(@StringRes sortRes: Int, @StringRes filterRes: Int?): String =
+    if (filterRes != null) {
+        stringResource(R.string.home_app_list_options_state_description, stringResource(sortRes), stringResource(filterRes))
+    } else {
+        stringResource(sortRes)
+    }
+
+/**
+ * How a list is sorted and filtered, and grouped where it can be: a row for each [sections] entry
+ * with the option picked, which opens its options in a menu. Docked under the list rather than over
+ * it, so the list rearranges itself above the panel with each change.
+ */
+@Composable
+fun ListOptionsPanel(
     visible: Boolean,
-    sortMode: HomeAppSortMode,
-    filterMode: HomeAppFilterMode,
-    groupingMode: HomeAppCategoryViewMode,
-    onSortModeChange: (HomeAppSortMode) -> Unit,
-    onFilterModeChange: (HomeAppFilterMode) -> Unit,
-    onGroupingModeChange: (HomeAppCategoryViewMode) -> Unit,
+    sections: List<ListOptionSection<*>>,
     onClose: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val sections = listOf(
-        ListOptionSection(
-            R.string.sort, Icons.AutoMirrored.Outlined.Sort, sortMode, HomeAppSortMode.RECOMMENDED,
-            sortModeOptions<HomeAppSortMode>(), onSortModeChange
-        ),
-        ListOptionSection(
-            R.string.filter, Icons.Outlined.FilterList, filterMode, HomeAppFilterMode.ALL,
-            sortModeOptions<HomeAppFilterMode>(), onFilterModeChange
-        ),
-        ListOptionSection(
-            R.string.group, Icons.Outlined.Category, groupingMode, HomeAppCategoryViewMode.ALL_APPS,
-            sortModeOptions<HomeAppCategoryViewMode>(), onGroupingModeChange
-        )
-    )
     // Index of the section whose menu is open, if any
     var openSection by remember { mutableStateOf<Int?>(null) }
 

@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.IntOffset
 
 /** [value], or the last one it held once it is gone, so content animating out has something to show. */
 @Composable
@@ -91,6 +92,33 @@ fun ListRowFold(
     )
 }
 
+private const val SHARED_AXIS_DURATION = 300
+// The outgoing page fades within the first part, the incoming one over the rest
+private const val SHARED_AXIS_FADE_OUT = 90
+private const val SHARED_AXIS_FADE_IN = SHARED_AXIS_DURATION - SHARED_AXIS_FADE_OUT
+private val SharedAxisSlide = tween<IntOffset>(SHARED_AXIS_DURATION, easing = FastOutSlowInEasing)
+
+private fun sharedAxisDirection(forward: Boolean) =
+    if (forward) AnimatedContentTransitionScope.SlideDirection.Start
+    else AnimatedContentTransitionScope.SlideDirection.End
+
+// A tenth of the way across rather than the whole, so the move reads as a step, not a slide
+private fun sharedAxisOffset(fullSlide: Int) = fullSlide / 10
+
+/**
+ * Material's shared X axis, for a page opened deeper from another: the two move a short way along
+ * the reading direction together while one fades into the other, and back runs it in reverse.
+ * [forward] is the way into the deeper page.
+ */
+fun AnimatedContentTransitionScope<*>.sharedAxisEnter(forward: Boolean): EnterTransition =
+    slideIntoContainer(sharedAxisDirection(forward), SharedAxisSlide, ::sharedAxisOffset) +
+        fadeIn(tween(SHARED_AXIS_FADE_IN, delayMillis = SHARED_AXIS_FADE_OUT, easing = LinearOutSlowInEasing))
+
+/** The page making way in a [sharedAxisEnter]. */
+fun AnimatedContentTransitionScope<*>.sharedAxisExit(forward: Boolean): ExitTransition =
+    slideOutOfContainer(sharedAxisDirection(forward), SharedAxisSlide, ::sharedAxisOffset) +
+        fadeOut(tween(SHARED_AXIS_FADE_OUT, easing = FastOutLinearInEasing))
+
 /**
  * Shared [EnterTransition] and [ExitTransition] for all AppDialog and ListDialog instances and
  * dialog-level AnimatedVisibility wrappers. Changing these values updates every dialog
@@ -168,13 +196,17 @@ object Animations {
             scaleIn(tween(Defaults.ANIMATION_DURATION, delay, LinearOutSlowInEasing), initialScale = 0.8f)
     }
 
-    // Push transitions (a page such as a settings category slides up over home, returns by sliding down)
-    val pushEnter = slideInVertically(
-        animationSpec = defaultTween(Defaults.SCREEN_ENTER_DURATION, FastOutSlowInEasing)
-    ) { it } + fadeIn(defaultTween(Defaults.SCREEN_ENTER_DURATION))
+    // A screen leaving by sliding down, as the predictive back gesture draws it away
     val pushExit = slideOutVertically(
         animationSpec = defaultTween(Defaults.SCREEN_ENTER_DURATION, FastOutSlowInEasing)
     ) { it } + fadeOut(tween(Defaults.SCREEN_ENTER_DURATION, easing = LinearEasing))
+
+    /**
+     * A page drawn back by the predictive back gesture: it shrinks away under the finger, as
+     * Material has a screen do, revealing the one it returns to.
+     */
+    val predictiveBackExit = scaleOut(tween(SHARED_AXIS_DURATION, easing = FastOutSlowInEasing), targetScale = 0.9f) +
+            fadeOut(tween(SHARED_AXIS_DURATION, easing = FastOutLinearInEasing))
 
     // Spring & custom transitions
     val springSlideUpEnter = slideInVertically(

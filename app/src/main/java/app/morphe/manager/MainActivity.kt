@@ -37,6 +37,7 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -62,6 +63,8 @@ import app.morphe.manager.ui.screen.shared.MessageHost
 import app.morphe.manager.ui.screen.shared.RandomBackground
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberRandomBackground
+import app.morphe.manager.ui.screen.shared.sharedAxisEnter
+import app.morphe.manager.ui.screen.shared.sharedAxisExit
 import app.morphe.manager.ui.screen.sources.BundleChangelogHost
 import app.morphe.manager.ui.screen.sources.BundleChangelogRequest
 import app.morphe.manager.ui.theme.*
@@ -577,10 +580,27 @@ private fun MorpheManager(vm: MainViewModel) {
             exitTransition = { Animations.screenExit },
             popEnterTransition = { Animations.screenEnter },
             popExitTransition = { Animations.screenExit },
-            predictivePopEnterTransition = { Animations.screenEnter },
-            predictivePopExitTransition = { Animations.pushExit }
+            // A settings page is drawn back along the shared axis it opened on, see the routes below
+            predictivePopEnterTransition = {
+                if (initialState.destination.hasRoute<SettingsDetail>()) sharedAxisEnter(forward = false)
+                else Animations.screenEnter
+            },
+            predictivePopExitTransition = {
+                if (initialState.destination.hasRoute<SettingsDetail>()) Animations.predictiveBackExit
+                else Animations.pushExit
+            }
         ) {
-            composable<HomeScreen> { entry ->
+            composable<HomeScreen>(
+                // A settings page opens deeper from the main screen, along Material's shared axis
+                exitTransition = {
+                    if (targetState.destination.hasRoute<SettingsDetail>()) sharedAxisExit(forward = true)
+                    else Animations.screenExit
+                },
+                popEnterTransition = {
+                    if (initialState.destination.hasRoute<SettingsDetail>()) sharedAxisEnter(forward = false)
+                    else Animations.screenEnter
+                }
+            ) { entry ->
                 val bundleUpdateProgress by homeViewModel.bundleUpdateProgress.collectAsStateWithLifecycle(null)
                 val patchTriggerPackage by entry.savedStateHandle.getStateFlow<String?>("patch_trigger_package", null)
                     .collectAsStateWithLifecycle()
@@ -669,8 +689,8 @@ private fun MorpheManager(vm: MainViewModel) {
             }
 
             composable<SettingsDetail>(
-                enterTransition = { Animations.pushEnter },
-                popExitTransition = { Animations.pushExit }
+                enterTransition = { sharedAxisEnter(forward = true) },
+                popExitTransition = { sharedAxisExit(forward = false) }
             ) { entry ->
                 SettingsSubpageScreen(
                     subpage = SettingsSubpage.valueOf(entry.toRoute<SettingsDetail>().subpage),

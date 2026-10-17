@@ -1,3 +1,44 @@
+# [2.0.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.2...v2.0.0-dev.3) (2026-10-17)
+
+
+### Bug Fixes
+
+* Bring the row a tour step points at into view once its page stands, rather than while the page is still turning to it ([a161d31](https://github.com/MorpheApp/morphe-manager/commit/a161d3198d3ef9ba71650d9be42596911aead5ee))
+* Close the header search without a jump at its end, the field drawing back into its toggle's circle and the keyboard going as it starts ([6ee958d](https://github.com/MorpheApp/morphe-manager/commit/6ee958d8a2e16162a661d98d70f24278e66d1a2f))
+* Dim the status bar over the apps page alone, leaving the pages with a header of their own undimmed ([c8fac49](https://github.com/MorpheApp/morphe-manager/commit/c8fac49487e1a507544c612e145ef807d8873219))
+* Draw the edge of an engaged header button on its circle rather than around its touch target ([6c84b30](https://github.com/MorpheApp/morphe-manager/commit/6c84b3025f5dca261d6f0bd1e7dc5b0804ef6830))
+* Draw the scroll to top button as the patcher's see-through glass buttons are ([4e64c0f](https://github.com/MorpheApp/morphe-manager/commit/4e64c0f444427de370a4b673311d0b17a896a314))
+* Engage the installed apps filter button only while its menu is open, the subtitle already naming the filter ([b51f81c](https://github.com/MorpheApp/morphe-manager/commit/b51f81c39b876ff5974455a4df5bbf9e1487fb93))
+* Fold the patch options row and the patch selections row into each other as expert mode turns on or off ([bea9e31](https://github.com/MorpheApp/morphe-manager/commit/bea9e31cbaf744bd637ad368760b60074d082805))
+* Join the switches among a patch's options into one group, as the settings join theirs ([cedf874](https://github.com/MorpheApp/morphe-manager/commit/cedf8746dcfe5e3d561df518c461b956808e78c8))
+* Keep the apps page in place as its search field takes focus, leaving the list's insets to the list alone and out of the dialogs it opens ([cb2064d](https://github.com/MorpheApp/morphe-manager/commit/cb2064df57c7a52f1e15ee7b1cc651be9e9ec3e1))
+* Keep the settings search open on coming back from a page it found something on ([c5f7406](https://github.com/MorpheApp/morphe-manager/commit/c5f7406f50c333c614be291618898ab20dc5be46))
+* Leave a docked panel's handle out of what a screen reader goes through, as the panel's own close button already offers it ([5242fe4](https://github.com/MorpheApp/morphe-manager/commit/5242fe480d73e5b80b48a08337e0a921be2f3cb1))
+* Leave the empty alert strip out of what a screen reader goes through, and out of the taps under it ([d47d9a5](https://github.com/MorpheApp/morphe-manager/commit/d47d9a5a45b7777ff419e1d45b6dac948a155b51))
+* Mark the sort button once any of the list's options is off its default, from the same options its panel offers ([bf38e6b](https://github.com/MorpheApp/morphe-manager/commit/bf38e6be2f47bd2feab29e45973896df73c1ce31))
+* Scroll a long dialog on under its footer and its title edge to edge, the title's band reaching under the status bar ([eb430ad](https://github.com/MorpheApp/morphe-manager/commit/eb430ad7315f5dbea1ccdc87d1db2d9ab9a62ec5))
+
+
+### Features
+
+* Draw a docked panel down from anywhere a list in it does not take the drag, not only its handle ([93d38ab](https://github.com/MorpheApp/morphe-manager/commit/93d38ab62cf55790db3b871824b23f0b5e084aaa))
+* Draw every header control and search field in the same see-through glass, one size on every header and the home screen ([a55e390](https://github.com/MorpheApp/morphe-manager/commit/a55e390bb1fd2e485ff0b01b0fabcc3fe471c86e))
+* Draw the scroll to top button in the glass of the header controls, at their size ([3719862](https://github.com/MorpheApp/morphe-manager/commit/3719862b1d285e7a7f6197478c6d14a0c402c73a))
+* Engage a list's sort or filter button only while its options are open, marking it with a dot while a filter narrows the list ([0707e21](https://github.com/MorpheApp/morphe-manager/commit/0707e21b9f860e848e08d6ae9ca7cd5913b24f0a))
+* Filter the installed apps from a menu off the filter button, rather than stepping through the filters on each tap ([1aa3294](https://github.com/MorpheApp/morphe-manager/commit/1aa32941290a0be52f7b8b450d446e0829f740f4))
+* Find what the appearance and patch options pages hold among the settings search results, each under the page it lives on ([e9920e2](https://github.com/MorpheApp/morphe-manager/commit/e9920e2b75f7742b5e1185220cfbe5117349fad8))
+* Float a dialog's title over its content, scrolling what does not fit on under a blurred band rather than cutting it off below the title ([27d0a05](https://github.com/MorpheApp/morphe-manager/commit/27d0a05249070ecd0e5cae9400730f7afc1005ca))
+* Keep the file picker and the APK download helpers with the other files in the settings ([0a783a1](https://github.com/MorpheApp/morphe-manager/commit/0a783a13e85322a579a55fd869c2028610d569d7))
+* Keep the sort and filter button on the home screen for good, dropping its switch from the appearance settings ([9616c89](https://github.com/MorpheApp/morphe-manager/commit/9616c8997b92a78de089155299a7b283a17d6f05))
+* Leave a header bare over content at rest, laying its blurred band down once the content scrolls under it ([29fb690](https://github.com/MorpheApp/morphe-manager/commit/29fb690ae280fd90b5373a8ada75bfd80fe3f944))
+* Open the search along the header's own line, the toggle drawing out into the field over the title ([c07a1fc](https://github.com/MorpheApp/morphe-manager/commit/c07a1fcbedab280cc7fe166cc3392a7342492c91))
+* Pick the accent with the theme and the app card colors with the rest of the home screen ([4fc4f33](https://github.com/MorpheApp/morphe-manager/commit/4fc4f33e0df40a03968a6eb33952ef7801a734f8))
+* Pick the app card colors with the theme, next to the colors apps and sources wear ([30e8a5f](https://github.com/MorpheApp/morphe-manager/commit/30e8a5fe936c7019b01b170246187249ab204205))
+* Pick the block a patch list shows from a panel docked under the list, drawn down by its handle like every docked panel ([2bbd45b](https://github.com/MorpheApp/morphe-manager/commit/2bbd45bfcc06da2c6809686023fa0bfc09d2f959))
+* Regroup the settings: appearance at the head, external triggers with patching, the patcher and updates in sections of their own, and effects apart from the theme ([3702b0d](https://github.com/MorpheApp/morphe-manager/commit/3702b0d6fbcc0fe24b9dd76dfaed5bd9d3bee220))
+* Show where a setting found on another page lives in one line, that page's name leading the section's ([51a0696](https://github.com/MorpheApp/morphe-manager/commit/51a06962864ea6f545a909ffc0dd164c99797661))
+* Turn the blur under headers, bars and panels off from the appearance settings ([7d2855b](https://github.com/MorpheApp/morphe-manager/commit/7d2855b3dff1f6d434eff39cb321b99b4fef09e8))
+
 # [2.0.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.1...v2.0.0-dev.2) (2026-10-17)
 
 

@@ -10,6 +10,7 @@ import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.ui.screen.settings.advanced.PatchOptionsSection
+import app.morphe.manager.ui.screen.settings.system.NotificationsSettings
 import app.morphe.manager.ui.screen.shared.SubpageScaffold
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.PatchOptionsViewModel
@@ -33,6 +34,7 @@ internal fun SettingsSubpageContent(subpage: SettingsSubpage, homeViewModel: Hom
     when (subpage) {
         SettingsSubpage.PATCH_OPTIONS -> PatchOptionsSettings(homeViewModel)
         SettingsSubpage.APPEARANCE -> AppearanceSettings()
+        SettingsSubpage.NOTIFICATIONS -> NotificationsSettings()
     }
 }
 

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.settings
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.NotificationsActive
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -30,5 +31,10 @@ enum class SettingsSubpage(
         R.string.appearance,
         R.string.settings_section_appearance_summary,
         Icons.Outlined.Palette
+    ),
+    NOTIFICATIONS(
+        R.string.settings_system_notifications,
+        R.string.settings_system_notifications_description,
+        Icons.Outlined.NotificationsActive
     )
 }

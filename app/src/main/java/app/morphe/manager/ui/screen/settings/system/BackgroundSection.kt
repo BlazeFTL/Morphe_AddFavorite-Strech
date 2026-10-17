@@ -17,23 +17,17 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.ui.viewmodel.SettingsViewModel
+import app.morphe.manager.ui.screen.settings.SettingsSubpage
+import app.morphe.manager.ui.screen.settings.SubpageItem
 import app.morphe.manager.util.requestIgnoreBatteryOptimizations
-import org.koin.androidx.compose.koinViewModel
 
-/** What keeps the manager working in the background: the battery optimization exemption and notifications. */
+/**
+ * What keeps the manager working in the background: the battery optimization exemption, and the
+ * notifications, which open a page of their own.
+ */
 @Composable
-fun BackgroundSection(settingsViewModel: SettingsViewModel = koinViewModel()) {
+fun BackgroundSection(onOpenSubpage: (SettingsSubpage) -> Unit) {
     val context = LocalContext.current
-    var showNotificationsDialog by remember { mutableStateOf(false) }
-
-    DialogHost(visible = showNotificationsDialog) {
-        NotificationsDialog(
-            settingsViewModel = settingsViewModel,
-            onDismiss = { showNotificationsDialog = false }
-        )
-    }
-
     val lifecycleOwner = LocalLifecycleOwner.current
     val pm = remember { context.getSystemService(PowerManager::class.java) }
     var isIgnoringBatteryOptimizations by remember { mutableStateOf(pm.isIgnoringBatteryOptimizations(context.packageName)) }
@@ -66,12 +60,7 @@ fun BackgroundSection(settingsViewModel: SettingsViewModel = koinViewModel()) {
                 }
             )
 
-            SettingsItem(
-                onClick = { showNotificationsDialog = true },
-                title = stringResource(R.string.settings_system_notifications),
-                subtitle = stringResource(R.string.settings_system_notifications_description),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.NotificationsActive) }
-            )
+            SubpageItem(SettingsSubpage.NOTIFICATIONS, onOpenSubpage)
         }
     }
 }

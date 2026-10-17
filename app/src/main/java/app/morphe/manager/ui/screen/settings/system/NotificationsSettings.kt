@@ -39,22 +39,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.core.net.toUri
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.displayName
 import app.morphe.manager.util.openAppNotificationSettings
 import app.morphe.manager.util.rememberAdaptiveFilePicker
 import app.morphe.manager.worker.UpdateCheckInterval
 import kotlin.math.roundToInt
+import org.koin.androidx.compose.koinViewModel
 
 /**
  * Consolidated notification settings: background update alerts with their check interval, and patcher
- * completion sounds.
+ * completion sounds, on a page of their own, see [SettingsSubpage.NOTIFICATIONS].
  */
 @Composable
-fun DialogHostScope.NotificationsDialog(
-    settingsViewModel: SettingsViewModel,
-    onDismiss: () -> Unit
-) {
+fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
     val context = LocalContext.current
     val prefs = settingsViewModel.prefs
 
@@ -169,21 +168,10 @@ fun DialogHostScope.NotificationsDialog(
         )
     }
 
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.settings_system_notifications),
-        description = stringResource(R.string.settings_system_notifications_description),
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
+    SettingsColumn {
+        SettingsSection(
+            title = stringResource(R.string.settings_section_updates),
+            icon = Icons.Outlined.SystemUpdate
         ) {
             SettingsGroup {
                 SettingsSwitchItem(
@@ -229,7 +217,12 @@ fun DialogHostScope.NotificationsDialog(
                     }
                 }
             }
+        }
 
+        SettingsSection(
+            title = stringResource(R.string.settings_section_patcher),
+            icon = Icons.Outlined.Build
+        ) {
             SettingsGroup {
                 SettingsSwitchItem(
                     checked = completionSound,

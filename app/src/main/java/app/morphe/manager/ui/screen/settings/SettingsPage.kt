@@ -85,7 +85,7 @@ fun SettingsPage(
                     PatchingSection(settingsViewModel, onOpenSubpage, onboardingState)
                     PatcherTuningSection(settingsViewModel)
                     UpdatesSection(settingsViewModel, homeViewModel)
-                    BackgroundSection(settingsViewModel)
+                    BackgroundSection(onOpenSubpage)
                     FilesSection(settingsViewModel, onboardingState)
                     AboutSection(onStartTour)
                     if (settingsSearch.isActive) SubpageMatches(homeViewModel, settingsViewModel, onOpenSubpage)
@@ -198,7 +198,7 @@ private fun PatchingSection(
     }
 }
 
-/** How the manager looks, heading the page as the one part of it with a page of its own to open. */
+/** How the manager looks, heading the page in a group of its own. */
 @Composable
 private fun AppearanceItem(onOpenSubpage: (SettingsSubpage) -> Unit, tour: OnboardingState?) {
     SettingsGroup {
@@ -228,7 +228,7 @@ private fun UpdatesSection(settingsViewModel: SettingsViewModel, homeViewModel: 
 
 /** A row opening [subpage]. */
 @Composable
-private fun SubpageItem(
+internal fun SubpageItem(
     subpage: SettingsSubpage,
     onOpen: (SettingsSubpage) -> Unit,
     modifier: Modifier = Modifier

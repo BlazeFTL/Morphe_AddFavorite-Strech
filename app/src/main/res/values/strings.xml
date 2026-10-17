@@ -860,8 +860,6 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Shows a greeting message</string>
     <string name="settings_appearance_repatch_notice">Re-patch notice</string>
     <string name="settings_appearance_repatch_notice_description">Shows a banner when patched apps can be re-patched</string>
-    <string name="settings_appearance_sort_button">Sort and filter button</string>
-    <string name="settings_appearance_sort_button_description">Shows a button to sort and filter apps</string>
     <string name="settings_appearance_app_card_colors">App card colors</string>
     <string name="settings_appearance_app_card_colors_default">Default</string>
     <string name="settings_appearance_app_card_colors_default_description">Give each app the color of its own bundle</string>

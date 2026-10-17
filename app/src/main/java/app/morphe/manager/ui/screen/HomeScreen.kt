@@ -159,7 +159,6 @@ fun HomeScreen(
     val showSearchButton by homeViewModel.apps.showSearchButton.collectAsStateWithLifecycle()
     val batchRun by homeViewModel.batchRun.collectAsStateWithLifecycle()
     val savedBatchQueue by homeViewModel.savedBatchQueue.collectAsStateWithLifecycle()
-    val showSortButtonPref by homeAppButtonPrefs.showSortButton.collectAsStateWithLifecycle()
     val homeAppFilterModePref by homeAppButtonPrefs.filterMode.collectAsStateWithLifecycle()
     val useExpertMode by prefs.useExpertMode.getAsState()
 
@@ -510,7 +509,6 @@ fun HomeScreen(
                     ),
                     chromeFlags = HomeChromeFlags(
                         showSearchButton = showSearchButton,
-                        showSortButton = showSearchButton && showSortButtonPref,
                         showOtherAppsButton = showOtherAppsButton
                     ),
                     greetingMessage = greetingMessage,

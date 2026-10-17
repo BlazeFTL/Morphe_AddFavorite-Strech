@@ -82,8 +82,7 @@ data class HomeAppButtonSnapshot(
     val categories: List<HomeAppCategorySnapshot>? = null,
     val assignments: Map<String, String>? = null,
     val uncategorizedCollapsed: Boolean? = null,
-    val categoryViewMode: String? = null,
-    val showSortButton: Boolean? = null
+    val categoryViewMode: String? = null
 )
 
 /**
@@ -129,9 +128,6 @@ class HomeAppButtonPreferences(context: Context) {
 
     private val _categoryViewMode = MutableStateFlow(loadCategoryViewMode())
     val categoryViewMode: StateFlow<HomeAppCategoryViewMode> = _categoryViewMode.asStateFlow()
-
-    private val _showSortButton = MutableStateFlow(loadShowSortButton())
-    val showSortButton: StateFlow<Boolean> = _showSortButton.asStateFlow()
 
     private val _expandedSourceGroups = MutableStateFlow(loadExpandedSourceGroups())
     val expandedSourceGroups: StateFlow<Set<Int>> = _expandedSourceGroups.asStateFlow()
@@ -303,13 +299,6 @@ class HomeAppButtonPreferences(context: Context) {
         _categoryViewMode.value = mode
     }
 
-    fun setShowSortButton(show: Boolean) {
-        prefs.edit { putBoolean(KEY_SHOW_SORT_BUTTON, show) }
-        _showSortButton.value = show
-        // The filter is set from the sort button, so it goes with it rather than coming back unseen
-        if (!show) setFilterMode(null)
-    }
-
     /**
      * Create a new custom category with the given user-entered [name]. Returns the new
      * category's opaque id, or an empty string if [name] is blank after normalization.
@@ -425,8 +414,7 @@ class HomeAppButtonPreferences(context: Context) {
             categories = category.categories.map { HomeAppCategorySnapshot(it.id, it.name, it.collapsed) },
             assignments = category.assignments,
             uncategorizedCollapsed = category.uncategorizedCollapsed,
-            categoryViewMode = _categoryViewMode.value.name,
-            showSortButton = _showSortButton.value
+            categoryViewMode = _categoryViewMode.value.name
         )
     }
 
@@ -440,13 +428,11 @@ class HomeAppButtonPreferences(context: Context) {
             snapshot.customOrder?.let { putString(KEY_CUSTOM_ORDER, it.joinToString("\n")) }
             snapshot.sortMode?.let { putString(KEY_SORT_MODE, it) }
             snapshot.categoryViewMode?.let { putString(KEY_CATEGORY_VIEW_MODE, it) }
-            snapshot.showSortButton?.let { putBoolean(KEY_SHOW_SORT_BUTTON, it) }
         }
         snapshot.hiddenPackages?.let { _hiddenPackages.value = it }
         snapshot.customOrder?.let { _customOrder.value = it }
         snapshot.sortMode?.let { _sortMode.value = HomeAppSortMode.fromPreference(it) }
         snapshot.categoryViewMode?.let { _categoryViewMode.value = HomeAppCategoryViewMode.fromPreference(it) }
-        snapshot.showSortButton?.let { _showSortButton.value = it }
 
         // Route category state through saveCategoryState so persist + StateFlow stay in sync
         val hasCategoryData = snapshot.categories != null ||
@@ -506,9 +492,6 @@ class HomeAppButtonPreferences(context: Context) {
 
     private fun loadCategoryViewMode(): HomeAppCategoryViewMode =
         HomeAppCategoryViewMode.fromPreference(prefs.getString(KEY_CATEGORY_VIEW_MODE, null))
-
-    private fun loadShowSortButton(): Boolean =
-        prefs.getBoolean(KEY_SHOW_SORT_BUTTON, true)
 
     private fun loadExpandedSourceGroups(): Set<Int> =
         prefs.getStringSet(KEY_EXPANDED_SOURCE_GROUPS, null)
@@ -596,7 +579,6 @@ class HomeAppButtonPreferences(context: Context) {
         private const val KEY_CATEGORIES = "categories"
         private const val KEY_CATEGORY_ASSIGNMENTS = "category_assignments"
         private const val KEY_CATEGORY_VIEW_MODE = "category_view_mode"
-        private const val KEY_SHOW_SORT_BUTTON = "show_sort_button"
         private const val KEY_EXPANDED_SOURCE_GROUPS = "expanded_source_groups"
         private const val KEY_UNCATEGORIZED_COLLAPSED = "uncategorized_collapsed"
         private const val KEY_IGNORED_VERSIONS = "ignored_versions"

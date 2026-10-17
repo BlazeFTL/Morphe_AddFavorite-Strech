@@ -10,7 +10,6 @@ import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Sort
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -22,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
-import app.morphe.manager.domain.manager.HomeAppButtonPreferences
 import app.morphe.manager.ui.screen.settings.appearance.*
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.SeasonalEvent
@@ -39,17 +37,13 @@ import app.morphe.manager.util.MORPHE_WEBSITE_URL
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
-import org.koin.compose.koinInject
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * The appearance section of the settings: language and scale, theme, colors and the home screen.
  */
 @Composable
-fun AppearanceSettings(
-    themeViewModel: ThemeSettingsViewModel = koinViewModel(),
-    homeAppButtonPrefs: HomeAppButtonPreferences = koinInject()
-) {
+fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel()) {
     val scope = rememberCoroutineScope()
     val theme by themeViewModel.prefs.theme.getAsState()
     val themeStyle by themeViewModel.prefs.themeStyle.getAsState()
@@ -65,7 +59,6 @@ fun AppearanceSettings(
     val blur by themeViewModel.prefs.blur.getAsState()
     val appCardColorMode by themeViewModel.prefs.appCardColorMode.getAsState()
     val customAppCardColors by themeViewModel.prefs.customAppCardColors.getAsState()
-    val showSortButton by homeAppButtonPrefs.showSortButton.collectAsStateWithLifecycle()
     val backgroundType by themeViewModel.prefs.backgroundType.getAsState()
     val enableParallax by themeViewModel.prefs.enableBackgroundParallax.getAsState()
     val randomInterval by themeViewModel.prefs.randomBackgroundInterval.getAsState()
@@ -135,10 +128,8 @@ fun AppearanceSettings(
             onAppCardColorsClick = { showAppCardColorDialog.value = true },
             showGreetingPhrases = showGreetingPhrases,
             showRepatchNotice = showRepatchNotice,
-            showSortButton = showSortButton,
             onGreetingPhrasesToggle = { themeViewModel.toggleShowGreetingPhrases(showGreetingPhrases) },
             onRepatchNoticeToggle = { themeViewModel.toggleShowRepatchNotice(showRepatchNotice) },
-            onSortButtonToggle = { homeAppButtonPrefs.setShowSortButton(!showSortButton) }
         )
     }
 
@@ -404,10 +395,8 @@ private fun HomeScreenSection(
     onAppCardColorsClick: () -> Unit,
     showGreetingPhrases: Boolean,
     showRepatchNotice: Boolean,
-    showSortButton: Boolean,
     onGreetingPhrasesToggle: () -> Unit,
-    onRepatchNoticeToggle: () -> Unit,
-    onSortButtonToggle: () -> Unit
+    onRepatchNoticeToggle: () -> Unit
 ) {
     SettingsSection(
         title = stringResource(R.string.settings_appearance_home_screen),
@@ -435,13 +424,6 @@ private fun HomeScreenSection(
                 icon = Icons.Outlined.AutoFixHigh,
                 checked = showRepatchNotice,
                 onToggle = onRepatchNoticeToggle
-            )
-            SettingsSwitchItem(
-                title = stringResource(R.string.settings_appearance_sort_button),
-                subtitle = stringResource(R.string.settings_appearance_sort_button_description),
-                icon = Icons.AutoMirrored.Outlined.Sort,
-                checked = showSortButton,
-                onToggle = onSortButtonToggle
             )
         }
     }

@@ -126,7 +126,6 @@ class HomeChromeActions(
 @Immutable
 data class HomeChromeFlags(
     val showSearchButton: Boolean,
-    val showSortButton: Boolean,
     val showOtherAppsButton: Boolean
 )
 
@@ -183,15 +182,15 @@ internal fun SectionsLayout(
             focusManager.clearFocus()
         }
     )
-    // The saved filter applies only while the sort button is there to undo it. Not written back
-    // when the button goes, since it is also absent while the list is still loading
-    val filterMode = if (chromeFlags.showSortButton) apps.filterMode else HomeAppFilterMode.ALL
+    // The saved filter applies only while the sort button is there to undo it, which comes and
+    // goes with the search. Not written back when it goes, since it is also absent while loading
+    val filterMode = if (chromeFlags.showSearchButton) apps.filterMode else HomeAppFilterMode.ALL
     val onClearFilter = { appActions.onFilterModeChange(HomeAppFilterMode.ALL) }
     val footerBar = remember { HomeFooterBarHost() }
     // The options share the footer slot, so they make way for a selection or a reorder started
     // under them, and for the sort button going
-    LaunchedEffect(state.isEditing, chromeFlags.showSortButton) {
-        if (state.isEditing || !chromeFlags.showSortButton) state.isListOptionsOpen = false
+    LaunchedEffect(state.isEditing, chromeFlags.showSearchButton) {
+        if (state.isEditing || !chromeFlags.showSearchButton) state.isListOptionsOpen = false
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -270,12 +269,12 @@ private fun AdaptiveContent(
         { GreetingSection(message = message, onRefresh = chromeActions.onRefreshGreeting) }
     }
     val toolbar: (@Composable () -> Unit)? = if (
-        chromeFlags.showSearchButton || chromeFlags.showSortButton || chromeFlags.showOtherAppsButton
+        chromeFlags.showSearchButton || chromeFlags.showOtherAppsButton
     ) {
         {
             HomeAppsToolbar(
                 searchState = searchState.takeIf { chromeFlags.showSearchButton },
-                showSort = chromeFlags.showSortButton,
+                showSort = chromeFlags.showSearchButton,
                 sortEnabled = !state.isEditing,
                 sortOpen = state.isListOptionsOpen,
                 sortMode = apps.sortMode,

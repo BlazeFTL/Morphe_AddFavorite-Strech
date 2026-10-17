@@ -42,6 +42,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -183,11 +184,14 @@ fun NotificationsOverlay(
             },
             {
                 // Over the cards peeking out under the top one, so a tap there unfolds the stack
-                // rather than opening whichever card it lands on
+                // rather than opening whichever card it lands on. Left out of what a screen reader
+                // goes through, which unfolds the stack from the chip offering the same
                 Box(
-                    modifier = Modifier.clickable(interactionSource = null, indication = null) {
-                        foldTo(StackFold.Unfolded)
-                    }
+                    modifier = Modifier
+                        .clearAndSetSemantics {}
+                        .clickable(interactionSource = null, indication = null) {
+                            foldTo(StackFold.Unfolded)
+                        }
                 )
             },
             {
@@ -307,7 +311,8 @@ fun NotificationsOverlay(
                     transformOrigin = TransformOrigin(0.5f, 1f)
                 }
             }
-            peekTargets.forEach { it.place(0, leadBottom.roundToInt(), zIndex = 1f) }
+            // Only while cards peek out, so it takes no taps off the screen under an empty strip
+            if (peekHeight > 0) peekTargets.forEach { it.place(0, leadBottom.roundToInt(), zIndex = 1f) }
             controls.forEach { it.place(0, controlsTop, zIndex = 1f) }
         }
     }

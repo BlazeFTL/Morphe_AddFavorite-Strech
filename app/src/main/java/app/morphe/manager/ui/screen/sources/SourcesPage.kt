@@ -342,6 +342,16 @@ private fun SourcesPageContent(
     SearchFieldBackHandler(search)
     val searchLabel = stringResource(R.string.sources_search)
 
+    // What the options panel offers, and what marks the sort button once any is off its default
+    val listOptions = listOf(
+        listOptionSection(
+            R.string.sort, Icons.AutoMirrored.Outlined.Sort, sourceSortMode, SourceBundleSortMode.MANUAL
+        ) { mode -> scope.launch { prefs.sourceBundleSortMode.update(mode.name) } },
+        listOptionSection(
+            R.string.filter, Icons.Outlined.FilterList, sourceFilter, SourceFilterMode.ALL
+        ) { sourceFilter = it }
+    )
+
     PinnedHeaderPage(
         header = {
             PageHeader(
@@ -360,7 +370,7 @@ private fun SourcesPageContent(
                         sourceSortMode.labelRes,
                         sourceFilter.labelRes.takeIf { sourceFilter.isActive }
                     )
-                    // Engaged while the options are open, and marked while a filter keeps sources out
+                    // Engaged while the options are open, and marked while any is off its default
                     TitleAction(
                         icon = Icons.AutoMirrored.Outlined.Sort,
                         contentDescription = stringResource(R.string.sort),
@@ -371,7 +381,7 @@ private fun SourcesPageContent(
                         },
                         style = TitleActionStyle.Toggle,
                         active = listOptionsOpen,
-                        marked = sourceFilter.isActive
+                        marked = listOptions.any { it.isChanged }
                     )
                 }
                 TitleAction(
@@ -386,14 +396,7 @@ private fun SourcesPageContent(
         bottomBar = {
             ListOptionsPanel(
                 visible = listOptionsOpen,
-                sections = listOf(
-                    listOptionSection(
-                        R.string.sort, Icons.AutoMirrored.Outlined.Sort, sourceSortMode, SourceBundleSortMode.MANUAL
-                    ) { mode -> scope.launch { prefs.sourceBundleSortMode.update(mode.name) } },
-                    listOptionSection(
-                        R.string.filter, Icons.Outlined.FilterList, sourceFilter, SourceFilterMode.ALL
-                    ) { sourceFilter = it }
-                ),
+                sections = listOptions,
                 onClose = { onListOptionsOpenChange(false) },
                 modifier = Modifier
                     .widthIn(max = Defaults.ContentMaxWidth)

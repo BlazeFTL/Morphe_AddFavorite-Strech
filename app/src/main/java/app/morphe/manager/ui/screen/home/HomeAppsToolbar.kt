@@ -34,6 +34,7 @@ import app.morphe.manager.ui.screen.shared.listOptionsStateDescription
  * @param searchState Null where the list is too short to need searching.
  * @param sortEnabled Whether the list's options can be opened, which a selection under way holds off.
  * @param sortOpen Whether the list's options are docked under the list, which the button then closes.
+ * @param optionsChanged Whether any of the list's options is off its default, which marks the button.
  * @param onPatchFileClick Null while there is no other app to patch, such as before the sources load.
  */
 @Composable
@@ -44,6 +45,7 @@ internal fun HomeAppsToolbar(
     sortOpen: Boolean,
     sortMode: HomeAppSortMode,
     filterMode: HomeAppFilterMode,
+    optionsChanged: Boolean,
     onSortClick: () -> Unit,
     onPatchFileClick: (() -> Unit)?,
     modifier: Modifier = Modifier
@@ -74,10 +76,10 @@ internal fun HomeAppsToolbar(
                 icon = Icons.AutoMirrored.Outlined.Sort,
                 contentDescription = stringResource(R.string.sort),
                 onClick = onSortClick,
-                // Engaged while the options are docked, and marked while a filter narrows the list
+                // Engaged while the options are docked, and marked while any is off its default
                 style = TitleActionStyle.Toggle,
                 active = sortOpen,
-                marked = filterMode.isActive,
+                marked = optionsChanged,
                 enabled = sortEnabled,
                 modifier = Modifier.semantics { stateDescription = sortState }
             )

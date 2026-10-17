@@ -29,6 +29,7 @@ import app.morphe.manager.domain.manager.HomeAppCategoryViewMode
 import app.morphe.manager.domain.manager.HomeAppSortMode
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.ActionTone
+import app.morphe.manager.ui.screen.shared.ListOptionSection
 import app.morphe.manager.ui.screen.shared.ListOptionsPanel
 import app.morphe.manager.ui.screen.shared.SelectionAction
 import app.morphe.manager.ui.screen.shared.UserMessages
@@ -355,21 +356,28 @@ internal fun HomeAppsFooterBars(
 
     ListOptionsPanel(
         visible = state.isListOptionsOpen,
-        sections = listOf(
-            listOptionSection(
-                R.string.sort, Icons.AutoMirrored.Outlined.Sort, apps.sortMode, HomeAppSortMode.RECOMMENDED,
-                appActions.onSortModeChange
-            ),
-            listOptionSection(
-                R.string.filter, Icons.Outlined.FilterList, apps.filterMode, HomeAppFilterMode.ALL,
-                appActions.onFilterModeChange
-            ),
-            listOptionSection(
-                R.string.group, Icons.Outlined.Category, apps.categoryViewMode, HomeAppCategoryViewMode.ALL_APPS,
-                appActions.onCategoryViewModeChange
-            )
-        ),
+        sections = homeListOptions(apps, appActions),
         onClose = { state.isListOptionsOpen = false },
         modifier = modifier
     )
 }
+
+/**
+ * How the home list is sorted, filtered and grouped: what its options panel offers, and what marks
+ * the sort button once any of it is off its default.
+ */
+@Composable
+internal fun homeListOptions(apps: HomeAppListUi, appActions: HomeAppActions): List<ListOptionSection<*>> = listOf(
+    listOptionSection(
+        R.string.sort, Icons.AutoMirrored.Outlined.Sort, apps.sortMode, HomeAppSortMode.RECOMMENDED,
+        appActions.onSortModeChange
+    ),
+    listOptionSection(
+        R.string.filter, Icons.Outlined.FilterList, apps.filterMode, HomeAppFilterMode.ALL,
+        appActions.onFilterModeChange
+    ),
+    listOptionSection(
+        R.string.group, Icons.Outlined.Category, apps.categoryViewMode, HomeAppCategoryViewMode.ALL_APPS,
+        appActions.onCategoryViewModeChange
+    )
+)

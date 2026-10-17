@@ -279,6 +279,7 @@ private fun AdaptiveContent(
                 sortOpen = state.isListOptionsOpen,
                 sortMode = apps.sortMode,
                 filterMode = filterMode,
+                optionsChanged = homeListOptions(apps, appActions).any { it.isChanged },
                 onSortClick = onSortClick,
                 onPatchFileClick = chromeActions.onOtherAppsClick.takeIf { chromeFlags.showOtherAppsButton }
             )

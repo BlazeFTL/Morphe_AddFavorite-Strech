@@ -19,7 +19,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import app.morphe.manager.ManagerApplication
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.Channel
@@ -190,6 +191,9 @@ internal class MessageHostSlot {
     }.filterNot { it.isDismissed }
 }
 
+/** How far a message floats above the navigation bar or the keyboard, clear of the screen's bottom edge. */
+private val MessageBottomInset = 64.dp
+
 /**
  * [content] with the app's messages shown over its bottom edge while it is the top surface. The
  * snackbar keeps one place on every surface, just clear of the navigation bar or the keyboard,
@@ -214,13 +218,19 @@ fun MessageHost(
         content()
         SnackbarHost(
             hostState = state,
-            snackbar = { data -> Snackbar(snackbarData = data, shape = RoundedCornerShape(Defaults.CornerLarge)) },
+            // Rounded off whole, as the pill floating over the screens is
+            snackbar = { data -> Snackbar(snackbarData = data, shape = CircleShape) },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.ime))
                 .widthIn(max = Defaults.ContentMaxWidth)
                 .fillMaxWidth()
-                .padding(horizontal = Defaults.SpaceLarge, vertical = Defaults.SpaceSmall)
+                .padding(
+                    start = Defaults.SpaceLarge,
+                    top = Defaults.SpaceSmall,
+                    end = Defaults.SpaceLarge,
+                    bottom = MessageBottomInset
+                )
         )
     }
 }

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.activity.compose.BackHandler
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
@@ -116,20 +117,26 @@ fun MainPagerScaffold(
             FloatingBarsLayout(
                 modifier = Modifier.fillMaxSize(),
                 bottomBar = {
-                    CompositionLocalProvider(LocalBackdropHaze provides barHaze) {
-                        FloatingPillBar(
-                            items = items.map { item ->
-                                FloatingPillItem(
-                                    icon = item.icon,
-                                    label = item.label,
-                                    onClick = { select(item.page) },
-                                    selected = item.page == current,
-                                    contentDescription = item.contentDescription,
-                                    modifier = item.modifier
-                                )
-                            },
-                            modifier = Modifier.coveredBy(navigationCovered)
-                        )
+                    // Removed rather than faded, as the pill floats over the docked bars and would take their taps
+                    AnimatedVisibility(
+                        visible = !navigationCovered,
+                        enter = Animations.fadeIn,
+                        exit = Animations.fadeOut
+                    ) {
+                        CompositionLocalProvider(LocalBackdropHaze provides barHaze) {
+                            FloatingPillBar(
+                                items = items.map { item ->
+                                    FloatingPillItem(
+                                        icon = item.icon,
+                                        label = item.label,
+                                        onClick = { select(item.page) },
+                                        selected = item.page == current,
+                                        contentDescription = item.contentDescription,
+                                        modifier = item.modifier
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
             ) { _, bottomBarHeight ->

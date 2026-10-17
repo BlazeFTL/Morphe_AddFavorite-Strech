@@ -71,14 +71,6 @@ fun appAccentBorder(accentColor: Color?): Color =
     appAccentTint(accentColor, alpha = AccentAlpha.BORDER, neutral = MaterialTheme.colorScheme.outlineVariant)
 
 /**
- * Fill of a control a step over the header or surface it sits on, such as an idle title action or
- * the search field it opens, in [accent] where there is one and the theme's neutral otherwise.
- */
-@Composable
-fun accentStepContainer(accent: Color?): Color =
-    accent?.copy(alpha = AccentAlpha.STEP) ?: MaterialTheme.colorScheme.surfaceVariant
-
-/**
  * Hands [accentColor] to everything drawn inside, see [LocalAccent], for a dialog or a header that
  * wears it without a card of its own.
  */

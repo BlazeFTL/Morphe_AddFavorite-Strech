@@ -5,36 +5,41 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextOverflow
 import app.morphe.manager.R
 
 /**
- * Search field for the app's lists, held by a dialog's [ListDialogHeader] or heading the list
- * itself: a filled pill in the shape of a Material search bar.
+ * Search field for the app's lists, a pill as tall as the title actions beside it and filled with
+ * the same glass, so the search toggle reads as drawn out into it.
  *
  * @param requestFocus Opens the keyboard on first composition, for fields revealed by a toggle.
- * @param glass Draws the field as the glass buttons are, for one standing among them on a screen
- *   rather than in a dialog's header.
+ * @param trailing Drawn at the field's end after its clear action, such as the toggle closing it.
  */
 @Composable
 fun ListSearchField(
@@ -44,7 +49,8 @@ fun ListSearchField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     requestFocus: Boolean = false,
-    glass: Boolean = false
+    container: Color = HeaderControlDefaults.container(),
+    trailing: (@Composable RowScope.() -> Unit)? = null
 ) {
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -57,59 +63,68 @@ fun ListSearchField(
     }
 
     val textColor = dialogTextColor()
-    // In a header, the fill of the toggle that opens it, so the field reads as that button drawn out
-    val container = if (glass) GlassButtonDefaults.containerColor() else accentStepContainer(LocalAccent.current)
-    val edge = if (glass) CardBorder.neutral else null
-    TextField(
+    val iconColor = textColor.copy(alpha = 0.7f)
+    val textStyle = MaterialTheme.typography.bodyLarge.copy(color = textColor)
+
+    BasicTextField(
         value = value,
         onValueChange = onValueChange,
-        placeholder = { Text(label) },
-        leadingIcon = {
-            // The placeholder already names the field, so the icon stays decorative
-            Icon(
-                imageVector = Icons.Outlined.Search,
-                contentDescription = null
-            )
-        },
-        trailingIcon = if (value.isNotEmpty()) {
-            {
-                IconButton(onClick = { onValueChange("") }) {
-                    Icon(
-                        imageVector = Icons.Outlined.Clear,
-                        contentDescription = stringResource(R.string.clear)
-                    )
-                }
-            }
-        } else null,
-        singleLine = true,
         enabled = enabled,
+        singleLine = true,
+        textStyle = textStyle,
+        cursorBrush = SolidColor(textColor),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = { keyboardController?.hide() }),
-        shape = CircleShape,
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = container,
-            unfocusedContainerColor = container,
-            disabledContainerColor = container,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-            focusedTextColor = textColor,
-            unfocusedTextColor = textColor,
-            cursorColor = textColor,
-            focusedLeadingIconColor = textColor.copy(alpha = 0.7f),
-            unfocusedLeadingIconColor = textColor.copy(alpha = 0.7f),
-            focusedTrailingIconColor = textColor.copy(alpha = 0.7f),
-            unfocusedTrailingIconColor = textColor.copy(alpha = 0.7f),
-            focusedPlaceholderColor = textColor.copy(alpha = 0.5f),
-            unfocusedPlaceholderColor = textColor.copy(alpha = 0.5f)
-        ),
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = SearchFieldHeight)
-            .then(if (edge != null) Modifier.border(edge, CircleShape) else Modifier)
-            .focusRequester(focusRequester)
+            .height(HeaderControlDefaults.Size)
+            .focusRequester(focusRequester),
+        decorationBox = { innerTextField ->
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(CircleShape)
+                    .background(container),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // The placeholder already names the field, so the icon stays decorative
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = null,
+                    tint = iconColor,
+                    modifier = Modifier
+                        .padding(start = Defaults.SpaceSmall, end = Defaults.SpaceSmall)
+                        .size(Defaults.IconSize)
+                )
+                Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
+                    if (value.isEmpty()) {
+                        Text(
+                            text = label,
+                            style = textStyle,
+                            color = textColor.copy(alpha = 0.5f),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    innerTextField()
+                }
+                if (value.isNotEmpty()) {
+                    IconButton(
+                        onClick = { onValueChange("") },
+                        modifier = Modifier.size(HeaderControlDefaults.Size)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Clear,
+                            contentDescription = stringResource(R.string.clear),
+                            tint = iconColor
+                        )
+                    }
+                } else if (trailing == null) {
+                    // Leaves the text the same room from the end as the icon leaves it from the start
+                    Spacer(Modifier.width(Defaults.SpaceSmall))
+                }
+                trailing?.invoke(this)
+            }
+        }
     )
 }
-
-/** Height of [ListSearchField], a Material search bar's. */
-private val SearchFieldHeight = 56.dp

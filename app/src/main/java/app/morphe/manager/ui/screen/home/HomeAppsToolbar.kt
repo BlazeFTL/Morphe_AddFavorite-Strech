@@ -9,22 +9,22 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Sort
 import androidx.compose.material.icons.outlined.FileOpen
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppSortMode
-import app.morphe.manager.ui.screen.shared.ActionGlassButton
-import app.morphe.manager.ui.screen.shared.BottomActionTone
 import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.ListSearchField
+import app.morphe.manager.ui.screen.shared.TitleAction
+import app.morphe.manager.ui.screen.shared.TitleActionStyle
 import app.morphe.manager.ui.screen.shared.listOptionsStateDescription
 
 /**
@@ -48,8 +48,7 @@ internal fun HomeAppsToolbar(
     onPatchFileClick: (() -> Unit)?,
     modifier: Modifier = Modifier
 ) {
-    // The glass buttons fill whatever room they are given, so each is held to a circle as tall as
-    // the field, which takes the rest of the row
+    // The same controls as a header's, so the page reads as headed like the dialogs it opens
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
@@ -62,8 +61,7 @@ internal fun HomeAppsToolbar(
                 label = stringResource(R.string.home_search_apps),
                 modifier = Modifier
                     .weight(1f)
-                    .onFocusChanged { searchState.onFocusChange(it.isFocused) },
-                glass = true
+                    .onFocusChanged { searchState.onFocusChange(it.isFocused) }
             )
         } else {
             // Keeps the actions at the end of the row
@@ -71,34 +69,26 @@ internal fun HomeAppsToolbar(
         }
 
         if (showSort) {
-            ActionGlassButton(
-                onClick = onSortClick,
+            val sortState = listOptionsStateDescription(sortMode.labelRes, filterMode.labelRes.takeIf { filterMode.isActive })
+            TitleAction(
                 icon = Icons.AutoMirrored.Outlined.Sort,
-                modifier = Modifier.width(ToolbarHeight),
-                height = ToolbarHeight,
                 contentDescription = stringResource(R.string.sort),
-                stateDescription = listOptionsStateDescription(sortMode.labelRes, filterMode.labelRes.takeIf { filterMode.isActive }),
-                tone = when {
-                    sortOpen -> BottomActionTone.Accent
-                    filterMode.isActive -> BottomActionTone.Highlight
-                    else -> BottomActionTone.Neutral
-                },
-                enabled = sortEnabled
+                onClick = onSortClick,
+                // Engaged while the options are docked, and tinted while a filter narrows the list
+                style = if (filterMode.isActive && !sortOpen) TitleActionStyle.Accent else TitleActionStyle.Toggle,
+                active = sortOpen,
+                enabled = sortEnabled,
+                modifier = Modifier.semantics { stateDescription = sortState }
             )
         }
 
         if (onPatchFileClick != null) {
-            ActionGlassButton(
-                onClick = onPatchFileClick,
+            TitleAction(
                 icon = Icons.Outlined.FileOpen,
-                modifier = Modifier.width(ToolbarHeight),
-                height = ToolbarHeight,
                 contentDescription = stringResource(R.string.home_other_apps_action),
-                tone = BottomActionTone.Accent
+                onClick = onPatchFileClick,
+                style = TitleActionStyle.Accent
             )
         }
     }
 }
-
-/** Height the row's buttons share with its search field, the least a text field is drawn at. */
-private val ToolbarHeight = TextFieldDefaults.MinHeight

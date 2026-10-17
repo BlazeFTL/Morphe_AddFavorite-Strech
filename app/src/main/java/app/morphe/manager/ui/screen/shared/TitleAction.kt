@@ -5,14 +5,13 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.contentColorFor
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -31,7 +30,7 @@ enum class TitleActionStyle {
     Neutral,
     /** Neutral tonal circle with an icon in the error color. Use for bulk destructive actions */
     Destructive,
-    /** Neutral tonal circle that fills with the primary palette while active */
+    /** Neutral tonal circle that steps up its tint and takes an edge while active */
     Toggle
 }
 
@@ -55,25 +54,20 @@ fun TitleAction(
 ) {
     // Pinned to the container the button already draws, otherwise it reserves the 48dp touch
     // target around it and doubles the gap the title row asks for
-    val sizedModifier = modifier.size(IconButtonDefaults.smallContainerSize())
+    val sizedModifier = modifier.size(HeaderControlDefaults.Size)
 
-    // An accented header tints its circles a step over its band, as it does its badges, and fills
-    // an engaged toggle with the accent outright so the state reads as plainly as on the theme
-    val accent = LocalAccent.current
+    // An accented header tints its circles a step over its band, as it does its badges. Every fill
+    // stays see-through, so the band or what scrolls under it shows through each one alike
+    val engaged = style == TitleActionStyle.Toggle && active
 
     // Null marks the flat variant, which draws no circle at all
     val containerColor = when (style) {
         TitleActionStyle.Plain -> null
-        TitleActionStyle.Accent -> accent?.copy(alpha = AccentAlpha.LEAD) ?: MaterialTheme.colorScheme.primaryContainer
+        TitleActionStyle.Accent -> HeaderControlDefaults.leadContainer()
         // Neutral on any header, with the red kept to the icon, where it warns rather than decorates
-        TitleActionStyle.Destructive -> accentStepContainer(accent)
-        TitleActionStyle.Toggle -> if (active) {
-            accent ?: MaterialTheme.colorScheme.primaryContainer
-        } else {
-            accentStepContainer(accent)
-        }
-
-        TitleActionStyle.Neutral -> accentStepContainer(accent)
+        TitleActionStyle.Destructive,
+        TitleActionStyle.Neutral,
+        TitleActionStyle.Toggle -> HeaderControlDefaults.container(active = engaged)
     }
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -98,18 +92,19 @@ fun TitleAction(
             )
         }
     } else {
-        val contentColor = when {
-            style == TitleActionStyle.Destructive -> destructiveColor()
-            accent == null -> contentColorFor(containerColor)
-            else -> appAccentContent(containerColor)
+        val contentColor = when (style) {
+            TitleActionStyle.Destructive -> destructiveColor()
+            else -> HeaderControlDefaults.content(containerColor, active = engaged || style == TitleActionStyle.Accent)
         }
+        val shape = rememberPressShape(interactionSource, IconButtonDefaults.filledShape, enabled)
+        val border = HeaderControlDefaults.activeBorder(engaged)?.let { CardBorder.of(it) }
 
         FilledTonalIconButton(
             onClick = onClick,
-            modifier = sizedModifier,
+            modifier = if (border != null) sizedModifier.border(border, shape) else sizedModifier,
             enabled = enabled,
             interactionSource = interactionSource,
-            shape = rememberPressShape(interactionSource, IconButtonDefaults.filledShape, enabled),
+            shape = shape,
             colors = IconButtonDefaults.filledTonalIconButtonColors(
                 containerColor = containerColor,
                 contentColor = contentColor,

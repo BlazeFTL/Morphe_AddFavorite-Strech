@@ -37,7 +37,6 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -63,8 +62,8 @@ import app.morphe.manager.ui.screen.shared.MessageHost
 import app.morphe.manager.ui.screen.shared.RandomBackground
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberRandomBackground
-import app.morphe.manager.ui.screen.shared.sharedAxisEnter
-import app.morphe.manager.ui.screen.shared.sharedAxisExit
+import app.morphe.manager.ui.screen.shared.sharedAxisZEnter
+import app.morphe.manager.ui.screen.shared.sharedAxisZExit
 import app.morphe.manager.ui.screen.sources.BundleChangelogHost
 import app.morphe.manager.ui.screen.sources.BundleChangelogRequest
 import app.morphe.manager.ui.theme.*
@@ -568,29 +567,17 @@ private fun MorpheManager(vm: MainViewModel) {
             navController = navController,
             startDestination = HomeScreen,
             modifier = if (showOnboarding) Modifier.hazeSource(tourHaze) else Modifier,
-            enterTransition = { Animations.screenEnter },
-            exitTransition = { Animations.screenExit },
-            popEnterTransition = { Animations.screenEnter },
-            popExitTransition = { Animations.screenExit },
-            // Every screen shrinks away under the gesture, revealing the one it returns to, which a
-            // settings page opened along a shared axis comes back in on, see the routes below
-            predictivePopEnterTransition = {
-                if (initialState.destination.hasRoute<SettingsDetail>()) sharedAxisEnter(forward = false)
-                else Animations.screenEnter
-            },
+            // Every screen opens deeper than the main one along Material's shared Z axis, rather than
+            // sideways, which the main screen's own pages already move. Back runs it in reverse, and
+            // under the predictive gesture the screen leaving shrinks away instead
+            enterTransition = { sharedAxisZEnter(forward = true) },
+            exitTransition = { sharedAxisZExit(forward = true) },
+            popEnterTransition = { sharedAxisZEnter(forward = false) },
+            popExitTransition = { sharedAxisZExit(forward = false) },
+            predictivePopEnterTransition = { sharedAxisZEnter(forward = false) },
             predictivePopExitTransition = { Animations.predictiveBackExit }
         ) {
-            composable<HomeScreen>(
-                // A settings page opens deeper from the main screen, along Material's shared axis
-                exitTransition = {
-                    if (targetState.destination.hasRoute<SettingsDetail>()) sharedAxisExit(forward = true)
-                    else Animations.screenExit
-                },
-                popEnterTransition = {
-                    if (initialState.destination.hasRoute<SettingsDetail>()) sharedAxisEnter(forward = false)
-                    else Animations.screenEnter
-                }
-            ) { entry ->
+            composable<HomeScreen> { entry ->
                 val bundleUpdateProgress by homeViewModel.bundleUpdateProgress.collectAsStateWithLifecycle(null)
                 val patchTriggerPackage by entry.savedStateHandle.getStateFlow<String?>("patch_trigger_package", null)
                     .collectAsStateWithLifecycle()
@@ -678,10 +665,7 @@ private fun MorpheManager(vm: MainViewModel) {
                 )
             }
 
-            composable<SettingsDetail>(
-                enterTransition = { sharedAxisEnter(forward = true) },
-                popExitTransition = { sharedAxisExit(forward = false) }
-            ) { entry ->
+            composable<SettingsDetail> { entry ->
                 SettingsSubpageScreen(
                     subpage = SettingsSubpage.valueOf(entry.toRoute<SettingsDetail>().subpage),
                     homeViewModel = homeViewModel,

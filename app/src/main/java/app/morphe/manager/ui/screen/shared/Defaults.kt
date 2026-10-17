@@ -65,8 +65,6 @@ object Defaults {
     const val ANIMATION_DURATION = 220
     /** Shorter fade duration used inside spring-based exit transitions. */
     const val ANIMATION_DURATION_SHORT = 180
-    /** Duration used for screen-level enter transitions (navigation push). */
-    const val SCREEN_ENTER_DURATION = 320
 
     // Dialog animation scale
     /** Initial/target scale for dialog enter/exit scale animation. */

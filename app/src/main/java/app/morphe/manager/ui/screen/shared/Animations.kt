@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.IntOffset
 
 /** [value], or the last one it held once it is gone, so content animating out has something to show. */
 @Composable
@@ -96,28 +95,27 @@ private const val SHARED_AXIS_DURATION = 300
 // The outgoing page fades within the first part, the incoming one over the rest
 private const val SHARED_AXIS_FADE_OUT = 90
 private const val SHARED_AXIS_FADE_IN = SHARED_AXIS_DURATION - SHARED_AXIS_FADE_OUT
-private val SharedAxisSlide = tween<IntOffset>(SHARED_AXIS_DURATION, easing = FastOutSlowInEasing)
+// Shared Z axis: the screen coming in grows from a step below its size when entered and shrinks
+// from a step above it when returned to, while the one leaving goes the other way
+private const val SHARED_AXIS_Z_BELOW = 0.8f
+private const val SHARED_AXIS_Z_ABOVE = 1.1f
+private val SharedAxisScale = tween<Float>(SHARED_AXIS_DURATION, easing = FastOutSlowInEasing)
 
-private fun sharedAxisDirection(forward: Boolean) =
-    if (forward) AnimatedContentTransitionScope.SlideDirection.Start
-    else AnimatedContentTransitionScope.SlideDirection.End
-
-// A tenth of the way across rather than the whole, so the move reads as a step, not a slide
-private fun sharedAxisOffset(fullSlide: Int) = fullSlide / 10
+private val SharedAxisFadeIn =
+    fadeIn(tween(SHARED_AXIS_FADE_IN, delayMillis = SHARED_AXIS_FADE_OUT, easing = LinearOutSlowInEasing))
+private val SharedAxisFadeOut = fadeOut(tween(SHARED_AXIS_FADE_OUT, easing = FastOutLinearInEasing))
 
 /**
- * Material's shared X axis, for a page opened deeper from another: the two move a short way along
- * the reading direction together while one fades into the other, and back runs it in reverse.
- * [forward] is the way into the deeper page.
+ * Material's shared Z axis, for a screen opened deeper than the one it came from: it grows into
+ * place as the one it covers swells and fades away, and back runs it in reverse. [forward] is the
+ * way into the deeper screen.
  */
-fun AnimatedContentTransitionScope<*>.sharedAxisEnter(forward: Boolean): EnterTransition =
-    slideIntoContainer(sharedAxisDirection(forward), SharedAxisSlide, ::sharedAxisOffset) +
-        fadeIn(tween(SHARED_AXIS_FADE_IN, delayMillis = SHARED_AXIS_FADE_OUT, easing = LinearOutSlowInEasing))
+fun sharedAxisZEnter(forward: Boolean): EnterTransition =
+    scaleIn(SharedAxisScale, initialScale = if (forward) SHARED_AXIS_Z_BELOW else SHARED_AXIS_Z_ABOVE) + SharedAxisFadeIn
 
-/** The page making way in a [sharedAxisEnter]. */
-fun AnimatedContentTransitionScope<*>.sharedAxisExit(forward: Boolean): ExitTransition =
-    slideOutOfContainer(sharedAxisDirection(forward), SharedAxisSlide, ::sharedAxisOffset) +
-        fadeOut(tween(SHARED_AXIS_FADE_OUT, easing = FastOutLinearInEasing))
+/** The screen making way in a [sharedAxisZEnter]. */
+fun sharedAxisZExit(forward: Boolean): ExitTransition =
+    scaleOut(SharedAxisScale, targetScale = if (forward) SHARED_AXIS_Z_ABOVE else SHARED_AXIS_Z_BELOW) + SharedAxisFadeOut
 
 /**
  * Shared [EnterTransition] and [ExitTransition] for all AppDialog and ListDialog instances and
@@ -148,15 +146,6 @@ object Animations {
     // Overlays (no scale needed)
     val overlayEnter = fadeIn
     val overlayExit = fadeOut
-
-    // Screen transitions.
-    // Enter uses a longer duration; exit is identical to dialogExit so we reuse it directly
-    val screenEnter = fadeIn(defaultTween(Defaults.SCREEN_ENTER_DURATION)) +
-            scaleIn(
-                initialScale = Defaults.DIALOG_SCALE,
-                animationSpec = defaultTween(Defaults.SCREEN_ENTER_DURATION, FastOutSlowInEasing)
-            )
-    val screenExit = dialogExit
 
     /**
      * The spring lazy list rows move on, for anything that resizes alongside them.

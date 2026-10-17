@@ -471,6 +471,9 @@ fun ForwardChevronIcon(
  *
  * [statusContent] takes the place of [trailingContent] for a row that shows its state, which says
  * enough on its own that a chevron beside it would only crowd it.
+ *
+ * @param keywords More a [SettingsSearch] finds the row by than its [title] and [subtitle], such as
+ *   what the page it opens holds.
  */
 @Composable
 fun SettingsItem(
@@ -482,20 +485,23 @@ fun SettingsItem(
     subtitle: String? = null,
     showBorder: Boolean = false,
     statusContent: @Composable (() -> Unit)? = null,
-    trailingContent: @Composable (() -> Unit)? = { ForwardChevronIcon() }
+    trailingContent: @Composable (() -> Unit)? = { ForwardChevronIcon() },
+    keywords: List<String> = emptyList()
 ) {
-    SettingsItemCard(
-        onClick = onClick,
-        showBorder = showBorder,
-        modifier = modifier
-    ) {
-        IconTextRow(
-            modifier = Modifier.padding(Defaults.SpaceLarge),
-            leadingContent = leadingContent ?: icon?.let { { ThemedIcon(icon = it) } },
-            title = title,
-            description = subtitle,
-            trailingContent = statusContent ?: trailingContent
-        )
+    SearchableSetting(listOf(title, subtitle) + keywords) {
+        SettingsItemCard(
+            onClick = onClick,
+            showBorder = showBorder,
+            modifier = modifier
+        ) {
+            IconTextRow(
+                modifier = Modifier.padding(Defaults.SpaceLarge),
+                leadingContent = leadingContent ?: icon?.let { { ThemedIcon(icon = it) } },
+                title = title,
+                description = subtitle,
+                trailingContent = statusContent ?: trailingContent
+            )
+        }
     }
 }
 
@@ -576,6 +582,8 @@ fun SectionTitle(
     text: String,
     icon: ImageVector? = null
 ) {
+    // What a search leaves of a page reads as one list
+    if (LocalSettingsSearch.current?.isActive == true) return
     Row(
         modifier = Modifier
             .fillMaxWidth()

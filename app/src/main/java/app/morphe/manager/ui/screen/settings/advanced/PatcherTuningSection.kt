@@ -77,18 +77,22 @@ fun PatcherTuningSection(settingsViewModel: SettingsViewModel) {
                 }
             )
         } else {
-            SettingsItemCard(onClick = null) {
-                IconTextRow(
-                    modifier = Modifier.padding(Defaults.SpaceLarge),
-                    leadingContent = {
-                        ThemedIcon(
-                            icon = Icons.Outlined.Memory,
-                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-                        )
-                    },
-                    title = stringResource(R.string.settings_system_process_runtime),
-                    description = stringResource(R.string.settings_system_process_runtime_description_not_available)
-                )
+            val title = stringResource(R.string.settings_system_process_runtime)
+            val description = stringResource(R.string.settings_system_process_runtime_description_not_available)
+            SearchableSetting(listOf(title, description)) {
+                SettingsItemCard(onClick = null) {
+                    IconTextRow(
+                        modifier = Modifier.padding(Defaults.SpaceLarge),
+                        leadingContent = {
+                            ThemedIcon(
+                                icon = Icons.Outlined.Memory,
+                                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                            )
+                        },
+                        title = title,
+                        description = description
+                    )
+                }
             }
         }
 

@@ -1352,6 +1352,7 @@ Details: %2$s"</string>
     <string name="settings_section_performance">Performance</string>
     <string name="settings_section_original_apks">Original APKs</string>
     <string name="settings_section_files">Files &amp; backups</string>
+    <string name="settings_search">Search settings</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="all">All</string>

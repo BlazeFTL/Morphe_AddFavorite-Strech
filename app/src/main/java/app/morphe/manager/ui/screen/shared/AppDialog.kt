@@ -217,6 +217,7 @@ internal fun DialogShell(
                     CompositionLocalProvider(
                         // A window of its own, which cannot draw what the one it opened from blurs
                         LocalBackdropHaze provides null,
+                        LocalSettingsSearch provides null,
                         LocalDialogTextColor provides textColor,
                         LocalDialogSecondaryTextColor provides textColor.copy(alpha = 0.7f),
                         LocalContentColor provides textColor

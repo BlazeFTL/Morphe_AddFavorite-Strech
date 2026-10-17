@@ -14,9 +14,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Psychology
+import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
@@ -73,15 +75,28 @@ fun SettingsPage(
 ) {
     val scrollState = rememberScrollState()
     val horizontal = rememberWindowSize().contentPadding
+    val search = rememberSearchFieldState()
+    val settingsSearch = remember(search) { SettingsSearch { search.query } }
+    val searchLabel = stringResource(R.string.settings_search)
+    // Registered inside the page so it outranks the main screen's own back handling
+    SearchFieldBackHandler(search)
 
     PinnedHeaderPage(
-        header = { PageHeader(title = stringResource(R.string.settings)) },
+        header = {
+            PageHeader(title = stringResource(R.string.settings)) {
+                SearchToggleAction(search, searchLabel)
+            }
+            HeaderSearchField(search, searchLabel)
+        },
         modifier = modifier
     ) { headerHeight ->
-        CompositionLocalProvider(LocalSettingsTour provides onboardingState) {
+        CompositionLocalProvider(
+            LocalSettingsTour provides onboardingState,
+            LocalSettingsSearch provides settingsSearch
+        ) {
             // A row the tour turns to comes out from under the header and the navigation
             ProvideBringIntoViewInsets(top = headerHeight, bottom = bottomBarHeight) {
-                Column(
+                SettingsBlocks(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScrollFade(scrollState)
@@ -91,8 +106,7 @@ fun SettingsPage(
                             top = headerHeight + Defaults.SpaceMedium,
                             end = horizontal,
                             bottom = bottomBarHeight + Defaults.SpaceLarge
-                        ),
-                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
+                        )
                 ) {
                     PatchingSection(settingsViewModel, onOpenSubpage)
                     PatcherTuningSection(settingsViewModel)
@@ -101,6 +115,12 @@ fun SettingsPage(
                     BackgroundSection(settingsViewModel)
                     FilesSection()
                     AboutSection(onStartTour)
+                    if (settingsSearch.isActive && settingsSearch.shown == 0) {
+                        EmptyState(
+                            message = stringResource(R.string.search_no_results),
+                            icon = Icons.Outlined.SearchOff
+                        )
+                    }
                 }
             }
         }
@@ -113,6 +133,28 @@ fun SettingsPage(
             )
         )
         ScrollToTopButton(scrollState = scrollState, extraBottomPadding = bottomBarHeight)
+    }
+}
+
+/**
+ * Stacks the blocks of the page [Defaults.SpaceLarge] apart, closing up over any a search has left
+ * empty, which a column spaced by its arrangement would still leave a gap for.
+ */
+@Composable
+private fun SettingsBlocks(modifier: Modifier, content: @Composable () -> Unit) {
+    Layout(content = content, modifier = modifier) { measurables, constraints ->
+        val gap = Defaults.SpaceLarge.roundToPx()
+        val placeables = measurables
+            .map { it.measure(constraints.copy(minHeight = 0)) }
+            .filter { it.height > 0 }
+        val height = placeables.sumOf { it.height } + gap * (placeables.size - 1).coerceAtLeast(0)
+        layout(constraints.maxWidth, height) {
+            var y = 0
+            placeables.forEach { placeable ->
+                placeable.place(0, y)
+                y += placeable.height + gap
+            }
+        }
     }
 }
 
@@ -178,8 +220,8 @@ private fun PatchingSection(
         )
     }
 
-    // Shown once after enabling
-    if (useExpertMode && settingsViewModel.showExpertModeNotice) {
+    // Shown once after enabling, and not as a match for a search
+    if (useExpertMode && settingsViewModel.showExpertModeNotice && LocalSettingsSearch.current?.isActive != true) {
         Notice(
             icon = Icons.Outlined.Info,
             text = stringResource(R.string.settings_advanced_patch_options_expert_mode_notice),
@@ -225,6 +267,7 @@ private fun SubpageItem(
         title = stringResource(subpage.titleRes),
         subtitle = stringResource(subpage.summaryRes),
         icon = subpage.icon,
-        modifier = modifier
+        modifier = modifier,
+        keywords = subpage.keywordRes.map { stringResource(it) }
     )
 }

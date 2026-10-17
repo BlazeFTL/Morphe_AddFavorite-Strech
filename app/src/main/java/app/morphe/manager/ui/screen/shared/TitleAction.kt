@@ -5,17 +5,16 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Circle
-import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -107,12 +106,15 @@ fun TitleAction(
         val shape = rememberPressShape(interactionSource, IconButtonDefaults.filledShape, enabled)
         val border = HeaderControlDefaults.activeBorder(engaged)?.let { CardBorder.of(it) }
 
-        FilledTonalIconButton(
+        // Outlined rather than tonal only for the edge, which it draws on the circle itself rather
+        // than around the touch target the button reserves past it
+        OutlinedIconButton(
             onClick = onClick,
-            modifier = if (border != null) sizedModifier.border(border, shape) else sizedModifier,
+            modifier = sizedModifier,
             enabled = enabled,
             interactionSource = interactionSource,
             shape = shape,
+            border = border,
             colors = IconButtonDefaults.filledTonalIconButtonColors(
                 containerColor = containerColor,
                 contentColor = contentColor,

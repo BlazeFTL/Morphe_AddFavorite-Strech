@@ -148,7 +148,8 @@ private fun SettingsBlocks(modifier: Modifier, content: @Composable () -> Unit) 
             .map { it.measure(constraints.copy(minHeight = 0)) }
             .filter { it.height > 0 }
         val height = placeables.sumOf { it.height } + gap * (placeables.size - 1).coerceAtLeast(0)
-        layout(constraints.maxWidth, height) {
+        // Held to the least height it is given, which a short page would otherwise be centered in
+        layout(constraints.maxWidth, height.coerceAtLeast(constraints.minHeight)) {
             var y = 0
             placeables.forEach { placeable ->
                 placeable.place(0, y)

@@ -25,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,33 +57,18 @@ private const val PILL_TAP_COUNT = 7
 private val PILL_TAP_TIMEOUT = 1500.milliseconds
 
 /**
- * About dialog.
- * Shows app icon, version, description, social links, and credits button.
+ * About dialog: the manager's icon, version, description and social links, with its credits, and
+ * the licenses past them, opening in place of it.
  */
 @Composable
 fun DialogHostScope.AboutDialog(
     onDismiss: () -> Unit,
     themeViewModel: ThemeSettingsViewModel = koinViewModel()
 ) {
-    val context = LocalContext.current
-    val uriHandler = LocalUriHandler.current
-    val view = LocalView.current
-
-    val showCreditsDialog = remember { mutableStateOf(false) }
+    // The credits, and the licenses past them, open in place of the about page in the same dialog
+    var page by rememberSaveable { mutableStateOf(AboutPage.About) }
     val showPillDialog = remember { mutableStateOf(false) }
     val matrixUnlocked by themeViewModel.prefs.matrixBackgroundUnlocked.getAsState()
-    var versionTaps by remember { mutableIntStateOf(0) }
-
-    LaunchedEffect(versionTaps) {
-        if (versionTaps == 0) return@LaunchedEffect
-
-        delay(PILL_TAP_TIMEOUT)
-        versionTaps = 0
-    }
-
-    DialogHost(visible = showCreditsDialog.value) {
-        CreditsDialog(onDismiss = { showCreditsDialog.value = false })
-    }
 
     DialogHost(visible = showPillDialog.value) {
         RedPillDialog(
@@ -94,6 +80,44 @@ fun DialogHostScope.AboutDialog(
         )
     }
 
+    DialogPages(page = page, key = { it }, modifier = Modifier.fillMaxSize()) { shown ->
+        when (shown) {
+            AboutPage.About -> AboutOverview(
+                onDismiss = onDismiss,
+                onOpenCredits = { page = AboutPage.Credits },
+                onOpenPill = { showPillDialog.value = true }
+            )
+            AboutPage.Credits -> CreditsPage(
+                onBack = { page = AboutPage.About },
+                onOpenLicenses = { page = AboutPage.Licenses }
+            )
+            AboutPage.Licenses -> LicensesPage(onBack = { page = AboutPage.Credits })
+        }
+    }
+}
+
+/** The pages of the about dialog, each going back to the one before it. */
+private enum class AboutPage { About, Credits, Licenses }
+
+/** The manager itself: its icon, version, description and social links. */
+@Composable
+private fun DialogHostScope.AboutOverview(
+    onDismiss: () -> Unit,
+    onOpenCredits: () -> Unit,
+    onOpenPill: () -> Unit
+) {
+    val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
+    val view = LocalView.current
+    var versionTaps by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(versionTaps) {
+        if (versionTaps == 0) return@LaunchedEffect
+
+        delay(PILL_TAP_TIMEOUT)
+        versionTaps = 0
+    }
+
     AppDialog(
         onDismissRequest = onDismiss,
         footer = {
@@ -101,7 +125,7 @@ fun DialogHostScope.AboutDialog(
                 actions = listOf(
                     DialogAction(
                         text = stringResource(R.string.credits),
-                        onClick = { showCreditsDialog.value = true },
+                        onClick = onOpenCredits,
                         icon = Icons.Outlined.People,
                         emphasis = DialogActionEmphasis.Outlined
                     ),
@@ -169,7 +193,7 @@ fun DialogHostScope.AboutDialog(
                                 versionTaps >= PILL_TAP_COUNT -> {
                                     versionTaps = 0
                                     view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-                                    showPillDialog.value = true
+                                    onOpenPill()
                                 }
                                 // The halfway point is where the taps start answering back,
                                 // enough of a hint to keep going without naming what is coming

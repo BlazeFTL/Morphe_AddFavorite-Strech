@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.Article
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -23,12 +26,7 @@ import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withLink
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.shared.DialogScrollIndicators
-import app.morphe.manager.ui.screen.shared.dialogTextColor
-import app.morphe.manager.ui.screen.shared.AppDialog
-import app.morphe.manager.ui.screen.shared.AppDialogOutlinedButton
-import app.morphe.manager.ui.screen.shared.DialogHostScope
-import app.morphe.manager.ui.screen.shared.verticalScrollFade
+import app.morphe.manager.ui.screen.shared.*
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
@@ -70,28 +68,38 @@ service marks, or logos.
 """
 
 /**
- * Licenses dialog.
- * Shows open-source library licenses via aboutlibraries.
+ * The open-source libraries the manager is built on, with their licenses, on a page of the about
+ * dialog that [onBack] leaves for the credits, see [CreditsPage].
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DialogHostScope.LicensesDialog(onDismiss: () -> Unit) {
-    AppDialog(
-        title = stringResource(R.string.opensource_licenses),
-        onDismissRequest = onDismiss,
-        scrollable = false, // LibrariesContainer has its own LazyColumn
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
+fun DialogHostScope.LicensesPage(onBack: () -> Unit) {
+    val libraries by produceLibraries(R.raw.aboutlibraries)
+    val count = libraries?.libraries?.size
+    val accent = MaterialTheme.colorScheme.primary
+
+    ListDialog(
+        onDismissRequest = onBack,
+        header = {
+            ListDialogHeader(
+                icon = { modifier ->
+                    ListDialogHeaderIcon(icon = Icons.AutoMirrored.Outlined.Article, color = accent, modifier = modifier)
+                },
+                title = stringResource(R.string.opensource_licenses),
+                subtitle = count?.let { pluralStringResource(R.plurals.library_count, it, it.toString()) }.orEmpty(),
+                subtitleLoading = count == null,
+                accentColor = accent
             )
         },
+        footer = {
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.back),
+                onClick = onBack,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     ) {
-        // Libraries list
         val lazyListState = rememberLazyListState()
-        val libraries by produceLibraries(R.raw.aboutlibraries)
-
         var openDialog by remember { mutableStateOf<Library?>(null) }
         var openSheet by remember { mutableStateOf<Library?>(null) }
 
@@ -107,6 +115,7 @@ fun DialogHostScope.LicensesDialog(onDismiss: () -> Unit) {
             fundingChipColors = chipColors,
         )
 
+        // The library list is a lazy list of its own, laid out as a dialog's list is
         Box(modifier = Modifier.weight(1f)) {
             LibrariesContainer(
                 modifier = Modifier
@@ -118,6 +127,7 @@ fun DialogHostScope.LicensesDialog(onDismiss: () -> Unit) {
                 onDialogLibraryChange = { openDialog = it },
                 onSheetLibraryChange = { openSheet = it },
                 lazyListState = lazyListState,
+                contentPadding = LocalDialogBarInsets.current,
                 colors = colors,
                 onActionClick = { library, kind ->
                     if (kind == LibraryActionKind.License) {

@@ -10,16 +10,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Article
+import androidx.compose.material.icons.outlined.People
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.util.isolateLtr
+import app.morphe.manager.util.withVersionPrefix
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Brands
 import compose.icons.fontawesomeicons.brands.Github
@@ -52,31 +54,40 @@ private val priorContributors = listOf(
 )
 
 /**
- * Credits dialog.
- * Shows current and prior contributors with links to their GitHub contributor pages.
+ * Who made the manager: current and prior contributors, each linking to their GitHub contributor
+ * page, on a page of the about dialog that [onBack] leaves for it, see [AboutDialog].
  */
 @Composable
-fun DialogHostScope.CreditsDialog(onDismiss: () -> Unit) {
+fun DialogHostScope.CreditsPage(onBack: () -> Unit, onOpenLicenses: () -> Unit) {
     val uriHandler = LocalUriHandler.current
-    val showLicensesDialog = remember { mutableStateOf(false) }
+    val accent = MaterialTheme.colorScheme.primary
 
-    DialogHost(visible = showLicensesDialog.value) {
-        LicensesDialog(onDismiss = { showLicensesDialog.value = false })
-    }
-
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.credits),
+    ListDialog(
+        onDismissRequest = onBack,
+        header = {
+            ListDialogHeader(
+                icon = { modifier ->
+                    ListDialogHeaderIcon(icon = Icons.Outlined.People, color = accent, modifier = modifier)
+                },
+                title = stringResource(R.string.credits),
+                subtitle = listOf(
+                    stringResource(R.string.app_name),
+                    BuildConfig.VERSION_NAME.withVersionPrefix().isolateLtr()
+                ).joinToString(" · "),
+                accentColor = accent,
+                alwaysShowBand = true
+            )
+        },
         footer = {
             AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismiss,
+                text = stringResource(R.string.back),
+                onClick = onBack,
                 modifier = Modifier.fillMaxWidth()
             )
         }
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
+        DialogScrollColumn(
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             ContributorSection(
@@ -91,7 +102,7 @@ fun DialogHostScope.CreditsDialog(onDismiss: () -> Unit) {
             )
             SettingsGroup {
                 SettingsItem(
-                    onClick = { showLicensesDialog.value = true },
+                    onClick = onOpenLicenses,
                     icon = Icons.AutoMirrored.Outlined.Article,
                     title = stringResource(R.string.opensource_licenses)
                 )

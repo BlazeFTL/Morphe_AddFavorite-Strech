@@ -1,3 +1,29 @@
+# [2.0.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.3...v2.0.0-dev.4) (2026-10-17)
+
+
+### Bug Fixes
+
+* Close every dialog with its own exit animation rather than holding it frozen, and hand one dialog to the next without the screen behind showing between them ([326d710](https://github.com/MorpheApp/morphe-manager/commit/326d7108cafd07b88b5a91b30610429038879b62))
+* Keep a list dialog's header bare while its list loads, instead of flashing its band until the list shows ([d1dae2b](https://github.com/MorpheApp/morphe-manager/commit/d1dae2b616d0b9654ecd2ae21dfdab2ecaea7028))
+* Keep the blurred header band down in dialogs about one app, patch or source, even while their content rests ([41a8350](https://github.com/MorpheApp/morphe-manager/commit/41a835075cbdb4f45a1d937126805c7ecdabc534))
+* Keep the home list's scrollbar in its gutter in landscape rather than over the app cards ([5b7a3c2](https://github.com/MorpheApp/morphe-manager/commit/5b7a3c2fa2852f83f5004d5e258df8c9dc9f3ee9))
+* Leave no gap over a page opened from a header folded away, the room held for its folded part going with it ([ab04bd1](https://github.com/MorpheApp/morphe-manager/commit/ab04bd1ebc565de04484b22a58b903f1bdf01bfd))
+* Run a loading app card's gradient across its whole width and the color picker's gradient preview from the start edge ([88e5510](https://github.com/MorpheApp/morphe-manager/commit/88e551027ca07ce52156b1999d4d623586b87af1))
+* Shape a settings group's rows by what of them shows, so a row folding away no longer squares the corners of the one above ([9d5cdf7](https://github.com/MorpheApp/morphe-manager/commit/9d5cdf7ca058bf8c578d7a4a22b3a51540fdfb2d))
+* Slide the navigation pill's indicator under the selected tab and swipe notifications along the finger in right-to-left layouts ([8d8a300](https://github.com/MorpheApp/morphe-manager/commit/8d8a3009b287564cbf229cd4cb1383584de4542b))
+
+
+### Features
+
+* Choose the patch mode by the default installer, asking first only while the installer prompt is on, and open the installer settings as a page of their own with an option to ignore install target requirements ([#981](https://github.com/MorpheApp/morphe-manager/issues/981)) ([3bca51d](https://github.com/MorpheApp/morphe-manager/commit/3bca51d77a538de8e86d4d66cfddf95b4a2ce1dd))
+* List the app card color modes one under another in their dialog, each with its own description ([7b0c781](https://github.com/MorpheApp/morphe-manager/commit/7b0c78113a977d1912a40e88b2db2c5c72c79ad7))
+* Mount a root mount build on its own after patching once auto-install is on ([#1171](https://github.com/MorpheApp/morphe-manager/issues/1171)) ([9a9ebf5](https://github.com/MorpheApp/morphe-manager/commit/9a9ebf5cee1895cfd211b48239df9e821ec48745))
+* Name the installer settings page Installation, so it no longer repeats the name of the section it holds ([75e7d1b](https://github.com/MorpheApp/morphe-manager/commit/75e7d1ba2b3a3e6de57aa4a9aeeaae7b6051e529))
+* Open an app's applied patches and web links in place of its info, under the same header, Back returning to it ([3c75cdc](https://github.com/MorpheApp/morphe-manager/commit/3c75cdc7b5900ee47d2ff639ce12475fd0723402))
+* Open the credits and licenses as pages of the about dialog, laid out as lists like the rest ([59549ae](https://github.com/MorpheApp/morphe-manager/commit/59549ae752916d85c3562dc45617a79b54e3b31d))
+* Open the notification settings as a page of their own, found by the settings search like the rest ([60286e6](https://github.com/MorpheApp/morphe-manager/commit/60286e61c0d339958c7f2586b1ff0f58409de748))
+* Open the saved APKs in place of the storage overview and an app's patch selection in place of the list, each page kept as it was left ([c6bf3e2](https://github.com/MorpheApp/morphe-manager/commit/c6bf3e283826fb932d738db35baf97798480f323))
+
 # [2.0.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.2...v2.0.0-dev.3) (2026-10-17)
 
 

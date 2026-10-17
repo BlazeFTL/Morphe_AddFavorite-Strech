@@ -112,7 +112,9 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
             colorAccents = colorAccents,
             onColorAccentsToggle = { themeViewModel.toggleColorAccents(colorAccents) },
             accentColorHex = customAccentColorHex,
-            onAccentSelected = themeViewModel::setCustomAccentColor
+            onAccentSelected = themeViewModel::setCustomAccentColor,
+            appCardColorMode = appCardColorMode,
+            onAppCardColorsClick = { showAppCardColorDialog.value = true }
         )
 
         EffectsSection(
@@ -126,9 +128,6 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
         )
 
         HomeScreenSection(
-            appCardColorMode = appCardColorMode,
-            showAppCardColors = showAppCardColorSetting,
-            onAppCardColorsClick = { showAppCardColorDialog.value = true },
             showGreetingPhrases = showGreetingPhrases,
             showRepatchNotice = showRepatchNotice,
             onGreetingPhrasesToggle = { themeViewModel.toggleShowGreetingPhrases(showGreetingPhrases) },
@@ -282,8 +281,8 @@ private fun DisplaySection(
 }
 
 /**
- * Theme mode and color style, then the colors the manager wears: its accent, pure black and the
- * colors apps and sources wear.
+ * Theme mode and color style, then the colors the manager wears: its accent, pure black, and the
+ * colors apps and sources wear, on their cards on the home screen too.
  */
 @Composable
 private fun ThemeSection(
@@ -298,7 +297,9 @@ private fun ThemeSection(
     colorAccents: Boolean,
     onColorAccentsToggle: () -> Unit,
     accentColorHex: String?,
-    onAccentSelected: (Color?) -> Unit
+    onAccentSelected: (Color?) -> Unit,
+    appCardColorMode: AppCardColorMode,
+    onAppCardColorsClick: () -> Unit
 ) {
     SettingsSection(
         title = stringResource(R.string.settings_appearance_theme),
@@ -340,15 +341,24 @@ private fun ThemeSection(
                 )
             }
 
-            // Monochrome already trades every app's and source's color for its own accent
+            // Monochrome already trades every app's and source's color for its own accent, and leaves
+            // the app cards without one to pick
             FoldingVisibility(visible = themeStyle != ThemeStyle.MONOCHROME) {
-                SettingsSwitchItem(
-                    title = stringResource(R.string.settings_appearance_color_accents),
-                    subtitle = stringResource(R.string.settings_appearance_color_accents_description),
-                    icon = Icons.Outlined.FormatColorFill,
-                    checked = colorAccents,
-                    onToggle = onColorAccentsToggle
-                )
+                Column {
+                    SettingsSwitchItem(
+                        title = stringResource(R.string.settings_appearance_color_accents),
+                        subtitle = stringResource(R.string.settings_appearance_color_accents_description),
+                        icon = Icons.Outlined.FormatColorFill,
+                        checked = colorAccents,
+                        onToggle = onColorAccentsToggle
+                    )
+                    SettingsItem(
+                        onClick = onAppCardColorsClick,
+                        title = stringResource(R.string.settings_appearance_app_card_colors),
+                        subtitle = stringResource(appCardColorMode.descriptionResId),
+                        leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
+                    )
+                }
             }
         }
     }
@@ -399,15 +409,10 @@ private fun EffectsSection(
 }
 
 /**
- * How the home screen looks: the colors its app cards wear, then what it shows.
- *
- * @param showAppCardColors Whether the theme leaves app cards a color to pick, which monochrome does not.
+ * What the home screen shows besides the apps.
  */
 @Composable
 private fun HomeScreenSection(
-    appCardColorMode: AppCardColorMode,
-    showAppCardColors: Boolean,
-    onAppCardColorsClick: () -> Unit,
     showGreetingPhrases: Boolean,
     showRepatchNotice: Boolean,
     onGreetingPhrasesToggle: () -> Unit,
@@ -418,14 +423,6 @@ private fun HomeScreenSection(
         icon = Icons.Outlined.Dashboard
     ) {
         SettingsGroup {
-            FoldingVisibility(visible = showAppCardColors) {
-                SettingsItem(
-                    onClick = onAppCardColorsClick,
-                    title = stringResource(R.string.settings_appearance_app_card_colors),
-                    subtitle = stringResource(appCardColorMode.descriptionResId),
-                    leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
-                )
-            }
             SettingsSwitchItem(
                 title = stringResource(R.string.settings_appearance_greeting_phrases),
                 subtitle = stringResource(R.string.settings_appearance_greeting_phrases_subtitle),

@@ -25,13 +25,11 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
-import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.ui.theme.headerTitle
 
@@ -233,67 +231,31 @@ private fun HeaderContent(
     modifier: Modifier
 ) {
     val entrance = rememberDialogHeaderEntrance()
-    val label = searchLabel ?: stringResource(R.string.search)
 
     Column(modifier = modifier.padding(vertical = DialogHeaderDefaults.VerticalPadding)) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing)
-        ) {
-            icon(Modifier.size(DialogHeaderDefaults.IconSize).headerIconEntrance(entrance))
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.TextSpacing)
-            ) {
-                // Two lines, so a list named in a phrase rather than a name keeps it whole beside
-                // the header's actions
-                Text(
-                    text = title,
-                    style = DialogHeaderDefaults.titleStyle,
-                    color = dialogTextColor(),
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.headerTitleEntrance(entrance)
-                )
-                val subtitleStyle = DialogHeaderDefaults.subtitleStyle
-                // Eases from the shimmer into the text and from one text to the next as the list it
-                // sums up changes, the header resizing along when the new one takes more lines
-                AnimatedContent(
-                    targetState = subtitle.takeUnless { subtitleLoading },
-                    transitionSpec = Animations.fadeCrossfade(),
-                    contentAlignment = Alignment.TopStart,
-                    label = "list_header_subtitle",
-                    modifier = Modifier.headerSubtitleEntrance(entrance)
-                ) { text ->
-                    if (text == null) {
-                        // A line's height, the size of the shortest subtitle it stands in for
-                        ShimmerText(
-                            widthFraction = 0.5f,
-                            height = with(LocalDensity.current) { subtitleStyle.lineHeight.toDp() }
-                        )
-                    } else {
-                        Text(
-                            text = text,
-                            style = subtitleStyle,
-                            color = dialogSecondaryTextColor()
-                        )
-                    }
-                }
-            }
-            // Only a header with controls lays them out, so one without leaves the title no gap
-            if (actions != null || search != null) {
-                ProvideAccent(accentColor) {
+        ProvideAccent(accentColor) {
+            HeaderBar(
+                title = {
                     Row(
-                        modifier = Modifier.headerBadgeEntrance(entrance),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing)
                     ) {
-                        actions?.invoke(this)
-                        if (search != null) SearchToggleAction(search, label, enabled = searchEnabled)
+                        icon(Modifier.size(DialogHeaderDefaults.IconSize).headerIconEntrance(entrance))
+                        HeaderTitleText(
+                            title = title,
+                            subtitle = subtitle,
+                            subtitleLoading = subtitleLoading,
+                            entrance = entrance,
+                            modifier = Modifier.weight(1f)
+                        )
                     }
-                }
-            }
+                },
+                actions = actions,
+                search = search,
+                searchLabel = searchLabel,
+                searchEnabled = searchEnabled,
+                controlsModifier = Modifier.headerBadgeEntrance(entrance)
+            )
         }
         content?.invoke(this)
         if (badges != null || collapsible != null) {
@@ -317,7 +279,56 @@ private fun HeaderContent(
                 }
             }
         }
-        if (search != null) HeaderSearchField(search, label)
+    }
+}
+
+/** Title of a [ListDialogHeader] over the [subtitle] summing its list up. */
+@Composable
+private fun HeaderTitleText(
+    title: String,
+    subtitle: String,
+    subtitleLoading: Boolean,
+    entrance: DialogHeaderEntrance,
+    modifier: Modifier
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.TextSpacing)
+    ) {
+        // Two lines, so a list named in a phrase rather than a name keeps it whole beside
+        // the header's actions
+        Text(
+            text = title,
+            style = DialogHeaderDefaults.titleStyle,
+            color = dialogTextColor(),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.headerTitleEntrance(entrance)
+        )
+        val subtitleStyle = DialogHeaderDefaults.subtitleStyle
+        // Eases from the shimmer into the text and from one text to the next as the list it
+        // sums up changes, the header resizing along when the new one takes more lines
+        AnimatedContent(
+            targetState = subtitle.takeUnless { subtitleLoading },
+            transitionSpec = Animations.fadeCrossfade(),
+            contentAlignment = Alignment.TopStart,
+            label = "list_header_subtitle",
+            modifier = Modifier.headerSubtitleEntrance(entrance)
+        ) { text ->
+            if (text == null) {
+                // A line's height, the size of the shortest subtitle it stands in for
+                ShimmerText(
+                    widthFraction = 0.5f,
+                    height = with(LocalDensity.current) { subtitleStyle.lineHeight.toDp() }
+                )
+            } else {
+                Text(
+                    text = text,
+                    style = subtitleStyle,
+                    color = dialogSecondaryTextColor()
+                )
+            }
+        }
     }
 }
 

@@ -350,32 +350,28 @@ private fun SourcesPageContent(
                     R.plurals.sources_management_subtitle,
                     sources.size,
                     sources.size.toString()
-                )
+                ),
+                search = search,
+                searchLabel = searchLabel,
+                searchEnabled = isSearchable
             ) {
                 AnimatedVisibility(visible = isSearchable) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        SearchToggleAction(search, searchLabel)
-
-                        val optionsState = listOptionsStateDescription(
-                            sourceSortMode.labelRes,
-                            sourceFilter.labelRes.takeIf { sourceFilter.isActive }
-                        )
-                        // Filled while the options are open, and while a filter keeps sources out
-                        TitleAction(
-                            icon = Icons.AutoMirrored.Outlined.Sort,
-                            contentDescription = stringResource(R.string.sort),
-                            onClick = { onListOptionsOpenChange(!listOptionsOpen) },
-                            modifier = Modifier.semantics {
-                                role = Role.Button
-                                stateDescription = optionsState
-                            },
-                            style = TitleActionStyle.Toggle,
-                            active = listOptionsOpen || sourceFilter.isActive
-                        )
-                    }
+                    val optionsState = listOptionsStateDescription(
+                        sourceSortMode.labelRes,
+                        sourceFilter.labelRes.takeIf { sourceFilter.isActive }
+                    )
+                    // Engaged while the options are open, and while a filter keeps sources out
+                    TitleAction(
+                        icon = Icons.AutoMirrored.Outlined.Sort,
+                        contentDescription = stringResource(R.string.sort),
+                        onClick = { onListOptionsOpenChange(!listOptionsOpen) },
+                        modifier = Modifier.semantics {
+                            role = Role.Button
+                            stateDescription = optionsState
+                        },
+                        style = TitleActionStyle.Toggle,
+                        active = listOptionsOpen || sourceFilter.isActive
+                    )
                 }
                 TitleAction(
                     icon = Icons.Default.Add,
@@ -384,7 +380,6 @@ private fun SourcesPageContent(
                     style = TitleActionStyle.Accent
                 )
             }
-            HeaderSearchField(search, searchLabel)
         },
         bottomBar = {
             ListOptionsPanel(

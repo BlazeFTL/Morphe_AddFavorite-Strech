@@ -6,13 +6,10 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 
 /**
  * Toggle and query behind the search fields in dialog and sheet lists. Collapsing always
@@ -66,7 +63,7 @@ fun SearchFieldBackHandler(state: SearchFieldState) {
     BackHandler(enabled = state.visible) { state.collapse() }
 }
 
-/** The [TitleAction] of a header that opens and closes [state]'s field, see [HeaderSearchField]. */
+/** The [TitleAction] of a header that opens and closes [state]'s field, see [HeaderBar]. */
 @Composable
 fun SearchToggleAction(state: SearchFieldState, label: String, enabled: Boolean = true) {
     TitleAction(
@@ -77,22 +74,4 @@ fun SearchToggleAction(state: SearchFieldState, label: String, enabled: Boolean 
         active = state.visible,
         enabled = enabled
     )
-}
-
-/** [state]'s field under a header's title, folding out while it is open, see [SearchToggleAction]. */
-@Composable
-fun HeaderSearchField(state: SearchFieldState, label: String) {
-    AnimatedVisibility(
-        visible = state.visible,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
-        ListSearchField(
-            value = state.query,
-            onValueChange = { state.query = it },
-            label = label,
-            requestFocus = true,
-            modifier = Modifier.padding(top = Defaults.SpaceMedium)
-        )
-    }
 }

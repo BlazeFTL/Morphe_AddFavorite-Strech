@@ -68,10 +68,7 @@ fun SettingsPage(
 
     PinnedHeaderPage(
         header = {
-            PageHeader(title = stringResource(R.string.settings)) {
-                SearchToggleAction(search, searchLabel)
-            }
-            HeaderSearchField(search, searchLabel)
+            PageHeader(title = stringResource(R.string.settings), search = search, searchLabel = searchLabel)
         },
         modifier = modifier
     ) { headerHeight, _ ->

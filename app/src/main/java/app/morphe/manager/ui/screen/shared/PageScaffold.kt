@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -27,7 +26,7 @@ import dev.chrisbanes.haze.rememberHazeState
 
 /**
  * Title a full page opens on, after a back action where the page was opened from another and
- * before the page's own [actions].
+ * before the page's own [actions] and the toggle of its [search], see [HeaderBar].
  */
 @Composable
 fun PageHeader(
@@ -35,43 +34,46 @@ fun PageHeader(
     modifier: Modifier = Modifier,
     subtitle: String? = null,
     onBack: (() -> Unit)? = null,
-    actions: @Composable RowScope.() -> Unit = {}
+    search: SearchFieldState? = null,
+    searchLabel: String? = null,
+    searchEnabled: Boolean = true,
+    actions: (@Composable RowScope.() -> Unit)? = null
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        if (onBack != null) {
-            TitleAction(
-                icon = Icons.AutoMirrored.Outlined.ArrowBack,
-                contentDescription = stringResource(R.string.back),
-                onClick = onBack,
-                style = TitleActionStyle.Neutral
-            )
-        }
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.semantics { heading() }
-            )
-            if (subtitle != null) {
+    HeaderBar(
+        title = {
+            Column {
                 Text(
-                    text = subtitle,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    text = title,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.semantics { heading() }
+                )
+                if (subtitle != null) {
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        },
+        modifier = modifier.fillMaxWidth(),
+        navigation = onBack?.let { back ->
+            {
+                TitleAction(
+                    icon = Icons.AutoMirrored.Outlined.ArrowBack,
+                    contentDescription = stringResource(R.string.back),
+                    onClick = back,
+                    style = TitleActionStyle.Neutral
                 )
             }
-        }
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-            verticalAlignment = Alignment.CenterVertically,
-            content = actions
-        )
-    }
+        },
+        actions = actions,
+        search = search,
+        searchLabel = searchLabel,
+        searchEnabled = searchEnabled
+    )
 }
 
 /**

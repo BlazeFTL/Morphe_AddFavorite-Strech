@@ -99,101 +99,104 @@ private fun ListDialogLayout(
 ) {
     val haze = rememberHazeState()
     val collapse = remember { DialogHeaderCollapse() }
-    FloatingBarsLayout(
-        modifier = Modifier
-            .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.ime.only(WindowInsetsSides.Bottom)),
-        topBar = {
-            if (header != null) {
-                Box(modifier = Modifier.holdsUnfoldedHeight(collapse)) {
-                    CompositionLocalProvider(
-                        LocalBackdropHaze provides haze,
-                        LocalDialogHeaderCollapse provides collapse,
-                        content = header
-                    )
-                }
-            }
-        },
-        bottomBar = {
-            // Blurs the list as the header does, the footer's buttons included
-            CompositionLocalProvider(LocalBackdropHaze provides haze) {
-                when {
-                    bottomBar != null -> Box(
-                        modifier = Modifier
-                            .widthIn(max = Defaults.ContentMaxWidth)
-                            .fillMaxWidth()
-                    ) {
-                        bottomBar()
+    val backdrop = remember { HeaderBackdrop() }
+    CompositionLocalProvider(LocalHeaderBackdrop provides backdrop) {
+        FloatingBarsLayout(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.ime.only(WindowInsetsSides.Bottom)),
+            topBar = {
+                if (header != null) {
+                    Box(modifier = Modifier.holdsUnfoldedHeight(collapse)) {
+                        CompositionLocalProvider(
+                            LocalBackdropHaze provides haze,
+                            LocalDialogHeaderCollapse provides collapse,
+                            content = header
+                        )
                     }
-
-                    footer != null -> AnimatedVisibility(
-                        visible = !footerFolded,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
-                        Box(
+                }
+            },
+            bottomBar = {
+                // Blurs the list as the header does, the footer's buttons included
+                CompositionLocalProvider(LocalBackdropHaze provides haze) {
+                    when {
+                        bottomBar != null -> Box(
                             modifier = Modifier
+                                .widthIn(max = Defaults.ContentMaxWidth)
                                 .fillMaxWidth()
-                                .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
-                                .padding(vertical = Defaults.SpaceLarge),
-                            contentAlignment = Alignment.Center
+                        ) {
+                            bottomBar()
+                        }
+
+                        footer != null -> AnimatedVisibility(
+                            visible = !footerFolded,
+                            enter = Animations.expandFadeEnter,
+                            exit = Animations.shrinkFadeExit
                         ) {
                             Box(
                                 modifier = Modifier
-                                    .widthIn(max = Defaults.ContentMaxWidth)
                                     .fillMaxWidth()
-                                    .padding(horizontal = ListDialogInset)
+                                    .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
+                                    .padding(vertical = Defaults.SpaceLarge),
+                                contentAlignment = Alignment.Center
                             ) {
-                                footer()
+                                Box(
+                                    modifier = Modifier
+                                        .widthIn(max = Defaults.ContentMaxWidth)
+                                        .fillMaxWidth()
+                                        .padding(horizontal = ListDialogInset)
+                                ) {
+                                    footer()
+                                }
                             }
                         }
-                    }
 
-                    // Nothing floats over the content, which still ends clear of the navigation bar
-                    else -> Spacer(Modifier.fillMaxWidth().windowInsetsBottomHeight(WindowInsets.systemBars))
+                        // Nothing floats over the content, which still ends clear of the navigation bar
+                        else -> Spacer(Modifier.fillMaxWidth().windowInsetsBottomHeight(WindowInsets.systemBars))
+                    }
                 }
             }
-        }
-    ) { headerHeight, bottomHeight ->
-        // The list starts a step below the header, as a dialog's content starts below its top
-        val topInset = if (header != null) headerHeight + Defaults.SpaceMedium else 0.dp
-        // Only a bottom bar hides what scrolls under it, so the scrollbar runs on past a footer
-        val scrollbarBottom = if (bottomBar != null) {
-            bottomHeight
-        } else {
-            WindowInsets.systemBars.exclude(WindowInsets.ime).asPaddingValues().calculateBottomPadding() + Defaults.SpaceMedium
-        }
-        CompositionLocalProvider(
-            LocalDialogBarInsets provides PaddingValues(top = topInset, bottom = bottomHeight),
-            LocalDialogScrollbarInsets provides PaddingValues(
-                top = if (header != null) topInset else Defaults.SpaceMedium,
-                bottom = scrollbarBottom
-            ),
-            LocalDialogHeaderCollapse provides collapse.takeIf { header != null }
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    // What the header blurs, laid from the screen's top edge when it clears the bar
-                    .hazeSource(haze)
-                    // The list's scroll folds the header's collapsible part away and back
-                    .drivesHeaderCollapse(collapse)
-                    .windowInsetsPadding(
-                        WindowInsets.systemBars.only(
-                            if (header != null) WindowInsetsSides.Horizontal
-                            else WindowInsetsSides.Top + WindowInsetsSides.Horizontal
-                        )
-                    )
-                    .consumesTaps(),
-                contentAlignment = Alignment.TopCenter
+        ) { headerHeight, bottomHeight ->
+            // The list starts a step below the header, as a dialog's content starts below its top
+            val topInset = if (header != null) headerHeight + Defaults.SpaceMedium else 0.dp
+            // Only a bottom bar hides what scrolls under it, so the scrollbar runs on past a footer
+            val scrollbarBottom = if (bottomBar != null) {
+                bottomHeight
+            } else {
+                WindowInsets.systemBars.exclude(WindowInsets.ime).asPaddingValues().calculateBottomPadding() + Defaults.SpaceMedium
+            }
+            CompositionLocalProvider(
+                LocalDialogBarInsets provides PaddingValues(top = topInset, bottom = bottomHeight),
+                LocalDialogScrollbarInsets provides PaddingValues(
+                    top = if (header != null) topInset else Defaults.SpaceMedium,
+                    bottom = scrollbarBottom
+                ),
+                LocalDialogHeaderCollapse provides collapse.takeIf { header != null }
             ) {
-                Column(
+                Box(
                     modifier = Modifier
-                        .widthIn(max = Defaults.ContentMaxWidth)
                         .fillMaxSize()
-                        .padding(horizontal = ListDialogInset),
-                    content = content
-                )
+                        // What the header blurs, laid from the screen's top edge when it clears the bar
+                        .hazeSource(haze)
+                        // The list's scroll folds the header's collapsible part away and back
+                        .drivesHeaderCollapse(collapse)
+                        .windowInsetsPadding(
+                            WindowInsets.systemBars.only(
+                                if (header != null) WindowInsetsSides.Horizontal
+                                else WindowInsetsSides.Top + WindowInsetsSides.Horizontal
+                            )
+                        )
+                        .consumesTaps(),
+                    contentAlignment = Alignment.TopCenter
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .widthIn(max = Defaults.ContentMaxWidth)
+                            .fillMaxSize()
+                            .padding(horizontal = ListDialogInset),
+                        content = content
+                    )
+                }
             }
         }
     }

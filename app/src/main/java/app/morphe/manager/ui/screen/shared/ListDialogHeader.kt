@@ -193,15 +193,13 @@ fun ListDialogHeader(
     }
 
     if (haze != null) {
-        Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .glassFill(band, HeaderBandShape, haze)
-                .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)),
-            contentAlignment = Alignment.TopCenter
-        ) {
+        Box(modifier = modifier.fillMaxWidth()) {
+            // Bare at rest, the band laid down once the list scrolls on under the header
+            HeaderBand(band, HeaderBandShape)
             head(
                 Modifier
+                    .align(Alignment.TopCenter)
+                    .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
                     .widthIn(max = Defaults.ContentMaxWidth)
                     .fillMaxWidth()
                     .padding(horizontal = inset)

@@ -85,8 +85,22 @@ fun HomeScreen(
     val openPage: (MainPage) -> Unit = { page ->
         scope.launch { pagerState.animateScrollToPage(page.ordinal) }
     }
+    // Turns to each step's page, and back to the apps once the tour ends
     val tourPage = onboardingState?.page
-    LaunchedEffect(tourPage) { tourPage?.let { pagerState.animateScrollToPage(it.ordinal) } }
+    val touring = onboardingState != null
+    var tourShown by remember { mutableStateOf(false) }
+    LaunchedEffect(touring, tourPage) {
+        when {
+            touring -> {
+                tourShown = true
+                tourPage?.let { pagerState.animateScrollToPage(it.ordinal) }
+            }
+            tourShown -> {
+                tourShown = false
+                pagerState.animateScrollToPage(MainPage.APPS.ordinal)
+            }
+        }
+    }
 
     // Dialog states
     val showUpdateDetailsDialog = remember { mutableStateOf(false) }

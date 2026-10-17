@@ -290,8 +290,9 @@ private fun AdaptiveContent(
     val listTopPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() +
             if (greeting == null && isGroupedAppView) Defaults.SpaceExtraLarge else 0.dp
 
-    // Both layouts feed the list the same and only set it in their own padding
-    val appsSection = @Composable { horizontalPadding: Dp, showFadeOverlay: Boolean ->
+    // Both layouts feed the list the same, its gutters included, which keep the scrollbar at
+    // its edge clear of the cards
+    val appsSection = @Composable { showFadeOverlay: Boolean ->
         MainAppsSection(
             apps = apps,
             appActions = appActions,
@@ -301,7 +302,7 @@ private fun AdaptiveContent(
             onClearFilter = onClearFilter,
             onOpenSources = chromeActions.onOpenSources,
             itemSpacing = itemSpacing,
-            horizontalPadding = horizontalPadding,
+            horizontalPadding = contentPadding,
             maxCardWidth = maxCardWidth,
             onboardingState = onboardingState,
             footerBar = footerBar,
@@ -316,11 +317,7 @@ private fun AdaptiveContent(
     }
 
     if (landscape) {
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(horizontal = contentPadding)
-        ) {
+        Box(modifier = modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -329,7 +326,7 @@ private fun AdaptiveContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(modifier = Modifier.weight(1f, fill = isGroupedAppView)) {
-                    appsSection(0.dp, false)
+                    appsSection(false)
                 }
             }
             HomeFooterBarDock(
@@ -349,7 +346,7 @@ private fun AdaptiveContent(
         ) {
             // Scrollable app buttons, headed by the greeting
             Box(modifier = Modifier.weight(1f, fill = isGroupedAppView)) {
-                appsSection(contentPadding, true)
+                appsSection(true)
             }
         }
     }

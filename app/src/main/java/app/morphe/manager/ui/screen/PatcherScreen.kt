@@ -62,7 +62,6 @@ private data class HeldInstall(
 fun PatcherScreen(
     onBackClick: () -> Unit,
     patcherViewModel: PatcherViewModel,
-    usingMountInstall: Boolean,
     installViewModel: InstallViewModel = koinViewModel(),
     prefs: PreferencesManager = koinInject(),
     onBackgroundSpeedChange: (Float) -> Unit = {},
@@ -76,7 +75,6 @@ fun PatcherScreen(
         PatcherScreenContent(
             onBackClick = onBackClick,
             patcherViewModel = patcherViewModel,
-            usingMountInstall = usingMountInstall,
             installViewModel = installViewModel,
             prefs = prefs,
             onBackgroundSpeedChange = onBackgroundSpeedChange,
@@ -92,7 +90,6 @@ fun PatcherScreen(
 private fun PatcherScreenContent(
     onBackClick: () -> Unit,
     patcherViewModel: PatcherViewModel,
-    usingMountInstall: Boolean,
     installViewModel: InstallViewModel,
     prefs: PreferencesManager,
     onBackgroundSpeedChange: (Float) -> Unit,
@@ -103,6 +100,7 @@ private fun PatcherScreenContent(
 ) {
     val view = LocalView.current
     val context = LocalContext.current
+    val usingMountInstall = patcherViewModel.usingMountInstall
 
     val patcherSucceeded by patcherViewModel.patcherSucceeded.collectAsStateWithLifecycle()
 
@@ -175,8 +173,9 @@ private fun PatcherScreenContent(
         }
     }
 
-    // What the success screen's button starts: a mount, or an install that checks for a rename first
-    fun installPatchedApp() {
+    // A mount, or an install that checks for a rename first. Started on its own after patching,
+    // an install clears a conflict by itself, since nobody is there to answer for it
+    suspend fun installPatchedApp(automatic: Boolean) {
         if (usingMountInstall) {
             installViewModel.installMount(
                 outputFile = outputFile,
@@ -186,14 +185,13 @@ private fun PatcherScreenContent(
                 onPersistApp = patcherViewModel::persistPatchedApp
             )
         } else {
-            scope.launch {
-                startInstall {
-                    installViewModel.install(
-                        outputFile = outputFile,
-                        originalPackageName = patcherViewModel.packageName,
-                        onPersistApp = patcherViewModel::persistPatchedApp
-                    )
-                }
+            startInstall {
+                installViewModel.install(
+                    outputFile = outputFile,
+                    originalPackageName = patcherViewModel.packageName,
+                    onPersistApp = patcherViewModel::persistPatchedApp,
+                    autoUninstallOnConflict = automatic
+                )
             }
         }
     }
@@ -202,16 +200,8 @@ private fun PatcherScreenContent(
     // in the foreground when patching completes. UI-only guards checked here.
     LaunchedEffect(Unit) {
         patcherViewModel.autoInstallEvent.collect {
-            if (usingMountInstall) return@collect
             if (installViewModel.installState !is InstallViewModel.InstallState.Ready) return@collect
-            startInstall {
-                installViewModel.install(
-                    outputFile = outputFile,
-                    originalPackageName = patcherViewModel.packageName,
-                    onPersistApp = patcherViewModel::persistPatchedApp,
-                    autoUninstallOnConflict = true
-                )
-            }
+            installPatchedApp(automatic = true)
             // The installer owns the state from here, and an attempt that ends in nothing must
             // not leave the screen claiming an install forever
             patcherViewModel.autoInstallHandedOff()
@@ -556,7 +546,6 @@ private fun PatcherScreenContent(
 
     val autoInstallUnderWay = patcherViewModel.autoInstallPending &&
             patcherSucceeded == true &&
-            !usingMountInstall &&
             installState is InstallViewModel.InstallState.Ready &&
             // Auto-install stops at the rename warning, so the screen must
             // not go on claiming install the user has yet to allow
@@ -625,7 +614,7 @@ private fun PatcherScreenContent(
                         installedPackageName = installedPackageName,
                         usingMountInstall = usingMountInstall,
                         installActions = InstallResultActions(
-                            onInstall = ::installPatchedApp,
+                            onInstall = { scope.launch { installPatchedApp(automatic = false) } },
                             onUninstall = { packageName ->
                                 installViewModel.requestUninstall(packageName, installAfterUninstall = true)
                             },

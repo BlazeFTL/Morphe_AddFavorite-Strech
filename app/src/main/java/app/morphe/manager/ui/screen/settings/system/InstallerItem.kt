@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.settings.system
 
-import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -321,13 +320,8 @@ fun DialogHostScope.InstallerSelectionDialog(
             val showPlayStoreToggle = selectedToken.supportsPlayStoreMode() &&
                     options.any { it.token == selectedToken.withPlayStoreMode(true) }
             val showPromptToggle = onInstallerPromptToggle != null
-            // Offered only where the install can reach the user on its own: Shizuku always, the
-            // system installer through a silent session, which needs Android 12+
-            val showAutoInstallToggle = onAutoInstallToggle != null &&
-                    (selectedToken.isShizukuToken() ||
-                            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-                                    selectedToken == InstallerManager.Token.Internal &&
-                                    !installAsPlayStore))
+            // Offered only where the install can reach the user on its own
+            val showAutoInstallToggle = onAutoInstallToggle != null && effectiveToken.supportsAutoInstall
 
             ModuleUnmountNotice(visible = currentSelection.value == InstallerManager.Token.AutoSaved)
 

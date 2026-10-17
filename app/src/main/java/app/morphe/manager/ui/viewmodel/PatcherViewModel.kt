@@ -181,6 +181,9 @@ class PatcherViewModel(
     val packageName = selectedApp.packageName
     val version = selectedApp.version
 
+    /** Whether the build is mounted over the stock app rather than installed. */
+    val usingMountInstall = input.useMount
+
     /**
      * How the finished APK differs from the install this run was aimed at, or null when it lands
      * on that install after all. The name a patch builds under exists only once it has run, so
@@ -1036,6 +1039,7 @@ class PatcherViewModel(
             },
             onProgress = patchRun::onProgress,
             patchSources = patchSourcesForLog,
+            useMount = usingMountInstall
         )
     }
 
@@ -1126,7 +1130,7 @@ class PatcherViewModel(
         // A patch is free to rename the app, and the name it built under is the one being replaced
         val target = withContext(Dispatchers.IO) { pm.getPackageInfo(outputFile)?.packageName }
             ?: packageName
-        if (!installerManager.autoInstallAllowed(target)) return@launch
+        if (!installerManager.autoInstallAllowed(target, mount = usingMountInstall)) return@launch
         autoInstallPending = true
         // Started by the success screen rather than on a timer of its own: an install starting
         // sooner puts the system dialog over a run still drawn as unfinished, or over a game

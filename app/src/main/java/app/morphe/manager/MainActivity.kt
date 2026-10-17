@@ -474,10 +474,6 @@ private fun MorpheManager(vm: MainViewModel) {
         }
     }
 
-    // Shared state between HomeScreen and PatcherScreen for mount install mode.
-    // Set by HomeViewModel.resolvePrePatchInstallerChoice()
-    val usingMountInstallState = remember { mutableStateOf(false) }
-
     // Onboarding tour, run over the main screen from its first step
     var showOnboarding by remember { mutableStateOf(false) }
     val onboardingState = remember { OnboardingState() }
@@ -619,7 +615,6 @@ private fun MorpheManager(vm: MainViewModel) {
                         }
                     },
                     homeViewModel = homeViewModel,
-                    usingMountInstallState = usingMountInstallState,
                     bundleUpdateProgress = bundleUpdateProgress,
                     patchTriggerPackage = patchTriggerPackage,
                     onPatchTriggerHandled = {
@@ -657,7 +652,6 @@ private fun MorpheManager(vm: MainViewModel) {
                 PatcherScreen(
                     onBackClick = leavePatcher,
                     patcherViewModel = patcherViewModel,
-                    usingMountInstall = usingMountInstallState.value,
                     onBackgroundSpeedChange = { patcherBackgroundSpeed.floatValue = it },
                     onPatchingCompleted = { patchingCompleted.value = true },
                     onStartTour = startOnboardingTour,

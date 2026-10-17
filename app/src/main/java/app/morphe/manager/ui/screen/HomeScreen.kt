@@ -71,7 +71,6 @@ fun HomeScreen(
     homeViewModel: HomeViewModel = koinViewModel(),
     prefs: PreferencesManager = koinInject(),
     homeAppButtonPrefs: HomeAppButtonPreferences = koinInject(),
-    usingMountInstallState: MutableState<Boolean>,
     bundleUpdateProgress: PatchBundleRepository.BundleUpdateProgress?,
     onboardingState: OnboardingState? = null,
     patchTriggerPackage: String? = null,
@@ -177,17 +176,6 @@ fun HomeScreen(
 
     // Gesture hint: shown once per bundle addition, in-memory
     val showGestureHint by homeViewModel.apps.showSwipeGestureHint.collectAsStateWithLifecycle()
-
-    val isDeviceRooted = homeViewModel.rootInstaller.isDeviceRooted()
-    if (!isDeviceRooted) {
-        // Non-root: always standard install, sync the state
-        usingMountInstallState.value = false
-        homeViewModel.usingMountInstall = false
-    } else {
-        // Root: the value is set by resolvePrePatchInstallerChoice() via the dialog,
-        // just keep usingMountInstallState in sync for PatcherScreen to read
-        usingMountInstallState.value = homeViewModel.usingMountInstall
-    }
 
     // Set up HomeViewModel
     LaunchedEffect(Unit) {

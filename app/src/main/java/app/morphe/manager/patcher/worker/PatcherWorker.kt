@@ -109,7 +109,9 @@ class PatcherWorker(
          */
         val announceCompletion: Boolean = true,
         /** Apps already done and the queue total, null for a single run. */
-        val queuePosition: Pair<Int, Int>? = null
+        val queuePosition: Pair<Int, Int>? = null,
+        /** Whether the build is mounted over the stock app rather than installed. */
+        val useMount: Boolean = false
     ) {
         val packageName get() = input.packageName
     }
@@ -534,7 +536,7 @@ class PatcherWorker(
 
             Log.i(tag, "Patching succeeded".logFmt())
             val outputPackageName = pm.getPackageInfo(File(args.output))?.packageName ?: args.packageName
-            autoInstallPending = installerManager.autoInstallAllowed(outputPackageName)
+            autoInstallPending = installerManager.autoInstallAllowed(outputPackageName, mount = args.useMount)
             succeeded = true
             // A run that only got through on less memory is the same suggestion a killed one
             // leads to, offered while the limit that worked is known

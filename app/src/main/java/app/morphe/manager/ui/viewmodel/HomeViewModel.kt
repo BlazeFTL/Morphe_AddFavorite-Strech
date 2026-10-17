@@ -499,8 +499,9 @@ class HomeViewModel(
     /** Convenience accessor - reads expert mode preference without blocking. */
     private suspend fun isExpertMode() = prefs.useExpertMode.get()
 
-    // Using mount install (set externally)
+    // Patch mode of the run being set up, chosen before patching on a rooted device
     var usingMountInstall: Boolean = false
+        private set
 
     // Install target passed to patch availability resolvers
     val currentInstallerType: InstallerType
@@ -2234,7 +2235,8 @@ class HomeViewModel(
                 // Handed over before the state below is cleared, since the run has no other way
                 // to learn which install it was started for
                 targetPackageName = pendingRepatchPackageName,
-                allowIncompatible = allowIncompatible
+                allowIncompatible = allowIncompatible,
+                useMount = usingMountInstall
             )
         )
 
@@ -2262,6 +2264,7 @@ class HomeViewModel(
             return
         }
         pendingRepatchPackageName = run.targetPackageName
+        usingMountInstall = run.useMount
         viewModelScope.launch {
             startPatchingWithApp(run.selectedApp, run.allowIncompatible)
         }

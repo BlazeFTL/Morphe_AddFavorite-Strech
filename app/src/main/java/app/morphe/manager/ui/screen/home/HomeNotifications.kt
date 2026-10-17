@@ -119,7 +119,7 @@ private class HomeAlert(
 )
 
 /**
- * Section 1: Unified notifications overlay component.
+ * The alerts of the main screen, over the top of its pages.
  *
  * Alerts stack behind the most pressing one, so however many are raised they cover no more of the
  * screen than one. A swipe snoozes an alert for the session, and the bell chip brings it back.
@@ -127,11 +127,15 @@ private class HomeAlert(
  * The whole stack is laid out from one model: each card's height, how far it has come in, how far
  * it is swiped aside and how far the stack is unfolded. Every change moves the cards from wherever
  * they are, so a swipe, an alert coming or going and the stack folding all blend into each other.
+ *
+ * @param showAlerts False on a page the alerts do not lead from, which shows only the progress of
+ *   work under way. Their snoozes are kept for when they show again.
  */
 @Composable
 fun NotificationsOverlay(
     notifications: HomeNotificationsUi,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    showAlerts: Boolean = true
 ) {
     val alerts = homeAlerts(notifications)
     // Revision each alert was snoozed at, kept across navigation and rotation
@@ -152,9 +156,9 @@ fun NotificationsOverlay(
     LaunchedEffect(hiddenKeys) { hiddenKeys.forEach(snoozed::remove) }
 
     fun HomeAlert.isSnoozed() = snoozable && snoozed[key] == revision
-    val active = alerts.filter { it.visible && !it.isSnoozed() }
+    val active = alerts.filter { it.visible && !it.isSnoozed() && (showAlerts || it.passing) }
     val activeKeys = active.mapTo(HashSet()) { it.key }
-    val snoozedCount = alerts.count { it.visible && !it.passing && it.isSnoozed() }
+    val snoozedCount = if (showAlerts) alerts.count { it.visible && !it.passing && it.isSnoozed() } else 0
     val passingKeys = alerts.filter { it.passing }.mapTo(HashSet()) { it.key }
     val stacked = active.size - 1
 

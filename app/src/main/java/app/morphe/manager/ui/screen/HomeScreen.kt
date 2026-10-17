@@ -9,6 +9,7 @@ import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Engineering
@@ -321,6 +322,37 @@ fun HomeScreen(
         )
     }
 
+    val notifications = HomeNotificationsUi(
+        managerUpdate = AlertState(hasManagerUpdate) { showUpdateDetailsDialog.value = true },
+        outdatedManager = AlertState(hasOutdatedManagerSources) { openPage(MainPage.SOURCES) },
+        heldBackSources = AlertState(hasHeldBackSources) { openPage(MainPage.SOURCES) },
+        blockedSources = AlertState(hasBlockedSources) { openPage(MainPage.SOURCES) },
+        metadataErrors = AlertState(hasMetadataErrors) { openPage(MainPage.SOURCES) },
+        meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) {
+            onOpenSettingsCategory(SettingsCategory.UPDATES)
+        },
+        repatchAvailable = RepatchAlertState(
+            count = repatchableApps.size,
+            visible = showRepatchNotice,
+            onShow = { startBatchPatch(repatchableApps) }
+        ),
+        // Reopened on its own apps, so the batch screen keeps the run instead of
+        // planning a new one. A queue left by an earlier process is only stored
+        batchQueue = BatchQueueAlertState(batchRun, savedBatchQueue) {
+            val run = batchRun
+            val saved = savedBatchQueue
+            when {
+                run != null -> onStartBatchPatch(run.targets, run.useMount)
+                saved != null -> openBatchQueue(saved.targets, saved.useMount)
+            }
+        },
+        bundleUpdate = BundleUpdateState(
+            visible = homeViewModel.showBundleUpdateSnackbar,
+            status = homeViewModel.snackbarStatus,
+            progress = bundleUpdateProgress
+        )
+    )
+
     val pullToRefreshState = rememberPullToRefreshState()
     MainPagerScaffold(
         pagerState = pagerState,
@@ -330,7 +362,18 @@ fun HomeScreen(
         swipeEnabled = onboardingState == null,
         settingsIcon = if (useExpertMode) Icons.Outlined.Engineering else MainPage.SETTINGS.icon,
         settingsDescription = if (useExpertMode) "$settingsLabel, $expertModeLabel" else null,
-        onItemPositioned = onboardingState?.let { tour -> { page, bounds -> tour.navigationBounds[page] = bounds } }
+        onItemPositioned = onboardingState?.let { tour -> { page, bounds -> tour.navigationBounds[page] = bounds } },
+        overlay = {
+            NotificationsOverlay(
+                notifications = notifications,
+                // Only an update under way follows to the other pages
+                showAlerts = pagerState.currentPage == MainPage.APPS.ordinal,
+                modifier = Modifier
+                    .widthIn(max = homeCardMaxWidth())
+                    .align(Alignment.TopCenter)
+                    .statusBarsPadding()
+            )
+        }
     ) { page, bottomBarHeight ->
         when (page) {
             MainPage.SOURCES -> SourcesPage(
@@ -363,36 +406,6 @@ fun HomeScreen(
                 }
             ) {
                 SectionsLayout(
-                    notifications = HomeNotificationsUi(
-                        managerUpdate = AlertState(hasManagerUpdate) { showUpdateDetailsDialog.value = true },
-                        outdatedManager = AlertState(hasOutdatedManagerSources) { openPage(MainPage.SOURCES) },
-                        heldBackSources = AlertState(hasHeldBackSources) { openPage(MainPage.SOURCES) },
-                        blockedSources = AlertState(hasBlockedSources) { openPage(MainPage.SOURCES) },
-                        metadataErrors = AlertState(hasMetadataErrors) { openPage(MainPage.SOURCES) },
-                        meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) {
-                            onOpenSettingsCategory(SettingsCategory.UPDATES)
-                        },
-                        repatchAvailable = RepatchAlertState(
-                            count = repatchableApps.size,
-                            visible = showRepatchNotice,
-                            onShow = { startBatchPatch(repatchableApps) }
-                        ),
-                        // Reopened on its own apps, so the batch screen keeps the run instead of
-                        // planning a new one. A queue left by an earlier process is only stored
-                        batchQueue = BatchQueueAlertState(batchRun, savedBatchQueue) {
-                            val run = batchRun
-                            val saved = savedBatchQueue
-                            when {
-                                run != null -> onStartBatchPatch(run.targets, run.useMount)
-                                saved != null -> openBatchQueue(saved.targets, saved.useMount)
-                            }
-                        },
-                        bundleUpdate = BundleUpdateState(
-                            visible = homeViewModel.showBundleUpdateSnackbar,
-                            status = homeViewModel.snackbarStatus,
-                            progress = bundleUpdateProgress
-                        )
-                    ),
                     apps = HomeAppListUi(
                         visible = homeAppItems,
                         hidden = hiddenAppItems,

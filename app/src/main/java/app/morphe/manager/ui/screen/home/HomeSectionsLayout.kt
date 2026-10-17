@@ -61,6 +61,10 @@ import kotlin.time.Duration.Companion.milliseconds
 /** Cards get more room in landscape, where the list has a pane of its own beside the navigation. */
 private val LandscapeMaxCardWidth = 700.dp
 
+/** Widest the apps page draws its cards, which the notifications over the pages keep to as well. */
+@Composable
+internal fun homeCardMaxWidth(): Dp = if (isLandscape()) LandscapeMaxCardWidth else Defaults.ContentMaxWidth
+
 internal fun HomeCategoryGroup.selectionKey(): String =
     sourceUid?.let { "source_$it" } ?: id?.let { "category_$it" } ?: "uncategorized"
 
@@ -135,7 +139,7 @@ class HomeSearchState(
 
 /**
  * The apps page of the main screen: the list of apps headed by the greeting and the toolbar, with
- * notifications over it and the bars of a selection or a reorder docked over its lower edge.
+ * the bars of a selection or a reorder docked over its lower edge.
  *
  * @param state The list's selection and reorder, held by the screen, whose navigation gives way to
  *   the docked bars.
@@ -143,7 +147,6 @@ class HomeSearchState(
  */
 @Composable
 internal fun SectionsLayout(
-    notifications: HomeNotificationsUi,
     apps: HomeAppListUi,
     appActions: HomeAppActions,
     chromeActions: HomeChromeActions,
@@ -213,15 +216,6 @@ internal fun SectionsLayout(
                 )
             }
         }
-
-        val maxCardWidth = if (isLandscape()) LandscapeMaxCardWidth else Defaults.ContentMaxWidth
-        NotificationsOverlay(
-            notifications = notifications,
-            modifier = Modifier
-                .widthIn(max = maxCardWidth)
-                .align(Alignment.TopCenter)
-                .statusBarsPadding()
-        )
     }
 }
 
@@ -250,7 +244,7 @@ private fun AdaptiveContent(
     val contentPadding = windowSize.contentPadding
     val itemSpacing = windowSize.itemSpacing
     val landscape = isLandscape()
-    val maxCardWidth = if (landscape) LandscapeMaxCardWidth else Defaults.ContentMaxWidth
+    val maxCardWidth = homeCardMaxWidth()
 
     // Grouped views reserve the full list area so the footer keeps a stable position when
     // groups expand or collapse; the flat All-apps view lets the list wrap to its content

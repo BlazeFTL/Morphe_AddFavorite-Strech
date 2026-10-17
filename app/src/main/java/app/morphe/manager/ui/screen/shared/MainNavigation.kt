@@ -53,6 +53,7 @@ enum class MainPage(@param:StringRes val titleRes: Int, val icon: ImageVector) {
  * @param settingsDescription What a screen reader says for the settings page, when its icon says more
  *   than its label.
  * @param onItemPositioned Where each page's navigation item sits, for the tour to point at.
+ * @param overlay Drawn over the pages rather than in one, so it stays put as they are swiped.
  */
 @Composable
 fun MainPagerScaffold(
@@ -63,6 +64,7 @@ fun MainPagerScaffold(
     settingsIcon: ImageVector = MainPage.SETTINGS.icon,
     settingsDescription: String? = null,
     onItemPositioned: ((MainPage, Rect) -> Unit)? = null,
+    overlay: @Composable BoxScope.() -> Unit = {},
     page: @Composable (page: MainPage, bottomBarHeight: Dp) -> Unit
 ) {
     val scope = rememberCoroutineScope()
@@ -85,12 +87,15 @@ fun MainPagerScaffold(
     }
     val userScrollEnabled = swipeEnabled && !navigationCovered
     val pager: @Composable (Modifier, Dp) -> Unit = { pagerModifier, bottomBarHeight ->
-        HorizontalPager(
-            state = pagerState,
-            modifier = pagerModifier,
-            userScrollEnabled = userScrollEnabled,
-            key = { index -> MainPage.entries[index] }
-        ) { index -> page(MainPage.entries[index], bottomBarHeight) }
+        Box(modifier = pagerModifier) {
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize(),
+                userScrollEnabled = userScrollEnabled,
+                key = { index -> MainPage.entries[index] }
+            ) { index -> page(MainPage.entries[index], bottomBarHeight) }
+            overlay()
+        }
     }
 
     Box(modifier = modifier.fillMaxSize()) {

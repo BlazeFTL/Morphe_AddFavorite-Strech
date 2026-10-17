@@ -39,7 +39,7 @@ import app.morphe.manager.R
  * the same glass, so the search toggle reads as drawn out into it.
  *
  * @param requestFocus Opens the keyboard on first composition, for fields revealed by a toggle.
- * @param trailing Drawn at the field's end after its clear action, such as the toggle closing it.
+ * @param trailing Laid out after the field's end, such as room for the toggle closing it.
  */
 @Composable
 fun ListSearchField(
@@ -121,7 +121,7 @@ fun ListSearchField(
                                 tint = iconColor
                             )
                         }
-                    } else if (trailing == null) {
+                    } else {
                         // Leaves the text the same room from the end as the icon leaves it from the start
                         Spacer(Modifier.width(Defaults.SpaceSmall))
                     }

@@ -5,6 +5,8 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -16,8 +18,10 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
@@ -99,12 +103,22 @@ fun TitleAction(
             )
         }
     } else {
-        val contentColor = when (style) {
+        val contentTarget = when (style) {
             TitleActionStyle.Destructive -> destructiveColor()
             else -> HeaderControlDefaults.content(containerColor, active = engaged || style == TitleActionStyle.Accent)
         }
+        // A toggle engaging or letting go blends into its next look rather than snapping, its edge
+        // fading in and out of the color it takes while engaged
+        val edgeColor = HeaderControlDefaults.activeBorder(active = true) ?: Color.Transparent
+        val container by animateColorAsState(containerColor, tween(Defaults.ANIMATION_DURATION), label = "title_action_container")
+        val contentColor by animateColorAsState(contentTarget, tween(Defaults.ANIMATION_DURATION), label = "title_action_content")
+        val edge by animateColorAsState(
+            targetValue = if (engaged) edgeColor else edgeColor.copy(alpha = 0f),
+            animationSpec = tween(Defaults.ANIMATION_DURATION),
+            label = "title_action_edge"
+        )
         val shape = rememberPressShape(interactionSource, IconButtonDefaults.filledShape, enabled)
-        val border = HeaderControlDefaults.activeBorder(engaged)?.let { CardBorder.of(it) }
+        val border = if (edge.alpha > 0f) CardBorder.of(edge) else null
 
         // Outlined rather than tonal only for the edge, which it draws on the circle itself rather
         // than around the touch target the button reserves past it
@@ -116,10 +130,10 @@ fun TitleAction(
             shape = shape,
             border = border,
             colors = IconButtonDefaults.filledTonalIconButtonColors(
-                containerColor = containerColor,
+                containerColor = container,
                 contentColor = contentColor,
                 // Scaled rather than set, so a tint that is already see-through fades further
-                disabledContainerColor = containerColor.copy(alpha = containerColor.alpha * Defaults.DISABLED_ALPHA),
+                disabledContainerColor = container.copy(alpha = container.alpha * Defaults.DISABLED_ALPHA),
                 disabledContentColor = dialogTextColor().copy(alpha = Defaults.DISABLED_ALPHA)
             )
         ) {

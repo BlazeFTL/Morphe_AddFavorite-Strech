@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.Constraints
@@ -62,7 +63,13 @@ fun HeaderBar(
     val open = search?.visible == true
     // A field restored open, such as on coming back to the page, stands open rather than opening again
     val progress = remember { Animatable(if (open) 1f else 0f) }
-    LaunchedEffect(open) { progress.animateTo(if (open) 1f else 0f, SearchMorphSpec) }
+    val focusManager = LocalFocusManager.current
+    LaunchedEffect(open) {
+        // The keyboard goes as the field starts to close, so what it leaves room for settles alongside
+        // rather than jumping once the field is gone
+        if (!open) focusManager.clearFocus()
+        progress.animateTo(if (open) 1f else 0f, SearchMorphSpec)
+    }
     // Composed only while any of it shows, so a closed field holds no focus and takes no taps
     val fieldShown = remember { derivedStateOf { progress.value > 0f } }
     // What the open field covers is left out of what a screen reader goes through
@@ -90,15 +97,18 @@ fun HeaderBar(
                         label = label,
                         // Only a field opened here takes the keyboard, not one restored open
                         requestFocus = remember { progress.value < 1f },
-                        // Drawn out from the toggle's end, the toggle itself staying over that end
+                        // Drawn out of the toggle's circle and back into it, fading as it nears the
+                        // toggle so the two never show as one darker circle
                         modifier = Modifier.graphicsLayer {
-                            shape = EndAnchoredPill(
-                                collapsedWidth = HeaderControlDefaults.Size.toPx(),
+                            shape = ToggleMorphPill(
+                                toggleSize = HeaderControlDefaults.Size.toPx(),
+                                gap = ControlGap.toPx(),
                                 progress = progress.value
                             )
                             clip = true
+                            alpha = (progress.value / MORPH_FADE).coerceAtMost(1f)
                         },
-                        trailing = { Spacer(Modifier.width(HeaderControlDefaults.Size)) }
+                        trailing = { Spacer(Modifier.width(HeaderControlDefaults.Size + ControlGap)) }
                     )
                 }
             },
@@ -159,19 +169,30 @@ private val ControlGap = Defaults.SpaceSmall
 
 private val SearchMorphSpec = spring<Float>(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMediumLow)
 
+/** Share of the morph, at its toggle end, over which the field fades into the toggle. */
+private const val MORPH_FADE = 0.25f
+
 /**
- * The search field's pill [progress] of the way from the toggle's circle, [collapsedWidth] wide at
- * the field's end, out to the field's full width.
+ * The search field's pill [progress] of the way out of the toggle's circle, [toggleSize] wide at the
+ * field's end, to the whole field, which then stops [gap] short of the toggle. Never narrower than
+ * the circle, so it draws back into the toggle rather than thinning out.
  */
-private class EndAnchoredPill(private val collapsedWidth: Float, private val progress: Float) : Shape {
+private class ToggleMorphPill(
+    private val toggleSize: Float,
+    private val gap: Float,
+    private val progress: Float
+) : Shape {
     override fun createOutline(size: Size, layoutDirection: LayoutDirection, density: Density): Outline {
-        val shown = collapsedWidth + (size.width - collapsedWidth) * progress
-        val left = if (layoutDirection == LayoutDirection.Ltr) size.width - shown else 0f
+        // Measured from the field's end, where the toggle stands
+        val fromEndStart = toggleSize + (size.width - toggleSize) * progress
+        val fromEndEnd = (toggleSize + gap) * progress
+        val left = if (layoutDirection == LayoutDirection.Ltr) size.width - fromEndStart else fromEndEnd
+        val right = if (layoutDirection == LayoutDirection.Ltr) size.width - fromEndEnd else fromEndStart
         return Outline.Rounded(
             RoundRect(
                 left = left,
                 top = 0f,
-                right = left + shown,
+                right = right,
                 bottom = size.height,
                 cornerRadius = CornerRadius(size.height / 2)
             )

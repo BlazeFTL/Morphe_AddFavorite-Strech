@@ -168,7 +168,8 @@ fun ListDialogHeader(
     )
     Box(modifier = modifier.fillMaxWidth()) {
         // Bare at rest, the band laid down once the list scrolls on under the header
-        HeaderBand(band, HeaderBandShape)
+        val backdrop = LocalHeaderBackdrop.current
+        HeaderBand(band, HeaderBandShape, scrolledUnder = { backdrop?.scrolledUnder ?: true })
         HeaderContent(
             icon = icon,
             title = title,

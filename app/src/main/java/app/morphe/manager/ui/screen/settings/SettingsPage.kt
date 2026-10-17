@@ -32,13 +32,6 @@ import app.morphe.manager.ui.viewmodel.ImportExportViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import org.koin.androidx.compose.koinViewModel
 
-/** The tour while it runs, which the rows it points at report to. */
-private val LocalSettingsTour = staticCompositionLocalOf<OnboardingState?> { null }
-
-/** [tourTarget] for a row of the settings page, which hands the running tour down to its rows. */
-@Composable
-internal fun Modifier.settingsTourTarget(target: TourTarget): Modifier = tourTarget(target, LocalSettingsTour.current)
-
 /**
  * The settings page of the main screen: every setting in its group, with the [SettingsSubpage]s
  * too long for a group each opening a page of its own.
@@ -69,12 +62,10 @@ fun SettingsPage(
         header = {
             PageHeader(title = stringResource(R.string.settings), search = search, searchLabel = searchLabel)
         },
+        scrollState = scrollState,
         modifier = modifier
     ) { headerHeight, _ ->
-        CompositionLocalProvider(
-            LocalSettingsTour provides onboardingState,
-            LocalSettingsSearch provides settingsSearch
-        ) {
+        CompositionLocalProvider(LocalSettingsSearch provides settingsSearch) {
             // A row the tour turns to comes out from under the header and the navigation
             ProvideBringIntoViewInsets(top = headerHeight, bottom = bottomBarHeight) {
                 SettingsColumn(
@@ -89,11 +80,11 @@ fun SettingsPage(
                             bottom = bottomBarHeight + Defaults.SpaceLarge
                         )
                 ) {
-                    PatchingSection(settingsViewModel, onOpenSubpage)
+                    PatchingSection(settingsViewModel, onOpenSubpage, onboardingState)
                     PatcherTuningSection(settingsViewModel)
-                    ManagerSection(settingsViewModel, homeViewModel, onOpenSubpage)
+                    ManagerSection(settingsViewModel, homeViewModel, onOpenSubpage, onboardingState)
                     BackgroundSection(settingsViewModel)
-                    FilesSection(settingsViewModel)
+                    FilesSection(settingsViewModel, onboardingState)
                     AboutSection(onStartTour)
                     if (settingsSearch.isActive) SubpageMatches(homeViewModel, settingsViewModel, onOpenSubpage)
                     AnimatedVisibility(
@@ -129,6 +120,7 @@ fun SettingsPage(
 private fun PatchingSection(
     settingsViewModel: SettingsViewModel,
     onOpenSubpage: (SettingsSubpage) -> Unit,
+    tour: OnboardingState?,
     importExportViewModel: ImportExportViewModel = koinViewModel()
 ) {
     val useExpertMode by settingsViewModel.prefs.useExpertMode.getAsState()
@@ -166,7 +158,7 @@ private fun PatchingSection(
                 icon = Icons.Outlined.Psychology,
                 title = stringResource(R.string.settings_advanced_expert_mode),
                 subtitle = stringResource(R.string.settings_advanced_expert_mode_description),
-                modifier = Modifier.settingsTourTarget(TourTarget.EXPERT_MODE)
+                modifier = Modifier.tourTarget(TourTarget.EXPERT_MODE, tour)
             )
             // Each folds in as the other folds away, so the group reshapes around the swap
             FoldingVisibility(visible = useExpertMode) {
@@ -180,7 +172,7 @@ private fun PatchingSection(
             }
             InstallerItem(
                 settingsViewModel = settingsViewModel,
-                modifier = Modifier.settingsTourTarget(TourTarget.INSTALLER)
+                modifier = Modifier.tourTarget(TourTarget.INSTALLER, tour)
             )
         }
 
@@ -200,7 +192,8 @@ private fun PatchingSection(
 private fun ManagerSection(
     settingsViewModel: SettingsViewModel,
     homeViewModel: HomeViewModel,
-    onOpenSubpage: (SettingsSubpage) -> Unit
+    onOpenSubpage: (SettingsSubpage) -> Unit,
+    tour: OnboardingState?
 ) {
     SettingsSection(
         title = stringResource(R.string.settings_group_manager),
@@ -210,7 +203,7 @@ private fun ManagerSection(
             SubpageItem(
                 subpage = SettingsSubpage.APPEARANCE,
                 onOpen = onOpenSubpage,
-                modifier = Modifier.settingsTourTarget(TourTarget.APPEARANCE)
+                modifier = Modifier.tourTarget(TourTarget.APPEARANCE, tour)
             )
             UpdatesItems(
                 settingsViewModel = settingsViewModel,

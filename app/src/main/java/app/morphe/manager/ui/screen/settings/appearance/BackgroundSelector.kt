@@ -10,14 +10,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.ui.screen.shared.backgrounds.LocalBackdropInDialog
 import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.theme.backgroundOver
 import app.morphe.manager.ui.viewmodel.RandomInterval
@@ -105,13 +103,11 @@ fun BackgroundPickerDialog(
             )
         },
         backdrop = {
-            CompositionLocalProvider(LocalBackdropInDialog provides true) {
-                AnimatedBackground(
-                    type = shownBackground,
-                    resolvedType = resolvedRandomBackground,
-                    enableParallax = enableParallax
-                )
-            }
+            AnimatedBackground(
+                type = shownBackground,
+                resolvedType = resolvedRandomBackground,
+                enableParallax = enableParallax
+            )
         }
     ) {
         // Spacing lives inside the blocks that come and go rather than between them, where a

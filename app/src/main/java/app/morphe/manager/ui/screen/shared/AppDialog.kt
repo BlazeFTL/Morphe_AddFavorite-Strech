@@ -230,6 +230,10 @@ internal fun DialogShell(
 /** Takes in taps on a dialog's content, so they do not reach a tap outside that dismisses it. */
 internal fun Modifier.consumesTaps(): Modifier = pointerInput(Unit) { detectTapGestures { } }
 
+/** Whether this is drawn in a dialog's own window rather than in the activity's under it. */
+@Composable
+fun isInDialogWindow(): Boolean = LocalView.current.parent is DialogWindowProvider
+
 /**
  * Strips a dialog window down to its content and points the system bars at [isDarkTheme].
  *
@@ -349,12 +353,10 @@ private fun CompactDialogContent(
     // full width and its ListScrollbar can sit flush with the dialog edge
     val horizontalPadding = DialogInset
     val haze = rememberHazeState()
-    val backdrop = remember { HeaderBackdrop() }
+    // Scrolling is also what carries a focused field up into the room the keyboard leaves above it
+    val scrollState = if (scrollable) rememberScrollState() else null
 
-    CompositionLocalProvider(
-        LocalDialogHorizontalInset provides horizontalPadding,
-        LocalHeaderBackdrop provides backdrop
-    ) {
+    CompositionLocalProvider(LocalDialogHorizontalInset provides horizontalPadding) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -380,7 +382,12 @@ private fun CompactDialogContent(
                             Box(modifier = Modifier.fillMaxWidth()) {
                                 // Bare while the dialog fits, the band laid down once its content
                                 // scrolls on under the title
-                                HeaderBand(appAccentFill(LocalAccent.current), HeaderBandShape, haze)
+                                HeaderBand(
+                                    glass = appAccentFill(LocalAccent.current),
+                                    shape = HeaderBandShape,
+                                    scrolledUnder = { scrollState?.canScrollBackward == true },
+                                    haze = haze
+                                )
                                 DialogTitle(
                                     title = title,
                                     titleTrailingContent = titleTrailingContent,
@@ -390,9 +397,6 @@ private fun CompactDialogContent(
                         }
                     }
                 ) { titleHeight, _ ->
-                    // Scrolling is also what carries a focused field up into the room the keyboard
-                    // leaves above it
-                    val scrollState = if (scrollable) rememberScrollState() else null
                     val inset = Modifier.padding(start = horizontalPadding, top = titleHeight, end = horizontalPadding)
                     Column(
                         modifier = Modifier

@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,7 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -82,18 +82,19 @@ fun PageHeader(
  * header lays down only once the content runs under it, as a list dialog's header does. [content]
  * is handed the header's height to start below it, and the height of the [bottomBar] to end above it.
  *
+ * @param scrollState The page's scroll, which lays the header's band down once it moves off the start.
  * @param bottomBar Docked over the bottom of the page, such as a [DockedPanel], blurring the content
  *   under it as the header does.
  */
 @Composable
 fun PinnedHeaderPage(
     header: @Composable ColumnScope.() -> Unit,
+    scrollState: ScrollableState,
     modifier: Modifier = Modifier,
     bottomBar: @Composable () -> Unit = {},
     content: @Composable BoxScope.(headerHeight: Dp, bottomBarHeight: Dp) -> Unit
 ) {
     val haze = rememberHazeState()
-    val backdrop = remember { HeaderBackdrop() }
     val horizontal = rememberWindowSize().contentPadding
     FloatingBarsLayout(
         modifier = modifier.fillMaxSize(),
@@ -101,9 +102,7 @@ fun PinnedHeaderPage(
         topBar = {
             Box(modifier = Modifier.fillMaxWidth()) {
                 // Bare at rest, the band laid down once the page scrolls on under the header
-                CompositionLocalProvider(LocalHeaderBackdrop provides backdrop) {
-                    HeaderBand(appAccentFill(null), HeaderBandShape, haze)
-                }
+                HeaderBand(appAccentFill(null), HeaderBandShape, scrolledUnder = { scrollState.canScrollBackward }, haze = haze)
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -114,10 +113,7 @@ fun PinnedHeaderPage(
             }
         }
     ) { headerHeight, bottomBarHeight ->
-        // The page's scrollbar tells the header when the content runs on under it
-        CompositionLocalProvider(LocalHeaderBackdrop provides backdrop) {
-            Box(modifier = Modifier.fillMaxSize().hazeSource(haze)) { content(headerHeight, bottomBarHeight) }
-        }
+        Box(modifier = Modifier.fillMaxSize().hazeSource(haze)) { content(headerHeight, bottomBarHeight) }
     }
 }
 
@@ -138,6 +134,7 @@ fun SubpageScaffold(
 
     PinnedHeaderPage(
         header = { PageHeader(title = title, onBack = onBack) },
+        scrollState = scrollState,
         modifier = modifier
     ) { headerHeight, _ ->
         Column(

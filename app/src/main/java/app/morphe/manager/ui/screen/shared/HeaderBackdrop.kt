@@ -13,8 +13,11 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
@@ -24,14 +27,15 @@ import androidx.compose.ui.graphics.graphicsLayer
 import dev.chrisbanes.haze.HazeState
 
 /**
- * Whether what a header floats over has scrolled on under it, which is when the header lays its
- * band down. At rest at the top the header stands on the screen bare, like the rest of it.
+ * The list a [ListDialog]'s header floats over, which the dialog's own lists hand over as they show,
+ * see [DialogScrollIndicators]. A pager hands over the open page's list, which takes over from the
+ * page left. The dialog cannot know it otherwise, as its content builds the list.
  */
 @Stable
 class HeaderBackdrop {
     private var source by mutableStateOf<ScrollableState?>(null)
 
-    /** Whether the content runs on under the header, true while nothing is tracked. */
+    /** Whether the list runs on under the header, true while no list is handed over. */
     val scrolledUnder: Boolean get() = source?.canScrollBackward ?: true
 
     internal fun track(state: ScrollableState) {
@@ -43,13 +47,10 @@ class HeaderBackdrop {
     }
 }
 
-/** The backdrop of the header floating over the content this is drawn in, null where none does. */
+/** The backdrop of the [ListDialog] header over the list this is drawn in, null outside one. */
 val LocalHeaderBackdrop = staticCompositionLocalOf<HeaderBackdrop?> { null }
 
-/**
- * Has the header over this content follow [state], the scroll of the list it heads. A pager hands
- * over the open page's state, which takes over from the page left.
- */
+/** Hands [state], the scroll of a [ListDialog]'s list, to the header floating over it. */
 @Composable
 internal fun TrackHeaderBackdrop(state: ScrollableState) {
     val backdrop = LocalHeaderBackdrop.current ?: return
@@ -60,14 +61,23 @@ internal fun TrackHeaderBackdrop(state: ScrollableState) {
 }
 
 /**
- * A header's band of [glass] in [shape], blurring [haze], faded in while [LocalHeaderBackdrop] has
- * content under it and out at rest. Laid behind the header's content, filling it.
+ * A header's band of [glass] in [shape], blurring [haze], laid down while [scrolledUnder] says the
+ * content runs on under the header and faded out at rest. Laid behind the header's content, filling it.
+ *
+ * @param scrolledUnder Read as the content scrolls, though the band only follows it as it flips.
  */
 @Composable
-fun BoxScope.HeaderBand(glass: Color, shape: Shape, haze: HazeState? = LocalBackdropHaze.current) {
-    val backdrop = LocalHeaderBackdrop.current
+fun BoxScope.HeaderBand(
+    glass: Color,
+    shape: Shape,
+    scrolledUnder: () -> Boolean,
+    haze: HazeState? = LocalBackdropHaze.current
+) {
+    val current = rememberUpdatedState(scrolledUnder)
+    // Only the flip recomposes, not every step of the scroll it is worked out from
+    val under by remember { derivedStateOf { current.value() } }
     val shown by animateFloatAsState(
-        targetValue = if (backdrop?.scrolledUnder != false) 1f else 0f,
+        targetValue = if (under) 1f else 0f,
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "header_band"
     )

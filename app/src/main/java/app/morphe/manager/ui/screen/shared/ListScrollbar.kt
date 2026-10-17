@@ -145,8 +145,6 @@ fun BoxScope.ListScrollbar(
     alphabetTargets: List<ScrollTarget> = emptyList(),
     alphabetMode: Boolean = false
 ) {
-    // Every list a header floats over draws one of these, which is how the header learns of its scroll
-    TrackHeaderBackdrop(listState)
     // Row heights measured so far, kept for the whole scroll session so a tall expanded card still
     // contributes its real height once it scrolls off-screen
     val sizeCache = remember(listState) { mutableMapOf<Int, Int>() }
@@ -195,7 +193,6 @@ fun BoxScope.ListScrollbar(
     scrollState: ScrollState,
     modifier: Modifier = Modifier
 ) {
-    TrackHeaderBackdrop(scrollState)
     val metrics = remember(scrollState) {
         derivedStateOf { scrollState.scrollbarMetrics() }
     }

@@ -382,6 +382,7 @@ private fun SourcesPageContent(
                 )
             }
         },
+        scrollState = listState,
         bottomBar = {
             ListOptionsPanel(
                 visible = listOptionsOpen,

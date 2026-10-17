@@ -38,8 +38,9 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.SettingsSection
 import app.morphe.manager.domain.manager.SigningKeyInfo
+import app.morphe.manager.ui.screen.home.OnboardingState
 import app.morphe.manager.ui.screen.home.TourTarget
-import app.morphe.manager.ui.screen.settings.settingsTourTarget
+import app.morphe.manager.ui.screen.home.tourTarget
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.ui.viewmodel.ImportExportViewModel
@@ -68,6 +69,7 @@ private const val FINGERPRINT_BYTES_PER_LINE = 8
 @Composable
 fun FilesSection(
     settingsViewModel: SettingsViewModel,
+    tour: OnboardingState?,
     importExportViewModel: ImportExportViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
@@ -147,7 +149,7 @@ fun FilesSection(
         icon = Icons.Outlined.Folder
     ) {
         SettingsGroup {
-            OriginalApkItems(settingsViewModel)
+            OriginalApkItems(settingsViewModel, tour)
 
             SettingsItem(
                 onClick = { showStorageDialog = true },
@@ -427,7 +429,7 @@ private fun fingerprintColors(sha256: String): List<Color> {
  * file picker and the download helpers installed on the device, each only where it is offered.
  */
 @Composable
-private fun OriginalApkItems(settingsViewModel: SettingsViewModel) {
+private fun OriginalApkItems(settingsViewModel: SettingsViewModel, tour: OnboardingState?) {
     val context = LocalContext.current
     val isTV = remember { context.isAndroidTv() }
     val useCustomFilePicker by settingsViewModel.prefs.useCustomFilePicker.getAsState()
@@ -460,7 +462,7 @@ private fun OriginalApkItems(settingsViewModel: SettingsViewModel) {
             icon = Icons.Outlined.FolderOpen,
             title = stringResource(R.string.settings_system_custom_file_picker),
             subtitle = stringResource(R.string.settings_system_custom_file_picker_description),
-            modifier = Modifier.settingsTourTarget(TourTarget.FILE_PICKER)
+            modifier = Modifier.tourTarget(TourTarget.FILE_PICKER, tour)
         )
     }
 

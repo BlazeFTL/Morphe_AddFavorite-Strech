@@ -92,6 +92,7 @@ fun DialogScrollColumn(
  */
 @Composable
 fun BoxScope.DialogScrollIndicators(listState: LazyListState) {
+    TrackHeaderBackdrop(listState)
     val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
     ListScrollbar(listState = listState, modifier = edgeOffset.padding(LocalDialogScrollbarInsets.current))
     ScrollToTopButton(
@@ -104,6 +105,7 @@ fun BoxScope.DialogScrollIndicators(listState: LazyListState) {
 /** [DialogScrollIndicators] for content laid out in full, see [DialogScrollColumn]. */
 @Composable
 fun BoxScope.DialogScrollIndicators(scrollState: ScrollState) {
+    TrackHeaderBackdrop(scrollState)
     val edgeOffset = Modifier.offset(x = LocalDialogHorizontalInset.current)
     ListScrollbar(scrollState = scrollState, modifier = edgeOffset.padding(LocalDialogScrollbarInsets.current))
     ScrollToTopButton(

@@ -310,7 +310,8 @@ fun HomeScreen(
     val pullToRefreshState = rememberPullToRefreshState()
     MainPagerScaffold(
         pagerState = pagerState,
-        navigationCovered = sectionState.isFooterBarVisible,
+        // The bars dock to the apps page only
+        navigationCovered = sectionState.isFooterBarVisible && pagerState.currentPage == MainPage.APPS.ordinal,
         // The tour moves between the pages itself, and a swipe would leave its spotlight behind
         swipeEnabled = onboardingState == null,
         settingsIcon = if (useExpertMode) Icons.Outlined.Engineering else MainPage.SETTINGS.icon,

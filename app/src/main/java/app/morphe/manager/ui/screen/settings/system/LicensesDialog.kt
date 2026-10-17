@@ -23,7 +23,6 @@ import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withLink
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.shared.DialogPadding
 import app.morphe.manager.ui.screen.shared.DialogScrollIndicators
 import app.morphe.manager.ui.screen.shared.dialogTextColor
 import app.morphe.manager.ui.screen.shared.AppDialog
@@ -87,7 +86,6 @@ fun LicensesDialog(onDismiss: () -> Unit) {
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        padding = DialogPadding.Compact
     ) {
         // Libraries list
         val lazyListState = rememberLazyListState()

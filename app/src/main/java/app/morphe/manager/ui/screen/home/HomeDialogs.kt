@@ -732,7 +732,6 @@ private fun AddSourceConfirmDialog(
 
     AppDialog(
         onDismissRequest = onDismiss,
-        padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.add),
@@ -1046,7 +1045,6 @@ fun SimpleBundleSelectDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.home_simple_bundle_select_title),
-        padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.continue_),

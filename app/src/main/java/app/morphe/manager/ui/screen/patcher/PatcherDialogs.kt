@@ -119,7 +119,6 @@ fun RenameWarningDialog(
                 warning.targetPackageName
             )
         ),
-        padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.continue_),
@@ -167,7 +166,6 @@ fun MissingPatchesDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.patcher_missing_patches_title),
         description = stringResource(R.string.patcher_missing_patches_description),
-        padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.continue_),
@@ -499,7 +497,6 @@ fun PatcherErrorDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(errorInfo?.packageName),
         title = title,
-        padding = DialogPadding.Compact,
         scrollable = false,
         footer = {
             AppDialogButtonRow(

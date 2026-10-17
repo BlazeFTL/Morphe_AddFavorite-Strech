@@ -190,16 +190,20 @@ private const val ScrimSteps = 12
  * Lays [content] out under bars floating over its edges, a [topBar] over the top and a [bottomBar]
  * over the bottom. Their heights reach the content in the same pass, so it ends clear of them from
  * the first frame.
+ *
+ * @param wrapContentHeight Takes the height of the content rather than all there is, for a block
+ *   centered with what stands around it until it runs out of room and scrolls.
  */
 @Composable
 fun FloatingBarsLayout(
     modifier: Modifier = Modifier,
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
+    wrapContentHeight: Boolean = false,
     content: @Composable BoxScope.(topHeight: Dp, bottomHeight: Dp) -> Unit
 ) {
     val currentContent = rememberUpdatedState(content)
-    val contentSlot = remember { HeightKeyedContent(currentContent) }
+    val contentSlot = remember(wrapContentHeight) { HeightKeyedContent(currentContent, wrapContentHeight) }
 
     SubcomposeLayout(modifier) { constraints ->
         val barConstraints = constraints.copy(minWidth = 0, minHeight = 0)
@@ -208,13 +212,18 @@ fun FloatingBarsLayout(
         val topHeight = topPlaceables.maxOfOrNull { it.height } ?: 0
         val bottomHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
         val contentPlaceables = subcompose(FloatingBarsSlot.Content, contentSlot.at(topHeight.toDp(), bottomHeight.toDp()))
-            .map { it.measure(constraints) }
+            .map { it.measure(if (wrapContentHeight) constraints.copy(minHeight = 0) else constraints) }
+        val height = if (wrapContentHeight) {
+            (contentPlaceables.maxOfOrNull { it.height } ?: 0).coerceAtLeast(topHeight + bottomHeight)
+        } else {
+            constraints.maxHeight
+        }
 
-        layout(constraints.maxWidth, constraints.maxHeight) {
+        layout(constraints.maxWidth, height) {
             contentPlaceables.forEach { it.place(0, 0) }
             topPlaceables.forEach { it.place((constraints.maxWidth - it.width) / 2, 0) }
             bottomPlaceables.forEach {
-                it.place((constraints.maxWidth - it.width) / 2, constraints.maxHeight - it.height)
+                it.place((constraints.maxWidth - it.width) / 2, height - it.height)
             }
         }
     }
@@ -226,14 +235,18 @@ private enum class FloatingBarsSlot { Top, Bottom, Content }
  * Content slot kept as the same lambda until a bar's height moves, since a subcomposition handed
  * a new lambda recomposes on every measure. The content is read from state.
  */
-private class HeightKeyedContent(private val content: State<@Composable BoxScope.(Dp, Dp) -> Unit>) {
+private class HeightKeyedContent(
+    private val content: State<@Composable BoxScope.(Dp, Dp) -> Unit>,
+    private val wrapHeight: Boolean
+) {
     private var heights: Pair<Dp, Dp>? = null
     private var slot: @Composable () -> Unit = {}
 
     fun at(top: Dp, bottom: Dp): @Composable () -> Unit {
         if (heights != top to bottom) {
             heights = top to bottom
-            slot = { Box(Modifier.fillMaxSize()) { content.value(this, top, bottom) } }
+            val fill = if (wrapHeight) Modifier.fillMaxWidth() else Modifier.fillMaxSize()
+            slot = { Box(fill) { content.value(this, top, bottom) } }
         }
         return slot
     }

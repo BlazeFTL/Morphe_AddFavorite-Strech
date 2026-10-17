@@ -257,7 +257,6 @@ fun InstallerSelectionDialog(
                 onSecondaryClick = onDismiss
             )
         },
-        padding = DialogPadding.Compact
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),

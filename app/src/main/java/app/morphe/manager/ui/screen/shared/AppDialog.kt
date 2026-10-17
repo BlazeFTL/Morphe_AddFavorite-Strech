@@ -32,6 +32,8 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
 import app.morphe.manager.ui.theme.isDarkTheme
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -79,30 +81,20 @@ object FullscreenDialogs {
     }
 }
 
-/** Controls outer padding and inset behavior of [AppDialog]. */
-enum class DialogPadding {
-    /** 32dp at the sides and 16dp above and below, with system bar insets. */
-    Normal,
-    /** 16dp all round, with system bar insets. */
-    Compact
-}
-
 /**
  * Fullscreen dialog whose title, description, content and footer stand together as one centered
  * block. A dialog built around a list it scrolls through is a [ListDialog] instead.
  *
  * @param onDismissRequest Called when user dismisses the dialog.
  * @param title Optional title displayed at the top.
- * @param description What the dialog asks or explains, set under the [title] in one style for
- *   every dialog and held in place with it while the content below scrolls. Plain text or an
- *   [AnnotatedString] for one with emphasis.
+ * @param description What the dialog asks or explains, leading its content in one style for every
+ *   dialog. Plain text or an [AnnotatedString] for one with emphasis.
  * @param titleTrailingContent Optional actions displayed after the title, laid out in a row.
  * @param footer Optional footer content, under the content.
  * @param accentColor Color of the app or source the dialog is about, see [DialogShell].
  * @param dismissOnClickOutside Whether clicking outside dismisses the dialog.
  * @param scrollable Whether to wrap content in verticalScroll and draw a [ListScrollbar] and [ScrollToTopButton] over it.
  * Set to false for content that scrolls on its own, such as a lazy list. Default is true.
- * @param padding Outer padding mode. Default is [DialogPadding.Normal].
  * @param backdrop Drawn over the dialog's own background and under its content, for a dialog
  * that previews something full screen, such as the background picker.
  * @param content Dialog content, left out by a dialog its [description] says everything for.
@@ -117,7 +109,6 @@ fun AppDialog(
     accentColor: Color? = null,
     dismissOnClickOutside: Boolean = false,
     scrollable: Boolean = true,
-    padding: DialogPadding = DialogPadding.Normal,
     backdrop: (@Composable BoxScope.() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
@@ -133,7 +124,6 @@ fun AppDialog(
             titleTrailingContent = titleTrailingContent,
             footer = footer,
             scrollable = scrollable,
-            padding = padding,
             content = content
         )
     }
@@ -342,7 +332,8 @@ fun BoxScope.ContentOverlay(
 
 /**
  * The title, description, content and footer of an [AppDialog], centered together between the
- * system bars, or between the top and the keyboard while it is up.
+ * system bars, or between the top and the keyboard while it is up. The title floats over the top of
+ * the content, so content too long for the screen scrolls on under it, as a list dialog's does.
  */
 @Composable
 private fun CompactDialogContent(
@@ -351,29 +342,25 @@ private fun CompactDialogContent(
     titleTrailingContent: (@Composable RowScope.() -> Unit)?,
     footer: (@Composable () -> Unit)?,
     scrollable: Boolean,
-    padding: DialogPadding,
     content: @Composable ColumnScope.() -> Unit
 ) {
     // Horizontal inset is applied per-section below rather than to the whole, so the content stays
     // full width and its ListScrollbar can sit flush with the dialog edge
-    val horizontalPadding = if (padding == DialogPadding.Compact) {
-        Defaults.SpaceLarge
-    } else {
-        Defaults.SpaceExtraExtraLarge
-    }
-    // The system bars already set the dialog off the screen's edges, so above and below it keeps
-    // only the gap its rows keep from each other, whatever it gives its sides. Compact mode zeroes
-    // its top padding when there is no title to fill it, leaving the room to a header of its own
-    val topPadding = if (padding == DialogPadding.Compact && title == null) 0.dp else Defaults.SpaceLarge
+    val horizontalPadding = DialogInset
+    val haze = rememberHazeState()
+    val backdrop = remember { HeaderBackdrop() }
 
-    CompositionLocalProvider(LocalDialogHorizontalInset provides horizontalPadding) {
+    CompositionLocalProvider(
+        LocalDialogHorizontalInset provides horizontalPadding,
+        LocalHeaderBackdrop provides backdrop
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 // The keyboard is one more thing the dialog has to fit above, and its inset already
                 // spans the navigation bar, so the two are taken together rather than stacked
                 .windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.ime))
-                .padding(top = topPadding, bottom = Defaults.SpaceLarge)
+                .padding(vertical = Defaults.SpaceLarge)
                 .consumesTaps(),
             contentAlignment = Alignment.Center
         ) {
@@ -384,38 +371,54 @@ private fun CompactDialogContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                DialogTitle(
-                    title = title,
-                    description = description,
-                    titleTrailingContent = titleTrailingContent,
-                    horizontalPadding = horizontalPadding
-                )
-
-                // Content area, wrapped in a Box so ListScrollbar can anchor to the true dialog
-                // edge while the scrollable column keeps its own horizontal inset. Scrolling is
-                // also what carries a focused field up into the room the keyboard leaves above it
-                val scrollState = if (scrollable) rememberScrollState() else null
-                Box(modifier = Modifier.weight(1f, fill = false)) {
+                FloatingBarsLayout(
+                    modifier = Modifier.weight(1f, fill = false),
+                    wrapContentHeight = true,
+                    topBar = {
+                        if (title != null) {
+                            Box(modifier = Modifier.fillMaxWidth()) {
+                                // Bare while the dialog fits, the band laid down once its content
+                                // scrolls on under the title
+                                CompositionLocalProvider(LocalBackdropHaze provides haze) {
+                                    HeaderBand(appAccentFill(LocalAccent.current), HeaderBandShape)
+                                }
+                                DialogTitle(
+                                    title = title,
+                                    titleTrailingContent = titleTrailingContent,
+                                    horizontalPadding = horizontalPadding
+                                )
+                            }
+                        }
+                    }
+                ) { titleHeight, _ ->
+                    // Scrolling is also what carries a focused field up into the room the keyboard
+                    // leaves above it
+                    val scrollState = if (scrollable) rememberScrollState() else null
+                    val inset = Modifier.padding(start = horizontalPadding, top = titleHeight, end = horizontalPadding)
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
+                            // What the title blurs as the content scrolls on under it
+                            .hazeSource(haze)
                             .then(
                                 if (scrollState != null) {
                                     // Ahead of the padding, so the fade spans the dialog's full
                                     // width and clips nothing that reaches into the padding
                                     Modifier
                                         .verticalScrollFade(scrollState)
-                                        .padding(horizontal = horizontalPadding)
                                         .verticalScroll(scrollState)
+                                        .then(inset)
                                 } else {
-                                    Modifier.padding(horizontal = horizontalPadding)
+                                    inset
                                 }
-                            ),
-                        content = content
-                    )
+                            )
+                    ) {
+                        if (description != null) DialogDescription(description, centered = titleTrailingContent == null)
+                        content()
+                    }
 
                     if (scrollState != null) {
-                        ListScrollbar(scrollState = scrollState)
+                        ListScrollbar(scrollState = scrollState, modifier = Modifier.padding(top = titleHeight))
                         ScrollToTopButton(scrollState = scrollState)
                     }
                 }
@@ -434,56 +437,54 @@ private fun CompactDialogContent(
     }
 }
 
-/** The title and description an [AppDialog] opens with, each only where there is one. */
+/** Gap between an [AppDialog]'s content and the edges of the screen, the one a [ListDialog] keeps. */
+private val DialogInset = Defaults.SpaceLarge
+
+/** The title an [AppDialog] opens with, and the actions beside it where it has any. */
 @Composable
 private fun DialogTitle(
-    title: String?,
-    description: CharSequence?,
+    title: String,
     titleTrailingContent: (@Composable RowScope.() -> Unit)?,
     horizontalPadding: Dp
 ) {
-    val titleAlign = if (titleTrailingContent != null) TextAlign.Start else TextAlign.Center
-    if (title != null) {
-        // The headline's tall line box already adds space below the text, so a small gap reads as
-        // much as the one above the footer
-        val titleBottom = if (description != null) Defaults.SpaceExtraSmall else Defaults.SpaceSmall
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = horizontalPadding, end = horizontalPadding, bottom = titleBottom),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Dialogs whose title tracks a state (download, install, result) swap it in step with
-            // their content instead of snapping a new string in
-            CrossfadeText(
-                text = title,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-                textAlign = titleAlign,
-                color = dialogTextColor(),
-                modifier = Modifier.weight(1f),
-                label = "dialogTitle"
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = horizontalPadding, end = horizontalPadding, bottom = Defaults.SpaceSmall),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Dialogs whose title tracks a state (download, install, result) swap it in step with
+        // their content instead of snapping a new string in
+        CrossfadeText(
+            text = title,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold,
+            textAlign = if (titleTrailingContent != null) TextAlign.Start else TextAlign.Center,
+            color = dialogTextColor(),
+            modifier = Modifier.weight(1f),
+            label = "dialogTitle"
+        )
+        if (titleTrailingContent != null) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
+                verticalAlignment = Alignment.CenterVertically,
+                content = titleTrailingContent
             )
-            if (titleTrailingContent != null) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-                    verticalAlignment = Alignment.CenterVertically,
-                    content = titleTrailingContent
-                )
-            }
         }
     }
+}
 
-    if (description != null) {
-        Text(
-            text = description as? AnnotatedString ?: AnnotatedString(description.toString()),
-            style = MaterialTheme.typography.bodyLarge,
-            color = dialogSecondaryTextColor(),
-            textAlign = titleAlign,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = horizontalPadding, end = horizontalPadding, bottom = Defaults.SpaceLarge)
-        )
-    }
+/** What an [AppDialog] asks or explains, leading its content in one style for every dialog. */
+@Composable
+private fun DialogDescription(description: CharSequence, centered: Boolean) {
+    Text(
+        text = description as? AnnotatedString ?: AnnotatedString(description.toString()),
+        style = MaterialTheme.typography.bodyLarge,
+        color = dialogSecondaryTextColor(),
+        textAlign = if (centered) TextAlign.Center else TextAlign.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = Defaults.SpaceLarge)
+    )
 }

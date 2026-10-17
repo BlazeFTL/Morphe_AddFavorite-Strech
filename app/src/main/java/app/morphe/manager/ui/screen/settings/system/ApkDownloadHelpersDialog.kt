@@ -70,7 +70,6 @@ fun ApkDownloadHelpersDialog(
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        padding = DialogPadding.Compact
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),

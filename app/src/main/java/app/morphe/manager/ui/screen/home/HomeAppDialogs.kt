@@ -146,7 +146,6 @@ internal fun HideAppDialog(
                 onSecondaryClick = onDismiss
             )
         },
-        padding = DialogPadding.Compact
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -423,7 +422,6 @@ fun AppPatchSourcesDialog(
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        padding = DialogPadding.Compact,
         scrollable = false
     ) {
         DialogLazyList(

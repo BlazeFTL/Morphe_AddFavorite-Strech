@@ -181,7 +181,6 @@ fun NotificationsDialog(
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        padding = DialogPadding.Compact
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -310,7 +309,6 @@ private fun SoundSourceDialog(
                 onPrimaryClick = onDismiss
             )
         },
-        padding = DialogPadding.Compact
     ) {
         SettingsGroup {
             SettingsItem(

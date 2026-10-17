@@ -116,7 +116,6 @@ internal fun ApkAvailabilityDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.home_apk_availability_dialog_title),
-        padding = DialogPadding.Compact,
         footer = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -382,7 +381,6 @@ internal fun UnsupportedVersionWarningDialog(
                 else -> R.string.home_dialog_unsupported_version_dialog_description
             }
         ),
-        padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
@@ -587,7 +585,6 @@ fun WrongPackageDialog(
         accentColor = rememberAppColor(expectedPackage),
         title = stringResource(R.string.home_dialog_wrong_package_title),
         description = stringResource(R.string.home_dialog_wrong_package_description),
-        padding = DialogPadding.Compact,
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),

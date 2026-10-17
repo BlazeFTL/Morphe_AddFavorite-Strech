@@ -16,7 +16,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.colorpicker.*
 import app.morphe.manager.util.contrastingContent
+import app.morphe.manager.util.isRtl
+import app.morphe.manager.util.startToEndGradient
 import app.morphe.manager.util.toColorOrNull
 import app.morphe.manager.util.toHexString
 import app.morphe.manager.util.toHsv
@@ -257,7 +258,7 @@ private fun ColorPreview(color: Color, gradient: List<Color>?, label: String, he
             .clip(RoundedCornerShape(Defaults.CornerMedium))
             .then(
                 if (gradient != null) {
-                    Modifier.background(Brush.horizontalGradient(gradient))
+                    Modifier.background(startToEndGradient(gradient, isRtl()))
                 } else {
                     Modifier.background(animated)
                 }

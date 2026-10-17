@@ -701,11 +701,10 @@ fun AppLoadingCard(
                         Modifier.background(cardStyle.cardColor)
                     } else {
                         Modifier.background(
-                            brush = Brush.linearGradient(
+                            brush = startToEndGradient(
                                 colors = cardStyle.cardColors(gradientColors)
                                     .map { it.copy(alpha = pulseAlpha) },
-                                start = Offset(startEdgeX(1000f, rtl), 0f),
-                                end = Offset(endEdgeX(1000f, rtl), 0f)
+                                rtl = rtl
                             )
                         )
                     }

@@ -31,9 +31,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.dismiss
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -89,7 +86,7 @@ fun DockedPanel(
                     .navigationBarsPadding()
                     .padding(bottom = Defaults.SpaceExtraSmall)
             ) {
-                PanelHandle(onDismiss = onBack)
+                PanelHandle()
                 content()
             }
         }
@@ -122,18 +119,16 @@ private fun Modifier.drawnDownBy(progress: Animatable<Float, AnimationVector1D>,
     )
 }
 
-/** The handle atop a [DockedPanel], saying it can be drawn down, and closing it for a screen reader. */
+/**
+ * The handle atop a [DockedPanel], saying it can be drawn down. Only drawn, as every panel closes
+ * from a control of its own and from back, which a screen reader reaches without it.
+ */
 @Composable
-private fun PanelHandle(onDismiss: () -> Unit) {
-    val closeLabel = stringResource(R.string.close)
+private fun PanelHandle() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = Defaults.SpaceSmall)
-            .semantics {
-                contentDescription = closeLabel
-                dismiss { onDismiss(); true }
-            },
+            .padding(top = Defaults.SpaceSmall),
         contentAlignment = Alignment.Center
     ) {
         Box(

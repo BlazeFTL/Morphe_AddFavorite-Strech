@@ -21,6 +21,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import app.morphe.manager.R
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 
 /**
  * Title a full page opens on, after a back action where the page was opened from another and
@@ -68,6 +70,35 @@ fun PageHeader(
             verticalAlignment = Alignment.CenterVertically,
             content = actions
         )
+    }
+}
+
+/**
+ * A page whose [header] stays in place while [content] scrolls on under it, blurred on the header's
+ * band as under a list dialog's header. [content] is handed the header's height to start below it.
+ */
+@Composable
+fun PinnedHeaderPage(
+    header: @Composable ColumnScope.() -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable BoxScope.(headerHeight: Dp) -> Unit
+) {
+    val haze = rememberHazeState()
+    val horizontal = rememberWindowSize().contentPadding
+    FloatingBarsLayout(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .glassFill(appAccentFill(null), HeaderBandShape, haze)
+                    .statusBarsPadding()
+                    .padding(start = horizontal, top = Defaults.SpaceLarge, end = horizontal, bottom = Defaults.SpaceMedium),
+                content = header
+            )
+        }
+    ) { headerHeight, _ ->
+        Box(modifier = Modifier.fillMaxSize().hazeSource(haze)) { content(headerHeight) }
     }
 }
 

@@ -9,12 +9,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.EaseOutBack
-import androidx.compose.animation.core.EaseOutCubic
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -25,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
@@ -208,7 +202,7 @@ fun ListDialogHeader(
         Box(
             modifier = modifier
                 .fillMaxWidth()
-                .glassFill(band, BandShape, haze)
+                .glassFill(band, HeaderBandShape, haze)
                 .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)),
             contentAlignment = Alignment.TopCenter
         ) {
@@ -370,8 +364,8 @@ fun ListDialogHeaderIcon(icon: ImageVector, color: Color, modifier: Modifier = M
     )
 }
 
-/** The band's outline, rounded off below like the app details' header. */
-private val BandShape = RoundedCornerShape(bottomStart = Defaults.CornerLarge, bottomEnd = Defaults.CornerLarge)
+/** Outline of a header's band, rounded off below like the app details' header. */
+internal val HeaderBandShape = RoundedCornerShape(bottomStart = Defaults.CornerLarge, bottomEnd = Defaults.CornerLarge)
 
 /**
  * Tints the header out to the dialog's edges and up under the status bar, rounded off below like

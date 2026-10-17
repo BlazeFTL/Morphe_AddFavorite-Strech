@@ -196,7 +196,10 @@ private fun SourcesPageContent(
         onboardingState?.onScrollToPrerelease = {
             scope.launch {
                 val bounds = onboardingState.sourcesPrereleaseBounds ?: return@launch
-                val offset = (bounds.top - listWindowY).coerceAtLeast(0f).toInt()
+                // Measured from the first card, so the toggle lands just under the header
+                val firstTop = listState.layoutInfo.visibleItemsInfo.firstOrNull { it.index == 0 }?.offset
+                    ?: return@launch
+                val offset = (bounds.top - listWindowY - firstTop).coerceAtLeast(0f).toInt()
                 listState.animateScrollToItem(0, offset)
             }
         }
@@ -302,278 +305,262 @@ private fun SourcesPageContent(
     }
 
     val horizontalPadding = rememberWindowSize().contentPadding
-    Box(modifier = Modifier.fillMaxSize()) {
-        val context = LocalContext.current
-        val messages = koinInject<UserMessages>()
-        val uriHandler = LocalUriHandler.current
-        val failedToOpenUrlText = stringResource(R.string.sources_management_failed_to_open_url)
-        fun openUrl(url: String) {
-            try {
-                uriHandler.openUri(url)
-            } catch (_: Exception) {
-                messages.show(failedToOpenUrlText)
+    val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
+    val uriHandler = LocalUriHandler.current
+    val failedToOpenUrlText = stringResource(R.string.sources_management_failed_to_open_url)
+    fun openUrl(url: String) {
+        try {
+            uriHandler.openUri(url)
+        } catch (_: Exception) {
+            messages.show(failedToOpenUrlText)
+        }
+    }
+
+    fun shareText(text: String) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, text)
+        }
+        context.startActivity(Intent.createChooser(intent, null))
+    }
+
+    // Registered inside the page so it outranks the main screen's own back handling
+    SearchFieldBackHandler(search)
+
+    PinnedHeaderPage(
+        header = {
+            PageHeader(
+                title = stringResource(R.string.sources),
+                subtitle = pluralStringResource(
+                    R.plurals.sources_management_subtitle,
+                    sources.size,
+                    sources.size.toString()
+                )
+            ) {
+                AnimatedVisibility(visible = isSearchable) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TitleAction(
+                            icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                            contentDescription = stringResource(R.string.search),
+                            onClick = { search.toggle() },
+                            style = TitleActionStyle.Toggle,
+                            active = search.visible
+                        )
+
+                        val activeSortLabel = stringResource(sourceSortMode.labelRes)
+                        Box {
+                            TitleAction(
+                                icon = Icons.AutoMirrored.Outlined.Sort,
+                                contentDescription = stringResource(R.string.sort),
+                                onClick = { showSortMenu = true },
+                                modifier = Modifier.semantics {
+                                    role = Role.Button
+                                    stateDescription = activeSortLabel
+                                },
+                                style = TitleActionStyle.Toggle,
+                                active = showSortMenu
+                            )
+                            SortModeMenu(
+                                expanded = showSortMenu,
+                                onDismissRequest = { showSortMenu = false },
+                                current = sourceSortMode,
+                                options = sortModeOptions<SourceBundleSortMode>(),
+                                onSelect = { mode ->
+                                    scope.launch { prefs.sourceBundleSortMode.update(mode.name) }
+                                }
+                            )
+                        }
+                    }
+                }
+                TitleAction(
+                    icon = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.add),
+                    onClick = onAddSource,
+                    style = TitleActionStyle.Accent
+                )
+            }
+            AnimatedVisibility(
+                visible = search.visible,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                ListSearchField(
+                    value = search.query,
+                    onValueChange = { search.query = it },
+                    label = stringResource(R.string.sources_search),
+                    requestFocus = true,
+                    modifier = Modifier.padding(top = Defaults.SpaceMedium)
+                )
             }
         }
-
-        fun shareText(text: String) {
-            val intent = Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, text)
-            }
-            context.startActivity(Intent.createChooser(intent, null))
-        }
-
-        // Registered inside the page so it outranks the main screen's own back handling
-        SearchFieldBackHandler(search)
-
-        Box {
-            Column(
+    ) { headerHeight ->
+        // Bundle cards, running on under the header and the navigation floating over the page
+        val listRowResizing = remember { ListRowResizing() }
+        CompositionLocalProvider(LocalListRowResizing provides listRowResizing) {
+            LazyColumn(
+                state = listState,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + Defaults.SpaceLarge)
+                    .onGloballyPositioned { coords -> listWindowY = coords.boundsInWindow().top }
+                    .verticalScrollFade(listState),
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
+                contentPadding = PaddingValues(
+                    start = horizontalPadding,
+                    top = headerHeight + Defaults.SpaceMedium,
+                    end = horizontalPadding,
+                    bottom = bottomBarHeight + Defaults.SpaceLarge
+                )
             ) {
-                // Header - outside scrollable area
-                PageHeader(
-                    title = stringResource(R.string.sources),
-                    subtitle = pluralStringResource(
-                        R.plurals.sources_management_subtitle,
-                        sources.size,
-                        sources.size.toString()
-                    ),
-                    modifier = Modifier.padding(horizontal = horizontalPadding)
-                ) {
-                    AnimatedVisibility(visible = isSearchable) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            TitleAction(
-                                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                                contentDescription = stringResource(R.string.search),
-                                onClick = { search.toggle() },
-                                style = TitleActionStyle.Toggle,
-                                active = search.visible
-                            )
-
-                            val activeSortLabel = stringResource(sourceSortMode.labelRes)
-                            Box {
-                                TitleAction(
-                                    icon = Icons.AutoMirrored.Outlined.Sort,
-                                    contentDescription = stringResource(R.string.sort),
-                                    onClick = { showSortMenu = true },
-                                    modifier = Modifier.semantics {
-                                        role = Role.Button
-                                        stateDescription = activeSortLabel
-                                    },
-                                    style = TitleActionStyle.Toggle,
-                                    active = showSortMenu
-                                )
-                                SortModeMenu(
-                                    expanded = showSortMenu,
-                                    onDismissRequest = { showSortMenu = false },
-                                    current = sourceSortMode,
-                                    options = sortModeOptions<SourceBundleSortMode>(),
-                                    onSelect = { mode ->
-                                        scope.launch { prefs.sourceBundleSortMode.update(mode.name) }
-                                    }
-                                )
-                            }
-                        }
+                if (isLoadingSources) {
+                    items(SourceShimmerRows, key = { index -> "shimmer_$index" }) {
+                        ShimmerBundleRow()
                     }
-                    TitleAction(
-                        icon = Icons.Default.Add,
-                        contentDescription = stringResource(R.string.add),
-                        onClick = onAddSource,
-                        style = TitleActionStyle.Accent
-                    )
                 }
-                Column(modifier = Modifier.padding(horizontal = horizontalPadding)) {
-                    AnimatedVisibility(
-                        visible = search.visible,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
-                        ListSearchField(
-                            value = search.query,
-                            onValueChange = { search.query = it },
-                            label = stringResource(R.string.sources_search),
-                            requestFocus = true,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = Defaults.SpaceSmall)
+
+                if (search.isFiltering && visibleSources.isEmpty()) {
+                    item(key = "search_empty") {
+                        EmptyState(
+                            message = stringResource(R.string.search_no_results),
+                            icon = Icons.Outlined.SearchOff
                         )
                     }
-
-                    Spacer(Modifier.height(Defaults.SpaceSmall))
                 }
 
-                // Bundle cards, running on under the navigation floating over the page
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                ) {
-                    val listRowResizing = remember { ListRowResizing() }
-                    CompositionLocalProvider(LocalListRowResizing provides listRowResizing) {
-                        LazyColumn(
-                            state = listState,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .onGloballyPositioned { coords -> listWindowY = coords.boundsInWindow().top }
-                                .verticalScrollFade(listState),
-                            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
-                            contentPadding = PaddingValues(
-                                start = horizontalPadding,
-                                end = horizontalPadding,
-                                bottom = bottomBarHeight + Defaults.SpaceLarge
-                            )
-                        ) {
-                            if (isLoadingSources) {
-                                items(SourceShimmerRows, key = { index -> "shimmer_$index" }) {
-                                    ShimmerBundleRow()
-                                }
-                            }
-
-                            if (search.isFiltering && visibleSources.isEmpty()) {
-                                item(key = "search_empty") {
-                                    EmptyState(
-                                        message = stringResource(R.string.search_no_results),
-                                        icon = Icons.Outlined.SearchOff
-                                    )
-                                }
-                            }
-
-                            items(visibleSources, key = { bundle -> bundle.uid }) { bundle ->
-                                val hasExperimentalVersions = remember(bundle.uid, bundleInfo) {
-                                    bundleInfo[bundle.uid]?.patches?.any { patch ->
-                                        patch.compatiblePackages?.any { pkg ->
-                                            pkg.experimentalVersions?.isNotEmpty() == true
-                                        } == true
-                                    } == true
-                                }
-                                val useExperimentalVersions = bundle.uid.toString() in experimentalVersionsEnabled
-
-                                val isFirstCard = bundle.uid == visibleSources.firstOrNull()?.uid
-                                ReorderableItem(
-                                    reorderableState,
-                                    key = bundle.uid,
-                                    animateItemModifier = Modifier.animatedListItem(this)
-                                ) { itemIsDragging ->
-                                    BundleManagementCard(
-                                        bundle = bundle,
-                                        info = SourceCardInfo(
-                                            patchCount = patchCounts[bundle.uid] ?: 0,
-                                            patchMatchCount = patchMatchCounts[bundle.uid],
-                                            appCount = appCounts[bundle.uid] ?: SourceAppCount.NONE,
-                                            updateInfo = manualUpdateInfo[bundle.uid],
-                                            isUpdating = bundle.uid in activeUpdateUids,
-                                            metadataFetchError = metadataFetchErrors[bundle.uid],
-                                            blockedInfo = blockedSources[bundle.uid],
-                                            useExperimentalVersions = useExperimentalVersions
-                                        ),
-                                        actions = SourceCardActions(
-                                            onPatchesClick = { bundleToShowPatches.value = bundle },
-                                            onAppsClick = { bundleToShowApps.value = bundle },
-                                            onVersionClick = {
-                                                if (bundle is RemotePatchBundle) {
-                                                    bundleToShowChangelogUid = bundle.uid
-                                                }
-                                            },
-                                            onOutdatedManagerClick = { bundleRequiringManagerUpdate = bundle },
-                                            onOpenInBrowser = {
-                                                openUrl(
-                                                    manualUpdateInfo[bundle.uid]?.pageUrl
-                                                        ?: (bundle as? RemotePatchBundle)?.browsePageUrl
-                                                        ?: SOURCE_REPO_URL
-                                                )
-                                            },
-                                            onReportIssue = {
-                                                openUrl((bundle as? RemotePatchBundle)?.issuesPageUrl ?: SOURCE_REPO_URL)
-                                            },
-                                            onShare = (bundle as? RemotePatchBundle)?.addSourceLink?.let { link ->
-                                                { shareText(link) }
-                                            },
-                                            onPrereleasesToggle = when {
-                                                bundle is JsonPatchBundle && bundle.supportsPrerelease ||
-                                                        bundle is APIPatchBundle -> { usePrerelease ->
-                                                    if (usePrerelease) {
-                                                        // Explain what pre-release means before flipping it on
-                                                        bundleToConfirmPrerelease.value = bundle
-                                                    } else {
-                                                        applyPrerelease(bundle, false)
-                                                    }
-                                                }
-
-                                                else -> null
-                                            },
-                                            onExperimentalVersionsToggle = if (hasExperimentalVersions) {
-                                                { useExperimental ->
-                                                    scope.launch {
-                                                        patchBundleRepository.setUseExperimentalVersions(
-                                                            bundle.uid,
-                                                            useExperimental
-                                                        )
-                                                    }
-                                                }
-                                            } else null,
-                                            onDisable = { onDisable(bundle) },
-                                            onUpdate = { onUpdate(bundle) },
-                                            onRename = { onRename(bundle) },
-                                            onDelete = { bundleToDelete.value = bundle }
-                                        ),
-                                        expanded = isSingleDefaultBundle || bundle.uid in expandedBundleUids ||
-                                            (isTourRunning && isFirstCard),
-                                        onToggleExpanded = {
-                                            expandedBundleUids = if (bundle.uid in expandedBundleUids) {
-                                                expandedBundleUids - bundle.uid
-                                            } else {
-                                                expandedBundleUids + bundle.uid
-                                            }
-                                        },
-                                        forceExpanded = isSingleDefaultBundle,
-                                        isDragging = itemIsDragging,
-                                        // Reorder maps list positions onto the full order, so a
-                                        // filtered list would move the wrong sources
-                                        longPressModifier = if (isManualSort && !search.isFiltering) {
-                                            Modifier.longPressDraggableHandle(
-                                                onDragStarted = {
-                                                    isDragging = true
-                                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                                },
-                                                onDragStopped = {
-                                                    isDragging = false
-                                                    onReorder(localOrder)
-                                                }
-                                            )
-                                        } else {
-                                            Modifier
-                                        },
-                                        tourTargets = if (isFirstCard) {
-                                            SourceCardTourTargets(
-                                                onPatchesPositioned = { onboardingState?.sourcesPatchesBounds = it },
-                                                onVersionPositioned = { onboardingState?.sourcesVersionBounds = it },
-                                                onPrereleasePositioned = { onboardingState?.sourcesPrereleaseBounds = it }
-                                            )
-                                        } else null,
-                                        modifier = Modifier.zIndex(if (itemIsDragging) 1f else 0f)
-                                    )
-                                }
-                            }
-                        }
+                items(visibleSources, key = { bundle -> bundle.uid }) { bundle ->
+                    val hasExperimentalVersions = remember(bundle.uid, bundleInfo) {
+                        bundleInfo[bundle.uid]?.patches?.any { patch ->
+                            patch.compatiblePackages?.any { pkg ->
+                                pkg.experimentalVersions?.isNotEmpty() == true
+                            } == true
+                        } == true
                     }
+                    val useExperimentalVersions = bundle.uid.toString() in experimentalVersionsEnabled
 
-                    ListScrollbar(
-                        listState = listState,
-                        // The same step at both ends as on the screens, so the end shows past rounded corners
-                        modifier = Modifier.padding(top = Defaults.SpaceMedium, bottom = bottomBarHeight + Defaults.SpaceMedium),
-                        alphabetTargets = sourceScrollTargets,
-                        alphabetMode = alphabetScrollMode
-                    )
+                    val isFirstCard = bundle.uid == visibleSources.firstOrNull()?.uid
+                    ReorderableItem(
+                        reorderableState,
+                        key = bundle.uid,
+                        animateItemModifier = Modifier.animatedListItem(this)
+                    ) { itemIsDragging ->
+                        BundleManagementCard(
+                            bundle = bundle,
+                            info = SourceCardInfo(
+                                patchCount = patchCounts[bundle.uid] ?: 0,
+                                patchMatchCount = patchMatchCounts[bundle.uid],
+                                appCount = appCounts[bundle.uid] ?: SourceAppCount.NONE,
+                                updateInfo = manualUpdateInfo[bundle.uid],
+                                isUpdating = bundle.uid in activeUpdateUids,
+                                metadataFetchError = metadataFetchErrors[bundle.uid],
+                                blockedInfo = blockedSources[bundle.uid],
+                                useExperimentalVersions = useExperimentalVersions
+                            ),
+                            actions = SourceCardActions(
+                                onPatchesClick = { bundleToShowPatches.value = bundle },
+                                onAppsClick = { bundleToShowApps.value = bundle },
+                                onVersionClick = {
+                                    if (bundle is RemotePatchBundle) {
+                                        bundleToShowChangelogUid = bundle.uid
+                                    }
+                                },
+                                onOutdatedManagerClick = { bundleRequiringManagerUpdate = bundle },
+                                onOpenInBrowser = {
+                                    openUrl(
+                                        manualUpdateInfo[bundle.uid]?.pageUrl
+                                            ?: (bundle as? RemotePatchBundle)?.browsePageUrl
+                                            ?: SOURCE_REPO_URL
+                                    )
+                                },
+                                onReportIssue = {
+                                    openUrl((bundle as? RemotePatchBundle)?.issuesPageUrl ?: SOURCE_REPO_URL)
+                                },
+                                onShare = (bundle as? RemotePatchBundle)?.addSourceLink?.let { link ->
+                                    { shareText(link) }
+                                },
+                                onPrereleasesToggle = when {
+                                    bundle is JsonPatchBundle && bundle.supportsPrerelease ||
+                                            bundle is APIPatchBundle -> { usePrerelease ->
+                                        if (usePrerelease) {
+                                            // Explain what pre-release means before flipping it on
+                                            bundleToConfirmPrerelease.value = bundle
+                                        } else {
+                                            applyPrerelease(bundle, false)
+                                        }
+                                    }
 
-                    ScrollToTopButton(listState = listState, extraBottomPadding = bottomBarHeight)
+                                    else -> null
+                                },
+                                onExperimentalVersionsToggle = if (hasExperimentalVersions) {
+                                    { useExperimental ->
+                                        scope.launch {
+                                            patchBundleRepository.setUseExperimentalVersions(
+                                                bundle.uid,
+                                                useExperimental
+                                            )
+                                        }
+                                    }
+                                } else null,
+                                onDisable = { onDisable(bundle) },
+                                onUpdate = { onUpdate(bundle) },
+                                onRename = { onRename(bundle) },
+                                onDelete = { bundleToDelete.value = bundle }
+                            ),
+                            expanded = isSingleDefaultBundle || bundle.uid in expandedBundleUids ||
+                                (isTourRunning && isFirstCard),
+                            onToggleExpanded = {
+                                expandedBundleUids = if (bundle.uid in expandedBundleUids) {
+                                    expandedBundleUids - bundle.uid
+                                } else {
+                                    expandedBundleUids + bundle.uid
+                                }
+                            },
+                            forceExpanded = isSingleDefaultBundle,
+                            isDragging = itemIsDragging,
+                            // Reorder maps list positions onto the full order, so a
+                            // filtered list would move the wrong sources
+                            longPressModifier = if (isManualSort && !search.isFiltering) {
+                                Modifier.longPressDraggableHandle(
+                                    onDragStarted = {
+                                        isDragging = true
+                                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    },
+                                    onDragStopped = {
+                                        isDragging = false
+                                        onReorder(localOrder)
+                                    }
+                                )
+                            } else {
+                                Modifier
+                            },
+                            tourTargets = if (isFirstCard) {
+                                SourceCardTourTargets(
+                                    onPatchesPositioned = { onboardingState?.sourcesPatchesBounds = it },
+                                    onVersionPositioned = { onboardingState?.sourcesVersionBounds = it },
+                                    onPrereleasePositioned = { onboardingState?.sourcesPrereleaseBounds = it }
+                                )
+                            } else null,
+                            modifier = Modifier.zIndex(if (itemIsDragging) 1f else 0f)
+                        )
+                    }
                 }
             }
         }
+
+        ListScrollbar(
+            listState = listState,
+            // The same step at both ends as on the screens, so the end shows past rounded corners
+            modifier = Modifier.padding(
+                top = headerHeight + Defaults.SpaceMedium,
+                bottom = bottomBarHeight + Defaults.SpaceMedium
+            ),
+            alphabetTargets = sourceScrollTargets,
+            alphabetMode = alphabetScrollMode
+        )
+
+        ScrollToTopButton(listState = listState, extraBottomPadding = bottomBarHeight)
     }
 
     // Delete confirmation dialog

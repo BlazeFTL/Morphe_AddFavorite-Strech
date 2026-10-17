@@ -81,6 +81,8 @@ class OnboardingState {
     val targetBounds = mutableStateMapOf<TourTarget, Rect>()
     /** The page the current step is on, which the main screen turns to. */
     var page by mutableStateOf<MainPage?>(null)
+    /** The page the main screen has finished turning to, which is [page] once it stands there. */
+    var pageShown by mutableStateOf<MainPage?>(null)
     /** The row the current step is about, which its page scrolls into view. */
     var target by mutableStateOf<TourTarget?>(null)
 }
@@ -94,8 +96,10 @@ class OnboardingState {
 fun Modifier.tourTarget(target: TourTarget, tour: OnboardingState?): Modifier {
     tour ?: return this
     val requester = remember { BringIntoViewRequester() }
-    LaunchedEffect(tour.target) {
-        if (tour.target == target) requester.bringIntoView()
+    // Once its page stands, since the page turning to it would cut the scroll short
+    val due = tour.target == target && tour.pageShown == tour.page
+    LaunchedEffect(due) {
+        if (due) requester.bringIntoView()
     }
     return bringIntoViewRequester(requester)
         .onGloballyPositioned { tour.targetBounds[target] = it.boundsInWindow() }

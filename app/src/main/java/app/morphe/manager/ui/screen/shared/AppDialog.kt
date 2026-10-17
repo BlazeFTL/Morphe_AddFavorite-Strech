@@ -25,15 +25,12 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
 import app.morphe.manager.ui.theme.isDarkTheme
-import dev.chrisbanes.haze.hazeSource
-import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -337,9 +334,8 @@ fun BoxScope.ContentOverlay(
 
 /**
  * The title, description, content and footer of an [AppDialog], centered together on the screen,
- * or above the keyboard while it is up. The title and footer float over the ends of the content and
- * take the system bars, so content too long for the screen scrolls on under both, edge to edge, as
- * a list dialog's does.
+ * or above the keyboard while it is up. Laid out as a list dialog's are, so content too long for
+ * the screen scrolls on under the title and footer, edge to edge.
  */
 @Composable
 private fun CompactDialogContent(
@@ -350,86 +346,58 @@ private fun CompactDialogContent(
     scrollable: Boolean,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    // Horizontal inset is applied per-section below rather than to the whole, so the content stays
-    // full width and its ListScrollbar can sit flush with the dialog edge
-    val horizontalPadding = DialogInset
-    val haze = rememberHazeState()
     // Scrolling is also what carries a focused field up into the room the keyboard leaves above it
     val scrollState = if (scrollable) rememberScrollState() else null
 
-    CompositionLocalProvider(LocalDialogHorizontalInset provides horizontalPadding) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                // The keyboard is one more thing the dialog has to fit above, which the bars cannot
-                // take for it, as a focused field must stay above it rather than under the footer
-                .windowInsetsPadding(WindowInsets.ime.only(WindowInsetsSides.Bottom))
-                .consumesTaps(),
-            contentAlignment = Alignment.Center
-        ) {
-            FloatingBarsLayout(
-                modifier = Modifier
-                    .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal))
-                    .widthIn(max = Defaults.ContentMaxWidth)
-                    .fillMaxWidth(),
-                wrapContentHeight = true,
-                topBar = {
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        // Bare while the dialog fits, the band laid down under the status bar too
-                        // once its content scrolls on under the title
-                        HeaderBand(
-                            glass = appAccentFill(LocalAccent.current),
-                            shape = HeaderBandShape,
-                            scrolledUnder = { scrollState?.canScrollBackward == true },
-                            haze = haze
-                        )
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .statusBarsPadding()
-                                .padding(top = Defaults.SpaceLarge)
-                        ) {
-                            if (title != null) {
-                                DialogTitle(
-                                    title = title,
-                                    titleTrailingContent = titleTrailingContent,
-                                    horizontalPadding = horizontalPadding
-                                )
-                            }
+    // Horizontal inset is applied per-section below rather than to the whole, so the content stays
+    // full width and its ListScrollbar can sit flush with the dialog edge
+    CompositionLocalProvider(LocalDialogHorizontalInset provides DialogInset) {
+        DialogLayout(
+            header = {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    // Bare while the dialog fits, the band laid down under the status bar too once
+                    // its content scrolls on under the title
+                    HeaderBand(
+                        glass = appAccentFill(LocalAccent.current),
+                        shape = HeaderBandShape,
+                        scrolledUnder = { scrollState?.canScrollBackward == true }
+                    )
+                    Column(
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
+                            .widthIn(max = Defaults.ContentMaxWidth)
+                            .fillMaxWidth()
+                            .padding(top = Defaults.SpaceLarge)
+                    ) {
+                        if (title != null) {
+                            DialogTitle(
+                                title = title,
+                                titleTrailingContent = titleTrailingContent
+                            )
                         }
                     }
-                },
-                bottomBar = {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            // The keyboard covers the navigation bar, and the dialog already ends above it
-                            .windowInsetsPadding(
-                                WindowInsets.navigationBars.exclude(WindowInsets.ime).only(WindowInsetsSides.Bottom)
-                            )
-                            .padding(
-                                start = horizontalPadding,
-                                top = if (footer != null) Defaults.SpaceLarge else 0.dp,
-                                end = horizontalPadding,
-                                bottom = Defaults.SpaceLarge
-                            )
-                    ) {
-                        // Blurs the content as the title does, the footer's buttons included
-                        if (footer != null) CompositionLocalProvider(LocalBackdropHaze provides haze, content = footer)
-                    }
                 }
-            ) { titleHeight, footerHeight ->
-                val inset = Modifier.padding(
-                    start = horizontalPadding,
-                    top = titleHeight,
-                    end = horizontalPadding,
-                    bottom = footerHeight
-                )
+            },
+            footer = footer,
+            wrapContentHeight = true
+        ) { titleHeight, footerHeight ->
+            // Without buttons under it the content still ends a step above the navigation bar
+            val bottomInset = if (footer != null) footerHeight else footerHeight + Defaults.SpaceLarge
+            val inset = Modifier.padding(
+                start = DialogInset,
+                top = titleHeight,
+                end = DialogInset,
+                bottom = bottomInset
+            )
+            Box(
+                modifier = Modifier
+                    .widthIn(max = Defaults.ContentMaxWidth)
+                    .fillMaxWidth()
+            ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        // What the title and footer blur as the content scrolls on under them
-                        .hazeSource(haze)
                         .then(
                             if (scrollState != null) {
                                 // Ahead of the padding, so the fade spans the dialog's full
@@ -448,8 +416,8 @@ private fun CompactDialogContent(
                 }
 
                 if (scrollState != null) {
-                    ListScrollbar(scrollState = scrollState, modifier = Modifier.padding(top = titleHeight, bottom = footerHeight))
-                    ScrollToTopButton(scrollState = scrollState, extraBottomPadding = footerHeight)
+                    ListScrollbar(scrollState = scrollState, modifier = Modifier.padding(top = titleHeight, bottom = bottomInset))
+                    ScrollToTopButton(scrollState = scrollState, extraBottomPadding = bottomInset)
                 }
             }
         }
@@ -463,13 +431,12 @@ internal val DialogInset = Defaults.SpaceLarge
 @Composable
 private fun DialogTitle(
     title: String,
-    titleTrailingContent: (@Composable RowScope.() -> Unit)?,
-    horizontalPadding: Dp
+    titleTrailingContent: (@Composable RowScope.() -> Unit)?
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = horizontalPadding, end = horizontalPadding, bottom = Defaults.SpaceSmall),
+            .padding(start = DialogInset, end = DialogInset, bottom = Defaults.SpaceSmall),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

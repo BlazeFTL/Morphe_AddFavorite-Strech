@@ -35,8 +35,11 @@ import dev.chrisbanes.haze.HazeState
 class HeaderBackdrop {
     private var source by mutableStateOf<ScrollableState?>(null)
 
-    /** Whether the list runs on under the header, true while no list is handed over. */
-    val scrolledUnder: Boolean get() = source?.canScrollBackward ?: true
+    /**
+     * Whether the list runs on under the header. False while no list is handed over, such as while
+     * one loads, so the header rests bare until there is something to scroll under it.
+     */
+    val scrolledUnder: Boolean get() = source?.canScrollBackward ?: false
 
     internal fun track(state: ScrollableState) {
         source = state

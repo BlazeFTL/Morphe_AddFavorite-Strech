@@ -14,6 +14,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstalledAppPickerItem
@@ -50,11 +52,14 @@ fun InstalledAppPickerDialog(
                 }
             }
     }
-    val (filterIcon, filterLabel) = when (appFilter) {
-        AppFilter.All -> Icons.Outlined.FilterList to stringResource(R.string.home_category_all_apps)
-        AppFilter.UserOnly -> Icons.Outlined.Person to stringResource(R.string.home_installed_app_picker_filter_user)
-        AppFilter.SystemOnly -> Icons.Outlined.Android to stringResource(R.string.home_installed_app_picker_filter_system)
-    }
+    // Picked from a menu as every list's filter is, in the order the filters narrow the list
+    val filterOptions = listOf(
+        SortModeOption(AppFilter.All, stringResource(R.string.home_category_all_apps)),
+        SortModeOption(AppFilter.UserOnly, stringResource(R.string.home_installed_app_picker_filter_user)),
+        SortModeOption(AppFilter.SystemOnly, stringResource(R.string.home_installed_app_picker_filter_system))
+    )
+    val filterLabel = filterOptions.first { it.value == appFilter }.title
+    val filterMenuOpen = remember { mutableStateOf(false) }
     val accent = MaterialTheme.colorScheme.primary
     ListDialog(
         onDismissRequest = onDismiss,
@@ -78,19 +83,24 @@ fun InstalledAppPickerDialog(
                 searchEnabled = !isLoading,
                 accentColor = accent
             ) {
-                TitleAction(
-                    icon = filterIcon,
-                    contentDescription = filterLabel,
-                    onClick = {
-                        appFilter = when (appFilter) {
-                            AppFilter.All -> AppFilter.UserOnly
-                            AppFilter.UserOnly -> AppFilter.SystemOnly
-                            AppFilter.SystemOnly -> AppFilter.All
-                        }
-                    },
-                    style = TitleActionStyle.Toggle,
-                    active = appFilter != AppFilter.All
-                )
+                // The menu hangs off the button, so it opens under the header's end
+                Box {
+                    TitleAction(
+                        icon = Icons.Outlined.FilterList,
+                        contentDescription = stringResource(R.string.filter),
+                        onClick = { filterMenuOpen.value = true },
+                        style = TitleActionStyle.Toggle,
+                        active = filterMenuOpen.value || appFilter != AppFilter.All,
+                        modifier = Modifier.semantics { stateDescription = filterLabel }
+                    )
+                    SortModeMenu(
+                        expanded = filterMenuOpen.value,
+                        onDismissRequest = { filterMenuOpen.value = false },
+                        current = appFilter,
+                        options = filterOptions,
+                        onSelect = { appFilter = it }
+                    )
+                }
             }
         },
         footer = {

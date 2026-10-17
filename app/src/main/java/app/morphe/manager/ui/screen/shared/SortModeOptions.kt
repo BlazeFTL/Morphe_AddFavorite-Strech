@@ -9,10 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.domain.manager.SortModeSpec
 
+/** One option of a [SortModeMenu], with a [description] where its title alone does not say enough. */
 data class SortModeOption<T>(
     val value: T,
     val title: String,
-    val description: String
+    val description: String? = null
 )
 
 /**

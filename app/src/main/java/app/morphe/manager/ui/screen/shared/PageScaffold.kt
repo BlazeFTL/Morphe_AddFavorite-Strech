@@ -110,23 +110,8 @@ fun PinnedHeaderPage(
 }
 
 /**
- * Padding a page puts around content that scrolls on under the status bar, ending [bottom] clear of
- * what floats over its lower edge.
- */
-@Composable
-fun pageContentPadding(bottom: Dp): PaddingValues {
-    val horizontal = rememberWindowSize().contentPadding
-    return PaddingValues(
-        start = horizontal,
-        top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + Defaults.SpaceLarge,
-        end = horizontal,
-        bottom = bottom
-    )
-}
-
-/**
- * A page opened from another, such as one section of the settings: a [PageHeader] with a way back,
- * then [content] in one scrolling column, its blocks spaced as the settings space theirs.
+ * A page opened from another, such as one section of the settings: a pinned [PageHeader] with a
+ * way back, over [content] in one scrolling column, its blocks spaced as the settings space theirs.
  */
 @Composable
 fun SubpageScaffold(
@@ -136,23 +121,35 @@ fun SubpageScaffold(
     content: @Composable ColumnScope.() -> Unit
 ) {
     val scrollState = rememberScrollState()
+    val horizontal = rememberWindowSize().contentPadding
     val navigationBar = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
-    Box(modifier = modifier.fillMaxSize()) {
+    PinnedHeaderPage(
+        header = { PageHeader(title = title, onBack = onBack) },
+        modifier = modifier
+    ) { headerHeight, _ ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScrollFade(scrollState)
                 .verticalScroll(scrollState)
-                .padding(pageContentPadding(bottom = navigationBar + Defaults.SpaceLarge)),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
-        ) {
-            PageHeader(title = title, onBack = onBack)
-            content()
-        }
+                .padding(
+                    start = horizontal,
+                    top = headerHeight + Defaults.SpaceMedium,
+                    end = horizontal,
+                    bottom = navigationBar + Defaults.SpaceLarge
+                ),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
+            content = content
+        )
 
-        ListScrollbar(scrollState = scrollState, modifier = Modifier.scrollbarSystemBarsPadding())
+        ListScrollbar(
+            scrollState = scrollState,
+            modifier = Modifier.padding(
+                top = headerHeight + Defaults.SpaceMedium,
+                bottom = navigationBar + Defaults.SpaceMedium
+            )
+        )
         ScrollToTopButton(scrollState = scrollState, extraBottomPadding = navigationBar)
-        StatusBarScrim()
     }
 }

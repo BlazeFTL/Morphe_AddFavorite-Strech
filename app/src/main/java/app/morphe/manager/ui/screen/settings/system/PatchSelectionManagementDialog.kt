@@ -119,44 +119,63 @@ fun DialogHostScope.PatchSelectionManagementDialog(
         selectedPackages.clear()
     }
 
-    PatchSelectionManagementDialogContent(
-        data = PatchSelectionData(
-            selections = selections,
-            totalSelections = totalSelections,
-            bundleNames = bundleNames,
-            apps = selectionApps
-        ),
-        multiSelect = PatchSelectionMultiSelect(
-            selectedPackages = selectedPackages,
-            isSelectionMode = isSelectionMode.value,
-            onEnterSelection = { pkg ->
-                isSelectionMode.value = true
-                selectedPackages.toggle(pkg)
+    // One app's selection opens in place of the list, which keeps its scroll and search meanwhile
+    DialogPages(
+        page = showPatchDetailsTarget.value,
+        key = { it?.let { target -> "${target.packageName}/${target.bundleUid}" } ?: "list" },
+        modifier = Modifier.fillMaxSize()
+    ) { target ->
+        if (target != null) {
+            PatchDetailsPage(
+                packageName = target.packageName,
+                bundleUid = target.bundleUid,
+                appDisplayName = target.appDisplayName,
+                bundleName = bundleNames[target.bundleUid],
+                settingsViewModel = settingsViewModel,
+                onBack = { showPatchDetailsTarget.value = null }
+            )
+            return@DialogPages
+        }
+
+        PatchSelectionManagementDialogContent(
+            data = PatchSelectionData(
+                selections = selections,
+                totalSelections = totalSelections,
+                bundleNames = bundleNames,
+                apps = selectionApps
+            ),
+            multiSelect = PatchSelectionMultiSelect(
+                selectedPackages = selectedPackages,
+                isSelectionMode = isSelectionMode.value,
+                onEnterSelection = { pkg ->
+                    isSelectionMode.value = true
+                    selectedPackages.toggle(pkg)
+                },
+                onToggleSelection = { pkg -> selectedPackages.toggle(pkg) }
+            ),
+            importExportViewModel = importExportViewModel,
+            onDismiss = onDismiss,
+            onShowResetAllConfirmation = { showResetAllConfirmation.value = true },
+            onSetResetTarget = { resetTarget.value = it },
+            onShowPatchDetails = { showPatchDetailsTarget.value = it },
+            onOpenCopyFromBundle = { target ->
+                copyTarget.value = target
+                copyCandidates.value = null
+                scope.launch {
+                    val loaded = settingsViewModel.loadCopySelectionCandidates(
+                        targetPackageName = target.packageName,
+                        targetBundleUid = target.bundleUid
+                    )
+                    // Discard the result if the picker was closed or retargeted while loading.
+                    if (copyTarget.value == target) copyCandidates.value = loaded
+                }
             },
-            onToggleSelection = { pkg -> selectedPackages.toggle(pkg) }
-        ),
-        importExportViewModel = importExportViewModel,
-        onDismiss = onDismiss,
-        onShowResetAllConfirmation = { showResetAllConfirmation.value = true },
-        onSetResetTarget = { resetTarget.value = it },
-        onShowPatchDetails = { showPatchDetailsTarget.value = it },
-        onOpenCopyFromBundle = { target ->
-            copyTarget.value = target
-            copyCandidates.value = null
-            scope.launch {
-                val loaded = settingsViewModel.loadCopySelectionCandidates(
-                    targetPackageName = target.packageName,
-                    targetBundleUid = target.bundleUid
-                )
-                // Discard the result if the picker was closed or retargeted while loading.
-                if (copyTarget.value == target) copyCandidates.value = loaded
-            }
-        },
-        onImportUriPicked = { pendingImportUri = it },
-        onExitSelection = exitSelection,
-        onSelectAll = { selectedPackages.setAll(selections.keys) },
-        onShowResetSelectedConfirmation = { showResetSelectedConfirmation.value = true }
-    )
+            onImportUriPicked = { pendingImportUri = it },
+            onExitSelection = exitSelection,
+            onSelectAll = { selectedPackages.setAll(selections.keys) },
+            onShowResetSelectedConfirmation = { showResetSelectedConfirmation.value = true }
+        )
+    }
 
     // Confirmed picks are written to the database immediately here, unlike the expert-mode
     // path which stages changes until the user proceeds to patching.
@@ -252,18 +271,6 @@ fun DialogHostScope.PatchSelectionManagementDialog(
                 }
             },
             onDismiss = { resetTarget.value = null }
-        )
-    }
-
-    // Patch details dialog
-    DialogHost(target = showPatchDetailsTarget.value) { target ->
-        PatchDetailsDialog(
-            packageName = target.packageName,
-            bundleUid = target.bundleUid,
-            appDisplayName = target.appDisplayName,
-            bundleName = bundleNames[target.bundleUid],
-            settingsViewModel = settingsViewModel,
-            onDismiss = { showPatchDetailsTarget.value = null }
         )
     }
 }
@@ -801,17 +808,18 @@ private fun DialogHostScope.ConfirmResetPackageBundleDialog(
 }
 
 /**
- * Dialog showing detailed patch selections and options for one package+bundle.
+ * The patch selections and options saved for one package and source, on a page of the selections
+ * dialog that [onBack] leaves for the list.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun DialogHostScope.PatchDetailsDialog(
+private fun DialogHostScope.PatchDetailsPage(
     packageName: String,
     bundleUid: Int,
     appDisplayName: String,
     bundleName: String?,
     settingsViewModel: SettingsViewModel,
-    onDismiss: () -> Unit
+    onBack: () -> Unit
 ) {
     var details by remember { mutableStateOf<SettingsViewModel.PatchDetails?>(null) }
     var isLoading by remember { mutableStateOf(true) }
@@ -840,7 +848,7 @@ private fun DialogHostScope.PatchDetailsDialog(
     val copyToClipboard = rememberCopyToClipboard()
 
     DetailsDialog(
-        onDismissRequest = onDismiss,
+        onDismissRequest = onBack,
         icon = { modifier -> AppIcon(packageName = packageName, contentDescription = null, modifier = modifier) },
         title = appDisplayName,
         subtitle = subtitle,
@@ -854,7 +862,8 @@ private fun DialogHostScope.PatchDetailsDialog(
                     copyToClipboard(patchListText(title = appDisplayName, lists = listOf(subtitle to entries)))
                 }
             )
-        )
+        ),
+        dismissText = stringResource(R.string.back)
     ) {
         if (isLoading) {
             Box(

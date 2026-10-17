@@ -11,6 +11,7 @@ import androidx.compose.material.icons.automirrored.outlined.Launch
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -27,10 +28,31 @@ import app.morphe.manager.util.openAppDetailsSettings
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
+/**
+ * Where the manager's storage goes and what clears it. The saved APKs of each kind open in place of
+ * the overview, in the same dialog, see [ApkManagementPage].
+ */
 @Composable
 fun DialogHostScope.StorageManagementDialog(
     onDismissRequest: () -> Unit,
     viewModel: StorageManagementViewModel = koinViewModel()
+) {
+    var apkPage by rememberSaveable { mutableStateOf<ApkManagementType?>(null) }
+    DialogPages(page = apkPage, key = { it ?: "overview" }, modifier = Modifier.fillMaxSize()) { type ->
+        if (type == null) {
+            StorageOverview(viewModel = viewModel, onOpenApks = { apkPage = it }, onDismissRequest = onDismissRequest)
+        } else {
+            ApkManagementPage(type = type, onBack = { apkPage = null })
+        }
+    }
+}
+
+/** How much the manager holds and in what, with what clears it. Read again each time it shows. */
+@Composable
+private fun DialogHostScope.StorageOverview(
+    viewModel: StorageManagementViewModel,
+    onOpenApks: (ApkManagementType) -> Unit,
+    onDismissRequest: () -> Unit
 ) {
     val context = LocalContext.current
     val messages = koinInject<UserMessages>()
@@ -45,22 +67,11 @@ fun DialogHostScope.StorageManagementDialog(
         messages.show(message)
     }
 
-    var apkDialog by remember { mutableStateOf<ApkManagementType?>(null) }
     var showClearAllConfirm by remember { mutableStateOf(false) }
     // Incremented on manual refresh to re-key the histogram and replay its entry animation.
     var histogramNonce by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(Unit) { viewModel.refresh() }
-
-    DialogHost(target = apkDialog) { type ->
-        ApkManagementDialog(
-            type = type,
-            onDismissRequest = {
-                apkDialog = null
-                viewModel.refresh()
-            }
-        )
-    }
 
     DialogHost(visible = showClearAllConfirm) {
         ConfirmDialog(
@@ -136,14 +147,14 @@ fun DialogHostScope.StorageManagementDialog(
                     accentColor = StorageColors.OriginalApks,
                     title = stringResource(R.string.settings_system_original_apks_title),
                     description = stringResource(R.string.settings_system_original_apks_description),
-                    onClick = { apkDialog = ApkManagementType.ORIGINAL }
+                    onClick = { onOpenApks(ApkManagementType.ORIGINAL) }
                 )
                 DataRow(
                     icon = Icons.Outlined.Apps,
                     accentColor = StorageColors.PatchedApks,
                     title = stringResource(R.string.settings_system_patched_apks_title),
                     description = stringResource(R.string.settings_system_patched_apks_description),
-                    onClick = { apkDialog = ApkManagementType.PATCHED }
+                    onClick = { onOpenApks(ApkManagementType.PATCHED) }
                 )
             }
 

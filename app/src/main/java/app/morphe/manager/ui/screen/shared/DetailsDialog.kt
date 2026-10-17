@@ -17,7 +17,8 @@ import app.morphe.manager.R
  * header holds its place under the status bar, and only the [content] below it scrolls.
  *
  * @param accentColor Color of the app or source the dialog is about, see [ListDialogHeader].
- * @param actions Offered beside Close, see [DetailsFooter].
+ * @param actions Offered beside the button that dismisses it, see [DetailsFooter].
+ * @param dismissText That button's text, Back for a page that returns to another one.
  */
 @Composable
 fun DialogHostScope.DetailsDialog(
@@ -27,6 +28,7 @@ fun DialogHostScope.DetailsDialog(
     subtitle: String,
     accentColor: Color?,
     actions: List<DialogAction> = emptyList(),
+    dismissText: String = stringResource(R.string.close),
     content: @Composable ColumnScope.() -> Unit
 ) {
     ListDialog(
@@ -37,7 +39,7 @@ fun DialogHostScope.DetailsDialog(
         },
         footer = {
             DetailsFooter(
-                dismissText = stringResource(R.string.close),
+                dismissText = dismissText,
                 onDismiss = onDismissRequest,
                 actions = actions
             )

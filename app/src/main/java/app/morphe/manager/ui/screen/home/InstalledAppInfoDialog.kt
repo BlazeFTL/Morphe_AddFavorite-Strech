@@ -700,16 +700,14 @@ fun DialogHostScope.InstalledAppInfoDialog(
             // Back leaves a page for the information rather than closing the dialog
             BackHandler(enabled = subpage != null) { page = InfoPage.Main }
 
-            AnimatedContent(
-                targetState = subpage,
-                contentKey = { it?.page },
-                transitionSpec = Animations.fadeCrossfade(),
-                modifier = Modifier.fillMaxSize(),
-                label = "installedAppInfoPage"
+            DialogPages(
+                page = subpage,
+                key = { it?.page ?: InfoPage.Main },
+                modifier = Modifier.fillMaxSize()
             ) { shown ->
                 if (shown != null) {
                     DetailsBody(modifier = Modifier.fillMaxSize(), content = shown.content)
-                    return@AnimatedContent
+                    return@DialogPages
                 }
 
                 DialogLazyList(modifier = Modifier.fillMaxSize()) {

@@ -173,24 +173,25 @@ class ApkListActions(
 )
 
 /**
- * Universal dialog for managing APK files (patched or original).
+ * The saved APKs of one [type], managed on a page of the storage dialog that [onBack] leaves for
+ * the storage overview, see [StorageManagementDialog].
  */
 @Composable
-fun DialogHostScope.ApkManagementDialog(
+fun DialogHostScope.ApkManagementPage(
     type: ApkManagementType,
-    onDismissRequest: () -> Unit
+    onBack: () -> Unit
 ) {
     val installViewModel: InstallViewModel = koinViewModel()
     when (type) {
-        ApkManagementType.PATCHED -> PatchedApksContent(onDismissRequest, installViewModel)
-        ApkManagementType.ORIGINAL -> OriginalApksContent(onDismissRequest, installViewModel)
+        ApkManagementType.PATCHED -> PatchedApksContent(onBack, installViewModel)
+        ApkManagementType.ORIGINAL -> OriginalApksContent(onBack, installViewModel)
     }
     InstallerFlowDialogs(installViewModel = installViewModel)
 }
 
 @Composable
 private fun DialogHostScope.PatchedApksContent(
-    onDismissRequest: () -> Unit,
+    onBack: () -> Unit,
     installViewModel: InstallViewModel
 ) {
     val context = LocalContext.current
@@ -425,7 +426,7 @@ private fun DialogHostScope.PatchedApksContent(
             }
         ),
         items = displayItems,
-        onDismissRequest = onDismissRequest
+        onBack = onBack
     )
 
     DialogHost(target = pendingDelete) { (data, app) ->
@@ -448,7 +449,7 @@ private fun DialogHostScope.PatchedApksContent(
 
 @Composable
 private fun DialogHostScope.OriginalApksContent(
-    onDismissRequest: () -> Unit,
+    onBack: () -> Unit,
     installViewModel: InstallViewModel
 ) {
     val context = LocalContext.current
@@ -628,7 +629,7 @@ private fun DialogHostScope.OriginalApksContent(
             }
         ),
         items = apkItems,
-        onDismissRequest = onDismissRequest
+        onBack = onBack
     )
 
     DialogHost(target = pendingDelete) { (data, apk) ->
@@ -655,7 +656,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
     meta: ApkListMeta,
     actions: ApkListActions,
     items: List<ApkItemData>,
-    onDismissRequest: () -> Unit,
+    onBack: () -> Unit,
     retentionToggle: RetentionToggle? = null
 ) {
     val context = LocalContext.current
@@ -724,7 +725,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
 
     ListDialog(
         onDismissRequest = {
-            if (!isExporting) onDismissRequest()
+            if (!isExporting) onBack()
         },
         accentColor = meta.accentColor,
         header = {
@@ -755,8 +756,8 @@ private fun DialogHostScope.ApkManagementDialogContent(
         },
         footer = {
             AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismissRequest,
+                text = stringResource(R.string.back),
+                onClick = onBack,
                 modifier = Modifier.fillMaxWidth()
             )
         },

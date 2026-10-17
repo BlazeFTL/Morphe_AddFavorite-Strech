@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.settings
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
@@ -115,7 +116,11 @@ fun SettingsPage(
                     BackgroundSection(settingsViewModel)
                     FilesSection()
                     AboutSection(onStartTour)
-                    if (settingsSearch.isActive && settingsSearch.shown == 0) {
+                    AnimatedVisibility(
+                        visible = settingsSearch.isActive && settingsSearch.shown == 0,
+                        enter = Animations.fadeIn,
+                        exit = Animations.fadeOut
+                    ) {
                         EmptyState(
                             message = stringResource(R.string.search_no_results),
                             icon = Icons.Outlined.SearchOff

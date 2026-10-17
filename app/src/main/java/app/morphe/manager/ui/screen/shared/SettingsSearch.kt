@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.*
 
 /**
@@ -35,17 +36,24 @@ val LocalSettingsSearch = staticCompositionLocalOf<SettingsSearch?> { null }
 
 /**
  * Shows [content], a setting found by [texts], unless the [LocalSettingsSearch] leaves it out,
- * counting it among the matches while it shows.
+ * folding it away and back as the query changes. Counted among the matches while it matches, not
+ * while it folds away.
  */
 @Composable
 fun SearchableSetting(texts: List<String?>, content: @Composable () -> Unit) {
-    val search = LocalSettingsSearch.current
-    if (search != null) {
-        if (!search.matches(texts)) return
+    val search = LocalSettingsSearch.current ?: return content()
+    val matches = search.matches(texts)
+    if (matches) {
         DisposableEffect(search) {
             search.shown++
             onDispose { search.shown-- }
         }
     }
-    content()
+    AnimatedVisibility(
+        visible = matches,
+        enter = Animations.expandFadeEnter,
+        exit = Animations.shrinkFadeExit
+    ) {
+        content()
+    }
 }

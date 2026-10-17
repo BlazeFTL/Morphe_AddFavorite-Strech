@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -582,8 +583,19 @@ fun SectionTitle(
     text: String,
     icon: ImageVector? = null
 ) {
+    val search = LocalSettingsSearch.current ?: return SectionTitleRow(text, icon)
     // What a search leaves of a page reads as one list
-    if (LocalSettingsSearch.current?.isActive == true) return
+    AnimatedVisibility(
+        visible = !search.isActive,
+        enter = Animations.expandFadeEnter,
+        exit = Animations.shrinkFadeExit
+    ) {
+        SectionTitleRow(text, icon)
+    }
+}
+
+@Composable
+private fun SectionTitleRow(text: String, icon: ImageVector?) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

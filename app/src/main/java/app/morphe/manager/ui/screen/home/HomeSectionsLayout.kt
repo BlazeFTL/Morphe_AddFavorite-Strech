@@ -730,10 +730,13 @@ internal fun MainAppsSection(
         }
     }
 
+    // Rows above the cards, which the reorder indices count
+    val leadingItemCount = listOfNotNull(header, toolbar).size
     val reorderableState = rememberReorderableLazyListState(listState) { from, to ->
-        moveReorderOrder(from.index, to.index)
+        moveReorderOrder(from.index - leadingItemCount, to.index - leadingItemCount)
     }
-    fun headerGroupAtListIndex(index: Int): HomeCategoryGroup? {
+    fun headerGroupAtListIndex(listIndex: Int): HomeCategoryGroup? {
+        val index = listIndex - leadingItemCount
         val groups = when (appGrouping) {
             HomeAppCategoryViewMode.SOURCES -> displayedSourceCategoryGroups
             HomeAppCategoryViewMode.CUSTOM -> displayedCategoryGroups
@@ -876,7 +879,7 @@ internal fun MainAppsSection(
             val targets = state.reorderFocusPackages
             if (targets.isNotEmpty()) {
                 val topIndex = reorderItems.indexOfFirst { it.id in targets }
-                if (topIndex >= 0) listState.scrollToItem(topIndex)
+                if (topIndex >= 0) listState.scrollToItem(topIndex + leadingItemCount)
             }
             state.reorderFocusPackages = emptySet()
         }
@@ -1151,6 +1154,7 @@ internal fun MainAppsSection(
                             isCustomCategoryView = isCustomCategoryView,
                             isSourceCategoryView = isSourceCategoryView,
                             listState = listState,
+                            leadingItemCount = leadingItemCount,
                             scope = scope,
                             modifier = barModifier
                         )

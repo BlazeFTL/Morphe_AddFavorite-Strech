@@ -89,6 +89,7 @@ internal fun HomeAppsFooterBars(
     isCustomCategoryView: Boolean,
     isSourceCategoryView: Boolean,
     listState: LazyListState,
+    leadingItemCount: Int,
     scope: CoroutineScope,
     modifier: Modifier = Modifier
 ) {
@@ -171,7 +172,7 @@ internal fun HomeAppsFooterBars(
                 ?: orderedItems.filter { it.id in scopePackages }
             val focusIndex = scopedItems.indexOfFirst { it.id in focusTargets }
             scope.launch {
-                listState.scrollToItem(focusIndex.coerceAtLeast(0))
+                listState.scrollToItem(focusIndex.coerceAtLeast(0) + leadingItemCount)
                 state.isReorderMode = true
             }
         } ?: run {

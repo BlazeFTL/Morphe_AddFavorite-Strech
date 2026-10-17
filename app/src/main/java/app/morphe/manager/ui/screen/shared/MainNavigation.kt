@@ -8,8 +8,6 @@ package app.morphe.manager.ui.screen.shared
 import androidx.activity.compose.BackHandler
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -22,14 +20,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.PointerEventPass
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
@@ -52,7 +46,8 @@ enum class MainPage(@param:StringRes val titleRes: Int, val icon: ImageVector) {
  * Back on a side page returns to the apps, as leaving any other tab returns to the first one.
  *
  * @param navigationCovered Whether something docked over the bottom of a page stands in for the
- *   navigation, such as a selection's action bar. The navigation fades out and swiping holds off.
+ *   navigation, such as a selection's action bar. The pill fades out and swiping holds off. The
+ *   landscape sidebar stays, as the bars dock beside it.
  * @param swipeEnabled Whether the pages follow a swipe, rather than only a pick on the navigation.
  * @param settingsIcon The settings page's icon, which marks expert mode.
  * @param settingsDescription What a screen reader says for the settings page, when its icon says more
@@ -105,9 +100,7 @@ fun MainPagerScaffold(
                     items = items,
                     current = current,
                     onSelect = select,
-                    modifier = Modifier
-                        .statusBarsPadding()
-                        .coveredBy(navigationCovered)
+                    modifier = Modifier.statusBarsPadding()
                 )
                 VerticalDivider(modifier = Modifier.statusBarsPadding().padding(vertical = 20.dp))
                 pager(Modifier.weight(1f).fillMaxHeight(), 0.dp)
@@ -186,32 +179,4 @@ private fun MainNavigationSidebar(
             )
         }
     }
-}
-
-/**
- * Fades out chrome that something else stands in for while it is [covered], and keeps taps and
- * screen readers off it meanwhile. It keeps its place in the layout, so nothing around it moves.
- */
-@Composable
-fun Modifier.coveredBy(covered: Boolean): Modifier {
-    val alpha by animateFloatAsState(
-        targetValue = if (covered) 0f else 1f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-        label = "covered_chrome_alpha"
-    )
-    return graphicsLayer { this.alpha = alpha }.then(
-        if (covered) {
-            Modifier
-                .clearAndSetSemantics {}
-                .pointerInput(Unit) {
-                    awaitPointerEventScope {
-                        while (true) {
-                            awaitPointerEvent(PointerEventPass.Initial).changes.forEach { it.consume() }
-                        }
-                    }
-                }
-        } else {
-            Modifier
-        }
-    )
 }

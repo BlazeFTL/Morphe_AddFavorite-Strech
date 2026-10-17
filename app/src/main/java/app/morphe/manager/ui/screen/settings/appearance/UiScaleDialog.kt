@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FormatSize
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -87,12 +86,6 @@ fun DialogHostScope.UiScaleDialog(
 
             // Drawn at the picked scale relative to the one the dialog itself already uses
             UiScalePreview(relativeScale = selectedScale / appliedScale)
-
-            Notice(
-                text = stringResource(R.string.settings_appearance_ui_scale_description),
-                tone = SemanticTone.Neutral,
-                icon = Icons.Outlined.Info
-            )
         }
     }
 }

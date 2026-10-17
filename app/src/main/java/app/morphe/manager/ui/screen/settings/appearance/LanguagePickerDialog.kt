@@ -7,7 +7,6 @@ package app.morphe.manager.ui.screen.settings.appearance
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.SearchOff
@@ -50,8 +49,6 @@ fun DialogHostScope.LanguagePickerDialog(
         }
     }
 
-    val listState = rememberLazyListState()
-
     val accent = MaterialTheme.colorScheme.primary
     ListDialog(
         onDismissRequest = onDismiss,
@@ -80,7 +77,6 @@ fun DialogHostScope.LanguagePickerDialog(
 
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
-            state = listState,
             verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
         ) {
             if (filteredLanguages.isEmpty()) {

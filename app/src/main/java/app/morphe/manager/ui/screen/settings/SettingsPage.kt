@@ -90,7 +90,7 @@ fun SettingsPage(
             HeaderSearchField(search, searchLabel)
         },
         modifier = modifier
-    ) { headerHeight ->
+    ) { headerHeight, _ ->
         CompositionLocalProvider(
             LocalSettingsTour provides onboardingState,
             LocalSettingsSearch provides settingsSearch

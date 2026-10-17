@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
@@ -75,15 +76,20 @@ private val SourceShimmerRows = (0 until 4).toList()
 
 /**
  * The sources page of the main screen: every patch source as a card folding out its details and
- * actions, searched, sorted and dragged into order from the page's header.
+ * actions, searched from the page's header, sorted and filtered from a panel docked under the list,
+ * and dragged into order.
  *
  * @param bottomBarHeight Height of the navigation floating over the page, which the list ends clear of.
+ * @param listOptionsOpen Whether the options the list is sorted and filtered by are docked under it,
+ *   held by the screen, whose navigation gives way to them.
  * @param onboardingState Set while the tour runs, which points into the first source.
  */
 @Composable
 fun SourcesPage(
     homeViewModel: HomeViewModel,
     bottomBarHeight: Dp,
+    listOptionsOpen: Boolean,
+    onListOptionsOpenChange: (Boolean) -> Unit,
     onboardingState: OnboardingState? = null
 ) {
     val scope = rememberCoroutineScope()
@@ -102,6 +108,8 @@ fun SourcesPage(
 
     SourcesPageContent(
         bottomBarHeight = bottomBarHeight,
+        listOptionsOpen = listOptionsOpen,
+        onListOptionsOpenChange = onListOptionsOpenChange,
         onboardingState = onboardingState,
         onAddSource = { homeViewModel.showAddSourceDialog = true },
         onDelete = { bundle -> scope.launch { repository.remove(bundle) } },
@@ -133,6 +141,8 @@ fun SourcesPage(
 @Composable
 private fun SourcesPageContent(
     bottomBarHeight: Dp,
+    listOptionsOpen: Boolean,
+    onListOptionsOpenChange: (Boolean) -> Unit,
     onboardingState: OnboardingState?,
     onAddSource: () -> Unit,
     onDelete: (PatchBundleSource) -> Unit,
@@ -179,10 +189,16 @@ private fun SourcesPageContent(
     // Set when the user flips pre-releases on: the toggle waits for confirmation first,
     // so the meaning of unstable testing builds is explained before anything changes
     val bundleToConfirmPrerelease = remember { mutableStateOf<PatchBundleSource?>(null) }
-    var showSortMenu by remember { mutableStateOf(false) }
-    // Search is offered from two sources up
+    // Search, sorting and filtering are offered from two sources up
     val isSearchable = sources.size >= 2
     val search = rememberSearchFieldState(searchable = isSearchable)
+    var sourceFilter by rememberSaveable { mutableStateOf(SourceFilterMode.ALL) }
+    LaunchedEffect(isSearchable) {
+        if (!isSearchable) {
+            onListOptionsOpenChange(false)
+            sourceFilter = SourceFilterMode.ALL
+        }
+    }
     // Expanded state lifted out of LazyColumn so it survives scroll-off-screen recomposition
     var expandedBundleUids by remember { mutableStateOf<Set<Int>>(emptySet()) }
 
@@ -241,10 +257,20 @@ private fun SourcesPageContent(
             }
         }
     }
-    val visibleSources = remember(orderedSources, patchMatchCounts, search.query) {
+    val filteredSources = remember(orderedSources, sourceFilter, blockedSources, metadataFetchErrors, manualUpdateInfo) {
+        orderedSources.filter { source ->
+            sourceFilter.matches(
+                source = source,
+                blocked = source.uid in blockedSources,
+                unreachable = source.uid in metadataFetchErrors,
+                updatable = source.uid in manualUpdateInfo
+            )
+        }
+    }
+    val visibleSources = remember(filteredSources, patchMatchCounts, search.query) {
         val query = search.query
-        if (query.isBlank()) return@remember orderedSources
-        orderedSources
+        if (query.isBlank()) return@remember filteredSources
+        filteredSources
             .filter { source -> source.matchesQuery(query) || source.uid in patchMatchCounts }
             // A source the query names is the one that was asked for; the rest rank by how much
             // of the query they carry. The sort is stable, so ties keep the order the sort mode
@@ -346,29 +372,22 @@ private fun SourcesPageContent(
                     ) {
                         SearchToggleAction(search, searchLabel)
 
-                        val activeSortLabel = stringResource(sourceSortMode.labelRes)
-                        Box {
-                            TitleAction(
-                                icon = Icons.AutoMirrored.Outlined.Sort,
-                                contentDescription = stringResource(R.string.sort),
-                                onClick = { showSortMenu = true },
-                                modifier = Modifier.semantics {
-                                    role = Role.Button
-                                    stateDescription = activeSortLabel
-                                },
-                                style = TitleActionStyle.Toggle,
-                                active = showSortMenu
-                            )
-                            SortModeMenu(
-                                expanded = showSortMenu,
-                                onDismissRequest = { showSortMenu = false },
-                                current = sourceSortMode,
-                                options = sortModeOptions<SourceBundleSortMode>(),
-                                onSelect = { mode ->
-                                    scope.launch { prefs.sourceBundleSortMode.update(mode.name) }
-                                }
-                            )
-                        }
+                        val optionsState = listOptionsStateDescription(
+                            sourceSortMode.labelRes,
+                            sourceFilter.labelRes.takeIf { sourceFilter.isActive }
+                        )
+                        // Filled while the options are open, and while a filter keeps sources out
+                        TitleAction(
+                            icon = Icons.AutoMirrored.Outlined.Sort,
+                            contentDescription = stringResource(R.string.sort),
+                            onClick = { onListOptionsOpenChange(!listOptionsOpen) },
+                            modifier = Modifier.semantics {
+                                role = Role.Button
+                                stateDescription = optionsState
+                            },
+                            style = TitleActionStyle.Toggle,
+                            active = listOptionsOpen || sourceFilter.isActive
+                        )
                     }
                 }
                 TitleAction(
@@ -379,8 +398,27 @@ private fun SourcesPageContent(
                 )
             }
             HeaderSearchField(search, searchLabel)
+        },
+        bottomBar = {
+            ListOptionsPanel(
+                visible = listOptionsOpen,
+                sections = listOf(
+                    listOptionSection(
+                        R.string.sort, Icons.AutoMirrored.Outlined.Sort, sourceSortMode, SourceBundleSortMode.MANUAL
+                    ) { mode -> scope.launch { prefs.sourceBundleSortMode.update(mode.name) } },
+                    listOptionSection(
+                        R.string.filter, Icons.Outlined.FilterList, sourceFilter, SourceFilterMode.ALL
+                    ) { sourceFilter = it }
+                ),
+                onClose = { onListOptionsOpenChange(false) },
+                modifier = Modifier
+                    .widthIn(max = Defaults.ContentMaxWidth)
+                    .fillMaxWidth()
+            )
         }
-    ) { headerHeight ->
+    ) { headerHeight, panelHeight ->
+        // Clear of whichever floats over the list's lower edge, the navigation or the options
+        val listBottom = maxOf(bottomBarHeight, panelHeight)
         // Bundle cards, running on under the header and the navigation floating over the page
         val listRowResizing = remember { ListRowResizing() }
         CompositionLocalProvider(LocalListRowResizing provides listRowResizing) {
@@ -395,7 +433,7 @@ private fun SourcesPageContent(
                     start = horizontalPadding,
                     top = headerHeight + Defaults.SpaceMedium,
                     end = horizontalPadding,
-                    bottom = bottomBarHeight + Defaults.SpaceLarge
+                    bottom = listBottom + Defaults.SpaceLarge
                 )
             ) {
                 if (isLoadingSources) {
@@ -404,7 +442,7 @@ private fun SourcesPageContent(
                     }
                 }
 
-                if (search.isFiltering && visibleSources.isEmpty()) {
+                if ((search.isFiltering || sourceFilter.isActive) && visibleSources.isEmpty()) {
                     item(key = "search_empty") {
                         EmptyState(
                             message = stringResource(R.string.search_no_results),
@@ -504,7 +542,7 @@ private fun SourcesPageContent(
                             isDragging = itemIsDragging,
                             // Reorder maps list positions onto the full order, so a
                             // filtered list would move the wrong sources
-                            longPressModifier = if (isManualSort && !search.isFiltering) {
+                            longPressModifier = if (isManualSort && !search.isFiltering && !sourceFilter.isActive) {
                                 Modifier.longPressDraggableHandle(
                                     onDragStarted = {
                                         isDragging = true
@@ -537,13 +575,13 @@ private fun SourcesPageContent(
             // The same step at both ends as on the screens, so the end shows past rounded corners
             modifier = Modifier.padding(
                 top = headerHeight + Defaults.SpaceMedium,
-                bottom = bottomBarHeight + Defaults.SpaceMedium
+                bottom = listBottom + Defaults.SpaceMedium
             ),
             alphabetTargets = sourceScrollTargets,
             alphabetMode = alphabetScrollMode
         )
 
-        ScrollToTopButton(listState = listState, extraBottomPadding = bottomBarHeight)
+        ScrollToTopButton(listState = listState, extraBottomPadding = listBottom)
     }
 
     // Delete confirmation dialog

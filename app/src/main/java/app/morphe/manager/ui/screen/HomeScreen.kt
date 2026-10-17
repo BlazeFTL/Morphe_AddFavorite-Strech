@@ -18,6 +18,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -165,6 +166,9 @@ fun HomeScreen(
         initialCategoryOrder = homeAppCategoryState.categories.map { it.id },
         hasContent = homeAppItems.isNotEmpty() || hiddenAppItems.isNotEmpty()
     )
+
+    // Held here for the same reason, the sources' options docking over their page's lower edge
+    var sourcesListOptionsOpen by rememberSaveable { mutableStateOf(false) }
 
     // Gesture hint: shown once per bundle addition, in-memory
     val showGestureHint by homeViewModel.apps.showSwipeGestureHint.collectAsStateWithLifecycle()
@@ -356,8 +360,12 @@ fun HomeScreen(
     val pullToRefreshState = rememberPullToRefreshState()
     MainPagerScaffold(
         pagerState = pagerState,
-        // The bars dock to the apps page only
-        navigationCovered = sectionState.isFooterBarVisible && pagerState.currentPage == MainPage.APPS.ordinal,
+        // By whatever the page on screen docks over its lower edge
+        navigationCovered = when (MainPage.entries[pagerState.currentPage]) {
+            MainPage.APPS -> sectionState.isFooterBarVisible
+            MainPage.SOURCES -> sourcesListOptionsOpen
+            MainPage.SETTINGS -> false
+        },
         // The tour moves between the pages itself, and a swipe would leave its spotlight behind
         swipeEnabled = onboardingState == null,
         settingsIcon = if (useExpertMode) Icons.Outlined.Engineering else MainPage.SETTINGS.icon,
@@ -379,6 +387,8 @@ fun HomeScreen(
             MainPage.SOURCES -> SourcesPage(
                 homeViewModel = homeViewModel,
                 bottomBarHeight = bottomBarHeight,
+                listOptionsOpen = sourcesListOptionsOpen,
+                onListOptionsOpenChange = { sourcesListOptionsOpen = it },
                 onboardingState = onboardingState
             )
 

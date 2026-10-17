@@ -13,6 +13,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -75,18 +76,24 @@ fun PageHeader(
 
 /**
  * A page whose [header] stays in place while [content] scrolls on under it, blurred on the header's
- * band as under a list dialog's header. [content] is handed the header's height to start below it.
+ * band as under a list dialog's header. [content] is handed the header's height to start below it,
+ * and the height of the [bottomBar] to end above it.
+ *
+ * @param bottomBar Docked over the bottom of the page, such as a [DockedPanel], blurring the content
+ *   under it as the header does.
  */
 @Composable
 fun PinnedHeaderPage(
     header: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.(headerHeight: Dp) -> Unit
+    bottomBar: @Composable () -> Unit = {},
+    content: @Composable BoxScope.(headerHeight: Dp, bottomBarHeight: Dp) -> Unit
 ) {
     val haze = rememberHazeState()
     val horizontal = rememberWindowSize().contentPadding
     FloatingBarsLayout(
         modifier = modifier.fillMaxSize(),
+        bottomBar = { CompositionLocalProvider(LocalBackdropHaze provides haze, content = bottomBar) },
         topBar = {
             Column(
                 modifier = Modifier
@@ -97,8 +104,8 @@ fun PinnedHeaderPage(
                 content = header
             )
         }
-    ) { headerHeight, _ ->
-        Box(modifier = Modifier.fillMaxSize().hazeSource(haze)) { content(headerHeight) }
+    ) { headerHeight, bottomBarHeight ->
+        Box(modifier = Modifier.fillMaxSize().hazeSource(haze)) { content(headerHeight, bottomBarHeight) }
     }
 }
 

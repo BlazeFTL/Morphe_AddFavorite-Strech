@@ -62,6 +62,7 @@ fun AppearanceSettings(
     val showRepatchNotice by themeViewModel.prefs.showRepatchNotice.getAsState()
     val colorAccents by themeViewModel.prefs.colorAccents.getAsState()
     val outlines by themeViewModel.prefs.outlines.getAsState()
+    val blur by themeViewModel.prefs.blur.getAsState()
     val appCardColorMode by themeViewModel.prefs.appCardColorMode.getAsState()
     val customAppCardColors by themeViewModel.prefs.customAppCardColors.getAsState()
     val showSortButton by homeAppButtonPrefs.showSortButton.collectAsStateWithLifecycle()
@@ -119,6 +120,8 @@ fun AppearanceSettings(
             onColorAccentsToggle = { themeViewModel.toggleColorAccents(colorAccents) },
             outlines = outlines,
             onOutlinesToggle = { themeViewModel.toggleOutlines(outlines) },
+            blur = blur,
+            onBlurToggle = { themeViewModel.toggleBlur(blur) },
             backgroundType = backgroundType,
             randomInterval = randomInterval,
             onBackgroundClick = { showBackgroundDialog.value = true },
@@ -284,7 +287,7 @@ private fun LanguageAndDisplaySection(
 
 /**
  * Theme mode and color style, then how the rest of the manager is dressed: its accent, pure black,
- * the colors apps and sources wear, outlines, the animated background and the launcher icon.
+ * the colors apps and sources wear, outlines, blurring, the animated background and the launcher icon.
  */
 @Composable
 private fun ThemeSection(
@@ -300,6 +303,8 @@ private fun ThemeSection(
     onColorAccentsToggle: () -> Unit,
     outlines: Boolean,
     onOutlinesToggle: () -> Unit,
+    blur: Boolean,
+    onBlurToggle: () -> Unit,
     backgroundType: BackgroundType,
     randomInterval: RandomInterval,
     onBackgroundClick: () -> Unit,
@@ -376,6 +381,17 @@ private fun ThemeSection(
                 checked = outlines,
                 onToggle = onOutlinesToggle
             )
+
+            // Blurring needs Android 12, before which what floats over the content is solid anyway
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                SettingsSwitchItem(
+                    title = stringResource(R.string.settings_appearance_blur),
+                    subtitle = stringResource(R.string.settings_appearance_blur_description),
+                    icon = Icons.Outlined.BlurOn,
+                    checked = blur,
+                    onToggle = onBlurToggle
+                )
+            }
 
             BackgroundSettingsItem(
                 selectedBackground = backgroundType,

@@ -78,6 +78,9 @@ class PreferencesManager(
 
     /** Whether cards, panels and buttons draw the hairline edge around them. */
     val outlines = booleanPreference("outlines", true)
+
+    /** Whether headers, bars and panels blur what scrolls under them, or stand solid over it. */
+    val blur = booleanPreference("blur", true)
     val showGreetingPhrases = booleanPreference("show_greeting_phrases", true)
 
     /** The per-app badges carry the same news, so the banner is worth turning off. */
@@ -276,6 +279,7 @@ class PreferencesManager(
         val pureBlackTheme: Boolean? = null,
         val colorAccents: Boolean? = null,
         val outlines: Boolean? = null,
+        val blur: Boolean? = null,
         val customAccentColor: String? = null,
         val customThemeColor: String? = null,
         val appCardColorMode: AppCardColorMode? = null,
@@ -345,6 +349,7 @@ class PreferencesManager(
                 pureBlackTheme = pureBlackTheme.takeIf { appearance },
                 colorAccents = colorAccents.takeIf { appearance },
                 outlines = outlines.takeIf { appearance },
+                blur = blur.takeIf { appearance },
                 customAccentColor = customAccentColor.takeIf { appearance },
                 customThemeColor = customThemeColor.takeIf { appearance },
                 appCardColorMode = appCardColorMode.takeIf { appearance },
@@ -405,6 +410,7 @@ class PreferencesManager(
         pureBlackTheme = pureBlackTheme.get(),
         colorAccents = colorAccents.get(),
         outlines = outlines.get(),
+        blur = blur.get(),
         customAccentColor = customAccentColor.get(),
         customThemeColor = customThemeColor.get(),
         appCardColorMode = appCardColorMode.get(),
@@ -456,6 +462,7 @@ class PreferencesManager(
         snapshot.pureBlackTheme?.let { pureBlackTheme.value = it }
         snapshot.colorAccents?.let { colorAccents.value = it }
         snapshot.outlines?.let { outlines.value = it }
+        snapshot.blur?.let { blur.value = it }
         snapshot.customAccentColor?.let { customAccentColor.value = it }
         snapshot.customThemeColor?.let { customThemeColor.value = it }
         snapshot.appCardColorMode?.let { appCardColorMode.value = it }

@@ -835,6 +835,8 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_color_accents_description">Uses each app\'s and source\'s color instead of the accent</string>
     <string name="settings_appearance_outlines">Outlines</string>
     <string name="settings_appearance_outlines_description">Draws a thin edge around cards, panels and buttons</string>
+    <string name="settings_appearance_blur">Blur</string>
+    <string name="settings_appearance_blur_description">Blurs what scrolls under headers, bars and panels</string>
 
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Language &amp; display</string>

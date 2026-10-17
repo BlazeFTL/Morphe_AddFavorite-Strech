@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import dev.chrisbanes.haze.HazeInput
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.blur.HazeBlurStyle
@@ -47,7 +48,8 @@ fun glassBlurStyle(tint: Color, background: Color): HazeBlurStyle {
 
 /**
  * Fills a floating surface with what scrolls under it blurred under its [glass] tint, see
- * [glassBlurStyle], or with the tint laid on the background where there is no [haze] to blur.
+ * [glassBlurStyle], or with the tint laid on the background where there is no [haze] to blur or
+ * the appearance settings turn blurring off.
  */
 @Composable
 fun Modifier.glassFill(
@@ -56,7 +58,7 @@ fun Modifier.glassFill(
     haze: HazeState? = LocalBackdropHaze.current
 ): Modifier {
     val screen = MaterialTheme.colorScheme.background
-    if (haze == null) return background(glass.compositeOver(screen), shape)
+    if (haze == null || !ThemeTraitsDefaults.blur()) return background(glass.compositeOver(screen), shape)
     val style = remember(glass, screen) { glassBlurStyle(glass, screen) }
     return clip(shape).hazeBlur(HazeInput.Sources(haze), style)
 }

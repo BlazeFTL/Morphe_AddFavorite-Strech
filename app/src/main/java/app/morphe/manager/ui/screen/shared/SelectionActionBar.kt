@@ -8,7 +8,12 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -21,14 +26,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.dismiss
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
+import kotlinx.coroutines.launch
 
 /**
  * Slide-up surface docked over the bottom of a list: a selection panel, a reorder bar, or the
@@ -38,9 +49,9 @@ import app.morphe.manager.ui.theme.ThemeTraitsDefaults
  * Meant for the home screen's footer dock and the [ListDialog] bottom bar, so the surface, blur and
  * enter/exit animations stay the same everywhere one is docked.
  *
- * @param onBack Closes the panel on back, which then follows the predictive gesture down like
- * an [AppBottomSheet] does. Required so no panel is left to a back handler that cannot animate
- * it, such as the dismissal of the [ListDialog] it is docked to.
+ * @param onBack Closes the panel on back or a drag down its handle, which it follows down as it
+ * goes. Required so no panel is left to a back handler that cannot animate it, such as the
+ * dismissal of the [ListDialog] it is docked to.
  */
 @Composable
 fun DockedPanel(
@@ -65,18 +76,69 @@ fun DockedPanel(
             modifier = Modifier
                 .fillMaxWidth()
                 .predictiveBackSlide(backProgress)
-                // Tinted like an AppBottomSheet with an edge of its own, so a panel docked over a
-                // list reads as the same kind of surface as a sheet, blurring what scrolls under it
+                // A surface of its own with an edge of its own, blurring what scrolls under it
                 .glassFill(surface, SheetShape)
                 .sheetBorder(CardBorder.neutral, SheetShape),
             shape = SheetShape,
             color = Color.Transparent,
             contentColor = contentColorFor(surface)
         ) {
-            Box(modifier = Modifier.navigationBarsPadding().padding(bottom = Defaults.SpaceExtraSmall)) { content() }
+            // A list in the panel scrolls the panel alone, never the header of what it is docked to
+            CompositionLocalProvider(LocalHeaderBackdrop provides null) {
+                Column(modifier = Modifier.navigationBarsPadding().padding(bottom = Defaults.SpaceExtraSmall)) {
+                    PanelDragHandle(progress = backProgress, onDismiss = onBack)
+                    content()
+                }
+            }
         }
     }
 }
+
+/** Shape of a surface rising from the bottom edge, a panel docked there: Material's sheet corners. */
+val SheetShape: Shape = RoundedCornerShape(topStart = Defaults.CornerExtraLarge, topEnd = Defaults.CornerExtraLarge)
+
+/**
+ * The handle a [DockedPanel] is drawn down by, through the same [progress] a back gesture moves it
+ * by, so letting go past halfway or with a flick closes it as letting go of the gesture does.
+ */
+@Composable
+private fun PanelDragHandle(progress: Animatable<Float, AnimationVector1D>, onDismiss: () -> Unit) {
+    val scope = rememberCoroutineScope()
+    val density = LocalDensity.current
+    val travel = with(density) { PredictiveBackSlide.toPx() }
+    val flick = with(density) { DismissVelocity.toPx() }
+    val closeLabel = stringResource(R.string.close)
+    val dragState = rememberDraggableState { delta ->
+        scope.launch { progress.snapTo((progress.value + delta / travel).coerceIn(0f, 1f)) }
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .draggable(
+                state = dragState,
+                orientation = Orientation.Vertical,
+                onDragStopped = { velocity ->
+                    if (progress.value > 0.5f || velocity > flick) onDismiss() else progress.animateTo(0f)
+                }
+            )
+            .padding(top = Defaults.SpaceSmall)
+            .semantics {
+                contentDescription = closeLabel
+                dismiss { onDismiss(); true }
+            },
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .size(width = 32.dp, height = 4.dp)
+                .background(LocalContentColor.current.copy(alpha = 0.4f), Defaults.PillShape)
+        )
+    }
+}
+
+/** How fast a flick down the handle has to be to close the panel however little it has moved. */
+private val DismissVelocity = 600.dp
 
 private class LastVisibleValue<T>(var value: T)
 
@@ -97,7 +159,7 @@ fun <T> rememberWhileVisible(visible: Boolean, value: T): T {
 }
 
 /**
- * Top line of a panel in a [DockedPanel] or of an [AppBottomSheet]: what it is about at the
+ * Top line of a panel in a [DockedPanel]: what it is about at the
  * start, and its controls, if any, at the end, which are [TitleAction]s so they read like the
  * ones in a dialog's title row.
  */
@@ -278,7 +340,7 @@ private fun PanelActionRow(action: SelectionAction, enabled: Boolean) {
 }
 
 /**
- * One row of a panel in a [DockedPanel] or an [AppBottomSheet]: [icon] and [title] at the
+ * One row of a panel in a [DockedPanel]: [icon] and [title] at the
  * start and [trailing] after it, such as the value the row opens, which takes what the title leaves
  * of the row. Every row of a panel is one of these, so its actions and its settings read as one list.
  */

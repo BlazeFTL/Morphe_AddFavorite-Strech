@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -85,7 +84,7 @@ internal fun PatchListDialog(
     }
 
     var selectedKey by remember { mutableStateOf<String?>(null) }
-    var showFilterSheet by remember { mutableStateOf(false) }
+    var showFilterPanel by remember { mutableStateOf(false) }
     // A block the list no longer holds cannot stay picked, or the filter would hide everything
     val selected = selectedKey?.takeIf { key -> sections.any { it.key == key } }
     var foldedKeys by remember { mutableStateOf(emptySet<String>()) }
@@ -158,14 +157,25 @@ internal fun PatchListDialog(
                     TitleAction(
                         icon = Icons.Outlined.FilterList,
                         contentDescription = stringResource(R.string.filter),
-                        onClick = { showFilterSheet = true },
+                        onClick = { showFilterPanel = !showFilterPanel },
                         style = TitleActionStyle.Toggle,
-                        active = selected != null
+                        active = showFilterPanel || selected != null
                     )
                 }
             }
         },
         footer = { PatchListFooter(onClose = onDismiss) },
+        // Docked under the list rather than over it, so the list stays live and narrows as a block is picked
+        bottomBar = if (showFilterPanel) {
+            {
+                SectionFilterPanel(
+                    sections = sections,
+                    selectedKey = selected,
+                    onSelect = { selectedKey = it },
+                    onClose = { showFilterPanel = false }
+                )
+            }
+        } else null,
         hideFooterWhileTyping = true
     ) {
         // Back closes the search, then the filter, before the dialog itself. The last handler
@@ -282,18 +292,6 @@ internal fun PatchListDialog(
             }
         }
     }
-
-    if (showFilterSheet) {
-        SectionFilterSheet(
-            sections = sections,
-            selectedKey = selected,
-            onSelect = { key ->
-                selectedKey = key
-                showFilterSheet = false
-            },
-            onDismiss = { showFilterSheet = false }
-        )
-    }
 }
 
 /**
@@ -315,24 +313,27 @@ private fun PatchListFooter(onClose: () -> Unit) {
     )
 }
 
-/** Sheet picking one block of the list to show alone, in the order the list has them. */
-@OptIn(ExperimentalMaterial3Api::class)
+/** Panel picking one block of the list to show alone, in the order the list has them. */
 @Composable
-private fun SectionFilterSheet(
+private fun SectionFilterPanel(
     sections: List<PatchListSection>,
     selectedKey: String?,
     onSelect: (String?) -> Unit,
-    onDismiss: () -> Unit
+    onClose: () -> Unit
 ) {
-    AppBottomSheet(onDismissRequest = onDismiss) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .navigationBarsPadding()
-        ) {
-            PanelHeader(title = { PanelTitle(text = stringResource(R.string.filter)) })
+    DockedPanel(visible = true, onBack = onClose) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            PanelHeader(title = { PanelTitle(text = stringResource(R.string.filter)) }) {
+                TitleAction(
+                    icon = Icons.Outlined.Close,
+                    contentDescription = stringResource(R.string.close),
+                    onClick = onClose,
+                    style = TitleActionStyle.Neutral
+                )
+            }
             val scrollState = rememberScrollState()
-            Box(Modifier.fillMaxWidth()) {
+            // Held short of the list it filters, which stays in view above it
+            Box(Modifier.fillMaxWidth().heightIn(max = SectionFilterMaxHeight)) {
                 FlowRow(
                     modifier = Modifier
                         .verticalScrollFade(scrollState)
@@ -361,6 +362,8 @@ private fun SectionFilterSheet(
         }
     }
 }
+
+private val SectionFilterMaxHeight = 280.dp
 
 /**
  * One patch of a patch list: its name, description and what sets it apart from the rest of its

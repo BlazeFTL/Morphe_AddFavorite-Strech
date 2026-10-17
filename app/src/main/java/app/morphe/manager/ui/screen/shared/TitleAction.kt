@@ -35,7 +35,7 @@ enum class TitleActionStyle {
 }
 
 /**
- * Icon action rendered in the title row of an [AppDialog] or [AppBottomSheet]. Uniforms the
+ * Icon action rendered in the title row of a header or a [DockedPanel]. Uniforms the
  * button styles used across headers so callers only pick an icon and a semantic style.
  *
  * @param active Whether a [TitleActionStyle.Toggle] is engaged.

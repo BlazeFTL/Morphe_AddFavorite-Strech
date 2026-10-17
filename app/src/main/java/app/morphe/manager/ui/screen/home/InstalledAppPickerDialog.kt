@@ -27,7 +27,7 @@ private enum class AppFilter { All, UserOnly, SystemOnly }
  * User picks an app; its APK is extracted and sent through the patch pipeline.
  */
 @Composable
-fun InstalledAppPickerDialog(
+fun DialogHostScope.InstalledAppPickerDialog(
     items: List<InstalledAppPickerItem>,
     isLoading: Boolean,
     onDismiss: () -> Unit,

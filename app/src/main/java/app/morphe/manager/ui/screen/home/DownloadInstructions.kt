@@ -231,7 +231,7 @@ private fun ApkDownloadSource.instructionSteps(
  * to hand it off. That returns false when the link could not be passed on.
  */
 @Composable
-internal fun DownloadInstructionsDialog(
+internal fun DialogHostScope.DownloadInstructionsDialog(
     appName: String,
     packageName: String?,
     downloadUrl: String?,

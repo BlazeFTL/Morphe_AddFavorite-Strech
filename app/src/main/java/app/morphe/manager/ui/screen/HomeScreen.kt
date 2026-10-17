@@ -37,6 +37,7 @@ import app.morphe.manager.ui.screen.settings.SettingsPage
 import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
+import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
 import app.morphe.manager.ui.screen.shared.MainPage
 import app.morphe.manager.ui.screen.shared.MainPagerScaffold
@@ -293,7 +294,7 @@ fun HomeScreen(
     val hasHeldBackSources by homeViewModel.patchBundleRepository.hasHeldBackSources.collectAsStateWithLifecycle()
 
     // Manager update details dialog
-    if (showUpdateDetailsDialog.value) {
+    DialogHost(visible = showUpdateDetailsDialog.value) {
         ManagerChangelogDialog(
             onDismiss = { showUpdateDetailsDialog.value = false },
             expectsUpdate = true
@@ -301,7 +302,7 @@ fun HomeScreen(
     }
 
     // Android 11 Dialog
-    if (homeViewModel.showAndroid11Dialog) {
+    DialogHost(visible = homeViewModel.showAndroid11Dialog) {
         Android11Dialog(
             onDismissRequest = { homeViewModel.showAndroid11Dialog = false },
             onContinue = { installAppsPermissionLauncher.launch(context.packageName) }
@@ -323,7 +324,7 @@ fun HomeScreen(
     // Pre-patching mode selection dialog for root-capable devices.
     // This dialog must appear before patching starts because the patch mode determines
     // which patches are applied.
-    if (homeViewModel.showPrePatchInstallerDialog) {
+    DialogHost(visible = homeViewModel.showPrePatchInstallerDialog) {
         PrePatchInstallerDialog(
             packageName = homeViewModel.pendingPackageName,
             onSelectMount = { homeViewModel.resolvePrePatchInstallerChoice(useMount = true) },

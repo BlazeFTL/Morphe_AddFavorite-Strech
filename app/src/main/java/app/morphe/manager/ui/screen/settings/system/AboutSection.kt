@@ -50,11 +50,11 @@ fun AboutSection(
         contract = ActivityResultContracts.CreateDocument(TEXT_MIMETYPE)
     ) { uri -> uri?.let { importExportViewModel.exportDebugLogs(it) } }
 
-    if (showAboutDialog) {
+    DialogHost(visible = showAboutDialog) {
         AboutDialog(onDismiss = { showAboutDialog = false })
     }
 
-    if (showChangelogDialog) {
+    DialogHost(visible = showChangelogDialog) {
         ManagerChangelogDialog(onDismiss = { showChangelogDialog = false })
     }
 

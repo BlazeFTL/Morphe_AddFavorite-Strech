@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.domain.manager.PreferencesManager
+import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.FilePicker
 import app.morphe.manager.ui.screen.shared.UserMessages
 import kotlinx.coroutines.Dispatchers
@@ -145,7 +146,7 @@ fun rememberFolderPickerWithPermission(
     val useCustomPicker by prefs.useCustomFilePicker.getAsState()
     val showPickerState = remember { mutableStateOf(false) }
 
-    if (showPickerState.value) {
+    DialogHost(visible = showPickerState.value) {
         FilePicker(
             mimeTypes = arrayOf("*/*"),
             allowFolderSelection = true,
@@ -362,7 +363,7 @@ private fun rememberAdaptivePicker(
         if (granted) showPickerState.value = true else onResult(emptyList())
     }
 
-    if (showPickerState.value) {
+    DialogHost(visible = showPickerState.value) {
         FilePicker(
             mimeTypes = customPickerMimeTypes,
             multiple = multiple,

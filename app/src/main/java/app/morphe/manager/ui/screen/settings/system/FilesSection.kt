@@ -114,11 +114,11 @@ fun FilesSection(
         contract = ActivityResultContracts.CreateDocument(JSON_MIMETYPE)
     ) { uri -> uri?.let { importExportViewModel.exportManagerSettings(it) } }
 
-    if (showStorageDialog) {
+    DialogHost(visible = showStorageDialog) {
         StorageManagementDialog(onDismissRequest = { showStorageDialog = false })
     }
 
-    if (importExportViewModel.showCredentialsDialog) {
+    DialogHost(visible = importExportViewModel.showCredentialsDialog) {
         KeystoreCredentialsDialog(
             onDismiss = importExportViewModel::cancelKeystoreImport,
             initialFormat = importExportViewModel.detectedKeystoreFormat,
@@ -132,7 +132,7 @@ fun FilesSection(
         )
     }
 
-    pendingSettingsImportUri?.let { uri ->
+    DialogHost(target = pendingSettingsImportUri) { uri ->
         ImportModeDialog(
             titleRes = R.string.settings_system_import_manager_settings_mode_title,
             descriptionRes = R.string.settings_system_import_manager_settings_mode_description,
@@ -194,7 +194,7 @@ private fun ImportExportItems(
     // Patching creates the key and an import replaces it, both away from this screen
     LaunchedEffect(Unit) { importExportViewModel.refreshSigningKey() }
 
-    if (showSigningKeyDialog) {
+    DialogHost(visible = showSigningKeyDialog) {
         ImportExportDialog(
             title = stringResource(R.string.settings_system_signing_key),
             description = stringResource(R.string.settings_system_signing_key_dialog_description),
@@ -216,7 +216,7 @@ private fun ImportExportItems(
         }
     }
 
-    if (showSettingsDialog) {
+    DialogHost(visible = showSettingsDialog) {
         ImportExportDialog(
             title = stringResource(R.string.settings_system_morphe_settings),
             // The sections below say what the backup holds, so this says the one thing no settings
@@ -260,7 +260,7 @@ private fun ImportExportItems(
  * @param enabled False while nothing is picked to move either way.
  */
 @Composable
-private fun ImportExportDialog(
+private fun DialogHostScope.ImportExportDialog(
     title: String,
     description: String?,
     onImport: () -> Unit,
@@ -446,7 +446,7 @@ private fun OriginalApkItems(settingsViewModel: SettingsViewModel, tour: Onboard
         }
     }
 
-    if (showApkDownloadHelpersDialog) {
+    DialogHost(visible = showApkDownloadHelpersDialog) {
         ApkDownloadHelpersDialog(
             settingsViewModel = settingsViewModel,
             helpers = apkDownloadHelpers,

@@ -56,7 +56,7 @@ data class CopySelectionCandidate(
  * Pass `candidates = null` while the list is loading to render a branded loader.
  */
 @Composable
-fun CopySelectionFromBundleDialog(
+fun DialogHostScope.CopySelectionFromBundleDialog(
     target: CopySelectionTarget,
     candidates: List<CopySelectionCandidate>?,
     onConfirm: (CopySelectionCandidate) -> Unit,

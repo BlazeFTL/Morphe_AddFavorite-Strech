@@ -195,7 +195,7 @@ fun AssetCreatorAction(
         modifier = Modifier.fillMaxWidth()
     )
 
-    if (showCreator) {
+    DialogHost(visible = showCreator) {
         val onDone: (String) -> Unit = { path ->
             onCreated(path)
             showCreator = false

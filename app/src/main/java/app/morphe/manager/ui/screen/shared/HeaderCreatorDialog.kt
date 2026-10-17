@@ -151,7 +151,7 @@ private class HeaderVariant(val theme: HeaderTheme) {
  * header slot and shown in the app bar it lands in, then written for every density the patch takes.
  */
 @Composable
-fun HeaderCreatorDialog(
+fun DialogHostScope.HeaderCreatorDialog(
     packageName: String,
     onDismiss: () -> Unit,
     onHeaderCreated: (String) -> Unit

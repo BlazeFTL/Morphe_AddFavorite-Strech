@@ -31,7 +31,7 @@ import kotlin.math.roundToInt
  * Dialog for configuring process runtime settings.
  */
 @Composable
-fun ProcessRuntimeDialog(
+fun DialogHostScope.ProcessRuntimeDialog(
     currentEnabled: Boolean,
     currentLimit: Int,
     heapLimitIgnored: Boolean,

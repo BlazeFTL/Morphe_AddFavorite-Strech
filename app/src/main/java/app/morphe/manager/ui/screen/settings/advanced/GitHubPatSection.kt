@@ -62,7 +62,7 @@ fun GitHubPatSettingsItem(
         }
     )
 
-    if (showDialog.value) {
+    DialogHost(visible = showDialog.value) {
         GitHubPatDialog(
             currentPat = currentPat,
             currentIncludeInExport = currentIncludeInExport,
@@ -79,7 +79,7 @@ fun GitHubPatSettingsItem(
  * GitHub PAT configuration dialog.
  */
 @Composable
-private fun GitHubPatDialog(
+private fun DialogHostScope.GitHubPatDialog(
     currentPat: String,
     currentIncludeInExport: Boolean,
     onSubmit: (String, Boolean) -> Unit,
@@ -163,7 +163,7 @@ private fun GitHubPatDialog(
     }
 
     // Info dialog with link to GitHub token creation
-    if (showInfoDialog.value) {
+    DialogHost(visible = showInfoDialog.value) {
         AppDialogWithLinks(
             title = stringResource(R.string.settings_advanced_github_pat_how_to_get),
             message = stringResource(R.string.settings_advanced_github_pat_dialog_description, "github.com", "public_repo", GITHUB_PAT_NAME),
@@ -173,7 +173,7 @@ private fun GitHubPatDialog(
     }
 
     // Include-in-export warning confirmation
-    if (showIncludeWarning.value) {
+    DialogHost(visible = showIncludeWarning.value) {
         AppDialog(
             onDismissRequest = { showIncludeWarning.value = false },
             title = stringResource(R.string.warning),

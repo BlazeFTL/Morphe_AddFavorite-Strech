@@ -25,7 +25,7 @@ import app.morphe.manager.ui.screen.shared.*
  * Merge only adds missing entries and preserves everything that already exists.
  */
 @Composable
-fun ImportModeDialog(
+fun DialogHostScope.ImportModeDialog(
     @StringRes titleRes: Int,
     @StringRes descriptionRes: Int,
     onDismiss: () -> Unit,

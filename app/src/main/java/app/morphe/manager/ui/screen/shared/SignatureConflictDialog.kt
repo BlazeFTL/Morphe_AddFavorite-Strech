@@ -24,7 +24,7 @@ import app.morphe.manager.R
  * wherever the signature verification is intact.
  */
 @Composable
-fun SignatureConflictDialog(
+fun DialogHostScope.SignatureConflictDialog(
     title: String,
     message: String,
     onUninstall: () -> Unit,

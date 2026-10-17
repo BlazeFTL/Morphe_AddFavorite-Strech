@@ -568,7 +568,7 @@ private fun SourcesPageContent(
     }
 
     // Delete confirmation dialog
-    bundleToDelete.value?.let { bundle ->
+    DialogHost(target = bundleToDelete.value) { bundle ->
         ConfirmDialog(
             title = stringResource(R.string.delete),
             message = stringResource(R.string.sources_dialog_delete_confirm_body),
@@ -588,7 +588,7 @@ private fun SourcesPageContent(
     }
 
     // Pre-release enable confirmation dialog
-    bundleToConfirmPrerelease.value?.let { bundle ->
+    DialogHost(target = bundleToConfirmPrerelease.value) { bundle ->
         ConfirmDialog(
             title = stringResource(R.string.sources_prerelease_warning_title),
             message = stringResource(R.string.sources_prerelease_warning_message),
@@ -603,15 +603,15 @@ private fun SourcesPageContent(
     }
 
     // Patches dialog
-    if (bundleToShowPatches.value != null) {
+    DialogHost(target = bundleToShowPatches.value) { src ->
         BundlePatchesDialog(
             onDismissRequest = { bundleToShowPatches.value = null },
-            src = bundleToShowPatches.value!!,
+            src = src,
             initialQuery = search.query
         )
     }
 
-    bundleToShowApps.value?.let { src ->
+    DialogHost(target = bundleToShowApps.value) { src ->
         SourceAppsDialog(
             onDismissRequest = { bundleToShowApps.value = null },
             src = src
@@ -619,7 +619,7 @@ private fun SourcesPageContent(
     }
 
     // Outdated manager dialog, shared with the pre-flight check done when patching starts
-    bundleRequiringManagerUpdate?.let { bundle ->
+    DialogHost(target = bundleRequiringManagerUpdate) { bundle ->
         IncompatiblePatcherVersionDialog(
             bundleName = bundle.displayTitle,
             requiredVersion = bundle.requiredPatcherVersion.orEmpty(),

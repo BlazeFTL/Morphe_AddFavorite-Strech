@@ -28,7 +28,7 @@ import app.morphe.manager.util.KnownApps
  * @param isCreating Covers the dialog while the files are written, and keeps it from closing.
  */
 @Composable
-fun CreatorDialogFrame(
+fun DialogHostScope.CreatorDialogFrame(
     packageName: String,
     title: String,
     guideTitle: String,
@@ -86,7 +86,7 @@ fun CreatorDialogFrame(
         )
     }
 
-    if (showGuide) {
+    DialogHost(visible = showGuide) {
         CreatorGuideDialog(title = guideTitle, sections = guide, onDismiss = { showGuide = false })
     }
 }
@@ -99,7 +99,7 @@ fun CreatorCard(title: String, content: @Composable ColumnScope.() -> Unit) {
 
 /** A creator's guide, each section a title over what it explains. */
 @Composable
-private fun CreatorGuideDialog(
+private fun DialogHostScope.CreatorGuideDialog(
     title: String,
     sections: List<Pair<String, String>>,
     onDismiss: () -> Unit

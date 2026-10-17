@@ -37,7 +37,7 @@ private val BLUE_PILL = listOf(Color(0xFF4FA8FF), Color(0xFF0B3C7A))
  * so, and their blue pill wakes them up through [onBluePill] instead of doing nothing.
  */
 @Composable
-fun RedPillDialog(
+fun DialogHostScope.RedPillDialog(
     alreadyUnlocked: Boolean,
     onRedPill: () -> Unit,
     onBluePill: () -> Unit,

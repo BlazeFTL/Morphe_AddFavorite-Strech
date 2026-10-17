@@ -6,6 +6,7 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import androidx.compose.runtime.Composable
+import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 
 /**
@@ -19,7 +20,7 @@ import app.morphe.manager.ui.viewmodel.InstallViewModel
 fun InstallerFlowDialogs(
     installViewModel: InstallViewModel
 ) {
-    installViewModel.installerUnavailableDialog?.let { dialogState ->
+    DialogHost(target = installViewModel.installerUnavailableDialog) { dialogState ->
         InstallerUnavailableDialog(
             state = dialogState,
             onOpenApp = installViewModel::openInstallerApp,
@@ -29,7 +30,7 @@ fun InstallerFlowDialogs(
         )
     }
 
-    if (installViewModel.showInstallerSelectionDialog) {
+    DialogHost(visible = installViewModel.showInstallerSelectionDialog) {
         InstallerSelectionDialog(
             options = installViewModel.getInstallerOptions(),
             selected = installViewModel.getPrimaryInstallerToken(),

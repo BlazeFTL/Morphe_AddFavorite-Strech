@@ -63,7 +63,7 @@ fun PatchSelectionsItem(
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
-    if (showDialog) {
+    DialogHost(visible = showDialog) {
         PatchSelectionManagementDialog(
             settingsViewModel = settingsViewModel,
             importExportViewModel = importExportViewModel,
@@ -83,7 +83,7 @@ fun PatchSelectionsItem(
  * Dialog for managing patch selections.
  */
 @Composable
-fun PatchSelectionManagementDialog(
+fun DialogHostScope.PatchSelectionManagementDialog(
     settingsViewModel: SettingsViewModel,
     importExportViewModel: ImportExportViewModel,
     onDismiss: () -> Unit
@@ -160,7 +160,7 @@ fun PatchSelectionManagementDialog(
 
     // Confirmed picks are written to the database immediately here, unlike the expert-mode
     // path which stages changes until the user proceeds to patching.
-    copyTarget.value?.let { target ->
+    DialogHost(target = copyTarget.value) { target ->
         CopySelectionFromBundleDialog(
             target = CopySelectionTarget(
                 packageName = target.packageName,
@@ -187,7 +187,7 @@ fun PatchSelectionManagementDialog(
         )
     }
 
-    if (showResetSelectedConfirmation.value) {
+    DialogHost(visible = showResetSelectedConfirmation.value) {
         val selectedKeys = selectedPackages.keys.toList()
         val selectedTotalPatches = remember(selections, selectedKeys) {
             selectedKeys.sumOf { pkg ->
@@ -209,7 +209,7 @@ fun PatchSelectionManagementDialog(
     }
 
     // Import-mode dialog: user picks Replace or Merge before selections are applied
-    pendingImportUri?.let { uri ->
+    DialogHost(target = pendingImportUri) { uri ->
         ImportModeDialog(
             titleRes = R.string.settings_system_import_selections_mode_title,
             descriptionRes = R.string.settings_system_import_selections_mode_description,
@@ -222,7 +222,7 @@ fun PatchSelectionManagementDialog(
     }
 
     // Reset all confirmation dialog
-    if (showResetAllConfirmation.value) {
+    DialogHost(visible = showResetAllConfirmation.value) {
         ConfirmResetAllDialog(
             totalSelections = totalSelections,
             packageCount = selections.size,
@@ -238,7 +238,7 @@ fun PatchSelectionManagementDialog(
     }
 
     // Reset specific target confirmation dialog
-    resetTarget.value?.let { target ->
+    DialogHost(target = resetTarget.value) { target ->
         ConfirmResetPackageBundleDialog(
             packageName = target.packageName,
             bundleUid = target.bundleUid,
@@ -256,7 +256,7 @@ fun PatchSelectionManagementDialog(
     }
 
     // Patch details dialog
-    showPatchDetailsTarget.value?.let { target ->
+    DialogHost(target = showPatchDetailsTarget.value) { target ->
         PatchDetailsDialog(
             packageName = target.packageName,
             bundleUid = target.bundleUid,
@@ -272,7 +272,7 @@ fun PatchSelectionManagementDialog(
  * Main dialog content.
  */
 @Composable
-private fun PatchSelectionManagementDialogContent(
+private fun DialogHostScope.PatchSelectionManagementDialogContent(
     data: PatchSelectionData,
     multiSelect: PatchSelectionMultiSelect,
     importExportViewModel: ImportExportViewModel,
@@ -710,7 +710,7 @@ private fun BundleSelectionItem(
  * Confirmation dialog for resetting selections across the currently selected packages.
  */
 @Composable
-private fun ConfirmResetSelectedDialog(
+private fun DialogHostScope.ConfirmResetSelectedDialog(
     packageCount: Int,
     totalPatches: Int,
     onConfirm: () -> Unit,
@@ -735,7 +735,7 @@ private fun ConfirmResetSelectedDialog(
  * Options count is loaded via [SettingsViewModel].
  */
 @Composable
-private fun ConfirmResetAllDialog(
+private fun DialogHostScope.ConfirmResetAllDialog(
     totalSelections: Int,
     packageCount: Int,
     settingsViewModel: SettingsViewModel,
@@ -767,7 +767,7 @@ private fun ConfirmResetAllDialog(
  * Confirmation dialog for resetting package-bundle selections.
  */
 @Composable
-private fun ConfirmResetPackageBundleDialog(
+private fun DialogHostScope.ConfirmResetPackageBundleDialog(
     packageName: String,
     bundleUid: Int,
     bundleName: String?,
@@ -805,7 +805,7 @@ private fun ConfirmResetPackageBundleDialog(
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun PatchDetailsDialog(
+private fun DialogHostScope.PatchDetailsDialog(
     packageName: String,
     bundleUid: Int,
     appDisplayName: String,

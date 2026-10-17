@@ -75,7 +75,7 @@ fun PatchOptionsSection(
             loadError == null &&
             youtubePatches.isEmpty() && youtubeMusicPatches.isEmpty()
 
-    patchOptionsViewModel.showBrandingDialogFor?.let { packageName ->
+    DialogHost(target = patchOptionsViewModel.showBrandingDialogFor) { packageName ->
         CustomBrandingDialog(
             patchOptionsPrefs = patchOptionsPrefs,
             patchOptionsViewModel = patchOptionsViewModel,
@@ -84,7 +84,7 @@ fun PatchOptionsSection(
         )
     }
 
-    patchOptionsViewModel.showHeaderDialogFor?.let { packageName ->
+    DialogHost(target = patchOptionsViewModel.showHeaderDialogFor) { packageName ->
         CustomHeaderDialog(
             patchOptionsPrefs = patchOptionsPrefs,
             patchOptionsViewModel = patchOptionsViewModel,

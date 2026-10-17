@@ -41,7 +41,7 @@ fun UpdatesItems(
         )
     }
 
-    if (showPrereleaseWarning.value) {
+    DialogHost(visible = showPrereleaseWarning.value) {
         ConfirmDialog(
             title = stringResource(R.string.settings_advanced_updates_prerelease_warning_title),
             message = stringResource(R.string.settings_advanced_updates_prerelease_warning_message),

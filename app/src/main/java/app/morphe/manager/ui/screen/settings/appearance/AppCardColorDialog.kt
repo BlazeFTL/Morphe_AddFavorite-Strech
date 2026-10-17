@@ -39,7 +39,7 @@ private val MODE_OPTIONS = listOf(
 )
 
 @Composable
-fun AppCardColorDialog(
+fun DialogHostScope.AppCardColorDialog(
     mode: AppCardColorMode,
     accentColorHex: String,
     startColorHex: String,
@@ -208,7 +208,7 @@ fun AppCardColorDialog(
         }
     }
 
-    editingStop?.let { stop ->
+    DialogHost(target = editingStop) { stop ->
         val color = when (stop) {
             AppCardColorStop.START -> gradientColors[0]
             AppCardColorStop.MIDDLE -> gradientColors[1]

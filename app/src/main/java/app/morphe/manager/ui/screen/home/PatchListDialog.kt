@@ -62,7 +62,7 @@ internal class PatchListSection(
  * @param onExpertBadgeClick Marks the patches left out by default, and explains the mark.
  */
 @Composable
-internal fun PatchListDialog(
+internal fun DialogHostScope.PatchListDialog(
     icon: @Composable (Modifier) -> Unit,
     title: String,
     subtitle: String,

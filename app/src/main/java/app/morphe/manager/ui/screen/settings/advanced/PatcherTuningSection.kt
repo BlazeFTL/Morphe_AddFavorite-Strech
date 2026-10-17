@@ -36,7 +36,7 @@ fun PatcherTuningSection(settingsViewModel: SettingsViewModel) {
 
     val showProcessRuntimeDialog = remember { mutableStateOf(false) }
 
-    if (showProcessRuntimeDialog.value) {
+    DialogHost(visible = showProcessRuntimeDialog.value) {
         ProcessRuntimeDialog(
             currentEnabled = useProcessRuntime,
             currentLimit = memoryLimit,

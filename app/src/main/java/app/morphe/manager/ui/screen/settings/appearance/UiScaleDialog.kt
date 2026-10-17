@@ -26,7 +26,7 @@ import app.morphe.manager.ui.theme.*
  * Dialog for picking the display scale of the interface.
  */
 @Composable
-fun UiScaleDialog(
+fun DialogHostScope.UiScaleDialog(
     currentScale: Float,
     onApply: (Float) -> Unit,
     onDismiss: () -> Unit

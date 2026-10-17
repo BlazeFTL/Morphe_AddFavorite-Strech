@@ -95,7 +95,7 @@ fun rememberApkDownloadHelperAction(
         host.onHelperApkReceived(uri)
     }
 
-    if (showPicker && helpers.isNotEmpty()) {
+    DialogHost(visible = showPicker && helpers.isNotEmpty()) {
         ApkDownloadHelperDialog(
             helpers = helpers,
             signatureCheckAvailable = host.helperSignatureCheckAvailable,
@@ -123,7 +123,7 @@ fun rememberApkDownloadHelperAction(
  * so a helper can never download on Morphe's behalf unnoticed.
  */
 @Composable
-private fun ApkDownloadHelperDialog(
+private fun DialogHostScope.ApkDownloadHelperDialog(
     helpers: List<ApkDownloadHelperContract.Helper>,
     signatureCheckAvailable: Boolean,
     onDismiss: () -> Unit,

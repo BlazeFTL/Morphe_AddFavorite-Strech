@@ -29,7 +29,7 @@ import app.morphe.manager.ui.screen.shared.*
  * [onConfirm] receives the trimmed name and is only enabled once it is non-blank.
  */
 @Composable
-internal fun CategoryNameDialog(
+internal fun DialogHostScope.CategoryNameDialog(
     category: HomeAppCategory?,
     onDismiss: () -> Unit,
     onConfirm: (String) -> Unit
@@ -73,7 +73,7 @@ internal fun CategoryNameDialog(
  * [onSelect] is called with null to clear the assignment.
  */
 @Composable
-internal fun MoveToCategoryDialog(
+internal fun DialogHostScope.MoveToCategoryDialog(
     categories: List<HomeAppCategory>,
     onDismiss: () -> Unit,
     onSelect: (String?) -> Unit,
@@ -81,7 +81,7 @@ internal fun MoveToCategoryDialog(
 ) {
     var showCreateDialog by remember { mutableStateOf(false) }
 
-    if (showCreateDialog) {
+    DialogHost(visible = showCreateDialog) {
         CategoryNameDialog(
             category = null,
             onDismiss = { showCreateDialog = false },

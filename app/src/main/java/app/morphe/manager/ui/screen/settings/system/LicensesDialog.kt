@@ -27,6 +27,7 @@ import app.morphe.manager.ui.screen.shared.DialogScrollIndicators
 import app.morphe.manager.ui.screen.shared.dialogTextColor
 import app.morphe.manager.ui.screen.shared.AppDialog
 import app.morphe.manager.ui.screen.shared.AppDialogOutlinedButton
+import app.morphe.manager.ui.screen.shared.DialogHostScope
 import app.morphe.manager.ui.screen.shared.verticalScrollFade
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
@@ -74,7 +75,7 @@ service marks, or logos.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LicensesDialog(onDismiss: () -> Unit) {
+fun DialogHostScope.LicensesDialog(onDismiss: () -> Unit) {
     AppDialog(
         title = stringResource(R.string.opensource_licenses),
         onDismissRequest = onDismiss,

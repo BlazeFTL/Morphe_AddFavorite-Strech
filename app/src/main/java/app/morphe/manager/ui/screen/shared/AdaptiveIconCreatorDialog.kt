@@ -183,7 +183,7 @@ private fun PickedImage.maxIconScale(): Float =
  * transparency where it has any.
  */
 @Composable
-fun AdaptiveIconCreatorDialog(
+fun DialogHostScope.AdaptiveIconCreatorDialog(
     packageName: String,
     onDismiss: () -> Unit,
     onIconCreated: (String) -> Unit
@@ -359,7 +359,7 @@ fun AdaptiveIconCreatorDialog(
     }
 
     // Color picker dialog
-    if (showColorPicker.value) {
+    DialogHost(visible = showColorPicker.value) {
         // The presets are already on the card behind the dialog, so repeating them inside it
         // would only push the panel down
         ColorPickerDialog(

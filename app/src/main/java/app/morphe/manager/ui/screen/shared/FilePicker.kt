@@ -216,7 +216,7 @@ private fun modDateFormat(context: Context): SimpleDateFormat {
  * with [multiple] the files checked across every folder visited, in the order they were checked.
  */
 @Composable
-fun FilePicker(
+fun DialogHostScope.FilePicker(
     mimeTypes: Array<String>,
     onDismiss: () -> Unit,
     onPicked: (List<File>) -> Unit,

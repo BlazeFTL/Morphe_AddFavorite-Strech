@@ -27,7 +27,7 @@ fun BackgroundSection(settingsViewModel: SettingsViewModel = koinViewModel()) {
     val context = LocalContext.current
     var showNotificationsDialog by remember { mutableStateOf(false) }
 
-    if (showNotificationsDialog) {
+    DialogHost(visible = showNotificationsDialog) {
         NotificationsDialog(
             settingsViewModel = settingsViewModel,
             onDismiss = { showNotificationsDialog = false }

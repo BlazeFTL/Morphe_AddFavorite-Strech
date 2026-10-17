@@ -28,7 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 @Composable
-fun StorageManagementDialog(
+fun DialogHostScope.StorageManagementDialog(
     onDismissRequest: () -> Unit,
     viewModel: StorageManagementViewModel = koinViewModel()
 ) {
@@ -52,7 +52,7 @@ fun StorageManagementDialog(
 
     LaunchedEffect(Unit) { viewModel.refresh() }
 
-    apkDialog?.let { type ->
+    DialogHost(target = apkDialog) { type ->
         ApkManagementDialog(
             type = type,
             onDismissRequest = {
@@ -62,7 +62,7 @@ fun StorageManagementDialog(
         )
     }
 
-    if (showClearAllConfirm) {
+    DialogHost(visible = showClearAllConfirm) {
         ConfirmDialog(
             title = stringResource(R.string.settings_system_storage_clear_all),
             message = stringResource(R.string.settings_system_storage_clear_all_confirm),

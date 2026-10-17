@@ -125,7 +125,7 @@ internal fun BundlePatchControls(
         )
     }
 
-    if (showUniversalAllWarning) {
+    DialogHost(visible = showUniversalAllWarning) {
         ConfirmDialog(
             title = stringResource(R.string.expert_mode_universal_all_warning_title),
             message = stringResource(R.string.expert_mode_universal_all_warning_message),

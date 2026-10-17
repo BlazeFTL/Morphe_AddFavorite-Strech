@@ -285,8 +285,7 @@ private fun PatcherScreenContent(
         }
     }
 
-    val shownAppLinksStatus = appLinksStatus
-    if (showAppLinksDialog && shownAppLinksStatus?.hasSupportedLinks == true) {
+    DialogHost(target = appLinksStatus?.takeIf { showAppLinksDialog && it.hasSupportedLinks }) { shownAppLinksStatus ->
         AppLinksDialog(
             appLabel = patcherViewModel.exportMetadata?.appName ?: targetInstalledPackage,
             appInfo = null,
@@ -298,7 +297,7 @@ private fun PatcherScreenContent(
         )
     }
 
-    if (showInstalledSourceConflictDialog.value) {
+    DialogHost(visible = showInstalledSourceConflictDialog.value) {
         val conflict = installState as? InstallViewModel.InstallState.Conflict
 
         SignatureConflictDialog(
@@ -342,7 +341,7 @@ private fun PatcherScreenContent(
     }
 
     // Activity prompt dialog
-    patcherViewModel.activityPromptDialog?.let { title ->
+    DialogHost(target = patcherViewModel.activityPromptDialog) { title ->
         ConfirmDialog(
             title = title,
             message = stringResource(R.string.plugin_activity_dialog_body),
@@ -354,7 +353,7 @@ private fun PatcherScreenContent(
     }
 
     // Cancel patching confirmation dialog
-    if (showCancelDialog) {
+    DialogHost(visible = showCancelDialog) {
         ConfirmDialog(
             title = stringResource(R.string.patcher_stop_confirm_title),
             message = stringResource(R.string.patcher_stop_confirm_description),
@@ -371,7 +370,7 @@ private fun PatcherScreenContent(
 
     // Missing patches pre-flight dialog
     // Shown when the saved selection names patches the sources no longer offer
-    patcherViewModel.missingPatchWarning?.let { warning ->
+    DialogHost(target = patcherViewModel.missingPatchWarning) { warning ->
         MissingPatchesDialog(
             patchNames = warning.patchNames,
             onContinue = patcherViewModel::continueWithoutMissingPatches,
@@ -384,7 +383,7 @@ private fun PatcherScreenContent(
 
     // Option path pre-flight dialog
     // Shown when a patch option points at a path that is gone or cannot be read
-    patcherViewModel.inaccessibleOptionPaths?.let { errorState ->
+    DialogHost(target = patcherViewModel.inaccessibleOptionPaths) { errorState ->
         UnusableOptionPathsDialog(
             failures = errorState.failures,
             onRetryAfterPermission = patcherViewModel::retryAfterPermission,
@@ -399,7 +398,7 @@ private fun PatcherScreenContent(
 
     // Patcher version incompatibility pre-flight dialog.
     // Shown when a bundle's Patcher-Version is newer than what the manager ships
-    patcherViewModel.incompatiblePatcherVersion?.let { state ->
+    DialogHost(target = patcherViewModel.incompatiblePatcherVersion) { state ->
         IncompatiblePatcherVersionDialog(
             bundleName = state.bundleName,
             requiredVersion = state.requiredVersion,
@@ -412,7 +411,7 @@ private fun PatcherScreenContent(
 
     // Battery optimization pre-flight dialog.
     // Shown once when the app is not excluded from battery optimization
-    if (patcherViewModel.batteryOptimizationDialog) {
+    DialogHost(visible = patcherViewModel.batteryOptimizationDialog) {
         BatteryOptimizationDialog(
             onResult = patcherViewModel::onBatteryOptimizationDialogResult
         )
@@ -421,7 +420,7 @@ private fun PatcherScreenContent(
     // Memory limit dialog, shown after the system killed the patcher process.
     // Waits for the error dialog to close: that one explains the failure this one offers a fix for
     if (shownFailure == null) {
-        patcherViewModel.memoryAdjustmentDialog?.let { dialogState ->
+        DialogHost(target = patcherViewModel.memoryAdjustmentDialog) { dialogState ->
             MemoryAdjustmentDialog(
                 currentLimit = dialogState.currentLimit,
                 suggestedLimit = dialogState.suggestedLimit,
@@ -434,7 +433,7 @@ private fun PatcherScreenContent(
     }
 
     // Where the finished APK will actually install, when that is not what the run was aimed at
-    heldInstall?.let { held ->
+    DialogHost(target = heldInstall) { held ->
         RenameWarningDialog(
             warning = held.warning,
             onContinue = {
@@ -450,7 +449,7 @@ private fun PatcherScreenContent(
     }
 
     // Error dialog, for a failed run and a failed install alike
-    shownFailure?.let { failure ->
+    DialogHost(target = shownFailure) { failure ->
         val errorMessage = when (failure) {
             PatcherFailure.PATCHING -> patcherViewModel.failureDetails
             PatcherFailure.INSTALL -> (installState as? InstallViewModel.InstallState.Error)?.message.orEmpty()
@@ -468,7 +467,7 @@ private fun PatcherScreenContent(
         )
     }
 
-    installViewModel.installerUnavailableDialog?.let { unavailable ->
+    DialogHost(target = installViewModel.installerUnavailableDialog) { unavailable ->
         InstallerUnavailableDialog(
             state = unavailable,
             onOpenApp = installViewModel::openInstallerApp,
@@ -479,7 +478,7 @@ private fun PatcherScreenContent(
     }
 
     // Installer selection dialog for patcher screen
-    if (installViewModel.showInstallerSelectionDialog) {
+    DialogHost(visible = installViewModel.showInstallerSelectionDialog) {
         val installerManager: InstallerManager = koinInject()
         val primaryPreference by prefs.installerPrimary.getAsState()
         val primaryToken = remember(primaryPreference) {

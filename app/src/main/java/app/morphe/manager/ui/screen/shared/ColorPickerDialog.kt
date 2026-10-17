@@ -58,7 +58,7 @@ data class ColorPickerToggle(
  *   list where a palette would only be noise.
  */
 @Composable
-fun ColorPickerDialog(
+fun DialogHostScope.ColorPickerDialog(
     title: String,
     currentColor: String,
     onColorSelected: (String) -> Unit,

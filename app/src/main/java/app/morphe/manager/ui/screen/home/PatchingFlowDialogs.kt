@@ -57,7 +57,7 @@ import app.morphe.patcher.patch.AppTarget
  * In simple mode there is only one version and no selection UI is shown.
  */
 @Composable
-internal fun ApkAvailabilityDialog(
+internal fun DialogHostScope.ApkAvailabilityDialog(
     appName: String,
     packageName: String?,
     recommendedVersion: AppTarget?,
@@ -291,7 +291,7 @@ internal fun ApkAvailabilityDialog(
  * Dialog 3: File picker prompt dialog.
  */
 @Composable
-internal fun FilePickerPromptDialog(
+internal fun DialogHostScope.FilePickerPromptDialog(
     appName: String,
     packageName: String?,
     isOtherApps: Boolean,
@@ -352,7 +352,7 @@ internal fun FilePickerPromptDialog(
  * Unsupported version warning dialog.
  */
 @Composable
-internal fun UnsupportedVersionWarningDialog(
+internal fun DialogHostScope.UnsupportedVersionWarningDialog(
     packageName: String?,
     version: String,
     versionCode: Long? = null,
@@ -448,7 +448,7 @@ internal fun UnsupportedVersionWarningDialog(
  * the expected signatures declared in the patch bundle.
  */
 @Composable
-fun InvalidSignatureDialog(
+fun DialogHostScope.InvalidSignatureDialog(
     appName: String,
     packageName: String?,
     onPickAnother: () -> Unit,
@@ -502,7 +502,7 @@ fun InvalidSignatureDialog(
  * for an app that requires a full APK.
  */
 @Composable
-fun SplitApkWarningDialog(
+fun DialogHostScope.SplitApkWarningDialog(
     appName: String,
     packageName: String?,
     onProceed: () -> Unit,
@@ -540,7 +540,7 @@ fun SplitApkWarningDialog(
  * in the patch bundle AND experimental-version mode is enabled for that bundle.
  */
 @Composable
-fun ExperimentalVersionWarningDialog(
+fun DialogHostScope.ExperimentalVersionWarningDialog(
     appName: String,
     packageName: String?,
     onDismiss: () -> Unit,
@@ -575,7 +575,7 @@ fun ExperimentalVersionWarningDialog(
  * Wrong package dialog.
  */
 @Composable
-fun WrongPackageDialog(
+fun DialogHostScope.WrongPackageDialog(
     expectedPackage: String,
     actualPackage: String,
     onDismiss: () -> Unit
@@ -624,7 +624,7 @@ fun WrongPackageDialog(
  * Informs the user that their device does not meet the requirements for any supported version.
  */
 @Composable
-internal fun NoCompatibleVersionsDialog(
+internal fun DialogHostScope.NoCompatibleVersionsDialog(
     appName: String,
     packageName: String?,
     onDismiss: () -> Unit

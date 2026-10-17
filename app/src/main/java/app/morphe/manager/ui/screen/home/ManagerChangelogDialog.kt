@@ -97,7 +97,7 @@ private fun updateDialogContentOf(updateViewModel: UpdateViewModel): UpdateDialo
  *   release is not ready yet and offering to check again.
  */
 @Composable
-fun ManagerChangelogDialog(
+fun DialogHostScope.ManagerChangelogDialog(
     onDismiss: () -> Unit,
     updateViewModel: UpdateViewModel = koinViewModel(
         viewModelStoreOwner = LocalActivity.current as ComponentActivity
@@ -256,7 +256,7 @@ fun ManagerChangelogDialog(
     }
 
     // Internet check dialog
-    if (updateViewModel.showInternetCheckDialog) {
+    DialogHost(visible = updateViewModel.showInternetCheckDialog) {
         MeteredDownloadDialog(
             title = stringResource(R.string.download_update_confirmation),
             onConfirm = {

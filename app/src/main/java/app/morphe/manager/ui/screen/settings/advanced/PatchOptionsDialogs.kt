@@ -32,7 +32,7 @@ import app.morphe.manager.util.KnownApps
  * creator for an icon of one's own.
  */
 @Composable
-fun CustomBrandingDialog(
+fun DialogHostScope.CustomBrandingDialog(
     patchOptionsPrefs: PatchOptionsPreferencesManager,
     patchOptionsViewModel: PatchOptionsViewModel,
     packageName: String,
@@ -153,7 +153,7 @@ fun CustomBrandingDialog(
  * one's own.
  */
 @Composable
-fun CustomHeaderDialog(
+fun DialogHostScope.CustomHeaderDialog(
     patchOptionsPrefs: PatchOptionsPreferencesManager,
     patchOptionsViewModel: PatchOptionsViewModel,
     packageName: String,
@@ -228,7 +228,7 @@ private fun folderHeading(option: OptionInfo, title: String, value: String, miss
  * @param hasOptions Whether the app's patches offer any of the options, which it says instead.
  */
 @Composable
-private fun SettingsOptionsDialog(
+private fun DialogHostScope.SettingsOptionsDialog(
     packageName: String,
     title: String,
     hasOptions: Boolean,

@@ -62,7 +62,7 @@ private const val DiagnosticsMaxHeightFraction = 0.5f
  * update dialog, the same one the home banner opens.
  */
 @Composable
-fun IncompatiblePatcherVersionDialog(
+fun DialogHostScope.IncompatiblePatcherVersionDialog(
     bundleName: String,
     requiredVersion: String,
     onDismiss: () -> Unit,
@@ -105,7 +105,7 @@ fun IncompatiblePatcherVersionDialog(
  * intent. Offered before the install rather than the run, because only the output carries the name.
  */
 @Composable
-fun RenameWarningDialog(
+fun DialogHostScope.RenameWarningDialog(
     warning: RenameWarning,
     onContinue: () -> Unit,
     onDismiss: () -> Unit
@@ -157,7 +157,7 @@ fun RenameWarningDialog(
  * the whole point of a saved selection.
  */
 @Composable
-fun MissingPatchesDialog(
+fun DialogHostScope.MissingPatchesDialog(
     patchNames: List<String>,
     onContinue: () -> Unit,
     onDismiss: () -> Unit
@@ -209,7 +209,7 @@ fun MissingPatchesDialog(
  * for, and [onClearPaths] drops the saved paths instead, where [canClearPaths] allows it.
  */
 @Composable
-fun UnusableOptionPathsDialog(
+fun DialogHostScope.UnusableOptionPathsDialog(
     failures: List<PathValidationResult>,
     onRetryAfterPermission: () -> Unit,
     onDismiss: () -> Unit,
@@ -398,7 +398,7 @@ fun UnusableOptionPathsDialog(
  * Directs the user to the system dialog to grant the exclusion.
  */
 @Composable
-fun BatteryOptimizationDialog(
+fun DialogHostScope.BatteryOptimizationDialog(
     onResult: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -428,7 +428,7 @@ fun BatteryOptimizationDialog(
  * user setting, so nothing changes until it is accepted here.
  */
 @Composable
-fun MemoryAdjustmentDialog(
+fun DialogHostScope.MemoryAdjustmentDialog(
     currentLimit: Int,
     suggestedLimit: Int,
     canAdjust: Boolean,
@@ -475,7 +475,7 @@ fun MemoryAdjustmentDialog(
  * Full-screen error dialog shown when patching or installing the patched app fails.
  */
 @Composable
-fun PatcherErrorDialog(
+fun DialogHostScope.PatcherErrorDialog(
     title: String,
     errorMessage: String,
     errorInfo: PatcherErrorInfo?,

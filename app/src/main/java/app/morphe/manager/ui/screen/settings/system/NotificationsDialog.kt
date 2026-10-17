@@ -51,7 +51,7 @@ import kotlin.math.roundToInt
  * completion sounds.
  */
 @Composable
-fun NotificationsDialog(
+fun DialogHostScope.NotificationsDialog(
     settingsViewModel: SettingsViewModel,
     onDismiss: () -> Unit
 ) {
@@ -113,7 +113,7 @@ fun NotificationsDialog(
         }
     )
 
-    if (showPermissionDialog) {
+    DialogHost(visible = showPermissionDialog) {
         NotificationPermissionDialog(
             onDismissRequest = {
                 settingsViewModel.onNotificationPermissionDismissed()
@@ -131,7 +131,7 @@ fun NotificationsDialog(
         )
     }
 
-    if (showIntervalDialog) {
+    DialogHost(visible = showIntervalDialog) {
         UpdateCheckIntervalDialog(
             currentInterval = updateCheckInterval,
             onIntervalSelected = {
@@ -142,7 +142,7 @@ fun NotificationsDialog(
         )
     }
 
-    showSourcePickerFor?.let { target ->
+    DialogHost(target = showSourcePickerFor) { target ->
         val currentUri = when (target) {
             SoundKind.Success -> successSoundUri
             SoundKind.Error -> errorSoundUri
@@ -284,7 +284,7 @@ private fun SoundSelectorItem(
 }
 
 @Composable
-private fun SoundSourceDialog(
+private fun DialogHostScope.SoundSourceDialog(
     onDismiss: () -> Unit,
     onPickRingtone: () -> Unit,
     onPickFile: () -> Unit,
@@ -345,7 +345,7 @@ private fun ringtoneDisplayName(context: Context, uriString: String): String? {
  * and [Manifest.permission.POST_NOTIFICATIONS] has not yet been granted.
  */
 @Composable
-fun NotificationPermissionDialog(
+fun DialogHostScope.NotificationPermissionDialog(
     onDismissRequest: () -> Unit,
     onPermissionResult: (granted: Boolean) -> Unit,
     title: String = stringResource(R.string.notification_permission_dialog_title),
@@ -378,7 +378,7 @@ fun NotificationPermissionDialog(
 
 /** Discrete-slider dialog to pick how often the background update check runs. */
 @Composable
-private fun UpdateCheckIntervalDialog(
+private fun DialogHostScope.UpdateCheckIntervalDialog(
     currentInterval: UpdateCheckInterval,
     onIntervalSelected: (UpdateCheckInterval) -> Unit,
     onDismiss: () -> Unit

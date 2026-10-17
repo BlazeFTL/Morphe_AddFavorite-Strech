@@ -204,7 +204,7 @@ private fun optionValueEquals(a: Any?, b: Any?): Boolean = when {
  * @param accentColor Color of that app, which tints the header band.
  */
 @Composable
-internal fun PatchOptionsDialog(
+internal fun DialogHostScope.PatchOptionsDialog(
     patch: PatchInfo,
     packageName: String,
     appName: String,
@@ -306,7 +306,7 @@ internal fun PatchOptionsDialog(
     }
 
     // Color picker dialog
-    showColorPicker.value?.let { (key, currentColor) ->
+    DialogHost(target = showColorPicker.value) { (key, currentColor) ->
         ColorPickerDialog(
             title = options.find { it.key == key }?.title ?: key,
             currentColor = currentColor,

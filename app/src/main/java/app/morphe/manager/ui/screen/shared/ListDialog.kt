@@ -46,7 +46,7 @@ val LocalDialogScrollbarInsets = compositionLocalOf { PaddingValues(0.dp) }
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ListDialog(
+fun DialogHostScope.ListDialog(
     onDismissRequest: () -> Unit,
     header: (@Composable () -> Unit)?,
     footer: (@Composable () -> Unit)? = null,

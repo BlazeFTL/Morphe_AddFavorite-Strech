@@ -194,7 +194,7 @@ fun BatchPatcherScreen(
         if (current?.isActive == true) showCancelDialog = true else onBackClick()
     }
 
-    if (showCancelDialog) {
+    DialogHost(visible = showCancelDialog) {
         ConfirmDialog(
             title = stringResource(R.string.batch_patch_stop_title),
             message = stringResource(R.string.batch_patch_stop_description),
@@ -210,7 +210,7 @@ fun BatchPatcherScreen(
         )
     }
 
-    if (showClearDialog) {
+    DialogHost(visible = showClearDialog) {
         ConfirmDialog(
             title = stringResource(R.string.batch_queue_clear_title),
             message = stringResource(R.string.batch_queue_clear_description),
@@ -240,7 +240,7 @@ fun BatchPatcherScreen(
 
     // The same dialog the single-app flow uses, pointed at one queued app instead of the
     // patcher, so the queue never has to grow a second patch list
-    viewModel.edit?.let { edit ->
+    DialogHost(target = viewModel.edit) { edit ->
         val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
         val sourcesByUid = remember(sources) { sources.associateBy { it.uid } }
         ExpertModeDialog(
@@ -274,15 +274,17 @@ fun BatchPatcherScreen(
             onProceed = viewModel::applyEdit
         )
 
-        viewModel.editCopy.targetBundleUid?.let { targetUid ->
-            val targetBundle = edit.bundles.firstOrNull { it.uid == targetUid } ?: return@let
+        val copyTarget = edit.bundles.firstOrNull { it.uid == viewModel.editCopy.targetBundleUid }?.let { bundle ->
+            CopySelectionTarget(
+                packageName = edit.configurationKey,
+                bundleUid = bundle.uid,
+                bundleName = bundle.name,
+                appDisplayName = edit.appName
+            )
+        }
+        DialogHost(target = copyTarget) { target ->
             CopySelectionFromBundleDialog(
-                target = CopySelectionTarget(
-                    packageName = edit.configurationKey,
-                    bundleUid = targetUid,
-                    bundleName = targetBundle.name,
-                    appDisplayName = edit.appName
-                ),
+                target = target,
                 candidates = viewModel.editCopy.candidates,
                 onConfirm = viewModel::applyEditCopy,
                 onDismiss = viewModel.editCopy::close
@@ -292,7 +294,7 @@ fun BatchPatcherScreen(
 
     // The single-app flow's own APK question, pointed at a queued app. It carries the version
     // list, so picking a specific or experimental version works here exactly as it does there
-    viewModel.apkChoice?.let { choice ->
+    DialogHost(target = viewModel.apkChoice) { choice ->
         ApkAvailabilityDialog(
             appName = choice.item.appName,
             packageName = choice.item.packageName,
@@ -319,7 +321,7 @@ fun BatchPatcherScreen(
 
     // The same instructions the single-app flow shows before sending someone to download an
     // APK, pointed at a queued app. Continuing hands off the link and then opens the file picker
-    viewModel.apkSearch?.let { search ->
+    DialogHost(target = viewModel.apkSearch) { search ->
         val bundleMetadata by patchBundleRepository.appMetadata.collectAsStateWithLifecycle()
         val metadata = bundleMetadata[search.item.packageName]
 
@@ -340,7 +342,7 @@ fun BatchPatcherScreen(
 
     // Waits on screen while the user is in the browser, so the picker opens on their tap
     // once they are back rather than behind whatever the browser put in front
-    viewModel.attachPrompt?.let { item ->
+    DialogHost(target = viewModel.attachPrompt) { item ->
         FilePickerPromptDialog(
             appName = item.appName,
             packageName = item.packageName,
@@ -356,7 +358,7 @@ fun BatchPatcherScreen(
     }
 
     // The same source question simple mode answers before a single-app patch
-    viewModel.sourcePick?.let { item ->
+    DialogHost(target = viewModel.sourcePick) { item ->
         // Offered from the full plan, not the narrowed selection, so switching sources works
         val offered = item.resolvedSelection ?: item.selection
         SimpleBundleSelectDialog(
@@ -390,7 +392,7 @@ fun BatchPatcherScreen(
 
     // Cards clamp the failure text, so the full reason lives in the patcher's own error dialog
     var errorItem by remember { mutableStateOf<BatchPatchItem?>(null) }
-    errorItem?.let { item ->
+    DialogHost(target = errorItem) { item ->
         PatcherErrorDialog(
             title = stringResource(R.string.patcher_failed_dialog_title),
             errorMessage = item.message ?: stringResource(R.string.patcher_unknown_error),
@@ -497,137 +499,139 @@ fun BatchPatcherScreen(
     }
 
     val accent = MaterialTheme.colorScheme.primary
-    ListDialog(
-        onDismissRequest = close,
-        header = {
-            // Headed like the other lists, with how the run stands where the subtitle goes
-            ListDialogHeader(
-                icon = { modifier ->
-                    ListDialogHeaderIcon(icon = Icons.Outlined.AutoFixHigh, color = accent, modifier = modifier)
-                },
-                title = stringResource(R.string.batch_patch_title),
-                subtitle = current?.let { batchSummary(it) }.orEmpty(),
-                subtitleLoading = current == null,
-                accentColor = accent,
-                actions = if (isPreflight || hasPatched || hasUnfinished) {
-                    {
-                        // Kept out of the footer, where the button beside Start only closes the screen
-                        if (isPreflight) {
-                            TitleAction(
-                                icon = Icons.Outlined.Delete,
-                                contentDescription = stringResource(R.string.clear),
-                                onClick = { showClearDialog = true },
-                                style = TitleActionStyle.Destructive
-                            )
+    DialogHost(visible = !closing) {
+        ListDialog(
+            onDismissRequest = close,
+            header = {
+                // Headed like the other lists, with how the run stands where the subtitle goes
+                ListDialogHeader(
+                    icon = { modifier ->
+                        ListDialogHeaderIcon(icon = Icons.Outlined.AutoFixHigh, color = accent, modifier = modifier)
+                    },
+                    title = stringResource(R.string.batch_patch_title),
+                    subtitle = current?.let { batchSummary(it) }.orEmpty(),
+                    subtitleLoading = current == null,
+                    accentColor = accent,
+                    actions = if (isPreflight || hasPatched || hasUnfinished) {
+                        {
+                            // Kept out of the footer, where the button beside Start only closes the screen
+                            if (isPreflight) {
+                                TitleAction(
+                                    icon = Icons.Outlined.Delete,
+                                    contentDescription = stringResource(R.string.clear),
+                                    onClick = { showClearDialog = true },
+                                    style = TitleActionStyle.Destructive
+                                )
+                            }
+                            // Every APK the run made in one go, for sending them on together
+                            if (hasPatched) {
+                                TitleAction(
+                                    icon = Icons.Outlined.Share,
+                                    contentDescription = stringResource(R.string.share),
+                                    onClick = { share(patchedItems) },
+                                    style = TitleActionStyle.Accent
+                                )
+                            }
+                            if (hasUnfinished) {
+                                TitleAction(
+                                    icon = Icons.Outlined.Refresh,
+                                    contentDescription = stringResource(R.string.retry),
+                                    onClick = viewModel::retryUnfinished,
+                                    style = TitleActionStyle.Accent
+                                )
+                            }
                         }
-                        // Every APK the run made in one go, for sending them on together
-                        if (hasPatched) {
-                            TitleAction(
-                                icon = Icons.Outlined.Share,
-                                contentDescription = stringResource(R.string.share),
-                                onClick = { share(patchedItems) },
-                                style = TitleActionStyle.Accent
-                            )
-                        }
-                        if (hasUnfinished) {
-                            TitleAction(
-                                icon = Icons.Outlined.Refresh,
-                                contentDescription = stringResource(R.string.retry),
-                                onClick = viewModel::retryUnfinished,
-                                style = TitleActionStyle.Accent
-                            )
-                        }
+                    } else {
+                        null
                     }
-                } else {
-                    null
-                }
-            )
-        },
-        footer = {
-            BatchDialogButtons(
-                state = current,
-                canInstall = installRequests.isNotEmpty(),
-                onStart = viewModel::start,
-                onInstallAll = { startInstallQueue(installRequests) },
-                onClose = close
-            )
-        }
-    ) {
-        DialogLazyList(
-            modifier = Modifier.fillMaxWidth(),
-            state = listState,
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
-        ) {
-            if (current == null) return@DialogLazyList
-
-            // Mixing sources is decided by the plan, not by the user, so this is the one place
-            // it can be pointed out. Said once for the run rather than blocking the queue
-            if (current.phase == BatchPhase.PREFLIGHT &&
-                current.runnable.any { it.selection.keys.size > 1 }
-            ) {
-                item(key = "multiple_sources") {
-                    Notice(
-                        text = stringResource(R.string.batch_patch_multiple_sources),
-                        icon = Icons.Outlined.Info,
-                        tone = SemanticTone.Warning,
-                        density = NoticeDensity.Compact,
-                        modifier = Modifier.animateItem()
-                    )
-                }
-            }
-
-            // Nothing was installed yet, so say where the APKs went
-            if (current.phase == BatchPhase.FINISHED && current.patchedItems.isNotEmpty()) {
-                item(key = "saved_hint") {
-                    Notice(
-                        text = stringResource(R.string.batch_patch_saved_hint),
-                        icon = Icons.Outlined.Save,
-                        density = NoticeDensity.Compact,
-                        modifier = Modifier.animateItem()
-                    )
-                }
-            }
-
-            if (current.phase == BatchPhase.PREFLIGHT) {
-                item {
-                    BatchPolicyCard(
-                        policy = current.policy,
-                        onPolicyChange = viewModel::setPolicy
-                    )
-                }
-            }
-
-            items(current.items, key = { it.id }) { item ->
-                val request = installRequestsByItem[item.id]
-                BatchItemCard(
-                    item = item,
-                    editable = current.phase == BatchPhase.PREFLIGHT,
-                    onSelectApk = { viewModel.beginApkChoice(item) },
-                    onToggleExcluded = { viewModel.toggleExcluded(item.id) },
-                    onForceVersion = { viewModel.forceVersion(item.id) },
-                    onAcceptSignature = { viewModel.acceptUnverifiedSignature(item.id) },
-                    // Simple mode never exposes individual patches, and the options edited
-                    // here would not be persisted for it. Nothing to choose from until an
-                    // APK resolves either, the patch list is scoped to its exact version
-                    onEditPatches = item.source
-                        ?.takeIf { useExpertMode }
-                        ?.let { { viewModel.beginEdit(item) } },
-                    // Simple mode gets the source question it knows from single-app
-                    // patching instead of the patch list it never sees
-                    onPickSource = item
-                        .takeIf {
-                            !useExpertMode &&
-                                (it.resolvedSelection ?: it.selection).keys.size > 1
-                        }
-                        ?.let { { viewModel.beginSourcePick(item) } },
-                    onInstall = request?.let { { startInstallQueue(listOf(it)) } },
-                    onExport = item.patchedFile?.let { file -> { exporter.export(file, item.exportFileName()) } },
-                    onShare = item.patchedFile?.let { { share(listOf(item)) } },
-                    onOpen = item.installedPackageName
-                        ?.takeIf { item.installOutcome == BatchInstallOutcome.INSTALLED }
-                        ?.let { { viewModel.openApp(it) } },
-                    onShowError = { errorItem = item }
                 )
+            },
+            footer = {
+                BatchDialogButtons(
+                    state = current,
+                    canInstall = installRequests.isNotEmpty(),
+                    onStart = viewModel::start,
+                    onInstallAll = { startInstallQueue(installRequests) },
+                    onClose = close
+                )
+            }
+        ) {
+            DialogLazyList(
+                modifier = Modifier.fillMaxWidth(),
+                state = listState,
+                verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
+            ) {
+                if (current == null) return@DialogLazyList
+
+                // Mixing sources is decided by the plan, not by the user, so this is the one place
+                // it can be pointed out. Said once for the run rather than blocking the queue
+                if (current.phase == BatchPhase.PREFLIGHT &&
+                    current.runnable.any { it.selection.keys.size > 1 }
+                ) {
+                    item(key = "multiple_sources") {
+                        Notice(
+                            text = stringResource(R.string.batch_patch_multiple_sources),
+                            icon = Icons.Outlined.Info,
+                            tone = SemanticTone.Warning,
+                            density = NoticeDensity.Compact,
+                            modifier = Modifier.animateItem()
+                        )
+                    }
+                }
+
+                // Nothing was installed yet, so say where the APKs went
+                if (current.phase == BatchPhase.FINISHED && current.patchedItems.isNotEmpty()) {
+                    item(key = "saved_hint") {
+                        Notice(
+                            text = stringResource(R.string.batch_patch_saved_hint),
+                            icon = Icons.Outlined.Save,
+                            density = NoticeDensity.Compact,
+                            modifier = Modifier.animateItem()
+                        )
+                    }
+                }
+
+                if (current.phase == BatchPhase.PREFLIGHT) {
+                    item {
+                        BatchPolicyCard(
+                            policy = current.policy,
+                            onPolicyChange = viewModel::setPolicy
+                        )
+                    }
+                }
+
+                items(current.items, key = { it.id }) { item ->
+                    val request = installRequestsByItem[item.id]
+                    BatchItemCard(
+                        item = item,
+                        editable = current.phase == BatchPhase.PREFLIGHT,
+                        onSelectApk = { viewModel.beginApkChoice(item) },
+                        onToggleExcluded = { viewModel.toggleExcluded(item.id) },
+                        onForceVersion = { viewModel.forceVersion(item.id) },
+                        onAcceptSignature = { viewModel.acceptUnverifiedSignature(item.id) },
+                        // Simple mode never exposes individual patches, and the options edited
+                        // here would not be persisted for it. Nothing to choose from until an
+                        // APK resolves either, the patch list is scoped to its exact version
+                        onEditPatches = item.source
+                            ?.takeIf { useExpertMode }
+                            ?.let { { viewModel.beginEdit(item) } },
+                        // Simple mode gets the source question it knows from single-app
+                        // patching instead of the patch list it never sees
+                        onPickSource = item
+                            .takeIf {
+                                !useExpertMode &&
+                                    (it.resolvedSelection ?: it.selection).keys.size > 1
+                            }
+                            ?.let { { viewModel.beginSourcePick(item) } },
+                        onInstall = request?.let { { startInstallQueue(listOf(it)) } },
+                        onExport = item.patchedFile?.let { file -> { exporter.export(file, item.exportFileName()) } },
+                        onShare = item.patchedFile?.let { { share(listOf(item)) } },
+                        onOpen = item.installedPackageName
+                            ?.takeIf { item.installOutcome == BatchInstallOutcome.INSTALLED }
+                            ?.let { { viewModel.openApp(it) } },
+                        onShowError = { errorItem = item }
+                    )
+                }
             }
         }
     }

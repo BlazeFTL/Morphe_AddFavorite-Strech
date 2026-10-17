@@ -87,7 +87,7 @@ import java.util.Locale
  * @param onCheckUrl Checks a link the way the add will, so a refusal shows before submitting.
  */
 @Composable
-fun AddSourceDialog(
+fun DialogHostScope.AddSourceDialog(
     onDismiss: () -> Unit,
     onRemoteSubmit: (urls: List<String>, chooseApps: Boolean) -> Unit,
     onLocalSubmit: (chooseApps: Boolean) -> Unit,
@@ -109,7 +109,7 @@ fun AddSourceDialog(
     val uriHandler = LocalUriHandler.current
     var showCommunityNotice by rememberSaveable { mutableStateOf(false) }
 
-    if (showCommunityNotice) {
+    DialogHost(visible = showCommunityNotice) {
         ConfirmDialog(
             title = stringResource(R.string.sources_dialog_community_notice_title),
             message = stringResource(R.string.sources_dialog_community_notice_message),
@@ -583,7 +583,7 @@ private fun PendingSourceRow(
  * Dialog for renaming a bundle.
  */
 @Composable
-fun RenameBundleDialog(
+fun DialogHostScope.RenameBundleDialog(
     initialValue: String,
     onDismissRequest: () -> Unit,
     onConfirm: (String) -> Unit
@@ -641,7 +641,7 @@ fun RenameBundleDialog(
  * @param initialQuery Query to open filtered by, carried over from the search that found the source.
  */
 @Composable
-fun BundlePatchesDialog(
+fun DialogHostScope.BundlePatchesDialog(
     onDismissRequest: () -> Unit,
     src: PatchBundleSource,
     initialQuery: String = ""
@@ -762,19 +762,20 @@ fun BundleChangelogHost(
     sources: List<PatchBundleSource>,
     onDismissRequest: () -> Unit
 ) {
-    if (request == null) return
-    val bundle = sources.filterIsInstance<RemotePatchBundle>()
-        .find { it.uid == request.bundleUid } ?: return
-
-    // The notes are read against the version installed when the dialog opened, so only another
-    // request starts the fetch over: an update landing underneath must not reset it
-    key(request) {
-        BundleChangelogDialog(
-            src = bundle,
-            onDismissRequest = onDismissRequest,
-            sinceVersion = request.sinceVersion,
-            subject = request.subject
-        )
+    val shown = request?.let {
+        sources.filterIsInstance<RemotePatchBundle>().find { it.uid == request.bundleUid }?.let { request to it }
+    }
+    DialogHost(target = shown) { (request, bundle) ->
+        // The notes are read against the version installed when the dialog opened, so only another
+        // request starts the fetch over: an update landing underneath must not reset it
+        key(request) {
+            BundleChangelogDialog(
+                src = bundle,
+                onDismissRequest = onDismissRequest,
+                sinceVersion = request.sinceVersion,
+                subject = request.subject
+            )
+        }
     }
 }
 
@@ -792,7 +793,7 @@ fun BundleChangelogHost(
  * Falls back to GitHub Release info if CHANGELOG.md is unavailable.
  */
 @Composable
-fun BundleChangelogDialog(
+fun DialogHostScope.BundleChangelogDialog(
     src: RemotePatchBundle,
     onDismissRequest: () -> Unit,
     sinceVersion: String? = null,
@@ -1070,7 +1071,7 @@ private fun String.sanitizePatchChangelogMarkdown(): String =
  * a few on them. Leaving out the apps the source adds later keeps that cut as it grows.
  */
 @Composable
-fun SourceAppsDialog(
+fun DialogHostScope.SourceAppsDialog(
     onDismissRequest: () -> Unit,
     src: PatchBundleSource
 ) {

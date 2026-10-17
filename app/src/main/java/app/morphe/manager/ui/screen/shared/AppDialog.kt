@@ -5,7 +5,12 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.Transition
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -32,6 +37,7 @@ import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
 import app.morphe.manager.ui.theme.isDarkTheme
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlin.time.Duration.Companion.milliseconds
 
 /** The primary text color of dialog content, read through [dialogTextColor]. */
@@ -59,9 +65,9 @@ fun dialogSecondaryTextColor(): Color =
 val LocalDialogHorizontalInset = compositionLocalOf { 0.dp }
 
 /**
- * Counts the [AppDialog]s and [ListDialog]s currently on screen. Each one paints an opaque
- * full-screen background, so whatever the activity draws behind it is invisible and free to stand
- * still until it closes.
+ * Counts the windows of [DialogHost]s currently on screen. Each one paints an opaque full-screen
+ * background, so whatever the activity draws behind it is invisible and free to stand still until
+ * it closes.
  */
 object FullscreenDialogs {
     private val openCount = mutableIntStateOf(0)
@@ -75,6 +81,144 @@ object FullscreenDialogs {
 
     internal fun onClosed() {
         openCount.intValue--
+    }
+}
+
+/**
+ * Shows the dialog in [content], such as an [AppDialog] or a [ListDialog], in a window of its own
+ * while [visible]. The window brings the dialog in and keeps it until it has animated out, so the
+ * dialog never drops out from under the screen at once.
+ *
+ * @param handsOver Whether the next dialog takes over as this one closes. This one then stays as it
+ *   stood under the next until that one has come in over it, so nothing behind shows between them.
+ * @param content Reads what goes away with the dialog through [DialogHostScope.held].
+ */
+@Composable
+fun DialogHost(
+    visible: Boolean,
+    handsOver: Boolean = false,
+    content: @Composable DialogHostScope.() -> Unit
+) {
+    val handingOver = !visible && handsOver
+    var handedOver by remember { mutableStateOf(false) }
+    LaunchedEffect(handingOver) {
+        if (handingOver) delay(Defaults.ANIMATION_DURATION.toLong().milliseconds)
+        handedOver = handingOver
+    }
+    val shown = visible || (handingOver && !handedOver)
+
+    val state = remember { MutableTransitionState(false) }
+    state.targetState = shown
+    // Runs here rather than in the window, so it settles even once the window is gone
+    val transition = rememberTransition(state, label = "dialog")
+    val leaving = !shown && (transition.currentState || transition.isRunning)
+    if (shown || (leaving && !handsOver)) {
+        val scope = remember(visible) { DialogHostScope(visible, transition) }
+        DialogWindow(transition) { scope.content() }
+    }
+}
+
+/**
+ * [DialogHost] shown while there is a [target] to show it for, which it still holds while the
+ * dialog animates out after the target is cleared.
+ */
+@Composable
+fun <T : Any> DialogHost(
+    target: T?,
+    handsOver: Boolean = false,
+    content: @Composable DialogHostScope.(T) -> Unit
+) {
+    DialogHost(visible = target != null, handsOver = handsOver) {
+        held(target)?.let { content(it) }
+    }
+}
+
+/**
+ * The content of a [DialogHost], which a dialog is laid out in and may outlive what it shows as it
+ * animates out.
+ */
+@Immutable
+class DialogHostScope internal constructor(
+    private val visible: Boolean,
+    private val transition: Transition<Boolean>
+) {
+    /** Whether the dialog has finished coming in, its window's animation settled on it. */
+    internal val entered: Boolean
+        get() = transition.currentState
+    /**
+     * [value] while the dialog is visible, and the last of it as the dialog animates out, so the
+     * dialog leaves as it stood even when what it shows is cleared as it closes.
+     */
+    @Composable
+    fun <T> held(value: T): T {
+        val last = remember { HeldValue(value) }
+        if (visible) last.value = value
+        return last.value
+    }
+}
+
+/** A value a [DialogHostScope] holds, read only as the dialog recomposes anyway. */
+private class HeldValue<T>(var value: T)
+
+/**
+ * The window of a [DialogHost]: the theme's background, a host for messages, the entrance and exit,
+ * and the text colors of what it holds. The dialog in it takes back presses and taps itself.
+ */
+@Composable
+private fun DialogWindow(transition: Transition<Boolean>, content: @Composable () -> Unit) {
+    val isDarkTheme = isDarkTheme()
+
+    DisposableEffect(Unit) {
+        FullscreenDialogs.onOpened()
+
+        onDispose {
+            FullscreenDialogs.onClosed()
+        }
+    }
+
+    Dialog(
+        onDismissRequest = {},
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false,
+            dismissOnBackPress = false,
+            dismissOnClickOutside = false,
+            decorFitsSystemWindows = false
+        )
+    ) {
+        DialogWindowEffect(isDarkTheme)
+
+        // A window of its own, so messages raised while it is open are shown in it
+        MessageHost(modifier = Modifier.fillMaxSize()) {
+            // Opaque from the first frame, so nothing behind shows as one dialog hands over to the
+            // next, and faded out with the content as the dialog leaves
+            transition.AnimatedVisibility(
+                visible = { it },
+                enter = EnterTransition.None,
+                exit = Animations.fadeOut,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background))
+            }
+
+            transition.AnimatedVisibility(
+                visible = { it },
+                enter = Animations.dialogEnter,
+                exit = Animations.dialogExit,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                val textColor = if (isDarkTheme) Color.White else Color.Black
+                CompositionLocalProvider(
+                    // A window of its own, which cannot draw what the one it opened from blurs
+                    LocalBackdropHaze provides null,
+                    LocalSettingsSearch provides null,
+                    LocalSegmentRegistry provides null,
+                    LocalDialogTextColor provides textColor,
+                    LocalDialogSecondaryTextColor provides textColor.copy(alpha = 0.7f),
+                    LocalContentColor provides textColor,
+                    content = content
+                )
+            }
+        }
     }
 }
 
@@ -97,7 +241,7 @@ object FullscreenDialogs {
  * @param content Dialog content, left out by a dialog its [description] says everything for.
  */
 @Composable
-fun AppDialog(
+fun DialogHostScope.AppDialog(
     onDismissRequest: () -> Unit,
     title: String? = null,
     description: CharSequence? = null,
@@ -127,18 +271,19 @@ fun AppDialog(
 }
 
 /**
- * What every fullscreen dialog shares: its own window in the theme's background, a host for
- * messages, the entrance and exit, and the text colors and [accentColor] of its content.
+ * What every fullscreen dialog shares within its [DialogHost]'s window: dismissal by back press,
+ * and by a tap outside where it asks for that, and the [accentColor] of its content.
  *
  * @param accentColor Color of the app or source the dialog is about. Its header, content and
  *   buttons all take it on through [LocalAccent], so the dialog reads as one surface in that color.
  *   Null leaves them in the theme's palette, or in whatever color surrounds the dialog.
+ * @param backdrop Drawn over the window's background and under the dialog, see [AppDialog].
  * @param overlay Drawn over the whole dialog, header, footer and system bars included, such as a
  *   [ContentOverlay] covering it while it is busy.
  * @param onEntered Called once the dialog has finished coming in.
  */
 @Composable
-internal fun DialogShell(
+internal fun DialogHostScope.DialogShell(
     onDismissRequest: () -> Unit,
     accentColor: Color?,
     dismissOnClickOutside: Boolean,
@@ -147,42 +292,21 @@ internal fun DialogShell(
     onEntered: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
-    val isDarkTheme = isDarkTheme()
-    var visible by remember { mutableStateOf(false) }
+    BackHandler(onBack = onDismissRequest)
 
-    DisposableEffect(Unit) {
-        FullscreenDialogs.onOpened()
-
-        onDispose {
-            FullscreenDialogs.onClosed()
+    // Notify caller once the enter animation has completed
+    if (onEntered != null) {
+        val currentOnEntered by rememberUpdatedState(onEntered)
+        LaunchedEffect(Unit) {
+            snapshotFlow { entered }.first { it }
+            currentOnEntered()
         }
     }
 
-    LaunchedEffect(Unit) {
-        visible = true
-        // Notify caller once the enter animation has completed
-        if (onEntered != null) {
-            delay(Defaults.ANIMATION_DURATION.toLong().milliseconds)
-            onEntered()
-        }
-    }
-
-    Dialog(
-        onDismissRequest = onDismissRequest,
-        properties = DialogProperties(
-            usePlatformDefaultWidth = false,
-            dismissOnBackPress = true,
-            dismissOnClickOutside = false,
-            decorFitsSystemWindows = false
-        )
-    ) {
-        DialogWindowEffect(isDarkTheme)
-
-        // A window of its own, so messages raised while it is open are shown in it
-        MessageHost(
+    val dialogContent = @Composable {
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
                 .then(
                     if (dismissOnClickOutside) {
                         Modifier.pointerInput(Unit) {
@@ -192,36 +316,13 @@ internal fun DialogShell(
                 )
         ) {
             backdrop?.invoke(this)
-
-            AnimatedVisibility(
-                visible = visible,
-                enter = Animations.dialogEnter,
-                exit = Animations.dialogExit,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                val textColor = if (isDarkTheme) Color.White else Color.Black
-                val dialogContent = @Composable {
-                    CompositionLocalProvider(
-                        // A window of its own, which cannot draw what the one it opened from blurs
-                        LocalBackdropHaze provides null,
-                        LocalSettingsSearch provides null,
-                        LocalSegmentRegistry provides null,
-                        LocalDialogTextColor provides textColor,
-                        LocalDialogSecondaryTextColor provides textColor.copy(alpha = 0.7f),
-                        LocalContentColor provides textColor
-                    ) {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            // Over the page rather than in its list, so the list's insets stay behind
-                            WithoutBringIntoViewInsets(content)
-                            overlay?.invoke(this)
-                        }
-                    }
-                }
-                // Provided only when there is one, so a dialog opened from a colored one keeps its color
-                if (accentColor != null) ProvideAccent(accentColor, dialogContent) else dialogContent()
-            }
+            // Over the page rather than in its list, so the list's insets stay behind
+            WithoutBringIntoViewInsets(content)
+            overlay?.invoke(this)
         }
     }
+    // Provided only when there is one, so a dialog opened from a colored one keeps its color
+    if (accentColor != null) ProvideAccent(accentColor, dialogContent) else dialogContent()
 }
 
 /** Takes in taps on a dialog's content, so they do not reach a tap outside that dismisses it. */
@@ -334,7 +435,7 @@ fun BoxScope.ContentOverlay(
 
 /**
  * The title, description, content and footer of an [AppDialog], centered together on the screen,
- * or above the keyboard while it is up. Laid out as a list dialog's are, so content too long for
+ * or above the keyboard while it is up. Laid out as a list dialog are, so content too long for
  * the screen scrolls on under the title and footer, edge to edge.
  */
 @Composable

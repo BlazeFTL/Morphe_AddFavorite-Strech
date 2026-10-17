@@ -39,7 +39,7 @@ fun InstallerItem(
     modifier: Modifier = Modifier
 ) {
     var showInstallerDialog by remember { mutableStateOf(false) }
-    if (showInstallerDialog) {
+    DialogHost(visible = showInstallerDialog) {
         InstallerSelectionDialogContainer(
             settingsViewModel = settingsViewModel,
             onDismiss = { showInstallerDialog = false }
@@ -83,7 +83,7 @@ fun InstallerItem(
 
 /** The installer choice, read from and saved to the preferences. */
 @Composable
-private fun InstallerSelectionDialogContainer(
+private fun DialogHostScope.InstallerSelectionDialogContainer(
     settingsViewModel: SettingsViewModel,
     onDismiss: () -> Unit
 ) {
@@ -171,7 +171,7 @@ private fun InstallerSettingsItem(
  * Dialog for selecting installer.
  */
 @Composable
-fun InstallerSelectionDialog(
+fun DialogHostScope.InstallerSelectionDialog(
     options: List<InstallerManager.Entry>,
     selected: InstallerManager.Token,
     onDismiss: () -> Unit,
@@ -406,7 +406,7 @@ fun InstallerSelectionDialog(
         }
     }
 
-    if (pendingPlayStoreModeConfirm) {
+    DialogHost(visible = pendingPlayStoreModeConfirm) {
         PlayStoreInstallerWarningDialog(
             onConfirm = {
                 pendingPlayStoreModeConfirm = false
@@ -416,7 +416,7 @@ fun InstallerSelectionDialog(
         )
     }
 
-    if (pendingAutoUninstallConfirm) {
+    DialogHost(visible = pendingAutoUninstallConfirm) {
         AutoUninstallWarningDialog(
             onConfirm = {
                 pendingAutoUninstallConfirm = false
@@ -426,9 +426,9 @@ fun InstallerSelectionDialog(
         )
     }
 
-    if (showShizukuStatus && shizukuStatusProvider != null) {
+    DialogHost(target = shizukuStatusProvider?.takeIf { showShizukuStatus }) { statusProvider ->
         ShizukuStatusDialog(
-            statusProvider = shizukuStatusProvider,
+            statusProvider = statusProvider,
             onOpenShizuku = onOpenShizuku,
             onRequestPermission = onRequestShizukuPermission,
             onDismiss = { showShizukuStatus = false }
@@ -482,7 +482,7 @@ private fun ModuleUnmountNotice(visible: Boolean = true) {
 }
 
 @Composable
-private fun AutoUninstallWarningDialog(
+private fun DialogHostScope.AutoUninstallWarningDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -520,7 +520,7 @@ private fun AutoUninstallWarningDialog(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun ShizukuStatusDialog(
+private fun DialogHostScope.ShizukuStatusDialog(
     statusProvider: () -> SessionInstaller.ShizukuStatus,
     onOpenShizuku: (() -> Boolean)?,
     onRequestPermission: (() -> Boolean)?,
@@ -767,7 +767,7 @@ fun InstallerOptionItem(
  * Dialog shown when user's preferred installer (Shizuku/Root) is unavailable.
  */
 @Composable
-fun InstallerUnavailableDialog(
+fun DialogHostScope.InstallerUnavailableDialog(
     state: InstallViewModel.InstallerUnavailableState,
     onOpenApp: () -> Unit,
     onRetry: () -> Unit,
@@ -868,7 +868,7 @@ fun InstallerUnavailableDialog(
  * app - accepting the update overwrites the patched APK with the stock one and loses the patches.
  */
 @Composable
-fun PlayStoreInstallerWarningDialog(
+fun DialogHostScope.PlayStoreInstallerWarningDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -919,7 +919,7 @@ fun PlayStoreInstallerWarningDialog(
  * the correct set of patches is applied.
  */
 @Composable
-fun PrePatchInstallerDialog(
+fun DialogHostScope.PrePatchInstallerDialog(
     packageName: String?,
     onSelectMount: () -> Unit,
     onSelectStandard: () -> Unit,

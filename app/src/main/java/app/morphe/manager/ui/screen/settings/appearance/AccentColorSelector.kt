@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.ColorPickerDialog
 import app.morphe.manager.ui.screen.shared.Defaults
+import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.colorpicker.ColorPresetGrid
 import app.morphe.manager.ui.screen.shared.colorpicker.THEME_PRESET_COLORS
 import app.morphe.manager.util.toColorOrNull
@@ -59,7 +60,7 @@ fun AccentColorSelector(
         )
     }
 
-    if (showPicker) {
+    DialogHost(visible = showPicker) {
         // The presets are already on the screen behind the dialog, so repeating them inside it
         // would only push the panel down
         ColorPickerDialog(

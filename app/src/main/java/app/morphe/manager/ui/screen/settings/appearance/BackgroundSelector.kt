@@ -54,7 +54,7 @@ fun BackgroundSettingsItem(
  *        as the app does, with a notice of how long it stays.
  */
 @Composable
-fun BackgroundPickerDialog(
+fun DialogHostScope.BackgroundPickerDialog(
     selectedBackground: BackgroundType,
     onBackgroundSelected: (BackgroundType) -> Unit,
     selectedInterval: RandomInterval,

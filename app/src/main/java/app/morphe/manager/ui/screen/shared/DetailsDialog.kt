@@ -21,7 +21,7 @@ import app.morphe.manager.R
  *        Stacked when they do not fit beside it, above Close, which keeps the bottom as in every other dialog.
  */
 @Composable
-fun DetailsDialog(
+fun DialogHostScope.DetailsDialog(
     onDismissRequest: () -> Unit,
     icon: @Composable (Modifier) -> Unit,
     title: String,

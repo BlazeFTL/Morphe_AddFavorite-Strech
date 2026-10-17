@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.Defaults
+import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.SelectableCard
 import app.morphe.manager.ui.screen.shared.appAccentContent
 import app.morphe.manager.ui.screen.shared.rememberAppColor
@@ -408,7 +409,7 @@ internal fun DynamicAppCard(
             }
         }
 
-        if (showHideDialog.value) {
+        DialogHost(visible = showHideDialog.value) {
             HideAppDialog(
                 item = item,
                 onDismiss = { showHideDialog.value = false },

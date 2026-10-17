@@ -7,7 +7,6 @@ package app.morphe.manager.ui.screen.settings
 
 import android.app.Activity
 import android.os.Build
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -34,10 +33,8 @@ import app.morphe.manager.util.AppCardColorDefaults
 import app.morphe.manager.util.AppCardColorMode
 import app.morphe.manager.util.AppLocale
 import app.morphe.manager.util.MORPHE_WEBSITE_URL
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
-import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * The appearance section of the settings: language and scale, theme, colors and the home screen.
@@ -135,7 +132,7 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
         )
     }
 
-    if (showBackgroundDialog.value) {
+    DialogHost(visible = showBackgroundDialog.value) {
         BackgroundPickerDialog(
             selectedBackground = backgroundType,
             onBackgroundSelected = themeViewModel::setBackgroundType,
@@ -153,11 +150,7 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
     }
 
     // App card color dialog
-    AnimatedVisibility(
-        visible = showAppCardColorDialog.value && showAppCardColorSetting,
-        enter = Animations.fadeIn,
-        exit = Animations.fadeOut
-    ) {
+    DialogHost(visible = showAppCardColorDialog.value && showAppCardColorSetting) {
         AppCardColorDialog(
             mode = appCardColorMode,
             accentColorHex = customAccentColorHex,
@@ -171,11 +164,7 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
     }
 
     // Interface scale dialog
-    AnimatedVisibility(
-        visible = showUiScaleDialog.value,
-        enter = Animations.fadeIn,
-        exit = Animations.fadeOut
-    ) {
+    DialogHost(visible = showUiScaleDialog.value) {
         UiScaleDialog(
             currentScale = uiScale,
             // The scale lives on the activity context, so it takes effect on the next attach.
@@ -190,11 +179,10 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
         )
     }
 
-    // Translation info dialog
-    AnimatedVisibility(
+    // Translation info dialog, shown ahead of the language picker, which takes over from it
+    DialogHost(
         visible = showTranslationInfoDialog.value,
-        enter = Animations.fadeIn,
-        exit = Animations.fadeOut(if (showLanguageDialog.value) 0 else Defaults.ANIMATION_DURATION)
+        handsOver = showLanguageDialog.value
     ) {
         AppDialogWithLinks(
             title = stringResource(R.string.settings_appearance_translations_info_title),
@@ -205,20 +193,13 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
             urlLink = "$MORPHE_WEBSITE_URL/translate",
             onDismiss = {
                 showTranslationInfoDialog.value = false
-                scope.launch {
-                    delay(50.milliseconds)
-                    showLanguageDialog.value = true
-                }
+                showLanguageDialog.value = true
             }
         )
     }
 
     // Language picker dialog
-    AnimatedVisibility(
-        visible = showLanguageDialog.value,
-        enter = Animations.fadeIn,
-        exit = Animations.fadeOut
-    ) {
+    DialogHost(visible = showLanguageDialog.value) {
         LanguagePickerDialog(
             currentLanguage = appLanguage,
             onLanguageSelected = { languageCode ->

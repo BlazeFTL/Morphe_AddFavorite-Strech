@@ -57,6 +57,7 @@ import app.morphe.manager.ui.screen.shared.AnimatedBackground
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.LocalBackdropHaze
 import app.morphe.manager.ui.screen.shared.BackgroundType
+import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.MainPage
 import app.morphe.manager.ui.screen.shared.MessageHost
 import app.morphe.manager.ui.screen.shared.RandomBackground
@@ -415,7 +416,7 @@ private fun MorpheManager(vm: MainViewModel) {
 
     // The manager has no changelog view of its own for a release it has not installed, so the
     // update dialog is the answer to "what's new": it lists exactly the entries being offered
-    if (vm.pendingManagerChangelog) {
+    DialogHost(visible = vm.pendingManagerChangelog) {
         ManagerChangelogDialog(
             onDismiss = { vm.pendingManagerChangelog = false },
             expectsUpdate = true
@@ -455,7 +456,7 @@ private fun MorpheManager(vm: MainViewModel) {
         }
     }
 
-    vm.batchPatchConfirmation?.let { request ->
+    DialogHost(target = vm.batchPatchConfirmation) { request ->
         ExternalBatchPatchDialog(
             callerPackage = request.callerPackage,
             packageCount = request.targets.size,

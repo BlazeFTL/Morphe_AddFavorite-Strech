@@ -53,7 +53,7 @@ data class ConfirmItem(
  * @param notice What the action leaves in place or makes harder later.
  */
 @Composable
-fun ConfirmDialog(
+fun DialogHostScope.ConfirmDialog(
     title: String,
     primaryText: String,
     onConfirm: () -> Unit,
@@ -136,7 +136,7 @@ fun ConfirmSubject(
  * Asks before a download over a metered connection, where the provider may charge for the data.
  */
 @Composable
-fun MeteredDownloadDialog(
+fun DialogHostScope.MeteredDownloadDialog(
     title: String,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
@@ -170,7 +170,7 @@ fun MeteredDownloadDialog(
  * @param onDismiss Callback when OK is pressed
  */
 @Composable
-fun AppDialogWithLinks(
+fun DialogHostScope.AppDialogWithLinks(
     title: String,
     message: String,
     urlLink: String,

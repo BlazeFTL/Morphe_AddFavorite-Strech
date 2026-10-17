@@ -44,7 +44,7 @@ import java.util.Locale
  * Shown when the user swipes right on a home app card.
  */
 @Composable
-fun AppPatchesDialog(
+fun DialogHostScope.AppPatchesDialog(
     item: HomeAppItem,
     patchesByBundle: Map<Int, List<PatchInfo>>,
     bundleNames: Map<Int, String>,
@@ -128,7 +128,7 @@ fun AppPatchesDialog(
  * Confirmation dialog asking user whether to hide the app.
  */
 @Composable
-internal fun HideAppDialog(
+internal fun DialogHostScope.HideAppDialog(
     item: HomeAppItem,
     onDismiss: () -> Unit,
     onHide: () -> Unit
@@ -187,7 +187,7 @@ internal fun HideAppDialog(
  * Long-press enters multi-select; bulk unhide via the selection bar.
  */
 @Composable
-internal fun HiddenAppsDialog(
+internal fun DialogHostScope.HiddenAppsDialog(
     hiddenAppItems: List<HomeAppItem>,
     onUnhide: (String) -> Unit,
     onUnhideMultiple: (Set<String>) -> Unit = {},
@@ -365,7 +365,7 @@ internal fun HiddenAppsDialog(
  * everywhere else - this only decides whether these apps are offered it.
  */
 @Composable
-fun AppPatchSourcesDialog(
+fun DialogHostScope.AppPatchSourcesDialog(
     packages: Set<String>,
     onDismiss: () -> Unit
 ) {

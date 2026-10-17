@@ -134,7 +134,7 @@ private fun PatchingSection(
         settingsViewModel.onExpertModeChanged(useExpertMode)
     }
 
-    if (showExpertModeDialog) {
+    DialogHost(visible = showExpertModeDialog) {
         ConfirmDialog(
             title = stringResource(R.string.settings_advanced_expert_mode_dialog_title),
             message = stringResource(R.string.settings_advanced_expert_mode_dialog_message),

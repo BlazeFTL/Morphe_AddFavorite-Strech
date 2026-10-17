@@ -26,7 +26,7 @@ import app.morphe.manager.ui.screen.shared.*
  * Language picker dialog with searchable list.
  */
 @Composable
-fun LanguagePickerDialog(
+fun DialogHostScope.LanguagePickerDialog(
     currentLanguage: String,
     onLanguageSelected: (String) -> Unit,
     onDismiss: () -> Unit

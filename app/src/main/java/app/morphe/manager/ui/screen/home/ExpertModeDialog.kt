@@ -91,7 +91,7 @@ class ExpertPatchActions(
  * @param appIcon Icon for the header where no source has one, as for a file picked from storage.
  */
 @Composable
-fun ExpertModeDialog(
+fun DialogHostScope.ExpertModeDialog(
     packageName: String,
     appName: String? = null,
     appIcon: Drawable? = null,
@@ -508,7 +508,7 @@ fun ExpertModeDialog(
     }
 
     // Multiple bundles warning dialog
-    if (showMultipleSourcesWarning.value) {
+    DialogHost(visible = showMultipleSourcesWarning.value) {
         ConfirmDialog(
             title = stringResource(R.string.expert_mode_multiple_sources_warning_title),
             message = stringResource(R.string.expert_mode_multiple_sources_warning_message),
@@ -523,9 +523,7 @@ fun ExpertModeDialog(
     }
 
     // Options dialog
-    val patchForOptions = selectedPatchForOptions.value
-    if (patchForOptions != null) {
-        val (bundleUid, patch) = patchForOptions
+    DialogHost(target = selectedPatchForOptions.value) { (bundleUid, patch) ->
         val missingOptionsMessage = stringResource(R.string.patch_option_required_missing, patch.displayName)
         PatchOptionsDialog(
             patch = patch,

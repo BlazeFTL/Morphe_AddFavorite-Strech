@@ -117,7 +117,7 @@ fun resolveAppliedBundleAttribution(
  * Dialog for installed app info and actions.
  */
 @Composable
-fun InstalledAppInfoDialog(
+fun DialogHostScope.InstalledAppInfoDialog(
     packageName: String,
     onDismiss: () -> Unit,
     onTriggerPatchFlow: (originalPackageName: String, repatchedPackageName: String?) -> Unit,
@@ -341,7 +341,7 @@ fun InstalledAppInfoDialog(
     // Everything this dialog opens wears the app's color, as the dialog itself does
     ProvideAccent(infoAccentColor) {
         // Installer unavailable dialog
-        installViewModel.installerUnavailableDialog?.let { dialogState ->
+        DialogHost(target = installViewModel.installerUnavailableDialog) { dialogState ->
             InstallerUnavailableDialog(
                 state = dialogState,
                 onOpenApp = installViewModel::openInstallerApp,
@@ -352,7 +352,7 @@ fun InstalledAppInfoDialog(
         }
 
         // Installer selection dialog (shown when promptInstallerOnInstall is enabled)
-        if (installViewModel.showInstallerSelectionDialog) {
+        DialogHost(visible = installViewModel.showInstallerSelectionDialog) {
             val options = remember { installViewModel.getInstallerOptions() }
             val primaryToken = remember { installViewModel.getPrimaryInstallerToken() }
             InstallerSelectionDialog(
@@ -369,7 +369,7 @@ fun InstalledAppInfoDialog(
         }
 
         // Sub-dialogs
-        if (showAppliedPatchesDialog.value && appliedPatches != null) {
+        DialogHost(visible = showAppliedPatchesDialog.value && appliedPatches != null) {
             AppliedPatchesDialog(
                 appLabel = appLabel,
                 appInfo = appInfo,
@@ -381,8 +381,7 @@ fun InstalledAppInfoDialog(
             )
         }
 
-        val appLinksStatus = viewModel.appLinksStatus
-        if (showAppLinksDialog.value && appLinksStatus?.hasSupportedLinks == true) {
+        DialogHost(target = viewModel.appLinksStatus?.takeIf { showAppLinksDialog.value && it.hasSupportedLinks }) { appLinksStatus ->
             AppLinksDialog(
                 appLabel = appLabel,
                 appInfo = appInfo,
@@ -402,7 +401,7 @@ fun InstalledAppInfoDialog(
         )
 
         // Mount warning dialog
-        if (showMountWarningDialog.value) {
+        DialogHost(visible = showMountWarningDialog.value) {
             MountWarningDialog(
                 onConfirm = {
                     showMountWarningDialog.value = false
@@ -416,7 +415,7 @@ fun InstalledAppInfoDialog(
             )
         }
 
-        if (showUninstallConfirm.value) {
+        DialogHost(visible = showUninstallConfirm.value) {
             ConfirmDialog(
                 title = stringResource(R.string.uninstall),
                 message = stringResource(R.string.home_app_info_uninstall_app_confirmation),
@@ -430,7 +429,7 @@ fun InstalledAppInfoDialog(
             )
         }
 
-        signatureConflict.value?.let { conflict ->
+        DialogHost(target = signatureConflict.value) { conflict ->
             SignatureConflictDialog(
                 title = stringResource(R.string.patcher_conflict_title),
                 message = stringResource(R.string.patcher_conflict_subtitle),
@@ -453,7 +452,7 @@ fun InstalledAppInfoDialog(
             )
         }
 
-        if (showDeleteDialog.value) {
+        DialogHost(visible = showDeleteDialog.value) {
             val isSavedOnly = installedApp?.installType == InstallType.SAVED
             val items = buildList {
                 if (isSavedOnly) {
@@ -1770,7 +1769,7 @@ private fun TileActionButton(
 }
 
 @Composable
-private fun MountWarningDialog(
+private fun DialogHostScope.MountWarningDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -1794,7 +1793,7 @@ private fun MountWarningDialog(
  * same header the app's other dialogs carry.
  */
 @Composable
-private fun AppliedPatchesDialog(
+private fun DialogHostScope.AppliedPatchesDialog(
     appLabel: String,
     appInfo: PackageInfo?,
     accentColor: Color,

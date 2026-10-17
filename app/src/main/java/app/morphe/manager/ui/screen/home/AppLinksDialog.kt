@@ -42,7 +42,7 @@ import org.koin.compose.koinInject
  * user changes it.
  */
 @Composable
-fun AppLinksDialog(
+fun DialogHostScope.AppLinksDialog(
     appLabel: String,
     appInfo: PackageInfo?,
     accentColor: Color?,

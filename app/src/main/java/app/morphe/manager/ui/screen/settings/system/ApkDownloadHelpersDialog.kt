@@ -34,7 +34,7 @@ data class ApkDownloadHelperApp(
  * which of them may be offered when an original APK is needed.
  */
 @Composable
-fun ApkDownloadHelpersDialog(
+fun DialogHostScope.ApkDownloadHelpersDialog(
     settingsViewModel: SettingsViewModel,
     helpers: List<ApkDownloadHelperApp>,
     onDismiss: () -> Unit,

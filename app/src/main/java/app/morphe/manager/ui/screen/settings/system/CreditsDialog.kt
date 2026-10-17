@@ -56,11 +56,11 @@ private val priorContributors = listOf(
  * Shows current and prior contributors with links to their GitHub contributor pages.
  */
 @Composable
-fun CreditsDialog(onDismiss: () -> Unit) {
+fun DialogHostScope.CreditsDialog(onDismiss: () -> Unit) {
     val uriHandler = LocalUriHandler.current
     val showLicensesDialog = remember { mutableStateOf(false) }
 
-    if (showLicensesDialog.value) {
+    DialogHost(visible = showLicensesDialog.value) {
         LicensesDialog(onDismiss = { showLicensesDialog.value = false })
     }
 

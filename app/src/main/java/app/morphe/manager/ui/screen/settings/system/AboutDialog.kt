@@ -60,7 +60,7 @@ private val PILL_TAP_TIMEOUT = 1500.milliseconds
  * Shows app icon, version, description, social links, and credits button.
  */
 @Composable
-fun AboutDialog(
+fun DialogHostScope.AboutDialog(
     onDismiss: () -> Unit,
     themeViewModel: ThemeSettingsViewModel = koinViewModel()
 ) {
@@ -80,11 +80,11 @@ fun AboutDialog(
         versionTaps = 0
     }
 
-    if (showCreditsDialog.value) {
+    DialogHost(visible = showCreditsDialog.value) {
         CreditsDialog(onDismiss = { showCreditsDialog.value = false })
     }
 
-    if (showPillDialog.value) {
+    DialogHost(visible = showPillDialog.value) {
         RedPillDialog(
             alreadyUnlocked = matrixUnlocked,
             onRedPill = { themeViewModel.unlockMatrixBackground() },

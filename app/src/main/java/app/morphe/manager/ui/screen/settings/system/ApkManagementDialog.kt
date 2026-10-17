@@ -176,7 +176,7 @@ class ApkListActions(
  * Universal dialog for managing APK files (patched or original).
  */
 @Composable
-fun ApkManagementDialog(
+fun DialogHostScope.ApkManagementDialog(
     type: ApkManagementType,
     onDismissRequest: () -> Unit
 ) {
@@ -189,7 +189,7 @@ fun ApkManagementDialog(
 }
 
 @Composable
-private fun PatchedApksContent(
+private fun DialogHostScope.PatchedApksContent(
     onDismissRequest: () -> Unit,
     installViewModel: InstallViewModel
 ) {
@@ -428,7 +428,7 @@ private fun PatchedApksContent(
         onDismissRequest = onDismissRequest
     )
 
-    pendingDelete?.let { (data, app) ->
+    DialogHost(target = pendingDelete) { (data, app) ->
         ApkDeleteConfirmDialog(
             data = data,
             title = stringResource(R.string.settings_system_patched_apks_delete_title),
@@ -447,7 +447,7 @@ private fun PatchedApksContent(
 }
 
 @Composable
-private fun OriginalApksContent(
+private fun DialogHostScope.OriginalApksContent(
     onDismissRequest: () -> Unit,
     installViewModel: InstallViewModel
 ) {
@@ -631,7 +631,7 @@ private fun OriginalApksContent(
         onDismissRequest = onDismissRequest
     )
 
-    pendingDelete?.let { (data, apk) ->
+    DialogHost(target = pendingDelete) { (data, apk) ->
         ApkDeleteConfirmDialog(
             data = data,
             title = stringResource(R.string.settings_system_original_apks_delete_title),
@@ -651,7 +651,7 @@ private fun OriginalApksContent(
 }
 
 @Composable
-private fun ApkManagementDialogContent(
+private fun DialogHostScope.ApkManagementDialogContent(
     meta: ApkListMeta,
     actions: ApkListActions,
     items: List<ApkItemData>,
@@ -911,21 +911,23 @@ private fun ApkManagementDialogContent(
         PulsingLogoWithCaption(caption = stringResource(R.string.exporting_apks))
     }
 
-    if (showDeleteAllConfirmation && meta.deleteAllTitle != null && actions.onDeleteAllConfirm != null) {
+    DialogHost(
+        target = meta.deleteAllTitle?.takeIf { showDeleteAllConfirmation && actions.onDeleteAllConfirm != null }
+    ) { deleteAllTitle ->
         ConfirmDialog(
-            title = meta.deleteAllTitle,
+            title = deleteAllTitle,
             message = stringResource(R.string.settings_system_apks_delete_all_confirm),
             primaryText = stringResource(R.string.delete_all),
             items = listOf(apkCountItem(meta.count, meta.totalSize)),
             onDismiss = { showDeleteAllConfirmation = false },
             onConfirm = {
-                actions.onDeleteAllConfirm.invoke()
+                actions.onDeleteAllConfirm?.invoke()
                 showDeleteAllConfirmation = false
             }
         )
     }
 
-    if (showDeleteSelectedConfirmation) {
+    DialogHost(visible = showDeleteSelectedConfirmation) {
         ConfirmDialog(
             title = stringResource(R.string.settings_system_apks_delete_selected_title),
             message = stringResource(R.string.settings_system_apks_delete_selected_confirm),
@@ -941,7 +943,7 @@ private fun ApkManagementDialogContent(
         )
     }
 
-    if (showUninstallSelectedConfirmation) {
+    DialogHost(visible = showUninstallSelectedConfirmation) {
         ConfirmDialog(
             title = pluralStringResource(R.plurals.batch_uninstall_confirm_title, selectedInstalledItems.size, selectedInstalledItems.size.toString()),
             message = stringResource(R.string.batch_uninstall_confirm_body),
@@ -956,7 +958,7 @@ private fun ApkManagementDialogContent(
         )
     }
 
-    itemToUninstallConfirm?.let { item ->
+    DialogHost(target = itemToUninstallConfirm) { item ->
         ConfirmDialog(
             title = pluralStringResource(R.plurals.batch_uninstall_confirm_title, 1, "1"),
             message = stringResource(R.string.batch_uninstall_confirm_body),
@@ -1138,7 +1140,7 @@ private suspend fun uninstallStorageItem(
 
 /** Confirms deleting the one APK of [data], naming its app and the file with its size. */
 @Composable
-private fun ApkDeleteConfirmDialog(
+private fun DialogHostScope.ApkDeleteConfirmDialog(
     data: ApkItemData,
     title: String,
     fileIcon: ImageVector,

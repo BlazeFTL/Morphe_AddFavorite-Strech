@@ -83,7 +83,7 @@ fun AppIconSettingsItem() {
         leadingContent = { AppIconPreview(icon = currentIcon.value, size = Defaults.IconSize) }
     )
 
-    if (showPicker.value) {
+    DialogHost(visible = showPicker.value) {
         // The icon being built, only applied once confirmed
         var pending by remember { mutableStateOf(currentIcon.value) }
 
@@ -106,7 +106,7 @@ fun AppIconSettingsItem() {
     }
 
     // Confirmation dialog
-    showConfirmDialog.value?.let { selectedIcon ->
+    DialogHost(target = showConfirmDialog.value) { selectedIcon ->
         AppIconChangeDialog(
             icon = selectedIcon,
             onConfirm = {
@@ -410,7 +410,7 @@ private fun AppIconCard(
  * Confirmation dialog for icon change.
  */
 @Composable
-private fun AppIconChangeDialog(
+private fun DialogHostScope.AppIconChangeDialog(
     icon: AppIcon,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit

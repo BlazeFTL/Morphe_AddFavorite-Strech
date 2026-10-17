@@ -39,7 +39,7 @@ enum class SettingsSubpage(
         Icons.Outlined.NotificationsActive
     ),
     INSTALLER(
-        R.string.installer_settings_title,
+        R.string.settings_installation,
         R.string.onboarding_system_installer_desc,
         Icons.Outlined.InstallMobile
     )

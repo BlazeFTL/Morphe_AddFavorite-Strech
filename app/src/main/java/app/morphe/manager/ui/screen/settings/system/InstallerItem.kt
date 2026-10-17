@@ -50,7 +50,7 @@ fun InstallerItem(
 
     if (primaryEntry != null) {
         InstallerSettingsItem(
-            title = stringResource(R.string.installer_settings_title),
+            title = stringResource(R.string.settings_installation),
             entry = primaryEntry,
             onClick = onClick,
             modifier = modifier

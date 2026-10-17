@@ -564,7 +564,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="root_mount_module_unmount_warning">If KernelSU has Unmount modules by default enabled, open KernelSU > Superuser > the app you mounted > Profile > Custom and disable Unmount modules. Otherwise the mounted patched APK may not take effect, even if Morphe shows it as mounted</string>
     <string name="root_pre_patch_installer_standard_title">Standard install mode</string>
     <string name="root_pre_patch_installer_standard_description">Patches as a normal APK with GmsCore support. Your installer setting is used after patching</string>
-    <string name="root_pre_patch_installer_hint">Asked while Settings > Patching > Default installer > Installer selection prompt is on. The patch mode cannot be changed after patching</string>
+    <string name="root_pre_patch_installer_hint">Asked while Settings > Patching > Installation > Installer selection prompt is on. The patch mode cannot be changed after patching</string>
 
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Error copied to clipboard</string>
@@ -1064,6 +1064,7 @@ The image dimensions must be as follows:
     <!-- Settings - System Tab - Installer Section -->
     <string name="installer">Installer</string>
     <string name="installer_settings_title">Default installer</string>
+    <string name="settings_installation">Installation</string>
     <string name="installer_title">Select installer</string>
     <string name="installer_internal_description">Uses the Android package installer</string>
     <string name="installer_play_store_description">Uses the system installer and sets Google Play Store as the install source</string>

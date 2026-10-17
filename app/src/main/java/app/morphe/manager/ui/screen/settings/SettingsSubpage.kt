@@ -41,7 +41,6 @@ enum class SettingsSubpage(
             R.string.settings_appearance_ui_scale,
             R.string.settings_appearance_theme,
             R.string.settings_appearance_pure_black,
-            R.string.settings_appearance_colors,
             R.string.settings_appearance_color_accents,
             R.string.settings_appearance_app_card_colors,
             R.string.settings_appearance_outlines,

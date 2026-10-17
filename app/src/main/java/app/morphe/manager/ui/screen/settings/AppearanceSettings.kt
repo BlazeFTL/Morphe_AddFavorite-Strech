@@ -121,19 +121,15 @@ fun AppearanceSettings(
             onOutlinesToggle = { themeViewModel.toggleOutlines(outlines) },
             backgroundType = backgroundType,
             randomInterval = randomInterval,
-            onBackgroundClick = { showBackgroundDialog.value = true }
-        )
-
-        ColorsSection(
-            themeStyle = effectiveThemeStyle,
+            onBackgroundClick = { showBackgroundDialog.value = true },
             accentColorHex = customAccentColorHex,
-            appCardColorMode = appCardColorMode,
-            showAppCardColors = showAppCardColorSetting,
-            onAccentSelected = themeViewModel::setCustomAccentColor,
-            onAppCardColorsClick = { showAppCardColorDialog.value = true }
+            onAccentSelected = themeViewModel::setCustomAccentColor
         )
 
         HomeScreenSection(
+            appCardColorMode = appCardColorMode,
+            showAppCardColors = showAppCardColorSetting,
+            onAppCardColorsClick = { showAppCardColorDialog.value = true },
             showGreetingPhrases = showGreetingPhrases,
             showRepatchNotice = showRepatchNotice,
             showSortButton = showSortButton,
@@ -287,8 +283,8 @@ private fun LanguageAndDisplaySection(
 }
 
 /**
- * Theme mode and color style, then how the rest of the manager is dressed: pure black, the colors
- * apps and sources wear, outlines, the animated background and the launcher icon.
+ * Theme mode and color style, then how the rest of the manager is dressed: its accent, pure black,
+ * the colors apps and sources wear, outlines, the animated background and the launcher icon.
  */
 @Composable
 private fun ThemeSection(
@@ -306,7 +302,9 @@ private fun ThemeSection(
     onOutlinesToggle: () -> Unit,
     backgroundType: BackgroundType,
     randomInterval: RandomInterval,
-    onBackgroundClick: () -> Unit
+    onBackgroundClick: () -> Unit,
+    accentColorHex: String?,
+    onAccentSelected: (Color?) -> Unit
 ) {
     SectionTitle(
         text = stringResource(R.string.settings_appearance_theme),
@@ -321,7 +319,24 @@ private fun ThemeSection(
         onStyleSelected = onStyleSelected
     )
 
+    // Dynamic color derives the accent from the wallpaper, leaving nothing to pick here
+    val showAccent = themeStyle != ThemeStyle.MATERIAL_YOU
+
     SettingsGroup {
+        AnimatedVisibility(
+            visible = showAccent,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
+            SettingsItemCard(onClick = null) {
+                AccentColorSelector(
+                    selectedColorHex = accentColorHex,
+                    onColorSelected = onAccentSelected,
+                    dynamicColorEnabled = !showAccent
+                )
+            }
+        }
+
         AnimatedVisibility(
             visible = supportsPureBlack,
             enter = Animations.expandFadeEnter,
@@ -370,62 +385,15 @@ private fun ThemeSection(
 }
 
 /**
- * Accent color and home app card colors, both driven by the active theme style.
- */
-@Composable
-private fun ColorsSection(
-    themeStyle: ThemeStyle,
-    accentColorHex: String?,
-    appCardColorMode: AppCardColorMode,
-    showAppCardColors: Boolean,
-    onAccentSelected: (Color?) -> Unit,
-    onAppCardColorsClick: () -> Unit
-) {
-    SectionTitle(
-        text = stringResource(R.string.settings_appearance_colors),
-        icon = Icons.Outlined.ColorLens
-    )
-
-    // Dynamic color derives the accent from the wallpaper, leaving nothing to pick here
-    val showAccent = themeStyle != ThemeStyle.MATERIAL_YOU
-
-    // Monochrome leaves app cards colorless and `Material You` has no accent to pick, and no style
-    // is both, so the group always has at least one of the two
-    SettingsGroup {
-        AnimatedVisibility(
-            visible = showAccent,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
-            SettingsItemCard(onClick = null) {
-                AccentColorSelector(
-                    selectedColorHex = accentColorHex,
-                    onColorSelected = onAccentSelected,
-                    dynamicColorEnabled = !showAccent
-                )
-            }
-        }
-
-        AnimatedVisibility(
-            visible = showAppCardColors,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
-            SettingsItem(
-                onClick = onAppCardColorsClick,
-                title = stringResource(R.string.settings_appearance_app_card_colors),
-                subtitle = stringResource(appCardColorMode.descriptionResId),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
-            )
-        }
-    }
-}
-
-/**
- * Toggles for what the home screen shows.
+ * How the home screen looks: the colors its app cards wear, then what it shows.
+ *
+ * @param showAppCardColors Whether the theme leaves app cards a color to pick, which monochrome does not.
  */
 @Composable
 private fun HomeScreenSection(
+    appCardColorMode: AppCardColorMode,
+    showAppCardColors: Boolean,
+    onAppCardColorsClick: () -> Unit,
     showGreetingPhrases: Boolean,
     showRepatchNotice: Boolean,
     showSortButton: Boolean,
@@ -439,6 +407,18 @@ private fun HomeScreenSection(
     )
 
     SettingsGroup {
+        AnimatedVisibility(
+            visible = showAppCardColors,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
+            SettingsItem(
+                onClick = onAppCardColorsClick,
+                title = stringResource(R.string.settings_appearance_app_card_colors),
+                subtitle = stringResource(appCardColorMode.descriptionResId),
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
+            )
+        }
         SettingsSwitchItem(
             title = stringResource(R.string.settings_appearance_greeting_phrases),
             subtitle = stringResource(R.string.settings_appearance_greeting_phrases_subtitle),

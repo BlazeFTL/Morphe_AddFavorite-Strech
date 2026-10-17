@@ -40,8 +40,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.shared.ActionPillButton
-import app.morphe.manager.ui.screen.shared.ActionPillColors
+import app.morphe.manager.ui.screen.shared.AppDialogButtonRow
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.CardBorder
 import app.morphe.manager.ui.screen.shared.Defaults
@@ -50,6 +49,7 @@ import app.morphe.manager.ui.screen.shared.PanelHeader
 import app.morphe.manager.ui.screen.shared.PanelSubtitle
 import app.morphe.manager.ui.screen.shared.PanelTitle
 import app.morphe.manager.ui.screen.shared.ProvideBringIntoViewInsets
+import app.morphe.manager.ui.screen.shared.glassFill
 import app.morphe.manager.ui.screen.shared.TitleAction
 import app.morphe.manager.ui.screen.shared.TitleActionStyle
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
@@ -250,12 +250,18 @@ private fun OnboardingCard(
     onSkip: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Drawn and headed like a selection panel, the other surface that floats over the home screen
+    // Drawn and headed like a selection panel, the other surface that floats over the home screen,
+    // blurring what it covers as one does
+    val surface = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.background)
+    val shape = RoundedCornerShape(Defaults.CornerLargeIncreased)
     Surface(
-        modifier = modifier.widthIn(max = 380.dp),
-        shape = RoundedCornerShape(Defaults.CornerLargeIncreased),
-        color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.background),
-        shadowElevation = 8.dp,
+        modifier = modifier
+            .widthIn(max = 380.dp)
+            .glassFill(surface, shape),
+        shape = shape,
+        color = Color.Transparent,
+        contentColor = contentColorFor(surface),
+        // No shadow, which would show through the glass as one cast under a solid card does not
         border = CardBorder.neutral
     ) {
         Column(modifier = Modifier.padding(bottom = Defaults.SpaceLarge)) {
@@ -281,35 +287,17 @@ private fun OnboardingCard(
                 modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)
             )
             Spacer(Modifier.height(Defaults.SpaceLarge))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Defaults.SpaceLarge),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
-            ) {
-                if (onPrevious != null) {
-                    val back = stringResource(R.string.back)
-                    ActionPillButton(
-                        onClick = onPrevious,
-                        icon = Icons.AutoMirrored.Outlined.ArrowBack,
-                        contentDescription = back,
-                        label = back,
-                        large = true,
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-                val isLast = step == totalSteps
-                val next = stringResource(if (isLast) R.string.done else R.string.next)
-                ActionPillButton(
-                    onClick = onNext,
-                    icon = if (isLast) Icons.Outlined.Check else Icons.AutoMirrored.Outlined.ArrowForward,
-                    contentDescription = next,
-                    label = next,
-                    large = true,
-                    colors = ActionPillColors.primary(),
-                    modifier = Modifier.weight(1f)
-                )
-            }
+            // Footed as the dialogs are, so the card reads as one of them
+            val isLast = step == totalSteps
+            AppDialogButtonRow(
+                primaryText = stringResource(if (isLast) R.string.done else R.string.next),
+                onPrimaryClick = onNext,
+                primaryIcon = if (isLast) Icons.Outlined.Check else Icons.AutoMirrored.Outlined.ArrowForward,
+                secondaryText = onPrevious?.let { stringResource(R.string.back) },
+                onSecondaryClick = onPrevious,
+                secondaryIcon = Icons.AutoMirrored.Outlined.ArrowBack,
+                modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)
+            )
         }
     }
 }

@@ -56,6 +56,7 @@ import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.settings.SettingsSubpageScreen
 import app.morphe.manager.ui.screen.shared.AnimatedBackground
 import app.morphe.manager.ui.screen.shared.Animations
+import app.morphe.manager.ui.screen.shared.LocalBackdropHaze
 import app.morphe.manager.ui.screen.shared.BackgroundType
 import app.morphe.manager.ui.screen.shared.MainPage
 import app.morphe.manager.ui.screen.shared.MessageHost
@@ -71,6 +72,8 @@ import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.MainViewModel
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
 import app.morphe.manager.util.*
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -557,10 +560,14 @@ private fun MorpheManager(vm: MainViewModel) {
             patchingCompleted = { patchingCompleted.value }
         )
 
+        // What the tour's card blurs, recorded only while the tour runs
+        val tourHaze = rememberHazeState()
+
         // All content on top of background
         NavHost(
             navController = navController,
             startDestination = HomeScreen,
+            modifier = if (showOnboarding) Modifier.hazeSource(tourHaze) else Modifier,
             enterTransition = { Animations.screenEnter },
             exitTransition = { Animations.screenExit },
             popEnterTransition = { Animations.screenEnter },
@@ -687,7 +694,9 @@ private fun MorpheManager(vm: MainViewModel) {
         }
 
         if (showOnboarding) {
-            OnboardingShowcase(steps = onboardingSteps, onComplete = finishOnboardingTour)
+            CompositionLocalProvider(LocalBackdropHaze provides tourHaze) {
+                OnboardingShowcase(steps = onboardingSteps, onComplete = finishOnboardingTour)
+            }
         }
     }
 }

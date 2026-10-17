@@ -235,7 +235,8 @@ internal fun PatchOptionsDialog(
                 subtitle = listOf(
                     appName,
                     pluralStringResource(R.plurals.option_count, options.size, options.size.toString())
-                ).joinToString(" · ")
+                ).joinToString(" · "),
+                alwaysShowBand = true
             ) {
                 TitleAction(
                     icon = Icons.Outlined.Restore,

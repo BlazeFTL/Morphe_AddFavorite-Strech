@@ -34,7 +34,7 @@ fun DetailsDialog(
         onDismissRequest = onDismissRequest,
         accentColor = accentColor,
         header = {
-            ListDialogHeader(icon = icon, title = title, subtitle = subtitle)
+            ListDialogHeader(icon = icon, title = title, subtitle = subtitle, alwaysShowBand = true)
         },
         footer = {
             val close = DialogAction(

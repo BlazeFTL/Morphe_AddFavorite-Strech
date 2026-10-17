@@ -753,6 +753,7 @@ private fun InstalledAppHeader(
         accentColor = accentColor,
         // Wraps rather than clips: a clone carries a chip more than other installs do
         badges = if (compactHeader) null else { { badges() } },
+        alwaysShowBand = true,
         // A wide screen sets the chips in a column beside the name
         actions = if (compactHeader) {
             {

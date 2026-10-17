@@ -50,7 +50,8 @@ fun CreatorDialogFrame(
                     AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
                 },
                 title = title,
-                subtitle = KnownApps.getAppName(packageName)
+                subtitle = KnownApps.getAppName(packageName),
+                alwaysShowBand = true
             ) {
                 TitleAction(
                     icon = Icons.Outlined.Info,

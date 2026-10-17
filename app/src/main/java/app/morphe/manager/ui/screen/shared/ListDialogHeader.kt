@@ -120,9 +120,9 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
  * Head of a list dialog that names what the list belongs to: its [icon], [title] and a
  * [subtitle] summing the list up, with the list's search field and its toggle where it has one.
  *
- * The header floats over its [ListDialog]'s list, bare while the list rests at its start. Once the
- * list scrolls on under it, it lays down a band like the app details' one, reaching the screen's
- * edges and blurring the rows under it, see [HeaderBand].
+ * The header floats over its [ListDialog]'s list, bare while the list rests at its start unless
+ * [alwaysShowBand] keeps its band down. Once the list scrolls on under it, it lays down a band like
+ * the app details' one, reaching the screen's edges and blurring the rows under it, see [HeaderBand].
  *
  * @param subtitleLoading Shows a shimmer in place of the [subtitle] while the list it sums uploads,
  *   easing into the text once it is there.
@@ -142,6 +142,8 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
  *   the whole of it. Under the [content], it folds away under the rest of the header together with
  *   the [badges] as the list scrolls on, and comes back as the list scrolls back, see
  *   [DialogHeaderCollapse].
+ * @param alwaysShowBand Keeps the band down while the list rests too, for a dialog about one thing,
+ *   such as an app's details or a patch's options, rather than a list to browse.
  * @param actions Title actions drawn ahead of the search toggle.
  */
 @Composable
@@ -158,6 +160,7 @@ fun ListDialogHeader(
     badges: (@Composable FlowRowScope.() -> Unit)? = null,
     content: (@Composable ColumnScope.() -> Unit)? = null,
     collapsible: (@Composable ColumnScope.() -> Unit)? = null,
+    alwaysShowBand: Boolean = false,
     actions: (@Composable RowScope.() -> Unit)? = null
 ) {
     // An accent read from a picture can land after the header is up, so the band eases into it
@@ -167,9 +170,9 @@ fun ListDialogHeader(
         label = "list_header_band"
     )
     Box(modifier = modifier.fillMaxWidth()) {
-        // Bare at rest, the band laid down once the list scrolls on under the header
+        // Bare at rest unless always shown, the band laid down once the list scrolls on under the header
         val backdrop = LocalHeaderBackdrop.current
-        HeaderBand(band, HeaderBandShape, scrolledUnder = { backdrop?.scrolledUnder ?: true })
+        HeaderBand(band, HeaderBandShape, scrolledUnder = { alwaysShowBand || backdrop?.scrolledUnder ?: true })
         HeaderContent(
             icon = icon,
             title = title,

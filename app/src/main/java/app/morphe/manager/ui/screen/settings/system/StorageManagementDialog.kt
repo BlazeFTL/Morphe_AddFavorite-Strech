@@ -100,7 +100,8 @@ fun StorageManagementDialog(
                 title = stringResource(R.string.settings_system_storage_management_title),
                 subtitle = context.formatUsedFree(used = stats.appUsedBytes, free = stats.deviceFreeBytes),
                 subtitleLoading = loading,
-                accentColor = accent
+                accentColor = accent,
+                alwaysShowBand = true
             ) {
                 TitleAction(
                     icon = Icons.Outlined.Refresh,

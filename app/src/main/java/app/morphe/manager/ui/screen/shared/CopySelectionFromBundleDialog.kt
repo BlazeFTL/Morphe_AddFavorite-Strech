@@ -93,7 +93,8 @@ fun CopySelectionFromBundleDialog(
                         color = dialogTextColor(),
                         modifier = Modifier.padding(top = Defaults.SpaceMedium)
                     )
-                }
+                },
+                alwaysShowBand = true
             )
         },
         footer = {

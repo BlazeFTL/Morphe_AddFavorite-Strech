@@ -51,8 +51,8 @@
     <string name="home_update_success_subtitle">Your sources are up to date</string>
     <string name="home_sources_are_loading">Sources are loading, please wait…</string>
     <string name="home_search_apps">Search apps</string>
-    <string name="home_app_list_options_title">Sort and filter</string>
-    <string name="home_app_list_options_state_description">Sorted by %1$s, filtered by %2$s</string>
+    <string name="list_options_title">Sort and filter</string>
+    <string name="list_options_state_description">Sorted by %1$s, filtered by %2$s</string>
     <string name="home_app_filter_all_description">Every app on the home screen</string>
     <string name="home_app_filter_patched_description">Apps you have patched or saved with Morphe</string>
     <string name="home_app_filter_not_patched_description">Apps you have not patched in Morphe yet</string>

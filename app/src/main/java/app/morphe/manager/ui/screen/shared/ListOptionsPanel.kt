@@ -54,7 +54,7 @@ inline fun <reified T> listOptionSection(
 @Composable
 fun listOptionsStateDescription(@StringRes sortRes: Int, @StringRes filterRes: Int?): String =
     if (filterRes != null) {
-        stringResource(R.string.home_app_list_options_state_description, stringResource(sortRes), stringResource(filterRes))
+        stringResource(R.string.list_options_state_description, stringResource(sortRes), stringResource(filterRes))
     } else {
         stringResource(sortRes)
     }
@@ -76,7 +76,7 @@ fun ListOptionsPanel(
 
     DockedPanel(visible = visible, onBack = onClose, modifier = modifier) {
         Column(modifier = Modifier.padding(bottom = Defaults.SpaceSmall)) {
-            PanelHeader(title = { PanelTitle(text = stringResource(R.string.home_app_list_options_title)) }) {
+            PanelHeader(title = { PanelTitle(text = stringResource(R.string.list_options_title)) }) {
                 TitleAction(
                     icon = Icons.Outlined.Restore,
                     contentDescription = stringResource(R.string.reset),

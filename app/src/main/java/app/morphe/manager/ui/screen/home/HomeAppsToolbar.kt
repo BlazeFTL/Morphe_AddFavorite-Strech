@@ -17,6 +17,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppSortMode
@@ -58,7 +59,9 @@ internal fun HomeAppsToolbar(
                 value = searchState.query,
                 onValueChange = searchState.onQueryChange,
                 label = stringResource(R.string.home_search_apps),
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f)
+                    .onFocusChanged { searchState.onFocusChange(it.isFocused) },
                 glass = true
             )
         } else {

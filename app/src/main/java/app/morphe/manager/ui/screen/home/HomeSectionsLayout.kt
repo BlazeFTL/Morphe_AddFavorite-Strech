@@ -35,6 +35,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -129,11 +130,12 @@ data class HomeChromeFlags(
     val showOtherAppsButton: Boolean
 )
 
-/** The apps search: its query, and the callbacks that change or clear it. */
+/** The apps search: its query, and the callbacks that change it, follow its focus or clear it. */
 @Stable
 class HomeSearchState(
     val query: String,
     val onQueryChange: (String) -> Unit,
+    val onFocusChange: (Boolean) -> Unit,
     val onClear: () -> Unit
 )
 
@@ -164,13 +166,22 @@ internal fun SectionsLayout(
     LaunchedEffect(chromeFlags.showSearchButton) {
         if (!chromeFlags.showSearchButton) searchQuery = ""
     }
-    // Back clears the search (registered before the footer bars' own back handling, so an open bar takes priority)
-    BackHandler(enabled = searchQuery.isNotEmpty()) { searchQuery = "" }
+    var searchFocused by remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
+    // Back leaves the field first, then clears the search (registered before the footer bars' own
+    // back handling, so an open bar takes priority)
+    BackHandler(enabled = searchFocused || searchQuery.isNotEmpty()) {
+        if (searchFocused) focusManager.clearFocus() else searchQuery = ""
+    }
 
     val searchState = HomeSearchState(
         query = searchQuery,
         onQueryChange = { searchQuery = it },
-        onClear = { searchQuery = "" }
+        onFocusChange = { searchFocused = it },
+        onClear = {
+            searchQuery = ""
+            focusManager.clearFocus()
+        }
     )
     // The saved filter applies only while the sort button is there to undo it. Not written back
     // when the button goes, since it is also absent while the list is still loading

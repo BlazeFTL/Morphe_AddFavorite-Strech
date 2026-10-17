@@ -8,21 +8,15 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.animateScrollBy
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -129,30 +123,12 @@ private fun ScrollToTopButtonImpl(
             bottom = ButtonPadding + extraBottomPadding
         )
     ) {
-        val interactionSource = remember { MutableInteractionSource() }
-        val shape = rememberPressShape(interactionSource, CircleShape)
-        val container = HeaderControlDefaults.container()
-        Surface(
-            onClick = rememberHapticClick(onClick),
-            shape = shape,
-            // The glass of the header controls, laid on the screen rather than over the rows, as it
-            // floats within what it scrolls and has nothing under it to blur
-            color = Color.Transparent,
-            contentColor = HeaderControlDefaults.content(container),
-            // Edged in the dialog's color, as its outlined buttons are
-            border = CardBorder.of(LocalAccent.current?.let { appAccentBorder(it) } ?: GlassButtonDefaults.borderColor()),
-            interactionSource = interactionSource,
-            modifier = Modifier
-                .size(HeaderControlDefaults.Size)
-                .glassFill(container, shape)
-        ) {
-            Box(contentAlignment = Alignment.Center) {
-                Icon(
-                    imageVector = Icons.Rounded.KeyboardArrowUp,
-                    contentDescription = label,
-                    modifier = Modifier.size(Defaults.IconSize)
-                )
-            }
-        }
+        // The see-through glass of the patcher's action bar, as round as it is tall
+        ActionGlassButton(
+            onClick = onClick,
+            icon = Icons.Rounded.KeyboardArrowUp,
+            contentDescription = label,
+            modifier = Modifier.size(Defaults.GlassButtonHeight)
+        )
     }
 }

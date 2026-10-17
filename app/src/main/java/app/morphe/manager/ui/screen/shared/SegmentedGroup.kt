@@ -61,6 +61,7 @@ fun Modifier.endsBlock(ends: Boolean = true): Modifier =
  * Settings that belong together, each row a segment of one group: rounded on the group's own
  * edges and nearly square where two rows meet, as Material's segmented lists are. Every outermost
  * [SurfaceCard] inside is a row however it is wrapped, so one shown or hidden reshapes the rest.
+ * A search that leaves none of its rows folds it away whole, see [SettingsSearch].
  */
 @Composable
 fun SettingsGroup(
@@ -69,7 +70,7 @@ fun SettingsGroup(
 ) {
     val registry = remember { SegmentRegistry() }
     CompositionLocalProvider(LocalSegmentRegistry provides registry) {
-        Column(modifier = modifier.fillMaxWidth(), content = content)
+        SearchableGroupColumn(modifier = modifier.fillMaxWidth(), content = content)
     }
 }
 

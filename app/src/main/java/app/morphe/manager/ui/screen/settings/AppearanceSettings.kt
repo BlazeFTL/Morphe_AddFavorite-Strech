@@ -98,7 +98,7 @@ fun AppearanceSettings(
         if (!showAppCardColorSetting) showAppCardColorDialog.value = false
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
+    SettingsColumn {
         LanguageAndDisplaySection(
             appLanguage = appLanguage,
             uiScale = uiScale,
@@ -250,35 +250,35 @@ private fun LanguageAndDisplaySection(
         LanguageRepository.getLanguage(appLanguage, context)
     }
 
-    SectionTitle(
-        text = stringResource(R.string.settings_appearance_language_and_display),
+    SettingsSection(
+        title = stringResource(R.string.settings_appearance_language_and_display),
         icon = Icons.Outlined.Language
-    )
-
-    SettingsGroup {
-        SettingsItem(
-            onClick = onLanguageClick,
-            title = stringResource(R.string.settings_appearance_app_language_current),
-            subtitle = currentLanguage.displayName,
-            leadingContent = {
-                Box(
-                    modifier = Modifier.size(Defaults.IconSize),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = currentLanguage.flag,
-                        fontSize = 20.sp,
-                        lineHeight = 20.sp
-                    )
+    ) {
+        SettingsGroup {
+            SettingsItem(
+                onClick = onLanguageClick,
+                title = stringResource(R.string.settings_appearance_app_language_current),
+                subtitle = currentLanguage.displayName,
+                leadingContent = {
+                    Box(
+                        modifier = Modifier.size(Defaults.IconSize),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = currentLanguage.flag,
+                            fontSize = 20.sp,
+                            lineHeight = 20.sp
+                        )
+                    }
                 }
-            }
-        )
-        SettingsItem(
-            onClick = onUiScaleClick,
-            title = stringResource(R.string.settings_appearance_ui_scale),
-            subtitle = "${uiScale.toUiScalePercent()}%",
-            leadingContent = { ThemedIcon(icon = Icons.Outlined.FormatSize) }
-        )
+            )
+            SettingsItem(
+                onClick = onUiScaleClick,
+                title = stringResource(R.string.settings_appearance_ui_scale),
+                subtitle = "${uiScale.toUiScalePercent()}%",
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.FormatSize) }
+            )
+        }
     }
 }
 
@@ -306,81 +306,85 @@ private fun ThemeSection(
     accentColorHex: String?,
     onAccentSelected: (Color?) -> Unit
 ) {
-    SectionTitle(
-        text = stringResource(R.string.settings_appearance_theme),
+    SettingsSection(
+        title = stringResource(R.string.settings_appearance_theme),
         icon = Icons.Outlined.Palette
-    )
+    ) {
+        SearchableSetting(listOf(stringResource(R.string.settings_appearance_theme))) {
+            ThemeSelector(
+                theme = theme,
+                onThemeSelected = onThemeSelected,
+                style = themeStyle,
+                supportsDynamicColor = supportsDynamicColor,
+                onStyleSelected = onStyleSelected
+            )
+        }
 
-    ThemeSelector(
-        theme = theme,
-        onThemeSelected = onThemeSelected,
-        style = themeStyle,
-        supportsDynamicColor = supportsDynamicColor,
-        onStyleSelected = onStyleSelected
-    )
+        // Dynamic color derives the accent from the wallpaper, leaving nothing to pick here
+        val showAccent = themeStyle != ThemeStyle.MATERIAL_YOU
 
-    // Dynamic color derives the accent from the wallpaper, leaving nothing to pick here
-    val showAccent = themeStyle != ThemeStyle.MATERIAL_YOU
+        SettingsGroup {
+            AnimatedVisibility(
+                visible = showAccent,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                SearchableSetting(listOf(stringResource(R.string.settings_appearance_accent_color))) {
+                    SettingsItemCard(onClick = null) {
+                        AccentColorSelector(
+                            selectedColorHex = accentColorHex,
+                            onColorSelected = onAccentSelected,
+                            dynamicColorEnabled = !showAccent
+                        )
+                    }
+                }
+            }
 
-    SettingsGroup {
-        AnimatedVisibility(
-            visible = showAccent,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
-            SettingsItemCard(onClick = null) {
-                AccentColorSelector(
-                    selectedColorHex = accentColorHex,
-                    onColorSelected = onAccentSelected,
-                    dynamicColorEnabled = !showAccent
+            AnimatedVisibility(
+                visible = supportsPureBlack,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                SettingsSwitchItem(
+                    title = stringResource(R.string.settings_appearance_pure_black),
+                    subtitle = stringResource(R.string.settings_appearance_pure_black_description),
+                    icon = Icons.Outlined.Contrast,
+                    checked = pureBlackTheme,
+                    onToggle = onPureBlackToggle
                 )
             }
-        }
 
-        AnimatedVisibility(
-            visible = supportsPureBlack,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
+            // Monochrome already trades every app's and source's color for its own accent
+            AnimatedVisibility(
+                visible = themeStyle != ThemeStyle.MONOCHROME,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                SettingsSwitchItem(
+                    title = stringResource(R.string.settings_appearance_color_accents),
+                    subtitle = stringResource(R.string.settings_appearance_color_accents_description),
+                    icon = Icons.Outlined.FormatColorFill,
+                    checked = colorAccents,
+                    onToggle = onColorAccentsToggle
+                )
+            }
+
             SettingsSwitchItem(
-                title = stringResource(R.string.settings_appearance_pure_black),
-                subtitle = stringResource(R.string.settings_appearance_pure_black_description),
-                icon = Icons.Outlined.Contrast,
-                checked = pureBlackTheme,
-                onToggle = onPureBlackToggle
+                title = stringResource(R.string.settings_appearance_outlines),
+                subtitle = stringResource(R.string.settings_appearance_outlines_description),
+                icon = Icons.Outlined.BorderStyle,
+                checked = outlines,
+                onToggle = onOutlinesToggle
             )
-        }
 
-        // Monochrome already trades every app's and source's color for its own accent
-        AnimatedVisibility(
-            visible = themeStyle != ThemeStyle.MONOCHROME,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
-            SettingsSwitchItem(
-                title = stringResource(R.string.settings_appearance_color_accents),
-                subtitle = stringResource(R.string.settings_appearance_color_accents_description),
-                icon = Icons.Outlined.FormatColorFill,
-                checked = colorAccents,
-                onToggle = onColorAccentsToggle
+            BackgroundSettingsItem(
+                selectedBackground = backgroundType,
+                selectedInterval = randomInterval,
+                onClick = onBackgroundClick
             )
+
+            AppIconSettingsItem()
         }
-
-        SettingsSwitchItem(
-            title = stringResource(R.string.settings_appearance_outlines),
-            subtitle = stringResource(R.string.settings_appearance_outlines_description),
-            icon = Icons.Outlined.BorderStyle,
-            checked = outlines,
-            onToggle = onOutlinesToggle
-        )
-
-        BackgroundSettingsItem(
-            selectedBackground = backgroundType,
-            selectedInterval = randomInterval,
-            onClick = onBackgroundClick
-        )
-
-        AppIconSettingsItem()
     }
 }
 
@@ -401,44 +405,44 @@ private fun HomeScreenSection(
     onRepatchNoticeToggle: () -> Unit,
     onSortButtonToggle: () -> Unit
 ) {
-    SectionTitle(
-        text = stringResource(R.string.settings_appearance_home_screen),
+    SettingsSection(
+        title = stringResource(R.string.settings_appearance_home_screen),
         icon = Icons.Outlined.Dashboard
-    )
-
-    SettingsGroup {
-        AnimatedVisibility(
-            visible = showAppCardColors,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
-            SettingsItem(
-                onClick = onAppCardColorsClick,
-                title = stringResource(R.string.settings_appearance_app_card_colors),
-                subtitle = stringResource(appCardColorMode.descriptionResId),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
+    ) {
+        SettingsGroup {
+            AnimatedVisibility(
+                visible = showAppCardColors,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                SettingsItem(
+                    onClick = onAppCardColorsClick,
+                    title = stringResource(R.string.settings_appearance_app_card_colors),
+                    subtitle = stringResource(appCardColorMode.descriptionResId),
+                    leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
+                )
+            }
+            SettingsSwitchItem(
+                title = stringResource(R.string.settings_appearance_greeting_phrases),
+                subtitle = stringResource(R.string.settings_appearance_greeting_phrases_subtitle),
+                icon = Icons.Outlined.ChatBubbleOutline,
+                checked = showGreetingPhrases,
+                onToggle = onGreetingPhrasesToggle
+            )
+            SettingsSwitchItem(
+                title = stringResource(R.string.settings_appearance_repatch_notice),
+                subtitle = stringResource(R.string.settings_appearance_repatch_notice_description),
+                icon = Icons.Outlined.AutoFixHigh,
+                checked = showRepatchNotice,
+                onToggle = onRepatchNoticeToggle
+            )
+            SettingsSwitchItem(
+                title = stringResource(R.string.settings_appearance_sort_button),
+                subtitle = stringResource(R.string.settings_appearance_sort_button_description),
+                icon = Icons.AutoMirrored.Outlined.Sort,
+                checked = showSortButton,
+                onToggle = onSortButtonToggle
             )
         }
-        SettingsSwitchItem(
-            title = stringResource(R.string.settings_appearance_greeting_phrases),
-            subtitle = stringResource(R.string.settings_appearance_greeting_phrases_subtitle),
-            icon = Icons.Outlined.ChatBubbleOutline,
-            checked = showGreetingPhrases,
-            onToggle = onGreetingPhrasesToggle
-        )
-        SettingsSwitchItem(
-            title = stringResource(R.string.settings_appearance_repatch_notice),
-            subtitle = stringResource(R.string.settings_appearance_repatch_notice_description),
-            icon = Icons.Outlined.AutoFixHigh,
-            checked = showRepatchNotice,
-            onToggle = onRepatchNoticeToggle
-        )
-        SettingsSwitchItem(
-            title = stringResource(R.string.settings_appearance_sort_button),
-            subtitle = stringResource(R.string.settings_appearance_sort_button_description),
-            icon = Icons.AutoMirrored.Outlined.Sort,
-            checked = showSortButton,
-            onToggle = onSortButtonToggle
-        )
     }
 }

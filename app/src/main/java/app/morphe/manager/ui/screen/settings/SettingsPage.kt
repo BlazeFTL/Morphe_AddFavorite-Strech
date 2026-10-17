@@ -17,7 +17,6 @@ import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import app.morphe.manager.R
@@ -78,7 +77,7 @@ fun SettingsPage(
         ) {
             // A row the tour turns to comes out from under the header and the navigation
             ProvideBringIntoViewInsets(top = headerHeight, bottom = bottomBarHeight) {
-                SettingsBlocks(
+                SettingsColumn(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScrollFade(scrollState)
@@ -96,6 +95,7 @@ fun SettingsPage(
                     BackgroundSection(settingsViewModel)
                     FilesSection(settingsViewModel)
                     AboutSection(onStartTour)
+                    if (settingsSearch.isActive) SubpageMatches(homeViewModel, settingsViewModel, onOpenSubpage)
                     AnimatedVisibility(
                         visible = settingsSearch.isActive && settingsSearch.shown == 0,
                         enter = Animations.fadeIn,
@@ -118,31 +118,6 @@ fun SettingsPage(
             )
         )
         ScrollToTopButton(scrollState = scrollState, extraBottomPadding = bottomBarHeight)
-    }
-}
-
-/**
- * Stacks the blocks of the page [Defaults.SpaceLarge] apart, closing up over any a search folds
- * away, which a column spaced by its arrangement would still leave a gap for. A block opens the
- * gap above it no wider than itself, so the gap folds away along with it rather than at its end.
- */
-@Composable
-private fun SettingsBlocks(modifier: Modifier, content: @Composable () -> Unit) {
-    Layout(content = content, modifier = modifier) { measurables, constraints ->
-        val gap = Defaults.SpaceLarge.roundToPx()
-        val placeables = measurables.map { it.measure(constraints.copy(minHeight = 0)) }
-        val tops = IntArray(placeables.size)
-        var height = 0
-        placeables.forEachIndexed { index, placeable ->
-            // Nothing above the first block it shows, however many folded ones stand before it
-            height += minOf(gap, placeable.height, height)
-            tops[index] = height
-            height += placeable.height
-        }
-        // Held to the least height it is given, which a short page would otherwise be centered in
-        layout(constraints.maxWidth, height.coerceAtLeast(constraints.minHeight)) {
-            placeables.forEachIndexed { index, placeable -> placeable.place(0, tops[index]) }
-        }
     }
 }
 
@@ -177,54 +152,54 @@ private fun PatchingSection(
         )
     }
 
-    SectionTitle(
-        text = stringResource(R.string.settings_section_patching),
+    SettingsSection(
+        title = stringResource(R.string.settings_section_patching),
         icon = Icons.Outlined.AutoFixHigh
-    )
-
-    SettingsGroup {
-        SettingsSwitchItem(
-            checked = useExpertMode,
-            onToggle = {
-                if (!useExpertMode) showExpertModeDialog = true
-                else settingsViewModel.setExpertMode(false)
-            },
-            icon = Icons.Outlined.Psychology,
-            title = stringResource(R.string.settings_advanced_expert_mode),
-            subtitle = stringResource(R.string.settings_advanced_expert_mode_description),
-            modifier = Modifier.settingsTourTarget(TourTarget.EXPERT_MODE)
-        )
-        // Each folds in as the other folds away, so the group reshapes around the swap
-        AnimatedVisibility(
-            visible = useExpertMode,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
-            PatchSelectionsItem(
+    ) {
+        SettingsGroup {
+            SettingsSwitchItem(
+                checked = useExpertMode,
+                onToggle = {
+                    if (!useExpertMode) showExpertModeDialog = true
+                    else settingsViewModel.setExpertMode(false)
+                },
+                icon = Icons.Outlined.Psychology,
+                title = stringResource(R.string.settings_advanced_expert_mode),
+                subtitle = stringResource(R.string.settings_advanced_expert_mode_description),
+                modifier = Modifier.settingsTourTarget(TourTarget.EXPERT_MODE)
+            )
+            // Each folds in as the other folds away, so the group reshapes around the swap
+            AnimatedVisibility(
+                visible = useExpertMode,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                PatchSelectionsItem(
+                    settingsViewModel = settingsViewModel,
+                    importExportViewModel = importExportViewModel
+                )
+            }
+            AnimatedVisibility(
+                visible = !useExpertMode,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                SubpageItem(SettingsSubpage.PATCH_OPTIONS, onOpenSubpage)
+            }
+            InstallerItem(
                 settingsViewModel = settingsViewModel,
-                importExportViewModel = importExportViewModel
+                modifier = Modifier.settingsTourTarget(TourTarget.INSTALLER)
             )
         }
-        AnimatedVisibility(
-            visible = !useExpertMode,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
-            SubpageItem(SettingsSubpage.PATCH_OPTIONS, onOpenSubpage)
-        }
-        InstallerItem(
-            settingsViewModel = settingsViewModel,
-            modifier = Modifier.settingsTourTarget(TourTarget.INSTALLER)
-        )
-    }
 
-    // Shown once after enabling, and not as a match for a search
-    if (useExpertMode && settingsViewModel.showExpertModeNotice && LocalSettingsSearch.current?.isActive != true) {
-        Notice(
-            icon = Icons.Outlined.Info,
-            text = stringResource(R.string.settings_advanced_patch_options_expert_mode_notice),
-            tone = SemanticTone.Warning
-        )
+        // Shown once after enabling, and not as a match for a search
+        if (useExpertMode && settingsViewModel.showExpertModeNotice && LocalSettingsSearch.current?.isActive != true) {
+            Notice(
+                icon = Icons.Outlined.Info,
+                text = stringResource(R.string.settings_advanced_patch_options_expert_mode_notice),
+                tone = SemanticTone.Warning
+            )
+        }
     }
 }
 
@@ -235,21 +210,21 @@ private fun ManagerSection(
     homeViewModel: HomeViewModel,
     onOpenSubpage: (SettingsSubpage) -> Unit
 ) {
-    SectionTitle(
-        text = stringResource(R.string.settings_group_manager),
+    SettingsSection(
+        title = stringResource(R.string.settings_group_manager),
         icon = Icons.Outlined.Settings
-    )
-
-    SettingsGroup {
-        SubpageItem(
-            subpage = SettingsSubpage.APPEARANCE,
-            onOpen = onOpenSubpage,
-            modifier = Modifier.settingsTourTarget(TourTarget.APPEARANCE)
-        )
-        UpdatesItems(
-            settingsViewModel = settingsViewModel,
-            onManagerPrereleasesToggle = { homeViewModel.triggerUpdateCheck() }
-        )
+    ) {
+        SettingsGroup {
+            SubpageItem(
+                subpage = SettingsSubpage.APPEARANCE,
+                onOpen = onOpenSubpage,
+                modifier = Modifier.settingsTourTarget(TourTarget.APPEARANCE)
+            )
+            UpdatesItems(
+                settingsViewModel = settingsViewModel,
+                onManagerPrereleasesToggle = { homeViewModel.triggerUpdateCheck() }
+            )
+        }
     }
 }
 
@@ -265,7 +240,30 @@ private fun SubpageItem(
         title = stringResource(subpage.titleRes),
         subtitle = stringResource(subpage.summaryRes),
         icon = subpage.icon,
-        modifier = modifier,
-        keywords = subpage.keywordRes.map { stringResource(it) }
+        modifier = modifier
     )
+}
+
+/**
+ * What a search finds on the pages opened from this one, each under its page's name, which opens
+ * the page. Composed only while a search runs, so the pages cost nothing otherwise.
+ */
+@Composable
+private fun SubpageMatches(
+    homeViewModel: HomeViewModel,
+    settingsViewModel: SettingsViewModel,
+    onOpenSubpage: (SettingsSubpage) -> Unit
+) {
+    val useExpertMode by settingsViewModel.prefs.useExpertMode.getAsState()
+    SettingsSubpage.entries.forEach { subpage ->
+        // Expert mode picks options patch by patch, so the page is not offered meanwhile
+        if (subpage == SettingsSubpage.PATCH_OPTIONS && useExpertMode) return@forEach
+        SettingsSection(
+            title = stringResource(subpage.titleRes),
+            icon = subpage.icon,
+            onTitleClick = { onOpenSubpage(subpage) }
+        ) {
+            SettingsSubpageContent(subpage, homeViewModel)
+        }
+    }
 }

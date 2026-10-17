@@ -93,8 +93,18 @@ fun PatchOptionsSection(
         )
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
+    // Only the options themselves are what a search of the settings finds here
+    val searching = LocalSettingsSearch.current?.isActive == true
+
+    SettingsColumn {
         when {
+            searching -> PatchOptionGroups(
+                youtubePatches.isNotEmpty(),
+                youtubeMusicPatches.isNotEmpty(),
+                patchOptionsPrefs,
+                patchOptionsViewModel
+            )
+
             isBundleUpdating -> {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(vertical = Defaults.SpaceLarge),
@@ -135,47 +145,63 @@ fun PatchOptionsSection(
                     tone = SemanticTone.Primary
                 )
 
-                // YouTube
-                if (youtubePatches.isNotEmpty()) {
-                    AppPatchOptionsCard(
-                        packageName = KnownApps.YOUTUBE,
-                        icon = Icons.Outlined.VideoLibrary,
-                        title = KnownApps.getAppName(KnownApps.YOUTUBE),
-                        description = stringResource(R.string.settings_advanced_patch_options_youtube_description),
-                        patchOptionsViewModel = patchOptionsViewModel,
-                        onBrandingClick = { patchOptionsViewModel.openBrandingDialog(KnownApps.YOUTUBE) },
-                        onHeaderClick = { patchOptionsViewModel.openHeaderDialog(KnownApps.YOUTUBE) }
-                    )
-
-                    // Hide Shorts features
-                    val hideShortsOptions = patchOptionsViewModel.getHideShortsOptions()
-                    val hasHideShorts = hideShortsOptions != null && (
-                            patchOptionsViewModel.hasOption(hideShortsOptions, PatchOptionKeys.HIDE_SHORTS_APP_SHORTCUT) ||
-                                    patchOptionsViewModel.hasOption(hideShortsOptions, PatchOptionKeys.HIDE_SHORTS_WIDGET)
-                            )
-
-                    if (hasHideShorts) {
-                        HideShortsSection(
-                            patchOptionsPrefs = patchOptionsPrefs,
-                            viewModel = patchOptionsViewModel
-                        )
-                    }
-                }
-
-                // YouTube Music
-                if (youtubeMusicPatches.isNotEmpty()) {
-                    AppPatchOptionsCard(
-                        packageName = KnownApps.YOUTUBE_MUSIC,
-                        icon = Icons.Outlined.LibraryMusic,
-                        title = KnownApps.getAppName(KnownApps.YOUTUBE_MUSIC),
-                        description = stringResource(R.string.settings_advanced_patch_options_youtube_description),
-                        patchOptionsViewModel = patchOptionsViewModel,
-                        onBrandingClick = { patchOptionsViewModel.openBrandingDialog(KnownApps.YOUTUBE_MUSIC) },
-                        onHeaderClick = { patchOptionsViewModel.openHeaderDialog(KnownApps.YOUTUBE_MUSIC) }
-                    )
-                }
+                PatchOptionGroups(
+                    youtubePatches.isNotEmpty(),
+                    youtubeMusicPatches.isNotEmpty(),
+                    patchOptionsPrefs,
+                    patchOptionsViewModel
+                )
             }
         }
+    }
+}
+
+/** The options of each app the sources patch, as a group under its header. */
+@Composable
+private fun PatchOptionGroups(
+    hasYoutube: Boolean,
+    hasYoutubeMusic: Boolean,
+    patchOptionsPrefs: PatchOptionsPreferencesManager,
+    patchOptionsViewModel: PatchOptionsViewModel
+) {
+    // YouTube
+    if (hasYoutube) {
+        AppPatchOptionsCard(
+            packageName = KnownApps.YOUTUBE,
+            icon = Icons.Outlined.VideoLibrary,
+            title = KnownApps.getAppName(KnownApps.YOUTUBE),
+            description = stringResource(R.string.settings_advanced_patch_options_youtube_description),
+            patchOptionsViewModel = patchOptionsViewModel,
+            onBrandingClick = { patchOptionsViewModel.openBrandingDialog(KnownApps.YOUTUBE) },
+            onHeaderClick = { patchOptionsViewModel.openHeaderDialog(KnownApps.YOUTUBE) }
+        )
+
+        // Hide Shorts features
+        val hideShortsOptions = patchOptionsViewModel.getHideShortsOptions()
+        val hasHideShorts = hideShortsOptions != null && (
+                patchOptionsViewModel.hasOption(hideShortsOptions, PatchOptionKeys.HIDE_SHORTS_APP_SHORTCUT) ||
+                        patchOptionsViewModel.hasOption(hideShortsOptions, PatchOptionKeys.HIDE_SHORTS_WIDGET)
+                )
+
+        if (hasHideShorts) {
+            HideShortsSection(
+                patchOptionsPrefs = patchOptionsPrefs,
+                viewModel = patchOptionsViewModel
+            )
+        }
+    }
+
+    // YouTube Music
+    if (hasYoutubeMusic) {
+        AppPatchOptionsCard(
+            packageName = KnownApps.YOUTUBE_MUSIC,
+            icon = Icons.Outlined.LibraryMusic,
+            title = KnownApps.getAppName(KnownApps.YOUTUBE_MUSIC),
+            description = stringResource(R.string.settings_advanced_patch_options_youtube_description),
+            patchOptionsViewModel = patchOptionsViewModel,
+            onBrandingClick = { patchOptionsViewModel.openBrandingDialog(KnownApps.YOUTUBE_MUSIC) },
+            onHeaderClick = { patchOptionsViewModel.openHeaderDialog(KnownApps.YOUTUBE_MUSIC) }
+        )
     }
 }
 

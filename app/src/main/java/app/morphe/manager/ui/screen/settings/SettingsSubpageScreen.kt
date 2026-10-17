@@ -23,10 +23,16 @@ fun SettingsSubpageScreen(
     onBack: () -> Unit
 ) {
     SubpageScaffold(title = stringResource(subpage.titleRes), onBack = onBack) {
-        when (subpage) {
-            SettingsSubpage.PATCH_OPTIONS -> PatchOptionsSettings(homeViewModel)
-            SettingsSubpage.APPEARANCE -> AppearanceSettings()
-        }
+        SettingsSubpageContent(subpage, homeViewModel)
+    }
+}
+
+/** What [subpage] holds, on its own page or among what a search of the settings page finds. */
+@Composable
+internal fun SettingsSubpageContent(subpage: SettingsSubpage, homeViewModel: HomeViewModel) {
+    when (subpage) {
+        SettingsSubpage.PATCH_OPTIONS -> PatchOptionsSettings(homeViewModel)
+        SettingsSubpage.APPEARANCE -> AppearanceSettings()
     }
 }
 

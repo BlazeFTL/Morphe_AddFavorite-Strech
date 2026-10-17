@@ -43,35 +43,35 @@ fun BackgroundSection(settingsViewModel: SettingsViewModel = koinViewModel()) {
         }
     }
 
-    SectionTitle(
-        text = stringResource(R.string.settings_system_background),
+    SettingsSection(
+        title = stringResource(R.string.settings_system_background),
         icon = Icons.Outlined.PhoneAndroid
-    )
+    ) {
+        SettingsGroup {
+            SettingsItem(
+                onClick = {
+                    context.requestIgnoreBatteryOptimizations()
+                },
+                title = stringResource(R.string.settings_system_battery_optimization),
+                subtitle = stringResource(R.string.settings_system_battery_optimization_description),
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.BatterySaver) },
+                statusContent = {
+                    StatusCircleIcon(
+                        icon = if (isIgnoringBatteryOptimizations) Icons.Outlined.Check else Icons.Outlined.Warning,
+                        containerColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.primaryContainer
+                        else SemanticTone.Warning.container,
+                        contentColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.onPrimaryContainer
+                        else SemanticTone.Warning.content
+                    )
+                }
+            )
 
-    SettingsGroup {
-        SettingsItem(
-            onClick = {
-                context.requestIgnoreBatteryOptimizations()
-            },
-            title = stringResource(R.string.settings_system_battery_optimization),
-            subtitle = stringResource(R.string.settings_system_battery_optimization_description),
-            leadingContent = { ThemedIcon(icon = Icons.Outlined.BatterySaver) },
-            statusContent = {
-                StatusCircleIcon(
-                    icon = if (isIgnoringBatteryOptimizations) Icons.Outlined.Check else Icons.Outlined.Warning,
-                    containerColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.primaryContainer
-                    else SemanticTone.Warning.container,
-                    contentColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.onPrimaryContainer
-                    else SemanticTone.Warning.content
-                )
-            }
-        )
-
-        SettingsItem(
-            onClick = { showNotificationsDialog = true },
-            title = stringResource(R.string.settings_system_notifications),
-            subtitle = stringResource(R.string.settings_system_notifications_description),
-            leadingContent = { ThemedIcon(icon = Icons.Outlined.NotificationsActive) }
-        )
+            SettingsItem(
+                onClick = { showNotificationsDialog = true },
+                title = stringResource(R.string.settings_system_notifications),
+                subtitle = stringResource(R.string.settings_system_notifications_description),
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.NotificationsActive) }
+            )
+        }
     }
 }

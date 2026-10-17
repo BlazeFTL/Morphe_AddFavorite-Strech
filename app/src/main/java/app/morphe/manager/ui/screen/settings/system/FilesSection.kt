@@ -142,34 +142,34 @@ fun FilesSection(
         )
     }
 
-    SectionTitle(
-        text = stringResource(R.string.settings_section_files),
+    SettingsSection(
+        title = stringResource(R.string.settings_section_files),
         icon = Icons.Outlined.Folder
-    )
+    ) {
+        SettingsGroup {
+            OriginalApkItems(settingsViewModel)
 
-    SettingsGroup {
-        OriginalApkItems(settingsViewModel)
+            SettingsItem(
+                onClick = { showStorageDialog = true },
+                title = stringResource(R.string.settings_system_storage_management_title),
+                subtitle = stringResource(R.string.settings_system_storage_management_description),
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.Storage) }
+            )
 
-        SettingsItem(
-            onClick = { showStorageDialog = true },
-            title = stringResource(R.string.settings_system_storage_management_title),
-            subtitle = stringResource(R.string.settings_system_storage_management_description),
-            leadingContent = { ThemedIcon(icon = Icons.Outlined.Storage) }
-        )
-
-        ImportExportItems(
-            importExportViewModel = importExportViewModel,
-            onImportKeystore = { importKeystoreLauncher() },
-            onExportKeystore = {
-                if (isTV) importExportViewModel.exportKeystoreToDownloads()
-                else exportKeystoreLauncher.launch("Morphe.keystore")
-            },
-            onImportSettings = { importSettingsLauncher() },
-            onExportSettings = {
-                if (isTV) importExportViewModel.exportManagerSettingsToDownloads()
-                else exportSettingsLauncher.launch("morphe_manager_settings.json")
-            }
-        )
+            ImportExportItems(
+                importExportViewModel = importExportViewModel,
+                onImportKeystore = { importKeystoreLauncher() },
+                onExportKeystore = {
+                    if (isTV) importExportViewModel.exportKeystoreToDownloads()
+                    else exportKeystoreLauncher.launch("Morphe.keystore")
+                },
+                onImportSettings = { importSettingsLauncher() },
+                onExportSettings = {
+                    if (isTV) importExportViewModel.exportManagerSettingsToDownloads()
+                    else exportSettingsLauncher.launch("morphe_manager_settings.json")
+                }
+            )
+        }
     }
 }
 

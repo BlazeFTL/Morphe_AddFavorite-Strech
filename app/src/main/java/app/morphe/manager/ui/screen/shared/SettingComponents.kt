@@ -472,9 +472,6 @@ fun ForwardChevronIcon(
  *
  * [statusContent] takes the place of [trailingContent] for a row that shows its state, which says
  * enough on its own that a chevron beside it would only crowd it.
- *
- * @param keywords More a [SettingsSearch] finds the row by than its [title] and [subtitle], such as
- *   what the page it opens holds.
  */
 @Composable
 fun SettingsItem(
@@ -486,10 +483,9 @@ fun SettingsItem(
     subtitle: String? = null,
     showBorder: Boolean = false,
     statusContent: @Composable (() -> Unit)? = null,
-    trailingContent: @Composable (() -> Unit)? = { ForwardChevronIcon() },
-    keywords: List<String> = emptyList()
+    trailingContent: @Composable (() -> Unit)? = { ForwardChevronIcon() }
 ) {
-    SearchableSetting(listOf(title, subtitle) + keywords) {
+    SearchableSetting(listOf(title, subtitle)) {
         SettingsItemCard(
             onClick = onClick,
             showBorder = showBorder,
@@ -577,28 +573,42 @@ fun SectionCard(
 /**
  * Title over a settings section. Kept lighter than the cards below so they carry the weight, and
  * inset by their padding so the icon and text line up with the icons and titles of the rows.
+ *
+ * While a search runs it stays only over a [SettingsSection] the search leaves something in.
+ *
+ * @param onClick Opens where the section lives, marked by a chevron after the title.
  */
 @Composable
 fun SectionTitle(
     text: String,
-    icon: ImageVector? = null
+    icon: ImageVector? = null,
+    onClick: (() -> Unit)? = null
 ) {
-    val search = LocalSettingsSearch.current ?: return SectionTitleRow(text, icon)
-    // What a search leaves of a page reads as one list
+    val search = LocalSettingsSearch.current ?: return SectionTitleRow(text, icon, onClick)
+    val matches = LocalSearchMatches.current
+    // Outside a section there is nothing of its own to head, so what matches reads as one list
+    val headsMatches = matches != null && matches !== search.root && matches.shown > 0
     AnimatedVisibility(
-        visible = !search.isActive,
+        visible = !search.isActive || headsMatches,
         enter = Animations.expandFadeEnter,
         exit = Animations.shrinkFadeExit
     ) {
-        SectionTitleRow(text, icon)
+        SectionTitleRow(text, icon, onClick)
     }
 }
 
 @Composable
-private fun SectionTitleRow(text: String, icon: ImageVector?) {
+private fun SectionTitleRow(text: String, icon: ImageVector?, onClick: (() -> Unit)?) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .then(
+                if (onClick != null) {
+                    Modifier
+                        .clip(MaterialTheme.shapes.small)
+                        .clickable(role = Role.Button, onClick = onClick)
+                } else Modifier
+            )
             // The extra room above ties the title to the section below rather than the one above
             .padding(
                 start = Defaults.SpaceLarge,
@@ -624,6 +634,9 @@ private fun SectionTitleRow(text: String, icon: ImageVector?) {
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
+        if (onClick != null) {
+            ForwardChevronIcon(size = 20.dp, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
     }
 }
 

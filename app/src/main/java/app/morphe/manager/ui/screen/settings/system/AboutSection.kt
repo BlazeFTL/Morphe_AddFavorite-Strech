@@ -58,53 +58,53 @@ fun AboutSection(
         ManagerChangelogDialog(onDismiss = { showChangelogDialog = false })
     }
 
-    SectionTitle(
-        text = stringResource(R.string.settings_system_about),
+    SettingsSection(
+        title = stringResource(R.string.settings_system_about),
         icon = Icons.Outlined.Info
-    )
-
-    SettingsGroup {
-        SettingsItem(
-            onClick = { showAboutDialog = true },
-            title = stringResource(R.string.app_name),
-            subtitle = stringResource(R.string.version) + " " + BuildConfig.VERSION_NAME.isolateLtr(),
-            leadingContent = {
-                logo?.let {
-                    Icon(
-                        bitmap = it,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(Defaults.IconSize)
-                    )
-                }
-            }
-        )
-
-        SettingsItem(
-            icon = Icons.AutoMirrored.Outlined.Article,
-            title = stringResource(R.string.changelog),
-            subtitle = stringResource(R.string.changelog_description),
-            onClick = { showChangelogDialog = true }
-        )
-
-        // Next to the changelog rather than with the backups: logs are what a bug report asks for
-        SettingsItem(
-            icon = Icons.Outlined.BugReport,
-            title = stringResource(R.string.settings_system_export_debug_logs),
-            subtitle = stringResource(R.string.settings_system_export_debug_logs_description),
-            onClick = {
-                if (isTV) importExportViewModel.exportDebugLogsToDownloads()
-                else exportDebugLogsLauncher.launch(importExportViewModel.debugLogFileName)
-            }
-        )
-
-        if (onStartTour != null) {
+    ) {
+        SettingsGroup {
             SettingsItem(
-                icon = Icons.Outlined.Lightbulb,
-                title = stringResource(R.string.onboarding_restart_title),
-                subtitle = stringResource(R.string.onboarding_restart_desc),
-                onClick = onStartTour
+                onClick = { showAboutDialog = true },
+                title = stringResource(R.string.app_name),
+                subtitle = stringResource(R.string.version) + " " + BuildConfig.VERSION_NAME.isolateLtr(),
+                leadingContent = {
+                    logo?.let {
+                        Icon(
+                            bitmap = it,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(Defaults.IconSize)
+                        )
+                    }
+                }
             )
+
+            SettingsItem(
+                icon = Icons.AutoMirrored.Outlined.Article,
+                title = stringResource(R.string.changelog),
+                subtitle = stringResource(R.string.changelog_description),
+                onClick = { showChangelogDialog = true }
+            )
+
+            // Next to the changelog rather than with the backups: logs are what a bug report asks for
+            SettingsItem(
+                icon = Icons.Outlined.BugReport,
+                title = stringResource(R.string.settings_system_export_debug_logs),
+                subtitle = stringResource(R.string.settings_system_export_debug_logs_description),
+                onClick = {
+                    if (isTV) importExportViewModel.exportDebugLogsToDownloads()
+                    else exportDebugLogsLauncher.launch(importExportViewModel.debugLogFileName)
+                }
+            )
+
+            if (onStartTour != null) {
+                SettingsItem(
+                    icon = Icons.Outlined.Lightbulb,
+                    title = stringResource(R.string.onboarding_restart_title),
+                    subtitle = stringResource(R.string.onboarding_restart_desc),
+                    onClick = onStartTour
+                )
+            }
         }
     }
 }

@@ -73,7 +73,10 @@ fun SettingsGroup(
     }
 }
 
-/** The group a [SurfaceCard] stands in as a row, null outside one and inside another card. */
+/**
+ * The group a [SurfaceCard] stands in as a row, null outside one, inside another card and in a
+ * dialog or sheet opened from one of its rows.
+ */
 internal val LocalSegmentRegistry = staticCompositionLocalOf<SegmentRegistry?> { null }
 
 /**

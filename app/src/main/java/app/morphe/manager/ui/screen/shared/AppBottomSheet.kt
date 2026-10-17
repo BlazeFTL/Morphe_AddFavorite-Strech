@@ -98,6 +98,7 @@ fun AppBottomSheet(
                 // A window of its own, which cannot draw what the one it opened from blurs
                 LocalBackdropHaze provides null,
                 LocalSettingsSearch provides null,
+                LocalSegmentRegistry provides null,
                 LocalDialogTextColor provides contentColor,
                 LocalDialogSecondaryTextColor provides contentColor.copy(alpha = 0.7f)
             ) {

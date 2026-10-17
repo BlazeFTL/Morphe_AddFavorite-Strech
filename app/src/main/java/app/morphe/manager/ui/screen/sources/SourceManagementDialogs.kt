@@ -129,11 +129,7 @@ fun AddSourceDialog(
         footer = {
             Column(modifier = Modifier.fillMaxWidth()) {
                 // The website hands out remote URLs, so it has nothing to offer the local tab
-                AnimatedVisibility(
-                    visible = selectedTab == 0,
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
+                FoldingVisibility(visible = selectedTab == 0) {
                     Column {
                         // Nothing that website lists is reviewed by Morphe, so the disclaimer comes first
                         AppDialogOutlinedButton(

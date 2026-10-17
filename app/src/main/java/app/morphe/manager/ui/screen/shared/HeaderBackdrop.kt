@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
+import dev.chrisbanes.haze.HazeState
 
 /**
  * Whether what a header floats over has scrolled on under it, which is when the header lays its
@@ -50,7 +51,7 @@ val LocalHeaderBackdrop = staticCompositionLocalOf<HeaderBackdrop?> { null }
  * over the open page's state, which takes over from the page left.
  */
 @Composable
-fun TrackHeaderBackdrop(state: ScrollableState) {
+internal fun TrackHeaderBackdrop(state: ScrollableState) {
     val backdrop = LocalHeaderBackdrop.current ?: return
     DisposableEffect(backdrop, state) {
         backdrop.track(state)
@@ -59,11 +60,11 @@ fun TrackHeaderBackdrop(state: ScrollableState) {
 }
 
 /**
- * A header's band of [glass] in [shape], faded in while [LocalHeaderBackdrop] has content under it
- * and out at rest. Laid behind the header's content, filling it.
+ * A header's band of [glass] in [shape], blurring [haze], faded in while [LocalHeaderBackdrop] has
+ * content under it and out at rest. Laid behind the header's content, filling it.
  */
 @Composable
-fun BoxScope.HeaderBand(glass: Color, shape: Shape) {
+fun BoxScope.HeaderBand(glass: Color, shape: Shape, haze: HazeState? = LocalBackdropHaze.current) {
     val backdrop = LocalHeaderBackdrop.current
     val shown by animateFloatAsState(
         targetValue = if (backdrop?.scrolledUnder != false) 1f else 0f,
@@ -74,6 +75,6 @@ fun BoxScope.HeaderBand(glass: Color, shape: Shape) {
         modifier = Modifier
             .matchParentSize()
             .graphicsLayer { alpha = shown }
-            .glassFill(glass, shape)
+            .glassFill(glass, shape, haze)
     )
 }

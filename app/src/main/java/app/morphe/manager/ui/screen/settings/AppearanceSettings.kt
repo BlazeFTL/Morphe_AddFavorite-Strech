@@ -329,11 +329,7 @@ private fun ThemeSection(
         val showAccent = themeStyle != ThemeStyle.MATERIAL_YOU
 
         SettingsGroup {
-            AnimatedVisibility(
-                visible = showAccent,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = showAccent) {
                 SearchableSetting(listOf(stringResource(R.string.settings_appearance_accent_color))) {
                     SettingsItemCard(onClick = null) {
                         AccentColorSelector(
@@ -345,11 +341,7 @@ private fun ThemeSection(
                 }
             }
 
-            AnimatedVisibility(
-                visible = supportsPureBlack,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = supportsPureBlack) {
                 SettingsSwitchItem(
                     title = stringResource(R.string.settings_appearance_pure_black),
                     subtitle = stringResource(R.string.settings_appearance_pure_black_description),
@@ -360,11 +352,7 @@ private fun ThemeSection(
             }
 
             // Monochrome already trades every app's and source's color for its own accent
-            AnimatedVisibility(
-                visible = themeStyle != ThemeStyle.MONOCHROME,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = themeStyle != ThemeStyle.MONOCHROME) {
                 SettingsSwitchItem(
                     title = stringResource(R.string.settings_appearance_color_accents),
                     subtitle = stringResource(R.string.settings_appearance_color_accents_description),
@@ -426,11 +414,7 @@ private fun HomeScreenSection(
         icon = Icons.Outlined.Dashboard
     ) {
         SettingsGroup {
-            AnimatedVisibility(
-                visible = showAppCardColors,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = showAppCardColors) {
                 SettingsItem(
                     onClick = onAppCardColorsClick,
                     title = stringResource(R.string.settings_appearance_app_card_colors),

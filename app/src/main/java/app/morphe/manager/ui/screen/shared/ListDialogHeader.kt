@@ -16,18 +16,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.GraphicsLayerScope
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
@@ -125,10 +120,9 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
  * Head of a list dialog that names what the list belongs to: its [icon], [title] and a
  * [subtitle] summing the list up, with the list's search field and its toggle where it has one.
  *
- * The header sits on a band like the app details' one. As a [ListDialog]'s header it floats over
- * the list, the band reaching the screen's edges and blurring the rows scrolling under it, and solid
- * where the platform cannot blur. Anywhere else the band sits in line, giving the list an edge to
- * stop at.
+ * The header floats over its [ListDialog]'s list, bare while the list rests at its start. Once the
+ * list scrolls on under it, it lays down a band like the app details' one, reaching the screen's
+ * edges and blurring the rows under it, see [HeaderBand].
  *
  * @param subtitleLoading Shows a shimmer in place of the [subtitle] while the list it sums uploads,
  *   easing into the text once it is there.
@@ -147,7 +141,7 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
  * @param collapsible What heads the list but is wanted only now and then, such as actions over
  *   the whole of it. Under the [content], it folds away under the rest of the header together with
  *   the [badges] as the list scrolls on, and comes back as the list scrolls back, see
- *   [DialogHeaderCollapse]. Held in place where the header does not float over a list.
+ *   [DialogHeaderCollapse].
  * @param actions Title actions drawn ahead of the search toggle.
  */
 @Composable
@@ -172,9 +166,9 @@ fun ListDialogHeader(
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "list_header_band"
     )
-    val inset = LocalDialogHorizontalInset.current
-    val haze = LocalBackdropHaze.current
-    val head = @Composable { headModifier: Modifier ->
+    Box(modifier = modifier.fillMaxWidth()) {
+        // Bare at rest, the band laid down once the list scrolls on under the header
+        HeaderBand(band, HeaderBandShape)
         HeaderContent(
             icon = icon,
             title = title,
@@ -188,30 +182,17 @@ fun ListDialogHeader(
             actions = actions,
             content = content,
             collapsible = collapsible,
-            modifier = headModifier
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
+                .widthIn(max = Defaults.ContentMaxWidth)
+                .fillMaxWidth()
+                .padding(horizontal = LocalDialogHorizontalInset.current)
         )
-    }
-
-    if (haze != null) {
-        Box(modifier = modifier.fillMaxWidth()) {
-            // Bare at rest, the band laid down once the list scrolls on under the header
-            HeaderBand(band, HeaderBandShape)
-            head(
-                Modifier
-                    .align(Alignment.TopCenter)
-                    .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
-                    .widthIn(max = Defaults.ContentMaxWidth)
-                    .fillMaxWidth()
-                    .padding(horizontal = inset)
-            )
-        }
-    } else {
-        val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
-        head(modifier.fillMaxWidth().headerBand(band, inset, statusBarHeight))
     }
 }
 
-/** What a [ListDialogHeader] holds, whichever way its band is drawn. */
+/** What a [ListDialogHeader] holds over its band. */
 @Composable
 private fun HeaderContent(
     icon: @Composable (Modifier) -> Unit,
@@ -348,21 +329,3 @@ fun ListDialogHeaderIcon(icon: ImageVector, color: Color, modifier: Modifier = M
 
 /** Outline of a header's band, rounded off below like the app details' header. */
 internal val HeaderBandShape = RoundedCornerShape(bottomStart = Defaults.CornerLarge, bottomEnd = Defaults.CornerLarge)
-
-/**
- * Tints the header out to the dialog's edges and up under the status bar, rounded off below like
- * the app details' header. Only the drawing reaches past the header, so its content stays in line
- * with the list under it.
- */
-private fun Modifier.headerBand(color: Color, bleed: Dp, statusBarHeight: Dp): Modifier = drawBehind {
-    val corner = CornerRadius(Defaults.CornerLarge.toPx())
-    val band = RoundRect(
-        left = -bleed.toPx(),
-        top = -statusBarHeight.toPx(),
-        right = size.width + bleed.toPx(),
-        bottom = size.height,
-        bottomLeftCornerRadius = corner,
-        bottomRightCornerRadius = corner
-    )
-    drawPath(Path().apply { addRoundRect(band) }, color)
-}

@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
@@ -274,11 +273,7 @@ private fun SliderOptionFrame(
             SliderScaleLabel(formatSliderValue(max, isInteger, step))
         }
 
-        AnimatedVisibility(
-            visible = editing,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
+        FoldingVisibility(visible = editing) {
             input()
         }
     }

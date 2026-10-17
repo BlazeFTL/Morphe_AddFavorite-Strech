@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -588,11 +587,7 @@ fun SectionTitle(
     val matches = LocalSearchMatches.current
     // Outside a section there is nothing of its own to head, so what matches reads as one list
     val headsMatches = matches != null && matches !== search.root && matches.shown > 0
-    AnimatedVisibility(
-        visible = !search.isActive || headsMatches,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
+    FoldingVisibility(visible = !search.isActive || headsMatches) {
         SectionTitleRow(text, icon, onClick)
     }
 }

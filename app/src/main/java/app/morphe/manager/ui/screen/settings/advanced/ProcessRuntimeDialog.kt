@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.settings.advanced
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -150,11 +149,7 @@ fun ProcessRuntimeDialog(
                 var lastWarning by remember { mutableStateOf(warning) }
                 warning?.let { lastWarning = it }
 
-                AnimatedVisibility(
-                    visible = enabled && warning != null,
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
+                FoldingVisibility(visible = enabled && warning != null) {
                     lastWarning?.let { (text, tone) ->
                         Notice(
                             modifier = Modifier.padding(top = Defaults.SpaceLarge),

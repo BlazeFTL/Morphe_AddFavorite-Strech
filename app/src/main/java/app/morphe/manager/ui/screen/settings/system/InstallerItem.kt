@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import android.os.Build
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -334,11 +333,7 @@ fun InstallerSelectionDialog(
 
             if (showPlayStoreToggle || showAutoInstallToggle || showPromptToggle) {
                 SettingsGroup {
-                    AnimatedVisibility(
-                        visible = showPlayStoreToggle,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
+                    FoldingVisibility(visible = showPlayStoreToggle) {
                         SettingsSwitchItem(
                             checked = installAsPlayStore,
                             onToggle = {
@@ -354,11 +349,7 @@ fun InstallerSelectionDialog(
                         )
                     }
 
-                    AnimatedVisibility(
-                        visible = showAutoInstallToggle,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
+                    FoldingVisibility(visible = showAutoInstallToggle) {
                         Column {
                             SettingsSwitchItem(
                                 checked = autoInstallEnabled,
@@ -374,11 +365,9 @@ fun InstallerSelectionDialog(
                                 subtitle = stringResource(R.string.settings_auto_install_with_shizuku_description)
                             )
 
-                            AnimatedVisibility(
+                            FoldingVisibility(
                                 visible = autoInstallEnabled && onAutoUninstallToggle != null &&
-                                        selectedToken.isShizukuToken(),
-                                enter = Animations.expandFadeEnter,
-                                exit = Animations.shrinkFadeExit
+                                        selectedToken.isShizukuToken()
                             ) {
                                 SettingsSwitchItem(
                                     checked = autoUninstallEnabled,
@@ -483,11 +472,7 @@ private fun ModuleUnmountNotice(visible: Boolean = true) {
     val rootInstaller: RootInstaller = koinInject()
     val isMagisk by produceState<Boolean?>(null) { value = rootInstaller.isMagisk() }
 
-    AnimatedVisibility(
-        visible = visible && isMagisk == false,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
+    FoldingVisibility(visible = visible && isMagisk == false) {
         Notice(
             text = stringResource(R.string.root_mount_module_unmount_warning),
             tone = SemanticTone.Warning,

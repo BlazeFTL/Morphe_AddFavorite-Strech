@@ -244,3 +244,22 @@ object Animations {
     // Functional helpers
     fun fadeOut(duration: Int): ExitTransition = fadeOut(tween(duration))
 }
+
+/**
+ * Shows [content] while [visible], folding it in and out of the layout around it rather than
+ * letting it pop, so what stands below slides along.
+ */
+@Composable
+fun FoldingVisibility(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable AnimatedVisibilityScope.() -> Unit
+) {
+    AnimatedVisibility(
+        visible = visible,
+        modifier = modifier,
+        enter = Animations.expandFadeEnter,
+        exit = Animations.shrinkFadeExit,
+        content = content
+    )
+}

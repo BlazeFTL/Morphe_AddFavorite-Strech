@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.home
 
 import android.graphics.drawable.Drawable
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -601,11 +600,7 @@ private fun ColorOptionWithPresets(
                 onCustomClick = onCustomColorClick
             )
 
-            AnimatedVisibility(
-                visible = swatchName != null,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = swatchName != null) {
                 CrossfadeText(
                     text = swatchName ?: lastSwatchName,
                     style = MaterialTheme.typography.titleSmall,

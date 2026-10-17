@@ -9,7 +9,6 @@ import android.content.pm.PackageInfo
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
@@ -1058,11 +1057,7 @@ private fun ApkItemCard(
                     }
                 }
 
-                AnimatedVisibility(
-                    visible = !selectionMode,
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
+                FoldingVisibility(visible = !selectionMode) {
                     Column {
                         SettingsDivider()
 

@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -197,11 +196,9 @@ fun ColorPickerDialog(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
             ) {
-                AnimatedVisibility(
+                FoldingVisibility(
                     visible = enabled,
-                    modifier = Modifier.weight(1f),
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
+                    modifier = Modifier.weight(1f)
                 ) {
                     panel()
                 }
@@ -211,11 +208,7 @@ fun ColorPickerDialog(
                 ) {
                     preview()
                     switch()
-                    AnimatedVisibility(
-                        visible = enabled,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
+                    FoldingVisibility(visible = enabled) {
                         Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
                             swatches()
                             strip()
@@ -236,11 +229,7 @@ fun ColorPickerDialog(
 
             // The manual controls have nothing to offer while the color follows the toggle, and
             // leaving them grayed out in place would only hold the room they need
-            AnimatedVisibility(
-                visible = enabled,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = enabled) {
                 Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
                     swatches()
                     panel()

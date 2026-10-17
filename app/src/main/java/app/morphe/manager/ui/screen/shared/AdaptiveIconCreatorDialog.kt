@@ -15,7 +15,6 @@ import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -301,11 +300,7 @@ fun AdaptiveIconCreatorDialog(
             }
 
             // Transparency warning shown when the selected image has no transparent pixels
-            AnimatedVisibility(
-                visible = foreground.value?.isOpaque == true,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = foreground.value?.isOpaque == true) {
                 Notice(
                     text = stringResource(R.string.adaptive_icon_no_transparency_warning),
                     tone = SemanticTone.Warning,

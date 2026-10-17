@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
@@ -78,11 +77,7 @@ fun SearchableSetting(texts: List<String?>, content: @Composable () -> Unit) {
             onDispose { counter.add(-1) }
         }
     }
-    AnimatedVisibility(
-        visible = matches,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
+    FoldingVisibility(visible = matches) {
         content()
     }
 }

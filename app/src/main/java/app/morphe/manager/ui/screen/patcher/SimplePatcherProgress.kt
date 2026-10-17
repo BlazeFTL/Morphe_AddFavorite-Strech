@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.patcher
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
@@ -246,11 +245,7 @@ private fun ProgressDetailsSection(
         verticalArrangement = Arrangement.spacedBy(windowSize.itemSpacing)
     ) {
         // Long step warning
-        AnimatedVisibility(
-            visible = showLongStepWarning,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
+        FoldingVisibility(visible = showLongStepWarning) {
             Notice(
                 text = stringResource(R.string.patcher_long_step_warning),
                 tone = SemanticTone.Primary,

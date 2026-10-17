@@ -169,21 +169,13 @@ private fun PatchingSection(
                 modifier = Modifier.settingsTourTarget(TourTarget.EXPERT_MODE)
             )
             // Each folds in as the other folds away, so the group reshapes around the swap
-            AnimatedVisibility(
-                visible = useExpertMode,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = useExpertMode) {
                 PatchSelectionsItem(
                     settingsViewModel = settingsViewModel,
                     importExportViewModel = importExportViewModel
                 )
             }
-            AnimatedVisibility(
-                visible = !useExpertMode,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = !useExpertMode) {
                 SubpageItem(SettingsSubpage.PATCH_OPTIONS, onOpenSubpage)
             }
             InstallerItem(

@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.settings.appearance
 
 import android.text.format.DateFormat
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -119,11 +118,7 @@ fun BackgroundPickerDialog(
         // spacedBy gap would vanish in one frame while the surrounding block is still shrinking
         Column {
             // The dialog shows what the app shows, so a running event explains why that is not the pick
-            AnimatedVisibility(
-                visible = shownBackground != selectedBackground && seasonalNotice != null,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = shownBackground != selectedBackground && seasonalNotice != null) {
                 Notice(
                     text = seasonalNotice.orEmpty(),
                     icon = Icons.Outlined.Celebration,
@@ -145,11 +140,7 @@ fun BackgroundPickerDialog(
             }
 
             // Settings of the pick itself, so NONE, having none, leaves the divider out as well
-            AnimatedVisibility(
-                visible = selectedBackground != BackgroundType.NONE,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = selectedBackground != BackgroundType.NONE) {
                 Column(modifier = Modifier.padding(top = Defaults.SpaceSmall)) {
                     SettingsDivider(
                         modifier = Modifier.padding(vertical = Defaults.SpaceExtraSmall),
@@ -157,11 +148,7 @@ fun BackgroundPickerDialog(
                     )
 
                     // How often RANDOM changes, shown only while it is the pick
-                    AnimatedVisibility(
-                        visible = selectedBackground == BackgroundType.RANDOM,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
+                    FoldingVisibility(visible = selectedBackground == BackgroundType.RANDOM) {
                         // Vertical tiles so the interval labels never truncate
                         OptionGroup(
                             items = RandomInterval.entries,

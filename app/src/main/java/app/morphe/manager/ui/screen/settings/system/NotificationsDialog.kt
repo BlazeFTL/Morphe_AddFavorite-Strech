@@ -14,7 +14,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -208,11 +207,7 @@ fun NotificationsDialog(
                     )
                 )
 
-                AnimatedVisibility(
-                    visible = backgroundUpdateNotifications,
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
+                FoldingVisibility(visible = backgroundUpdateNotifications) {
                     Column {
                         // FCM pushes updates as they land, so the polling interval only matters without GMS
                         if (!settingsViewModel.hasGms) {
@@ -245,11 +240,7 @@ fun NotificationsDialog(
                 )
 
                 // Tones only play with the completion sound on, so picking one is offered under it
-                AnimatedVisibility(
-                    visible = completionSound,
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
+                FoldingVisibility(visible = completionSound) {
                     Column {
                         SoundSelectorItem(
                             title = stringResource(R.string.settings_system_notifications_success_sound),

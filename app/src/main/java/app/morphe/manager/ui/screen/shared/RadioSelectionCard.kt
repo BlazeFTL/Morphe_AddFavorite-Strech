@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -114,11 +113,7 @@ fun RadioSelectionCard(
                     }
                     content()
                 }
-                AnimatedVisibility(
-                    visible = footerContent != null,
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
+                FoldingVisibility(visible = footerContent != null) {
                     Column {
                         SettingsDivider(fullWidth = true)
                         Box(

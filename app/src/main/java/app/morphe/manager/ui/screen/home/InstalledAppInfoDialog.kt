@@ -959,11 +959,7 @@ private fun BannerSlot(
     staggerIndex: Int,
     content: @Composable () -> Unit
 ) {
-    AnimatedVisibility(
-        visible = visible,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
+    FoldingVisibility(visible = visible) {
         Column {
             StaggeredItem(entered = entered, index = staggerIndex, content = content)
             Spacer(Modifier.height(Defaults.SpaceMedium))
@@ -1075,11 +1071,7 @@ private fun WarningBanner(
             // The versions and the extra actions depend on what the sources say, which can arrive
             // after the banner is already up
             val shownVersions = rememberLatest(versions)
-            AnimatedVisibility(
-                visible = versions != null,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = versions != null) {
                 shownVersions?.let {
                     VersionTransition(versions = it, contentColor = contentColor, readOutRes = versionsReadOutRes)
                 }
@@ -1099,11 +1091,7 @@ private fun WarningBanner(
                 // One joined group, because the banner's own button is the one meant to stand out
                 // and separate buttons under it would read as offers of equal weight
                 val shownActions = rememberLatest(secondaryActions.takeIf { it.isNotEmpty() })
-                AnimatedVisibility(
-                    visible = secondaryActions.isNotEmpty(),
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
+                FoldingVisibility(visible = secondaryActions.isNotEmpty()) {
                     shownActions?.let { ActionGroup(actions = it) }
                 }
             }
@@ -1328,11 +1316,7 @@ private fun IgnorableInfoRow(
 @Composable
 private fun <T : Any> InfoSlot(value: T?, content: @Composable (T) -> Unit) {
     val shown = rememberLatest(value)
-    AnimatedVisibility(
-        visible = value != null,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
+    FoldingVisibility(visible = value != null) {
         shown?.let {
             Column {
                 SettingsDivider()

@@ -379,9 +379,7 @@ private fun CompactDialogContent(
                             Box(modifier = Modifier.fillMaxWidth()) {
                                 // Bare while the dialog fits, the band laid down once its content
                                 // scrolls on under the title
-                                CompositionLocalProvider(LocalBackdropHaze provides haze) {
-                                    HeaderBand(appAccentFill(LocalAccent.current), HeaderBandShape)
-                                }
+                                HeaderBand(appAccentFill(LocalAccent.current), HeaderBandShape, haze)
                                 DialogTitle(
                                     title = title,
                                     titleTrailingContent = titleTrailingContent,
@@ -437,8 +435,8 @@ private fun CompactDialogContent(
     }
 }
 
-/** Gap between an [AppDialog]'s content and the edges of the screen, the one a [ListDialog] keeps. */
-private val DialogInset = Defaults.SpaceLarge
+/** Gap between a dialog's content and the edges of the screen, an [AppDialog]'s and a [ListDialog]'s alike. */
+internal val DialogInset = Defaults.SpaceLarge
 
 /** The title an [AppDialog] opens with, and the actions beside it where it has any. */
 @Composable

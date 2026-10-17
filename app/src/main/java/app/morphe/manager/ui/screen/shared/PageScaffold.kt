@@ -79,8 +79,8 @@ fun PageHeader(
 
 /**
  * A page whose [header] stays in place while [content] scrolls on under it, blurred on a band the
- * header lays down only once the content runs under it, as a list dialog's header does. [content] is handed the header's height to start below it,
- * and the height of the [bottomBar] to end above it.
+ * header lays down only once the content runs under it, as a list dialog's header does. [content]
+ * is handed the header's height to start below it, and the height of the [bottomBar] to end above it.
  *
  * @param bottomBar Docked over the bottom of the page, such as a [DockedPanel], blurring the content
  *   under it as the header does.
@@ -95,26 +95,27 @@ fun PinnedHeaderPage(
     val haze = rememberHazeState()
     val backdrop = remember { HeaderBackdrop() }
     val horizontal = rememberWindowSize().contentPadding
-    CompositionLocalProvider(LocalHeaderBackdrop provides backdrop) {
-        FloatingBarsLayout(
-            modifier = modifier.fillMaxSize(),
-            bottomBar = { CompositionLocalProvider(LocalBackdropHaze provides haze, content = bottomBar) },
-            topBar = {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    // Bare at rest, the band laid down once the page scrolls on under the header
-                    CompositionLocalProvider(LocalBackdropHaze provides haze) {
-                        HeaderBand(appAccentFill(null), HeaderBandShape)
-                    }
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .statusBarsPadding()
-                            .padding(start = horizontal, top = Defaults.SpaceLarge, end = horizontal, bottom = Defaults.SpaceMedium),
-                        content = header
-                    )
+    FloatingBarsLayout(
+        modifier = modifier.fillMaxSize(),
+        bottomBar = { CompositionLocalProvider(LocalBackdropHaze provides haze, content = bottomBar) },
+        topBar = {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                // Bare at rest, the band laid down once the page scrolls on under the header
+                CompositionLocalProvider(LocalHeaderBackdrop provides backdrop) {
+                    HeaderBand(appAccentFill(null), HeaderBandShape, haze)
                 }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .statusBarsPadding()
+                        .padding(start = horizontal, top = Defaults.SpaceLarge, end = horizontal, bottom = Defaults.SpaceMedium),
+                    content = header
+                )
             }
-        ) { headerHeight, bottomBarHeight ->
+        }
+    ) { headerHeight, bottomBarHeight ->
+        // The page's scrollbar tells the header when the content runs on under it
+        CompositionLocalProvider(LocalHeaderBackdrop provides backdrop) {
             Box(modifier = Modifier.fillMaxSize().hazeSource(haze)) { content(headerHeight, bottomBarHeight) }
         }
     }

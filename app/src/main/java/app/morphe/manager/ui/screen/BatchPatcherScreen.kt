@@ -886,11 +886,7 @@ private fun BatchItemCard(
                 }
             }
 
-            AnimatedVisibility(
-                visible = editable,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = editable) {
                 Column {
                     SettingsDivider()
                     ActionPillRow(
@@ -965,11 +961,7 @@ private fun BatchItemCard(
                 }
             }
 
-            AnimatedVisibility(
-                visible = hasResultActions,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
+            FoldingVisibility(visible = hasResultActions) {
                 Column {
                     SettingsDivider()
                     ActionPillRow(

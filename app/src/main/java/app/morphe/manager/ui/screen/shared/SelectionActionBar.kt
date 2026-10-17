@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
  * Meant for the home screen's footer dock and the [ListDialog] bottom bar, so the surface, blur and
  * enter/exit animations stay the same everywhere one is docked.
  *
- * @param onBack Closes the panel on back or a drag down its handle, which it follows down as it
+ * @param onBack Closes the panel on back or once it is drawn down, which it follows down as it
  * goes. Required so no panel is left to a back handler that cannot animate it, such as the
  * dismissal of the [ListDialog] it is docked to.
  */
@@ -83,12 +83,14 @@ fun DockedPanel(
             color = Color.Transparent,
             contentColor = contentColorFor(surface)
         ) {
-            // A list in the panel scrolls the panel alone, never the header of what it is docked to
-            CompositionLocalProvider(LocalHeaderBackdrop provides null) {
-                Column(modifier = Modifier.navigationBarsPadding().padding(bottom = Defaults.SpaceExtraSmall)) {
-                    PanelDragHandle(progress = backProgress, onDismiss = onBack)
-                    content()
-                }
+            Column(
+                modifier = Modifier
+                    .drawnDownBy(backProgress, onDismiss = onBack)
+                    .navigationBarsPadding()
+                    .padding(bottom = Defaults.SpaceExtraSmall)
+            ) {
+                PanelHandle(onDismiss = onBack)
+                content()
             }
         }
     }
@@ -98,30 +100,35 @@ fun DockedPanel(
 val SheetShape: Shape = RoundedCornerShape(topStart = Defaults.CornerExtraLarge, topEnd = Defaults.CornerExtraLarge)
 
 /**
- * The handle a [DockedPanel] is drawn down by, through the same [progress] a back gesture moves it
- * by, so letting go past halfway or with a flick closes it as letting go of the gesture does.
+ * Lets a [DockedPanel] be drawn down anywhere a list in it does not take the drag, through the same
+ * [progress] a back gesture moves it by, so letting go past halfway or with a flick closes it as
+ * letting go of the gesture does.
  */
 @Composable
-private fun PanelDragHandle(progress: Animatable<Float, AnimationVector1D>, onDismiss: () -> Unit) {
+private fun Modifier.drawnDownBy(progress: Animatable<Float, AnimationVector1D>, onDismiss: () -> Unit): Modifier {
     val scope = rememberCoroutineScope()
     val density = LocalDensity.current
     val travel = with(density) { PredictiveBackSlide.toPx() }
     val flick = with(density) { DismissVelocity.toPx() }
-    val closeLabel = stringResource(R.string.close)
     val dragState = rememberDraggableState { delta ->
         scope.launch { progress.snapTo((progress.value + delta / travel).coerceIn(0f, 1f)) }
     }
+    return draggable(
+        state = dragState,
+        orientation = Orientation.Vertical,
+        onDragStopped = { velocity ->
+            if (progress.value > 0.5f || velocity > flick) onDismiss() else progress.animateTo(0f)
+        }
+    )
+}
 
+/** The handle atop a [DockedPanel], saying it can be drawn down, and closing it for a screen reader. */
+@Composable
+private fun PanelHandle(onDismiss: () -> Unit) {
+    val closeLabel = stringResource(R.string.close)
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .draggable(
-                state = dragState,
-                orientation = Orientation.Vertical,
-                onDragStopped = { velocity ->
-                    if (progress.value > 0.5f || velocity > flick) onDismiss() else progress.animateTo(0f)
-                }
-            )
             .padding(top = Defaults.SpaceSmall)
             .semantics {
                 contentDescription = closeLabel
@@ -137,7 +144,7 @@ private fun PanelDragHandle(progress: Animatable<Float, AnimationVector1D>, onDi
     }
 }
 
-/** How fast a flick down the handle has to be to close the panel however little it has moved. */
+/** How fast a flick down a panel has to be to close it however little it has moved. */
 private val DismissVelocity = 600.dp
 
 private class LastVisibleValue<T>(var value: T)

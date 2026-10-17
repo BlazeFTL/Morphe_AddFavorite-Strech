@@ -8,11 +8,10 @@ package app.morphe.manager.ui.screen.settings.advanced
 import android.os.Build
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Api
+import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.LayersClear
 import androidx.compose.material.icons.outlined.Memory
-import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,7 +24,7 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 
 /**
- * How the patcher runs: process runtime, native library stripping and external batch patch triggers.
+ * How the patcher runs: the process it runs in, and how much of the app it leaves out of the APK.
  */
 @Composable
 fun PatcherTuningSection(settingsViewModel: SettingsViewModel) {
@@ -34,7 +33,6 @@ fun PatcherTuningSection(settingsViewModel: SettingsViewModel) {
     val memoryLimit by prefs.patcherProcessMemoryLimit.getAsState()
     val heapLimitIgnored by prefs.patcherHeapLimitIgnored.getAsState()
     val stripUnusedNativeLibs by prefs.stripUnusedNativeLibs.getAsState()
-    val externalBatchPatchEnabled by prefs.externalBatchPatchEnabled.getAsState()
 
     val showProcessRuntimeDialog = remember { mutableStateOf(false) }
 
@@ -50,8 +48,8 @@ fun PatcherTuningSection(settingsViewModel: SettingsViewModel) {
     }
 
     SettingsSection(
-        title = stringResource(R.string.settings_section_performance),
-        icon = Icons.Outlined.Speed
+        title = stringResource(R.string.settings_section_patcher),
+        icon = Icons.Outlined.Build
     ) {
         SettingsGroup {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -104,15 +102,6 @@ fun PatcherTuningSection(settingsViewModel: SettingsViewModel) {
                 icon = Icons.Outlined.LayersClear,
                 title = stringResource(R.string.settings_advanced_strip_unused_libs),
                 subtitle = stringResource(R.string.settings_advanced_strip_unused_libs_description)
-            )
-
-            // Entry point other apps use to start a re-patch queue
-            SettingsSwitchItem(
-                checked = externalBatchPatchEnabled,
-                onToggle = { settingsViewModel.toggleExternalBatchPatch(externalBatchPatchEnabled) },
-                icon = Icons.Outlined.Api,
-                title = stringResource(R.string.settings_advanced_external_batch_patch),
-                subtitle = stringResource(R.string.settings_advanced_external_batch_patch_description)
             )
         }
     }

@@ -93,7 +93,7 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
     }
 
     SettingsColumn {
-        LanguageAndDisplaySection(
+        DisplaySection(
             appLanguage = appLanguage,
             uiScale = uiScale,
             onLanguageClick = { showTranslationInfoDialog.value = true },
@@ -111,15 +111,18 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
             onPureBlackToggle = { themeViewModel.setPureBlackTheme(!pureBlackTheme) },
             colorAccents = colorAccents,
             onColorAccentsToggle = { themeViewModel.toggleColorAccents(colorAccents) },
+            accentColorHex = customAccentColorHex,
+            onAccentSelected = themeViewModel::setCustomAccentColor
+        )
+
+        EffectsSection(
             outlines = outlines,
             onOutlinesToggle = { themeViewModel.toggleOutlines(outlines) },
             blur = blur,
             onBlurToggle = { themeViewModel.toggleBlur(blur) },
             backgroundType = backgroundType,
             randomInterval = randomInterval,
-            onBackgroundClick = { showBackgroundDialog.value = true },
-            accentColorHex = customAccentColorHex,
-            onAccentSelected = themeViewModel::setCustomAccentColor
+            onBackgroundClick = { showBackgroundDialog.value = true }
         )
 
         HomeScreenSection(
@@ -233,7 +236,7 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
  * drawn at.
  */
 @Composable
-private fun LanguageAndDisplaySection(
+private fun DisplaySection(
     appLanguage: String,
     uiScale: Float,
     onLanguageClick: () -> Unit,
@@ -245,7 +248,7 @@ private fun LanguageAndDisplaySection(
     }
 
     SettingsSection(
-        title = stringResource(R.string.settings_appearance_language_and_display),
+        title = stringResource(R.string.settings_appearance_display),
         icon = Icons.Outlined.Language
     ) {
         SettingsGroup {
@@ -272,13 +275,15 @@ private fun LanguageAndDisplaySection(
                 subtitle = "${uiScale.toUiScalePercent()}%",
                 leadingContent = { ThemedIcon(icon = Icons.Outlined.FormatSize) }
             )
+            // How the manager shows on the launcher, as the language and scale say how it reads
+            AppIconSettingsItem()
         }
     }
 }
 
 /**
- * Theme mode and color style, then how the rest of the manager is dressed: its accent, pure black,
- * the colors apps and sources wear, outlines, blurring, the animated background and the launcher icon.
+ * Theme mode and color style, then the colors the manager wears: its accent, pure black and the
+ * colors apps and sources wear.
  */
 @Composable
 private fun ThemeSection(
@@ -292,13 +297,6 @@ private fun ThemeSection(
     onPureBlackToggle: () -> Unit,
     colorAccents: Boolean,
     onColorAccentsToggle: () -> Unit,
-    outlines: Boolean,
-    onOutlinesToggle: () -> Unit,
-    blur: Boolean,
-    onBlurToggle: () -> Unit,
-    backgroundType: BackgroundType,
-    randomInterval: RandomInterval,
-    onBackgroundClick: () -> Unit,
     accentColorHex: String?,
     onAccentSelected: (Color?) -> Unit
 ) {
@@ -352,7 +350,26 @@ private fun ThemeSection(
                     onToggle = onColorAccentsToggle
                 )
             }
+        }
+    }
+}
 
+/** How the surfaces are drawn: their edges, the blur under what floats, and the animated background. */
+@Composable
+private fun EffectsSection(
+    outlines: Boolean,
+    onOutlinesToggle: () -> Unit,
+    blur: Boolean,
+    onBlurToggle: () -> Unit,
+    backgroundType: BackgroundType,
+    randomInterval: RandomInterval,
+    onBackgroundClick: () -> Unit
+) {
+    SettingsSection(
+        title = stringResource(R.string.settings_appearance_effects),
+        icon = Icons.Outlined.AutoAwesome
+    ) {
+        SettingsGroup {
             SettingsSwitchItem(
                 title = stringResource(R.string.settings_appearance_outlines),
                 subtitle = stringResource(R.string.settings_appearance_outlines_description),
@@ -377,8 +394,6 @@ private fun ThemeSection(
                 selectedInterval = randomInterval,
                 onClick = onBackgroundClick
             )
-
-            AppIconSettingsItem()
         }
     }
 }

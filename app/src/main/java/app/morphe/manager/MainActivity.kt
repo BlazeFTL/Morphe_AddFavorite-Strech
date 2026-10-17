@@ -520,10 +520,11 @@ private fun MorpheManager(vm: MainViewModel) {
                 R.string.settings, R.string.onboarding_settings_desc,
                 getBounds = { onboardingState.navigationBounds[MainPage.SETTINGS] }
             ),
+            // In the order the settings page lists them, so the tour only ever moves down it
+            targetStep(R.string.appearance, R.string.onboarding_appearance_tab_desc, MainPage.SETTINGS, TourTarget.APPEARANCE),
             targetStep(R.string.settings_advanced_expert_mode, R.string.onboarding_expert_mode_desc, MainPage.SETTINGS, TourTarget.EXPERT_MODE),
             targetStep(R.string.installer, R.string.onboarding_system_installer_desc, MainPage.SETTINGS, TourTarget.INSTALLER),
-            targetStep(R.string.settings_system_custom_file_picker, R.string.onboarding_system_file_picker_desc, MainPage.SETTINGS, TourTarget.FILE_PICKER),
-            targetStep(R.string.appearance, R.string.onboarding_appearance_tab_desc, MainPage.SETTINGS, TourTarget.APPEARANCE)
+            targetStep(R.string.settings_system_custom_file_picker, R.string.onboarding_system_file_picker_desc, MainPage.SETTINGS, TourTarget.FILE_PICKER)
         )
     }
 

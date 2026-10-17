@@ -10,11 +10,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Api
 import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.outlined.SearchOff
-import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -80,9 +81,10 @@ fun SettingsPage(
                             bottom = bottomBarHeight + Defaults.SpaceLarge
                         )
                 ) {
+                    AppearanceItem(onOpenSubpage, onboardingState)
                     PatchingSection(settingsViewModel, onOpenSubpage, onboardingState)
                     PatcherTuningSection(settingsViewModel)
-                    ManagerSection(settingsViewModel, homeViewModel, onOpenSubpage, onboardingState)
+                    UpdatesSection(settingsViewModel, homeViewModel)
                     BackgroundSection(settingsViewModel)
                     FilesSection(settingsViewModel, onboardingState)
                     AboutSection(onStartTour)
@@ -124,6 +126,7 @@ private fun PatchingSection(
     importExportViewModel: ImportExportViewModel = koinViewModel()
 ) {
     val useExpertMode by settingsViewModel.prefs.useExpertMode.getAsState()
+    val externalBatchPatchEnabled by settingsViewModel.prefs.externalBatchPatchEnabled.getAsState()
     var showExpertModeDialog by remember { mutableStateOf(false) }
 
     // Notify VM on expert mode changes so it can derive showExpertModeNotice
@@ -174,6 +177,14 @@ private fun PatchingSection(
                 settingsViewModel = settingsViewModel,
                 modifier = Modifier.tourTarget(TourTarget.INSTALLER, tour)
             )
+            // Entry point other apps use to start a re-patch queue
+            SettingsSwitchItem(
+                checked = externalBatchPatchEnabled,
+                onToggle = { settingsViewModel.toggleExternalBatchPatch(externalBatchPatchEnabled) },
+                icon = Icons.Outlined.Api,
+                title = stringResource(R.string.settings_advanced_external_batch_patch),
+                subtitle = stringResource(R.string.settings_advanced_external_batch_patch_description)
+            )
         }
 
         // Shown once after enabling, and not as a match for a search
@@ -187,24 +198,26 @@ private fun PatchingSection(
     }
 }
 
-/** The manager itself: how it looks, and how it updates. */
+/** How the manager looks, heading the page as the one part of it with a page of its own to open. */
 @Composable
-private fun ManagerSection(
-    settingsViewModel: SettingsViewModel,
-    homeViewModel: HomeViewModel,
-    onOpenSubpage: (SettingsSubpage) -> Unit,
-    tour: OnboardingState?
-) {
+private fun AppearanceItem(onOpenSubpage: (SettingsSubpage) -> Unit, tour: OnboardingState?) {
+    SettingsGroup {
+        SubpageItem(
+            subpage = SettingsSubpage.APPEARANCE,
+            onOpen = onOpenSubpage,
+            modifier = Modifier.tourTarget(TourTarget.APPEARANCE, tour)
+        )
+    }
+}
+
+/** How the manager and its sources update, and the token they reach GitHub with. */
+@Composable
+private fun UpdatesSection(settingsViewModel: SettingsViewModel, homeViewModel: HomeViewModel) {
     SettingsSection(
-        title = stringResource(R.string.settings_group_manager),
-        icon = Icons.Outlined.Settings
+        title = stringResource(R.string.settings_section_updates),
+        icon = Icons.Outlined.SystemUpdate
     ) {
         SettingsGroup {
-            SubpageItem(
-                subpage = SettingsSubpage.APPEARANCE,
-                onOpen = onOpenSubpage,
-                modifier = Modifier.tourTarget(TourTarget.APPEARANCE, tour)
-            )
             UpdatesItems(
                 settingsViewModel = settingsViewModel,
                 onManagerPrereleasesToggle = { homeViewModel.triggerUpdateCheck() }

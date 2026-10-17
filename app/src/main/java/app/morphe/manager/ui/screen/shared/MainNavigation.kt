@@ -142,8 +142,6 @@ fun MainPagerScaffold(
                 pager(Modifier.fillMaxSize().hazeSource(barHaze), bottomBarHeight)
             }
         }
-
-        StatusBarScrim()
     }
 }
 

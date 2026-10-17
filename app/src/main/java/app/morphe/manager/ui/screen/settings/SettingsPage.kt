@@ -195,12 +195,22 @@ private fun PatchingSection(
             subtitle = stringResource(R.string.settings_advanced_expert_mode_description),
             modifier = Modifier.settingsTourTarget(TourTarget.EXPERT_MODE)
         )
-        if (useExpertMode) {
+        // Each folds in as the other folds away, so the group reshapes around the swap
+        AnimatedVisibility(
+            visible = useExpertMode,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
             PatchSelectionsItem(
                 settingsViewModel = settingsViewModel,
                 importExportViewModel = importExportViewModel
             )
-        } else {
+        }
+        AnimatedVisibility(
+            visible = !useExpertMode,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
             SubpageItem(SettingsSubpage.PATCH_OPTIONS, onOpenSubpage)
         }
         InstallerItem(

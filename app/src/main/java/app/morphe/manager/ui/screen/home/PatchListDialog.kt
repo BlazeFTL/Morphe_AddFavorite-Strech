@@ -159,7 +159,9 @@ internal fun PatchListDialog(
                         contentDescription = stringResource(R.string.filter),
                         onClick = { showFilterPanel = !showFilterPanel },
                         style = TitleActionStyle.Toggle,
-                        active = showFilterPanel || selected != null
+                        // Engaged while the panel is open, and marked while one block is shown alone
+                        active = showFilterPanel,
+                        marked = selected != null
                     )
                 }
             }

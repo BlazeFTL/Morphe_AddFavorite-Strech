@@ -7,15 +7,20 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 
 /** Visual style of a [TitleAction]. */
 enum class TitleActionStyle {
@@ -38,7 +43,9 @@ enum class TitleActionStyle {
  * Icon action rendered in the title row of a header or a [DockedPanel]. Uniforms the
  * button styles used across headers so callers only pick an icon and a semantic style.
  *
- * @param active Whether a [TitleActionStyle.Toggle] is engaged.
+ * @param active Whether a [TitleActionStyle.Toggle] is engaged, which is while what it opens is open.
+ * @param marked Marks the icon with a dot for something the action leaves in place, such as a
+ *   filter narrowing a list off its default, which the toggle's own state says nothing of.
  * @param enabled Whether the action can be used. A header keeps its actions in place while they
  * are out of reach, so the title never shifts as they come and go.
  */
@@ -50,6 +57,7 @@ fun TitleAction(
     modifier: Modifier = Modifier,
     style: TitleActionStyle = TitleActionStyle.Plain,
     active: Boolean = false,
+    marked: Boolean = false,
     enabled: Boolean = true
 ) {
     // Pinned to the container the button already draws, otherwise it reserves the 48dp touch
@@ -113,11 +121,23 @@ fun TitleAction(
                 disabledContentColor = dialogTextColor().copy(alpha = Defaults.DISABLED_ALPHA)
             )
         ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = contentDescription,
-                modifier = Modifier.size(Defaults.IconSize)
-            )
+            val markColor = LocalAccent.current ?: MaterialTheme.colorScheme.primary
+            MarkedIcon(
+                mark = Icons.Filled.Circle.takeIf { marked },
+                markColor = markColor,
+                iconSize = Defaults.IconSize,
+                markSize = TitleActionMarkSize,
+                markContentColor = markColor
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = contentDescription,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
     }
 }
+
+/** Diameter of the dot a [TitleAction] is marked with, small enough to read as a dot rather than a badge. */
+private val TitleActionMarkSize = 8.dp

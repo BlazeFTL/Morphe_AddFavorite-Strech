@@ -360,7 +360,7 @@ private fun SourcesPageContent(
                         sourceSortMode.labelRes,
                         sourceFilter.labelRes.takeIf { sourceFilter.isActive }
                     )
-                    // Engaged while the options are open, and while a filter keeps sources out
+                    // Engaged while the options are open, and marked while a filter keeps sources out
                     TitleAction(
                         icon = Icons.AutoMirrored.Outlined.Sort,
                         contentDescription = stringResource(R.string.sort),
@@ -370,7 +370,8 @@ private fun SourcesPageContent(
                             stateDescription = optionsState
                         },
                         style = TitleActionStyle.Toggle,
-                        active = listOptionsOpen || sourceFilter.isActive
+                        active = listOptionsOpen,
+                        marked = sourceFilter.isActive
                     )
                 }
                 TitleAction(

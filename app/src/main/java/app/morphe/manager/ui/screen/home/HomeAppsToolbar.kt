@@ -74,9 +74,10 @@ internal fun HomeAppsToolbar(
                 icon = Icons.AutoMirrored.Outlined.Sort,
                 contentDescription = stringResource(R.string.sort),
                 onClick = onSortClick,
-                // Engaged while the options are docked, and tinted while a filter narrows the list
-                style = if (filterMode.isActive && !sortOpen) TitleActionStyle.Accent else TitleActionStyle.Toggle,
+                // Engaged while the options are docked, and marked while a filter narrows the list
+                style = TitleActionStyle.Toggle,
                 active = sortOpen,
+                marked = filterMode.isActive,
                 enabled = sortEnabled,
                 modifier = Modifier.semantics { stateDescription = sortState }
             )

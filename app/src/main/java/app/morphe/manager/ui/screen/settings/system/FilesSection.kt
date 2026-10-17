@@ -14,7 +14,9 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Folder
+import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Storage
@@ -36,28 +38,38 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.SettingsSection
 import app.morphe.manager.domain.manager.SigningKeyInfo
+import app.morphe.manager.ui.screen.home.TourTarget
+import app.morphe.manager.ui.screen.settings.settingsTourTarget
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.ui.viewmodel.ImportExportViewModel
+import app.morphe.manager.ui.viewmodel.SettingsViewModel
+import app.morphe.manager.util.ApkDownloadHelperContract
 import app.morphe.manager.util.JSON_MIMETYPE
 import app.morphe.manager.util.TEXT_MIMETYPE
 import app.morphe.manager.util.isAndroidTv
 import app.morphe.manager.util.rememberAdaptiveFilePicker
-import kotlinx.coroutines.launch
-import org.koin.androidx.compose.koinViewModel
-import org.koin.compose.koinInject
 import java.text.DateFormat
 import java.util.Date
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 /** Bytes per line of the full fingerprint, which keeps it to four even lines of an SHA-256. */
 private const val FINGERPRINT_BYTES_PER_LINE = 8
 
 /**
- * What the manager keeps on the device, then the backups of it: the signing key, which a lost
- * install cannot recreate, and the manager's settings.
+ * The files the manager works with: where the APKs it patches come from, what it keeps on the
+ * device, then the backups of it: the signing key, which a lost install cannot recreate, and the
+ * manager's settings.
  */
 @Composable
-fun FilesSection(importExportViewModel: ImportExportViewModel = koinViewModel()) {
+fun FilesSection(
+    settingsViewModel: SettingsViewModel,
+    importExportViewModel: ImportExportViewModel = koinViewModel()
+) {
     val context = LocalContext.current
     val messages = koinInject<UserMessages>()
     val scope = rememberCoroutineScope()
@@ -136,6 +148,8 @@ fun FilesSection(importExportViewModel: ImportExportViewModel = koinViewModel())
     )
 
     SettingsGroup {
+        OriginalApkItems(settingsViewModel)
+
         SettingsItem(
             onClick = { showStorageDialog = true },
             title = stringResource(R.string.settings_system_storage_management_title),
@@ -406,4 +420,60 @@ private fun fingerprintColors(sha256: String): List<Color> {
         Color.hsv(first, 0.65f, 0.75f),
         Color.hsv(second, 0.65f, 0.75f)
     )
+}
+
+/**
+ * The ways of getting hold of the APK an app is patched from, as rows of a settings group: the
+ * file picker and the download helpers installed on the device, each only where it is offered.
+ */
+@Composable
+private fun OriginalApkItems(settingsViewModel: SettingsViewModel) {
+    val context = LocalContext.current
+    val isTV = remember { context.isAndroidTv() }
+    val useCustomFilePicker by settingsViewModel.prefs.useCustomFilePicker.getAsState()
+    val trustedApkDownloadHelpers by settingsViewModel.prefs.trustedApkDownloadHelpers.getAsState()
+    var showApkDownloadHelpersDialog by remember { mutableStateOf(false) }
+
+    // Keeps the entry hidden until a helper is installed, so it never advertises a third-party app
+    var apkDownloadHelpers by remember { mutableStateOf(emptyList<ApkDownloadHelperApp>()) }
+    LaunchedEffect(Unit) {
+        apkDownloadHelpers = withContext(Dispatchers.IO) {
+            ApkDownloadHelperContract.findHelpers(context)
+                .distinctBy { it.componentName.packageName }
+                .map { ApkDownloadHelperApp(packageName = it.componentName.packageName, label = it.label) }
+        }
+    }
+
+    if (showApkDownloadHelpersDialog) {
+        ApkDownloadHelpersDialog(
+            settingsViewModel = settingsViewModel,
+            helpers = apkDownloadHelpers,
+            onDismiss = { showApkDownloadHelpersDialog = false }
+        )
+    }
+
+    // TV always uses the custom picker regardless of this toggle, so hide it to avoid confusion
+    if (!isTV) {
+        SettingsSwitchItem(
+            checked = useCustomFilePicker,
+            onToggle = { settingsViewModel.setUseCustomFilePicker(!useCustomFilePicker) },
+            icon = Icons.Outlined.FolderOpen,
+            title = stringResource(R.string.settings_system_custom_file_picker),
+            subtitle = stringResource(R.string.settings_system_custom_file_picker_description),
+            modifier = Modifier.settingsTourTarget(TourTarget.FILE_PICKER)
+        )
+    }
+
+    if (apkDownloadHelpers.isNotEmpty()) {
+        SettingsItem(
+            onClick = { showApkDownloadHelpersDialog = true },
+            title = stringResource(R.string.settings_system_apk_download_helper),
+            subtitle = stringResource(
+                R.string.settings_system_apk_download_helper_trusted_count,
+                apkDownloadHelpers.count { it.packageName in trustedApkDownloadHelpers },
+                apkDownloadHelpers.size
+            ),
+            leadingContent = { ThemedIcon(icon = Icons.Outlined.Download) }
+        )
+    }
 }

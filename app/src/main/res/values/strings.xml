@@ -1355,7 +1355,6 @@ Details: %2$s"</string>
     <string name="settings_section_appearance_summary">Language, theme, colors and home screen</string>
     <string name="settings_section_patch_options_summary">What simple mode patches apps with</string>
     <string name="settings_section_performance">Performance</string>
-    <string name="settings_section_original_apks">Original APKs</string>
     <string name="settings_section_files">Files &amp; backups</string>
     <string name="settings_search">Search settings</string>
     <string name="yes">Yes</string>

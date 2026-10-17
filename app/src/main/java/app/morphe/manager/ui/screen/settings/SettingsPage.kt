@@ -92,10 +92,9 @@ fun SettingsPage(
                 ) {
                     PatchingSection(settingsViewModel, onOpenSubpage)
                     PatcherTuningSection(settingsViewModel)
-                    OriginalApksSection(settingsViewModel)
                     ManagerSection(settingsViewModel, homeViewModel, onOpenSubpage)
                     BackgroundSection(settingsViewModel)
-                    FilesSection()
+                    FilesSection(settingsViewModel)
                     AboutSection(onStartTour)
                     AnimatedVisibility(
                         visible = settingsSearch.isActive && settingsSearch.shown == 0,

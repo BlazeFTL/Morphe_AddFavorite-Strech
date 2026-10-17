@@ -179,7 +179,6 @@
     <string name="sources_apps_description">Ticked apps come from this source. Tap an app to leave it out or bring it back. An app leaves the home screen once no source brings it, unless you have patched it</string>
     <string name="sources_apps_brought">Brought by this source</string>
     <string name="sources_apps_left_out">Left out of this source</string>
-    <string name="sources_apps_bring_back">Bring back</string>
     <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
     <string name="sources_apps_stays_patched">Kept as patched</string>
     <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
@@ -565,7 +564,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="root_mount_module_unmount_warning">If KernelSU has Unmount modules by default enabled, open KernelSU > Superuser > the app you mounted > Profile > Custom and disable Unmount modules. Otherwise the mounted patched APK may not take effect, even if Morphe shows it as mounted</string>
     <string name="root_pre_patch_installer_standard_title">Standard install mode</string>
     <string name="root_pre_patch_installer_standard_description">Patches as a normal APK with GmsCore support. Your installer setting is used after patching</string>
-    <string name="root_pre_patch_installer_hint">This patch mode is separate from Settings > System > Installer and cannot be changed after patching</string>
+    <string name="root_pre_patch_installer_hint">This patch mode is separate from Settings > Patching > Default installer and cannot be changed after patching</string>
 
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Error copied to clipboard</string>
@@ -788,7 +787,6 @@ Uninstalling will permanently erase all app data"</string>
 
     <!-- Settings -->
     <string name="appearance">Appearance</string>
-    <string name="advanced">Advanced</string>
     <string name="system">System</string>
 
     <!-- Settings - Appearance Tab - Background animation -->
@@ -1211,7 +1209,6 @@ Details: %2$s"</string>
     <string name="settings_system_export_debug_logs_export_success">Logs exported</string>
 
     <!-- Settings - System Tab - Files & Storage Section -->
-    <string name="settings_system_files">Files &amp; storage</string>
     <string name="settings_system_apks_size">Total size: %s</string>
     <string name="settings_system_apks_delete_all_confirm">This will permanently delete the saved APK files shown here</string>
     <string name="settings_system_apks_delete_selected_title">Delete selected APKs?</string>
@@ -1536,13 +1533,9 @@ Do you still want to continue?"</string>
     <string name="onboarding_sources_version_desc">Tap the version to view the full changelog for this source</string>
     <string name="onboarding_sources_prerelease_desc">Enable this to receive pre-release patch versions from this source</string>
     <string name="onboarding_appearance_tab_desc">Customize the app\'s look: theme, accent color, and background</string>
-    <string name="onboarding_appearance_theme_desc">Choose between light, dark, or system theme. You can also pick a custom accent color or enable Dynamic Color</string>
     <string name="onboarding_expert_mode_desc">Enable Expert Mode to unlock patch selection, custom options, and other advanced features</string>
     <!-- Translate "System" the same way as the System settings tab -->
-    <string name="onboarding_system_tab_title">System tab</string>
-    <string name="onboarding_system_tab_desc">Keystore management, import/export tools, and app information</string>
     <string name="onboarding_system_installer_desc">Choose how patched apps are installed: standard, root mount, or Shizuku</string>
-    <string name="onboarding_system_process_runtime_desc">Run patching in a separate process to improve stability and control memory usage. Recommended for large apps</string>
     <string name="onboarding_system_file_picker_desc">Enable to use the built-in file browser instead of the system picker when selecting APKs or keystores</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Quick feature tour</string>

@@ -155,7 +155,8 @@ internal fun SectionsLayout(
 ) {
     val windowSize = rememberWindowSize()
 
-    var searchQuery by remember { mutableStateOf("") }
+    // Saveable, as the pager disposes the page while another one is shown
+    var searchQuery by rememberSaveable { mutableStateOf("") }
     // A search the toolbar no longer offers would go on filtering with no field to clear it from
     LaunchedEffect(chromeFlags.showSearchButton) {
         if (!chromeFlags.showSearchButton) searchQuery = ""

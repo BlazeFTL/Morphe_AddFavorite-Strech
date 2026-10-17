@@ -37,7 +37,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onPlaced
-import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
@@ -106,7 +105,7 @@ fun SurfaceCard(
                 if (group != null) {
                     Modifier
                         .padding(vertical = SegmentGap / 2)
-                        .onPlaced { group.place(row, it.positionInRoot().y) }
+                        .onPlaced { group.place(row, it) }
                 } else Modifier
             )
             .fillMaxWidth()

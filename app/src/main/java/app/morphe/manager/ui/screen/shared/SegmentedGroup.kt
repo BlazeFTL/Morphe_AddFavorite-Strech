@@ -5,23 +5,16 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonGroupDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.onPlaced
 
 /** Gap between the rows of a segmented list, the one a connected group of buttons keeps. */
 val SegmentGap = ButtonGroupDefaults.ConnectedSpaceBetween
@@ -70,7 +63,12 @@ fun SettingsGroup(
 ) {
     val registry = remember { SegmentRegistry() }
     CompositionLocalProvider(LocalSegmentRegistry provides registry) {
-        SearchableGroupColumn(modifier = modifier.fillMaxWidth(), content = content)
+        SearchableGroupColumn(
+            modifier = modifier
+                .fillMaxWidth()
+                .onPlaced(registry::placeGroup),
+            content = content
+        )
     }
 }
 
@@ -81,12 +79,13 @@ fun SettingsGroup(
 internal val LocalSegmentRegistry = staticCompositionLocalOf<SegmentRegistry?> { null }
 
 /**
- * The rows of a [SettingsGroup] in the order they stand on screen, so each takes the shape of its
+ * The rows of a [SettingsGroup] in the order they show within it, so each takes the shape of its
  * place among those showing. Positions are only compared, so scrolling never rewrites the order.
  */
 @Stable
 internal class SegmentRegistry {
-    private val tops = mutableMapOf<Any, Float>()
+    private val rows = mutableMapOf<Any, LayoutCoordinates>()
+    private var group: LayoutCoordinates? = null
     private var order by mutableStateOf(emptyList<Any>())
 
     fun isPlaced(row: Any): Boolean = row in order
@@ -96,16 +95,30 @@ internal class SegmentRegistry {
         return if (index < 0) ConnectedShapes.Card.middle else ConnectedShapes.Card.inColumn(index, order.size)
     }
 
-    fun place(row: Any, top: Float) {
-        if (tops.put(row, top) != top) reorder()
+    fun placeGroup(coordinates: LayoutCoordinates) {
+        group = coordinates
+        reorder()
+    }
+
+    fun place(row: Any, coordinates: LayoutCoordinates) {
+        rows[row] = coordinates
+        reorder()
     }
 
     fun remove(row: Any) {
-        if (tops.remove(row) != null) reorder()
+        if (rows.remove(row) != null) reorder()
     }
 
+    // By the part of each row the group shows, clipped by a fold within the group but not by a page
+    // scrolling it, so a row folding away under the one above counts for where it still shows, and
+    // not at all once nothing of it does
     private fun reorder() {
-        val sorted = tops.entries.sortedBy { it.value }.map { it.key }
+        val group = group?.takeIf { it.isAttached } ?: return
+        val sorted = rows.mapNotNull { (row, coordinates) ->
+            if (!coordinates.isAttached) return@mapNotNull null
+            val shown = group.localBoundingBoxOf(coordinates, clipBounds = true)
+            if (shown.height > 0f) row to shown.top else null
+        }.sortedBy { (_, top) -> top }.map { (row, _) -> row }
         if (sorted != order) order = sorted
     }
 }

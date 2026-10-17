@@ -126,24 +126,26 @@ fun SettingsPage(
 }
 
 /**
- * Stacks the blocks of the page [Defaults.SpaceLarge] apart, closing up over any a search has left
- * empty, which a column spaced by its arrangement would still leave a gap for.
+ * Stacks the blocks of the page [Defaults.SpaceLarge] apart, closing up over any a search folds
+ * away, which a column spaced by its arrangement would still leave a gap for. A block opens the
+ * gap above it no wider than itself, so the gap folds away along with it rather than at its end.
  */
 @Composable
 private fun SettingsBlocks(modifier: Modifier, content: @Composable () -> Unit) {
     Layout(content = content, modifier = modifier) { measurables, constraints ->
         val gap = Defaults.SpaceLarge.roundToPx()
-        val placeables = measurables
-            .map { it.measure(constraints.copy(minHeight = 0)) }
-            .filter { it.height > 0 }
-        val height = placeables.sumOf { it.height } + gap * (placeables.size - 1).coerceAtLeast(0)
+        val placeables = measurables.map { it.measure(constraints.copy(minHeight = 0)) }
+        val tops = IntArray(placeables.size)
+        var height = 0
+        placeables.forEachIndexed { index, placeable ->
+            // Nothing above the first block it shows, however many folded ones stand before it
+            height += minOf(gap, placeable.height, height)
+            tops[index] = height
+            height += placeable.height
+        }
         // Held to the least height it is given, which a short page would otherwise be centered in
         layout(constraints.maxWidth, height.coerceAtLeast(constraints.minHeight)) {
-            var y = 0
-            placeables.forEach { placeable ->
-                placeable.place(0, y)
-                y += placeable.height + gap
-            }
+            placeables.forEachIndexed { index, placeable -> placeable.place(0, tops[index]) }
         }
     }
 }

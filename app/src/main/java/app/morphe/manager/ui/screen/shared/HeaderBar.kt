@@ -59,8 +59,9 @@ fun HeaderBar(
     controlsModifier: Modifier = Modifier
 ) {
     val label = searchLabel ?: stringResource(R.string.search)
-    val progress = remember { Animatable(0f) }
     val open = search?.visible == true
+    // A field restored open, such as on coming back to the page, stands open rather than opening again
+    val progress = remember { Animatable(if (open) 1f else 0f) }
     LaunchedEffect(open) { progress.animateTo(if (open) 1f else 0f, SearchMorphSpec) }
     // Composed only while any of it shows, so a closed field holds no focus and takes no taps
     val fieldShown = remember { derivedStateOf { progress.value > 0f } }
@@ -87,7 +88,8 @@ fun HeaderBar(
                         value = search.query,
                         onValueChange = { search.query = it },
                         label = label,
-                        requestFocus = true,
+                        // Only a field opened here takes the keyboard, not one restored open
+                        requestFocus = remember { progress.value < 1f },
                         // Drawn out from the toggle's end, the toggle itself staying over that end
                         modifier = Modifier.graphicsLayer {
                             shape = EndAnchoredPill(

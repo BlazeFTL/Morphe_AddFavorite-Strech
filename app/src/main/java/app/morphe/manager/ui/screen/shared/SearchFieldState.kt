@@ -10,6 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 
 /**
  * Toggle and query behind the search fields in dialog and sheet lists. Collapsing always
@@ -33,6 +35,19 @@ class SearchFieldState internal constructor() {
         query = ""
         visible = false
     }
+
+    internal companion object {
+        /** Keeps an open field and its query across a trip to another screen and back. */
+        val Saver = listSaver<SearchFieldState, Any>(
+            save = { listOf(it.visible, it.query) },
+            restore = { (visible, query) ->
+                SearchFieldState().apply {
+                    this.visible = visible as Boolean
+                    this.query = query as String
+                }
+            }
+        )
+    }
 }
 
 /**
@@ -43,7 +58,7 @@ class SearchFieldState internal constructor() {
  */
 @Composable
 fun rememberSearchFieldState(searchable: Boolean = true): SearchFieldState {
-    val state = remember { SearchFieldState() }
+    val state = rememberSaveable(saver = SearchFieldState.Saver) { SearchFieldState() }
 
     LaunchedEffect(searchable) {
         if (!searchable) state.collapse()

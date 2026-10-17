@@ -1313,13 +1313,19 @@ class InstallViewModel(
     }
 
     /**
-     * Returns installer entries for the one-time selection dialog shown during install.
-     * Mirrors the logic in SettingsViewModel but scoped to PATCHER target only.
+     * Installer the one-time selection dialog starts on: the default one, with the system installer
+     * in place of root mount, which mounts builds and never installs one.
      */
+    fun getPromptInstallerToken(): InstallerManager.Token =
+        installerManager.getPrimaryToken().let {
+            if (it == InstallerManager.Token.AutoSaved) InstallerManager.Token.Internal else it
+        }
+
+    /** Installer entries for the one-time selection dialog shown during install, root mount left out. */
     fun getInstallerOptions(): List<InstallerManager.Entry> {
-        val token = installerManager.getPrimaryToken()
         val raw = installerManager.listEntries(InstallerManager.InstallTarget.PATCHER, includeNone = false)
-        return installerManager.ensureValidEntries(raw, token, InstallerManager.InstallTarget.PATCHER)
+            .filterNot { it.token == InstallerManager.Token.AutoSaved }
+        return installerManager.ensureValidEntries(raw, getPromptInstallerToken(), InstallerManager.InstallTarget.PATCHER)
     }
 
     fun getPrimaryInstallerToken(): InstallerManager.Token =

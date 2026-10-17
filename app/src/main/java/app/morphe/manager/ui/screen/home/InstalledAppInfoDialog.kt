@@ -58,8 +58,7 @@ import app.morphe.manager.domain.bundles.versionStatus
 import app.morphe.manager.domain.links.AppLinksStatus
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.util.NativeLibs
-import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
-import app.morphe.manager.ui.screen.settings.system.InstallerUnavailableDialog
+import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.sources.*
 import app.morphe.manager.ui.screen.shared.Animations
@@ -341,33 +340,7 @@ fun DialogHostScope.InstalledAppInfoDialog(
 
     // Everything this dialog opens wears the app's color, as the dialog itself does
     ProvideAccent(infoAccentColor) {
-        // Installer unavailable dialog
-        DialogHost(target = installViewModel.installerUnavailableDialog) { dialogState ->
-            InstallerUnavailableDialog(
-                state = dialogState,
-                onOpenApp = installViewModel::openInstallerApp,
-                onRetry = installViewModel::retryWithPreferredInstaller,
-                onUseFallback = installViewModel::proceedWithFallbackInstaller,
-                onDismiss = installViewModel::dismissInstallerUnavailableDialog
-            )
-        }
-
-        // Installer selection dialog (shown when promptInstallerOnInstall is enabled)
-        DialogHost(visible = installViewModel.showInstallerSelectionDialog) {
-            val options = remember { installViewModel.getInstallerOptions() }
-            val primaryToken = remember { installViewModel.getPrimaryInstallerToken() }
-            InstallerSelectionDialog(
-                options = options,
-                selected = primaryToken,
-                onDismiss = installViewModel::dismissInstallerSelectionDialog,
-                onConfirm = { token ->
-                    installViewModel.proceedWithSelectedInstaller(token)
-                },
-                onOpenShizuku = installViewModel::openShizukuApp,
-                shizukuStatusProvider = installViewModel::getShizukuStatus,
-                onRequestShizukuPermission = installViewModel::requestShizukuPermission
-            )
-        }
+        InstallerFlowDialogs(installViewModel)
 
         // What the pending patch update changed for this app
         BundleChangelogHost(

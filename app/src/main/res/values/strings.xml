@@ -564,7 +564,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="root_mount_module_unmount_warning">If KernelSU has Unmount modules by default enabled, open KernelSU > Superuser > the app you mounted > Profile > Custom and disable Unmount modules. Otherwise the mounted patched APK may not take effect, even if Morphe shows it as mounted</string>
     <string name="root_pre_patch_installer_standard_title">Standard install mode</string>
     <string name="root_pre_patch_installer_standard_description">Patches as a normal APK with GmsCore support. Your installer setting is used after patching</string>
-    <string name="root_pre_patch_installer_hint">This patch mode is separate from Settings > Patching > Default installer and cannot be changed after patching</string>
+    <string name="root_pre_patch_installer_hint">Asked while Settings > Patching > Default installer > Installer selection prompt is on. The patch mode cannot be changed after patching</string>
 
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Error copied to clipboard</string>
@@ -1102,11 +1102,13 @@ The image dimensions must be as follows:
     <string name="installer_play_store_mode">Install as Play Store</string>
     <string name="installer_play_store_mode_description">Marks Google Play Store as the install source</string>
     <string name="settings_prompt_installer_on_install">Installer selection prompt</string>
-    <string name="settings_prompt_installer_on_install_description">Asks which installer to use for every install</string>
+    <string name="settings_prompt_installer_on_install_description">Asks how to install every app: with root before patching, otherwise after it</string>
     <string name="settings_auto_install_with_shizuku">Auto-install after patching</string>
     <string name="settings_auto_install_with_shizuku_description">Installs or mounts the patched APK as soon as patching completes</string>
     <string name="settings_auto_uninstall_with_shizuku">Auto-uninstall on conflict</string>
     <string name="settings_auto_uninstall_with_shizuku_description">Uninstalls the existing app on a signature conflict. This can remove app data</string>
+    <string name="settings_ignore_install_target_rules">Ignore install target requirements</string>
+    <string name="settings_ignore_install_target_rules_description">Lets patches the install target requires be turned off and those it rules out be turned on. The patched app may not work</string>
     <string name="settings_auto_uninstall_warning_title">Enable auto-uninstall?</string>
     <string name="settings_auto_uninstall_warning_message">If Android reports a signature conflict during Shizuku auto-install, Morphe will uninstall the existing app before installing the patched APK</string>
     <string name="settings_auto_uninstall_warning_risk">This can remove app data. If the patched APK fails to install after uninstalling, the previous app may already be gone</string>

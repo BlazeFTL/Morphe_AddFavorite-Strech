@@ -627,6 +627,10 @@ class InstallerManager(
                 else -> false
             }
 
+        /** Whether it is root mount, with or without Google Play as the install source. */
+        val isRootMount: Boolean
+            get() = this == AutoSaved || this == RootPlayStore
+
         object Internal : Token()
         object PlayStore : Token()
         object RootPlayStore : Token()

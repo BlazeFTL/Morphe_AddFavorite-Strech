@@ -175,6 +175,7 @@ private fun PatchingSection(
             }
             InstallerItem(
                 settingsViewModel = settingsViewModel,
+                onClick = { onOpenSubpage(SettingsSubpage.INSTALLER) },
                 modifier = Modifier.tourTarget(TourTarget.INSTALLER, tour)
             )
             // Entry point other apps use to start a re-patch queue

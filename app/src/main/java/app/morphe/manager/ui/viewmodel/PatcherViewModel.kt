@@ -386,8 +386,9 @@ class PatcherViewModel(
         ).first().associateBy { it.uid }
 
     /**
-     * Patches the sources declare unavailable for [installerType], so the finished app can name
-     * what it was built without instead of leaving the user to spot the missing patch.
+     * Patches the sources declare unavailable for [installerType] that the run left out, so the
+     * finished app can name what it was built without instead of leaving the user to spot the
+     * missing patch. One the user picked regardless of the install target is built in, so not named.
      */
     suspend fun unavailablePatchNames(installerType: InstallerType): List<String> {
         // Kept once resolved, because the input a temporary APK was read from is gone by the time
@@ -397,7 +398,10 @@ class PatcherViewModel(
 
         return gatherScopedBundles().values
             .asSequence()
-            .flatMap { it.patches }
+            .flatMap { bundle ->
+                val selected = appliedSelection[bundle.uid].orEmpty()
+                bundle.patches.filter { it.name !in selected }
+            }
             .filter { it.lockState(installerType, architecture) == PatchLockState.LOCKED_OFF }
             .map { it.displayName }
             .distinct()

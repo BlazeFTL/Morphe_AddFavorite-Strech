@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
-import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.links.AppLinksManager
 import app.morphe.manager.domain.links.AppLinksStatus
 import app.morphe.manager.domain.manager.PreferencesManager
@@ -33,8 +32,7 @@ import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.screen.home.AppLinksDialog
 import app.morphe.manager.ui.screen.patcher.*
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
-import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
-import app.morphe.manager.ui.screen.settings.system.InstallerUnavailableDialog
+import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
@@ -42,7 +40,6 @@ import app.morphe.manager.util.APK_MIMETYPE
 import app.morphe.manager.util.EventEffect
 import app.morphe.manager.util.shareApks
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
@@ -151,10 +148,6 @@ private fun PatcherScreenContent(
 
     // Get output file from viewModel
     val outputFile = patcherViewModel.outputFile
-
-    val autoInstallAfterPatching by prefs.autoInstallAfterPatching.getAsState()
-    val autoUninstallWithShizuku by prefs.autoUninstallWithShizuku.getAsState()
-    val promptInstallerOnInstall by prefs.promptInstallerOnInstall.getAsState()
 
     // A build that answers to a package name of its own installs beside the app instead of
     // updating it, so every install path waits here until the user has been told once
@@ -457,81 +450,7 @@ private fun PatcherScreenContent(
         )
     }
 
-    DialogHost(target = installViewModel.installerUnavailableDialog) { unavailable ->
-        InstallerUnavailableDialog(
-            state = unavailable,
-            onOpenApp = installViewModel::openInstallerApp,
-            onRetry = installViewModel::retryWithPreferredInstaller,
-            onUseFallback = installViewModel::proceedWithFallbackInstaller,
-            onDismiss = installViewModel::dismissInstallerUnavailableDialog
-        )
-    }
-
-    // Installer selection dialog for patcher screen
-    DialogHost(visible = installViewModel.showInstallerSelectionDialog) {
-        val installerManager: InstallerManager = koinInject()
-        val primaryPreference by prefs.installerPrimary.getAsState()
-        val primaryToken = remember(primaryPreference) {
-            installerManager.parseToken(primaryPreference)
-        }
-
-        val installTarget = InstallerManager.InstallTarget.PATCHER
-        val selectedInstallerToken = remember(primaryToken) {
-            if (primaryToken == InstallerManager.Token.AutoSaved) {
-                InstallerManager.Token.Internal
-            } else {
-                primaryToken
-            }
-        }
-
-        // Installer entries with periodic updates
-        var options by remember(selectedInstallerToken) {
-            mutableStateOf(
-                installerManager.ensureValidEntries(
-                    installerManager.listEntries(installTarget, includeNone = false)
-                        .filterNot { it.token == InstallerManager.Token.AutoSaved },
-                    selectedInstallerToken,
-                    installTarget
-                )
-            )
-        }
-
-        // Periodically update installer list for availability changes
-        LaunchedEffect(installTarget, selectedInstallerToken) {
-            while (isActive) {
-                options = installerManager.ensureValidEntries(
-                    installerManager.listEntries(installTarget, includeNone = false)
-                        .filterNot { it.token == InstallerManager.Token.AutoSaved },
-                    selectedInstallerToken,
-                    installTarget
-                )
-                delay(1_500.milliseconds)
-            }
-        }
-
-        InstallerSelectionDialog(
-            options = options,
-            selected = selectedInstallerToken,
-            onDismiss = installViewModel::dismissInstallerSelectionDialog,
-            onConfirm = { selectedToken ->
-                installViewModel.proceedWithSelectedInstaller(selectedToken)
-            },
-            onOpenShizuku = installerManager::openShizukuApp,
-            shizukuStatusProvider = {
-                installerManager.shizukuStatus(InstallerManager.InstallTarget.PATCHER)
-            },
-            onRequestShizukuPermission = installerManager::requestShizukuPermission,
-            autoInstallEnabled = autoInstallAfterPatching,
-            onAutoInstallToggle = { enabled ->
-                scope.launch { prefs.autoInstallAfterPatching.update(enabled) }
-            },
-            autoUninstallEnabled = autoUninstallWithShizuku,
-            onAutoUninstallToggle = { enabled ->
-                scope.launch { prefs.autoUninstallWithShizuku.update(enabled) }
-            },
-            installerPromptEnabled = promptInstallerOnInstall
-        )
-    }
+    InstallerFlowDialogs(installViewModel)
 
     // Named on the success screen, read once since the run's selection no longer changes
     val patchSources by produceState(emptyList(), patcherViewModel) {

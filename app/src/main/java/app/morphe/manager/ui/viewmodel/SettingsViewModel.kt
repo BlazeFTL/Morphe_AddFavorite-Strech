@@ -228,17 +228,28 @@ class SettingsViewModel(
         prefs.includeGitHubPatInExports.update(includeInExport)
     }
 
+    // Asking how to install and installing on its own exclude each other, so turning one on turns the other off
+
     fun setPromptInstallerOnInstall(enabled: Boolean) = viewModelScope.launch {
         prefs.promptInstallerOnInstall.update(enabled)
+        if (enabled) prefs.autoInstallAfterPatching.update(false)
     }
 
     fun setAutoInstallAfterPatching(enabled: Boolean) = viewModelScope.launch {
         prefs.autoInstallAfterPatching.update(enabled)
+        if (enabled) prefs.promptInstallerOnInstall.update(false)
     }
 
     fun setAutoUninstallWithShizuku(enabled: Boolean) = viewModelScope.launch {
         prefs.autoUninstallWithShizuku.update(enabled)
     }
+
+    fun setIgnoreInstallTargetRules(enabled: Boolean) = viewModelScope.launch {
+        prefs.ignoreInstallTargetRules.update(enabled)
+    }
+
+    /** Whether the device has root, which the patch mode and the rules tied to it depend on. */
+    fun isDeviceRooted() = rootInstaller.isDeviceRooted()
 
     fun setUseCustomFilePicker(enabled: Boolean) = viewModelScope.launch {
         prefs.useCustomFilePicker.update(enabled)

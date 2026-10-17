@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.settings
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.InstallMobile
 import androidx.compose.material.icons.outlined.NotificationsActive
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Tune
@@ -36,5 +37,10 @@ enum class SettingsSubpage(
         R.string.settings_system_notifications,
         R.string.settings_system_notifications_description,
         Icons.Outlined.NotificationsActive
+    ),
+    INSTALLER(
+        R.string.installer_settings_title,
+        R.string.onboarding_system_installer_desc,
+        Icons.Outlined.InstallMobile
     )
 }

@@ -132,6 +132,8 @@ class PreferencesManager(
     // System tab
     val installerPrimary = stringPreference("installer_primary", InstallerPreferenceTokens.INTERNAL)
     val promptInstallerOnInstall = booleanPreference("prompt_installer_on_install", false)
+    /** Lets an expert run on a rooted device pick patches regardless of what its install target requires or rules out. */
+    val ignoreInstallTargetRules = booleanPreference("ignore_install_target_rules", false)
     val installerCustomComponents = stringSetPreference("installer_custom_components", emptySet())
     val installerHiddenComponents = stringSetPreference("installer_hidden_components", emptySet())
 

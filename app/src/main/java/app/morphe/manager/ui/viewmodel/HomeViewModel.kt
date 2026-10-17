@@ -503,6 +503,9 @@ class HomeViewModel(
     var usingMountInstall: Boolean = false
         private set
 
+    // Whether the run picks its patches without the install target's rules, see startPatchingWithApp
+    private var installTargetRulesIgnored = false
+
     // Install target passed to patch availability resolvers
     val currentInstallerType: InstallerType
         get() = installerTypeFor(usingMountInstall)
@@ -519,8 +522,9 @@ class HomeViewModel(
     private var pendingPatchAllowIncompatible: Boolean = false
 
     /**
-     * Called when a root-capable device triggers patching. Instead of starting immediately,
-     * opens the pre-patching mode dialog so the user can choose Root Mount vs Standard.
+     * Called when a rooted device triggers patching with the installer prompt on. Instead of
+     * starting immediately, opens the pre-patching mode dialog so the user can choose Root Mount
+     * vs Standard.
      */
     fun requestPrePatchInstallerSelection(
         selectedApp: SelectedApp,
@@ -599,12 +603,7 @@ class HomeViewModel(
         val app = pendingSelectedApp ?: return
         pendingSelectedApp = null
         viewModelScope.launch {
-            if (rootInstaller.isDeviceRooted()) {
-                requestPrePatchInstallerSelection(app, allowIncompatible = allowIncompatible)
-            } else {
-                usingMountInstall = false
-                startPatchingWithApp(app, allowIncompatible = allowIncompatible)
-            }
+            startPatchingInPatchMode(app, allowIncompatible = allowIncompatible)
         }
     }
 
@@ -1938,12 +1937,22 @@ class HomeViewModel(
      */
     suspend fun processSelectedAppIgnoringSignature(selectedApp: SelectedApp) {
         val allowIncompatible = prefs.disablePatchVersionCompatCheck.getBlocking()
-        if (rootInstaller.isDeviceRooted()) {
+        startPatchingInPatchMode(selectedApp, allowIncompatible)
+    }
+
+    /**
+     * Starts patching in the mode the run is set up for. A rooted device asks for it first while
+     * the installer prompt is on, and otherwise mounts whenever root mount is the default
+     * installer. Anywhere else the build is a standard one, its installer asked for after patching.
+     */
+    private suspend fun startPatchingInPatchMode(selectedApp: SelectedApp, allowIncompatible: Boolean) {
+        val rooted = rootInstaller.isDeviceRooted()
+        if (rooted && prefs.promptInstallerOnInstall.get()) {
             requestPrePatchInstallerSelection(selectedApp, allowIncompatible)
-        } else {
-            usingMountInstall = false
-            startPatchingWithApp(selectedApp, allowIncompatible)
+            return
         }
+        usingMountInstall = rooted && installerManager.parseToken(prefs.installerPrimary.get()).isRootMount
+        startPatchingWithApp(selectedApp, allowIncompatible)
     }
 
     /**
@@ -1956,6 +1965,10 @@ class HomeViewModel(
         // Read before the first selection is resolved, so every rule below and every later edit
         // in the expert dialog is answered for the APK this run actually starts from
         currentApkArchitecture = ApkArchitectureResolver.resolve(selectedApp, pm)
+        // Only where the patches are shown, so nothing the rules would have kept out is built in unseen
+        installTargetRulesIgnored = isExpertMode() &&
+                rootInstaller.isDeviceRooted() &&
+                prefs.ignoreInstallTargetRules.get()
 
         // Everything this app has patches in, the sources it is kept from included: the expert
         // dialog offers those back, so it has to be told what it is hiding
@@ -1987,10 +2000,11 @@ class HomeViewModel(
         val configurationKey = configurationKeyFor(selectedApp.packageName)
 
         // Whatever selection is reached below, the patches' own availability for the install
-        // target has the final say on what the run starts with. A hidden source sits it out and
-        // is put back untouched: it takes no part in a run, so it does not get to decide whether
-        // the run draws from one source or several
+        // target has the final say on what the run starts with, unless the run is set to ignore
+        // it. A hidden source sits it out and is put back untouched: it takes no part in a run,
+        // so it does not get to decide whether the run draws from one source or several
         fun PatchSelection.applyInstallerRules(): PatchSelection {
+            if (installTargetRulesIgnored) return this
             val heldBack = filterKeys { it in mutedSources }
             return filterKeys { it !in mutedSources }
                 .applyAvailability(currentInstallerType, currentApkArchitecture, bundlesMap) + heldBack
@@ -2368,7 +2382,11 @@ class HomeViewModel(
      * [PatchSelectionUtils.applyAvailability].
      */
     fun expertModeLockState(patch: PatchInfo) =
-        patch.lockState(currentInstallerType, currentApkArchitecture, !expertModeHasMultipleBundles)
+        if (installTargetRulesIgnored) {
+            PatchLockState.NONE
+        } else {
+            patch.lockState(currentInstallerType, currentApkArchitecture, !expertModeHasMultipleBundles)
+        }
 
     private fun expertModeUniversalArmed(bundleUid: Int, selected: Set<String>) =
         expertModeUniversalArmedFor == (bundleUid to selected)
@@ -2513,6 +2531,7 @@ class HomeViewModel(
      * source the run cannot reach is not one of them.
      */
     private fun PatchSelection.applyExpertModeAvailability(): PatchSelection {
+        if (installTargetRulesIgnored) return this
         val shown = expertModeBundles.mapTo(mutableSetOf()) { it.uid }
         val heldBack = filterKeys { it !in shown }
 

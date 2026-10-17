@@ -18,11 +18,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import kotlinx.coroutines.launch
 
-private val ButtonSize: Dp = 44.dp
 private val ButtonPadding: Dp = 16.dp
 private val DefaultScrollThresholdDp: Dp = 600.dp
 
@@ -131,19 +130,21 @@ private fun ScrollToTopButtonImpl(
         )
     ) {
         val interactionSource = remember { MutableInteractionSource() }
+        val shape = rememberPressShape(interactionSource, CircleShape)
+        val container = HeaderControlDefaults.container()
         Surface(
             onClick = rememberHapticClick(onClick),
-            shape = rememberPressShape(interactionSource, CircleShape),
-            // Solid, so the rows of text it floats over never show through it
-            color = MaterialTheme.colorScheme.surface,
-            contentColor = MaterialTheme.colorScheme.onSurface,
+            shape = shape,
+            // The glass of the header controls, laid on the screen rather than over the rows, as it
+            // floats within what it scrolls and has nothing under it to blur
+            color = Color.Transparent,
+            contentColor = HeaderControlDefaults.content(container),
             // Edged in the dialog's color, as its outlined buttons are
-            border = CardBorder.of(
-                LocalAccent.current?.let { appAccentBorder(it) }
-                    ?: MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
-            ),
+            border = CardBorder.of(LocalAccent.current?.let { appAccentBorder(it) } ?: GlassButtonDefaults.borderColor()),
             interactionSource = interactionSource,
-            modifier = Modifier.size(ButtonSize)
+            modifier = Modifier
+                .size(HeaderControlDefaults.Size)
+                .glassFill(container, shape)
         ) {
             Box(contentAlignment = Alignment.Center) {
                 Icon(

@@ -9,6 +9,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
@@ -62,15 +64,17 @@ fun HeaderBar(
     LaunchedEffect(open) { progress.animateTo(if (open) 1f else 0f, SearchMorphSpec) }
     // Composed only while any of it shows, so a closed field holds no focus and takes no taps
     val fieldShown = remember { derivedStateOf { progress.value > 0f } }
+    // What the open field covers is left out of what a screen reader goes through
+    val covered = if (open) Modifier.clearAndSetSemantics {} else Modifier
 
     Layout(
         contents = listOf(
-            { if (navigation != null) navigation() },
-            title,
+            { if (navigation != null) Box(covered) { navigation() } },
+            { Box(covered) { title() } },
             {
                 if (actions != null) {
                     Row(
-                        modifier = controlsModifier,
+                        modifier = controlsModifier.then(covered),
                         horizontalArrangement = Arrangement.spacedBy(ControlGap),
                         verticalAlignment = Alignment.CenterVertically,
                         content = actions

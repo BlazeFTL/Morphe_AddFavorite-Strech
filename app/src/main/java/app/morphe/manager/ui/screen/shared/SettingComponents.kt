@@ -570,30 +570,14 @@ fun SectionCard(
 }
 
 /**
- * Title over a settings section. Kept lighter than the cards below so they carry the weight, and
- * inset by their padding so the icon and text line up with the icons and titles of the rows.
- *
- * While a search runs it stays only over a [SettingsSection] the search leaves something in.
+ * Title over a settings section, see [SettingsSection]. Kept lighter than the cards below so they
+ * carry the weight, and inset by their padding so the icon and text line up with the icons and
+ * titles of the rows.
  *
  * @param onClick Opens where the section lives, marked by a chevron after the title.
  */
 @Composable
-fun SectionTitle(
-    text: String,
-    icon: ImageVector? = null,
-    onClick: (() -> Unit)? = null
-) {
-    val search = LocalSettingsSearch.current ?: return SectionTitleRow(text, icon, onClick)
-    val matches = LocalSearchMatches.current
-    // Outside a section there is nothing of its own to head, so what matches reads as one list
-    val headsMatches = matches != null && matches !== search.root && matches.shown > 0
-    FoldingVisibility(visible = !search.isActive || headsMatches) {
-        SectionTitleRow(text, icon, onClick)
-    }
-}
-
-@Composable
-private fun SectionTitleRow(text: String, icon: ImageVector?, onClick: (() -> Unit)?) {
+internal fun SectionTitle(text: String, icon: ImageVector?, onClick: (() -> Unit)?) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

@@ -129,9 +129,12 @@ fun SettingsSection(
     onTitleClick: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
+    val search = LocalSettingsSearch.current
     val matches = rememberSearchMatches()
     CompositionLocalProvider(LocalSearchMatches provides matches) {
-        SectionTitle(text = title, icon = icon, onClick = onTitleClick)
+        FoldingVisibility(visible = search?.isActive != true || (matches?.shown ?: 0) > 0) {
+            SectionTitle(text = title, icon = icon, onClick = onTitleClick)
+        }
         content()
     }
 }

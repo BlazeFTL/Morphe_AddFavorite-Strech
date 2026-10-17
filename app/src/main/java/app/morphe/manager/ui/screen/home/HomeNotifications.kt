@@ -302,8 +302,9 @@ fun NotificationsOverlay(
                 // A card nobody can see is left out, so it does not take taps meant for the one over it
                 if (alphas[index] <= 0f) return@forEachIndexed
                 val card = cards[index]
-                // Earlier cards are drawn over later ones, which slide in and out behind them
-                placeable.placeWithLayer(card.offset.roundToInt(), tops[index], zIndex = -index.toFloat()) {
+                // Earlier cards are drawn over later ones, which slide in and out behind them. The
+                // swipe offset runs along the layout direction, so it is mirrored with it in RTL
+                placeable.placeRelativeWithLayer(card.offset.roundToInt(), tops[index], zIndex = -index.toFloat()) {
                     alpha = alphas[index]
                     scaleX = scales[index]
                     scaleY = scales[index]

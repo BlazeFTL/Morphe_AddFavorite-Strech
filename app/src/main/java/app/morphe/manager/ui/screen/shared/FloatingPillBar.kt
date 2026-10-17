@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -106,12 +107,14 @@ fun FloatingPillBar(
             ) {
                 BoxWithConstraints(modifier = Modifier.padding(horizontal = PillInset)) {
                     val weights = pillLabelWeights(items.map { it.label }, maxWidth)
-                    // Horizontal span of each slot, which the selection indicator travels between
+                    // Horizontal span of each slot from the pill's left edge, which the selection
+                    // indicator travels between. Measured from the left on either layout direction,
+                    // so the indicator is placed from that edge too rather than mirrored onto it
                     val slots = remember { mutableStateMapOf<Int, IntRange>() }
 
                     SelectionIndicator(
                         span = slots[items.indexOfFirst { it.selected == true }],
-                        modifier = Modifier.align(Alignment.CenterStart)
+                        modifier = Modifier.align(AbsoluteAlignment.CenterLeft)
                     )
                     Row(
                         modifier = Modifier.fillMaxSize(),
@@ -266,7 +269,7 @@ private fun SelectionIndicator(span: IntRange?, modifier: Modifier = Modifier) {
 
     Box(
         modifier = modifier
-            .offset { IntOffset(left, 0) }
+            .absoluteOffset { IntOffset(left, 0) }
             .width(with(density) { width.toDp() })
             .height(PillActionHeight)
             .background(colors.container, CircleShape)

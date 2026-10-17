@@ -90,7 +90,8 @@ fun InstalledAppPickerDialog(
                         contentDescription = stringResource(R.string.filter),
                         onClick = { filterMenuOpen.value = true },
                         style = TitleActionStyle.Toggle,
-                        active = filterMenuOpen.value || appFilter != AppFilter.All,
+                        // Engaged only while its menu is open, as the subtitle already names the filter
+                        active = filterMenuOpen.value,
                         modifier = Modifier.semantics { stateDescription = filterLabel }
                     )
                     SortModeMenu(

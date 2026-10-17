@@ -33,14 +33,20 @@ import kotlinx.coroutines.withContext
 import org.koin.compose.koinInject
 import kotlin.time.Duration.Companion.seconds
 
-/**
- * Installer section.
- */
+/** The installer patched apps go through, as a row of a settings group opening its choice. */
 @Composable
-fun InstallerSection(
+fun InstallerItem(
     settingsViewModel: SettingsViewModel,
-    onShowInstallerDialog: () -> Unit
+    modifier: Modifier = Modifier
 ) {
+    var showInstallerDialog by remember { mutableStateOf(false) }
+    if (showInstallerDialog) {
+        InstallerSelectionDialogContainer(
+            settingsViewModel = settingsViewModel,
+            onDismiss = { showInstallerDialog = false }
+        )
+    }
+
     val primaryPreference by settingsViewModel.prefs.installerPrimary.getAsState()
     val primaryToken = remember(primaryPreference) {
         settingsViewModel.parseInstallerToken(primaryPreference)
@@ -70,16 +76,15 @@ fun InstallerSection(
         InstallerSettingsItem(
             title = stringResource(R.string.installer_settings_title),
             entry = primaryEntry,
-            onClick = onShowInstallerDialog
+            onClick = { showInstallerDialog = true },
+            modifier = modifier
         )
     }
 }
 
-/**
- * Container for installer selection dialog.
- */
+/** The installer choice, read from and saved to the preferences. */
 @Composable
-fun InstallerSelectionDialogContainer(
+private fun InstallerSelectionDialogContainer(
     settingsViewModel: SettingsViewModel,
     onDismiss: () -> Unit
 ) {
@@ -124,7 +129,8 @@ fun InstallerSelectionDialogContainer(
 private fun InstallerSettingsItem(
     title: String,
     entry: InstallerManager.Entry,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val availabilityReasonText = entry.availability.reason?.let { stringResource(it) }
 
@@ -157,7 +163,8 @@ private fun InstallerSettingsItem(
             }
         },
         title = title,
-        subtitle = supportingText.takeIf { it.isNotEmpty() }
+        subtitle = supportingText.takeIf { it.isNotEmpty() },
+        modifier = modifier
     )
 }
 

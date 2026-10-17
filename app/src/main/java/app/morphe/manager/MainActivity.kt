@@ -51,8 +51,9 @@ import app.morphe.manager.ui.screen.BatchPatcherScreen
 import app.morphe.manager.ui.screen.HomeScreen
 import app.morphe.manager.ui.screen.PatcherScreen
 import app.morphe.manager.ui.screen.home.*
-import app.morphe.manager.ui.screen.settings.SettingsCategory
-import app.morphe.manager.ui.screen.settings.SettingsCategoryScreen
+import app.morphe.manager.ui.screen.settings.SettingsSubpage
+import app.morphe.manager.ui.screen.settings.SettingsSubpageScreen
+import app.morphe.manager.ui.screen.settings.SettingsTourTarget
 import app.morphe.manager.ui.screen.shared.AnimatedBackground
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.BackgroundType
@@ -475,7 +476,15 @@ private fun MorpheManager(vm: MainViewModel) {
     val onboardingState = remember { OnboardingState() }
 
     val onboardingSteps = remember(onboardingState) {
-        fun category(category: SettingsCategory) = onboardingState.settingsCategoryBounds[category]
+        // Each turns to the settings page and the row, so stepping back from another page lands on it too
+        fun settingsStep(titleRes: Int, descRes: Int, target: SettingsTourTarget) = StepDef(
+            titleRes, descRes,
+            getBounds = { onboardingState.settingsTargetBounds[target] },
+            onShow = {
+                onboardingState.page = MainPage.SETTINGS
+                onboardingState.settingsTarget = target
+            }
+        )
         listOf(
             StepDef(
                 R.string.onboarding_swipe_title, R.string.onboarding_swipe_desc,
@@ -519,23 +528,10 @@ private fun MorpheManager(vm: MainViewModel) {
                 R.string.settings, R.string.onboarding_settings_desc,
                 getBounds = { onboardingState.navigationBounds[MainPage.SETTINGS] }
             ),
-            StepDef(
-                R.string.patches, R.string.onboarding_expert_mode_desc,
-                getBounds = { category(SettingsCategory.PATCHES) },
-                onShow = { onboardingState.page = MainPage.SETTINGS }
-            ),
-            StepDef(
-                R.string.settings_advanced_patcher, R.string.onboarding_system_file_picker_desc,
-                getBounds = { category(SettingsCategory.PATCHER) }
-            ),
-            StepDef(
-                R.string.installer, R.string.onboarding_system_installer_desc,
-                getBounds = { category(SettingsCategory.INSTALLER) }
-            ),
-            StepDef(
-                R.string.appearance, R.string.onboarding_appearance_tab_desc,
-                getBounds = { category(SettingsCategory.APPEARANCE) }
-            )
+            settingsStep(R.string.settings_advanced_expert_mode, R.string.onboarding_expert_mode_desc, SettingsTourTarget.EXPERT_MODE),
+            settingsStep(R.string.installer, R.string.onboarding_system_installer_desc, SettingsTourTarget.INSTALLER),
+            settingsStep(R.string.settings_system_custom_file_picker, R.string.onboarding_system_file_picker_desc, SettingsTourTarget.FILE_PICKER),
+            settingsStep(R.string.appearance, R.string.onboarding_appearance_tab_desc, SettingsTourTarget.APPEARANCE)
         )
     }
 
@@ -550,6 +546,7 @@ private fun MorpheManager(vm: MainViewModel) {
         onboardingState.swipeActive = false
         homeViewModel.apps.markSwipeGestureHintShown()
         onboardingState.page = MainPage.APPS
+        onboardingState.settingsTarget = null
         showOnboarding = false
         scope.launch { prefs.firstLaunch.update(false) }
     }
@@ -599,9 +596,10 @@ private fun MorpheManager(vm: MainViewModel) {
                 }
 
                 HomeScreen(
-                    onOpenSettingsCategory = { category ->
-                        navController.navigate(SettingsDetail(category.name)) { launchSingleTop = true }
+                    onOpenSettingsSubpage = { subpage ->
+                        navController.navigate(SettingsDetail(subpage.name)) { launchSingleTop = true }
                     },
+                    onStartTour = startOnboardingTour.takeUnless { showOnboarding },
                     onboardingState = onboardingState.takeIf { showOnboarding },
                     onStartQuickPatch = { params ->
                         entry.lifecycleScope.launch {
@@ -674,18 +672,11 @@ private fun MorpheManager(vm: MainViewModel) {
                 enterTransition = { Animations.pushEnter },
                 popExitTransition = { Animations.pushExit }
             ) { entry ->
-                // Back to the main screen however it was asked for, so a second tap never leaves it
-                val backToMain: () -> Unit = { navController.popBackStack(HomeScreen, false) }
-                SettingsCategoryScreen(
-                    category = SettingsCategory.valueOf(entry.toRoute<SettingsDetail>().category),
+                SettingsSubpageScreen(
+                    subpage = SettingsSubpage.valueOf(entry.toRoute<SettingsDetail>().subpage),
                     homeViewModel = homeViewModel,
-                    onBack = backToMain,
-                    onStartTour = if (!showOnboarding) {
-                        {
-                            startOnboardingTour()
-                            backToMain()
-                        }
-                    } else null
+                    // Back to the main screen however it was asked for, so a second tap never leaves it
+                    onBack = { navController.popBackStack(HomeScreen, false) }
                 )
             }
         }

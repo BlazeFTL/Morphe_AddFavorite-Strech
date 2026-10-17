@@ -32,8 +32,8 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.home.*
-import app.morphe.manager.ui.screen.settings.SettingsCategory
 import app.morphe.manager.ui.screen.settings.SettingsPage
+import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
@@ -55,12 +55,14 @@ import kotlin.time.Duration.Companion.milliseconds
  * The main screen: the sources, the apps and the settings as pages side by side, see
  * [MainPagerScaffold], with the dialogs any of them can raise.
  *
- * @param onOpenSettingsCategory Opens one category of the settings as a page of its own.
+ * @param onOpenSettingsSubpage Opens a part of the settings as a page of its own.
+ * @param onStartTour Restarts the onboarding tour, when no tour is running.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HomeScreen(
-    onOpenSettingsCategory: (SettingsCategory) -> Unit,
+    onOpenSettingsSubpage: (SettingsSubpage) -> Unit,
+    onStartTour: (() -> Unit)?,
     onStartQuickPatch: (Patcher.ViewModelParams) -> Unit,
     onStartBatchPatch: (List<BatchTarget>, Boolean) -> Unit,
     homeViewModel: HomeViewModel = koinViewModel(),
@@ -328,9 +330,7 @@ fun HomeScreen(
         heldBackSources = AlertState(hasHeldBackSources) { openPage(MainPage.SOURCES) },
         blockedSources = AlertState(hasBlockedSources) { openPage(MainPage.SOURCES) },
         metadataErrors = AlertState(hasMetadataErrors) { openPage(MainPage.SOURCES) },
-        meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) {
-            onOpenSettingsCategory(SettingsCategory.UPDATES)
-        },
+        meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) { openPage(MainPage.SETTINGS) },
         repatchAvailable = RepatchAlertState(
             count = repatchableApps.size,
             visible = showRepatchNotice,
@@ -383,11 +383,11 @@ fun HomeScreen(
             )
 
             MainPage.SETTINGS -> SettingsPage(
-                onOpenCategory = onOpenSettingsCategory,
+                homeViewModel = homeViewModel,
+                onOpenSubpage = onOpenSettingsSubpage,
+                onStartTour = onStartTour,
                 bottomBarHeight = bottomBarHeight,
-                onCategoryPositioned = onboardingState?.let { tour ->
-                    { category, bounds -> tour.settingsCategoryBounds[category] = bounds }
-                }
+                onboardingState = onboardingState
             )
 
             MainPage.APPS -> PullToRefreshBox(

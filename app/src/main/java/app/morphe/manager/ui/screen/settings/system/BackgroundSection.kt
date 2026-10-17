@@ -17,18 +17,22 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.requestIgnoreBatteryOptimizations
+import org.koin.androidx.compose.koinViewModel
 
-/**
- * Background-execution settings: battery optimization exemption and the notifications hub.
- * Patcher-runtime tuning lives in the Advanced tab because it is only useful when troubleshooting
- * patching.
- */
+/** What keeps the manager working in the background: the battery optimization exemption and notifications. */
 @Composable
-fun BackgroundSection(
-    onNotificationsClick: () -> Unit
-) {
+fun BackgroundSection(settingsViewModel: SettingsViewModel = koinViewModel()) {
     val context = LocalContext.current
+    var showNotificationsDialog by remember { mutableStateOf(false) }
+
+    if (showNotificationsDialog) {
+        NotificationsDialog(
+            settingsViewModel = settingsViewModel,
+            onDismiss = { showNotificationsDialog = false }
+        )
+    }
 
     val lifecycleOwner = LocalLifecycleOwner.current
     val pm = remember { context.getSystemService(PowerManager::class.java) }
@@ -38,6 +42,11 @@ fun BackgroundSection(
             isIgnoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(context.packageName)
         }
     }
+
+    SectionTitle(
+        text = stringResource(R.string.settings_system_background),
+        icon = Icons.Outlined.PhoneAndroid
+    )
 
     SettingsGroup {
         SettingsItem(
@@ -59,7 +68,7 @@ fun BackgroundSection(
         )
 
         SettingsItem(
-            onClick = onNotificationsClick,
+            onClick = { showNotificationsDialog = true },
             title = stringResource(R.string.settings_system_notifications),
             subtitle = stringResource(R.string.settings_system_notifications_description),
             leadingContent = { ThemedIcon(icon = Icons.Outlined.NotificationsActive) }

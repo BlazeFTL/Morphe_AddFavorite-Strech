@@ -5,15 +5,19 @@
 
 package app.morphe.manager.ui.screen.settings.system
 
+import android.net.Uri
 import android.view.HapticFeedbackConstants
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.SwapHoriz
+import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -21,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -34,6 +39,13 @@ import app.morphe.manager.domain.manager.SigningKeyInfo
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.ui.viewmodel.ImportExportViewModel
+import app.morphe.manager.util.JSON_MIMETYPE
+import app.morphe.manager.util.TEXT_MIMETYPE
+import app.morphe.manager.util.isAndroidTv
+import app.morphe.manager.util.rememberAdaptiveFilePicker
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 import java.text.DateFormat
 import java.util.Date
 
@@ -41,11 +53,118 @@ import java.util.Date
 private const val FINGERPRINT_BYTES_PER_LINE = 8
 
 /**
- * Import and export section: the signing key and Morphe's own settings, each behind a dialog
+ * What the manager keeps on the device, then the backups of it: the signing key, which a lost
+ * install cannot recreate, and the manager's settings.
+ */
+@Composable
+fun FilesSection(importExportViewModel: ImportExportViewModel = koinViewModel()) {
+    val context = LocalContext.current
+    val messages = koinInject<UserMessages>()
+    val scope = rememberCoroutineScope()
+    val isTV = remember { context.isAndroidTv() }
+    val wrongCredentialsText = stringResource(R.string.settings_system_import_keystore_wrong_credentials)
+    var showStorageDialog by remember { mutableStateOf(false) }
+
+    val importKeystoreLauncher = rememberAdaptiveFilePicker(
+        mimeTypes = arrayOf("*/*"),
+        customPickerMimeTypes = arrayOf(
+            "application/x-pkcs12",
+            "application/x-java-keystore",
+            "application/vnd.morphe.keystore",
+        ),
+        onResult = { uri -> uri?.let { importExportViewModel.startKeystoreImport(it) } }
+    )
+
+    // Replace and Merge only differ for sources and patch selections, so the mode is asked only
+    // when one of them is taken
+    var pendingSettingsImportUri by remember { mutableStateOf<Uri?>(null) }
+    val importSettingsLauncher = rememberAdaptiveFilePicker(
+        mimeTypes = arrayOf(JSON_MIMETYPE, TEXT_MIMETYPE),
+        customPickerMimeTypes = arrayOf(JSON_MIMETYPE),
+        onResult = { uri ->
+            uri ?: return@rememberAdaptiveFilePicker
+            val sections = importExportViewModel.settingsSections
+            if (SettingsSection.SOURCES in sections || SettingsSection.PATCH_SELECTIONS in sections) {
+                pendingSettingsImportUri = uri
+            } else {
+                importExportViewModel.importManagerSettings(uri)
+            }
+        }
+    )
+
+    val exportKeystoreLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.CreateDocument("*/*")
+    ) { uri -> uri?.let { importExportViewModel.exportKeystore(it) } }
+
+    val exportSettingsLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.CreateDocument(JSON_MIMETYPE)
+    ) { uri -> uri?.let { importExportViewModel.exportManagerSettings(it) } }
+
+    if (showStorageDialog) {
+        StorageManagementDialog(onDismissRequest = { showStorageDialog = false })
+    }
+
+    if (importExportViewModel.showCredentialsDialog) {
+        KeystoreCredentialsDialog(
+            onDismiss = importExportViewModel::cancelKeystoreImport,
+            initialFormat = importExportViewModel.detectedKeystoreFormat,
+            onSubmit = { alias, pass, storePass, format ->
+                scope.launch {
+                    if (!importExportViewModel.tryKeystoreImport(alias, pass, storePass, format)) {
+                        messages.show(wrongCredentialsText)
+                    }
+                }
+            }
+        )
+    }
+
+    pendingSettingsImportUri?.let { uri ->
+        ImportModeDialog(
+            titleRes = R.string.settings_system_import_manager_settings_mode_title,
+            descriptionRes = R.string.settings_system_import_manager_settings_mode_description,
+            onDismiss = { pendingSettingsImportUri = null },
+            onSelect = { mode ->
+                importExportViewModel.importManagerSettings(uri, mode)
+                pendingSettingsImportUri = null
+            }
+        )
+    }
+
+    SectionTitle(
+        text = stringResource(R.string.settings_section_files),
+        icon = Icons.Outlined.Folder
+    )
+
+    SettingsGroup {
+        SettingsItem(
+            onClick = { showStorageDialog = true },
+            title = stringResource(R.string.settings_system_storage_management_title),
+            subtitle = stringResource(R.string.settings_system_storage_management_description),
+            leadingContent = { ThemedIcon(icon = Icons.Outlined.Storage) }
+        )
+
+        ImportExportItems(
+            importExportViewModel = importExportViewModel,
+            onImportKeystore = { importKeystoreLauncher() },
+            onExportKeystore = {
+                if (isTV) importExportViewModel.exportKeystoreToDownloads()
+                else exportKeystoreLauncher.launch("Morphe.keystore")
+            },
+            onImportSettings = { importSettingsLauncher() },
+            onExportSettings = {
+                if (isTV) importExportViewModel.exportManagerSettingsToDownloads()
+                else exportSettingsLauncher.launch("morphe_manager_settings.json")
+            }
+        )
+    }
+}
+
+/**
+ * The signing key and Morphe's own settings as rows of a settings group, each behind a dialog
  * that says what it holds before offering to move it.
  */
 @Composable
-fun ImportExportSection(
+private fun ImportExportItems(
     importExportViewModel: ImportExportViewModel,
     onImportKeystore: () -> Unit,
     onExportKeystore: () -> Unit,
@@ -101,28 +220,19 @@ fun ImportExportSection(
         }
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
-        SectionTitle(
-            text = stringResource(R.string.settings_system_import_export),
-            icon = Icons.Outlined.SwapHoriz
-        )
+    SettingsItem(
+        onClick = { showSigningKeyDialog = true },
+        leadingContent = { ThemedIcon(icon = Icons.Outlined.Key) },
+        title = stringResource(R.string.settings_system_signing_key),
+        subtitle = stringResource(R.string.settings_system_signing_key_description)
+    )
 
-        SettingsGroup {
-            SettingsItem(
-                onClick = { showSigningKeyDialog = true },
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.Key) },
-                title = stringResource(R.string.settings_system_signing_key),
-                subtitle = stringResource(R.string.settings_system_signing_key_description)
-            )
-
-            SettingsItem(
-                onClick = { showSettingsDialog = true },
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.Settings) },
-                title = stringResource(R.string.settings_system_morphe_settings),
-                subtitle = stringResource(R.string.settings_system_import_manager_settings_description)
-            )
-        }
-    }
+    SettingsItem(
+        onClick = { showSettingsDialog = true },
+        leadingContent = { ThemedIcon(icon = Icons.Outlined.Settings) },
+        title = stringResource(R.string.settings_system_morphe_settings),
+        subtitle = stringResource(R.string.settings_system_import_manager_settings_description)
+    )
 }
 
 /**

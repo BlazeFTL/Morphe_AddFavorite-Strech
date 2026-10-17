@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.settings.SettingsCategory
+import app.morphe.manager.ui.screen.settings.SettingsTourTarget
 import app.morphe.manager.ui.screen.shared.ActionPillButton
 import app.morphe.manager.ui.screen.shared.ActionPillColors
 import app.morphe.manager.ui.screen.shared.Animations
@@ -73,7 +73,9 @@ class OnboardingState {
     var sourcesPatchesBounds by mutableStateOf<Rect?>(null)
     var sourcesVersionBounds by mutableStateOf<Rect?>(null)
     var sourcesPrereleaseBounds by mutableStateOf<Rect?>(null)
-    val settingsCategoryBounds = mutableStateMapOf<SettingsCategory, Rect>()
+    val settingsTargetBounds = mutableStateMapOf<SettingsTourTarget, Rect>()
+    /** The settings row the current step is about, which the settings page scrolls to. */
+    var settingsTarget by mutableStateOf<SettingsTourTarget?>(null)
     /** The page the current step is on, which the main screen turns to. */
     var page by mutableStateOf<MainPage?>(null)
     var onScrollToFirstSource: (() -> Unit)? = null

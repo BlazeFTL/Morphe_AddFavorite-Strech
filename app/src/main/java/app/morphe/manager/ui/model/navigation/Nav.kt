@@ -24,12 +24,9 @@ interface ComplexParameter<T : Parcelable>
 @Serializable
 object HomeScreen
 
-/**
- * One category of the settings as a page of its own, named by its
- * [app.morphe.manager.ui.screen.settings.SettingsCategory].
- */
+/** A part of the settings as a page of its own, named by its [app.morphe.manager.ui.screen.settings.SettingsSubpage]. */
 @Serializable
-data class SettingsDetail(val category: String)
+data class SettingsDetail(val subpage: String)
 
 @Serializable
 data object BatchPatcher : ComplexParameter<BatchPatcher.ViewModelParams> {

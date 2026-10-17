@@ -951,7 +951,6 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="notification_mount_replaced_text">v%1$s replaced the patched v%2$s. Open Morphe to restore it</string>
 
     <!-- Settings - Advanced Tab - Expert settings Section -->
-    <string name="settings_advanced_expert">Expert settings</string>
     <string name="settings_advanced_expert_mode">Expert mode</string>
     <string name="settings_advanced_expert_mode_description">Unlocks advanced patching settings and patch options</string>
     <string name="settings_advanced_expert_mode_dialog_title">Enable Expert mode?</string>
@@ -1158,7 +1157,6 @@ Details: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Pick a tone</string>
 
     <!-- Settings - System Tab - Import and Export Section -->
-    <string name="settings_system_import_export">Import &amp; export</string>
     <string name="settings_system_signing_key">Signing key</string>
     <string name="settings_system_signing_key_description">Backs up or restores the key that signs patched apps</string>
     <string name="settings_system_signing_key_dialog_description">Every app Morphe patches is signed with this key. Keep a copy: without it, patched apps can only be updated after uninstalling them</string>
@@ -1350,17 +1348,10 @@ Details: %2$s"</string>
     <string name="settings_section_patching">Patching</string>
     <string name="settings_group_manager">Manager</string>
     <string name="settings_section_appearance_summary">Language, theme, colors and home screen</string>
-    <string name="settings_section_patches_summary">Expert mode, patch selections and options</string>
-    <string name="settings_section_patcher_summary">How the patcher runs and where APKs come from</string>
+    <string name="settings_section_patch_options_summary">What simple mode patches apps with</string>
     <string name="settings_section_performance">Performance</string>
     <string name="settings_section_original_apks">Original APKs</string>
-    <string name="settings_section_storage">Storage</string>
-    <string name="settings_section_updates_summary">Updates of the manager and its sources</string>
-    <string name="settings_section_installer_summary">How patched apps are installed</string>
     <string name="settings_section_files">Files &amp; backups</string>
-    <string name="settings_section_files_summary">Storage, saved APKs, import and export</string>
-    <string name="settings_section_background_summary">Notifications and checks in the background</string>
-    <string name="settings_section_about_summary">Version, changelog, logs and the tour</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="all">All</string>

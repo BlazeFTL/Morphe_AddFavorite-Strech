@@ -214,7 +214,8 @@ internal fun DialogShell(
                         LocalContentColor provides textColor
                     ) {
                         Box(modifier = Modifier.fillMaxSize()) {
-                            content()
+                            // Over the page rather than in its list, so the list's insets stay behind
+                            WithoutBringIntoViewInsets(content)
                             overlay?.invoke(this)
                         }
                     }

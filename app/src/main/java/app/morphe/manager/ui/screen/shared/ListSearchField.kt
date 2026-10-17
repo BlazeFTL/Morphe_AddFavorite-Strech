@@ -66,65 +66,68 @@ fun ListSearchField(
     val iconColor = textColor.copy(alpha = 0.7f)
     val textStyle = MaterialTheme.typography.bodyLarge.copy(color = textColor)
 
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
-        enabled = enabled,
-        singleLine = true,
-        textStyle = textStyle,
-        cursorBrush = SolidColor(textColor),
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { keyboardController?.hide() }),
-        modifier = modifier
-            .fillMaxWidth()
-            .height(HeaderControlDefaults.Size)
-            .focusRequester(focusRequester),
-        decorationBox = { innerTextField ->
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape)
-                    .background(container),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // The placeholder already names the field, so the icon stays decorative
-                Icon(
-                    imageVector = Icons.Outlined.Search,
-                    contentDescription = null,
-                    tint = iconColor,
+    // The field scrolls its own line, which the insets of a list it heads have nothing to do with
+    WithoutBringIntoViewInsets {
+        BasicTextField(
+            value = value,
+            onValueChange = onValueChange,
+            enabled = enabled,
+            singleLine = true,
+            textStyle = textStyle,
+            cursorBrush = SolidColor(textColor),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(onSearch = { keyboardController?.hide() }),
+            modifier = modifier
+                .fillMaxWidth()
+                .height(HeaderControlDefaults.Size)
+                .focusRequester(focusRequester),
+            decorationBox = { innerTextField ->
+                Row(
                     modifier = Modifier
-                        .padding(start = Defaults.SpaceSmall, end = Defaults.SpaceSmall)
-                        .size(Defaults.IconSize)
-                )
-                Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
-                    if (value.isEmpty()) {
-                        Text(
-                            text = label,
-                            style = textStyle,
-                            color = textColor.copy(alpha = 0.5f),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
+                        .fillMaxSize()
+                        .clip(CircleShape)
+                        .background(container),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // The placeholder already names the field, so the icon stays decorative
+                    Icon(
+                        imageVector = Icons.Outlined.Search,
+                        contentDescription = null,
+                        tint = iconColor,
+                        modifier = Modifier
+                            .padding(start = Defaults.SpaceSmall, end = Defaults.SpaceSmall)
+                            .size(Defaults.IconSize)
+                    )
+                    Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
+                        if (value.isEmpty()) {
+                            Text(
+                                text = label,
+                                style = textStyle,
+                                color = textColor.copy(alpha = 0.5f),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                        innerTextField()
                     }
-                    innerTextField()
-                }
-                if (value.isNotEmpty()) {
-                    IconButton(
-                        onClick = { onValueChange("") },
-                        modifier = Modifier.size(HeaderControlDefaults.Size)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Clear,
-                            contentDescription = stringResource(R.string.clear),
-                            tint = iconColor
-                        )
+                    if (value.isNotEmpty()) {
+                        IconButton(
+                            onClick = { onValueChange("") },
+                            modifier = Modifier.size(HeaderControlDefaults.Size)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Clear,
+                                contentDescription = stringResource(R.string.clear),
+                                tint = iconColor
+                            )
+                        }
+                    } else if (trailing == null) {
+                        // Leaves the text the same room from the end as the icon leaves it from the start
+                        Spacer(Modifier.width(Defaults.SpaceSmall))
                     }
-                } else if (trailing == null) {
-                    // Leaves the text the same room from the end as the icon leaves it from the start
-                    Spacer(Modifier.width(Defaults.SpaceSmall))
+                    trailing?.invoke(this)
                 }
-                trailing?.invoke(this)
             }
-        }
-    )
+        )
+    }
 }

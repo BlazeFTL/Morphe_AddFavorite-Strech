@@ -7,8 +7,6 @@ package app.morphe.manager.ui.screen.settings
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.relocation.BringIntoViewRequester
-import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -20,12 +18,12 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.home.OnboardingState
+import app.morphe.manager.ui.screen.home.TourTarget
+import app.morphe.manager.ui.screen.home.tourTarget
 import app.morphe.manager.ui.screen.settings.advanced.PatcherTuningSection
 import app.morphe.manager.ui.screen.settings.advanced.UpdatesItems
 import app.morphe.manager.ui.screen.settings.system.*
@@ -35,26 +33,12 @@ import app.morphe.manager.ui.viewmodel.ImportExportViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import org.koin.androidx.compose.koinViewModel
 
-/** Rows of the settings page the onboarding tour points at. */
-enum class SettingsTourTarget { EXPERT_MODE, INSTALLER, FILE_PICKER, APPEARANCE }
-
 /** The tour while it runs, which the rows it points at report to. */
 private val LocalSettingsTour = staticCompositionLocalOf<OnboardingState?> { null }
 
-/**
- * Reports where the row sits to the running tour, and scrolls it into view once the tour turns to
- * [target]. Does nothing while no tour runs.
- */
+/** [tourTarget] for a row of the settings page, which hands the running tour down to its rows. */
 @Composable
-internal fun Modifier.settingsTourTarget(target: SettingsTourTarget): Modifier {
-    val tour = LocalSettingsTour.current ?: return this
-    val requester = remember { BringIntoViewRequester() }
-    LaunchedEffect(tour.settingsTarget) {
-        if (tour.settingsTarget == target) requester.bringIntoView()
-    }
-    return bringIntoViewRequester(requester)
-        .onGloballyPositioned { tour.settingsTargetBounds[target] = it.boundsInWindow() }
-}
+internal fun Modifier.settingsTourTarget(target: TourTarget): Modifier = tourTarget(target, LocalSettingsTour.current)
 
 /**
  * The settings page of the main screen: every setting in its group, with the [SettingsSubpage]s
@@ -210,7 +194,7 @@ private fun PatchingSection(
             icon = Icons.Outlined.Psychology,
             title = stringResource(R.string.settings_advanced_expert_mode),
             subtitle = stringResource(R.string.settings_advanced_expert_mode_description),
-            modifier = Modifier.settingsTourTarget(SettingsTourTarget.EXPERT_MODE)
+            modifier = Modifier.settingsTourTarget(TourTarget.EXPERT_MODE)
         )
         if (useExpertMode) {
             PatchSelectionsItem(
@@ -222,7 +206,7 @@ private fun PatchingSection(
         }
         InstallerItem(
             settingsViewModel = settingsViewModel,
-            modifier = Modifier.settingsTourTarget(SettingsTourTarget.INSTALLER)
+            modifier = Modifier.settingsTourTarget(TourTarget.INSTALLER)
         )
     }
 
@@ -252,7 +236,7 @@ private fun ManagerSection(
         SubpageItem(
             subpage = SettingsSubpage.APPEARANCE,
             onOpen = onOpenSubpage,
-            modifier = Modifier.settingsTourTarget(SettingsTourTarget.APPEARANCE)
+            modifier = Modifier.settingsTourTarget(TourTarget.APPEARANCE)
         )
         UpdatesItems(
             settingsViewModel = settingsViewModel,

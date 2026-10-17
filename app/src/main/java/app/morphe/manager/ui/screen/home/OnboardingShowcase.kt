@@ -12,6 +12,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
@@ -38,7 +40,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.settings.SettingsTourTarget
 import app.morphe.manager.ui.screen.shared.ActionPillButton
 import app.morphe.manager.ui.screen.shared.ActionPillColors
 import app.morphe.manager.ui.screen.shared.Animations
@@ -48,6 +49,7 @@ import app.morphe.manager.ui.screen.shared.MainPage
 import app.morphe.manager.ui.screen.shared.PanelHeader
 import app.morphe.manager.ui.screen.shared.PanelSubtitle
 import app.morphe.manager.ui.screen.shared.PanelTitle
+import app.morphe.manager.ui.screen.shared.ProvideBringIntoViewInsets
 import app.morphe.manager.ui.screen.shared.TitleAction
 import app.morphe.manager.ui.screen.shared.TitleActionStyle
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
@@ -62,24 +64,41 @@ data class StepDef(
     val onShow: (() -> Unit)? = null
 )
 
+/** Rows inside the pages the tour points at, each marked with [tourTarget]. */
+enum class TourTarget {
+    SOURCE_PATCHES, SOURCE_VERSION, SOURCE_PRERELEASE,
+    EXPERT_MODE, INSTALLER, FILE_PICKER, APPEARANCE
+}
+
 /**
- * Where the tour's spotlight targets sit in the window, and the hooks it moves the main screen
- * with. Handed to the screen only while the tour runs.
+ * Where the tour's spotlight targets sit in the window, and what it turns the main screen to.
+ * Handed to the screen only while the tour runs.
  */
 class OnboardingState {
     var firstAppCardBounds by mutableStateOf<Rect?>(null)
     var swipeActive by mutableStateOf(false)
     val navigationBounds = mutableStateMapOf<MainPage, Rect>()
-    var sourcesPatchesBounds by mutableStateOf<Rect?>(null)
-    var sourcesVersionBounds by mutableStateOf<Rect?>(null)
-    var sourcesPrereleaseBounds by mutableStateOf<Rect?>(null)
-    val settingsTargetBounds = mutableStateMapOf<SettingsTourTarget, Rect>()
-    /** The settings row the current step is about, which the settings page scrolls to. */
-    var settingsTarget by mutableStateOf<SettingsTourTarget?>(null)
+    val targetBounds = mutableStateMapOf<TourTarget, Rect>()
     /** The page the current step is on, which the main screen turns to. */
     var page by mutableStateOf<MainPage?>(null)
-    var onScrollToFirstSource: (() -> Unit)? = null
-    var onScrollToPrerelease: (() -> Unit)? = null
+    /** The row the current step is about, which its page scrolls into view. */
+    var target by mutableStateOf<TourTarget?>(null)
+}
+
+/**
+ * Marks the row as [target] of the running [tour]: reports where it sits, and scrolls it into view
+ * once the tour turns to it, clear of whatever [ProvideBringIntoViewInsets] keeps it from. Does
+ * nothing while no tour runs.
+ */
+@Composable
+fun Modifier.tourTarget(target: TourTarget, tour: OnboardingState?): Modifier {
+    tour ?: return this
+    val requester = remember { BringIntoViewRequester() }
+    LaunchedEffect(tour.target) {
+        if (tour.target == target) requester.bringIntoView()
+    }
+    return bringIntoViewRequester(requester)
+        .onGloballyPositioned { tour.targetBounds[target] = it.boundsInWindow() }
 }
 
 /**

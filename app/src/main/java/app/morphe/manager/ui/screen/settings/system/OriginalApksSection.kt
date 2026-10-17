@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.settings.SettingsTourTarget
+import app.morphe.manager.ui.screen.home.TourTarget
 import app.morphe.manager.ui.screen.settings.settingsTourTarget
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
@@ -71,7 +71,7 @@ fun OriginalApksSection(settingsViewModel: SettingsViewModel) {
                 icon = Icons.Outlined.FolderOpen,
                 title = stringResource(R.string.settings_system_custom_file_picker),
                 subtitle = stringResource(R.string.settings_system_custom_file_picker_description),
-                modifier = Modifier.settingsTourTarget(SettingsTourTarget.FILE_PICKER)
+                modifier = Modifier.settingsTourTarget(TourTarget.FILE_PICKER)
             )
         }
 

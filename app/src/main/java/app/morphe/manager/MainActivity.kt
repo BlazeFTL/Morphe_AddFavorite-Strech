@@ -54,7 +54,6 @@ import app.morphe.manager.ui.screen.PatcherScreen
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.settings.SettingsSubpageScreen
-import app.morphe.manager.ui.screen.settings.SettingsTourTarget
 import app.morphe.manager.ui.screen.shared.AnimatedBackground
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.BackgroundType
@@ -479,13 +478,13 @@ private fun MorpheManager(vm: MainViewModel) {
     val onboardingState = remember { OnboardingState() }
 
     val onboardingSteps = remember(onboardingState) {
-        // Each turns to the settings page and the row, so stepping back from another page lands on it too
-        fun settingsStep(titleRes: Int, descRes: Int, target: SettingsTourTarget) = StepDef(
+        // Each turns to its page and row, so stepping back from another page lands on it too
+        fun targetStep(titleRes: Int, descRes: Int, page: MainPage, target: TourTarget) = StepDef(
             titleRes, descRes,
-            getBounds = { onboardingState.settingsTargetBounds[target] },
+            getBounds = { onboardingState.targetBounds[target] },
             onShow = {
-                onboardingState.page = MainPage.SETTINGS
-                onboardingState.settingsTarget = target
+                onboardingState.page = page
+                onboardingState.target = target
             }
         )
         listOf(
@@ -507,34 +506,20 @@ private fun MorpheManager(vm: MainViewModel) {
                     homeViewModel.apps.markSwipeGestureHintShown()
                 }
             ),
-            StepDef(
-                R.string.patches, R.string.onboarding_sources_patches_desc,
-                getBounds = { onboardingState.sourcesPatchesBounds },
-                onShow = {
-                    onboardingState.page = MainPage.SOURCES
-                    onboardingState.onScrollToFirstSource?.invoke()
-                }
-            ),
-            StepDef(
-                R.string.changelog, R.string.onboarding_sources_version_desc,
-                getBounds = { onboardingState.sourcesVersionBounds }
-            ),
-            StepDef(
+            targetStep(R.string.patches, R.string.onboarding_sources_patches_desc, MainPage.SOURCES, TourTarget.SOURCE_PATCHES),
+            targetStep(R.string.changelog, R.string.onboarding_sources_version_desc, MainPage.SOURCES, TourTarget.SOURCE_VERSION),
+            targetStep(
                 R.string.sources_management_prerelease_toggle, R.string.onboarding_sources_prerelease_desc,
-                getBounds = { onboardingState.sourcesPrereleaseBounds },
-                onShow = {
-                    onboardingState.page = MainPage.SOURCES
-                    onboardingState.onScrollToPrerelease?.invoke()
-                }
+                MainPage.SOURCES, TourTarget.SOURCE_PRERELEASE
             ),
             StepDef(
                 R.string.settings, R.string.onboarding_settings_desc,
                 getBounds = { onboardingState.navigationBounds[MainPage.SETTINGS] }
             ),
-            settingsStep(R.string.settings_advanced_expert_mode, R.string.onboarding_expert_mode_desc, SettingsTourTarget.EXPERT_MODE),
-            settingsStep(R.string.installer, R.string.onboarding_system_installer_desc, SettingsTourTarget.INSTALLER),
-            settingsStep(R.string.settings_system_custom_file_picker, R.string.onboarding_system_file_picker_desc, SettingsTourTarget.FILE_PICKER),
-            settingsStep(R.string.appearance, R.string.onboarding_appearance_tab_desc, SettingsTourTarget.APPEARANCE)
+            targetStep(R.string.settings_advanced_expert_mode, R.string.onboarding_expert_mode_desc, MainPage.SETTINGS, TourTarget.EXPERT_MODE),
+            targetStep(R.string.installer, R.string.onboarding_system_installer_desc, MainPage.SETTINGS, TourTarget.INSTALLER),
+            targetStep(R.string.settings_system_custom_file_picker, R.string.onboarding_system_file_picker_desc, MainPage.SETTINGS, TourTarget.FILE_PICKER),
+            targetStep(R.string.appearance, R.string.onboarding_appearance_tab_desc, MainPage.SETTINGS, TourTarget.APPEARANCE)
         )
     }
 
@@ -549,7 +534,7 @@ private fun MorpheManager(vm: MainViewModel) {
         onboardingState.swipeActive = false
         homeViewModel.apps.markSwipeGestureHintShown()
         onboardingState.page = MainPage.APPS
-        onboardingState.settingsTarget = null
+        onboardingState.target = null
         showOnboarding = false
         scope.launch { prefs.firstLaunch.update(false) }
     }

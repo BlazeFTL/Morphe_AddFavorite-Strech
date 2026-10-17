@@ -205,13 +205,13 @@ class ProcessRuntime(
         stripUnusedNativeLibs: Boolean,
         onMergedApkReady: (suspend (File) -> Unit)?,
         onRestart: suspend () -> Unit
-    ): Int? {
+    ): ExecutionResult {
         var memoryMB = coerceMemoryLimit(context, prefs.patcherProcessMemoryLimit.get())
         var retries = 0
 
         while (true) {
             try {
-                executeWithMemory(
+                val elapsedTimeMs = executeWithMemory(
                     memoryMB,
                     inputFile,
                     outputFile,
@@ -226,7 +226,10 @@ class ProcessRuntime(
                     onMergedApkReady
                 )
 
-                return memoryMB.takeIf { retries > 0 }
+                return ExecutionResult(
+                    loweredMemoryLimit = memoryMB.takeIf { retries > 0 },
+                    elapsedTimeMs = elapsedTimeMs
+                )
             } catch (e: Exception) {
                 val nextMemoryMB = lowerMemoryLimit(memoryMB)
                 val retry = e.isReclaimableMemoryFailure() &&
@@ -358,10 +361,13 @@ class ProcessRuntime(
         val grantedHeapMb = AtomicInteger(0)
         // Held outside the launch so cancel() can tell app_process to exit and release its wakelock
         val binderRef = AtomicReference<IPatcherProcess?>()
+        var patchingExecutionTimeMs = 0L
 
         launch(Dispatchers.IO) {
             val binder = connection.await()
             binderRef.set(binder)
+
+            val processStartTime = System.currentTimeMillis()
 
             // Android Studio's fast deployment feature causes an issue where the other process will be running older code compared to the main process.
             // The patcher process is running outdated code if the randomly generated BUILD_ID numbers don't match.
@@ -412,6 +418,7 @@ class ProcessRuntime(
                 }
 
                 override fun finished(exceptionStackTrace: String?) {
+                    patchingExecutionTimeMs = System.currentTimeMillis() - processStartTime
                     runCatching { binder.exit() }
 
                     exceptionStackTrace?.let {
@@ -458,6 +465,8 @@ class ProcessRuntime(
             // Always clean up the temporary merged file regardless of success or failure
             mergedFile?.takeIf { it.exists() }?.delete()
         }
+
+        patchingExecutionTimeMs
     }
 
     companion object : LibraryResolver() {

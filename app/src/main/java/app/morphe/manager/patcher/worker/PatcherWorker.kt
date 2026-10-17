@@ -357,8 +357,6 @@ class PatcherWorker(
         val errorSoundUri = prefs.patcherErrorSoundUri.get()
 
         return try {
-            val startTime = System.currentTimeMillis()
-
             if (args.input is SelectedApp.Installed) {
                 installedAppRepository.get(args.packageName)?.let {
                     if (it.installType == InstallType.MOUNT) {
@@ -472,7 +470,7 @@ class PatcherWorker(
                 args.setInputFile(savedFile ?: mergedFile, true, true)
             }
 
-            val loweredMemoryLimit = try {
+            val (loweredMemoryLimit, elapsed) = try {
                 runtime.execute(
                     inputFile.absolutePath,
                     patchedApk.absolutePath,
@@ -527,8 +525,6 @@ class PatcherWorker(
             }
             args.logger.info("Signed apk in ${signTime.inWholeMilliseconds}ms")
             updateProgress(state = State.COMPLETED) // Signing
-
-            val elapsed = System.currentTimeMillis() - startTime
 
             args.logger.info(
                 "$LOG_WORKER_PREFIX_SUCCEEDED $LOG_WORKER_FIELD_OUTPUT=${args.output} " +

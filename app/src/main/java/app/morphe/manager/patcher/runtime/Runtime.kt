@@ -24,6 +24,14 @@ import java.io.File
 /** The heap limit ART granted the calling process, in mebibytes. */
 fun heapLimitMebibytes() = bytesToMebibytes(java.lang.Runtime.getRuntime().maxMemory()).toInt()
 
+/** Outcome of a patcher runtime execution. */
+data class ExecutionResult(
+    /** The heap limit in MB the run only finished under after lowering it, null when original held. */
+    val loweredMemoryLimit: Int? = null,
+    /** Elapsed time taken by the actual patching execution, in milliseconds. */
+    val elapsedTimeMs: Long = 0L
+)
+
 sealed class Runtime(
     fs: Filesystem,
     private val patchBundlesRepo: PatchBundleRepository,
@@ -54,8 +62,7 @@ sealed class Runtime(
      *                         The runtime has no further use for the file, so it may be moved.
      * @param onRestart        Called when the current attempt is abandoned and patching starts over,
      *                         so progress reported so far can be dropped instead of accumulating.
-     * @return The heap limit in MB the run only finished under after lowering it, null when the
-     *         limit it started with held.
+     * @return Execution result containing the lowered memory limit if lowered, and actual elapsed time.
      */
     abstract suspend fun execute(
         inputFile: String,
@@ -70,5 +77,5 @@ sealed class Runtime(
         stripUnusedNativeLibs: Boolean,
         onMergedApkReady: (suspend (File) -> Unit)? = null,
         onRestart: suspend () -> Unit = {},
-    ): Int?
+    ): ExecutionResult
 }

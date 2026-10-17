@@ -48,7 +48,8 @@ class CoroutineRuntime(
         onMergedApkReady: (suspend (File) -> Unit)?,
         // This runtime patches in the app's own process and gets one attempt at it
         onRestart: suspend () -> Unit
-    ): Int? {
+    ): ExecutionResult {
+        val startTime = System.currentTimeMillis()
         ResourceMonitor.startPolling(logger)
 
         try {
@@ -123,7 +124,7 @@ class CoroutineRuntime(
             ResourceMonitor.stopPolling(logger)
         }
 
-        // Patching in the app's own process leaves no heap limit of its own to lower
-        return null
+        val elapsed = System.currentTimeMillis() - startTime
+        return ExecutionResult(loweredMemoryLimit = null, elapsedTimeMs = elapsed)
     }
 }

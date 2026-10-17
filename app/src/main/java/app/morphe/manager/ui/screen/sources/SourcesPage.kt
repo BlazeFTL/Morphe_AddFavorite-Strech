@@ -327,6 +327,7 @@ private fun SourcesPageContent(
 
     // Registered inside the page so it outranks the main screen's own back handling
     SearchFieldBackHandler(search)
+    val searchLabel = stringResource(R.string.sources_search)
 
     PinnedHeaderPage(
         header = {
@@ -343,13 +344,7 @@ private fun SourcesPageContent(
                         horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        TitleAction(
-                            icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                            contentDescription = stringResource(R.string.search),
-                            onClick = { search.toggle() },
-                            style = TitleActionStyle.Toggle,
-                            active = search.visible
-                        )
+                        SearchToggleAction(search, searchLabel)
 
                         val activeSortLabel = stringResource(sourceSortMode.labelRes)
                         Box {
@@ -383,19 +378,7 @@ private fun SourcesPageContent(
                     style = TitleActionStyle.Accent
                 )
             }
-            AnimatedVisibility(
-                visible = search.visible,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
-                ListSearchField(
-                    value = search.query,
-                    onValueChange = { search.query = it },
-                    label = stringResource(R.string.sources_search),
-                    requestFocus = true,
-                    modifier = Modifier.padding(top = Defaults.SpaceMedium)
-                )
-            }
+            HeaderSearchField(search, searchLabel)
         }
     ) { headerHeight ->
         // Bundle cards, running on under the header and the navigation floating over the page

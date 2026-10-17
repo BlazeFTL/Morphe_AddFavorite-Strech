@@ -6,15 +6,11 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -294,16 +290,7 @@ private fun HeaderContent(
                         horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing)
                     ) {
                         actions?.invoke(this)
-                        if (search != null) {
-                            TitleAction(
-                                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                                contentDescription = label,
-                                onClick = { search.toggle() },
-                                style = TitleActionStyle.Toggle,
-                                active = search.visible,
-                                enabled = searchEnabled
-                            )
-                        }
+                        if (search != null) SearchToggleAction(search, label, enabled = searchEnabled)
                     }
                 }
             }
@@ -330,21 +317,7 @@ private fun HeaderContent(
                 }
             }
         }
-        if (search != null) {
-            AnimatedVisibility(
-                visible = search.visible,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
-                ListSearchField(
-                    value = search.query,
-                    onValueChange = { search.query = it },
-                    label = label,
-                    requestFocus = true,
-                    modifier = Modifier.padding(top = Defaults.SpaceMedium)
-                )
-            }
-        }
+        if (search != null) HeaderSearchField(search, label)
     }
 }
 

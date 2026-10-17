@@ -40,17 +40,34 @@ class SettingsSearch(private val query: () -> String) {
     }
 }
 
-/** Rows a search leaves within one part of the page, counted into the part that holds it too. */
+/**
+ * Rows a search leaves within one part of the page, counted into the part that holds it too. A part
+ * that is a [SettingsSection] carries its [heading] and also counts the rows it holds [direct]ly,
+ * outside any section within it, which are what its own title heads.
+ */
 @Stable
-internal class SearchMatches(private val parent: SearchMatches?) {
+internal class SearchMatches(private val parent: SearchMatches?, val heading: SectionHeading? = null) {
     var shown by mutableIntStateOf(0)
         private set
 
-    fun add(count: Int) {
+    var direct by mutableIntStateOf(0)
+        private set
+
+    /** The section this part stands in, whose title a section within it is found under. */
+    val enclosingSection: SearchMatches?
+        get() = generateSequence(parent) { it.parent }.firstOrNull { it.heading != null }
+
+    /** Counts [count] rows into this part and those around it, as [direct] ones of the nearest section. */
+    fun add(count: Int, direct: Boolean = true) {
         shown += count
-        parent?.add(count)
+        val counted = direct && heading != null
+        if (counted) this.direct += count
+        parent?.add(count, direct && !counted)
     }
 }
+
+/** A [SettingsSection]'s title and what opens where it lives, for a section found within it. */
+internal class SectionHeading(val title: String, val onClick: (() -> Unit)?)
 
 /**
  * The search the settings under it are narrowed by, null where nothing is searched. A dialog or sheet
@@ -87,10 +104,10 @@ fun SearchableSetting(texts: List<String?>, content: @Composable () -> Unit) {
  * in. Null where nothing is searched.
  */
 @Composable
-internal fun rememberSearchMatches(): SearchMatches? {
+internal fun rememberSearchMatches(heading: SectionHeading? = null): SearchMatches? {
     val search = LocalSettingsSearch.current ?: return null
     val parent = LocalSearchMatches.current ?: search.root
-    return remember(parent) { SearchMatches(parent) }
+    return remember(parent, heading?.title) { SearchMatches(parent, heading) }
 }
 
 /**
@@ -130,10 +147,21 @@ fun SettingsSection(
     content: @Composable () -> Unit
 ) {
     val search = LocalSettingsSearch.current
-    val matches = rememberSearchMatches()
+    val currentOnTitleClick = rememberUpdatedState(onTitleClick)
+    val heading = SectionHeading(title, onTitleClick?.let { { currentOnTitleClick.value?.invoke() } })
+    val matches = rememberSearchMatches(heading)
+    val searching = search?.isActive == true
+    // Found under another section, it reads as one line from where it lives, which opens it
+    val enclosing = matches?.enclosingSection?.heading.takeIf { searching }
     CompositionLocalProvider(LocalSearchMatches provides matches) {
-        FoldingVisibility(visible = search?.isActive != true || (matches?.shown ?: 0) > 0) {
-            SectionTitle(text = title, icon = icon, onClick = onTitleClick)
+        // Over the rows it holds itself, so a section holding only sections leaves the line to them
+        FoldingVisibility(visible = !searching || (matches?.direct ?: 0) > 0) {
+            SectionTitle(
+                text = title,
+                icon = icon,
+                parent = enclosing?.title,
+                onClick = enclosing?.onClick ?: onTitleClick
+            )
         }
         content()
     }

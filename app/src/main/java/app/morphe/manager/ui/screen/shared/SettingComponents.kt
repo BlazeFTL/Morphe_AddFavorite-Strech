@@ -46,6 +46,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
@@ -574,10 +575,11 @@ fun SectionCard(
  * carry the weight, and inset by their padding so the icon and text line up with the icons and
  * titles of the rows.
  *
+ * @param parent The section this one is found within, ahead of its title on the same line.
  * @param onClick Opens where the section lives, marked by a chevron after the title.
  */
 @Composable
-internal fun SectionTitle(text: String, icon: ImageVector?, onClick: (() -> Unit)?) {
+internal fun SectionTitle(text: String, icon: ImageVector?, parent: String?, onClick: (() -> Unit)?) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -607,16 +609,35 @@ internal fun SectionTitle(text: String, icon: ImageVector?, onClick: (() -> Unit
                 ThemedIcon(icon = icon, size = 20.dp)
             }
         }
-        Text(
-            text = text,
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        val color = MaterialTheme.colorScheme.onSurfaceVariant
+        // The path in one line, each step leading to the next as a row leads to its page
+        Row(
+            modifier = Modifier.weight(1f, fill = false),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (parent != null) {
+                SectionTitleText(parent, color)
+                ForwardChevronIcon(size = 16.dp, tint = color)
+            }
+            SectionTitleText(text, color)
+        }
         if (onClick != null) {
-            ForwardChevronIcon(size = 20.dp, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+            ForwardChevronIcon(size = 20.dp, tint = color)
         }
     }
+}
+
+@Composable
+private fun SectionTitleText(text: String, color: Color) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.titleSmall,
+        fontWeight = FontWeight.SemiBold,
+        color = color,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
+    )
 }
 
 /**

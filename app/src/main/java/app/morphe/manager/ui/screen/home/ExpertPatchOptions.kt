@@ -272,7 +272,7 @@ internal fun PatchOptionsDialog(
                 )
             }
 
-            options.forEach { option ->
+            val editor: @Composable (Option<*>) -> Unit = { option ->
                 val value = valueOf(option)
                 PatchOptionEditor(
                     option = option,
@@ -293,6 +293,15 @@ internal fun PatchOptionsDialog(
                     onCustomColorClick = { showColorPicker.value = option.key to it }
                 )
             }
+            // Switches stand together as one segmented group, as the settings keep theirs, while
+            // every other option keeps a card of its own
+            options.runsBy { resolveOptionKind(it, valueOf(it)) == OptionKind.BooleanToggle }.forEach { (toggles, run) ->
+                if (toggles && run.size > 1) {
+                    SettingsGroup { run.forEach { editor(it) } }
+                } else {
+                    run.forEach { editor(it) }
+                }
+            }
         }
     }
 
@@ -308,6 +317,17 @@ internal fun PatchOptionsDialog(
             onDismiss = { showColorPicker.value = null }
         )
     }
+}
+
+/** This list cut into runs of neighbors that agree on [key], each run with the key it shares. */
+private fun <T, K> List<T>.runsBy(key: (T) -> K): List<Pair<K, List<T>>> {
+    val runs = mutableListOf<Pair<K, MutableList<T>>>()
+    forEach { item ->
+        val k = key(item)
+        val last = runs.lastOrNull()
+        if (last != null && last.first == k) last.second.add(item) else runs.add(k to mutableListOf(item))
+    }
+    return runs
 }
 
 /**

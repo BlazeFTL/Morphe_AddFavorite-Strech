@@ -362,12 +362,6 @@ class SettingsViewModel(
         packages.sumOf { optionsRepository.getOptionsCountForPackage(it) }
     }
 
-    /** Loads the options count for a single package (used by the per-package confirmation dialog). */
-    suspend fun loadOptionsCountForPackage(packageName: String): Int =
-        withContext(Dispatchers.IO) {
-            optionsRepository.getOptionsCountForPackage(packageName)
-        }
-
     /** Loads the options count for a specific package+bundle (used by bundle confirmation dialog). */
     suspend fun loadOptionsCountForBundle(packageName: String, bundleUid: Int): Int =
         withContext(Dispatchers.IO) {

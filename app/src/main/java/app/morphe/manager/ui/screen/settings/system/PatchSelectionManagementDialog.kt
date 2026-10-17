@@ -240,48 +240,20 @@ fun PatchSelectionManagementDialog(
 
     // Reset specific target confirmation dialog
     resetTarget.value?.let { target ->
-        when (target) {
-            is ResetTarget.Package -> {
-                val bundleMap = selections[target.packageName] ?: emptyMap()
-                val patchCount = bundleMap.values.sum()
-
-                ConfirmResetPackageDialog(
-                    packageName = target.packageName,
-                    patchCount = patchCount,
-                    bundleCount = bundleMap.size,
-                    settingsViewModel = settingsViewModel,
-                    onConfirm = {
-                        scope.launch {
-                            settingsViewModel.resetSelectionsForPackage(target.packageName)
-                            resetTarget.value = null
-                        }
-                    },
-                    onDismiss = { resetTarget.value = null }
-                )
-            }
-
-            is ResetTarget.PackageBundle -> {
-                val patchCount = selections[target.packageName]?.get(target.bundleUid) ?: 0
-
-                ConfirmResetPackageBundleDialog(
-                    packageName = target.packageName,
-                    bundleUid = target.bundleUid,
-                    bundleName = bundleNames[target.bundleUid],
-                    patchCount = patchCount,
-                    settingsViewModel = settingsViewModel,
-                    onConfirm = {
-                        scope.launch {
-                            settingsViewModel.resetSelectionsForPackageBundle(
-                                target.packageName,
-                                target.bundleUid
-                            )
-                            resetTarget.value = null
-                        }
-                    },
-                    onDismiss = { resetTarget.value = null }
-                )
-            }
-        }
+        ConfirmResetPackageBundleDialog(
+            packageName = target.packageName,
+            bundleUid = target.bundleUid,
+            bundleName = bundleNames[target.bundleUid],
+            patchCount = selections[target.packageName]?.get(target.bundleUid) ?: 0,
+            settingsViewModel = settingsViewModel,
+            onConfirm = {
+                scope.launch {
+                    settingsViewModel.resetSelectionsForPackageBundle(target.packageName, target.bundleUid)
+                    resetTarget.value = null
+                }
+            },
+            onDismiss = { resetTarget.value = null }
+        )
     }
 
     // Patch details dialog
@@ -470,14 +442,13 @@ private fun SelectionList(
             }
         }
 
-        // Each app a block: its header, then a row for every source it has a selection from and
-        // one resetting them all
+        // Each app a block: its header, then a row for every source it has a selection from
         shownApps.forEach { app ->
             val packageName = app.packageName
             val bundleMap = app.bundles
             // Folded in selection mode, so a tap on the header always selects the app
             val expanded = packageName in expandedPackages.value && !multiSelect.isSelectionMode
-            val rows = if (expanded) bundleMap.size + 2 else 1
+            val rows = if (expanded) bundleMap.size + 1 else 1
 
             item(key = packageName) {
                 PackageSelectionHeader(
@@ -502,7 +473,7 @@ private fun SelectionList(
                             bundleName = bundleNames[bundleUid],
                             patchCount = patchCount,
                             importExportViewModel = importExportViewModel,
-                            onReset = { onSetResetTarget(ResetTarget.PackageBundle(packageName, bundleUid)) },
+                            onReset = { onSetResetTarget(ResetTarget(packageName, bundleUid)) },
                             onShowDetails = {
                                 onShowPatchDetails(PatchDetailsTarget(packageName, bundleUid, app.displayName))
                             },
@@ -512,26 +483,6 @@ private fun SelectionList(
                             onImport = onImport,
                             segment = ListSegment.of(index + 1, rows),
                             modifier = Modifier.animatedListItem(this)
-                        )
-                    }
-                }
-
-                item(key = "$packageName:reset") {
-                    SelectionSegment(
-                        packageName = packageName,
-                        segment = ListSegment.of(rows - 1, rows),
-                        modifier = Modifier.animatedListItem(this)
-                    ) {
-                        CardActionRow(
-                            actions = listOf(
-                                CardAction(
-                                    icon = Icons.Outlined.Restore,
-                                    label = stringResource(R.string.reset_all),
-                                    onClick = { onSetResetTarget(ResetTarget.Package(packageName)) },
-                                    destructive = true
-                                )
-                            ),
-                            modifier = Modifier.padding(Defaults.SpaceLarge)
                         )
                     }
                 }
@@ -818,42 +769,6 @@ private fun ConfirmResetAllDialog(
 }
 
 /**
- * Confirmation dialog for resetting package selections.
- */
-@Composable
-private fun ConfirmResetPackageDialog(
-    packageName: String,
-    patchCount: Int,
-    bundleCount: Int,
-    settingsViewModel: SettingsViewModel,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    var displayName by remember { mutableStateOf(packageName) }
-    var optionsCount by remember { mutableIntStateOf(0) }
-
-    LaunchedEffect(packageName) {
-        val (name, _) = settingsViewModel.resolveAppDisplayName(packageName)
-        displayName = name
-        optionsCount = settingsViewModel.loadOptionsCountForPackage(packageName)
-    }
-
-    val patchesText = pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())
-    val sourcesText = pluralStringResource(R.plurals.source_count, bundleCount, bundleCount.toString())
-    ConfirmDialog(
-        title = stringResource(R.string.settings_system_patch_selection_reset_package_confirm_title),
-        message = htmlAnnotatedString(stringResource(R.string.settings_system_patch_selection_reset_package_warning, displayName)),
-        primaryText = stringResource(R.string.reset),
-        onConfirm = onConfirm,
-        onDismiss = onDismiss,
-        items = listOfNotNull(
-            ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.settings_system_patch_selection_patches_in_sources_format, patchesText, sourcesText)),
-            ConfirmItem(Icons.Outlined.Tune, pluralStringResource(R.plurals.option_count, optionsCount, optionsCount.toString())).takeIf { optionsCount > 0 }
-        )
-    )
-}
-
-/**
  * Confirmation dialog for resetting package-bundle selections.
  */
 @Composable
@@ -978,10 +893,8 @@ private fun PatchDetailsDialog(
     }
 }
 
-private sealed interface ResetTarget {
-    data class Package(val packageName: String) : ResetTarget
-    data class PackageBundle(val packageName: String, val bundleUid: Int) : ResetTarget
-}
+/** The selections of one app from one source, which a reset waits on a confirmation for. */
+private data class ResetTarget(val packageName: String, val bundleUid: Int)
 
 private data class PatchDetailsTarget(
     val packageName: String,

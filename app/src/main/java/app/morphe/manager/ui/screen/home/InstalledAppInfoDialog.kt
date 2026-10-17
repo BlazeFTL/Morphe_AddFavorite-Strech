@@ -34,7 +34,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -46,7 +45,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.lifecycle.Lifecycle
@@ -72,6 +70,7 @@ import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.ui.viewmodel.labelRes
 import app.morphe.manager.util.*
+import app.morphe.manager.util.isRtl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -1019,7 +1018,7 @@ private fun VersionTransition(
 ) {
     val (from, to) = versions
     // Points the way the language runs, so the move reads forwards in Arabic and Hebrew too
-    val arrow = if (LocalLayoutDirection.current == LayoutDirection.Rtl) "←" else "→"
+    val arrow = if (isRtl()) "←" else "→"
     val readOut = stringResource(readOutRes, from, to)
 
     Text(

@@ -34,6 +34,8 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import app.morphe.manager.R
+import app.morphe.manager.util.endEdgeX
+import app.morphe.manager.util.isRtl
 import kotlin.math.roundToInt
 
 /**
@@ -184,15 +186,14 @@ private class ToggleMorphPill(
 ) : Shape {
     override fun createOutline(size: Size, layoutDirection: LayoutDirection, density: Density): Outline {
         // Measured from the field's end, where the toggle stands
-        val fromEndStart = toggleSize + (size.width - toggleSize) * progress
-        val fromEndEnd = (toggleSize + gap) * progress
-        val left = if (layoutDirection == LayoutDirection.Ltr) size.width - fromEndStart else fromEndEnd
-        val right = if (layoutDirection == LayoutDirection.Ltr) size.width - fromEndEnd else fromEndStart
+        val rtl = layoutDirection.isRtl
+        val farX = endEdgeX(size.width, rtl, inset = toggleSize + (size.width - toggleSize) * progress)
+        val nearX = endEdgeX(size.width, rtl, inset = (toggleSize + gap) * progress)
         return Outline.Rounded(
             RoundRect(
-                left = left,
+                left = minOf(farX, nearX),
                 top = 0f,
-                right = right,
+                right = maxOf(farX, nearX),
                 bottom = size.height,
                 cornerRadius = CornerRadius(size.height / 2)
             )

@@ -21,8 +21,8 @@ import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.util.isRtl
 
 /** How far into a row its edge fades, enough to read as more to come without hiding a label. */
 val EdgeFadeWidth = 24.dp
@@ -58,7 +58,7 @@ fun Modifier.edgeFade(
         val maxLength = length.toPx().coerceAtMost(extent / 2)
         if (maxLength <= 0f) return@drawWithContent
         // A row starts on the right in a right-to-left layout, a column always at the top
-        val startIsFirst = orientation == Orientation.Vertical || layoutDirection == LayoutDirection.Ltr
+        val startIsFirst = orientation == Orientation.Vertical || !layoutDirection.isRtl
         fadeEdge(orientation, atFirst = startIsFirst, length = hiddenAtStart().coerceAtMost(maxLength))
         fadeEdge(orientation, atFirst = !startIsFirst, length = hiddenAtEnd().coerceAtMost(maxLength))
     }

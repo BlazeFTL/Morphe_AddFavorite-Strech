@@ -17,10 +17,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.outlined.ChevronLeft
-import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.FolderOff
 import androidx.compose.material3.*
@@ -50,7 +49,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
-import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.readableOn
 
 /**
@@ -443,11 +441,7 @@ fun ExpandChevron(
     )
 }
 
-/**
- * Chevron pointing towards whatever a row navigates to.
- * Material ships no auto-mirrored variant of [Icons.Outlined.ChevronRight], so RTL layouts
- * have to be served the mirrored icon explicitly.
- */
+/** Chevron pointing towards whatever a row navigates to, mirrored on its own in RTL. */
 @Composable
 fun ForwardChevronIcon(
     modifier: Modifier = Modifier,
@@ -455,11 +449,7 @@ fun ForwardChevronIcon(
     tint: Color = MaterialTheme.colorScheme.primary
 ) {
     ThemedIcon(
-        icon = if (isRtl()) {
-            Icons.Outlined.ChevronLeft
-        } else {
-            Icons.Outlined.ChevronRight
-        },
+        icon = Icons.AutoMirrored.Outlined.NavigateNext,
         modifier = modifier,
         size = size,
         tint = tint

@@ -24,9 +24,11 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.util.contrastingContent
+import app.morphe.manager.util.endEdgeX
+import app.morphe.manager.util.isRtl
+import app.morphe.manager.util.startEdgeX
 
 /** The most a mark hangs past the corner of its icon, room a caller may need to leave for it. */
 val IconMarkOverhang = 6.dp
@@ -77,9 +79,9 @@ fun MarkedIcon(
                     val cutRadius = cutSize.toPx() / 2f
                     val inset = cutRadius - overhang.toPx()
                     // The end corner is the left one in RTL, and the start corner the right one
-                    val rtl = layoutDirection == LayoutDirection.Rtl
-                    val endX = if (rtl) inset else size.width - inset
-                    val startX = if (rtl) size.width - inset else inset
+                    val rtl = layoutDirection.isRtl
+                    val endX = endEdgeX(size.width, rtl, inset)
+                    val startX = startEdgeX(size.width, rtl, inset)
                     val y = size.height - inset
                     clearMarkGap(endCorner.presence.value, cutRadius, Offset(endX, y))
                     clearMarkGap(startCorner.presence.value, cutRadius, Offset(startX, y))

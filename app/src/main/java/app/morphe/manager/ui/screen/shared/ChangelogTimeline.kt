@@ -49,11 +49,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import app.morphe.manager.R
 import app.morphe.manager.util.*
+import app.morphe.manager.util.isRtl
+import app.morphe.manager.util.startEdgeX
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -854,7 +855,7 @@ private fun DrawScope.drawTimeline(
     hasNode: Boolean,
     colors: TimelineColors
 ) {
-    val railX = (RailSlotWidth / 2).toPx().let { if (layoutDirection == LayoutDirection.Rtl) size.width - it else it }
+    val railX = startEdgeX(size.width, layoutDirection.isRtl, inset = (RailSlotWidth / 2).toPx())
     val stroke = RailStrokeWidth.toPx()
 
     if (!hasNode) {

@@ -572,15 +572,13 @@ private fun MorpheManager(vm: MainViewModel) {
             exitTransition = { Animations.screenExit },
             popEnterTransition = { Animations.screenEnter },
             popExitTransition = { Animations.screenExit },
-            // A settings page is drawn back along the shared axis it opened on, see the routes below
+            // Every screen shrinks away under the gesture, revealing the one it returns to, which a
+            // settings page opened along a shared axis comes back in on, see the routes below
             predictivePopEnterTransition = {
                 if (initialState.destination.hasRoute<SettingsDetail>()) sharedAxisEnter(forward = false)
                 else Animations.screenEnter
             },
-            predictivePopExitTransition = {
-                if (initialState.destination.hasRoute<SettingsDetail>()) Animations.predictiveBackExit
-                else Animations.pushExit
-            }
+            predictivePopExitTransition = { Animations.predictiveBackExit }
         ) {
             composable<HomeScreen>(
                 // A settings page opens deeper from the main screen, along Material's shared axis

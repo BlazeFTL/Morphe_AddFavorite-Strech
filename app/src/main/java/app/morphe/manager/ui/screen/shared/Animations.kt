@@ -196,11 +196,6 @@ object Animations {
             scaleIn(tween(Defaults.ANIMATION_DURATION, delay, LinearOutSlowInEasing), initialScale = 0.8f)
     }
 
-    // A screen leaving by sliding down, as the predictive back gesture draws it away
-    val pushExit = slideOutVertically(
-        animationSpec = defaultTween(Defaults.SCREEN_ENTER_DURATION, FastOutSlowInEasing)
-    ) { it } + fadeOut(tween(Defaults.SCREEN_ENTER_DURATION, easing = LinearEasing))
-
     /**
      * A page drawn back by the predictive back gesture: it shrinks away under the finger, as
      * Material has a screen do, revealing the one it returns to.

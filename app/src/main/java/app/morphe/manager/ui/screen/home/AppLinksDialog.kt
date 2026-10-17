@@ -51,6 +51,34 @@ fun DialogHostScope.AppLinksDialog(
     onRefresh: () -> Unit,
     onDismiss: () -> Unit
 ) {
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        onRefresh()
+    }
+
+    DetailsDialog(
+        onDismissRequest = onDismiss,
+        icon = { modifier ->
+            AppIcon(packageInfo = appInfo, packageName = packageName, contentDescription = null, modifier = modifier)
+        },
+        title = appLabel,
+        subtitle = stringResource(R.string.app_links_title),
+        accentColor = accentColor,
+        actions = rememberAppLinksActions(packageName, status, onRefresh)
+    ) {
+        AppLinksContent(status = status, accentColor = accentColor)
+    }
+}
+
+/**
+ * What can be done about [packageName]'s web links: turning them on where the device lets the
+ * manager do it, and opening the system screen where the user picks them.
+ */
+@Composable
+fun rememberAppLinksActions(
+    packageName: String,
+    status: AppLinksStatus,
+    onRefresh: () -> Unit
+): List<DialogAction> {
     val context = LocalContext.current
     val messages = koinInject<UserMessages>()
     val resources = LocalResources.current
@@ -61,11 +89,7 @@ fun DialogHostScope.AppLinksDialog(
     }
     var isRepairing by remember { mutableStateOf(false) }
 
-    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
-        onRefresh()
-    }
-
-    val dialogActions = buildList {
+    return buildList {
         if (repairCapability != RepairCapability.NONE && status.needsAttention) {
             add(
                 DialogAction(
@@ -101,43 +125,36 @@ fun DialogHostScope.AppLinksDialog(
             )
         )
     }
+}
 
-    DetailsDialog(
-        onDismissRequest = onDismiss,
-        icon = { modifier ->
-            AppIcon(packageInfo = appInfo, packageName = packageName, contentDescription = null, modifier = modifier)
-        },
-        title = appLabel,
-        subtitle = stringResource(R.string.app_links_title),
-        accentColor = accentColor,
-        actions = dialogActions
+/** Whether the app's web links open in it, then each link and whether it does. */
+@Composable
+fun AppLinksContent(status: AppLinksStatus, accentColor: Color?) {
+    if (status.needsAttention) {
+        Notice(
+            text = stringResource(R.string.app_links_description),
+            tone = SemanticTone.Warning,
+            icon = Icons.Outlined.LinkOff
+        )
+    } else {
+        Notice(
+            text = stringResource(R.string.app_links_all_verified),
+            tone = SemanticTone.Success,
+            icon = Icons.Outlined.CheckCircleOutline
+        )
+    }
+
+    SurfaceCard(
+        cornerRadius = Defaults.CornerLarge,
+        showBorder = true,
+        borderColor = appAccentBorder(accentColor),
+        color = cardFill(),
+        modifier = Modifier.fillMaxWidth()
     ) {
-        if (status.needsAttention) {
-            Notice(
-                text = stringResource(R.string.app_links_description),
-                tone = SemanticTone.Warning,
-                icon = Icons.Outlined.LinkOff
-            )
-        } else {
-            Notice(
-                text = stringResource(R.string.app_links_all_verified),
-                tone = SemanticTone.Success,
-                icon = Icons.Outlined.CheckCircleOutline
-            )
-        }
-
-        SurfaceCard(
-            cornerRadius = Defaults.CornerLarge,
-            showBorder = true,
-            borderColor = appAccentBorder(accentColor),
-            color = cardFill(),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column {
-                status.domains.forEachIndexed { index, domain ->
-                    if (index > 0) SettingsDivider()
-                    DomainRow(domain = domain, isEnabled = domain !in status.unhandledDomains)
-                }
+        Column {
+            status.domains.forEachIndexed { index, domain ->
+                if (index > 0) SettingsDivider()
+                DomainRow(domain = domain, isEnabled = domain !in status.unhandledDomains)
             }
         }
     }

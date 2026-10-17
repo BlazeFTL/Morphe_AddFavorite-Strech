@@ -6,6 +6,7 @@
 package app.morphe.manager.ui.screen.home
 
 import android.content.pm.PackageInfo
+import androidx.activity.compose.BackHandler
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -199,8 +201,8 @@ fun DialogHostScope.InstalledAppInfoDialog(
     // Dialog states
     val showUninstallConfirm = remember { mutableStateOf(false) }
     val showDeleteDialog = remember { mutableStateOf(false) }
-    val showAppliedPatchesDialog = remember { mutableStateOf(false) }
-    val showAppLinksDialog = remember { mutableStateOf(false) }
+    // The applied patches and the web links open in place of the information, under its header
+    var page by rememberSaveable { mutableStateOf(InfoPage.Main) }
 
     // The link selection is only ever changed on a system screen, which is left by coming back here
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
@@ -368,31 +370,6 @@ fun DialogHostScope.InstalledAppInfoDialog(
             )
         }
 
-        // Sub-dialogs
-        DialogHost(visible = showAppliedPatchesDialog.value && appliedPatches != null) {
-            AppliedPatchesDialog(
-                appLabel = appLabel,
-                appInfo = appInfo,
-                accentColor = appAccentColor,
-                packageName = installedApp?.originalPackageName ?: packageName,
-                bundles = appliedBundles,
-                settingsViewModel = settingsViewModel,
-                onDismiss = { showAppliedPatchesDialog.value = false }
-            )
-        }
-
-        DialogHost(target = viewModel.appLinksStatus?.takeIf { showAppLinksDialog.value && it.hasSupportedLinks }) { appLinksStatus ->
-            AppLinksDialog(
-                appLabel = appLabel,
-                appInfo = appInfo,
-                accentColor = appAccentColor,
-                packageName = installedApp?.currentPackageName ?: packageName,
-                status = appLinksStatus,
-                onRefresh = viewModel::refreshAppLinks,
-                onDismiss = { showAppLinksDialog.value = false }
-            )
-        }
-
         // What the pending patch update changed for this app
         BundleChangelogHost(
             request = changelogRequest.value,
@@ -495,6 +472,30 @@ fun DialogHostScope.InstalledAppInfoDialog(
         onTriggerPatchFlow(app.originalPackageName, app.trackingKey)
     }
 
+    val subpage = when (page) {
+        InfoPage.Main -> null
+        InfoPage.AppliedPatches -> rememberAppliedPatchesPage(
+            appLabel = appLabel,
+            packageName = installedApp?.originalPackageName ?: packageName,
+            bundles = appliedBundles,
+            settingsViewModel = settingsViewModel
+        )
+        // Gone with the links, should the app drop them while the page is open
+        InfoPage.AppLinks -> viewModel.appLinksStatus?.takeIf { it.hasSupportedLinks }?.let { status ->
+            InfoSubpage(
+                page = page,
+                subtitle = stringResource(R.string.app_links_title),
+                actions = rememberAppLinksActions(
+                    packageName = installedApp?.currentPackageName ?: packageName,
+                    status = status,
+                    onRefresh = viewModel::refreshAppLinks
+                )
+            ) {
+                AppLinksContent(status = status, accentColor = infoAccentColor)
+            }
+        }
+    }
+
     // Main Dialog
     ListDialog(
         onDismissRequest = onDismiss,
@@ -508,16 +509,33 @@ fun DialogHostScope.InstalledAppInfoDialog(
                     appInfo = appInfo,
                     packageName = packageName,
                     appLabel = appLabel,
-                    accentColor = infoAccentColor
+                    accentColor = infoAccentColor,
+                    pageSubtitle = subpage?.subtitle
                 )
             }
         },
         footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            )
+            // A page's own actions, and the way back to the information, take the place of Close
+            AnimatedContent(
+                targetState = subpage,
+                contentKey = { it?.page },
+                transitionSpec = Animations.fadeCrossfade(),
+                label = "installedAppInfoFooter"
+            ) { shown ->
+                if (shown == null) {
+                    AppDialogOutlinedButton(
+                        text = stringResource(R.string.close),
+                        onClick = onDismiss,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                } else {
+                    DetailsFooter(
+                        dismissText = stringResource(R.string.back),
+                        onDismiss = { page = InfoPage.Main },
+                        actions = shown.actions
+                    )
+                }
+            }
         }
     ) {
         AnimatedContent(
@@ -659,7 +677,7 @@ fun DialogHostScope.InstalledAppInfoDialog(
                             onPatch = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
                             onShowUpdateChangelog = onShowUpdateChangelog,
                             onIgnoreVersion = onIgnoreVersion,
-                            onOpenAppLinks = { showAppLinksDialog.value = true }
+                            onOpenAppLinks = { page = InfoPage.AppLinks }
                         )
                         StaggeredItem(entered = entered.value, index = 2) {
                             InfoSection(
@@ -670,8 +688,8 @@ fun DialogHostScope.InstalledAppInfoDialog(
                                 appliedPatches = appliedPatches,
                                 bundlesUsedSummary = bundlesUsedSummary,
                                 appLinksStatus = viewModel.appLinksStatus,
-                                onShowPatches = { showAppliedPatchesDialog.value = true },
-                                onOpenAppLinks = { showAppLinksDialog.value = true },
+                                onShowPatches = { page = InfoPage.AppliedPatches },
+                                onOpenAppLinks = { page = InfoPage.AppLinks },
                                 accentColor = infoAccentColor
                             )
                         }
@@ -679,23 +697,39 @@ fun DialogHostScope.InstalledAppInfoDialog(
                 }
             }
 
-            DialogLazyList(modifier = Modifier.fillMaxSize()) {
-                infoItems()
+            // Back leaves a page for the information rather than closing the dialog
+            BackHandler(enabled = subpage != null) { page = InfoPage.Main }
 
-                item(key = "actions") {
-                    StaggeredItem(entered = entered.value, index = 3) {
-                        actions(Modifier.padding(top = Defaults.SpaceMedium))
-                    }
+            AnimatedContent(
+                targetState = subpage,
+                contentKey = { it?.page },
+                transitionSpec = Animations.fadeCrossfade(),
+                modifier = Modifier.fillMaxSize(),
+                label = "installedAppInfoPage"
+            ) { shown ->
+                if (shown != null) {
+                    DetailsBody(modifier = Modifier.fillMaxSize(), content = shown.content)
+                    return@AnimatedContent
                 }
 
-                if (!viewModel.hasOriginalApk) {
-                    item(key = "no_saved_apk") {
-                        StaggeredItem(entered = entered.value, index = 4) {
-                            noSavedApkNotice(
-                                Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = Defaults.SpaceMedium)
-                            )
+                DialogLazyList(modifier = Modifier.fillMaxSize()) {
+                    infoItems()
+
+                    item(key = "actions") {
+                        StaggeredItem(entered = entered.value, index = 3) {
+                            actions(Modifier.padding(top = Defaults.SpaceMedium))
+                        }
+                    }
+
+                    if (!viewModel.hasOriginalApk) {
+                        item(key = "no_saved_apk") {
+                            StaggeredItem(entered = entered.value, index = 4) {
+                                noSavedApkNotice(
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(top = Defaults.SpaceMedium)
+                                )
+                            }
                         }
                     }
                 }
@@ -707,6 +741,7 @@ fun DialogHostScope.InstalledAppInfoDialog(
 /**
  * The head of an installed app's information: its icon, name and version over chips saying what
  * the install is and when it was made, beside the name instead on a screen wide enough for both.
+ * A page opened in place of the information names itself by [pageSubtitle] instead.
  */
 @Composable
 private fun InstalledAppHeader(
@@ -714,7 +749,8 @@ private fun InstalledAppHeader(
     appInfo: PackageInfo?,
     packageName: String,
     appLabel: String,
-    accentColor: Color
+    accentColor: Color,
+    pageSubtitle: String?
 ) {
     val relativeTime = remember(installedApp.patchedAt) { installedApp.patchedAt?.let { getRelativeTimeString(it) } }
 
@@ -733,6 +769,7 @@ private fun InstalledAppHeader(
         }
     }
     val compactHeader = isLandscape() && rememberWindowSize().widthSizeClass == WindowWidthSizeClass.Expanded
+    val onPage = pageSubtitle != null
 
     ListDialogHeader(
         icon = { iconModifier ->
@@ -748,13 +785,13 @@ private fun InstalledAppHeader(
             )
         },
         title = appLabel,
-        subtitle = (appInfo?.versionName ?: installedApp.version).withVersionPrefix(),
+        subtitle = pageSubtitle ?: (appInfo?.versionName ?: installedApp.version).withVersionPrefix(),
         accentColor = accentColor,
         // Wraps rather than clips: a clone carries a chip more than other installs do
-        badges = if (compactHeader) null else { { badges() } },
+        badges = if (compactHeader || onPage) null else { { badges() } },
         alwaysShowBand = true,
         // A wide screen sets the chips in a column beside the name
-        actions = if (compactHeader) {
+        actions = if (compactHeader && !onPage) {
             {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
@@ -1788,20 +1825,25 @@ private fun DialogHostScope.MountWarningDialog(
     )
 }
 
-/**
- * What went into an installed app: its patches and their options, source by source, under the
- * same header the app's other dialogs carry.
- */
+/** The pages of an installed app's information, each opened in place of the first under the same header. */
+private enum class InfoPage { Main, AppliedPatches, AppLinks }
+
+/** A page of an installed app's information besides the first: how the header names it, what it offers and holds. */
+private class InfoSubpage(
+    val page: InfoPage,
+    val subtitle: String,
+    val actions: List<DialogAction>,
+    val content: @Composable ColumnScope.() -> Unit
+)
+
+/** What went into an installed app: its patches and their options, source by source. */
 @Composable
-private fun DialogHostScope.AppliedPatchesDialog(
+private fun rememberAppliedPatchesPage(
     appLabel: String,
-    appInfo: PackageInfo?,
-    accentColor: Color,
     packageName: String,
     bundles: List<AppliedPatchBundleUi>,
-    settingsViewModel: SettingsViewModel,
-    onDismiss: () -> Unit
-) {
+    settingsViewModel: SettingsViewModel
+): InfoSubpage {
     var bundleOptionsMap by remember { mutableStateOf<Map<Int, Map<String, Map<String, Any?>>>>(emptyMap()) }
     LaunchedEffect(bundles) {
         bundleOptionsMap = bundles.associate { bundle ->
@@ -1826,18 +1868,13 @@ private fun DialogHostScope.AppliedPatchesDialog(
     val copyToClipboard = rememberCopyToClipboard()
     val sourcesByUid = rememberSourcesByUid()
 
-    DetailsDialog(
-        onDismissRequest = onDismiss,
-        icon = { modifier ->
-            AppIcon(packageInfo = appInfo, packageName = packageName, contentDescription = null, modifier = modifier)
-        },
-        title = appLabel,
+    return InfoSubpage(
+        page = InfoPage.AppliedPatches,
         subtitle = listOf(
             pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString()),
             bundles.singleOrNull()?.title
                 ?: pluralStringResource(R.plurals.source_count, bundles.size, bundles.size.toString())
         ).joinToString(" · "),
-        accentColor = accentColor,
         actions = listOf(
             DialogAction(
                 text = stringResource(R.string.copy),

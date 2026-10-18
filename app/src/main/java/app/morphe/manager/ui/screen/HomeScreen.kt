@@ -352,10 +352,7 @@ fun HomeScreen(
     val alerts = rememberHomeAlerts(notifications)
     // Each page's header, which the alerts hang under on whichever page is on screen
     val pageHeaderHeights = remember { mutableStateMapOf<MainPage, Dp>() }
-    val alertsTop by animateDpAsState(
-        targetValue = pageHeaderHeights[MainPage.entries[pagerState.currentPage]] ?: 0.dp,
-        label = "alertsTop"
-    )
+    val alertsTopTarget = pageHeaderHeights[MainPage.entries[pagerState.currentPage]]
 
     val pullToRefreshState = rememberPullToRefreshState()
     MainPagerScaffold(
@@ -372,15 +369,20 @@ fun HomeScreen(
         settingsDescription = if (useExpertMode) "$settingsLabel, $expertModeLabel" else null,
         onItemPositioned = onboardingState?.let { tour -> { page, bounds -> tour.navigationBounds[page] = bounds } },
         overlay = {
-            NotificationsOverlay(
-                alerts = alerts,
-                // Only an update under way follows to the other pages
-                showAlerts = pagerState.currentPage == MainPage.APPS.ordinal,
-                modifier = Modifier
-                    .widthIn(max = homeCardMaxWidth())
-                    .align(Alignment.TopCenter)
-                    .padding(top = alertsTop)
-            )
+            // Held back until the header is measured, so on a cold start the alerts open right
+            // under it rather than drop down to it from the top of the screen
+            if (alertsTopTarget != null) {
+                val alertsTop by animateDpAsState(targetValue = alertsTopTarget, label = "alertsTop")
+                NotificationsOverlay(
+                    alerts = alerts,
+                    // Only an update under way follows to the other pages
+                    showAlerts = pagerState.currentPage == MainPage.APPS.ordinal,
+                    modifier = Modifier
+                        .widthIn(max = homeCardMaxWidth())
+                        .align(Alignment.TopCenter)
+                        .padding(top = alertsTop)
+                )
+            }
         }
     ) { page, bottomBarHeight ->
         when (page) {

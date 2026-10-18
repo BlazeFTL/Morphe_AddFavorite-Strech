@@ -348,6 +348,47 @@ def strings_edit(entries, anchor_name):
     return fn
 
 
+ICONS_MATERIAL = {
+    "IMPORTS": ("import androidx.compose.material.icons.Icons\n"
+                "import androidx.compose.material.icons.filled.*\n"
+                "import androidx.compose.material.icons.outlined.*"),
+    "ADV_IMPORTS": ("import androidx.compose.material.icons.Icons\n"
+                    "import androidx.compose.material.icons.outlined.LockOpen"),
+    "FILE_OPEN": "Icons.Outlined.FileOpen",
+    "SCHEDULE": "Icons.Outlined.Schedule",
+    "CHECK": "Icons.Outlined.Check",
+    "LOCK_OPEN": "Icons.Outlined.LockOpen",
+    "STAR_FILLED": "Icons.Filled.Star",
+    "STAR_OUTLINE": "Icons.Outlined.StarBorder",
+}
+
+# Newer upstream draws its icons from the Material Symbols library instead
+ICONS_SYMBOLS = {
+    "IMPORTS": ("import com.composables.icons.materialsymbols.MaterialSymbols\n"
+                "import com.composables.icons.materialsymbols.rounded.*\n"
+                "import com.composables.icons.materialsymbols.roundedfilled.*"),
+    "ADV_IMPORTS": ("import com.composables.icons.materialsymbols.MaterialSymbols\n"
+                    "import com.composables.icons.materialsymbols.rounded.*"),
+    "FILE_OPEN": "MaterialSymbols.Rounded.File_open",
+    "SCHEDULE": "MaterialSymbols.Rounded.Schedule",
+    "CHECK": "MaterialSymbols.Rounded.Check",
+    "LOCK_OPEN": "MaterialSymbols.Rounded.Lock_open",
+    "STAR_FILLED": "MaterialSymbols.RoundedFilled.Star",
+    "STAR_OUTLINE": "MaterialSymbols.Rounded.Star",
+}
+
+ICON = dict(ICONS_MATERIAL)
+
+
+def icon_imports(src):
+    out = src
+    for line in ICON["ADV_IMPORTS"].split("\n"):
+        out = ensure_import(out, line[len("import "):])
+        if out is None:
+            return None
+    return out
+
+
 FAVORITE_STRINGS = [
     ("expert_mode_favorite_added", '<string name="expert_mode_favorite_added">%s added to favorites</string>'),
     ("expert_mode_favorite_removed", '<string name="expert_mode_favorite_removed">%s removed from favorites</string>'),
@@ -525,7 +566,7 @@ def vm_edit(src):
 SWITCH_ITEM = """SettingsSwitchItem(
     checked = skipApkSigning,
     onToggle = { settingsViewModel.setSkipApkSigning(!skipApkSigning) },
-    icon = Icons.Outlined.LockOpen,
+    icon = @@ICON_LOCK_OPEN@@,
     title = stringResource(R.string.settings_advanced_skip_signing),
     subtitle = stringResource(R.string.settings_advanced_skip_signing_description)
 )
@@ -548,7 +589,7 @@ def adv_switch(src):
     if "R.string.settings_advanced_skip_signing" in m:
         return src
     # Older layouts separate rows with dividers, the grouped rows of newer ones do not
-    SWITCH = SWITCH_ITEM + ("\nSettingsDivider()\n" if "SettingsDivider(" in m else "")
+    SWITCH = SWITCH_ITEM.replace("@@ICON_LOCK_OPEN@@", ICON["LOCK_OPEN"]) + ("\nSettingsDivider()\n" if "SettingsDivider(" in m else "")
     hits = list(re.finditer(r"^[ \t]*GitHubPatSettingsItem\s*\(", m, re.M))
     if len(hits) == 1:
         s = line_start(src, hits[0].start())
@@ -1214,9 +1255,7 @@ object SignatureRestorer {
 FAVORITE_PATCHES = r'''package @@PKG@@
 
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.StarBorder
+@@ICON_IMPORTS@@
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -1299,7 +1338,7 @@ internal fun FavoriteStarButton(
             .semantics { contentDescription = description }
     ) {
         Icon(
-            imageVector = if (isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
+            imageVector = if (isFavorite) @@ICON_STAR_FILLED@@ else @@ICON_STAR_OUTLINE@@,
             contentDescription = null,
             modifier = Modifier.size(18.dp),
             tint = if (isFavorite) Color(0xFFFFB300) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
@@ -1318,8 +1357,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.FileOpen
+@@ICON_IMPORTS@@
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -1362,7 +1400,7 @@ internal fun FloatingApkButton(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.FileOpen,
+                    imageVector = @@ICON_FILE_OPEN@@,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary
                 )
@@ -1411,9 +1449,7 @@ object PatchUpdateThrottle {
 PATCH_UPDATE_INTERVAL_SETTING = r'''package @@PKG@@
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.Schedule
+@@ICON_IMPORTS@@
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -1441,7 +1477,7 @@ internal fun PatchUpdateIntervalSetting(prefs: PreferencesManager) {
     Box {
         SettingsItem(
             onClick = { expanded = true },
-            leadingContent = { ThemedIcon(icon = Icons.Outlined.Schedule) },
+            leadingContent = { ThemedIcon(icon = @@ICON_SCHEDULE@@) },
             title = stringResource(R.string.settings_patch_update_interval),
             subtitle = stringResource(R.string.settings_patch_update_interval_value, hours)
         )
@@ -1454,7 +1490,7 @@ internal fun PatchUpdateIntervalSetting(prefs: PreferencesManager) {
                         scope.launch { prefs.patchUpdateIntervalHours.update(option) }
                     },
                     trailingIcon = if (option == hours) {
-                        { Icon(imageVector = Icons.Outlined.Check, contentDescription = null) }
+                        { Icon(imageVector = @@ICON_CHECK@@, contentDescription = null) }
                     } else null
                 )
             }
@@ -1595,6 +1631,11 @@ def build_plan(ws):
                                   ("UserMessages / Context.toast", usermsgs or toast)) if not v]
         return None, ["cannot locate " + ", ".join(missing)]
 
+    symbols = ws.find(r"^import\s+com\.composables\.icons\.materialsymbols\.MaterialSymbols\s*$",
+                      P + "ui/screen/home/HomeAppsToolbar.kt")
+    ICON.clear()
+    ICON.update(ICONS_SYMBOLS if symbols else ICONS_MATERIAL)
+
     util_dir = stripper[0].parent
     util_pkg = package_of(ws.get(stripper[0]))
     helper_dir = card.parent
@@ -1620,6 +1661,7 @@ def build_plan(ws):
             "            )"),
         "SHARED_PKG": package_of(ws.get(pill)),
     }
+    fmt.update({"ICON_" + k: v for k, v in ICON.items()})
 
     def render(tpl, pkg):
         out = tpl.replace("@@PKG@@", pkg)
@@ -1643,7 +1685,7 @@ def build_plan(ws):
     plan.append((str(adv.relative_to(ws.root)), adv, [
         ("skip signing state", adv_state, False),
         ("skip signing switch", adv_switch, False),
-        ("import LockOpen", imp("androidx.compose.material.icons.outlined.LockOpen"), False),
+        ("icon imports", icon_imports, False),
     ]))
     plan.append((str(worker.relative_to(ws.root)), worker, [
         ("import SignatureRestorer", imp(util_pkg + ".SignatureRestorer"), False),

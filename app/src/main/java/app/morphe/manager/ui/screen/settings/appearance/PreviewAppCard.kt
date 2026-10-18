@@ -7,12 +7,15 @@ package app.morphe.manager.ui.screen.settings.appearance
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.BundleAppMetadata
 import app.morphe.manager.ui.screen.home.AppCardContent
 import app.morphe.manager.ui.screen.home.AppCardLayout
+import app.morphe.manager.ui.screen.shared.consumesPointerInput
 import app.morphe.manager.ui.screen.shared.rememberAppMetadata
 import app.morphe.manager.util.KnownApps
 
@@ -32,7 +35,8 @@ internal fun rememberPreviewApp(): BundleAppMetadata? {
 
 /**
  * A home screen card for [app], drawn by the same layout as the real ones so a preview of the
- * appearance settings matches the home screen exactly.
+ * appearance settings matches the home screen exactly. Only shown: touch and accessibility pass
+ * it by, as it stands for no app the user can open from here.
  *
  * @param app App the card stands for, or null to show Morphe.
  * @param appColors The colors its bundle declares, which the card's color mode builds on.
@@ -41,7 +45,10 @@ internal fun rememberPreviewApp(): BundleAppMetadata? {
 internal fun PreviewAppCard(app: BundleAppMetadata?, appColors: List<Color>) {
     AppCardLayout(
         gradientColors = appColors,
-        onClick = {}
+        onClick = {},
+        modifier = Modifier
+            .consumesPointerInput()
+            .clearAndSetSemantics {}
     ) {
         AppCardContent(
             packageName = app?.packageName,

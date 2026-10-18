@@ -1,6 +1,8 @@
 name: Build APK
 
 on:
+  schedule:
+    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       create_release:
@@ -13,9 +15,52 @@ on:
       - main
       - dev
 
+concurrency:
+  group: fork-build
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
 jobs:
+  check:
+    name: Check upstream
+    runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.decide.outputs.build }}
+      up: ${{ steps.decide.outputs.up }}
+      fork: ${{ steps.decide.outputs.fork }}
+
+    steps:
+      - name: Compare versions
+        id: decide
+        env:
+          EVENT: ${{ github.event_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          RAW=https://raw.githubusercontent.com
+          T=$(date +%s)
+          UP=$(curl -fsSL "$RAW/MorpheApp/morphe-manager/refs/heads/dev/app/gradle.properties?$T" \
+            | sed -nE 's/^version[[:space:]]*=[[:space:]]*([^[:space:]]+).*/\1/p' | head -1 || true)
+          FORK=$(curl -fsSL "$RAW/$REPO/refs/heads/updates/app-release.json?$T" | jq -r '.version // empty' || true)
+          FAILED=$(curl -fsSL "$RAW/$REPO/refs/heads/updates/failed.txt?$T" || true)
+          BUILD=false
+          if [ "$EVENT" != "schedule" ]; then
+            BUILD=true
+          elif [ -n "$UP" ] && [ "$UP" != "$FORK" ] && [ "$UP" != "$FAILED" ]; then
+            BUILD=true
+          fi
+          echo "upstream=$UP fork=$FORK failed=$FAILED build=$BUILD"
+          {
+            echo "build=$BUILD"
+            echo "up=$UP"
+            echo "fork=$FORK"
+          } >> "$GITHUB_OUTPUT"
+
   build:
     name: Build
+    needs: check
+    if: needs.check.outputs.build == 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -32,6 +77,8 @@ jobs:
           path: source
 
       - name: Apply patches
+        env:
+          FORK_REPO: ${{ github.repository }}
         run: python3 patcher/patch.py source
 
       - name: Setup Java
@@ -60,15 +107,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew assembleRelease
 
-      - name: Extract version from changelog
+      - name: Extract version
         id: version
         run: |
-          VERSION=$(head -n 1 source/CHANGELOG.md | grep -oP '\d+\.\d+\.\d+' | head -1)
+          VERSION=$(sed -nE 's/^version[[:space:]]*=[[:space:]]*([^[:space:]]+).*/\1/p' source/app/gradle.properties | head -1)
           if [ -z "$VERSION" ]; then
-            echo "::error::Could not extract version from CHANGELOG.md"
+            echo "::error::Could not read version from app/gradle.properties"
             exit 1
           fi
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "Extracted version: $VERSION"
 
       - name: Stage single APK with fixed name
@@ -88,8 +135,21 @@ jobs:
           path: /tmp/out/MorpheFork-V${{ steps.version.outputs.version }}.apk
           archive: false
 
+      - name: Decide release
+        id: rel
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          FORK: ${{ needs.check.outputs.fork }}
+          MANUAL: ${{ inputs.create_release }}
+        run: |
+          if [ "$VERSION" != "$FORK" ] || [ "$MANUAL" = "true" ]; then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Create GitHub Release
-        if: github.event_name == 'workflow_dispatch' && inputs.create_release == true
+        if: steps.rel.outputs.release == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.version }}
@@ -97,6 +157,54 @@ jobs:
           files: /tmp/out/MorpheFork-V${{ steps.version.outputs.version }}.apk
           generate_release_notes: true
           draft: false
-          prerelease: false
+          prerelease: ${{ contains(steps.version.outputs.version, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish update JSON
+        if: steps.rel.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          rm -rf /tmp/upd
+          if ! git clone -q --depth 1 --branch updates "$REMOTE" /tmp/upd 2>/dev/null; then
+            git init -q -b updates /tmp/upd
+            git -C /tmp/upd remote add origin "$REMOTE"
+          fi
+          DESC=$(awk 'NR==1{print;next} /^##? \[/{exit} {print}' source/CHANGELOG.md)
+          URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/v${VERSION}/MorpheFork-V${VERSION}.apk"
+          cd /tmp/upd
+          rm -f failed.txt
+          jq -n \
+            --arg v "$VERSION" \
+            --arg u "$URL" \
+            --arg d "$DESC" \
+            --arg c "$(date -u +%Y-%m-%dT%H:%M:%S)" \
+            '{created_at:$c,description:$d,download_url:$u,signature_download_url:"",version:$v}' > app-release.json
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "chore: Publish v${VERSION}"
+          git push -q origin HEAD:updates
+
+      - name: Mark version failed
+        if: failure() && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UP: ${{ needs.check.outputs.up }}
+        run: |
+          set -euo pipefail
+          REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          rm -rf /tmp/upd
+          if ! git clone -q --depth 1 --branch updates "$REMOTE" /tmp/upd 2>/dev/null; then
+            git init -q -b updates /tmp/upd
+            git -C /tmp/upd remote add origin "$REMOTE"
+          fi
+          cd /tmp/upd
+          echo "$UP" > failed.txt
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "chore: Build failed for ${UP}"
+          git push -q origin HEAD:updates

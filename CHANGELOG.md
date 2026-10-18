@@ -1,3 +1,23 @@
+# [2.0.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.7...v2.0.0-dev.8) (2026-10-18)
+
+
+### Bug Fixes
+
+* Add only the universal patches of a source when a link asks for them, rather than every app it patches ([46ff28d](https://github.com/MorpheApp/morphe-manager/commit/46ff28dcc72a9c42f6ae2c6af1531932a4b9d7ca))
+* Align notice and footer icons with their text ([120b6cb](https://github.com/MorpheApp/morphe-manager/commit/120b6cbefc997b10aef8e13a0404bda3b790a2c0))
+* Fold a dialog header's badges away and back as its pages change, rather than jumping what is under it ([1841772](https://github.com/MorpheApp/morphe-manager/commit/1841772963efcea4bafbf9392d9bc24102f269ec))
+* Steady the scroll to top button ([2cd0534](https://github.com/MorpheApp/morphe-manager/commit/2cd0534bcaaa11566ed8d495d1933ba9b5854e76))
+
+
+### Features
+
+* Adaptive layout for tablets and wide screens ([239d4c0](https://github.com/MorpheApp/morphe-manager/commit/239d4c0944a2827afeca53cbfa4db9f171b1e943))
+* Add a copy button for the signing key fingerprint ([ea2b6c6](https://github.com/MorpheApp/morphe-manager/commit/ea2b6c6a5438447966f9733c79d03f3b15a00bd6))
+* Choose the patch source per app in the batch queue ([bd1f2f0](https://github.com/MorpheApp/morphe-manager/commit/bd1f2f02012335a457936d0fcb17d2cda7471bd9))
+* Refine notification, language and confirmation settings ([a20dc91](https://github.com/MorpheApp/morphe-manager/commit/a20dc916aa219de668a8f8e6f6ec7398e70d501c))
+* Show dialog hints as footnotes ([df3c37a](https://github.com/MorpheApp/morphe-manager/commit/df3c37a1f515f8329bb4009c939a04c31ae0c1e9))
+* Verify the GitHub token when it is set ([4e085c9](https://github.com/MorpheApp/morphe-manager/commit/4e085c9f4a436d6c51adc9a35bc078d4f7d05cdf))
+
 # [2.0.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.6...v2.0.0-dev.7) (2026-10-18)
 
 

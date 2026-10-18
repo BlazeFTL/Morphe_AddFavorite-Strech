@@ -19,10 +19,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
-import androidx.compose.material.icons.automirrored.outlined.Sort
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -49,6 +45,8 @@ import app.morphe.manager.util.PM
 import app.morphe.manager.util.enumByNameOrNull
 import app.morphe.manager.util.externalStorageVolumes
 import app.morphe.manager.util.formatBytes
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -124,9 +122,9 @@ private fun storageRoots(context: Context, hasRoot: Boolean): List<Pair<String, 
 private fun storageRootIcon(root: File): ImageVector {
     val primary = Environment.getExternalStorageDirectory()
     return when {
-        root.absolutePath == "/" -> Icons.Outlined.DeveloperMode
-        root.absolutePath.startsWith(primary.absolutePath) -> Icons.Outlined.Storage
-        else -> Icons.Outlined.SdCard
+        root.absolutePath == "/" -> MaterialSymbols.Rounded.Developer_mode
+        root.absolutePath.startsWith(primary.absolutePath) -> MaterialSymbols.Rounded.Storage
+        else -> MaterialSymbols.Rounded.Sd_card
     }
 }
 
@@ -320,7 +318,7 @@ fun DialogHostScope.FilePicker(
             ListDialogHeader(
                 icon = { modifier ->
                     ListDialogHeaderIcon(
-                        icon = if (allowFolderSelection) Icons.Outlined.Folder else Icons.AutoMirrored.Outlined.InsertDriveFile,
+                        icon = if (allowFolderSelection) MaterialSymbols.Rounded.Folder else MaterialSymbols.Rounded.Draft.autoMirrored,
                         color = accent,
                         modifier = modifier
                     )
@@ -354,7 +352,7 @@ fun DialogHostScope.FilePicker(
             ) {
                 Box {
                     TitleAction(
-                        icon = Icons.AutoMirrored.Outlined.Sort,
+                        icon = MaterialSymbols.Rounded.Sort.autoMirrored,
                         contentDescription = stringResource(R.string.sort),
                         onClick = { showViewMenu = true },
                         style = TitleActionStyle.Toggle,
@@ -483,7 +481,7 @@ private fun FolderTrail(
             AppFilterChip(
                 selected = isOpen,
                 onClick = { if (!isOpen) onOpen(null) },
-                icon = Icons.Outlined.Home,
+                icon = MaterialSymbols.Rounded.Home,
                 contentDescription = stringResource(R.string.file_picker_storages)
             )
         }
@@ -496,7 +494,7 @@ private fun FolderTrail(
                 selected = isOpen,
                 onClick = { if (!isOpen) onOpen(dir) },
                 label = label,
-                selectedIcon = if (index == 0) storageRootIcon(dir) else Icons.Outlined.FolderOpen
+                selectedIcon = if (index == 0) storageRootIcon(dir) else MaterialSymbols.Rounded.Folder_open
             )
         }
     }
@@ -592,9 +590,9 @@ private fun FolderListing(
             contents.isFailure -> item(key = "__error__") {
                 EmptyState(
                     message = stringResource(R.string.file_picker_read_error),
-                    icon = Icons.Outlined.Lock,
+                    icon = MaterialSymbols.Rounded.Lock,
                     action = CardAction(
-                        icon = Icons.Outlined.Refresh,
+                        icon = MaterialSymbols.Rounded.Refresh,
                         label = stringResource(R.string.retry),
                         onClick = onRetry
                     )
@@ -604,14 +602,14 @@ private fun FolderListing(
             sortedContents.isEmpty() -> item(key = "__empty__") {
                 EmptyState(
                     message = stringResource(R.string.file_picker_no_files),
-                    icon = Icons.Outlined.FolderOff
+                    icon = MaterialSymbols.Rounded.Folder_off
                 )
             }
 
             displayedContents.isEmpty() -> item(key = "__no_results__") {
                 EmptyState(
                     message = stringResource(R.string.search_no_results),
-                    icon = Icons.Outlined.SearchOff
+                    icon = MaterialSymbols.Rounded.Search_off
                 )
             }
 
@@ -690,13 +688,13 @@ private fun FileEntryRow(
     val isMpp = ext == "mpp"
     // What the entry shows until its app icon or picture loads, or where it has none
     val icon = when {
-        isDir -> Icons.Outlined.Folder
-        isApk -> Icons.Outlined.Android
-        ext in KEYSTORE_EXTENSIONS -> Icons.Outlined.Key
-        ext == "json" -> Icons.Outlined.DataObject
-        isImage -> Icons.Outlined.Image
-        ext in AUDIO_EXTENSIONS -> Icons.Outlined.MusicNote
-        else -> Icons.AutoMirrored.Outlined.InsertDriveFile
+        isDir -> MaterialSymbols.Rounded.Folder
+        isApk -> MaterialSymbols.Rounded.Android
+        ext in KEYSTORE_EXTENSIONS -> MaterialSymbols.Rounded.Key
+        ext == "json" -> MaterialSymbols.Rounded.Data_object
+        isImage -> MaterialSymbols.Rounded.Image
+        ext in AUDIO_EXTENSIONS -> MaterialSymbols.Rounded.Music_note
+        else -> MaterialSymbols.Rounded.Draft.autoMirrored
     }
     val detail = if (isDir) {
         itemCount?.let { pluralStringResource(R.plurals.file_picker_item_count, it, it.toString()) }

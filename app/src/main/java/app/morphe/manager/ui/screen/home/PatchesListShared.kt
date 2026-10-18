@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -33,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.shared.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import org.koin.compose.koinInject
 
 /**
@@ -68,7 +68,7 @@ internal data class PatchGroup<T>(
     val key: String,
     val title: String?,
     val items: List<T>,
-    val icon: ImageVector = Icons.Outlined.Category,
+    val icon: ImageVector = MaterialSymbols.Rounded.Category,
     /** Enabled patches, the ones a folded block would otherwise hide. */
     val selectedCount: Int = 0,
     val defaultExpanded: Boolean = true
@@ -128,7 +128,7 @@ internal fun <T> buildPatchGroups(
                     key = UNIVERSAL_GROUP_KEY,
                     title = options.universalTitle,
                     items = universal,
-                    icon = Icons.Outlined.Public,
+                    icon = MaterialSymbols.Rounded.Public,
                     selectedCount = universal.count(isEnabled),
                     defaultExpanded = false
                 )
@@ -196,7 +196,7 @@ internal fun PatchGroupHeader(
     onToggle: (() -> Unit)?,
     modifier: Modifier = Modifier,
     shape: CornerBasedShape? = null,
-    icon: ImageVector = Icons.Outlined.Category,
+    icon: ImageVector = MaterialSymbols.Rounded.Category,
     leading: (@Composable () -> Unit)? = null,
     accentColor: Color? = null,
     selectedCount: Int = 0,
@@ -235,7 +235,7 @@ internal fun PatchGroupHeader(
                     )
                     StatusBadge(
                         text = shownSelectedCount.toString(),
-                        icon = Icons.Outlined.Check,
+                        icon = MaterialSymbols.Rounded.Check,
                         tone = SemanticTone.Primary,
                         // The bare number is meaningless read out, and the row merges its children
                         modifier = Modifier
@@ -388,7 +388,7 @@ internal fun PatchCardText(
 internal fun PatchesListEmptyState(modifier: Modifier = Modifier) {
     EmptyState(
         message = stringResource(R.string.expert_mode_no_results),
-        icon = Icons.Outlined.SearchOff,
+        icon = MaterialSymbols.Rounded.Search_off,
         modifier = modifier
     )
 }

@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -47,6 +45,8 @@ import app.morphe.manager.util.androidVersionName
 import app.morphe.manager.util.htmlAnnotatedString
 import app.morphe.manager.util.withVersionPrefix
 import app.morphe.patcher.patch.AppTarget
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Dialog 1: Initial "Do you have the APK?" dialog.
@@ -125,10 +125,10 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                 AppDialogButtonRow(
                     primaryText = stringResource(R.string.home_apk_availability_yes),
                     onPrimaryClick = onNeedApk,
-                    primaryIcon = Icons.Outlined.Download,
+                    primaryIcon = MaterialSymbols.Rounded.Download,
                     secondaryText = stringResource(R.string.home_apk_availability_no),
                     onSecondaryClick = onHaveApk,
-                    secondaryIcon = Icons.Outlined.Check,
+                    secondaryIcon = MaterialSymbols.Rounded.Check,
                     layout = DialogButtonLayout.Vertical
                 )
 
@@ -147,7 +147,7 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                             "v${savedApkInfo.version}"
                         },
                         onClick = onUseSaved,
-                        icon = Icons.Outlined.History,
+                        icon = MaterialSymbols.Rounded.History,
                         modifier = Modifier.fillMaxWidth()
                     )
 
@@ -157,7 +157,7 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                         Notice(
                             text = stringResource(R.string.home_apk_use_saved_unsupported),
                             tone = SemanticTone.Warning,
-                            icon = Icons.Outlined.Warning,
+                            icon = MaterialSymbols.Rounded.Warning,
                             density = NoticeDensity.Compact
                         )
                     }
@@ -171,7 +171,7 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                         // dropped before it reaches this dialog
                         textSuffix = "v${installedApkInfo.version}",
                         onClick = onUseInstalled,
-                        icon = Icons.Outlined.PhoneAndroid,
+                        icon = MaterialSymbols.Rounded.Phone_android,
                         modifier = Modifier.fillMaxWidth()
                     )
 
@@ -180,7 +180,7 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                         Notice(
                             text = stringResource(R.string.home_apk_use_installed_unverified),
                             tone = SemanticTone.Warning,
-                            icon = Icons.Outlined.Warning,
+                            icon = MaterialSymbols.Rounded.Warning,
                             density = NoticeDensity.Compact
                         )
                     }
@@ -270,7 +270,7 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                         it.withVersionPrefix()
                     ),
                     tone = SemanticTone.Neutral,
-                    icon = Icons.Outlined.InstallMobile,
+                    icon = MaterialSymbols.Rounded.Install_mobile,
                     density = NoticeDensity.Compact
                 )
             }
@@ -280,7 +280,7 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                 Notice(
                     text = stringResource(R.string.root_install_apk_required),
                     tone = SemanticTone.Warning,
-                    icon = Icons.Outlined.Warning
+                    icon = MaterialSymbols.Rounded.Warning
                 )
             }
         }
@@ -323,7 +323,7 @@ internal fun DialogHostScope.FilePickerPromptDialog(
                             DialogAction(
                                 text = stringResource(R.string.home_use_installed_app),
                                 onClick = onUseInstalledApp,
-                                icon = Icons.Outlined.PhoneAndroid,
+                                icon = MaterialSymbols.Rounded.Phone_android,
                                 enabled = !isLoadingInstalledApps
                             )
                         )
@@ -332,7 +332,7 @@ internal fun DialogHostScope.FilePickerPromptDialog(
                         DialogAction(
                             text = stringResource(R.string.home_file_picker_prompt_open_apk),
                             onClick = onOpenFilePicker,
-                            icon = Icons.Outlined.FolderOpen
+                            icon = MaterialSymbols.Rounded.Folder_open
                         )
                     )
                     add(
@@ -402,7 +402,7 @@ internal fun DialogHostScope.UnsupportedVersionWarningDialog(
                     CardHeader(
                         title = stringResource(R.string.home_selected_version),
                         accentColor = tone.accent,
-                        icon = Icons.Outlined.CheckCircle
+                        icon = MaterialSymbols.Rounded.Check_circle
                     )
                 }
             ) {
@@ -419,7 +419,7 @@ internal fun DialogHostScope.UnsupportedVersionWarningDialog(
                 // Expert mode: every compatible version
                 VersionListCard(
                     title = stringResource(R.string.home_dialog_unsupported_version_compatible_versions),
-                    icon = Icons.Outlined.Checklist,
+                    icon = MaterialSymbols.Rounded.Checklist,
                     versions = allCompatibleVersions,
                     recommendedIndex = allCompatibleVersions
                         .indexOfFirst { it !in experimentalVersions }
@@ -468,7 +468,7 @@ fun DialogHostScope.InvalidSignatureDialog(
                     DialogAction(
                         text = stringResource(R.string.home_split_apk_warning_pick_another),
                         onClick = onPickAnother,
-                        icon = Icons.Outlined.FolderOpen
+                        icon = MaterialSymbols.Rounded.Folder_open
                     ),
                     DialogAction(
                         text = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
@@ -491,7 +491,7 @@ fun DialogHostScope.InvalidSignatureDialog(
             Notice(
                 text = stringResource(R.string.home_invalid_signature_badge),
                 tone = SemanticTone.Error,
-                icon = Icons.Outlined.Warning
+                icon = MaterialSymbols.Rounded.Warning
             )
         }
     }
@@ -522,7 +522,7 @@ fun DialogHostScope.SplitApkWarningDialog(
                 onPrimaryClick = onProceed,
                 secondaryText = stringResource(R.string.home_split_apk_warning_pick_another),
                 onSecondaryClick = onPickAnother,
-                secondaryIcon = Icons.Outlined.FolderOpen
+                secondaryIcon = MaterialSymbols.Rounded.Folder_open
             )
         }
     ) {

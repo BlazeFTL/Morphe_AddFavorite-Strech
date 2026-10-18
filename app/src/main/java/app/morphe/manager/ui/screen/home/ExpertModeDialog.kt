@@ -16,11 +16,6 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AutoFixHigh
-import androidx.compose.material.icons.outlined.FilterAlt
-import androidx.compose.material.icons.outlined.VisibilityOff
-import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
@@ -49,6 +44,8 @@ import app.morphe.manager.util.PatchSelection
 import app.morphe.manager.util.PatchSelectionUtils.hasCustomizedOptions
 import app.morphe.manager.util.PatchSelectionUtils.hasMissingRequiredOptions
 import app.morphe.manager.util.PatchSelectionUtils.hasUniversalToEnable
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
@@ -369,7 +366,7 @@ fun DialogHostScope.ExpertModeDialog(
                     text = "$totalSelectedCount/$totalPatchesCount",
                     // Carried while the filter is merely available, so the counter reads as the
                     // control it is instead of only announcing itself once tapped
-                    icon = Icons.Outlined.FilterAlt.takeIf { canFilter },
+                    icon = MaterialSymbols.Rounded.Filter_alt.takeIf { canFilter },
                     tone = badgeTone,
                     // Filled rather than tonal while filtering, so the narrowed list has a visible cause
                     containerColor = badgeContainer,
@@ -397,7 +394,7 @@ fun DialogHostScope.ExpertModeDialog(
                                 onProceed()
                             }
                         },
-                        icon = Icons.Outlined.AutoFixHigh,
+                        icon = MaterialSymbols.Rounded.Auto_fix_high,
                         enabled = totalSelectedCount > 0
                     ),
                     translateAction()
@@ -431,7 +428,7 @@ fun DialogHostScope.ExpertModeDialog(
                             hiddenSourceCount,
                             hiddenSourceCount.toString()
                         ),
-                        icon = Icons.Outlined.VisibilityOff,
+                        icon = MaterialSymbols.Rounded.Visibility_off,
                         tone = SemanticTone.Neutral,
                         density = NoticeDensity.Compact,
                         modifier = Modifier
@@ -663,7 +660,7 @@ private fun LazyListScope.prereleaseNotice() = item(key = "prerelease-notice") {
         modifier = Modifier
             .animatedListItem(this)
             .endsBlock(),
-        icon = Icons.Outlined.WarningAmber,
+        icon = MaterialSymbols.Rounded.Warning,
         tone = SemanticTone.Warning,
         density = NoticeDensity.Compact
     )

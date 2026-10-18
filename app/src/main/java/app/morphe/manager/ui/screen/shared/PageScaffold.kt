@@ -9,8 +9,6 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +20,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
 
@@ -63,7 +63,7 @@ fun PageHeader(
         navigation = onBack?.let { back ->
             {
                 TitleAction(
-                    icon = Icons.AutoMirrored.Outlined.ArrowBack,
+                    icon = MaterialSymbols.Rounded.Arrow_back.autoMirrored,
                     contentDescription = stringResource(R.string.back),
                     onClick = back,
                     style = TitleActionStyle.Neutral

@@ -11,11 +11,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.DragHandle
-import androidx.compose.material.icons.outlined.Extension
-import androidx.compose.material.icons.outlined.Visibility
-import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -45,6 +40,8 @@ import app.morphe.manager.ui.screen.shared.rememberAppColor
 import app.morphe.manager.ui.screen.shared.usableAppAccent
 import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.startToEndGradient
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
@@ -68,7 +65,7 @@ internal fun rememberPatchesSwipeAction(packageName: String): SwipeActionConfig 
     val container = accent ?: MaterialTheme.colorScheme.primaryContainer
     val content = if (accent != null) appAccentContent(container) else MaterialTheme.colorScheme.onPrimaryContainer
     return remember(label, container, content) {
-        SwipeActionConfig(icon = Icons.Outlined.Extension, label = label, containerColor = container, contentColor = content)
+        SwipeActionConfig(icon = MaterialSymbols.Rounded.Extension, label = label, containerColor = container, contentColor = content)
     }
 }
 
@@ -79,7 +76,7 @@ internal fun rememberUnhideSwipeAction(): SwipeActionConfig {
     val container = MaterialTheme.colorScheme.tertiaryContainer
     val content = MaterialTheme.colorScheme.onTertiaryContainer
     return remember(label, container, content) {
-        SwipeActionConfig(icon = Icons.Outlined.Visibility, label = label, containerColor = container, contentColor = content)
+        SwipeActionConfig(icon = MaterialSymbols.Rounded.Visibility, label = label, containerColor = container, contentColor = content)
     }
 }
 
@@ -327,7 +324,7 @@ internal fun DynamicAppCard(
 
     val startConfig = remember(hideLabel, errorContainer, onErrorContainer) {
         SwipeActionConfig(
-            icon = Icons.Outlined.VisibilityOff,
+            icon = MaterialSymbols.Rounded.Visibility_off,
             label = hideLabel,
             containerColor = errorContainer,
             contentColor = onErrorContainer
@@ -401,7 +398,7 @@ internal fun DynamicAppCard(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.DragHandle,
+                    imageVector = MaterialSymbols.Rounded.Drag_handle,
                     contentDescription = null,
                     modifier = Modifier.size(28.dp),
                     tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)

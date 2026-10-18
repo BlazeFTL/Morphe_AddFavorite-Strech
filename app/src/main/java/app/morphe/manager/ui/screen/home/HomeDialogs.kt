@@ -9,9 +9,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -46,6 +43,8 @@ import app.morphe.manager.ui.screen.sources.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
@@ -615,7 +614,7 @@ fun DialogHostScope.LowDiskSpaceDialog(
             Notice(
                 text = stringResource(R.string.home_low_disk_space_dialog_warning),
                 tone = SemanticTone.Warning,
-                icon = Icons.Outlined.Warning
+                icon = MaterialSymbols.Rounded.Warning
             )
         }
     }
@@ -646,7 +645,7 @@ fun DialogHostScope.MeteredPatchingDialog(
                     text = stringResource(R.string.home_outdated_patches_dialog_update_and_patch),
                     onClick = onRefreshAndPatch,
                     modifier = Modifier.fillMaxWidth(),
-                    icon = Icons.Outlined.SystemUpdateAlt
+                    icon = MaterialSymbols.Rounded.System_update_alt
                 )
                 AppDialogButtonRow(
                     primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
@@ -666,7 +665,7 @@ fun DialogHostScope.MeteredPatchingDialog(
             Notice(
                 text = stringResource(R.string.home_outdated_patches_dialog_warning),
                 tone = SemanticTone.Warning,
-                icon = Icons.Outlined.Warning
+                icon = MaterialSymbols.Rounded.Warning
             )
         }
     }
@@ -701,7 +700,7 @@ private fun DialogHostScope.AddSourceConfirmDialog(
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.add),
                 onPrimaryClick = { onConfirm(chooseApps) },
-                primaryIcon = Icons.Outlined.Extension,
+                primaryIcon = MaterialSymbols.Rounded.Extension,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
             )
@@ -767,7 +766,7 @@ private fun DialogHostScope.AddSourceConfirmDialog(
                         .padding(horizontal = Defaults.SpaceSmall)
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Warning,
+                        imageVector = MaterialSymbols.Rounded.Warning,
                         contentDescription = null,
                         tint = color,
                         modifier = Modifier.size(18.dp)
@@ -875,7 +874,7 @@ fun DialogHostScope.DeepLinkAddSourceDialog(
         icon = {
             SourceIcon(
                 icon = remoteLinkIcon(url),
-                mark = if (isAdded) Icons.Outlined.Check else remoteLinkIcon(url),
+                mark = if (isAdded) MaterialSymbols.Rounded.Check else remoteLinkIcon(url),
                 markColor = if (isAdded) SemanticTone.Success.accent else MaterialTheme.colorScheme.inverseSurface,
                 pictureUrl = bundlePicture ?: ownerAvatarUrl(url),
                 fallbackPictureUrl = ownerAvatarUrl(url).takeIf { bundlePicture != null }
@@ -934,17 +933,17 @@ fun DialogHostScope.MppImportDialog(
     val fileLabel = stringResource(R.string.file)
     val rows = buildList<@Composable () -> Unit> {
         manifest?.version?.let { version ->
-            add { InfoRow(icon = Icons.Outlined.Update, label = versionLabel, value = version.withVersionPrefix()) }
+            add { InfoRow(icon = MaterialSymbols.Rounded.Update, label = versionLabel, value = version.withVersionPrefix()) }
         }
         manifest?.author?.let { author ->
-            add { InfoRow(icon = Icons.Outlined.Person, label = authorLabel, value = author) }
+            add { InfoRow(icon = MaterialSymbols.Rounded.Person, label = authorLabel, value = author) }
         }
         manifest?.source?.let { source ->
-            add { InfoRow(icon = Icons.Outlined.Source, label = sourceLabel, value = source.bareLink()) }
+            add { InfoRow(icon = MaterialSymbols.Rounded.Folder_code, label = sourceLabel, value = source.bareLink()) }
         }
         // The file only tells something the heading does not once the manifest names the bundle
         if (fileName != null && manifest?.name != null) add {
-            InfoRow(icon = Icons.Outlined.Description, label = fileLabel, value = fileName)
+            InfoRow(icon = MaterialSymbols.Rounded.Description, label = fileLabel, value = fileName)
         }
     }
 
@@ -954,8 +953,8 @@ fun DialogHostScope.MppImportDialog(
         question = stringResource(R.string.deep_link_add_source_message),
         icon = {
             SourceIcon(
-                icon = Icons.Outlined.Extension,
-                mark = Icons.AutoMirrored.Outlined.InsertDriveFile,
+                icon = MaterialSymbols.Rounded.Extension,
+                mark = MaterialSymbols.Rounded.Draft.autoMirrored,
                 markColor = MaterialTheme.colorScheme.inverseSurface
             )
         },

@@ -7,9 +7,6 @@ package app.morphe.manager.ui.screen.settings.system
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.MergeType
-import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,6 +15,8 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.domain.repository.PatchBundleRepository.ImportMode
 import app.morphe.manager.ui.screen.shared.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Two-choice dialog that asks the user how an import should be applied:
@@ -45,7 +44,7 @@ fun DialogHostScope.ImportModeDialog(
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)) {
             ImportModeOption(
-                icon = Icons.Outlined.SwapVert,
+                icon = MaterialSymbols.Rounded.Swap_vert,
                 title = stringResource(R.string.import_mode_replace_title),
                 description = stringResource(R.string.import_mode_replace_description),
                 isDestructive = true,
@@ -53,7 +52,7 @@ fun DialogHostScope.ImportModeDialog(
             )
 
             ImportModeOption(
-                icon = Icons.AutoMirrored.Outlined.MergeType,
+                icon = MaterialSymbols.Rounded.Merge_type.autoMirrored,
                 title = stringResource(R.string.import_mode_merge_title),
                 description = stringResource(R.string.import_mode_merge_description),
                 isDestructive = false,

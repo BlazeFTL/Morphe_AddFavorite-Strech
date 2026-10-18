@@ -15,10 +15,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Launch
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -43,6 +39,9 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstallViewModel.InstallState
 import app.morphe.manager.ui.viewmodel.labelRes
 import app.morphe.manager.util.withVersionPrefix
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
+import com.composables.icons.materialsymbols.roundedfilled.*
 
 /**
  * Snapshot of patched-app metadata shown in the error dialog.
@@ -96,7 +95,7 @@ private data class ResultStatus(
 
 private val PatchingFailedStatus = ResultStatus(
     tone = SemanticTone.Error,
-    icon = Icons.Default.Close,
+    icon = MaterialSymbols.RoundedFilled.Close,
     label = R.string.patcher_failed_dialog_title,
     subtitle = R.string.patcher_failed_title
 )
@@ -109,31 +108,31 @@ private fun installStatus(
 ): ResultStatus = when {
     installState is InstallState.Installing -> ResultStatus(
         tone = SemanticTone.Neutral,
-        icon = if (usingMountInstall) Icons.Outlined.Link else Icons.Outlined.InstallMobile,
+        icon = if (usingMountInstall) MaterialSymbols.Rounded.Link else MaterialSymbols.Rounded.Install_mobile,
         label = if (usingMountInstall) R.string.mounting_ellipsis else R.string.installing_ellipsis,
         subtitle = R.string.patcher_installing_subtitle
     )
     installedPackageName != null || installState is InstallState.Installed -> ResultStatus(
         tone = SemanticTone.Success,
-        icon = Icons.Default.Check,
+        icon = MaterialSymbols.RoundedFilled.Check,
         label = if (usingMountInstall) R.string.mounted else R.string.installed,
         subtitle = if (usingMountInstall) R.string.patcher_mounted_subtitle else R.string.patcher_success_subtitle
     )
     installState is InstallState.Conflict -> ResultStatus(
         tone = SemanticTone.Error,
-        icon = Icons.Default.PriorityHigh,
+        icon = MaterialSymbols.RoundedFilled.Priority_high,
         label = R.string.patcher_conflict_title,
         subtitle = R.string.patcher_conflict_subtitle
     )
     installState is InstallState.Error -> ResultStatus(
         tone = SemanticTone.Error,
-        icon = Icons.Default.Close,
+        icon = MaterialSymbols.RoundedFilled.Close,
         label = if (usingMountInstall) R.string.patcher_mount_error_title else R.string.patcher_install_error_title,
         subtitle = R.string.patcher_install_error_subtitle
     )
     else -> ResultStatus(
         tone = SemanticTone.Primary,
-        icon = Icons.Default.Check,
+        icon = MaterialSymbols.RoundedFilled.Check,
         label = R.string.patched,
         // The install button says as much, so only mounting, which works differently, is explained
         subtitle = R.string.patcher_ready_to_mount_subtitle.takeIf { usingMountInstall }
@@ -242,26 +241,26 @@ fun PatchingSuccess(
             ResultNotice(
                 text = (installState as? InstallState.Error)?.message,
                 tone = SemanticTone.Error,
-                icon = Icons.Outlined.ErrorOutline,
+                icon = MaterialSymbols.Rounded.Error,
                 maxLines = ERROR_NOTICE_LINES,
                 overflowAction = NoticeAction(stringResource(R.string.patcher_error_details), installActions.onShowInstallError)
             )
             ResultNotice(
                 text = stringResource(R.string.patcher_conflict_hint).takeIf { installState is InstallState.Conflict },
                 tone = SemanticTone.Error,
-                icon = Icons.Outlined.Warning
+                icon = MaterialSymbols.Rounded.Warning
             )
             ResultNotice(
                 text = stringResource(R.string.patcher_patches_excluded_for_installer, excludedPatches.joinToString())
                     .takeIf { excludedPatches.isNotEmpty() && installState is InstallState.Ready },
                 tone = SemanticTone.Neutral,
-                icon = Icons.Outlined.Info
+                icon = MaterialSymbols.Rounded.Info
             )
             ResultNotice(
                 text = stringResource(R.string.app_links_unverified_banner_description)
                     .takeIf { installState is InstallState.Installed && onConfigureAppLinks != null },
                 tone = SemanticTone.Warning,
-                icon = Icons.Outlined.LinkOff,
+                icon = MaterialSymbols.Rounded.Link_off,
                 action = onConfigureAppLinks?.let { NoticeAction(stringResource(R.string.app_links_fix), it) }
             )
         },
@@ -317,7 +316,7 @@ fun PatchingFailed(
                 // A stack trace rarely names the patch behind it, which is what the user can act on
                 title = failedPatch?.let { stringResource(R.string.failed_to_execute_patch, it) },
                 tone = SemanticTone.Error,
-                icon = Icons.Outlined.ErrorOutline,
+                icon = MaterialSymbols.Rounded.Error,
                 maxLines = ERROR_NOTICE_LINES,
                 action = NoticeAction(stringResource(R.string.patcher_error_details), onErrorClick)
             )
@@ -328,7 +327,7 @@ fun PatchingFailed(
             {
                 ResultActionButton(
                     text = stringResource(R.string.patcher_change_patches),
-                    icon = Icons.Outlined.Tune,
+                    icon = MaterialSymbols.Rounded.Tune,
                     // The way on rather than a second error, so it wears the app's color as Install does
                     failed = false,
                     onClick = onClick
@@ -654,21 +653,21 @@ private fun ResultSummary(version: String?, patchCount: Int, sources: List<Patch
     InfoPanel {
         version?.let {
             InfoRow(
-                icon = Icons.Outlined.Update,
+                icon = MaterialSymbols.Rounded.Update,
                 label = stringResource(R.string.version),
                 value = it.withVersionPrefix()
             )
             SettingsDivider()
         }
         InfoRow(
-            icon = Icons.Outlined.DoneAll,
+            icon = MaterialSymbols.Rounded.Done_all,
             label = stringResource(R.string.patches),
             value = pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())
         )
         if (sources.isNotEmpty()) {
             SettingsDivider()
             InfoRow(
-                icon = Icons.Outlined.Source,
+                icon = MaterialSymbols.Rounded.Folder_code,
                 label = stringResource(R.string.patcher_field_source),
                 value = sources.joinToString(", ") { listOfNotNull(it.name, it.version).joinToString(" ") }
             )
@@ -689,7 +688,7 @@ private fun BackToGameCallout(visible: Boolean, horizontalPadding: Dp) {
         // Logs comes first in a bar of Logs and Home
         slot = 0,
         slots = 2,
-        icon = Icons.Outlined.SportsEsports,
+        icon = MaterialSymbols.Rounded.Sports_esports,
         horizontalPadding = horizontalPadding
     )
 }
@@ -774,11 +773,11 @@ private fun InstallActions(
                     }
                 ),
                 icon = when {
-                    isInstalled -> Icons.AutoMirrored.Outlined.Launch
-                    conflictPackageName != null -> Icons.Default.DeleteForever
-                    isError -> Icons.Default.Refresh
-                    usingMountInstall -> Icons.Outlined.Link
-                    else -> Icons.Outlined.InstallMobile
+                    isInstalled -> MaterialSymbols.Rounded.Open_in_new.autoMirrored
+                    conflictPackageName != null -> MaterialSymbols.RoundedFilled.Delete_forever
+                    isError -> MaterialSymbols.RoundedFilled.Refresh
+                    usingMountInstall -> MaterialSymbols.Rounded.Link
+                    else -> MaterialSymbols.Rounded.Install_mobile
                 },
                 failed = failed,
                 busy = isInstalling,
@@ -794,7 +793,7 @@ private fun InstallActions(
             // the room the install button's own needs
             PatcherActionButton(
                 onClick = onSave,
-                icon = Icons.Outlined.Save,
+                icon = MaterialSymbols.Rounded.Save,
                 text = stringResource(R.string.save),
                 enabled = !isSaving,
                 showProgress = isSaving,
@@ -809,7 +808,7 @@ private fun InstallActions(
             )
             PatcherActionButton(
                 onClick = onShare,
-                icon = Icons.Outlined.Share,
+                icon = MaterialSymbols.Rounded.Share,
                 text = stringResource(R.string.share),
                 shape = ConnectedShapes.Pill.trailing,
                 interactionSource = shareInteraction,

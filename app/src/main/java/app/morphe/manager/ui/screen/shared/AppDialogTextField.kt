@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -26,6 +23,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 @Composable
 private fun morpheDialogTextFieldColors(textColor: Color) = OutlinedTextFieldDefaults.colors(
@@ -92,9 +91,9 @@ fun AppDialogTextField(
                         ) {
                             Icon(
                                 imageVector = if (passwordVisible) {
-                                    Icons.Outlined.VisibilityOff
+                                    MaterialSymbols.Rounded.Visibility_off
                                 } else {
-                                    Icons.Outlined.Visibility
+                                    MaterialSymbols.Rounded.Visibility
                                 },
                                 contentDescription = if (passwordVisible) {
                                     stringResource(R.string.settings_system_hide_password_field)
@@ -112,7 +111,7 @@ fun AppDialogTextField(
                             modifier = Modifier.size(40.dp)
                         ) {
                             Icon(
-                                imageVector = Icons.Outlined.Clear,
+                                imageVector = MaterialSymbols.Rounded.Close,
                                 contentDescription = stringResource(R.string.clear)
                             )
                         }
@@ -125,7 +124,7 @@ fun AppDialogTextField(
                             modifier = Modifier.size(40.dp)
                         ) {
                             Icon(
-                                imageVector = Icons.Outlined.FolderOpen,
+                                imageVector = MaterialSymbols.Rounded.Folder_open,
                                 contentDescription = stringResource(R.string.select_folder)
                             )
                         }
@@ -138,7 +137,7 @@ fun AppDialogTextField(
                             modifier = Modifier.size(40.dp)
                         ) {
                             Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.InsertDriveFile,
+                                imageVector = MaterialSymbols.Rounded.Draft.autoMirrored,
                                 contentDescription = stringResource(R.string.select_file)
                             )
                         }
@@ -245,7 +244,7 @@ fun AppDialogDropdownTextField(
                             modifier = Modifier.size(40.dp)
                         ) {
                             Icon(
-                                imageVector = Icons.Outlined.FolderOpen,
+                                imageVector = MaterialSymbols.Rounded.Folder_open,
                                 contentDescription = stringResource(R.string.select_folder)
                             )
                         }
@@ -258,7 +257,7 @@ fun AppDialogDropdownTextField(
                             modifier = Modifier.size(40.dp)
                         ) {
                             Icon(
-                                imageVector = Icons.Outlined.Clear,
+                                imageVector = MaterialSymbols.Rounded.Close,
                                 contentDescription = stringResource(R.string.clear)
                             )
                         }
@@ -281,9 +280,9 @@ fun AppDialogDropdownTextField(
                     ) {
                         Icon(
                             imageVector = if (expanded)
-                                Icons.Outlined.ExpandLess
+                                MaterialSymbols.Rounded.Expand_less
                             else
-                                Icons.Outlined.ExpandMore,
+                                MaterialSymbols.Rounded.Expand_more,
                             contentDescription = null
                         )
                     }

@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -28,10 +26,10 @@ import app.morphe.manager.util.ChangelogEntry
 import app.morphe.manager.util.isGitLabUrl
 import app.morphe.manager.util.isPrerelease
 import app.morphe.manager.util.normalizeVersion
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Brands
-import compose.icons.fontawesomeicons.brands.Github
-import compose.icons.fontawesomeicons.brands.Gitlab
+import com.composables.icons.fontawesome.FontAwesome
+import com.composables.icons.fontawesome.brands.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.flow.filter
 
 /** How close to the end of the list, in items, older releases start loading. */
@@ -204,11 +202,11 @@ private fun releasePageAction(pageUrl: String?): DialogAction? {
 
 /** Forge a release page lives on, named by the button that opens it. */
 private enum class ReleaseHost(@param:StringRes val label: Int?, val icon: ImageVector) {
-    GITHUB(R.string.changelog_host_github, FontAwesomeIcons.Brands.Github),
-    GITLAB(R.string.changelog_host_gitlab, FontAwesomeIcons.Brands.Gitlab),
+    GITHUB(R.string.changelog_host_github, FontAwesome.Brands.Github),
+    GITLAB(R.string.changelog_host_gitlab, FontAwesome.Brands.Gitlab),
 
     /** Any other host, which the button names generically. */
-    OTHER(null, Icons.AutoMirrored.Outlined.OpenInNew);
+    OTHER(null, MaterialSymbols.Rounded.Open_in_new.autoMirrored);
 
     companion object {
         fun of(url: String): ReleaseHost = when {

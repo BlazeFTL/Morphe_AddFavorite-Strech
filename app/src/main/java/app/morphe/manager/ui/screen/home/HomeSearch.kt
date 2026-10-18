@@ -11,10 +11,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
-import androidx.compose.material.icons.outlined.SearchOff
-import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,6 +25,9 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.Defaults
+import app.morphe.manager.ui.screen.shared.autoMirrored
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Category-style row that opens the hidden-apps dialog.
@@ -46,7 +45,7 @@ private fun ShowHiddenAppsButton(
         onClick = onClick,
         leading = {
             Icon(
-                imageVector = Icons.Outlined.Visibility,
+                imageVector = MaterialSymbols.Rounded.Visibility,
                 contentDescription = null,
                 modifier = Modifier.size(24.dp),
                 tint = mutedContentColor
@@ -54,7 +53,7 @@ private fun ShowHiddenAppsButton(
         },
         trailing = {
             Icon(
-                imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                imageVector = MaterialSymbols.Rounded.Keyboard_arrow_right.autoMirrored,
                 contentDescription = null,
                 modifier = Modifier.size(24.dp),
                 tint = mutedContentColor
@@ -110,7 +109,7 @@ internal fun LazyListScope.hiddenSearchAndShowHiddenItems(
                 verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.SearchOff,
+                    imageVector = MaterialSymbols.Rounded.Search_off,
                     contentDescription = null,
                     modifier = Modifier.size(40.dp),
                     tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)

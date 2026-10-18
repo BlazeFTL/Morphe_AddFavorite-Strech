@@ -11,8 +11,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -35,6 +33,8 @@ import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.appColorFor
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import java.util.Locale
@@ -88,7 +88,7 @@ fun DialogHostScope.AppPatchesDialog(
                             BundleIcon(bundle = source, modifier = modifier, enabled = source.enabled)
                         } else {
                             Icon(
-                                imageVector = Icons.Outlined.Layers,
+                                imageVector = MaterialSymbols.Rounded.Layers,
                                 contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = modifier
@@ -140,7 +140,7 @@ internal fun DialogHostScope.HideAppDialog(
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.hide),
-                primaryIcon = Icons.Outlined.VisibilityOff,
+                primaryIcon = MaterialSymbols.Rounded.Visibility_off,
                 onPrimaryClick = onHide,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
@@ -219,7 +219,7 @@ internal fun DialogHostScope.HiddenAppsDialog(
         header = {
             ListDialogHeader(
                 icon = { modifier ->
-                    ListDialogHeaderIcon(icon = Icons.Outlined.VisibilityOff, color = accent, modifier = modifier)
+                    ListDialogHeaderIcon(icon = MaterialSymbols.Rounded.Visibility_off, color = accent, modifier = modifier)
                 },
                 title = stringResource(R.string.home_app_hidden_apps_title),
                 subtitle = pluralStringResource(
@@ -255,7 +255,7 @@ internal fun DialogHostScope.HiddenAppsDialog(
                         onDeselectAll = { selectedPackages.clear() },
                         actions = listOf(
                             SelectionAction(
-                                icon = Icons.Outlined.Visibility,
+                                icon = MaterialSymbols.Rounded.Visibility,
                                 label = stringResource(R.string.unhide),
                                 onClick = messages.confirming(stringResource(R.string.unhide_done)) {
                                     onUnhideMultiple(selectedPackages.keys.toSet())
@@ -282,7 +282,7 @@ internal fun DialogHostScope.HiddenAppsDialog(
                 item(key = "empty_state") {
                     EmptyState(
                         message = stringResource(R.string.home_app_no_hidden),
-                        icon = Icons.Outlined.Visibility,
+                        icon = MaterialSymbols.Rounded.Visibility,
                         modifier = Modifier.animateItem()
                     )
                 }

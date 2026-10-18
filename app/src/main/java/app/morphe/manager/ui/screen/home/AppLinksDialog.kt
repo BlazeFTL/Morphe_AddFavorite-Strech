@@ -9,11 +9,6 @@ import android.content.pm.PackageInfo
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Launch
-import androidx.compose.material.icons.outlined.AutoFixHigh
-import androidx.compose.material.icons.outlined.CheckCircleOutline
-import androidx.compose.material.icons.outlined.LinkOff
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -33,6 +28,8 @@ import app.morphe.manager.domain.links.AppLinksStatus
 import app.morphe.manager.domain.links.RepairCapability
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.openAppOpenByDefaultSettings
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
@@ -97,7 +94,7 @@ fun rememberAppLinksActions(
                         if (isRepairing) R.string.app_links_enable_auto_in_progress
                         else R.string.app_links_enable_auto
                     ),
-                    icon = Icons.Outlined.AutoFixHigh,
+                    icon = MaterialSymbols.Rounded.Auto_fix_high,
                     onClick = {
                         scope.launch {
                             isRepairing = true
@@ -120,7 +117,7 @@ fun rememberAppLinksActions(
         add(
             DialogAction(
                 text = stringResource(R.string.app_links_open_settings),
-                icon = Icons.AutoMirrored.Outlined.Launch,
+                icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored,
                 onClick = { context.openAppOpenByDefaultSettings(packageName) }
             )
         )
@@ -134,13 +131,13 @@ fun AppLinksContent(status: AppLinksStatus, accentColor: Color?) {
         Notice(
             text = stringResource(R.string.app_links_description),
             tone = SemanticTone.Warning,
-            icon = Icons.Outlined.LinkOff
+            icon = MaterialSymbols.Rounded.Link_off
         )
     } else {
         Notice(
             text = stringResource(R.string.app_links_all_verified),
             tone = SemanticTone.Success,
-            icon = Icons.Outlined.CheckCircleOutline
+            icon = MaterialSymbols.Rounded.Check_circle
         )
     }
 

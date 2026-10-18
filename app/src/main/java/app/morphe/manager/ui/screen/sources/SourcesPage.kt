@@ -18,11 +18,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.automirrored.outlined.Sort
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -62,6 +57,9 @@ import app.morphe.manager.ui.screen.patcher.IncompatiblePatcherVersionDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
+import com.composables.icons.materialsymbols.roundedfilled.*
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import sh.calvin.reorderable.ReorderableItem
@@ -345,10 +343,10 @@ private fun SourcesPageContent(
     // What the options panel offers, and what marks the sort button once any is off its default
     val listOptions = listOf(
         listOptionSection(
-            R.string.sort, Icons.AutoMirrored.Outlined.Sort, sourceSortMode, SourceBundleSortMode.MANUAL
+            R.string.sort, MaterialSymbols.Rounded.Sort.autoMirrored, sourceSortMode, SourceBundleSortMode.MANUAL
         ) { mode -> scope.launch { prefs.sourceBundleSortMode.update(mode.name) } },
         listOptionSection(
-            R.string.filter, Icons.Outlined.FilterList, sourceFilter, SourceFilterMode.ALL
+            R.string.filter, MaterialSymbols.Rounded.Filter_list, sourceFilter, SourceFilterMode.ALL
         ) { sourceFilter = it }
     )
 
@@ -372,7 +370,7 @@ private fun SourcesPageContent(
                     )
                     // Engaged while the options are open, and marked while any is off its default
                     TitleAction(
-                        icon = Icons.AutoMirrored.Outlined.Sort,
+                        icon = MaterialSymbols.Rounded.Sort.autoMirrored,
                         contentDescription = stringResource(R.string.sort),
                         onClick = { onListOptionsOpenChange(!listOptionsOpen) },
                         modifier = Modifier.semantics {
@@ -385,7 +383,7 @@ private fun SourcesPageContent(
                     )
                 }
                 TitleAction(
-                    icon = Icons.Default.Add,
+                    icon = MaterialSymbols.RoundedFilled.Add,
                     contentDescription = stringResource(R.string.add),
                     onClick = onAddSource,
                     style = TitleActionStyle.Accent
@@ -434,7 +432,7 @@ private fun SourcesPageContent(
                         item(key = "search_empty") {
                             EmptyState(
                                 message = stringResource(R.string.search_no_results),
-                                icon = Icons.Outlined.SearchOff
+                                icon = MaterialSymbols.Rounded.Search_off
                             )
                         }
                     }
@@ -862,7 +860,7 @@ private fun BundleManagementCard(
                             CardNotice(
                                 visible = info.blockedInfo != null,
                                 text = if (blockedReason != null) "$blockedLabel: $blockedReason" else blockedLabel,
-                                icon = Icons.Outlined.Block
+                                icon = MaterialSymbols.Rounded.Block
                             )
 
                             // Metadata unavailable hint (shown when patches-bundle.json / remote fetch failed)
@@ -873,14 +871,14 @@ private fun BundleManagementCard(
                                 } else {
                                     stringResource(R.string.sources_management_metadata_unavailable_hint)
                                 },
-                                icon = Icons.Outlined.CloudOff
+                                icon = MaterialSymbols.Rounded.Cloud_off
                             )
 
                             // Held back hint (shown when reading the source killed the process)
                             CardNotice(
                                 visible = bundle.isHeldBack,
                                 text = stringResource(R.string.sources_management_held_back_hint),
-                                icon = Icons.Outlined.ErrorOutline
+                                icon = MaterialSymbols.Rounded.Error
                             )
 
                             // Outdated manager hint
@@ -892,7 +890,7 @@ private fun BundleManagementCard(
                                     BuildConfig.VERSION_NAME,
                                     BuildConfig.PATCHER_VERSION
                                 ),
-                                icon = Icons.Outlined.SystemUpdate,
+                                icon = MaterialSymbols.Rounded.System_update,
                                 modifier = Modifier.clickable(onClick = actions.onOutdatedManagerClick)
                             )
                         }
@@ -901,7 +899,7 @@ private fun BundleManagementCard(
                         InfoPanel {
                             InfoRow(
                                 modifier = Modifier.tourTarget(TourTarget.SOURCE_PATCHES, tour),
-                                icon = Icons.Outlined.Info,
+                                icon = MaterialSymbols.Rounded.Info,
                                 label = stringResource(R.string.patches),
                                 value = if (info.patchMatchCount != null) {
                                     "${info.patchMatchCount}/${info.patchCount}"
@@ -919,7 +917,7 @@ private fun BundleManagementCard(
 
                             InfoRow(
                                 modifier = Modifier.tourTarget(TourTarget.SOURCE_VERSION, tour),
-                                icon = Icons.Outlined.Update,
+                                icon = MaterialSymbols.Rounded.Update,
                                 label = stringResource(R.string.version),
                                 value = bundle.version?.removePrefix("v")?.isolateLtr() ?: "N/A",
                                 onClick = actions.onVersionClick,
@@ -939,7 +937,7 @@ private fun BundleManagementCard(
                                     listedApps.toString()
                                 }
                                 InfoRow(
-                                    icon = Icons.Outlined.Apps,
+                                    icon = MaterialSymbols.Rounded.Apps,
                                     label = stringResource(R.string.sources_apps),
                                     value = if (unseenApps > 0) {
                                         pluralStringResource(R.plurals.sources_apps_count_with_new, unseenApps, count, unseenApps)
@@ -962,7 +960,7 @@ private fun BundleManagementCard(
                             ) {
                                 ActionPillButton(
                                     onClick = actions.onOpenInBrowser,
-                                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                                    icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored,
                                     contentDescription = openInBrowser + " " + bundle.displayTitle,
                                     label = openInBrowser,
                                     tooltip = openInBrowser,
@@ -972,7 +970,7 @@ private fun BundleManagementCard(
                                 if (actions.onShare != null) {
                                     ActionPillButton(
                                         onClick = actions.onShare,
-                                        icon = Icons.Outlined.Share,
+                                        icon = MaterialSymbols.Rounded.Share,
                                         contentDescription = share + " " + bundle.displayTitle,
                                         tooltip = share,
                                         shape = ConnectedShapes.Pill.middle
@@ -981,7 +979,7 @@ private fun BundleManagementCard(
 
                                 ActionPillButton(
                                     onClick = actions.onReportIssue,
-                                    icon = Icons.Outlined.BugReport,
+                                    icon = MaterialSymbols.Rounded.Bug_report,
                                     contentDescription = reportIssue + " " + bundle.displayTitle,
                                     tooltip = reportIssue,
                                     shape = ConnectedShapes.Pill.trailing
@@ -1049,7 +1047,7 @@ private fun BundleManagementCard(
                                 // Disable button
                                 ActionPillButton(
                                     onClick = actions.onDisable,
-                                    icon = if (bundle.enabled) Icons.Outlined.Block else Icons.Outlined.CheckCircle,
+                                    icon = if (bundle.enabled) MaterialSymbols.Rounded.Block else MaterialSymbols.Rounded.Check_circle,
                                     contentDescription = disableEnableDesc,
                                     tooltip = disableEnableVerb,
                                     confirmation = disableDone,
@@ -1066,7 +1064,7 @@ private fun BundleManagementCard(
                                 // for a replacement file instead and reports progress once one is picked
                                 ActionPillButton(
                                     onClick = actions.onUpdate,
-                                    icon = Icons.Outlined.Refresh,
+                                    icon = MaterialSymbols.Rounded.Refresh,
                                     contentDescription = updateDesc,
                                     tooltip = updateVerb,
                                     confirmation = updateStarted.takeUnless { isLocal },
@@ -1082,7 +1080,7 @@ private fun BundleManagementCard(
                                 // Rename button
                                 ActionPillButton(
                                     onClick = actions.onRename,
-                                    icon = Icons.Outlined.Edit,
+                                    icon = MaterialSymbols.Rounded.Edit,
                                     contentDescription = renameDesc,
                                     tooltip = renameVerb
                                 )
@@ -1090,7 +1088,7 @@ private fun BundleManagementCard(
                                 // Delete button
                                 ActionPillButton(
                                     onClick = actions.onDelete,
-                                    icon = Icons.Outlined.Delete,
+                                    icon = MaterialSymbols.Rounded.Delete,
                                     contentDescription = deleteDesc,
                                     tooltip = deleteVerb,
                                     destructive = true
@@ -1186,7 +1184,7 @@ private fun BundleCardHeader(
                     }
                     if (dateText != null) {
                         Icon(
-                            imageVector = if (bundle.updatedAt != null) Icons.Outlined.Schedule else Icons.Outlined.CalendarToday,
+                            imageVector = if (bundle.updatedAt != null) MaterialSymbols.Rounded.Schedule else MaterialSymbols.Rounded.Calendar_today,
                             contentDescription = null,
                             modifier = Modifier.size(11.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -1220,7 +1218,7 @@ private fun BundleCardHeader(
                             patchMatchCount,
                             patchMatchCount.toString()
                         ),
-                        icon = Icons.Outlined.Search,
+                        icon = MaterialSymbols.Rounded.Search,
                         tone = SemanticTone.Primary,
                         onClick = onShowPatchMatches
                     )
@@ -1253,7 +1251,7 @@ private fun BundleCardHeader(
                     visible = !enabled && blockedInfo == null,
                     text = stringResource(R.string.disabled),
                     tone = SemanticTone.Neutral,
-                    icon = Icons.Outlined.PowerSettingsNew
+                    icon = MaterialSymbols.Rounded.Power_settings_new
                 )
 
                 // Update badge

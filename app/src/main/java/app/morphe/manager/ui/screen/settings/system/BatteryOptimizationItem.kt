@@ -6,10 +6,6 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import android.os.PowerManager
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BatterySaver
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
@@ -20,6 +16,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.requestIgnoreBatteryOptimizations
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * The battery optimization exemption that keeps the patcher running while the manager is out of
@@ -44,10 +42,10 @@ fun BatteryOptimizationItem() {
         },
         title = stringResource(R.string.settings_system_battery_optimization),
         subtitle = stringResource(R.string.settings_system_battery_optimization_description),
-        leadingContent = { ThemedIcon(icon = Icons.Outlined.BatterySaver) },
+        leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Battery_android_frame_plus) },
         statusContent = {
             StatusCircleIcon(
-                icon = if (isIgnoringBatteryOptimizations) Icons.Outlined.Check else Icons.Outlined.Warning,
+                icon = if (isIgnoringBatteryOptimizations) MaterialSymbols.Rounded.Check else MaterialSymbols.Rounded.Warning,
                 containerColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.primaryContainer
                 else SemanticTone.Warning.container,
                 contentColor = if (isIgnoringBatteryOptimizations) MaterialTheme.colorScheme.onPrimaryContainer

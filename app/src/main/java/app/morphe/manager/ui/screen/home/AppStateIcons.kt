@@ -5,25 +5,25 @@
 
 package app.morphe.manager.ui.screen.home
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.HelpOutline
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import app.morphe.manager.ui.screen.shared.autoMirrored
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Icons an app's states go by, shared by its home card and its details so a state is told by the
  * same picture in both.
  */
 internal object AppStateIcons {
-    val Clone: ImageVector get() = Icons.Outlined.ContentCopy
-    val Uninstalled: ImageVector get() = Icons.Outlined.DeleteOutline
-    val NotPatched: ImageVector get() = Icons.Outlined.AutoFixHigh
-    val Unverified: ImageVector get() = Icons.AutoMirrored.Outlined.HelpOutline
-    val Pending: ImageVector get() = Icons.Outlined.HourglassEmpty
+    val Clone: ImageVector get() = MaterialSymbols.Rounded.Content_copy
+    val Uninstalled: ImageVector get() = MaterialSymbols.Rounded.Delete
+    val NotPatched: ImageVector get() = MaterialSymbols.Rounded.Auto_fix_high
+    val Unverified: ImageVector get() = MaterialSymbols.Rounded.Help.autoMirrored
+    val Pending: ImageVector get() = MaterialSymbols.Rounded.Hourglass_empty
 
     /** A newer app version the sources support, which takes a newer APK. */
-    val NewerVersion: ImageVector get() = Icons.Outlined.ArrowUpward
+    val NewerVersion: ImageVector get() = MaterialSymbols.Rounded.Arrow_upward
 
     /** Newer patches for the version installed, which the APK already there can take. */
-    val NewerPatches: ImageVector get() = Icons.Outlined.Extension
+    val NewerPatches: ImageVector get() = MaterialSymbols.Rounded.Extension
 }

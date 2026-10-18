@@ -8,15 +8,6 @@ package app.morphe.manager.ui.screen.settings.system
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Article
-import androidx.compose.material.icons.automirrored.outlined.HelpOutline
-import androidx.compose.material.icons.outlined.BugReport
-import androidx.compose.material.icons.outlined.Gavel
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Lightbulb
-import androidx.compose.material.icons.outlined.People
-import androidx.compose.material.icons.outlined.Upload
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -34,6 +25,8 @@ import app.morphe.manager.ui.viewmodel.ImportExportViewModel
 import app.morphe.manager.util.TEXT_MIMETYPE
 import app.morphe.manager.util.isAndroidTv
 import app.morphe.manager.util.isolateLtr
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import org.koin.androidx.compose.koinViewModel
 
 /**
@@ -51,7 +44,7 @@ fun AboutGroup(onOpenSubpage: (SettingsSubpage) -> Unit) {
 
     SettingsSection(
         title = stringResource(R.string.settings_system_about),
-        icon = Icons.Outlined.Info
+        icon = MaterialSymbols.Rounded.Info
     ) {
         SettingsGroup {
             SettingsItem(
@@ -108,23 +101,23 @@ fun AboutSettings(
     SettingsColumn {
         SettingsSection(
             title = stringResource(R.string.settings_about_section_project),
-            icon = Icons.Outlined.Info
+            icon = MaterialSymbols.Rounded.Info
         ) {
             SettingsGroup {
                 SettingsItem(
-                    icon = Icons.AutoMirrored.Outlined.Article,
+                    icon = MaterialSymbols.Rounded.Article.autoMirrored,
                     title = stringResource(R.string.changelog),
                     subtitle = stringResource(R.string.changelog_description),
                     onClick = { showChangelogDialog = true }
                 )
                 SettingsItem(
-                    icon = Icons.Outlined.People,
+                    icon = MaterialSymbols.Rounded.Group,
                     title = stringResource(R.string.credits),
                     subtitle = stringResource(R.string.credits_description),
                     onClick = { showCreditsDialog = true }
                 )
                 SettingsItem(
-                    icon = Icons.Outlined.Gavel,
+                    icon = MaterialSymbols.Rounded.Gavel,
                     title = stringResource(R.string.opensource_licenses),
                     subtitle = stringResource(R.string.opensource_licenses_description),
                     onClick = onOpenLicenses
@@ -134,12 +127,12 @@ fun AboutSettings(
 
         SettingsSection(
             title = stringResource(R.string.settings_about_section_help),
-            icon = Icons.AutoMirrored.Outlined.HelpOutline
+            icon = MaterialSymbols.Rounded.Help.autoMirrored
         ) {
             SettingsGroup {
                 // Logs are what a bug report asks for
                 SettingsItem(
-                    icon = Icons.Outlined.BugReport,
+                    icon = MaterialSymbols.Rounded.Bug_report,
                     title = stringResource(R.string.settings_system_export_debug_logs),
                     subtitle = stringResource(R.string.settings_system_export_debug_logs_description),
                     onClick = {
@@ -147,11 +140,11 @@ fun AboutSettings(
                         else exportDebugLogsLauncher.launch(importExportViewModel.debugLogFileName)
                     },
                     // Saves a file rather than opening a page, marked as the other exports are
-                    trailingContent = { ThemedIcon(icon = Icons.Outlined.Upload) }
+                    trailingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Upload) }
                 )
                 if (onStartTour != null) {
                     SettingsItem(
-                        icon = Icons.Outlined.Lightbulb,
+                        icon = MaterialSymbols.Rounded.Lightbulb,
                         title = stringResource(R.string.onboarding_restart_title),
                         subtitle = stringResource(R.string.onboarding_restart_desc),
                         onClick = onStartTour

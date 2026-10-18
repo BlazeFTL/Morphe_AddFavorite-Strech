@@ -16,10 +16,6 @@ import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.DoneAll
-import androidx.compose.material.icons.outlined.RemoveDone
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -36,6 +32,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.launch
 
 /**
@@ -283,7 +281,7 @@ fun SelectionActionBar(
             }
         ) {
             TitleAction(
-                icon = if (canToggleToDeselect) Icons.Outlined.RemoveDone else Icons.Outlined.DoneAll,
+                icon = if (canToggleToDeselect) MaterialSymbols.Rounded.Remove_done else MaterialSymbols.Rounded.Done_all,
                 contentDescription = selectionToggleLabel,
                 onClick = { if (canToggleToDeselect) onDeselectAll() else onSelectAll() },
                 style = TitleActionStyle.Toggle,
@@ -292,7 +290,7 @@ fun SelectionActionBar(
             )
             if (onCancel != null) {
                 TitleAction(
-                    icon = Icons.Outlined.Close,
+                    icon = MaterialSymbols.Rounded.Close,
                     contentDescription = cancelLabel,
                     onClick = onCancel,
                     style = TitleActionStyle.Neutral

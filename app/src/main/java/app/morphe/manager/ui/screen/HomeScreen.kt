@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Engineering
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
@@ -49,6 +47,8 @@ import app.morphe.manager.ui.screen.sources.SourcesPage
 import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.viewmodel.*
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -361,7 +361,7 @@ fun HomeScreen(
         },
         // The tour moves between the pages itself, and a swipe would leave its spotlight behind
         swipeEnabled = onboardingState == null,
-        settingsIcon = if (useExpertMode) Icons.Outlined.Engineering else MainPage.SETTINGS.icon,
+        settingsIcon = if (useExpertMode) MaterialSymbols.Rounded.Engineering else MainPage.SETTINGS.icon,
         settingsDescription = if (useExpertMode) "$settingsLabel, $expertModeLabel" else null,
         onItemPositioned = onboardingState?.let { tour -> { page, bounds -> tour.navigationBounds[page] = bounds } },
         overlay = {

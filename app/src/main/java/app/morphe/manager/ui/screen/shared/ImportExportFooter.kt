@@ -7,12 +7,11 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.Upload
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Footer of a dialog or page that moves data in and out of Morphe. The transfer pair shares a row
@@ -35,14 +34,14 @@ fun ImportExportFooter(
     val import = DialogAction(
         text = stringResource(R.string.import_),
         onClick = onImport,
-        icon = Icons.Outlined.Download,
+        icon = MaterialSymbols.Rounded.Download,
         enabled = enabled
     )
     val export = onExport?.let {
         DialogAction(
             text = stringResource(R.string.export),
             onClick = it,
-            icon = Icons.Outlined.Upload,
+            icon = MaterialSymbols.Rounded.Upload,
             enabled = enabled
         )
     }

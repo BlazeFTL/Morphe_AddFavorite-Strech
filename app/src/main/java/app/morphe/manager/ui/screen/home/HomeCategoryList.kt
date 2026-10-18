@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -40,6 +38,8 @@ import app.morphe.manager.ui.screen.shared.appAccentCardFill
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.RemoteAvatar
 import app.morphe.manager.util.rememberSourceAccent
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 internal const val SOURCE_CATEGORY_ID_PREFIX = "source_"
 
@@ -293,7 +293,7 @@ internal fun HomeCategoryHeader(
     )
     val mutedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
     val isSourceGroup = group.sourceUid != null
-    val leadingIcon = if (group.collapsed) Icons.Outlined.Folder else Icons.Outlined.FolderOpen
+    val leadingIcon = if (group.collapsed) MaterialSymbols.Rounded.Folder else MaterialSymbols.Rounded.Folder_open
     // Surface pending updates on the header so collapsed groups still hint at work to do
     val hasPendingUpdate = group.items.any { it.showsRebuildBadge }
     val folderTint = if (hasPendingUpdate) MaterialTheme.colorScheme.primary else mutedContentColor
@@ -321,7 +321,7 @@ internal fun HomeCategoryHeader(
             dragHandle?.invoke()
             if (group.collapsible) {
                 Icon(
-                    imageVector = if (group.collapsed) Icons.Outlined.ExpandMore else Icons.Outlined.ExpandLess,
+                    imageVector = if (group.collapsed) MaterialSymbols.Rounded.Expand_more else MaterialSymbols.Rounded.Expand_less,
                     contentDescription = if (group.collapsed)
                         stringResource(R.string.expand)
                     else
@@ -368,7 +368,7 @@ private fun SourceCategoryIcon(
 
             else -> {
                 Icon(
-                    imageVector = Icons.Outlined.Source,
+                    imageVector = MaterialSymbols.Rounded.Folder_code,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(Defaults.SpaceExtraSmall)
@@ -390,7 +390,7 @@ internal fun CategoryHeaderDragHandle(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center
     ) {
         Icon(
-            imageVector = Icons.Outlined.DragHandle,
+            imageVector = MaterialSymbols.Rounded.Drag_handle,
             contentDescription = stringResource(R.string.reorder_list),
             modifier = Modifier.size(24.dp),
             tint = MaterialTheme.colorScheme.onSurfaceVariant

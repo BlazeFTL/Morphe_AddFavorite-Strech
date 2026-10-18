@@ -16,10 +16,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowForward
-import androidx.compose.material.icons.automirrored.outlined.Notes
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -55,6 +51,8 @@ import app.morphe.manager.R
 import app.morphe.manager.util.*
 import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.startEdgeX
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -307,7 +305,7 @@ fun ChangelogOlderFailed(onRetry: () -> Unit) {
                 horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Refresh,
+                    imageVector = MaterialSymbols.Rounded.Refresh,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(18.dp)
@@ -402,7 +400,7 @@ fun ChangelogUpdateSummary(
             ) {
                 StatusBadge(text = fromVersion.withVersionPrefix())
                 Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.ArrowForward,
+                    imageVector = MaterialSymbols.Rounded.Arrow_forward.autoMirrored,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(SummaryArrowSize)
@@ -682,32 +680,32 @@ private class SectionStyle(val title: String, val icon: ImageVector, val tone: S
 private fun sectionStyleOf(kind: ChangelogSection.Kind, title: String?): SectionStyle = when (kind) {
     ChangelogSection.Kind.FEATURES -> SectionStyle(
         title = stringResource(R.string.changelog_section_new),
-        icon = Icons.Outlined.AutoAwesome,
+        icon = MaterialSymbols.Rounded.Auto_awesome,
         tone = SemanticTone.Primary
     )
     ChangelogSection.Kind.FIXES -> SectionStyle(
         title = stringResource(R.string.changelog_section_fixes),
-        icon = Icons.Outlined.BugReport,
+        icon = MaterialSymbols.Rounded.Bug_report,
         tone = SemanticTone.Warning
     )
     ChangelogSection.Kind.IMPROVEMENTS -> SectionStyle(
         title = stringResource(R.string.changelog_section_improvements),
-        icon = Icons.Outlined.Tune,
+        icon = MaterialSymbols.Rounded.Tune,
         tone = SemanticTone.Success
     )
     ChangelogSection.Kind.PERFORMANCE -> SectionStyle(
         title = stringResource(R.string.changelog_section_performance),
-        icon = Icons.Outlined.Speed,
+        icon = MaterialSymbols.Rounded.Speed,
         tone = SemanticTone.Success
     )
     ChangelogSection.Kind.APP_SUPPORT -> SectionStyle(
         title = stringResource(R.string.changelog_section_app_support),
-        icon = Icons.Outlined.Smartphone,
+        icon = MaterialSymbols.Rounded.Smartphone,
         tone = SemanticTone.Neutral
     )
     ChangelogSection.Kind.OTHER -> SectionStyle(
         title = title ?: stringResource(R.string.changelog_section_other),
-        icon = Icons.AutoMirrored.Outlined.Notes,
+        icon = MaterialSymbols.Rounded.Notes.autoMirrored,
         tone = SemanticTone.Neutral
     )
 }

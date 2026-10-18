@@ -15,10 +15,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,6 +37,8 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -251,7 +249,7 @@ private fun HeaderVariantCard(layout: HeaderLayout, variant: HeaderVariant) {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.adaptive_icon_change_image),
                 onClick = { openPicker() },
-                icon = Icons.Outlined.Image,
+                icon = MaterialSymbols.Rounded.Image,
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -322,7 +320,7 @@ private fun HeaderEditor(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Image,
+                    imageVector = MaterialSymbols.Rounded.Image,
                     contentDescription = null,
                     tint = theme.content,
                     modifier = Modifier.size(24.dp)
@@ -380,7 +378,7 @@ private fun AppBarPreview(
                     contentAlignment = Alignment.CenterEnd
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Search,
+                        imageVector = MaterialSymbols.Rounded.Search,
                         contentDescription = null,
                         tint = theme.content,
                         modifier = Modifier
@@ -393,7 +391,7 @@ private fun AppBarPreview(
             HeaderLayout.Music -> {
                 Spacer(Modifier.weight(1f))
                 Icon(
-                    imageVector = Icons.Outlined.Notifications,
+                    imageVector = MaterialSymbols.Rounded.Notifications,
                     contentDescription = null,
                     tint = theme.content,
                     modifier = Modifier

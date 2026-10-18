@@ -9,12 +9,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AutoFixHigh
-import androidx.compose.material.icons.outlined.Psychology
-import androidx.compose.material.icons.outlined.SearchOff
-import androidx.compose.material.icons.outlined.SettingsSuggest
-import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,6 +22,8 @@ import app.morphe.manager.ui.screen.settings.system.*
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -91,7 +87,7 @@ fun SettingsPage(
                     ) {
                         EmptyState(
                             message = stringResource(R.string.search_no_results),
-                            icon = Icons.Outlined.SearchOff
+                            icon = MaterialSymbols.Rounded.Search_off
                         )
                     }
                 }
@@ -139,7 +135,7 @@ private fun PatchingSection(
 
     SettingsSection(
         title = stringResource(R.string.settings_section_patching),
-        icon = Icons.Outlined.AutoFixHigh
+        icon = MaterialSymbols.Rounded.Auto_fix_high
     ) {
         SettingsGroup {
             SettingsSwitchItem(
@@ -148,7 +144,7 @@ private fun PatchingSection(
                     if (!useExpertMode) showExpertModeDialog = true
                     else settingsViewModel.setExpertMode(false)
                 },
-                icon = Icons.Outlined.Psychology,
+                icon = MaterialSymbols.Rounded.Psychology,
                 title = stringResource(R.string.settings_advanced_expert_mode),
                 subtitle = stringResource(R.string.settings_advanced_expert_mode_description),
                 modifier = Modifier.tourTarget(TourTarget.EXPERT_MODE, tour)
@@ -175,7 +171,7 @@ private fun PatchingSection(
 private fun GeneralSection(onOpenSubpage: (SettingsSubpage) -> Unit, tour: OnboardingState?) {
     SettingsSection(
         title = stringResource(R.string.settings_section_general),
-        icon = Icons.Outlined.SettingsSuggest
+        icon = MaterialSymbols.Rounded.Settings_suggest
     ) {
         SettingsGroup {
             SubpageItem(
@@ -193,7 +189,7 @@ private fun GeneralSection(onOpenSubpage: (SettingsSubpage) -> Unit, tour: Onboa
 private fun UpdatesSection(settingsViewModel: SettingsViewModel, homeViewModel: HomeViewModel) {
     SettingsSection(
         title = stringResource(R.string.settings_section_updates),
-        icon = Icons.Outlined.SystemUpdate
+        icon = MaterialSymbols.Rounded.System_update
     ) {
         SettingsGroup {
             UpdatesItems(

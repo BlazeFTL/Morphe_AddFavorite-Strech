@@ -16,10 +16,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -42,6 +38,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.roundToInt
@@ -182,7 +180,7 @@ fun SliderValuePill(
             )
 
             Icon(
-                imageVector = Icons.Outlined.Edit,
+                imageVector = MaterialSymbols.Rounded.Edit,
                 contentDescription = stringResource(R.string.patch_option_slider_edit),
                 tint = content.copy(alpha = 0.7f),
                 modifier = Modifier.size(14.dp)
@@ -218,7 +216,7 @@ fun ScaleSliderRow(
     onValueChange: (Float) -> Unit,
     valueRange: ClosedFloatingPointRange<Float>,
     modifier: Modifier = Modifier,
-    icon: ImageVector = Icons.Outlined.Image,
+    icon: ImageVector = MaterialSymbols.Rounded.Image,
     trailing: @Composable RowScope.() -> Unit = {}
 ) {
     Row(
@@ -271,7 +269,7 @@ fun RowScope.SliderResetAction(
                 modifier = Modifier.size(40.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.RestartAlt,
+                    imageVector = MaterialSymbols.Rounded.Restart_alt,
                     contentDescription = contentDescription,
                     modifier = Modifier.size(24.dp),
                     tint = dialogTextColor()

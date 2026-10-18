@@ -10,10 +10,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CloudOff
-import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material.icons.outlined.Source
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -35,6 +31,8 @@ import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isDefault
 import app.morphe.manager.util.RemoteAvatar
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /** Share of a source's disc its fallback glyph takes, the 24dp a 44dp disc has always given it. */
 private const val BUNDLE_GLYPH_FRACTION = 0.55f
@@ -112,7 +110,7 @@ fun BundleIcon(
 
             hasBundleError -> {
                 Icon(
-                    imageVector = Icons.Outlined.ErrorOutline,
+                    imageVector = MaterialSymbols.Rounded.Error,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onErrorContainer,
                     modifier = Modifier.bundleGlyph()
@@ -121,7 +119,7 @@ fun BundleIcon(
 
             hasMetadataError || isMissing -> {
                 Icon(
-                    imageVector = Icons.Outlined.CloudOff,
+                    imageVector = MaterialSymbols.Rounded.Cloud_off,
                     contentDescription = null,
                     tint = SemanticTone.Warning.content,
                     modifier = Modifier.bundleGlyph()
@@ -138,7 +136,7 @@ fun BundleIcon(
 
             else -> {
                 Icon(
-                    imageVector = Icons.Outlined.Source,
+                    imageVector = MaterialSymbols.Rounded.Folder_code,
                     contentDescription = null,
                     tint = if (enabled)
                         MaterialTheme.colorScheme.onPrimaryContainer

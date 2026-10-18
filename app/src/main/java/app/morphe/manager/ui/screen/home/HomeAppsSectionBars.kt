@@ -6,18 +6,6 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.PlaylistAdd
-import androidx.compose.material.icons.automirrored.outlined.Sort
-import androidx.compose.material.icons.outlined.AutoFixHigh
-import androidx.compose.material.icons.outlined.Category
-import androidx.compose.material.icons.outlined.DeleteForever
-import androidx.compose.material.icons.outlined.FilterList
-import androidx.compose.material.icons.outlined.FolderOpen
-import androidx.compose.material.icons.outlined.InstallMobile
-import androidx.compose.material.icons.outlined.Reorder
-import androidx.compose.material.icons.outlined.Source
-import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.boundsInWindow
@@ -33,7 +21,10 @@ import app.morphe.manager.ui.screen.shared.ListOptionSection
 import app.morphe.manager.ui.screen.shared.ListOptionsPanel
 import app.morphe.manager.ui.screen.shared.SelectionAction
 import app.morphe.manager.ui.screen.shared.UserMessages
+import app.morphe.manager.ui.screen.shared.autoMirrored
 import app.morphe.manager.ui.screen.shared.listOptionSection
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
@@ -191,7 +182,7 @@ internal fun HomeAppsFooterBars(
     val actions = buildList {
         add(
             SelectionAction(
-                icon = if (apps.batchQueuePending) Icons.AutoMirrored.Outlined.PlaylistAdd else Icons.Outlined.AutoFixHigh,
+                icon = if (apps.batchQueuePending) MaterialSymbols.Rounded.Playlist_add.autoMirrored else MaterialSymbols.Rounded.Auto_fix_high,
                 label = patchSelectedLabel,
                 onClick = {
                     appActions.onPatchMultiple(selectedAppItems)
@@ -204,7 +195,7 @@ internal fun HomeAppsFooterBars(
         // apps does, while "Hide" is about this screen
         add(
             SelectionAction(
-                icon = Icons.Outlined.Source,
+                icon = MaterialSymbols.Rounded.Folder_code,
                 label = patchSourcesLabel,
                 onClick = { state.showPatchSourcesDialog = true },
                 tone = ActionTone.Secondary
@@ -213,7 +204,7 @@ internal fun HomeAppsFooterBars(
         if (isCustomCategoryView) {
             add(
                 SelectionAction(
-                    icon = Icons.Outlined.FolderOpen,
+                    icon = MaterialSymbols.Rounded.Folder_open,
                     label = moveToCategoryLabel,
                     onClick = { state.showMoveCategoryDialog = true }
                 )
@@ -221,7 +212,7 @@ internal fun HomeAppsFooterBars(
         }
         add(
             SelectionAction(
-                icon = Icons.Outlined.Reorder,
+                icon = MaterialSymbols.Rounded.Reorder,
                 label = reorderListLabel,
                 onClick = enterReorder
             )
@@ -229,7 +220,7 @@ internal fun HomeAppsFooterBars(
         when {
             contextActionIsReinstall -> add(
                 SelectionAction(
-                    icon = Icons.Outlined.InstallMobile,
+                    icon = MaterialSymbols.Rounded.Install_mobile,
                     label = reinstallLabel,
                     onClick = {
                         appActions.onReinstallMultiple(selectedReinstallItems)
@@ -239,7 +230,7 @@ internal fun HomeAppsFooterBars(
             )
             contextActionIsUninstall -> add(
                 SelectionAction(
-                    icon = Icons.Outlined.DeleteForever,
+                    icon = MaterialSymbols.Rounded.Delete_forever,
                     label = uninstallLabel,
                     onClick = {
                         state.pendingUninstallItems = selectedInstalledItems.toList()
@@ -251,7 +242,7 @@ internal fun HomeAppsFooterBars(
         }
         add(
             SelectionAction(
-                icon = Icons.Outlined.VisibilityOff,
+                icon = MaterialSymbols.Rounded.Visibility_off,
                 label = hideLabel,
                 onClick = messages.confirming(hiddenMessage) {
                     appActions.onHideMultiple(selectedPackages.keys.toSet())
@@ -369,15 +360,15 @@ internal fun HomeAppsFooterBars(
 @Composable
 internal fun homeListOptions(apps: HomeAppListUi, appActions: HomeAppActions): List<ListOptionSection<*>> = listOf(
     listOptionSection(
-        R.string.sort, Icons.AutoMirrored.Outlined.Sort, apps.sortMode, HomeAppSortMode.RECOMMENDED,
+        R.string.sort, MaterialSymbols.Rounded.Sort.autoMirrored, apps.sortMode, HomeAppSortMode.RECOMMENDED,
         appActions.onSortModeChange
     ),
     listOptionSection(
-        R.string.filter, Icons.Outlined.FilterList, apps.filterMode, HomeAppFilterMode.ALL,
+        R.string.filter, MaterialSymbols.Rounded.Filter_list, apps.filterMode, HomeAppFilterMode.ALL,
         appActions.onFilterModeChange
     ),
     listOptionSection(
-        R.string.group, Icons.Outlined.Category, apps.categoryViewMode, HomeAppCategoryViewMode.ALL_APPS,
+        R.string.group, MaterialSymbols.Rounded.Category, apps.categoryViewMode, HomeAppCategoryViewMode.ALL_APPS,
         appActions.onCategoryViewModeChange
     )
 )

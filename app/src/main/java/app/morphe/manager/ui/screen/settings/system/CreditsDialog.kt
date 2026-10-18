@@ -7,11 +7,6 @@ package app.morphe.manager.ui.screen.settings.system
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.Code
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material.icons.outlined.People
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -23,9 +18,10 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.isolateLtr
 import app.morphe.manager.util.withVersionPrefix
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Brands
-import compose.icons.fontawesomeicons.brands.Github
+import com.composables.icons.fontawesome.FontAwesome
+import com.composables.icons.fontawesome.brands.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 private data class Contributor(
     val name: String,
@@ -68,7 +64,7 @@ fun DialogHostScope.CreditsDialog(onDismiss: () -> Unit) {
         header = {
             ListDialogHeader(
                 icon = { modifier ->
-                    ListDialogHeaderIcon(icon = Icons.Outlined.People, color = accent, modifier = modifier)
+                    ListDialogHeaderIcon(icon = MaterialSymbols.Rounded.Group, color = accent, modifier = modifier)
                 },
                 title = stringResource(R.string.credits),
                 subtitle = listOf(
@@ -93,13 +89,13 @@ fun DialogHostScope.CreditsDialog(onDismiss: () -> Unit) {
         ) {
             ContributorSection(
                 title = stringResource(R.string.credits_current_development),
-                icon = Icons.Outlined.Code,
+                icon = MaterialSymbols.Rounded.Code,
                 contributors = currentContributors,
                 onContributorClick = { uriHandler.openUri(it.url) }
             )
             ContributorSection(
                 title = stringResource(R.string.credits_prior_development),
-                icon = Icons.Outlined.History,
+                icon = MaterialSymbols.Rounded.History,
                 contributors = priorContributors,
                 onContributorClick = { uriHandler.openUri(it.url) }
             )
@@ -120,11 +116,11 @@ private fun ContributorSection(
             contributors.forEach { contributor ->
                 SettingsItem(
                     onClick = { onContributorClick(contributor) },
-                    icon = FontAwesomeIcons.Brands.Github,
+                    icon = FontAwesome.Brands.Github,
                     title = contributor.name,
                     subtitle = "github.com/${contributor.organisation}",
                     // Leaves for the browser rather than going on within the dialog
-                    trailingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.OpenInNew) }
+                    trailingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored) }
                 )
             }
         }

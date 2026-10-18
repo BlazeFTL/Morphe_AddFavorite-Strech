@@ -6,9 +6,6 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -17,6 +14,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import app.morphe.manager.R
 import app.morphe.manager.util.KnownApps
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Dialog of a creator that makes a picture for an app to be patched with, such as its icon or its
@@ -54,7 +53,7 @@ fun DialogHostScope.CreatorDialogFrame(
                 alwaysShowBand = true
             ) {
                 TitleAction(
-                    icon = Icons.Outlined.Info,
+                    icon = MaterialSymbols.Rounded.Info,
                     contentDescription = guideTitle,
                     onClick = { showGuide = true },
                     style = TitleActionStyle.Accent
@@ -66,7 +65,7 @@ fun DialogHostScope.CreatorDialogFrame(
                 text = title,
                 onClick = onCreate,
                 enabled = createEnabled && !isCreating,
-                icon = Icons.Outlined.Save,
+                icon = MaterialSymbols.Rounded.Save,
                 modifier = Modifier.fillMaxWidth()
             )
         },

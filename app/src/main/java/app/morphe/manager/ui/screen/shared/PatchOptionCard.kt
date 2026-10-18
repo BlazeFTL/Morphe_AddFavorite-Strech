@@ -8,11 +8,6 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AutoAwesome
-import androidx.compose.material.icons.outlined.Folder
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
@@ -28,6 +23,8 @@ import androidx.compose.ui.unit.offset
 import app.morphe.manager.R
 import app.morphe.manager.util.rememberFolderPickerWithPermission
 import app.morphe.manager.util.toFilePath
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -146,7 +143,7 @@ private fun RowScope.OptionStatus(heading: OptionHeading) {
     ) {
         StatusBadge(
             text = stringResource(R.string.patch_option_changed),
-            icon = Icons.Outlined.Restore,
+            icon = MaterialSymbols.Rounded.History,
             tone = SemanticTone.Primary,
             onClick = heading.onReset
         )
@@ -189,8 +186,8 @@ fun AssetCreatorAction(
         ),
         onClick = { showCreator = true },
         icon = when (asset) {
-            OptionAsset.Icon -> Icons.Outlined.AutoAwesome
-            OptionAsset.Header -> Icons.Outlined.Image
+            OptionAsset.Icon -> MaterialSymbols.Rounded.Auto_awesome
+            OptionAsset.Header -> MaterialSymbols.Rounded.Image
         },
         modifier = Modifier.fillMaxWidth()
     )
@@ -245,7 +242,7 @@ fun FolderOptionCard(
             PickerButtonRow(
                 label = stringResource(R.string.select_folder),
                 selectedPath = value,
-                icon = Icons.Outlined.Folder,
+                icon = MaterialSymbols.Rounded.Folder,
                 onPick = { folderPicker() },
                 onClear = { onValueChange("") }
             )

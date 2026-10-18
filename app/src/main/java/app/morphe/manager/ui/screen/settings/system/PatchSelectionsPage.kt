@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,6 +31,8 @@ import app.morphe.manager.ui.viewmodel.ImportExportViewModel
 import app.morphe.manager.ui.viewmodel.SelectionApp
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -65,7 +65,7 @@ fun PatchSelectionsItem(onClick: () -> Unit) {
         onClick = onClick,
         title = stringResource(R.string.settings_system_patch_selections_title),
         subtitle = stringResource(R.string.settings_system_patch_selections_description),
-        leadingContent = { ThemedIcon(icon = Icons.Outlined.Tune) }
+        leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Tune) }
     )
 }
 
@@ -319,7 +319,7 @@ private fun PatchSelectionsContent(
                 searchEnabled = isSearchable
             ) {
                 TitleAction(
-                    icon = Icons.Outlined.Restore,
+                    icon = MaterialSymbols.Rounded.History,
                     contentDescription = stringResource(R.string.reset),
                     onClick = onShowResetAllConfirmation,
                     style = TitleActionStyle.Destructive,
@@ -339,7 +339,7 @@ private fun PatchSelectionsContent(
                         onCancel = onExitSelection,
                         actions = listOf(
                             SelectionAction(
-                                icon = Icons.Outlined.Delete,
+                                icon = MaterialSymbols.Rounded.Delete,
                                 label = stringResource(R.string.reset),
                                 onClick = onShowResetSelectedConfirmation,
                                 tone = ActionTone.Destructive
@@ -461,7 +461,7 @@ private fun SelectionList(
             item(key = "search_empty") {
                 EmptyState(
                     message = stringResource(R.string.search_no_results),
-                    icon = Icons.Outlined.SearchOff
+                    icon = MaterialSymbols.Rounded.Search_off
                 )
             }
         }
@@ -681,7 +681,7 @@ private fun BundleSelectionItem(
         ) {
             InfoPanel {
                 InfoRow(
-                    icon = Icons.Outlined.Extension,
+                    icon = MaterialSymbols.Rounded.Extension,
                     label = displayName,
                     value = patchCountText,
                     onClick = onShowDetails
@@ -692,7 +692,7 @@ private fun BundleSelectionItem(
                 val copyLabel = stringResource(R.string.copy)
                 ActionPillButton(
                     onClick = onCopyFromBundle,
-                    icon = Icons.Outlined.ContentCopy,
+                    icon = MaterialSymbols.Rounded.Content_copy,
                     contentDescription = copyLabel,
                     tooltip = copyLabel
                 )
@@ -700,7 +700,7 @@ private fun BundleSelectionItem(
                 val importLabel = stringResource(R.string.import_)
                 ActionPillButton(
                     onClick = onImport,
-                    icon = Icons.Outlined.Download,
+                    icon = MaterialSymbols.Rounded.Download,
                     contentDescription = importLabel,
                     tooltip = importLabel
                 )
@@ -713,7 +713,7 @@ private fun BundleSelectionItem(
                         )
                         exportLauncher.launch(fileName)
                     },
-                    icon = Icons.Outlined.Upload,
+                    icon = MaterialSymbols.Rounded.Upload,
                     contentDescription = exportLabel,
                     tooltip = exportLabel
                 )
@@ -721,7 +721,7 @@ private fun BundleSelectionItem(
                 val resetLabel = stringResource(R.string.reset)
                 ActionPillButton(
                     onClick = onReset,
-                    icon = Icons.Outlined.Restore,
+                    icon = MaterialSymbols.Rounded.History,
                     contentDescription = resetLabel,
                     tooltip = resetLabel,
                     destructive = true
@@ -750,7 +750,7 @@ private fun DialogHostScope.ConfirmResetSelectedDialog(
         onConfirm = onConfirm,
         onDismiss = onDismiss,
         items = listOfNotNull(
-            ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText))
+            ConfirmItem(MaterialSymbols.Rounded.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText))
         )
     )
 }
@@ -782,8 +782,8 @@ private fun DialogHostScope.ConfirmResetAllDialog(
         onConfirm = onConfirm,
         onDismiss = onDismiss,
         items = listOfNotNull(
-            ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText)),
-            ConfirmItem(Icons.Outlined.Tune, pluralStringResource(R.plurals.option_count, totalOptions, totalOptions.toString())).takeIf { totalOptions > 0 }
+            ConfirmItem(MaterialSymbols.Rounded.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText)),
+            ConfirmItem(MaterialSymbols.Rounded.Tune, pluralStringResource(R.plurals.option_count, totalOptions, totalOptions.toString())).takeIf { totalOptions > 0 }
         )
     )
 }
@@ -819,8 +819,8 @@ private fun DialogHostScope.ConfirmResetPackageBundleDialog(
         onConfirm = onConfirm,
         onDismiss = onDismiss,
         items = listOfNotNull(
-            ConfirmItem(Icons.Outlined.Delete, pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())),
-            ConfirmItem(Icons.Outlined.Tune, pluralStringResource(R.plurals.option_count, optionsCount, optionsCount.toString())).takeIf { optionsCount > 0 }
+            ConfirmItem(MaterialSymbols.Rounded.Delete, pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())),
+            ConfirmItem(MaterialSymbols.Rounded.Tune, pluralStringResource(R.plurals.option_count, optionsCount, optionsCount.toString())).takeIf { optionsCount > 0 }
         )
     )
 }
@@ -871,7 +871,7 @@ private fun DialogHostScope.PatchDetailsDialog(
         actions = listOf(
             DialogAction(
                 text = stringResource(R.string.copy),
-                icon = Icons.Outlined.ContentCopy,
+                icon = MaterialSymbols.Rounded.Content_copy,
                 enabled = entries.isNotEmpty(),
                 onClick = {
                     copyToClipboard(patchListText(title = appDisplayName, lists = listOf(subtitle to entries)))
@@ -893,7 +893,7 @@ private fun DialogHostScope.PatchDetailsDialog(
                 LabeledSection(
                     title = stringResource(R.string.settings_system_selected_patches_section),
                     count = patchList.size,
-                    icon = Icons.Outlined.Checklist
+                    icon = MaterialSymbols.Rounded.Checklist
                 ) {
                     PatchEntryList(entries)
                 }

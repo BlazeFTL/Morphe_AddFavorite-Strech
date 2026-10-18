@@ -8,8 +8,6 @@ package app.morphe.manager.ui.screen.settings.advanced
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.launch
 
 /**
@@ -43,7 +43,7 @@ fun GitHubPatSettingsItem(
     SettingsItem(
         onClick = { showDialog.value = true },
         leadingContent = {
-            ThemedIcon(icon = Icons.Outlined.VpnKey)
+            ThemedIcon(icon = MaterialSymbols.Rounded.Vpn_key)
         },
         title = stringResource(R.string.settings_advanced_github_pat),
         subtitle = if (hasPat) {
@@ -53,7 +53,7 @@ fun GitHubPatSettingsItem(
         },
         statusContent = {
             StatusCircleIcon(
-                icon = Icons.Outlined.Check,
+                icon = MaterialSymbols.Rounded.Check,
                 containerColor = if (hasPat) MaterialTheme.colorScheme.primaryContainer
                 else MaterialTheme.colorScheme.surfaceVariant,
                 contentColor = if (hasPat) MaterialTheme.colorScheme.onPrimaryContainer
@@ -99,7 +99,7 @@ private fun DialogHostScope.GitHubPatDialog(
         description = stringResource(R.string.settings_advanced_github_pat_description),
         titleTrailingContent = {
             TitleAction(
-                icon = Icons.Outlined.Info,
+                icon = MaterialSymbols.Rounded.Info,
                 contentDescription = stringResource(R.string.settings_advanced_github_pat_how_to_get),
                 onClick = { showInfoDialog.value = true }
             )
@@ -112,7 +112,7 @@ private fun DialogHostScope.GitHubPatDialog(
                         onSubmit(pat.value, includePatInExport.value)
                     }
                 },
-                primaryIcon = Icons.Outlined.Save,
+                primaryIcon = MaterialSymbols.Rounded.Save,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
             )
@@ -128,7 +128,7 @@ private fun DialogHostScope.GitHubPatDialog(
                 onValueChange = { pat.value = it },
                 label = { Text(stringResource(R.string.settings_advanced_github_pat)) },
                 placeholder = { Text("ghp_xxxxxxxxxxxxxxx") },
-                leadingIcon = { Icon(imageVector = Icons.Outlined.Key, contentDescription = null) },
+                leadingIcon = { Icon(imageVector = MaterialSymbols.Rounded.Key, contentDescription = null) },
                 isPassword = true,
                 showClearButton = true
             )
@@ -143,7 +143,7 @@ private fun DialogHostScope.GitHubPatDialog(
                 showBorder = true,
                 leadingContent = {
                     ThemedIcon(
-                        icon = Icons.Outlined.Upload,
+                        icon = MaterialSymbols.Rounded.Upload,
                         tint = dialogTextColor()
                     )
                 },
@@ -156,7 +156,7 @@ private fun DialogHostScope.GitHubPatDialog(
                 Notice(
                     text = stringResource(R.string.settings_advanced_github_pat_export_warning),
                     tone = SemanticTone.Warning,
-                    icon = Icons.Outlined.Warning
+                    icon = MaterialSymbols.Rounded.Warning
                 )
             }
         }
@@ -185,7 +185,7 @@ private fun DialogHostScope.GitHubPatDialog(
                         includePatInExport.value = true
                         showIncludeWarning.value = false
                     },
-                    primaryIcon = Icons.Outlined.Warning,
+                    primaryIcon = MaterialSymbols.Rounded.Warning,
                     isPrimaryDestructive = true,
                     secondaryText = stringResource(android.R.string.cancel),
                     onSecondaryClick = { showIncludeWarning.value = false }

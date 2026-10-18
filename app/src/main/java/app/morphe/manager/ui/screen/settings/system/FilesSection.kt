@@ -13,13 +13,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Backup
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.Folder
-import androidx.compose.material.icons.outlined.FolderOpen
-import androidx.compose.material.icons.outlined.Key
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -51,6 +44,8 @@ import app.morphe.manager.util.JSON_MIMETYPE
 import app.morphe.manager.util.TEXT_MIMETYPE
 import app.morphe.manager.util.isAndroidTv
 import app.morphe.manager.util.rememberAdaptiveFilePicker
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import java.text.DateFormat
 import java.util.Date
 import kotlinx.coroutines.launch
@@ -141,7 +136,7 @@ fun FilesSection(
 
     SettingsSection(
         title = stringResource(R.string.settings_section_local_files),
-        icon = Icons.Outlined.Folder
+        icon = MaterialSymbols.Rounded.Folder
     ) {
         SettingsGroup {
             OriginalApkItems(settingsViewModel, tour, onOpenSubpage)
@@ -151,7 +146,7 @@ fun FilesSection(
 
     SettingsSection(
         title = stringResource(R.string.settings_section_backup),
-        icon = Icons.Outlined.Backup
+        icon = MaterialSymbols.Rounded.Backup
     ) {
         SettingsGroup {
             ImportExportItems(
@@ -234,14 +229,14 @@ private fun ImportExportItems(
 
     SettingsItem(
         onClick = { showSigningKeyDialog = true },
-        leadingContent = { ThemedIcon(icon = Icons.Outlined.Key) },
+        leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Key) },
         title = stringResource(R.string.settings_system_signing_key),
         subtitle = stringResource(R.string.settings_system_signing_key_description)
     )
 
     SettingsItem(
         onClick = { showSettingsDialog = true },
-        leadingContent = { ThemedIcon(icon = Icons.Outlined.Settings) },
+        leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Settings) },
         title = stringResource(R.string.settings_system_morphe_settings),
         subtitle = stringResource(R.string.settings_system_import_manager_settings_description)
     )
@@ -404,7 +399,7 @@ private fun FingerprintBadge(sha256: String) {
         contentAlignment = Alignment.Center
     ) {
         ThemedIcon(
-            icon = Icons.Outlined.Key,
+            icon = MaterialSymbols.Rounded.Key,
             tint = ThemeTraitsDefaults.iconTint(Color.White)
         )
     }
@@ -442,7 +437,7 @@ private fun OriginalApkItems(
         SettingsSwitchItem(
             checked = useCustomFilePicker,
             onToggle = { settingsViewModel.setUseCustomFilePicker(!useCustomFilePicker) },
-            icon = Icons.Outlined.FolderOpen,
+            icon = MaterialSymbols.Rounded.Folder_open,
             title = stringResource(R.string.settings_system_custom_file_picker),
             subtitle = stringResource(R.string.settings_system_custom_file_picker_description),
             modifier = Modifier.tourTarget(TourTarget.FILE_PICKER, tour)
@@ -458,7 +453,7 @@ private fun OriginalApkItems(
                 apkDownloadHelpers.count { it.packageName in trustedApkDownloadHelpers },
                 apkDownloadHelpers.size
             ),
-            leadingContent = { ThemedIcon(icon = Icons.Outlined.Download) }
+            leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Download) }
         )
     }
 }

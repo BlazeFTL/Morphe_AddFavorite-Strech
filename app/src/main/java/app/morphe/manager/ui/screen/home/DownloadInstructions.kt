@@ -12,13 +12,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.filled.Download
-import androidx.compose.material.icons.outlined.ContentCopy
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.SaveAlt
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -36,6 +29,9 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
+import com.composables.icons.materialsymbols.roundedfilled.*
 import java.net.URI
 import org.koin.compose.koinInject
 
@@ -290,7 +286,7 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
                     DialogAction(
                         text = continueText,
                         onClick = openLink,
-                        icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                        icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored,
                         enabled = !resolving
                     ),
                     if (offersHelper) {
@@ -299,13 +295,13 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
                             // Nothing to open once the action is withdrawn, which is only the case
                             // while the dialog is on its way out
                             onClick = { onOpenApkDownloadHelper?.invoke() },
-                            icon = Icons.Outlined.Download
+                            icon = MaterialSymbols.Rounded.Download
                         )
                     } else null,
                     DialogAction(
                         text = stringResource(R.string.home_download_instructions_copy_link),
                         onClick = copyLink,
-                        icon = Icons.Outlined.ContentCopy,
+                        icon = MaterialSymbols.Rounded.Content_copy,
                         // The unfollowed link is no more fit to copy than to open
                         enabled = !resolving
                     )
@@ -379,7 +375,7 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
                                     Notice(
                                         text = note,
                                         tone = SemanticTone.Warning,
-                                        icon = Icons.Outlined.Warning,
+                                        icon = MaterialSymbols.Rounded.Warning,
                                         density = NoticeDensity.Compact
                                     )
                                 }
@@ -394,7 +390,7 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
                 Notice(
                     text = stringResource(R.string.home_apk_helper_untrusted),
                     tone = SemanticTone.Primary,
-                    icon = Icons.Outlined.Download,
+                    icon = MaterialSymbols.Rounded.Download,
                     action = NoticeAction(
                         text = stringResource(R.string.home_apk_helper_untrusted_action),
                         onClick = { onTrustApkDownloadHelpers?.invoke() }
@@ -451,7 +447,7 @@ private fun SiteDownloadButton(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            imageVector = Icons.Filled.Download,
+                            imageVector = MaterialSymbols.RoundedFilled.Download,
                             contentDescription = null,
                             tint = contentColor,
                             modifier = Modifier.size(Defaults.IconSizeSmall)
@@ -501,7 +497,7 @@ private fun SiteDownloadButton(
                     )
                 }
                 Icon(
-                    imageVector = Icons.Outlined.SaveAlt,
+                    imageVector = MaterialSymbols.Rounded.Download,
                     contentDescription = null,
                     tint = Color.White,
                     modifier = Modifier.size(Defaults.IconSizeSmall)

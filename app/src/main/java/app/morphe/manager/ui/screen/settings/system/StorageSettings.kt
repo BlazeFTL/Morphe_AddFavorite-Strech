@@ -6,9 +6,6 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,6 +26,8 @@ import app.morphe.manager.ui.viewmodel.StorageManagementViewModel
 import app.morphe.manager.util.formatBytes
 import app.morphe.manager.util.formatUsedFree
 import app.morphe.manager.util.openAppDetailsSettings
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -99,10 +98,10 @@ private fun StorageOverview(
             onDismiss = { showClearAllConfirm = false },
             // Empty caches free nothing, so they are left out
             items = listOf(
-                Triple(Icons.Outlined.CloudDownload, R.string.settings_system_storage_http_cache_title, stats.httpCacheBytes),
-                Triple(Icons.Outlined.Share, R.string.settings_system_storage_installer_cache_title, stats.installerShareBytes),
-                Triple(Icons.Outlined.Build, R.string.settings_system_storage_patcher_workspace_title, stats.patcherWorkspaceBytes),
-                Triple(Icons.Outlined.HourglassEmpty, R.string.settings_system_storage_temporary_title, stats.temporaryBytes)
+                Triple(MaterialSymbols.Rounded.Cloud_download, R.string.settings_system_storage_http_cache_title, stats.httpCacheBytes),
+                Triple(MaterialSymbols.Rounded.Share, R.string.settings_system_storage_installer_cache_title, stats.installerShareBytes),
+                Triple(MaterialSymbols.Rounded.Build, R.string.settings_system_storage_patcher_workspace_title, stats.patcherWorkspaceBytes),
+                Triple(MaterialSymbols.Rounded.Hourglass_empty, R.string.settings_system_storage_temporary_title, stats.temporaryBytes)
             ).filter { (_, _, bytes) -> bytes > 0 }.map { (icon, title, bytes) ->
                 ConfirmItem(icon, stringResource(title), context.formatBytes(bytes))
             }
@@ -139,11 +138,11 @@ private fun StorageOverview(
 
         SettingsSection(
             title = stringResource(R.string.settings_system_storage_caches),
-            icon = Icons.Outlined.Cached
+            icon = MaterialSymbols.Rounded.Cached
         ) {
             SettingsGroup {
                 CacheActionRow(
-                    icon = Icons.Outlined.CloudDownload,
+                    icon = MaterialSymbols.Rounded.Cloud_download,
                     accentColor = StorageColors.HttpCache,
                     title = stringResource(R.string.settings_system_storage_http_cache_title),
                     description = stringResource(R.string.settings_system_storage_http_cache_description),
@@ -151,7 +150,7 @@ private fun StorageOverview(
                     onClear = { viewModel.clearHttpCache(onCleared) }
                 )
                 CacheActionRow(
-                    icon = Icons.Outlined.Share,
+                    icon = MaterialSymbols.Rounded.Share,
                     accentColor = StorageColors.InstallerShare,
                     title = stringResource(R.string.settings_system_storage_installer_cache_title),
                     description = stringResource(R.string.settings_system_storage_installer_cache_description),
@@ -159,7 +158,7 @@ private fun StorageOverview(
                     onClear = { viewModel.clearInstallerShareCache(onCleared) }
                 )
                 CacheActionRow(
-                    icon = Icons.Outlined.Build,
+                    icon = MaterialSymbols.Rounded.Build,
                     accentColor = StorageColors.PatcherWorkspace,
                     title = stringResource(R.string.settings_system_storage_patcher_workspace_title),
                     description = stringResource(R.string.settings_system_storage_patcher_workspace_description),
@@ -167,7 +166,7 @@ private fun StorageOverview(
                     onClear = { viewModel.clearPatcherWorkspace(onCleared) }
                 )
                 CacheActionRow(
-                    icon = Icons.Outlined.HourglassEmpty,
+                    icon = MaterialSymbols.Rounded.Hourglass_empty,
                     accentColor = StorageColors.Temporary,
                     title = stringResource(R.string.settings_system_storage_temporary_title),
                     description = stringResource(R.string.settings_system_storage_temporary_description),
@@ -178,7 +177,7 @@ private fun StorageOverview(
             // Apart from the caches it sums up, so it does not read as one more of them
             SettingsGroup {
                 CacheActionRow(
-                    icon = Icons.Outlined.DeleteSweep,
+                    icon = MaterialSymbols.Rounded.Delete_sweep,
                     accentColor = MaterialTheme.colorScheme.error,
                     title = stringResource(R.string.settings_system_storage_clear_all),
                     description = stringResource(R.string.settings_system_storage_clear_all_description),
@@ -193,9 +192,9 @@ private fun StorageOverview(
                 onClick = { context.openAppDetailsSettings() },
                 title = stringResource(R.string.settings_system_storage_open_app_info_title),
                 subtitle = stringResource(R.string.settings_system_storage_open_app_info_description),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.PhoneAndroid) },
+                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Phone_android) },
                 // Leaves for the system settings rather than going on within the manager
-                trailingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.OpenInNew) }
+                trailingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored) }
             )
         }
     }
@@ -220,10 +219,10 @@ private fun SavedApksSection(
 
     SettingsSection(
         title = stringResource(R.string.settings_system_storage_saved_apks),
-        icon = Icons.Outlined.Inventory2
+        icon = MaterialSymbols.Rounded.Inventory_2
     ) {
         SavedApksGroup(
-            icon = Icons.Outlined.FileDownload,
+            icon = MaterialSymbols.Rounded.File_download,
             accentColor = StorageColors.OriginalApks,
             saveTitle = stringResource(R.string.settings_system_save_original_apks_title),
             saveDescription = stringResource(R.string.settings_system_save_original_apks_description),
@@ -234,7 +233,7 @@ private fun SavedApksSection(
             onOpen = { onOpen(ApkManagementType.ORIGINAL) }
         )
         SavedApksGroup(
-            icon = Icons.Outlined.Apps,
+            icon = MaterialSymbols.Rounded.Apps,
             accentColor = StorageColors.PatchedApks,
             saveTitle = stringResource(R.string.settings_system_save_patched_apks_title),
             saveDescription = stringResource(R.string.settings_system_save_patched_apks_description),
@@ -275,7 +274,7 @@ private fun SavedApksGroup(
         )
         SettingsItem(
             onClick = onOpen,
-            icon = Icons.Outlined.FolderOpen,
+            icon = MaterialSymbols.Rounded.Folder_open,
             title = title,
             subtitle = size ?: "…"
         )
@@ -306,7 +305,7 @@ private fun CacheActionRow(
             CardActionRow(
                 actions = listOf(
                     CardAction(
-                        icon = Icons.Outlined.DeleteSweep,
+                        icon = MaterialSymbols.Rounded.Delete_sweep,
                         label = "${stringResource(R.string.clear)} (${LocalContext.current.formatBytes(bytes)})",
                         onClick = onClear,
                         enabled = bytes > 0L,

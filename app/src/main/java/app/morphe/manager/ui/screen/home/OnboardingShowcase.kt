@@ -15,11 +15,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.automirrored.outlined.ArrowForward
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -49,10 +44,13 @@ import app.morphe.manager.ui.screen.shared.PanelHeader
 import app.morphe.manager.ui.screen.shared.PanelSubtitle
 import app.morphe.manager.ui.screen.shared.PanelTitle
 import app.morphe.manager.ui.screen.shared.ProvideBringIntoViewInsets
+import app.morphe.manager.ui.screen.shared.autoMirrored
 import app.morphe.manager.ui.screen.shared.glassFill
 import app.morphe.manager.ui.screen.shared.TitleAction
 import app.morphe.manager.ui.screen.shared.TitleActionStyle
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlin.math.roundToInt
 
 /** One coach-mark step: resource IDs for text, a lambda that returns the current target bounds,
@@ -278,7 +276,7 @@ private fun OnboardingCard(
                 }
             ) {
                 TitleAction(
-                    icon = Icons.Outlined.Close,
+                    icon = MaterialSymbols.Rounded.Close,
                     contentDescription = stringResource(R.string.skip),
                     onClick = onSkip,
                     style = TitleActionStyle.Neutral
@@ -296,10 +294,10 @@ private fun OnboardingCard(
             AppDialogButtonRow(
                 primaryText = stringResource(if (isLast) R.string.done else R.string.next),
                 onPrimaryClick = onNext,
-                primaryIcon = if (isLast) Icons.Outlined.Check else Icons.AutoMirrored.Outlined.ArrowForward,
+                primaryIcon = if (isLast) MaterialSymbols.Rounded.Check else MaterialSymbols.Rounded.Arrow_forward.autoMirrored,
                 secondaryText = onPrevious?.let { stringResource(R.string.back) },
                 onSecondaryClick = onPrevious,
-                secondaryIcon = Icons.AutoMirrored.Outlined.ArrowBack,
+                secondaryIcon = MaterialSymbols.Rounded.Arrow_back.autoMirrored,
                 modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)
             )
         }

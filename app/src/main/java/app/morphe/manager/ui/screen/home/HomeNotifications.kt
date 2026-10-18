@@ -22,9 +22,6 @@ import androidx.compose.foundation.gestures.animateTo
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.PlaylistAdd
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
@@ -57,6 +54,8 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
 import app.morphe.manager.util.formatMegabytes
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
@@ -396,7 +395,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "blocked_sources",
             visible = notifications.blockedSources.visible,
             tone = SemanticTone.Error,
-            icon = Icons.Outlined.Block,
+            icon = MaterialSymbols.Rounded.Block,
             title = stringResource(R.string.home_blocked_source_title),
             subtitle = stringResource(R.string.home_blocked_source_subtitle),
             onClick = notifications.blockedSources.onShow,
@@ -408,7 +407,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "held_back_sources",
             visible = notifications.heldBackSources.visible,
             tone = SemanticTone.Error,
-            icon = Icons.Outlined.ErrorOutline,
+            icon = MaterialSymbols.Rounded.Error,
             title = stringResource(R.string.home_held_back_title),
             subtitle = stringResource(R.string.home_held_back_subtitle),
             onClick = notifications.heldBackSources.onShow
@@ -418,7 +417,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "outdated_manager",
             visible = notifications.outdatedManager.visible,
             tone = SemanticTone.Error,
-            icon = Icons.Outlined.SystemUpdate,
+            icon = MaterialSymbols.Rounded.System_update,
             title = stringResource(R.string.home_outdated_manager_title),
             subtitle = stringResource(R.string.home_outdated_manager_subtitle),
             onClick = notifications.outdatedManager.onShow
@@ -427,7 +426,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "metered_skipped",
             visible = notifications.meteredSkipped.visible,
             tone = SemanticTone.Warning,
-            icon = Icons.Outlined.SignalCellularAlt,
+            icon = MaterialSymbols.Rounded.Signal_cellular_alt,
             title = stringResource(R.string.home_metered_skipped_title),
             subtitle = stringResource(R.string.home_metered_skipped_subtitle),
             onClick = notifications.meteredSkipped.onShow
@@ -436,7 +435,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "metadata_errors",
             visible = notifications.metadataErrors.visible,
             tone = SemanticTone.Warning,
-            icon = Icons.Outlined.CloudOff,
+            icon = MaterialSymbols.Rounded.Cloud_off,
             title = stringResource(R.string.home_metadata_errors_title),
             subtitle = stringResource(R.string.home_metadata_errors_subtitle),
             onClick = notifications.metadataErrors.onShow
@@ -445,7 +444,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "manager_update",
             visible = notifications.managerUpdate.visible,
             tone = SemanticTone.Primary,
-            icon = Icons.Outlined.Update,
+            icon = MaterialSymbols.Rounded.Update,
             title = stringResource(R.string.home_update_available),
             subtitle = stringResource(R.string.home_update_available_subtitle),
             onClick = notifications.managerUpdate.onShow
@@ -456,7 +455,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "batch_running",
             visible = batchRunning,
             tone = SemanticTone.Primary,
-            icon = Icons.Outlined.AutoFixHigh,
+            icon = MaterialSymbols.Rounded.Auto_fix_high,
             progress = batchRun?.let { run -> if (run.total > 0) run.processed.toFloat() / run.total else 0f },
             title = stringResource(R.string.batch_patch_title),
             subtitle = stringResource(
@@ -472,7 +471,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "batch_finished",
             visible = batchFinished,
             tone = if (batchSucceeded) SemanticTone.Success else SemanticTone.Error,
-            icon = if (batchSucceeded) Icons.Outlined.Check else Icons.Outlined.ErrorOutline,
+            icon = if (batchSucceeded) MaterialSymbols.Rounded.Check else MaterialSymbols.Rounded.Error,
             title = stringResource(
                 if (batchSucceeded) R.string.patcher_complete_title else R.string.patcher_failed_title
             ),
@@ -488,7 +487,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "batch_queued",
             visible = queuedCount > 0 && !batchRunning && !batchFinished,
             tone = SemanticTone.Primary,
-            icon = Icons.AutoMirrored.Outlined.PlaylistAdd,
+            icon = MaterialSymbols.Rounded.Playlist_add.autoMirrored,
             title = pluralStringResource(R.plurals.batch_queue_pending_count, queuedCount, queuedCount.toString()),
             subtitle = stringResource(R.string.batch_queue_pending_subtitle),
             onClick = notifications.batchQueue.onShow,
@@ -501,7 +500,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             key = "repatch_available",
             visible = repatch.visible && repatch.count > 0 && !batchRunning && !batchFinished,
             tone = SemanticTone.Primary,
-            icon = Icons.Outlined.AutoFixHigh,
+            icon = MaterialSymbols.Rounded.Auto_fix_high,
             title = pluralStringResource(R.plurals.repatch_available_count, repatch.count, repatch.count.toString()),
             subtitle = stringResource(R.string.home_repatch_available_subtitle),
             onClick = repatch.onShow,
@@ -564,7 +563,7 @@ private fun AlertStackControls(
     ) {
         AnimatedRowPill(visible = stacked > 0, gap = AlertSpacing) {
             AlertChip(
-                icon = if (expanded) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
+                icon = if (expanded) MaterialSymbols.Rounded.Expand_less else MaterialSymbols.Rounded.Expand_more,
                 text = if (expanded) stringResource(R.string.less) else "+$shownStacked",
                 onClick = onToggleExpanded
             )
@@ -576,7 +575,7 @@ private fun AlertStackControls(
                 shownSnoozed.toString()
             )
             AlertChip(
-                icon = Icons.Outlined.Notifications,
+                icon = MaterialSymbols.Rounded.Notifications,
                 text = shownSnoozed.toString(),
                 onClick = onRestoreSnoozed,
                 modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = description }
@@ -728,12 +727,12 @@ private fun BundleUpdateCard(
                         if (activeSource != null) {
                             BundleIcon(bundle = activeSource, modifier = Modifier.size(24.dp))
                         } else {
-                            RingIcon(Icons.Outlined.Sync)
+                            RingIcon(MaterialSymbols.Rounded.Sync)
                         }
                     }
-                    BundleUpdateStatus.Success -> StatusDisc(Icons.Outlined.Check, SemanticTone.Success)
-                    BundleUpdateStatus.Warning -> StatusDisc(Icons.Outlined.SignalCellularAlt, SemanticTone.Warning)
-                    BundleUpdateStatus.Error -> StatusDisc(Icons.Outlined.Warning, SemanticTone.Error)
+                    BundleUpdateStatus.Success -> StatusDisc(MaterialSymbols.Rounded.Check, SemanticTone.Success)
+                    BundleUpdateStatus.Warning -> StatusDisc(MaterialSymbols.Rounded.Signal_cellular_alt, SemanticTone.Warning)
+                    BundleUpdateStatus.Error -> StatusDisc(MaterialSymbols.Rounded.Warning, SemanticTone.Error)
                 }
             }
         }

@@ -12,8 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -41,6 +39,8 @@ import app.morphe.manager.patcher.util.NativeLibs
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
@@ -356,7 +356,7 @@ private fun DialogHostScope.PatchedApksContent(
     ApkManagementDialogContent(
         meta = ApkListMeta(
             title = stringResource(R.string.settings_system_patched_apks_title),
-            icon = Icons.Outlined.Apps,
+            icon = MaterialSymbols.Rounded.Apps,
             accentColor = StorageColors.PatchedApks,
             count = displayItems.size,
             totalSize = totalSize,
@@ -414,7 +414,7 @@ private fun DialogHostScope.PatchedApksContent(
         ApkDeleteConfirmDialog(
             data = data,
             title = stringResource(R.string.settings_system_patched_apks_delete_title),
-            fileIcon = Icons.Outlined.Android,
+            fileIcon = MaterialSymbols.Rounded.Android,
             fileLabel = stringResource(R.string.home_app_info_delete_item_patched_apk),
             onDismiss = { pendingDelete = null },
             onConfirm = {
@@ -560,7 +560,7 @@ private fun DialogHostScope.OriginalApksContent(
     ApkManagementDialogContent(
         meta = ApkListMeta(
             title = stringResource(R.string.settings_system_original_apks_title),
-            icon = Icons.Outlined.FileDownload,
+            icon = MaterialSymbols.Rounded.File_download,
             accentColor = StorageColors.OriginalApks,
             count = apkItems.size,
             totalSize = totalSize,
@@ -609,7 +609,7 @@ private fun DialogHostScope.OriginalApksContent(
         ApkDeleteConfirmDialog(
             data = data,
             title = stringResource(R.string.settings_system_original_apks_delete_title),
-            fileIcon = Icons.Outlined.FilePresent,
+            fileIcon = MaterialSymbols.Rounded.File_present,
             fileLabel = stringResource(R.string.home_app_info_delete_item_original_apk),
             notice = stringResource(R.string.settings_system_original_apks_delete_notice),
             onDismiss = { pendingDelete = null },
@@ -718,7 +718,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
                 searchEnabled = isSearchable
             ) {
                 TitleAction(
-                    icon = Icons.Outlined.DeleteForever,
+                    icon = MaterialSymbols.Rounded.Delete_forever,
                     contentDescription = stringResource(R.string.delete_all),
                     onClick = { showDeleteAllConfirmation = true },
                     style = TitleActionStyle.Destructive,
@@ -764,7 +764,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
                             if (canInstallSelected) {
                                 add(
                                     SelectionAction(
-                                        icon = Icons.Outlined.InstallMobile,
+                                        icon = MaterialSymbols.Rounded.Install_mobile,
                                         label = installLabel,
                                         onClick = {
                                             actions.onInstallSelected.invoke(selectedInstallableItems)
@@ -778,7 +778,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
                             if (selectedFiles.isNotEmpty()) {
                                 add(
                                     SelectionAction(
-                                        icon = Icons.Outlined.Share,
+                                        icon = MaterialSymbols.Rounded.Share,
                                         label = shareLabel,
                                         onClick = {
                                             scope.launch {
@@ -789,7 +789,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
                                 )
                                 add(
                                     SelectionAction(
-                                        icon = Icons.Outlined.Upload,
+                                        icon = MaterialSymbols.Rounded.Upload,
                                         label = exportLabel,
                                         onClick = {
                                             zipExportItems = selectedItems
@@ -802,7 +802,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
                             if (canUninstallSelected) {
                                 add(
                                     SelectionAction(
-                                        icon = Icons.Outlined.DeleteForever,
+                                        icon = MaterialSymbols.Rounded.Delete_forever,
                                         label = uninstallLabel,
                                         onClick = { showUninstallSelectedConfirmation = true },
                                         tone = ActionTone.Destructive
@@ -812,7 +812,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
 
                             add(
                                 SelectionAction(
-                                    icon = Icons.Outlined.Delete,
+                                    icon = MaterialSymbols.Rounded.Delete,
                                     label = deleteLabel,
                                     onClick = { showDeleteSelectedConfirmation = true },
                                     tone = ActionTone.Destructive
@@ -839,7 +839,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
                 filteredItems.isEmpty() -> item(key = "search_empty") {
                     EmptyState(
                         message = stringResource(R.string.search_no_results),
-                        icon = Icons.Outlined.SearchOff
+                        icon = MaterialSymbols.Rounded.Search_off
                     )
                 }
                 else -> items(items = filteredItems, key = { it.selectionKey }) { item ->
@@ -1031,7 +1031,7 @@ private fun ApkItemCard(
                                 val shareLabel = stringResource(R.string.share)
                                 ActionPillButton(
                                     onClick = onShare,
-                                    icon = Icons.Outlined.Share,
+                                    icon = MaterialSymbols.Rounded.Share,
                                     contentDescription = shareLabel,
                                     tooltip = shareLabel
                                 )
@@ -1041,7 +1041,7 @@ private fun ApkItemCard(
                                 val exportLabel = stringResource(R.string.export)
                                 ActionPillButton(
                                     onClick = onExport,
-                                    icon = Icons.Outlined.Upload,
+                                    icon = MaterialSymbols.Rounded.Upload,
                                     contentDescription = exportLabel,
                                     tooltip = exportLabel
                                 )
@@ -1051,7 +1051,7 @@ private fun ApkItemCard(
                                 val uninstallLabel = stringResource(R.string.uninstall)
                                 ActionPillButton(
                                     onClick = onUninstall,
-                                    icon = Icons.Outlined.DeleteForever,
+                                    icon = MaterialSymbols.Rounded.Delete_forever,
                                     contentDescription = uninstallLabel,
                                     tooltip = uninstallLabel,
                                     destructive = true
@@ -1061,7 +1061,7 @@ private fun ApkItemCard(
                                 val installLabel = stringResource(data.installLabelRes)
                                 ActionPillButton(
                                     onClick = onInstall,
-                                    icon = if (isMountType) Icons.Outlined.Link else Icons.Outlined.InstallMobile,
+                                    icon = if (isMountType) MaterialSymbols.Rounded.Link else MaterialSymbols.Rounded.Install_mobile,
                                     contentDescription = installLabel,
                                     tooltip = installLabel
                                 )
@@ -1070,7 +1070,7 @@ private fun ApkItemCard(
                             val deleteLabel = stringResource(R.string.delete)
                             ActionPillButton(
                                 onClick = onDelete,
-                                icon = Icons.Outlined.Delete,
+                                icon = MaterialSymbols.Rounded.Delete,
                                 contentDescription = deleteLabel,
                                 tooltip = deleteLabel,
                                 destructive = true
@@ -1135,7 +1135,7 @@ private fun ApkConfirmSubject(data: ApkItemData) {
 /** How many APKs an action removes and how much room that frees, as the one line of its confirmation. */
 @Composable
 private fun apkCountItem(count: Int, totalSize: Long) = ConfirmItem(
-    icon = Icons.Outlined.Delete,
+    icon = MaterialSymbols.Rounded.Delete,
     text = pluralStringResource(R.plurals.settings_system_apks_count, count, count.toString()),
     detail = LocalContext.current.formatBytes(totalSize)
 )

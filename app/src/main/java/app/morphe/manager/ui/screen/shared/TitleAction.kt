@@ -10,8 +10,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -24,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.roundedfilled.*
 
 /** Visual style of a [TitleAction]. */
 enum class TitleActionStyle {
@@ -139,7 +139,7 @@ fun TitleAction(
         ) {
             val markColor = LocalAccent.current ?: MaterialTheme.colorScheme.primary
             MarkedIcon(
-                mark = Icons.Filled.Circle.takeIf { marked },
+                mark = MaterialSymbols.RoundedFilled.Circle.takeIf { marked },
                 markColor = markColor,
                 iconSize = Defaults.IconSize,
                 markSize = TitleActionMarkSize,

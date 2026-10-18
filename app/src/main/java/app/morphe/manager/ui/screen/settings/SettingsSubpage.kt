@@ -6,17 +6,11 @@
 package app.morphe.manager.ui.screen.settings
 
 import androidx.annotation.StringRes
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.HelpOutline
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.InstallMobile
-import androidx.compose.material.icons.outlined.Memory
-import androidx.compose.material.icons.outlined.NotificationsActive
-import androidx.compose.material.icons.outlined.Palette
-import androidx.compose.material.icons.outlined.Storage
-import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.ui.graphics.vector.ImageVector
 import app.morphe.manager.R
+import app.morphe.manager.ui.screen.shared.autoMirrored
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * A part of the settings with too much to it for a row of the settings page, opened as a page of its own.
@@ -35,42 +29,42 @@ enum class SettingsSubpage(
     PATCH_OPTIONS(
         R.string.settings_advanced_patch_options,
         R.string.settings_section_patch_options_summary,
-        Icons.Outlined.Tune
+        MaterialSymbols.Rounded.Tune
     ),
     APPEARANCE(
         R.string.appearance,
         R.string.settings_section_appearance_summary,
-        Icons.Outlined.Palette
+        MaterialSymbols.Rounded.Palette
     ),
     NOTIFICATIONS(
         R.string.settings_system_notifications,
         R.string.settings_system_notifications_description,
-        Icons.Outlined.NotificationsActive
+        MaterialSymbols.Rounded.Notifications_active
     ),
     INSTALLER(
         R.string.settings_installation,
         R.string.onboarding_system_installer_desc,
-        Icons.Outlined.InstallMobile
+        MaterialSymbols.Rounded.Install_mobile
     ),
     PATCHER(
         R.string.settings_section_patcher,
         R.string.settings_section_patcher_summary,
-        Icons.Outlined.Memory
+        MaterialSymbols.Rounded.Memory
     ),
     STORAGE(
         R.string.settings_system_storage_management_title,
         R.string.settings_system_storage_management_description,
-        Icons.Outlined.Storage
+        MaterialSymbols.Rounded.Storage
     ),
     APK_DOWNLOAD_HELPERS(
         R.string.settings_system_apk_download_helper,
         R.string.settings_system_apk_download_helper_dialog_description,
-        Icons.Outlined.Download,
+        MaterialSymbols.Rounded.Download,
         searchable = false
     ),
     ABOUT(
         R.string.settings_section_help_info,
         R.string.settings_section_about_summary,
-        Icons.AutoMirrored.Outlined.HelpOutline
+        MaterialSymbols.Rounded.Help.autoMirrored
     )
 }

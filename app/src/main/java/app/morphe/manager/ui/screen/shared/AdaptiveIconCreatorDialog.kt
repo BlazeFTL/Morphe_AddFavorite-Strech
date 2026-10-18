@@ -22,8 +22,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -60,6 +58,8 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.colorpicker.ColorPresetGrid
 import app.morphe.manager.ui.screen.shared.colorpicker.THEME_PRESET_COLORS
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -294,7 +294,7 @@ fun DialogHostScope.AdaptiveIconCreatorDialog(
                 AppDialogOutlinedButton(
                     text = stringResource(R.string.adaptive_icon_change_image),
                     onClick = { openForegroundPicker() },
-                    icon = Icons.Outlined.Image,
+                    icon = MaterialSymbols.Rounded.Image,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -469,7 +469,7 @@ private fun IconEditor(
                 verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Image,
+                    imageVector = MaterialSymbols.Rounded.Image,
                     contentDescription = null,
                     tint = guideColor,
                     modifier = Modifier.size(36.dp)
@@ -661,19 +661,19 @@ private fun StatusBarPreview(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = Icons.Outlined.SignalCellular4Bar,
+                imageVector = MaterialSymbols.Rounded.Signal_cellular_4_bar,
                 contentDescription = null,
                 modifier = Modifier.size(Defaults.IconSizeSmall),
                 tint = contentColor
             )
             Icon(
-                imageVector = Icons.Outlined.Wifi,
+                imageVector = MaterialSymbols.Rounded.Wifi,
                 contentDescription = null,
                 modifier = Modifier.size(Defaults.IconSizeSmall),
                 tint = contentColor
             )
             Icon(
-                imageVector = Icons.Outlined.BatteryFull,
+                imageVector = MaterialSymbols.Rounded.Battery_full,
                 contentDescription = null,
                 modifier = Modifier.size(Defaults.IconSizeSmall),
                 tint = contentColor

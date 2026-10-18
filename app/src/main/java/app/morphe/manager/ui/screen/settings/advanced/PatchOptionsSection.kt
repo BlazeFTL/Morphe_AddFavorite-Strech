@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.settings.advanced
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +30,8 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.PatchOptionsViewModel
 import app.morphe.manager.util.KnownApps
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Advanced patch options section.
@@ -120,12 +120,12 @@ fun PatchOptionsSection(
 
             noPatchesAvailable -> EmptyState(
                 message = stringResource(R.string.settings_advanced_patch_options_waiting_for_source),
-                icon = Icons.Outlined.HourglassEmpty
+                icon = MaterialSymbols.Rounded.Hourglass_empty
             )
 
             loadError != null -> EmptyState(
                 message = stringResource(R.string.settings_advanced_patch_options_load_error),
-                icon = Icons.Outlined.ErrorOutline,
+                icon = MaterialSymbols.Rounded.Error,
                 subtitle = loadError
             )
 
@@ -153,7 +153,7 @@ private fun PatchOptionGroups(
     if (hasYoutube) {
         AppPatchOptionsSection(
             packageName = KnownApps.YOUTUBE,
-            icon = Icons.Outlined.VideoLibrary,
+            icon = MaterialSymbols.Rounded.Video_library,
             patchOptionsViewModel = patchOptionsViewModel
         ) {
             HideShortsGroup(patchOptionsPrefs = patchOptionsPrefs, viewModel = patchOptionsViewModel)
@@ -163,7 +163,7 @@ private fun PatchOptionGroups(
     if (hasYoutubeMusic) {
         AppPatchOptionsSection(
             packageName = KnownApps.YOUTUBE_MUSIC,
-            icon = Icons.Outlined.LibraryMusic,
+            icon = MaterialSymbols.Rounded.Library_music,
             patchOptionsViewModel = patchOptionsViewModel
         )
     }
@@ -188,7 +188,7 @@ private fun AppPatchOptionsSection(
             // Custom Branding
             if (hasBranding) {
                 SettingsItem(
-                    icon = Icons.Outlined.Style,
+                    icon = MaterialSymbols.Rounded.Style,
                     title = stringResource(R.string.settings_advanced_patch_options_custom_branding),
                     subtitle = stringResource(R.string.settings_advanced_patch_options_custom_branding_description),
                     onClick = { patchOptionsViewModel.openBrandingDialog(packageName) }
@@ -198,7 +198,7 @@ private fun AppPatchOptionsSection(
             // Custom Header
             if (hasHeader) {
                 SettingsItem(
-                    icon = Icons.Outlined.Image,
+                    icon = MaterialSymbols.Rounded.Image,
                     title = stringResource(R.string.settings_advanced_patch_options_custom_header),
                     subtitle = stringResource(R.string.settings_advanced_patch_options_custom_header_description),
                     onClick = { patchOptionsViewModel.openHeaderDialog(packageName) }
@@ -258,7 +258,7 @@ private fun HideShortsGroup(
             SettingsSwitchItem(
                 checked = hideShortsAppShortcut,
                 onToggle = { viewModel.toggleHideShortsAppShortcut(patchOptionsPrefs, hideShortsAppShortcut) },
-                icon = Icons.Outlined.AppShortcut,
+                icon = MaterialSymbols.Rounded.App_shortcut,
                 title = title,
                 subtitle = description
             )
@@ -283,7 +283,7 @@ private fun HideShortsGroup(
             SettingsSwitchItem(
                 checked = hideShortsWidget,
                 onToggle = { viewModel.toggleHideShortsWidget(patchOptionsPrefs, hideShortsWidget) },
-                icon = Icons.Outlined.Widgets,
+                icon = MaterialSymbols.Rounded.Widgets,
                 title = title,
                 subtitle = description
             )

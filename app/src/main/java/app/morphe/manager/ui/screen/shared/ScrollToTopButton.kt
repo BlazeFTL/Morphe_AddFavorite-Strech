@@ -16,8 +16,6 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -173,7 +173,7 @@ private fun ScrollToTopButtonImpl(
         // The see-through glass of the patcher's action bar, as round as it is tall
         ActionGlassButton(
             onClick = onClick,
-            icon = Icons.Rounded.KeyboardArrowUp,
+            icon = MaterialSymbols.Rounded.Keyboard_arrow_up,
             contentDescription = label,
             modifier = Modifier.size(Defaults.GlassButtonHeight)
         )

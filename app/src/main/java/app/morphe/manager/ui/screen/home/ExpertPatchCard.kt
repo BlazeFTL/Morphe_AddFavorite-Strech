@@ -8,8 +8,6 @@ package app.morphe.manager.ui.screen.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerBasedShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,6 +28,8 @@ import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.PatchLockState
 import app.morphe.manager.patcher.patch.blocksToggle
 import app.morphe.manager.ui.screen.shared.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import org.koin.compose.koinInject
 
 /**
@@ -84,7 +84,7 @@ internal fun BundlePatchControls(
             onClick = {
                 if (warnOnUniversalAll) showUniversalAllWarning = true else selectAll()
             },
-            icon = Icons.Outlined.DoneAll,
+            icon = MaterialSymbols.Rounded.Done_all,
             contentDescription = selectAllLabel,
             tooltip = selectAllLabel,
             confirmationState = selectAllConfirmation,
@@ -92,14 +92,14 @@ internal fun BundlePatchControls(
         )
         ActionPillButton(
             onClick = onResetToDefault,
-            icon = Icons.Outlined.Recommend,
+            icon = MaterialSymbols.Rounded.Recommend,
             contentDescription = defaultLabel,
             tooltip = defaultLabel,
             confirmation = resetDone
         )
         ActionPillButton(
             onClick = onRestoreSaved,
-            icon = Icons.Outlined.History,
+            icon = MaterialSymbols.Rounded.History,
             contentDescription = restoreLabel,
             tooltip = restoreLabel,
             confirmation = restoredDone,
@@ -109,14 +109,14 @@ internal fun BundlePatchControls(
             val copyLabel = stringResource(R.string.expert_mode_copy_from_bundle)
             ActionPillButton(
                 onClick = onCopyFromBundle,
-                icon = Icons.Outlined.ContentCopy,
+                icon = MaterialSymbols.Rounded.Content_copy,
                 contentDescription = copyLabel,
                 tooltip = copyLabel
             )
         }
         ActionPillButton(
             onClick = onDeselectAll,
-            icon = Icons.Outlined.ClearAll,
+            icon = MaterialSymbols.Rounded.Clear_all,
             contentDescription = deselectAllLabel,
             tooltip = deselectAllLabel,
             confirmation = disabledDone,
@@ -268,7 +268,7 @@ internal fun PatchCard(
                     if (buildsClone) {
                         StatusBadge(
                             text = cloneLabel,
-                            icon = Icons.Outlined.ContentCopy,
+                            icon = MaterialSymbols.Rounded.Content_copy,
                             tone = SemanticTone.Warning
                         )
                     }
@@ -309,7 +309,7 @@ internal fun PatchCard(
                         )
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Settings,
+                            imageVector = MaterialSymbols.Rounded.Settings,
                             contentDescription = null,
                             modifier = Modifier.size(18.dp)
                         )
@@ -335,9 +335,9 @@ internal fun PatchCard(
                     ) {
                         Icon(
                             imageVector = when (lockState) {
-                                PatchLockState.LOCKED_ON  -> Icons.Outlined.Lock
-                                PatchLockState.LOCKED_OFF -> Icons.Outlined.Block
-                                PatchLockState.NONE       -> Icons.Outlined.Lock
+                                PatchLockState.LOCKED_ON  -> MaterialSymbols.Rounded.Lock
+                                PatchLockState.LOCKED_OFF -> MaterialSymbols.Rounded.Block
+                                PatchLockState.NONE       -> MaterialSymbols.Rounded.Lock
                             },
                             contentDescription = null,
                             modifier = Modifier.size(14.dp),

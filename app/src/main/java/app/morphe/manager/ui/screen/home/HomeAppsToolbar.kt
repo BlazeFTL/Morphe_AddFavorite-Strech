@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Sort
-import androidx.compose.material.icons.outlined.FileOpen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +22,10 @@ import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.ListSearchField
 import app.morphe.manager.ui.screen.shared.TitleAction
 import app.morphe.manager.ui.screen.shared.TitleActionStyle
+import app.morphe.manager.ui.screen.shared.autoMirrored
 import app.morphe.manager.ui.screen.shared.listOptionsStateDescription
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * What the apps page offers over its list: the search, the list's order and filter, and patching
@@ -73,7 +73,7 @@ internal fun HomeAppsToolbar(
         if (showSort) {
             val sortState = listOptionsStateDescription(sortMode.labelRes, filterMode.labelRes.takeIf { filterMode.isActive })
             TitleAction(
-                icon = Icons.AutoMirrored.Outlined.Sort,
+                icon = MaterialSymbols.Rounded.Sort.autoMirrored,
                 contentDescription = stringResource(R.string.sort),
                 onClick = onSortClick,
                 // Engaged while the options are docked, and marked while any is off its default
@@ -87,7 +87,7 @@ internal fun HomeAppsToolbar(
 
         if (onPatchFileClick != null) {
             TitleAction(
-                icon = Icons.Outlined.FileOpen,
+                icon = MaterialSymbols.Rounded.File_open,
                 contentDescription = stringResource(R.string.home_other_apps_action),
                 onClick = onPatchFileClick,
                 style = TitleActionStyle.Accent

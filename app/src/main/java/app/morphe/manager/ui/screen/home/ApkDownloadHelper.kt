@@ -12,9 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -24,6 +21,8 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.ui.model.ApkDownloadHelperHost
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.ApkDownloadHelperContract
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.compose.koinInject
@@ -153,7 +152,7 @@ private fun DialogHostScope.ApkDownloadHelperDialog(
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_apk_helper_continue),
                 onPrimaryClick = { selected?.let(onConfirm) },
-                primaryIcon = Icons.Outlined.Download,
+                primaryIcon = MaterialSymbols.Rounded.Download,
                 primaryEnabled = selected != null,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
@@ -184,7 +183,7 @@ private fun DialogHostScope.ApkDownloadHelperDialog(
                     }
                 ),
                 tone = SemanticTone.Warning,
-                icon = Icons.Outlined.Warning
+                icon = MaterialSymbols.Rounded.Warning
             )
         }
     }

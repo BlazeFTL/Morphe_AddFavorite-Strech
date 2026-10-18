@@ -11,9 +11,6 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.Colorize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ripple
@@ -46,6 +43,8 @@ import app.morphe.manager.ui.screen.shared.rememberPressShape
 import app.morphe.manager.ui.screen.shared.horizontalScrollFade
 import app.morphe.manager.util.darken
 import app.morphe.manager.util.readableOn
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * The colors offered before anyone reaches for the picker. One list, shared by the settings grid
@@ -365,7 +364,7 @@ private fun NoColorSwatch(
         contentAlignment = Alignment.Center
     ) {
         Icon(
-            imageVector = Icons.Outlined.Close,
+            imageVector = MaterialSymbols.Rounded.Close,
             contentDescription = label,
             tint = scheme.onSurfaceVariant,
             modifier = Modifier.size(Defaults.IconSizeSmall)
@@ -412,7 +411,7 @@ private fun CustomColorSwatch(
         contentAlignment = Alignment.Center
     ) {
         Icon(
-            imageVector = Icons.Outlined.Colorize,
+            imageVector = MaterialSymbols.Rounded.Colorize,
             contentDescription = label,
             tint = scheme.onSurfaceVariant.readableOn(fill, scheme.surface),
             modifier = Modifier.size(Defaults.IconSizeSmall)

@@ -10,11 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Api
-import androidx.compose.material.icons.outlined.AutoFixHigh
-import androidx.compose.material.icons.outlined.LayersClear
-import androidx.compose.material.icons.outlined.Memory
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.rememberSliderState
@@ -29,6 +24,8 @@ import app.morphe.manager.ui.screen.settings.system.BatteryOptimizationItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.formatMebibytes
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import org.koin.androidx.compose.koinViewModel
 import kotlin.math.roundToInt
 
@@ -47,7 +44,7 @@ fun PatcherSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
     SettingsColumn {
         SettingsSection(
             title = stringResource(R.string.settings_system_process_runtime),
-            icon = Icons.Outlined.Memory
+            icon = MaterialSymbols.Rounded.Memory
         ) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 ProcessRuntimeSettings(settingsViewModel)
@@ -58,7 +55,7 @@ fun PatcherSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
 
         SettingsSection(
             title = stringResource(R.string.settings_section_patching),
-            icon = Icons.Outlined.AutoFixHigh
+            icon = MaterialSymbols.Rounded.Auto_fix_high
         ) {
             SettingsGroup {
                 BatteryOptimizationItem()
@@ -66,7 +63,7 @@ fun PatcherSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
                 SettingsSwitchItem(
                     checked = stripUnusedNativeLibs,
                     onToggle = { settingsViewModel.setStripUnusedNativeLibs(!stripUnusedNativeLibs) },
-                    icon = Icons.Outlined.LayersClear,
+                    icon = MaterialSymbols.Rounded.Layers_clear,
                     title = stringResource(R.string.settings_advanced_strip_unused_libs),
                     subtitle = stringResource(R.string.settings_advanced_strip_unused_libs_description)
                 )
@@ -74,7 +71,7 @@ fun PatcherSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
                 SettingsSwitchItem(
                     checked = externalBatchPatchEnabled,
                     onToggle = { settingsViewModel.toggleExternalBatchPatch(externalBatchPatchEnabled) },
-                    icon = Icons.Outlined.Api,
+                    icon = MaterialSymbols.Rounded.Api,
                     title = stringResource(R.string.settings_advanced_external_batch_patch),
                     subtitle = stringResource(R.string.settings_advanced_external_batch_patch_description)
                 )
@@ -110,7 +107,7 @@ private fun ProcessRuntimeSettings(settingsViewModel: SettingsViewModel) {
         SettingsSwitchItem(
             checked = enabled,
             onToggle = { settingsViewModel.setProcessRuntime(!enabled) },
-            icon = Icons.Outlined.Memory,
+            icon = MaterialSymbols.Rounded.Memory,
             title = stringResource(R.string.settings_system_process_runtime_enable),
             subtitle = stringResource(R.string.settings_system_process_runtime_description)
         )
@@ -187,7 +184,7 @@ private fun ProcessRuntimeUnavailable() {
                     modifier = Modifier.padding(Defaults.SpaceLarge),
                     leadingContent = {
                         ThemedIcon(
-                            icon = Icons.Outlined.Memory,
+                            icon = MaterialSymbols.Rounded.Memory,
                             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                         )
                     },

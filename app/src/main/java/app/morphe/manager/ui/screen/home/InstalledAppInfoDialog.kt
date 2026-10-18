@@ -19,10 +19,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Launch
-import androidx.compose.material.icons.automirrored.outlined.List
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -70,6 +66,8 @@ import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.ui.viewmodel.labelRes
 import app.morphe.manager.util.*
 import app.morphe.manager.util.isRtl
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -405,15 +403,15 @@ fun DialogHostScope.InstalledAppInfoDialog(
             val isSavedOnly = installedApp?.installType == InstallType.SAVED
             val items = buildList {
                 if (isSavedOnly) {
-                    add(ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.home_app_info_delete_item_patched_apk)))
+                    add(ConfirmItem(MaterialSymbols.Rounded.Delete, stringResource(R.string.home_app_info_delete_item_patched_apk)))
                 } else {
                     // A record can outlive both archives, so only list the files that are there
-                    add(ConfirmItem(Icons.Outlined.Storage, stringResource(R.string.home_app_info_delete_item_database)))
+                    add(ConfirmItem(MaterialSymbols.Rounded.Storage, stringResource(R.string.home_app_info_delete_item_database)))
                     if (viewModel.hasSavedCopy) {
-                        add(ConfirmItem(Icons.Outlined.Android, stringResource(R.string.home_app_info_delete_item_patched_apk)))
+                        add(ConfirmItem(MaterialSymbols.Rounded.Android, stringResource(R.string.home_app_info_delete_item_patched_apk)))
                     }
                     if (viewModel.deletesOriginalApk) {
-                        add(ConfirmItem(Icons.Outlined.FilePresent, stringResource(R.string.home_app_info_delete_item_original_apk)))
+                        add(ConfirmItem(MaterialSymbols.Rounded.File_present, stringResource(R.string.home_app_info_delete_item_original_apk)))
                     }
                 }
             }
@@ -605,7 +603,7 @@ fun DialogHostScope.InstalledAppInfoDialog(
                     // Left out where a banner above already carries it
                     primary = ActionItem(
                         text = stringResource(R.string.patch),
-                        icon = Icons.Outlined.AutoFixHigh,
+                        icon = MaterialSymbols.Rounded.Auto_fix_high,
                         onClick = ::handlePatchClick,
                         enabled = availablePatches > 0
                     ).takeIf { !showsRebuildBanner && !viewModel.isAppDeleted },
@@ -627,7 +625,7 @@ fun DialogHostScope.InstalledAppInfoDialog(
                 Notice(
                     text = stringResource(R.string.home_app_info_no_saved_apk),
                     tone = SemanticTone.Warning,
-                    icon = Icons.Outlined.Info,
+                    icon = MaterialSymbols.Rounded.Info,
                     modifier = modifier
                 )
             }
@@ -731,7 +729,7 @@ private fun InstalledAppHeader(
         if (installedApp.isClone) {
             add(AppStateIcons.Clone to stringResource(R.string.clone))
         }
-        relativeTime?.let { add(Icons.Outlined.Schedule to it) }
+        relativeTime?.let { add(MaterialSymbols.Rounded.Schedule to it) }
     }
     val badges = @Composable {
         installBadges.forEach { (icon, label) ->
@@ -799,7 +797,7 @@ private fun InstalledAppBanners(
             viewModel.installedApp?.currentPackageName !in ignoredAppLinksPackages
     val patchAction = ActionItem(
         text = stringResource(R.string.patch),
-        icon = Icons.Outlined.AutoFixHigh,
+        icon = MaterialSymbols.Rounded.Auto_fix_high,
         onClick = onPatch
     )
 
@@ -837,7 +835,7 @@ private fun InstalledAppBanners(
                 action = mountRestore?.let {
                     ActionItem(
                         text = it.label ?: stringResource(R.string.restore),
-                        icon = Icons.Outlined.Restore,
+                        icon = MaterialSymbols.Rounded.History,
                         onClick = it.onRestore,
                         isLoading = it.isRunning
                     )
@@ -853,7 +851,7 @@ private fun InstalledAppBanners(
                         mountRestore.onOpenPlayStore?.let {
                             ActionItem(
                                 text = stringResource(R.string.google_play),
-                                icon = Icons.Outlined.Shop,
+                                icon = MaterialSymbols.Rounded.Shop,
                                 onClick = it
                             )
                         }
@@ -903,14 +901,14 @@ private fun InstalledAppBanners(
                     onShowUpdateChangelog?.let {
                         ActionItem(
                             text = stringResource(R.string.whats_new),
-                            icon = Icons.Outlined.History,
+                            icon = MaterialSymbols.Rounded.History,
                             onClick = it
                         )
                     },
                     onIgnoreVersion?.let {
                         ActionItem(
                             text = stringResource(R.string.ignore),
-                            icon = Icons.Outlined.VisibilityOff,
+                            icon = MaterialSymbols.Rounded.Visibility_off,
                             onClick = it
                         )
                     }
@@ -924,19 +922,19 @@ private fun InstalledAppBanners(
             staggerIndex = staggerIndex
         ) {
             WarningBanner(
-                icon = Icons.Outlined.LinkOff,
+                icon = MaterialSymbols.Rounded.Link_off,
                 title = stringResource(R.string.app_links_unverified_banner_title),
                 description = stringResource(R.string.app_links_unverified_banner_description),
                 action = ActionItem(
                     text = stringResource(R.string.app_links_fix),
-                    icon = Icons.Outlined.Link,
+                    icon = MaterialSymbols.Rounded.Link,
                     onClick = onOpenAppLinks
                 ),
                 accentColor = accentColor,
                 secondaryActions = listOf(
                     ActionItem(
                         text = stringResource(R.string.ignore),
-                        icon = Icons.Outlined.VisibilityOff,
+                        icon = MaterialSymbols.Rounded.Visibility_off,
                         onClick = viewModel::ignoreAppLinks
                     )
                 )
@@ -1109,14 +1107,14 @@ private fun WarningBanner(
 /** The icon and label an install type is badged with in the app's header. */
 private val InstallType.badge: Pair<ImageVector, Int>
     get() = when (this) {
-        InstallType.MOUNT   -> Icons.Outlined.Link to R.string.mount
-        InstallType.SHIZUKU -> Icons.Outlined.Terminal to R.string.home_app_info_install_type_shizuku
-        InstallType.SHIZUKU_PLAY_STORE -> Icons.Outlined.Terminal to R.string.home_app_info_install_type_shizuku_play_store
-        InstallType.PLAY_STORE -> Icons.Outlined.Shop to R.string.home_app_info_install_type_play_store
-        InstallType.ROOT_PLAY_STORE -> Icons.Outlined.Security to R.string.home_app_info_install_type_root_play_store
-        InstallType.CUSTOM  -> Icons.Outlined.Build to R.string.home_app_info_install_type_custom_installer
-        InstallType.SAVED   -> Icons.Outlined.Save to R.string.saved
-        InstallType.DEFAULT -> Icons.Outlined.InstallMobile to R.string.home_app_info_install_type_system_installer
+        InstallType.MOUNT   -> MaterialSymbols.Rounded.Link to R.string.mount
+        InstallType.SHIZUKU -> MaterialSymbols.Rounded.Terminal to R.string.home_app_info_install_type_shizuku
+        InstallType.SHIZUKU_PLAY_STORE -> MaterialSymbols.Rounded.Terminal to R.string.home_app_info_install_type_shizuku_play_store
+        InstallType.PLAY_STORE -> MaterialSymbols.Rounded.Shop to R.string.home_app_info_install_type_play_store
+        InstallType.ROOT_PLAY_STORE -> MaterialSymbols.Rounded.Security to R.string.home_app_info_install_type_root_play_store
+        InstallType.CUSTOM  -> MaterialSymbols.Rounded.Build to R.string.home_app_info_install_type_custom_installer
+        InstallType.SAVED   -> MaterialSymbols.Rounded.Save to R.string.saved
+        InstallType.DEFAULT -> MaterialSymbols.Rounded.Install_mobile to R.string.home_app_info_install_type_system_installer
     }
 
 /**
@@ -1203,7 +1201,7 @@ private fun InfoSection(
     ) {
         Column {
             InfoRow(
-                icon = Icons.Outlined.Inventory2,
+                icon = MaterialSymbols.Rounded.Inventory_2,
                 label = stringResource(R.string.package_name),
                 value = installedApp.currentPackageName
             )
@@ -1211,7 +1209,7 @@ private fun InfoSection(
             if (installedApp.originalPackageName != installedApp.currentPackageName) {
                 SettingsDivider()
                 InfoRow(
-                    icon = Icons.Outlined.Category,
+                    icon = MaterialSymbols.Rounded.Category,
                     label = stringResource(R.string.home_app_info_original_package_name),
                     value = installedApp.originalPackageName
                 )
@@ -1222,7 +1220,7 @@ private fun InfoSection(
             // was turned down is where the offer is taken back up again
             InfoSlot(supportedVersion) { version ->
                 IgnorableInfoRow(
-                    icon = Icons.Outlined.Update,
+                    icon = MaterialSymbols.Rounded.Update,
                     label = stringResource(R.string.home_app_info_newest_supported_version),
                     value = version.withVersionPrefix(),
                     onStopIgnoring = onStopIgnoringVersion
@@ -1231,7 +1229,7 @@ private fun InfoSection(
 
             InfoSlot(apkSize) { size ->
                 InfoRow(
-                    icon = Icons.Outlined.SdCard,
+                    icon = MaterialSymbols.Rounded.Sd_card,
                     label = stringResource(R.string.home_app_info_apk_size),
                     value = size
                 )
@@ -1239,7 +1237,7 @@ private fun InfoSection(
 
             InfoSlot(apkAbis.takeIf { it.isNotEmpty() }) { abis ->
                 InfoRow(
-                    icon = Icons.Outlined.Memory,
+                    icon = MaterialSymbols.Rounded.Memory,
                     label = stringResource(R.string.home_app_info_cpu_arch),
                     value = abis.joinToString(" • ")
                 )
@@ -1247,7 +1245,7 @@ private fun InfoSection(
 
             InfoSlot(totalPatches.takeIf { it > 0 }) { count ->
                 InfoRowWithAction(
-                    icon = Icons.Outlined.DoneAll,
+                    icon = MaterialSymbols.Rounded.Done_all,
                     label = stringResource(R.string.home_app_info_applied_patches),
                     value = pluralStringResource(R.plurals.patch_count, count, count.toString()),
                     onAction = onShowPatches
@@ -1257,7 +1255,7 @@ private fun InfoSection(
             // Where a patch update that was turned down is taken back up again
             InfoSlot(bundlesUsedSummary.takeIf { it.isNotBlank() }) { summary ->
                 IgnorableInfoRow(
-                    icon = Icons.Outlined.Source,
+                    icon = MaterialSymbols.Rounded.Folder_code,
                     label = stringResource(R.string.home_app_info_patch_source_used),
                     value = summary,
                     onStopIgnoring = onStopIgnoringPatchUpdate
@@ -1279,11 +1277,11 @@ private fun InfoSection(
                     )
                 }
                 InfoRowWithAction(
-                    icon = if (status.isFullyConfigured) Icons.Outlined.Link else Icons.Outlined.LinkOff,
+                    icon = if (status.isFullyConfigured) MaterialSymbols.Rounded.Link else MaterialSymbols.Rounded.Link_off,
                     label = stringResource(R.string.app_links_title),
                     value = linksValue,
                     onAction = onOpenAppLinks,
-                    actionIcon = Icons.Outlined.Settings,
+                    actionIcon = MaterialSymbols.Rounded.Settings,
                     actionContentDescription = stringResource(R.string.configure)
                 )
             }
@@ -1304,11 +1302,11 @@ private fun IgnorableInfoRow(
 ) {
     if (onStopIgnoring != null) {
         InfoRowWithAction(
-            icon = Icons.Outlined.VisibilityOff,
+            icon = MaterialSymbols.Rounded.Visibility_off,
             label = label,
             value = value,
             onAction = onStopIgnoring,
-            actionIcon = Icons.Outlined.Visibility,
+            actionIcon = MaterialSymbols.Rounded.Visibility,
             actionContentDescription = stringResource(R.string.stop_ignoring)
         )
     } else {
@@ -1339,7 +1337,7 @@ private fun InfoRowWithAction(
     label: String,
     value: String,
     onAction: () -> Unit,
-    actionIcon: ImageVector = Icons.AutoMirrored.Outlined.List,
+    actionIcon: ImageVector = MaterialSymbols.Rounded.List.autoMirrored,
     actionContentDescription: String = stringResource(R.string.view),
 ) {
     InfoRow(
@@ -1385,7 +1383,7 @@ private fun installedAppActionGroups(
     // rest beside it as icons and the file's own actions last, as the patcher's result sets them out
     val use = buildList {
         if (canOpen) {
-            add(ActionItem(stringResource(R.string.open), Icons.AutoMirrored.Outlined.Launch, viewModel::launch))
+            add(ActionItem(stringResource(R.string.open), MaterialSymbols.Rounded.Open_in_new.autoMirrored, viewModel::launch))
         }
 
         if (viewModel.hasSavedCopy) {
@@ -1393,14 +1391,14 @@ private fun installedAppActionGroups(
                 text = stageLabel ?: stringResource(
                     if (viewModel.isInstalledOnDevice) R.string.reinstall else R.string.install
                 ),
-                icon = Icons.Outlined.InstallMobile,
+                icon = MaterialSymbols.Rounded.Install_mobile,
                 onClick = onInstallSavedCopy,
                 isLoading = isInstalling,
                 iconOnly = canOpen
             )
             add(install)
-            add(ActionItem(stringResource(R.string.export), Icons.Outlined.Save, onExport, iconOnly = true))
-            add(ActionItem(stringResource(R.string.share), Icons.Outlined.Share, onShare, iconOnly = true))
+            add(ActionItem(stringResource(R.string.export), MaterialSymbols.Rounded.Save, onExport, iconOnly = true))
+            add(ActionItem(stringResource(R.string.share), MaterialSymbols.Rounded.Share, onShare, iconOnly = true))
         }
     }
 
@@ -1411,7 +1409,7 @@ private fun installedAppActionGroups(
                 add(
                     ActionItem(
                         text = stringResource(R.string.remount),
-                        icon = Icons.Outlined.Refresh,
+                        icon = MaterialSymbols.Rounded.Refresh,
                         onClick = { installViewModel.remount(packageName, installedApp.version) },
                         isLoading = isMountBusy || isInstalling
                     )
@@ -1419,7 +1417,7 @@ private fun installedAppActionGroups(
                 add(
                     ActionItem(
                         text = stringResource(R.string.unmount),
-                        icon = Icons.Outlined.LinkOff,
+                        icon = MaterialSymbols.Rounded.Link_off,
                         onClick = { installViewModel.unmount(packageName) },
                         isLoading = isMountBusy
                     )
@@ -1428,7 +1426,7 @@ private fun installedAppActionGroups(
                 add(
                     ActionItem(
                         text = stringResource(R.string.mount),
-                        icon = Icons.Outlined.Link,
+                        icon = MaterialSymbols.Rounded.Link,
                         onClick = { installViewModel.mount(packageName, installedApp.version) },
                         isLoading = isMountBusy || isInstalling
                     )
@@ -1442,7 +1440,7 @@ private fun installedAppActionGroups(
             add(
                 ActionItem(
                     text = stringResource(R.string.uninstall),
-                    icon = Icons.Outlined.DeleteForever,
+                    icon = MaterialSymbols.Rounded.Delete_forever,
                     onClick = onUninstall,
                     isDestructive = true
                 )
@@ -1452,7 +1450,7 @@ private fun installedAppActionGroups(
             add(
                 ActionItem(
                     text = stringResource(R.string.delete),
-                    icon = Icons.Outlined.DeleteOutline,
+                    icon = MaterialSymbols.Rounded.Delete,
                     onClick = onDelete,
                     isDestructive = true
                 )
@@ -1848,7 +1846,7 @@ private fun rememberAppliedPatchesPage(
         actions = listOf(
             DialogAction(
                 text = stringResource(R.string.copy),
-                icon = Icons.Outlined.ContentCopy,
+                icon = MaterialSymbols.Rounded.Content_copy,
                 onClick = {
                     copyToClipboard(
                         patchListText(
@@ -1870,7 +1868,7 @@ private fun rememberAppliedPatchesPage(
                 title = if (multipleSources) bundle.title
                 else stringResource(R.string.home_app_info_applied_patches),
                 count = entries.size.takeIf { multipleSources },
-                icon = Icons.Outlined.DoneAll,
+                icon = MaterialSymbols.Rounded.Done_all,
                 leading = source?.takeIf { multipleSources }?.let {
                     { BundleIcon(bundle = it, modifier = Modifier.size(24.dp)) }
                 }

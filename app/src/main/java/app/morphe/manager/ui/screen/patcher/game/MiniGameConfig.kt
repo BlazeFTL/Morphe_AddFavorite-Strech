@@ -18,9 +18,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.DirectionsRun
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -47,10 +44,13 @@ import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.SurfaceCard
 import app.morphe.manager.ui.screen.shared.ThemedIcon
 import app.morphe.manager.ui.screen.shared.appAccentBorder
+import app.morphe.manager.ui.screen.shared.autoMirrored
 import app.morphe.manager.ui.screen.shared.usableAppAccent
 import app.morphe.manager.ui.screen.shared.verticalScrollFade
 import app.morphe.manager.ui.theme.MorpheBrandBlue
 import app.morphe.manager.ui.theme.MorpheBrandTeal
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -78,50 +78,50 @@ enum class MiniGame(
     GAME_2048(
         R.string.mini_game_2048,
         R.string.mini_game_2048_picker_subtitle,
-        Icons.Outlined.Grid4x4,
+        MaterialSymbols.Rounded.Grid_4x4,
         Color(0xFFF59563)
     ),
     FLAPPY(
         R.string.mini_game_flappy,
         R.string.mini_game_flappy_picker_subtitle,
-        Icons.Outlined.Air,
+        MaterialSymbols.Rounded.Air,
         Color(0xFF73C02A)
     ),
     SNAKE(
         R.string.mini_game_snake,
         R.string.mini_game_snake_picker_subtitle,
-        Icons.Outlined.Gesture,
+        MaterialSymbols.Rounded.Gesture,
         MorpheBrandTeal
     ),
     DINO(
         R.string.mini_game_dino,
         R.string.mini_game_dino_picker_subtitle,
-        Icons.AutoMirrored.Outlined.DirectionsRun,
+        MaterialSymbols.Rounded.Directions_run.autoMirrored,
         Color(0xFFC8B060)
     ),
     BLOCKS(
         R.string.mini_game_blocks,
         R.string.mini_game_blocks_picker_subtitle,
-        Icons.Outlined.Dashboard,
+        MaterialSymbols.Rounded.Dashboard,
         Color(0xFF7E57C2),
         BLOCKS_ASPECT_RATIO
     ),
     BRICKS(
         R.string.mini_game_bricks,
         R.string.mini_game_bricks_picker_subtitle,
-        Icons.Outlined.SportsTennis,
+        MaterialSymbols.Rounded.Sports_tennis,
         Color(0xFFEF5350)
     ),
     MINER(
         R.string.mini_game_miner,
         R.string.mini_game_miner_picker_subtitle,
-        Icons.Outlined.Flag,
+        MaterialSymbols.Rounded.Flag,
         Color(0xFF64B5F6)
     ),
     PAIRS(
         R.string.mini_game_pairs,
         R.string.mini_game_pairs_picker_subtitle,
-        Icons.Outlined.Style,
+        MaterialSymbols.Rounded.Style,
         MorpheBrandBlue
     )
 }
@@ -494,14 +494,14 @@ internal fun GameScoreRow(
         val restart = stringResource(R.string.mini_game_restart)
         ActionPillButton(
             onClick = onRestart,
-            icon = Icons.Outlined.Refresh,
+            icon = MaterialSymbols.Rounded.Refresh,
             contentDescription = restart,
             tooltip = restart
         )
         val changeGame = stringResource(R.string.mini_game_change)
         ActionPillButton(
             onClick = onChangeGame,
-            icon = Icons.Outlined.SportsEsports,
+            icon = MaterialSymbols.Rounded.Sports_esports,
             contentDescription = changeGame,
             tooltip = changeGame
         )
@@ -554,7 +554,7 @@ internal fun GameOverOverlay(
             CardActionRow(
                 actions = listOf(
                     CardAction(
-                        icon = Icons.Outlined.Refresh,
+                        icon = MaterialSymbols.Rounded.Refresh,
                         label = stringResource(R.string.mini_game_try_again),
                         onClick = onRestart
                     )
@@ -584,7 +584,7 @@ internal fun GamePauseOverlay(onResume: () -> Unit, modifier: Modifier = Modifie
             CardActionRow(
                 actions = listOf(
                     CardAction(
-                        icon = Icons.Outlined.PlayArrow,
+                        icon = MaterialSymbols.Rounded.Play_arrow,
                         label = stringResource(R.string.mini_game_resume),
                         onClick = onResume
                     )

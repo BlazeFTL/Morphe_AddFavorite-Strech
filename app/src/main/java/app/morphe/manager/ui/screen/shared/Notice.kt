@@ -118,9 +118,10 @@ fun Notice(
     var cutShort by remember(breakableText, maxLines) { mutableStateOf(false) }
 
     // The icon heads the first line rather than the middle of the block, which a long message or a
-    // large font would leave out of view. Centered on that line, whatever height the font gives it
+    // large font would leave out of view. The two are centered on each other, whichever is taller
     val firstLineHeight = with(LocalDensity.current) { textStyle.lineHeight.toDp() }
     val iconTopInset = ((firstLineHeight - metrics.iconSize) / 2).coerceAtLeast(0.dp)
+    val textTopInset = ((metrics.iconSize - firstLineHeight) / 2).coerceAtLeast(0.dp)
 
     Surface(
         modifier = if (isCentered) modifier.wrapContentWidth() else modifier.fillMaxWidth(),
@@ -149,7 +150,10 @@ fun Notice(
                         modifier = Modifier.padding(top = iconTopInset)
                     )
                 }
-                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                    modifier = Modifier.padding(top = if (icon != null) textTopInset else 0.dp)
+                ) {
                     title?.let {
                         Text(
                             text = it,

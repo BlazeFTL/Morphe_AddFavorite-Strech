@@ -111,7 +111,7 @@ private fun LanguageItem(
     modifier: Modifier = Modifier
 ) {
     val stateDescription = stringResource(
-        if (isSelected) R.string.selected else R.string.not_selected
+        if (isSelected) R.string.state_selected else R.string.state_not_selected
     )
     RadioSelectionCard(
         selected = isSelected,

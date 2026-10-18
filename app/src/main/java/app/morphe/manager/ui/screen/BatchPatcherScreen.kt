@@ -1094,7 +1094,7 @@ private fun BatchStateBadge(state: BatchItemState) {
         BatchItemState.RUNNING -> R.string.patching to SemanticTone.Primary
         BatchItemState.SUCCEEDED -> R.string.done to SemanticTone.Success
         BatchItemState.FAILED -> R.string.failed to SemanticTone.Error
-        BatchItemState.CANCELLED -> R.string.cancelled to SemanticTone.Neutral
+        BatchItemState.CANCELLED -> R.string.canceled to SemanticTone.Neutral
         BatchItemState.EXCLUDED -> R.string.excluded to SemanticTone.Neutral
         BatchItemState.NEEDS_APK -> R.string.batch_patch_state_no_apk to SemanticTone.Error
         BatchItemState.VERSION_MISMATCH -> R.string.version to SemanticTone.Warning

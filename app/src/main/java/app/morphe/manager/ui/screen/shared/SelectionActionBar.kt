@@ -251,7 +251,7 @@ fun SelectionActionBar(
     val selectAllLabel = stringResource(R.string.select_all)
     val deselectAllLabel = stringResource(R.string.deselect_all)
     val cancelLabel = stringResource(android.R.string.cancel)
-    val selectedLabel = stringResource(R.string.selected).lowercase()
+    val selectedLabel = stringResource(R.string.state_selected).lowercase()
     val allSelected = totalCount in 1..selectedCount
     val canToggleToDeselect = allSelected && onDeselectAll != null
     val selectionToggleLabel = if (canToggleToDeselect) deselectAllLabel else selectAllLabel

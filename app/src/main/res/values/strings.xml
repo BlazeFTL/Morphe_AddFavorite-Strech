@@ -491,7 +491,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Stop batch patching?</string>
-    <string name="batch_patch_stop_description">The app being patched right now and everything still queued will be cancelled</string>
+    <string name="batch_patch_stop_description">The app being patched right now and everything still queued will be canceled</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Install all</string>
     <string name="batch_patch_install_failed">Install failed</string>
@@ -566,7 +566,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="root_pre_patch_installer_description">Your device has root access. Choose whether this app should be patched for root mount or standard install</string>
     <string name="root_pre_patch_installer_mount_title">Root mount mode</string>
     <string name="root_pre_patch_installer_mount_description">Patches for root mount, then mounts the APK over the matching stock app. No GmsCore needed</string>
-    <string name="root_mount_module_unmount_warning">If KernelSU has Unmount modules by default enabled, open KernelSU > Superuser > the app you mounted > Profile > Custom and disable Unmount modules. Otherwise the mounted patched APK may not take effect, even if Morphe shows it as mounted</string>
+    <string name="root_mount_module_unmount_warning">If KernelSU has \"Unmount modules by default\" turned on, open KernelSU > Superuser > the app you mounted > Profile > Custom and turn off \"Unmount modules\". Otherwise, the mounted patched APK may not take effect, even if Morphe shows it as mounted</string>
     <string name="root_pre_patch_installer_standard_title">Standard install mode</string>
     <string name="root_pre_patch_installer_standard_description">Patches as a normal APK with GmsCore support. Your installer setting is used after patching</string>
     <string name="root_pre_patch_installer_hint">Asked while Settings > Patching > Installation > Installer selection prompt is on. The patch mode cannot be changed after patching</string>
@@ -654,7 +654,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="patcher_storage_badge_missing">Not found</string>
     <string name="batch_patch_option_paths_skipped">Patch option files are missing and will be skipped: %1$s</string>
     <string name="patcher_missing_patches_title">Some patches are gone</string>
-    <string name="patcher_missing_patches_description">The saved selection for this app names patches that no enabled source offers any more. Continuing patches the app without them</string>
+    <string name="patcher_missing_patches_description">The saved selection for this app names patches that no enabled source offers anymore. Continuing patches the app without them</string>
     <string name="patcher_missing_patches_label">No longer offered</string>
     <string name="patcher_option_paths_gone_title">Patch option files are missing</string>
     <string name="patcher_option_paths_gone_description">One or more patch options point to files that are no longer there. Remove the paths to patch without them, or put the files back and try again</string>
@@ -1376,7 +1376,7 @@ Details: %2$s"</string>
     <string name="warning">Warning</string>
     <string name="error_">Error</string>
     <string name="failed">Failed</string>
-    <string name="cancelled">Cancelled</string>
+    <string name="canceled">Canceled</string>
     <string name="ready">Ready</string>
     <string name="retry">Retry</string>
     <string name="refresh">Refresh</string>
@@ -1408,8 +1408,8 @@ Details: %2$s"</string>
     <string name="any_version">Any</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
-    <string name="selected">Selected</string>
-    <string name="not_selected">Not selected</string>
+    <string name="state_selected">Selected</string>
+    <string name="state_not_selected">Not selected</string>
     <string name="select_all">Select all</string>
     <string name="deselect_all">Deselect all</string>
     <string name="reorder_list">Reorder list</string>

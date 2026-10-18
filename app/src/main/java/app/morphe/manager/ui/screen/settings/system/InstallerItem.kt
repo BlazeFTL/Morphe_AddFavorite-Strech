@@ -174,8 +174,8 @@ internal fun InstallerChoice(
     var showShizukuStatus by remember { mutableStateOf(false) }
 
     // Localized strings for accessibility
-    val selectedState = stringResource(R.string.selected)
-    val notSelectedState = stringResource(R.string.not_selected)
+    val selectedState = stringResource(R.string.state_selected)
+    val notSelectedState = stringResource(R.string.state_not_selected)
     val disabledState = stringResource(R.string.disabled)
 
     SettingsGroup {

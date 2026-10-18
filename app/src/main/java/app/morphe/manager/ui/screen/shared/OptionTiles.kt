@@ -115,7 +115,7 @@ fun ModernIconOptionCard(
         onClick = onClick,
         enabled = enabled,
         stateDescription = stringResource(
-            if (selected) R.string.selected else R.string.not_selected
+            if (selected) R.string.state_selected else R.string.state_not_selected
         ),
         modifier = modifier.heightIn(min = cardHeight),
         shape = shape,

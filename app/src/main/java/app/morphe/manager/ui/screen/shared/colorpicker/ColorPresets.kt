@@ -125,8 +125,8 @@ private fun ColorSwatch(
     val interactionSource = remember { MutableInteractionSource() }
     val shape = rememberSwatchShape(selected, interactionSource, enabled)
     val scheme = MaterialTheme.colorScheme
-    val selectedLabel = stringResource(R.string.selected)
-    val notSelectedLabel = stringResource(R.string.not_selected)
+    val selectedLabel = stringResource(R.string.state_selected)
+    val notSelectedLabel = stringResource(R.string.state_not_selected)
     // A darker shade of the color itself frames it best, where it is solid enough to darken
     val selectedBorder = if (color.alpha >= 0.5f) color.darken(0.4f) else scheme.primary
 
@@ -310,8 +310,8 @@ private fun NoColorSwatch(
     val interactionSource = remember { MutableInteractionSource() }
     val shape = rememberSwatchShape(selected, interactionSource, enabled)
     val scheme = MaterialTheme.colorScheme
-    val label = stringResource(R.string.not_selected)
-    val selectedLabel = stringResource(R.string.selected)
+    val label = stringResource(R.string.state_not_selected)
+    val selectedLabel = stringResource(R.string.state_selected)
 
     val borderWidth by animateDpAsState(if (selected) 3.dp else 1.dp, label = "no_color_border")
     val borderColor by animateColorAsState(

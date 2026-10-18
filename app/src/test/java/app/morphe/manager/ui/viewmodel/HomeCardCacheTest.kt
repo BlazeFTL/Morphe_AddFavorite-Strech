@@ -97,6 +97,17 @@ class HomeCardCacheTest {
     }
 
     @Test
+    fun `cards are split by the apps hidden now rather than when they were cached`() {
+        HomeCardCache(file).write(cards(item("a"), item("b")))
+
+        val read = assertNotNull(HomeCardCache(file).read())
+            .toCards(emptyList(), prefs.copy(hiddenPackages = setOf("a")))
+
+        assertEquals(listOf("b"), read.visible.map { it.id })
+        assertEquals(listOf("a"), read.hidden.map { it.id })
+    }
+
+    @Test
     fun `cards of another format are dropped`() {
         HomeCardCache(file).write(cards(item("a")))
         file.writeText(file.readText().replace("\"format\":1", "\"format\":0"))

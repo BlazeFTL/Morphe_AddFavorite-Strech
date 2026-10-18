@@ -72,10 +72,15 @@ internal data class CachedHome(
     /** These cards, with records from [installedApps] and the sort mode from [prefs]. */
     fun toCards(installedApps: List<InstalledApp>, prefs: HomePrefs): HomeCards {
         val records = installedApps.associateBy { it.currentPackageName }
-        // Cards are keyed by id on screen, and a file kept by an older build can repeat one
+        // Split as the user has it now, as hiding or showing an app while the bundles load must
+        // not wait for them
+        val (hiddenCards, visibleCards) = (visible + hidden)
+            // Cards are keyed by id on screen, and a file kept by an older build can repeat one
+            .distinctBy { it.id }
+            .partition { it.id in prefs.hiddenPackages }
         return HomeCards(
-            visible = visible.distinctBy { it.id }.map { it.toItem(records) },
-            hidden = hidden.distinctBy { it.id }.map { it.toItem(records) },
+            visible = visibleCards.map { it.toItem(records) },
+            hidden = hiddenCards.map { it.toItem(records) },
             sourceGroups = sourceGroups.map { it.toGroup() }
         )
     }

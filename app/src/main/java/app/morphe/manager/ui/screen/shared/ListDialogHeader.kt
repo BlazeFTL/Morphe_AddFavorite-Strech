@@ -241,24 +241,29 @@ private fun HeaderContent(
             )
         }
         content?.invoke(this)
-        if (badges != null || collapsible != null) {
+        // Kept while they fold away, as on a page of the dialog that goes without them, so the
+        // header shrinks along rather than the list under it jumping up
+        val shownBadges = rememberLatest(badges)
+        if (shownBadges != null || collapsible != null) {
             val collapse = LocalDialogHeaderCollapse.current
             if (collapse != null) {
                 // Leaving the header, as on a page without it, leaves no room held for it folded
                 DisposableEffect(collapse) { onDispose { collapse.measured(0) } }
             }
             Column(modifier = if (collapse != null) Modifier.foldsWith(collapse) else Modifier) {
-                if (badges != null) {
-                    // A row that folds its chips out resizes on the list's own spring, as the list's
-                    // rows do, without the settle, which would dip below the chips and clip them
-                    ProvideAccent(accentColor) {
-                        StatusBadgeRow(
-                            modifier = Modifier
-                                .padding(top = Defaults.SpaceSmall)
-                                .animateContentSize(Animations.listSpring(dampingRatio = Spring.DampingRatioNoBouncy))
-                                .headerBadgeEntrance(entrance),
-                            content = badges
-                        )
+                if (shownBadges != null) {
+                    FoldingVisibility(visible = badges != null) {
+                        // A row that folds its chips out resizes on the list's own spring, as the list's
+                        // rows do, without the settle, which would dip below the chips and clip them
+                        ProvideAccent(accentColor) {
+                            StatusBadgeRow(
+                                modifier = Modifier
+                                    .padding(top = Defaults.SpaceSmall)
+                                    .animateContentSize(Animations.listSpring(dampingRatio = Spring.DampingRatioNoBouncy))
+                                    .headerBadgeEntrance(entrance),
+                                content = shownBadges
+                            )
+                        }
                     }
                 }
                 if (collapsible != null) {

@@ -6,9 +6,7 @@
 package app.morphe.manager.ui.screen.home
 
 import android.annotation.SuppressLint
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -27,13 +25,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -52,8 +47,6 @@ import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.KnownApps
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
-import dev.chrisbanes.haze.hazeSource
-import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
 import sh.calvin.reorderable.rememberReorderableLazyListState
@@ -114,7 +107,7 @@ class HomeAppActions(
     val onAssignAppsToCategory: (Set<String>, String?) -> Unit
 )
 
-/** Callbacks of what stands around the list: the toolbar, the greeting and the empty state. */
+/** Callbacks of what stands around the list: the header, the greeting and the empty state. */
 @Stable
 class HomeChromeActions(
     val onOtherAppsClick: () -> Unit,
@@ -122,233 +115,87 @@ class HomeChromeActions(
     val onRefreshGreeting: (() -> Unit)?
 )
 
-/** Which actions the toolbar over the list offers. */
-@Immutable
-data class HomeChromeFlags(
-    val showSearchButton: Boolean,
-    val showOtherAppsButton: Boolean
-)
-
-/** The apps search: its query, and the callbacks that change it, follow its focus or clear it. */
-@Stable
-class HomeSearchState(
-    val query: String,
-    val onQueryChange: (String) -> Unit,
-    val onFocusChange: (Boolean) -> Unit,
-    val onClear: () -> Unit
-)
-
 /**
- * The apps page of the main screen: the list of apps headed by the greeting and the toolbar, with
- * the bars of a selection or a reorder docked over its lower edge.
+ * The apps page of the main screen: the list of apps under the page's header, opened by the
+ * greeting, with the bars of a selection or a reorder docked over its lower edge.
  *
  * @param state The list's selection and reorder, held by the screen, whose navigation gives way to
  *   the docked bars.
  * @param bottomBarHeight Height of the navigation floating over the page, which the list ends clear of.
+ * @param alerts The alerts of the main screen, those swiped aside brought back from the header.
+ * @param onHeaderHeightChange Told the header's height, for the alerts floating over the page below it.
  */
 @Composable
 internal fun SectionsLayout(
     apps: HomeAppListUi,
     appActions: HomeAppActions,
     chromeActions: HomeChromeActions,
-    chromeFlags: HomeChromeFlags,
     greetingMessage: String?,
     state: HomeAppsSectionState,
     bottomBarHeight: Dp,
-    onboardingState: OnboardingState? = null
+    alerts: HomeAlerts,
+    onboardingState: OnboardingState? = null,
+    onHeaderHeightChange: (Dp) -> Unit = {}
 ) {
     val windowSize = rememberWindowSize()
-
-    // Saveable, as the pager disposes the page while another one is shown
-    var searchQuery by rememberSaveable { mutableStateOf("") }
-    // A search the toolbar no longer offers would go on filtering with no field to clear it from
-    LaunchedEffect(chromeFlags.showSearchButton) {
-        if (!chromeFlags.showSearchButton) searchQuery = ""
-    }
-    var searchFocused by remember { mutableStateOf(false) }
-    val focusManager = LocalFocusManager.current
-    // Back leaves the field first, then clears the search (registered before the footer bars' own
-    // back handling, so an open bar takes priority)
-    BackHandler(enabled = searchFocused || searchQuery.isNotEmpty()) {
-        if (searchFocused) focusManager.clearFocus() else searchQuery = ""
-    }
-
-    val searchState = HomeSearchState(
-        query = searchQuery,
-        onQueryChange = { searchQuery = it },
-        onFocusChange = { searchFocused = it },
-        onClear = {
-            searchQuery = ""
-            focusManager.clearFocus()
-        }
-    )
-    // The saved filter applies only while the sort button is there to undo it, which comes and
-    // goes with the search. Not written back when it goes, since it is also absent while loading
-    val filterMode = if (chromeFlags.showSearchButton) apps.filterMode else HomeAppFilterMode.ALL
-    val onClearFilter = { appActions.onFilterModeChange(HomeAppFilterMode.ALL) }
+    val maxCardWidth = homeCardMaxWidth()
+    val search = rememberSearchFieldState()
+    // Registered before the footer bars' own back handling, so an open bar takes priority
+    SearchFieldBackHandler(search)
     val footerBar = remember { HomeFooterBarHost() }
     // The options share the footer slot, so they make way for a selection or a reorder started
-    // under them, and for the sort button going
-    LaunchedEffect(state.isEditing, chromeFlags.showSearchButton) {
-        if (state.isEditing || !chromeFlags.showSearchButton) state.isListOptionsOpen = false
+    // under them
+    LaunchedEffect(state.isEditing) {
+        if (state.isEditing) state.isListOptionsOpen = false
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        val barHaze = rememberHazeState()
-        AdaptiveContent(
-            // What the docked bars blur as the list scrolls on under them
-            modifier = Modifier.hazeSource(barHaze),
-            windowSize = windowSize,
-            greetingMessage = greetingMessage,
-            apps = apps,
-            appActions = appActions,
-            searchState = searchState,
-            chromeActions = chromeActions,
-            chromeFlags = chromeFlags,
-            filterMode = filterMode,
-            onClearFilter = onClearFilter,
-            onSortClick = { state.isListOptionsOpen = !state.isListOptionsOpen },
-            state = state,
-            footerBar = footerBar,
-            bottomBarHeight = bottomBarHeight,
-            onboardingState = onboardingState
-        )
-
-        // In landscape the bar docks inside the list pane instead
-        if (!isLandscape()) {
-            CompositionLocalProvider(LocalBackdropHaze provides barHaze) {
-                HomeFooterBarDock(
-                    host = footerBar,
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .widthIn(max = Defaults.ContentMaxWidth)
-                        .fillMaxWidth()
-                )
-            }
-        }
-    }
-}
-
-/**
- * The list in its pane: across the page in portrait, or in the middle of the page in landscape,
- * where the bars of a selection dock inside that pane.
- */
-@Composable
-private fun AdaptiveContent(
-    windowSize: WindowSize,
-    greetingMessage: String?,
-    apps: HomeAppListUi,
-    appActions: HomeAppActions,
-    searchState: HomeSearchState,
-    chromeActions: HomeChromeActions,
-    chromeFlags: HomeChromeFlags,
-    filterMode: HomeAppFilterMode,
-    onClearFilter: () -> Unit,
-    onSortClick: () -> Unit,
-    state: HomeAppsSectionState,
-    footerBar: HomeFooterBarHost,
-    bottomBarHeight: Dp,
-    modifier: Modifier = Modifier,
-    onboardingState: OnboardingState? = null
-) {
-    val contentPadding = windowSize.contentPadding
-    val itemSpacing = windowSize.itemSpacing
-    val landscape = isLandscape()
-    val maxCardWidth = homeCardMaxWidth()
-
-    // Grouped views reserve the full list area so the footer keeps a stable position when
-    // groups expand or collapse; the flat All-apps view lets the list wrap to its content
-    // so the greeting and cards center together as one block
-    val isGroupedAppView = apps.categoryViewMode != HomeAppCategoryViewMode.ALL_APPS
-    val trackContentBottom = Modifier.onGloballyPositioned {
-        footerBar.contentBottom = it.boundsInWindow().bottom
-    }
-
-    // Heads the list rather than sitting above it, so it scrolls away with the cards
+    // Opens the list rather than sitting over it, so it scrolls away with the cards
     val greeting: (@Composable () -> Unit)? = greetingMessage?.takeIf { it.isNotEmpty() }?.let { message ->
         { GreetingSection(message = message, onRefresh = chromeActions.onRefreshGreeting) }
     }
-    val toolbar: (@Composable () -> Unit)? = if (
-        chromeFlags.showSearchButton || chromeFlags.showOtherAppsButton
-    ) {
-        {
-            HomeAppsToolbar(
-                searchState = searchState.takeIf { chromeFlags.showSearchButton },
-                showSort = chromeFlags.showSearchButton,
+
+    PinnedHeaderPage(
+        header = {
+            HomeHeader(
+                apps = apps,
+                appActions = appActions,
+                search = search,
+                alerts = alerts,
                 sortEnabled = !state.isEditing,
                 sortOpen = state.isListOptionsOpen,
-                sortMode = apps.sortMode,
-                filterMode = filterMode,
-                optionsChanged = homeListOptions(apps, appActions).any { it.isChanged },
-                onSortClick = onSortClick,
-                onPatchFileClick = chromeActions.onOtherAppsClick.takeIf { chromeFlags.showOtherAppsButton }
+                onSortClick = { state.isListOptionsOpen = !state.isListOptionsOpen },
+                onPatchFileClick = chromeActions.onOtherAppsClick
             )
-        }
-    } else null
-    // The list starts below the status bar it scrolls on under, a step further down in a grouped
-    // view with no greeting, so its first header does not sit flush against the top
-    val listTopPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() +
-            if (greeting == null && isGroupedAppView) Defaults.SpaceExtraLarge else 0.dp
-
-    // Both layouts feed the list the same, its gutters included, which keep the scrollbar at
-    // its edge clear of the cards
-    val appsSection = @Composable { showFadeOverlay: Boolean ->
+        },
+        scrollState = state.listState,
+        bottomBar = {
+            HomeFooterBarDock(
+                host = footerBar,
+                modifier = Modifier
+                    .widthIn(max = maxCardWidth)
+                    .fillMaxWidth()
+            )
+        },
+        onHeaderHeightChange = onHeaderHeightChange
+    ) { headerHeight, footerBarHeight ->
         MainAppsSection(
             apps = apps,
             appActions = appActions,
             state = state,
-            searchState = searchState,
-            filterMode = filterMode,
-            onClearFilter = onClearFilter,
+            search = search,
             onOpenSources = chromeActions.onOpenSources,
-            itemSpacing = itemSpacing,
-            horizontalPadding = contentPadding,
+            footerBar = footerBar,
+            footerBarHeight = footerBarHeight,
+            bottomBarHeight = bottomBarHeight,
+            itemSpacing = windowSize.itemSpacing,
+            // The gutters keep the scrollbar at the list's edge clear of the cards
+            horizontalPadding = windowSize.contentPadding,
             maxCardWidth = maxCardWidth,
             onboardingState = onboardingState,
-            footerBar = footerBar,
-            bottomBarHeight = bottomBarHeight,
-            showFadeOverlay = showFadeOverlay,
+            showFadeOverlay = !isLandscape(),
             header = greeting,
-            toolbar = toolbar,
-            topPadding = listTopPadding,
-            fillHeight = isGroupedAppView,
-            modifier = if (isGroupedAppView) Modifier.fillMaxSize() else Modifier.fillMaxWidth()
+            topPadding = headerHeight + Defaults.SpaceMedium
         )
-    }
-
-    if (landscape) {
-        Box(modifier = modifier.fillMaxSize()) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .then(trackContentBottom),
-                verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Box(modifier = Modifier.weight(1f, fill = isGroupedAppView)) {
-                    appsSection(false)
-                }
-            }
-            HomeFooterBarDock(
-                host = footerBar,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .widthIn(max = maxCardWidth)
-                    .fillMaxWidth()
-            )
-        }
-    } else {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .then(trackContentBottom),
-            verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center
-        ) {
-            // Scrollable app buttons, headed by the greeting
-            Box(modifier = Modifier.weight(1f, fill = isGroupedAppView)) {
-                appsSection(true)
-            }
-        }
     }
 }
 
@@ -395,34 +242,30 @@ internal fun MainAppsSection(
     apps: HomeAppListUi,
     appActions: HomeAppActions,
     state: HomeAppsSectionState,
-    searchState: HomeSearchState,
-    filterMode: HomeAppFilterMode,
-    onClearFilter: () -> Unit,
+    search: SearchFieldState,
     onOpenSources: () -> Unit,
     footerBar: HomeFooterBarHost,
     modifier: Modifier = Modifier,
-    // Height of the bar floating over the list's lower edge, which the list keeps clear of
+    // Height of the bar docked over the list's lower edge, such as a selection's
+    footerBarHeight: Dp = 0.dp,
+    // Height of the navigation floating over the list's lower edge
     bottomBarHeight: Dp = 0.dp,
     itemSpacing: Dp = 16.dp,
     horizontalPadding: Dp = 0.dp,
     maxCardWidth: Dp = 500.dp,
     onboardingState: OnboardingState? = null,
     showFadeOverlay: Boolean = true,
-    // Heads the list and scrolls away with it, such as the greeting
+    // Opens the list and scrolls away with it, such as the greeting
     header: (@Composable () -> Unit)? = null,
-    // Follows the header and scrolls away with it too
-    toolbar: (@Composable () -> Unit)? = null,
-    // Room above the first row, for the status bar the list scrolls on under
-    topPadding: Dp = 0.dp,
-    // When false, the section wraps its content vertically so the parent can center it as a
-    // single block together with the greeting; when true, it takes the full available height
-    // so the footer keeps a stable position while groups expand or collapse.
-    fillHeight: Boolean = true
+    // Room above the first row, for the page's header the list scrolls on under
+    topPadding: Dp = 0.dp
 ) {
     // Aliases for values used many times in the body
     val homeAppItems = apps.visible
     val hiddenAppItems = apps.hidden
-    val searchQuery = searchState.query
+    val searchQuery = search.query
+    val filterMode = apps.filterMode
+    val onClearFilter = { appActions.onFilterModeChange(HomeAppFilterMode.ALL) }
     val isFilterActive = filterMode.isActive
     val isFilteringList = searchQuery.isNotBlank() || isFilterActive
     val appGrouping = apps.categoryViewMode
@@ -435,25 +278,9 @@ internal fun MainAppsSection(
 
     val isSourceCategoryView = appGrouping == HomeAppCategoryViewMode.SOURCES
 
-    // The footer slot stays reserved until the bar has finished sliding out. The bar is anchored
-    // to the bottom of a column that wraps its content, so releasing the space the moment the
-    // mode flips shortens that column and throws the still-sliding bar up over the last card
-    val footerBarVisible = state.isFooterBarVisible
-    var isFooterSlotReserved by remember { mutableStateOf(footerBarVisible) }
-    LaunchedEffect(footerBarVisible) {
-        if (footerBarVisible) {
-            isFooterSlotReserved = true
-        } else {
-            delay(Animations.SLIDE_DOWN_EXIT_DURATION.milliseconds)
-            isFooterSlotReserved = false
-        }
-    }
-    // Clears whichever bar reaches into the list: the floating navigation always, the docked one
-    // while in its slot, at the height it was last measured at
-    val dockedBarOverlap = with(LocalDensity.current) {
-        if (isFooterSlotReserved) footerBar.listOverlapPx.toDp() else 0.dp
-    }
-    val footerBarOverlap = maxOf(dockedBarOverlap, bottomBarHeight)
+    // Clears whichever bar reaches into the list: the floating navigation, or the docked bar that
+    // takes its place
+    val footerBarOverlap = maxOf(footerBarHeight, bottomBarHeight)
 
     // Retire stale header action state when switching grouping modes.
     LaunchedEffect(appGrouping) { state.closeCategoryBar() }
@@ -734,7 +561,7 @@ internal fun MainAppsSection(
     }
 
     // Rows above the cards, which the reorder indices count
-    val leadingItemCount = listOfNotNull(header, toolbar).size
+    val leadingItemCount = if (header != null) 1 else 0
     val reorderableState = rememberReorderableLazyListState(listState) { from, to ->
         moveReorderOrder(from.index - leadingItemCount, to.index - leadingItemCount)
     }
@@ -906,10 +733,7 @@ internal fun MainAppsSection(
     val isSearchEmpty = isListEmpty && !isFilterActive && searchQuery.isNotBlank()
 
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            // A wrapped list is centered, so its height eases with the cards rather than jumping
-            .then(if (fillHeight) Modifier else Modifier.animateContentSize()),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         // Hidden polite live region used to announce the result of TalkBack Move up/down actions
@@ -962,14 +786,14 @@ internal fun MainAppsSection(
                 Box(
                     modifier = Modifier
                         .widthIn(max = maxCardWidth)
-                        .then(if (fillHeight) Modifier.fillMaxSize() else Modifier.fillMaxWidth())
+                        .fillMaxSize()
                 ) {
                     // Vertical fade overlay drawn on top of LazyColumn.
                     // The overlay is pointer-transparent so swipe gestures pass through
-                    Box(modifier = if (fillHeight) Modifier.fillMaxSize() else Modifier.fillMaxWidth()) {
+                    Box(modifier = Modifier.fillMaxSize()) {
                         // Clears the action bar, plus itemSpacing for a consistent card gap.
-                        // Eased rather than switched, since a centered list that wraps its
-                        // content moves by half of it and would jump the cards
+                        // Eased rather than switched, so the last cards settle with the bar
+                        // rather than jumping
                         val footerClearance by animateDpAsState(
                             targetValue = if (footerBarOverlap > 0.dp) {
                                 footerBarOverlap + itemSpacing
@@ -989,25 +813,18 @@ internal fun MainAppsSection(
                                 bottom = footerClearance
                             )
                         }
-                        val listArrangement = remember(itemSpacing, isGroupedAppView) {
-                            if (isGroupedAppView) Arrangement.spacedBy(itemSpacing)
-                            else Arrangement.spacedBy(itemSpacing, Alignment.CenterVertically)
-                        }
-                        // A focused row comes out from under the status bar and the footer bar
+                        // A focused row comes out from under the header and the footer bar
                         ProvideBringIntoViewInsets(top = topPadding, bottom = footerClearance) {
                             LazyColumn(
                                 state = listState,
-                                modifier = (if (fillHeight) Modifier.fillMaxSize() else Modifier.fillMaxWidth())
+                                modifier = Modifier
+                                    .fillMaxSize()
                                     .nestedScroll(pullToRefreshGuard),
                                 horizontalAlignment = Alignment.CenterHorizontally,
-                                // Center items vertically in the flat All-apps view when the list
-                                // is shorter than the viewport; grouped views stay top-aligned so
-                                // headers keep a stable position when groups expand/collapse
-                                verticalArrangement = listArrangement,
+                                verticalArrangement = Arrangement.spacedBy(itemSpacing),
                                 contentPadding = listContentPadding
                             ) {
                                 if (header != null) item(key = "header") { header() }
-                                if (toolbar != null) item(key = "toolbar") { toolbar() }
 
                                 // Cold start: homeAppItems still empty - show placeholder shimmer cards
                                 if (state.isLoading && homeAppItems.isEmpty()) {
@@ -1146,7 +963,7 @@ internal fun MainAppsSection(
                             state = state,
                             apps = apps,
                             appActions = appActions,
-                            searchState = searchState,
+                            search = search,
                             listedItems = filteredItems,
                             reorderItems = reorderItems,
                             orderedItems = orderedItems,

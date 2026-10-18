@@ -24,11 +24,12 @@ import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.theme.Theme
 import app.morphe.manager.ui.theme.ThemeStyle
 import app.morphe.manager.ui.theme.resolveThemeStyle
-import app.morphe.manager.ui.theme.toUiScalePercent
 import app.morphe.manager.ui.viewmodel.RandomInterval
 import app.morphe.manager.ui.viewmodel.ThemeSettingsViewModel
 import app.morphe.manager.util.AppCardColorDefaults
 import app.morphe.manager.util.AppCardColorMode
+import app.morphe.manager.util.AppCardColorStop
+import app.morphe.manager.util.AppCardColorValues
 import app.morphe.manager.util.AppLocale
 import app.morphe.manager.util.MORPHE_WEBSITE_URL
 import com.composables.icons.materialsymbols.MaterialSymbols
@@ -65,14 +66,11 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
     val resolvedRandomBackground =
         if (backgroundType == BackgroundType.RANDOM) rememberRandomBackground(themeViewModel.prefs) else null
     val effectiveThemeStyle = resolveThemeStyle(themeStyle, supportsDynamicColor)
-    val showAppCardColorSetting = effectiveThemeStyle != ThemeStyle.MONOCHROME
 
     val uiScale by themeViewModel.prefs.uiScale.getAsState()
 
     val showLanguageDialog = remember { mutableStateOf(false) }
-    val showUiScaleDialog = remember { mutableStateOf(false) }
     val showTranslationInfoDialog = remember { mutableStateOf(false) }
-    val showAppCardColorDialog = remember { mutableStateOf(false) }
     val showBackgroundDialog = remember { mutableStateOf(false) }
     val appCardColorValues = remember(customAppCardColors) {
         AppCardColorDefaults.decodeColorValues(customAppCardColors)
@@ -85,16 +83,19 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
         }
     }
 
-    LaunchedEffect(showAppCardColorSetting) {
-        if (!showAppCardColorSetting) showAppCardColorDialog.value = false
-    }
-
     SettingsColumn {
         DisplaySection(
             appLanguage = appLanguage,
             uiScale = uiScale,
             onLanguageClick = { showTranslationInfoDialog.value = true },
-            onUiScaleClick = { showUiScaleDialog.value = true }
+            // The scale lives on the activity context, so it takes effect on the next attach.
+            // To write has to land first, or that attach would read the previous value
+            onUiScaleApply = { scale ->
+                scope.launch {
+                    themeViewModel.setUiScale(scale).join()
+                    (context as? Activity)?.recreate()
+                }
+            }
         )
 
         ThemeSection(
@@ -111,7 +112,9 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
             accentColorHex = customAccentColorHex,
             onAccentSelected = themeViewModel::setCustomAccentColor,
             appCardColorMode = appCardColorMode,
-            onAppCardColorsClick = { showAppCardColorDialog.value = true }
+            appCardColorValues = appCardColorValues,
+            onAppCardColorModeSelected = themeViewModel::setAppCardColorMode,
+            onAppCardColorSelected = themeViewModel::setAppCardColor
         )
 
         EffectsSection(
@@ -146,36 +149,6 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
             seasonalEvent = seasonalEvent,
             onSeasonalThemesToggle = { themeViewModel.toggleSeasonalThemes(seasonalThemes) },
             matrixUnlocked = matrixUnlocked
-        )
-    }
-
-    // App card color dialog
-    DialogHost(visible = showAppCardColorDialog.value && showAppCardColorSetting) {
-        AppCardColorDialog(
-            mode = appCardColorMode,
-            accentColorHex = customAccentColorHex,
-            startColorHex = appCardColorValues.startHex,
-            middleColorHex = appCardColorValues.middleHex,
-            endColorHex = appCardColorValues.endHex,
-            solidColorHex = appCardColorValues.solidHex,
-            onApply = themeViewModel::applyAppCardColors,
-            onDismiss = { showAppCardColorDialog.value = false }
-        )
-    }
-
-    // Interface scale dialog
-    DialogHost(visible = showUiScaleDialog.value) {
-        UiScaleDialog(
-            currentScale = uiScale,
-            // The scale lives on the activity context, so it takes effect on the next attach.
-            // To write has to land first, or that attach would read the previous value
-            onApply = { scale ->
-                scope.launch {
-                    themeViewModel.setUiScale(scale).join()
-                    (context as? Activity)?.recreate()
-                }
-            },
-            onDismiss = { showUiScaleDialog.value = false }
         )
     }
 
@@ -220,7 +193,7 @@ private fun DisplaySection(
     appLanguage: String,
     uiScale: Float,
     onLanguageClick: () -> Unit,
-    onUiScaleClick: () -> Unit
+    onUiScaleApply: (Float) -> Unit
 ) {
     val context = LocalContext.current
     val currentLanguage = remember(appLanguage, context) {
@@ -249,12 +222,7 @@ private fun DisplaySection(
                     }
                 }
             )
-            SettingsItem(
-                onClick = onUiScaleClick,
-                title = stringResource(R.string.settings_appearance_ui_scale),
-                subtitle = "${uiScale.toUiScalePercent()}%",
-                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Format_size) }
-            )
+            UiScaleSetting(currentScale = uiScale, onApply = onUiScaleApply)
             // How the manager shows on the launcher, as the language and scale say how it reads
             AppIconSettingsItem()
         }
@@ -280,7 +248,9 @@ private fun ThemeSection(
     accentColorHex: String?,
     onAccentSelected: (Color?) -> Unit,
     appCardColorMode: AppCardColorMode,
-    onAppCardColorsClick: () -> Unit
+    appCardColorValues: AppCardColorValues,
+    onAppCardColorModeSelected: (AppCardColorMode) -> Unit,
+    onAppCardColorSelected: (AppCardColorStop, String) -> Unit
 ) {
     SettingsSection(
         title = stringResource(R.string.settings_appearance_theme),
@@ -333,12 +303,17 @@ private fun ThemeSection(
                         checked = colorAccents,
                         onToggle = onColorAccentsToggle
                     )
-                    SettingsItem(
-                        onClick = onAppCardColorsClick,
-                        title = stringResource(R.string.settings_appearance_app_card_colors),
-                        subtitle = stringResource(appCardColorMode.descriptionResId),
-                        leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Style) }
-                    )
+                    val title = stringResource(R.string.settings_appearance_app_card_colors)
+                    SearchableSetting(listOf(title)) {
+                        SettingsItemCard(onClick = null) {
+                            AppCardColorSelector(
+                                mode = appCardColorMode,
+                                values = appCardColorValues,
+                                onModeSelected = onAppCardColorModeSelected,
+                                onColorSelected = onAppCardColorSelected
+                            )
+                        }
+                    }
                 }
             }
         }

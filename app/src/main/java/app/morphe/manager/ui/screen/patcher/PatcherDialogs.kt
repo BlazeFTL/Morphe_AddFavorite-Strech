@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.patcher
 
-import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -36,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
+import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.screen.home.ManagerChangelogDialog
 import app.morphe.manager.ui.screen.shared.*
@@ -46,6 +46,7 @@ import app.morphe.manager.util.requestIgnoreBatteryOptimizations
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 import com.composables.icons.materialsymbols.roundedfilled.*
+import org.koin.compose.koinInject
 
 /**
  * Ceiling for the label column, past which a translation that runs long would leave its value
@@ -199,7 +200,7 @@ fun DialogHostScope.MissingPatchesDialog(
  *    ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION; [onRetryAfterPermission]
  *    re-runs validation when the user returns.
  *
- *  - Android 10 and below (API 29-): READ_EXTERNAL_STORAGE - standard runtime
+ *  - Android 10 and below (API 29-): WRITE_EXTERNAL_STORAGE - standard runtime
  *    permission, requested via the system "Allow / Deny" prompt directly from
  *    within the app. If granted, [onRetryAfterPermission] re-runs validation
  *    immediately. If denied, a warning badge is shown and only Cancel is available.
@@ -217,6 +218,7 @@ fun DialogHostScope.UnusableOptionPathsDialog(
     onClearPaths: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    val fs: Filesystem = koinInject()
     val isApi30Plus = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
 
     // Storage access is worth asking for only while something is actually being kept from the
@@ -225,10 +227,10 @@ fun DialogHostScope.UnusableOptionPathsDialog(
         it.reason == PathValidationResult.Reason.NotReadable
     }
 
-    // Only used on Android 10 and below where READ_EXTERNAL_STORAGE is a
+    // Only used on Android 10 and below where WRITE_EXTERNAL_STORAGE is a
     // standard runtime permission that can be requested inline
     val permissionDenied = remember { mutableStateOf(false) }
-    val readStorageLauncher = rememberLauncherForActivityResult(
+    val writeStorageLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
         if (granted) {
@@ -282,12 +284,12 @@ fun DialogHostScope.UnusableOptionPathsDialog(
                     icon = MaterialSymbols.Rounded.Settings
                 )
 
-                // Android 10 and below request READ_EXTERNAL_STORAGE inline
+                // Android 10 and below request WRITE_EXTERNAL_STORAGE inline
                 else -> DialogAction(
                     text = stringResource(R.string.patcher_storage_permission_grant),
                     onClick = {
                         permissionDenied.value = false
-                        readStorageLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        writeStorageLauncher.launch(fs.storagePermissionName)
                     },
                     icon = MaterialSymbols.Rounded.Lock
                 )
@@ -316,7 +318,7 @@ fun DialogHostScope.UnusableOptionPathsDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             // Shown on Android 10 and below after the user taps "Deny" on the
-            // READ_EXTERNAL_STORAGE prompt. Explains they must either grant the
+            // WRITE_EXTERNAL_STORAGE prompt. Explains they must either grant the
             // permission or move the files to the private app directory
             if (permissionDenied.value) {
                 Notice(

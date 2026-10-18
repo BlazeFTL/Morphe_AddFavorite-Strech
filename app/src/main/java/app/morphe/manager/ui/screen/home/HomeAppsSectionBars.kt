@@ -8,9 +8,6 @@ package app.morphe.manager.ui.screen.home
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppCategoryViewMode
@@ -19,6 +16,7 @@ import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.ActionTone
 import app.morphe.manager.ui.screen.shared.ListOptionSection
 import app.morphe.manager.ui.screen.shared.ListOptionsPanel
+import app.morphe.manager.ui.screen.shared.SearchFieldState
 import app.morphe.manager.ui.screen.shared.SelectionAction
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.autoMirrored
@@ -30,41 +28,20 @@ import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 /**
- * Hands the apps section's footer bar to the screen that draws it. The bar acts on what the
- * section holds, but docks to the bottom edge of the screen over controls a selection has no use
- * for, which the section cannot reach from inside its own bounds.
+ * Hands the apps section's footer bar to the page that docks it. The bar acts on what the section
+ * holds, but docks to the bottom edge of the page over controls a selection has no use for, which
+ * the section cannot reach from inside its own bounds.
  */
 @Stable
 internal class HomeFooterBarHost {
     /** The bar the section wants drawn, or null while no section is on screen. */
     var bar by mutableStateOf<(@Composable (Modifier) -> Unit)?>(null)
-
-    /** Height of the bar as last measured. One that has slid out keeps the last. */
-    var barHeightPx by mutableIntStateOf(0)
-
-    // Window y of the bottom of the area the list lays out in, and of the edge the bar docks to.
-    // The bar covers the span between them anyway, so the list only has to clear the rest of it
-    var contentBottom by mutableFloatStateOf(0f)
-    var dockBottom by mutableFloatStateOf(0f)
-
-    /** How far the bar reaches into the area the list lays out in. */
-    val listOverlapPx: Float
-        get() = (barHeightPx - (dockBottom - contentBottom).coerceAtLeast(0f)).coerceAtLeast(0f)
 }
 
 /** Draws the bar [host] carries, docked to the bottom of whatever [modifier] aligns it to. */
 @Composable
 internal fun HomeFooterBarDock(host: HomeFooterBarHost, modifier: Modifier = Modifier) {
-    val bar = host.bar ?: return
-    bar(
-        modifier
-            .onGloballyPositioned { host.dockBottom = it.boundsInWindow().bottom }
-            .onSizeChanged { size ->
-                // A bar that has slid out reports no height, and the list keeps clearing the
-                // last one until it lets go of the space
-                if (size.height > 0) host.barHeightPx = size.height
-            }
-    )
+    host.bar?.invoke(modifier)
 }
 
 /**
@@ -77,7 +54,7 @@ internal fun HomeAppsFooterBars(
     state: HomeAppsSectionState,
     apps: HomeAppListUi,
     appActions: HomeAppActions,
-    searchState: HomeSearchState,
+    search: SearchFieldState,
     listedItems: List<HomeAppItem>,
     reorderItems: List<HomeAppItem>,
     orderedItems: List<HomeAppItem>,
@@ -143,7 +120,7 @@ internal fun HomeAppsFooterBars(
     val moveToCategoryLabel = stringResource(R.string.home_category_move_to)
     val reorderListLabel = stringResource(R.string.reorder_list)
     val hideLabel = stringResource(R.string.hide)
-    val hiddenMessage = stringResource(R.string.hidden)
+    val hiddenMessage = appsHiddenMessage(selectedPackages.keys.mapNotNull(itemsByPackage::get))
 
     val enterReorder: () -> Unit = {
         groupedSelectionPackages?.let { pkgs ->
@@ -164,7 +141,7 @@ internal fun HomeAppsFooterBars(
         // A lone card is not a group, so keeping it highlighted only dims everything else for nothing
         if (selectedPackages.size == 1) selectedPackages.clear()
         state.isMultiSelectMode = false
-        searchState.onClear()
+        search.collapse()
         groupedSelectionPackages?.let { scopePackages ->
             val scopedItems = sourceOrder
                 ?.mapNotNull { itemsByPackage[it] }
@@ -325,7 +302,7 @@ internal fun HomeAppsFooterBars(
             // already reflects the current source list when reorder begins
             state.activeCategoryId = null
             state.activeSourceUid = null
-            searchState.onClear()
+            search.collapse()
             state.isCategoryReorderMode = true
         },
         onExitReorder = {

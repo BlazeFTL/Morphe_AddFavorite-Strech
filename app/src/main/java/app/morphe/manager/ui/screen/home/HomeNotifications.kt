@@ -13,12 +13,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.AnchoredDraggableDefaults
-import androidx.compose.foundation.gestures.AnchoredDraggableState
-import androidx.compose.foundation.gestures.DraggableAnchors
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.anchoredDraggable
-import androidx.compose.foundation.gestures.animateTo
+import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,8 +35,6 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Constraints
@@ -50,15 +43,16 @@ import androidx.compose.ui.util.lerp
 import app.morphe.manager.R
 import app.morphe.manager.domain.batch.BatchRunState
 import app.morphe.manager.domain.batch.SavedBatchQueue
+import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
 import app.morphe.manager.util.formatMegabytes
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
-import kotlinx.coroutines.launch
 
 /** Visibility flag paired with the tap callback of a single alert in the strip. */
 @Immutable
@@ -109,7 +103,7 @@ data class HomeNotificationsUi(
  * @param passing Whether it only reports on something under way, which a swipe puts away for good
  *   rather than behind the bell, since brought back it would have nothing left to say.
  */
-private class HomeAlert(
+internal class HomeAlert(
     val key: String,
     val visible: Boolean,
     val snoozable: Boolean = true,
@@ -119,10 +113,48 @@ private class HomeAlert(
 )
 
 /**
- * The alerts of the main screen, over the top of its pages.
+ * The alerts of the main screen for this session: every one raised or not, and the revision each
+ * the user swiped aside was swiped at. Read by the strip that shows them and by the bell in the
+ * apps page's header that brings back what was swiped aside.
+ */
+class HomeAlerts internal constructor(
+    internal val all: List<HomeAlert>,
+    private val snoozed: SnapshotStateMap<String, String>
+) {
+    internal fun HomeAlert.isSnoozed() = snoozable && snoozed[key] == revision
+
+    internal fun snooze(alert: HomeAlert) {
+        snoozed[alert.key] = alert.revision
+    }
+
+    /** Alerts still up that were swiped aside behind the bell. */
+    val snoozedCount: Int
+        get() = all.count { it.visible && !it.passing && it.isSnoozed() }
+
+    /** Brings back what was swiped aside, but not the passing alerts, with nothing left to say. */
+    fun restoreSnoozed() {
+        val passingKeys = all.filter { it.passing }.mapTo(HashSet()) { it.key }
+        snoozed.keys.retainAll(passingKeys)
+    }
+}
+
+/** The [HomeAlerts] raised from [notifications], their snoozes kept across navigation and rotation. */
+@Composable
+fun rememberHomeAlerts(notifications: HomeNotificationsUi): HomeAlerts {
+    val snoozed = rememberSaveable(saver = SnoozeSaver) { mutableStateMapOf() }
+    val all = homeAlerts(notifications)
+    // An alert that goes away forgets its snooze, so raised again it is shown again
+    val hiddenKeys = all.filterNot { it.visible }.map { it.key }
+    LaunchedEffect(hiddenKeys) { hiddenKeys.forEach(snoozed::remove) }
+    return HomeAlerts(all, snoozed)
+}
+
+/**
+ * The [alerts] of the main screen, under the header of the page on screen.
  *
  * Alerts stack behind the most pressing one, so however many are raised they cover no more of the
- * screen than one. A swipe snoozes an alert for the session, and the bell chip brings it back.
+ * screen than one. A swipe snoozes an alert for the session, and the bell in the apps page's
+ * header brings it back.
  *
  * The whole stack is laid out from one model: each card's height, how far it has come in, how far
  * it is swiped aside and how far the stack is unfolded. Every change moves the cards from wherever
@@ -133,14 +165,11 @@ private class HomeAlert(
  */
 @Composable
 fun NotificationsOverlay(
-    notifications: HomeNotificationsUi,
+    alerts: HomeAlerts,
     modifier: Modifier = Modifier,
     showAlerts: Boolean = true
 ) {
-    val alerts = homeAlerts(notifications)
-    // Revision each alert was snoozed at, kept across navigation and rotation
-    val snoozed = rememberSaveable(saver = SnoozeSaver) { mutableStateMapOf() }
-    // Dragged open and shut by the finger, and eased there by the chips, so either way the stack
+    // Dragged open and shut by the finger, and eased there by the chip, so either way the stack
     // follows one state. Whether it stays open is kept across navigation and rotation
     val fold = rememberSaveable(saver = AnchoredDraggableState.Saver()) {
         AnchoredDraggableState(StackFold.Folded)
@@ -151,21 +180,14 @@ fun NotificationsOverlay(
         scope.launch { fold.animateTo(value, Animations.defaultTween()) }
     }
 
-    // An alert that goes away forgets its snooze, so raised again it is shown again
-    val hiddenKeys = alerts.filterNot { it.visible }.map { it.key }
-    LaunchedEffect(hiddenKeys) { hiddenKeys.forEach(snoozed::remove) }
-
-    fun HomeAlert.isSnoozed() = snoozable && snoozed[key] == revision
-    val active = alerts.filter { it.visible && !it.isSnoozed() && (showAlerts || it.passing) }
+    val active = with(alerts) { all.filter { it.visible && !it.isSnoozed() && (showAlerts || it.passing) } }
     val activeKeys = active.mapTo(HashSet()) { it.key }
-    val snoozedCount = if (showAlerts) alerts.count { it.visible && !it.passing && it.isSnoozed() } else 0
-    val passingKeys = alerts.filter { it.passing }.mapTo(HashSet()) { it.key }
     val stacked = active.size - 1
 
     LaunchedEffect(stacked) { if (stacked <= 0) fold.animateTo(StackFold.Folded, Animations.defaultTween()) }
 
     val stackCards = remember { StackCards() }
-    val cards = stackCards.update(alerts, activeKeys)
+    val cards = stackCards.update(alerts.all, activeKeys)
 
     Layout(
         contents = listOf(
@@ -176,7 +198,7 @@ fun NotificationsOverlay(
                         StackCardSlot(
                             card = card,
                             raised = card.key in activeKeys,
-                            onSwiped = { snoozed[card.key] = card.alert.revision }
+                            onSwiped = { alerts.snooze(card.alert) }
                         )
                     }
                 }
@@ -197,9 +219,7 @@ fun NotificationsOverlay(
                 AlertStackControls(
                     stacked = stacked,
                     expanded = unfolding,
-                    snoozedCount = snoozedCount,
-                    onToggleExpanded = { foldTo(if (unfolding) StackFold.Folded else StackFold.Unfolded) },
-                    onRestoreSnoozed = { snoozed.keys.retainAll(passingKeys) }
+                    onToggleExpanded = { foldTo(if (unfolding) StackFold.Folded else StackFold.Unfolded) }
                 )
             }
         ),
@@ -288,9 +308,8 @@ fun NotificationsOverlay(
         val peekHeight = peek.roundToInt()
         val peekTargets = peekMeasurables.map { it.measure(Constraints.fixed(constraints.maxWidth, peekHeight)) }
 
-        // Hung half over the edge of the last card, so the chips cover as little as possible of
-        // the screen under the strip. They ride that edge up as the last card leaves and stop at
-        // the top, where with every alert snoozed the bell is all that is left of the strip
+        // Hung half over the edge of the last card, so the chip covers as little as possible of
+        // the screen under the strip, and rides that edge up as the last card leaves
         val controlsHeight = controls.maxOfOrNull { it.height } ?: 0
         val controlsBase = cardsHeight + (peekHeight - gap).coerceAtLeast(0)
         val controlsTop = (controlsBase - controlsHeight / 2 - gap).coerceAtLeast(0)
@@ -379,12 +398,11 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
     val bundleUpdate = notifications.bundleUpdate
 
     return listOf(
-        // Leads while it lasts, so the progress of a running update stays in sight. Only how it
-        // ended can be swiped, and a new status brings it back
+        // Leads while it lasts, so the progress of a running update stays in sight until swiped
+        // aside, and how the update ended brings it back
         HomeAlert(
             key = "bundle_update",
             visible = bundleUpdate.visible,
-            snoozable = bundleUpdate.status != BundleUpdateStatus.Updating,
             revision = bundleUpdate.status.name,
             passing = true
         ) {
@@ -542,19 +560,16 @@ private fun alert(
     )
 }
 
-/** Chips of the strip: one folding the stack open and shut, one bringing back what was snoozed. */
+/** The chip of the strip folding the stack open and shut, while cards are stacked behind the top one. */
 @Composable
 private fun AlertStackControls(
     stacked: Int,
     expanded: Boolean,
-    snoozedCount: Int,
     onToggleExpanded: () -> Unit,
-    onRestoreSnoozed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // The chips keep their last count while they shrink away, rather than reading 0 on the way out
+    // The chip keeps its last count while it shrinks away, rather than reading 0 on the way out
     val shownStacked = rememberLatest(stacked.takeIf { it > 0 }) ?: 0
-    val shownSnoozed = rememberLatest(snoozedCount.takeIf { it > 0 }) ?: 0
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -566,19 +581,6 @@ private fun AlertStackControls(
                 icon = if (expanded) MaterialSymbols.Rounded.Expand_less else MaterialSymbols.Rounded.Expand_more,
                 text = if (expanded) stringResource(R.string.less) else "+$shownStacked",
                 onClick = onToggleExpanded
-            )
-        }
-        AnimatedRowPill(visible = snoozedCount > 0, gap = AlertSpacing) {
-            val description = pluralStringResource(
-                R.plurals.home_alerts_snoozed_count,
-                shownSnoozed,
-                shownSnoozed.toString()
-            )
-            AlertChip(
-                icon = MaterialSymbols.Rounded.Notifications,
-                text = shownSnoozed.toString(),
-                onClick = onRestoreSnoozed,
-                modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = description }
             )
         }
     }
@@ -713,7 +715,10 @@ private fun BundleUpdateCard(
         isDownloading -> stringResource(R.string.patcher_percentage, (downloadFraction * 100).toInt().toString())
         else -> null
     }
+    // The source at work, by its own picture once it has one. One not downloaded yet, or that failed
+    // the last time, is only being fetched, which the ring's own glyph says rather than a warning
     val activeSource = progress?.activeUids?.firstOrNull()?.let(sourcesByUid::get)
+        ?.takeIf { it.state is PatchBundleSource.State.Available }
 
     StatusCard(
         tone = status.tone,

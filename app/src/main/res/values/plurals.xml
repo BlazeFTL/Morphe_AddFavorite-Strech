@@ -100,6 +100,14 @@
         <item quantity="one">%s source installed</item>
         <item quantity="other">%s sources installed</item>
     </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s app hidden</item>
+        <item quantity="other">%s apps hidden</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s app shown</item>
+        <item quantity="other">%s apps shown</item>
+    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s hidden app</item>
         <item quantity="other">%s hidden apps</item>

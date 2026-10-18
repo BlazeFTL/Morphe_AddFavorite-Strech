@@ -3,7 +3,7 @@
  * https://github.com/MorpheApp/morphe-manager
  */
 
-package app.morphe.manager.ui.screen.settings.appearance
+package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.shared.*
 
 /**
  * Lays [items] out [columns] to a row, padding a short last row so every tile keeps one width.
@@ -79,8 +78,8 @@ fun <T> OptionGroup(
 }
 
 /**
- * Standard icon-based option card for appearance settings.
- * Used for backgrounds, themes, and other icon-based selections.
+ * An icon over a label, for a choice among a few: the appearance settings lay their themes,
+ * backgrounds and modes out in these, and the color picker its modes.
  *
  * @param compact Shorter, with a smaller icon, for a row of choices that sits inline on the tab
  *        rather than in a picker of its own.

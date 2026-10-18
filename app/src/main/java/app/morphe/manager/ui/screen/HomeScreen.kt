@@ -7,8 +7,9 @@ package app.morphe.manager.ui.screen
 
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -22,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.trackingKey
@@ -40,7 +43,6 @@ import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
 import app.morphe.manager.ui.screen.shared.MainPage
 import app.morphe.manager.ui.screen.shared.MainPagerScaffold
-import app.morphe.manager.ui.screen.shared.StatusBarScrim
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberInstallQueue
 import app.morphe.manager.ui.screen.sources.SourcesPage
@@ -97,10 +99,10 @@ fun HomeScreen(
         when {
             touring -> {
                 tourShown = true
-                onboardingState?.pageShown = null
+                onboardingState.pageShown = null
                 tourPage?.let {
                     pagerState.animateScrollToPage(it.ordinal)
-                    onboardingState?.pageShown = it
+                    onboardingState.pageShown = it
                 }
             }
             tourShown -> {
@@ -149,13 +151,11 @@ fun HomeScreen(
     val homeAppState by homeViewModel.apps.homeAppState.collectAsStateWithLifecycle()
     val homeAppItems = homeAppState?.visible ?: emptyList()
     val hiddenAppItems = homeAppState?.hidden ?: emptyList()
-    val homeAppSortMode = homeAppState?.sortMode ?: HomeAppSortMode.MANUAL
+    val homeAppSortMode = homeAppState?.sortMode ?: HomeAppSortMode.RECOMMENDED
     val homeAppCategoryState = homeAppState?.categoryState ?: HomeAppCategoryState(emptyList(), emptyMap())
     val homeAppCategoryViewMode = homeAppState?.categoryViewMode ?: HomeAppCategoryViewMode.ALL_APPS
     val homeAppSourceGroups = homeAppState?.sourceGroups ?: emptyList()
     val bundlePipelineLoading = homeAppState == null
-    val showOtherAppsButton by homeViewModel.apps.showOtherAppsButton.collectAsStateWithLifecycle()
-    val showSearchButton by homeViewModel.apps.showSearchButton.collectAsStateWithLifecycle()
     val batchRun by homeViewModel.batchRun.collectAsStateWithLifecycle()
     val savedBatchQueue by homeViewModel.savedBatchQueue.collectAsStateWithLifecycle()
     val homeAppFilterModePref by homeAppButtonPrefs.filterMode.collectAsStateWithLifecycle()
@@ -349,6 +349,10 @@ fun HomeScreen(
             progress = bundleUpdateProgress
         )
     )
+    val alerts = rememberHomeAlerts(notifications)
+    // Each page's header, which the alerts hang under on whichever page is on screen
+    val pageHeaderHeights = remember { mutableStateMapOf<MainPage, Dp>() }
+    val alertsTopTarget = pageHeaderHeights[MainPage.entries[pagerState.currentPage]]
 
     val pullToRefreshState = rememberPullToRefreshState()
     MainPagerScaffold(
@@ -365,15 +369,20 @@ fun HomeScreen(
         settingsDescription = if (useExpertMode) "$settingsLabel, $expertModeLabel" else null,
         onItemPositioned = onboardingState?.let { tour -> { page, bounds -> tour.navigationBounds[page] = bounds } },
         overlay = {
-            NotificationsOverlay(
-                notifications = notifications,
-                // Only an update under way follows to the other pages
-                showAlerts = pagerState.currentPage == MainPage.APPS.ordinal,
-                modifier = Modifier
-                    .widthIn(max = homeCardMaxWidth())
-                    .align(Alignment.TopCenter)
-                    .statusBarsPadding()
-            )
+            // Held back until the header is measured, so on a cold start the alerts open right
+            // under it rather than drop down to it from the top of the screen
+            if (alertsTopTarget != null) {
+                val alertsTop by animateDpAsState(targetValue = alertsTopTarget, label = "alertsTop")
+                NotificationsOverlay(
+                    alerts = alerts,
+                    // Only an update under way follows to the other pages
+                    showAlerts = pagerState.currentPage == MainPage.APPS.ordinal,
+                    modifier = Modifier
+                        .widthIn(max = homeCardMaxWidth())
+                        .align(Alignment.TopCenter)
+                        .padding(top = alertsTop)
+                )
+            }
         }
     ) { page, bottomBarHeight ->
         when (page) {
@@ -382,14 +391,16 @@ fun HomeScreen(
                 bottomBarHeight = bottomBarHeight,
                 listOptionsOpen = sourcesListOptionsOpen,
                 onListOptionsOpenChange = { sourcesListOptionsOpen = it },
-                onboardingState = onboardingState
+                onboardingState = onboardingState,
+                onHeaderHeightChange = { pageHeaderHeights[MainPage.SOURCES] = it }
             )
 
             MainPage.SETTINGS -> SettingsPage(
                 homeViewModel = homeViewModel,
                 navigation = settingsNavigation,
                 bottomBarHeight = bottomBarHeight,
-                onboardingState = onboardingState
+                onboardingState = onboardingState,
+                onHeaderHeightChange = { pageHeaderHeights[MainPage.SETTINGS] = it }
             )
 
             MainPage.APPS -> PullToRefreshBox(
@@ -401,9 +412,10 @@ fun HomeScreen(
                     PullToRefreshDefaults.LoadingIndicator(
                         state = pullToRefreshState,
                         isRefreshing = isRefreshing,
+                        // Drawn out from under the header rather than the status bar, as the list is
                         modifier = Modifier
                             .align(Alignment.TopCenter)
-                            .statusBarsPadding()
+                            .padding(top = pageHeaderHeights[MainPage.APPS] ?: 0.dp)
                     )
                 }
             ) {
@@ -495,17 +507,13 @@ fun HomeScreen(
                         onOpenSources = { openPage(MainPage.SOURCES) },
                         onRefreshGreeting = onRefresh
                     ),
-                    chromeFlags = HomeChromeFlags(
-                        showSearchButton = showSearchButton,
-                        showOtherAppsButton = showOtherAppsButton
-                    ),
                     greetingMessage = greetingMessage,
                     state = sectionState,
                     bottomBarHeight = bottomBarHeight,
-                    onboardingState = onboardingState
+                    alerts = alerts,
+                    onboardingState = onboardingState,
+                    onHeaderHeightChange = { pageHeaderHeights[MainPage.APPS] = it }
                 )
-                // The only page whose content runs on under the status bar with no header over it
-                StatusBarScrim()
             }
         }
     }

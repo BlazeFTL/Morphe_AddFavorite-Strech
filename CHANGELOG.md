@@ -1,3 +1,31 @@
+# [2.0.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.5...v2.0.0-dev.6) (2026-10-18)
+
+
+### Bug Fixes
+
+* Draw the pull to refresh indicator out from under the apps page header ([e8df613](https://github.com/MorpheApp/morphe-manager/commit/e8df6139ff993c2bfd1c6edf8161443f94088d17))
+* Give the process runtime switch an icon of its own rather than its section's ([199156c](https://github.com/MorpheApp/morphe-manager/commit/199156cb6b553958bc3b4073581f2c7a63b6818d))
+* Hand a closing dialog's messages to the screen below instead of showing them twice ([6778719](https://github.com/MorpheApp/morphe-manager/commit/6778719e804197d5306665697ace3fa3e5e71738))
+* Hang the alerts under the page header and bring snoozed ones back from a bell in it ([e0f67f0](https://github.com/MorpheApp/morphe-manager/commit/e0f67f0b84d47fe2a416260f10f4c15b0cb1304c))
+* Keep the app info panel still when coming back from one of its pages ([0107c37](https://github.com/MorpheApp/morphe-manager/commit/0107c37c237e0ee08e242b837dda3de5eed51d02))
+* Keep the apps toolbar on screen and in reach while the sources load ([d90d74c](https://github.com/MorpheApp/morphe-manager/commit/d90d74c14583b866b8a193a379f4b9d0cc7c234b))
+* Let the sources update notification be swiped away while it runs ([18c81a5](https://github.com/MorpheApp/morphe-manager/commit/18c81a52c0e01eeda286d22a37adfc1c740fa8cb))
+* Open the home alerts right under the header on a cold start rather than easing them down from the top ([8d56f41](https://github.com/MorpheApp/morphe-manager/commit/8d56f410d61194fae338c70f65549c519e17d027))
+* Request write access to shared storage on Android 10 and below ([#1193](https://github.com/MorpheApp/morphe-manager/issues/1193)) ([904b9e5](https://github.com/MorpheApp/morphe-manager/commit/904b9e5ddd370b53e31fd211fa1bdb4c4a2c0746))
+* Return to the download instructions after reviewing APK download helpers ([5467fd7](https://github.com/MorpheApp/morphe-manager/commit/5467fd78841a1be0a7e46600ceb163e0d622468f))
+* Show the sync glyph while a source not downloaded yet is fetched ([a44b962](https://github.com/MorpheApp/morphe-manager/commit/a44b9625bd4bc868c723ae0e9c1da3200cfa1a0c))
+
+
+### Features
+
+* Head the apps page like the other pages, with Morphe's emblem over a list from the top ([a66aad0](https://github.com/MorpheApp/morphe-manager/commit/a66aad0121415bf5aa791c39a2a8c6e8f07239cb))
+* Head the apps page with the Morphe wordmark ([4c82b59](https://github.com/MorpheApp/morphe-manager/commit/4c82b59ff0b978629bcea8d7ff1200ce8755202e))
+* Name the app or count the apps a hide or unhide reports ([c858f5f](https://github.com/MorpheApp/morphe-manager/commit/c858f5fc1e4955099e93925227862b02655f4d82))
+* Pick the app card colors right on the appearance page, saving each pick as it is made ([2b2837a](https://github.com/MorpheApp/morphe-manager/commit/2b2837abed373d1fefef59e463035f13d92a3202))
+* Pick the interface scale right on the appearance page, previewed on a home card and a settings row until applied ([c5d57a0](https://github.com/MorpheApp/morphe-manager/commit/c5d57a08ecb939e03f1b7575a5e764c3fcb2aa32))
+* Pop the alerts bell into the apps page header with a ring ([bbb1bc3](https://github.com/MorpheApp/morphe-manager/commit/bbb1bc3042b8bd7ebf7a848748b4a9f0b2681a34))
+* Show the color picker's old and new color side by side, its modes as tiles and its presets as a grid ([5ea0d5f](https://github.com/MorpheApp/morphe-manager/commit/5ea0d5f0970b32219ff2af3a6876454122e9c959))
+
 # [2.0.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.4...v2.0.0-dev.5) (2026-10-18)
 
 

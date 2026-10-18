@@ -64,6 +64,30 @@ fun HomeDialogs(
 ) {
     val scope = rememberCoroutineScope()
     val messages = koinInject<UserMessages>()
+
+    // Installed App Info Dialog. Composed ahead of the rest, as windows coming back after a trip
+    // to another screen stack in composition order, and the patch flow it starts stays over it
+    DialogHost(target = homeViewModel.showInstalledAppInfoDialog) { packageName ->
+        key(packageName, homeViewModel.installedAppDialogToken) {
+            val installedAppInfoViewModel: InstalledAppInfoViewModel = koinViewModel(
+                key = "${packageName}_${homeViewModel.installedAppDialogToken}",
+                parameters = { parametersOf(packageName) }
+            )
+            InstalledAppInfoDialog(
+                packageName = packageName,
+                onDismiss = homeViewModel::dismissInstalledAppInfo,
+                onTriggerPatchFlow = { originalPackageName, repatchedPackageName ->
+                    homeViewModel.showPatchDialog(
+                        packageName = originalPackageName,
+                        repatchedPackageName = repatchedPackageName
+                    )
+                },
+                homeViewModel = homeViewModel,
+                viewModel = installedAppInfoViewModel
+            )
+        }
+    }
+
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
     val apkDownloadHelpers = rememberApkDownloadHelperAction(
         host = homeViewModel,
@@ -316,28 +340,6 @@ fun HomeDialogs(
             onDismiss = { homeViewModel.dismissLowDiskSpaceDialog() },
             onPatchAnyway = { homeViewModel.dismissLowDiskSpaceDialogAndProceed() }
         )
-    }
-
-    // Installed App Info Dialog
-    DialogHost(target = homeViewModel.showInstalledAppInfoDialog) { packageName ->
-        key(packageName, homeViewModel.installedAppDialogToken) {
-            val installedAppInfoViewModel: InstalledAppInfoViewModel = koinViewModel(
-                key = "${packageName}_${homeViewModel.installedAppDialogToken}",
-                parameters = { parametersOf(packageName) }
-            )
-            InstalledAppInfoDialog(
-                packageName = packageName,
-                onDismiss = homeViewModel::dismissInstalledAppInfo,
-                onTriggerPatchFlow = { originalPackageName, repatchedPackageName ->
-                    homeViewModel.showPatchDialog(
-                        packageName = originalPackageName,
-                        repatchedPackageName = repatchedPackageName
-                    )
-                },
-                homeViewModel = homeViewModel,
-                viewModel = installedAppInfoViewModel
-            )
-        }
     }
 
     // Simple mode bundle selection dialog - shown when 2+ bundles have patches for the same app

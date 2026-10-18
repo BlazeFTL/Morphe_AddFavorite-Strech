@@ -188,7 +188,7 @@ private fun DialogWindow(transition: Transition<Boolean>, content: @Composable (
         DialogWindowEffect(isDarkTheme)
 
         // A window of its own, so messages raised while it is open are shown in it
-        MessageHost(modifier = Modifier.fillMaxSize()) {
+        MessageHost(modifier = Modifier.fillMaxSize(), accepting = transition.targetState) {
             // Opaque from the first frame, so nothing behind shows as one dialog hands over to the
             // next, and faded out with the content as the dialog leaves
             transition.AnimatedVisibility(
@@ -328,6 +328,18 @@ internal fun DialogHostScope.DialogShell(
 /** Takes in taps on a dialog's content, so they do not reach a tap outside that dismisses it. */
 internal fun Modifier.consumesTaps(): Modifier = pointerInput(Unit) { detectTapGestures { } }
 
+/**
+ * Takes in every pointer event before the content under it sees one, leaving it shown but out of
+ * reach of touch.
+ */
+internal fun Modifier.consumesPointerInput(): Modifier = pointerInput(Unit) {
+    awaitPointerEventScope {
+        while (true) {
+            awaitPointerEvent(PointerEventPass.Initial).changes.forEach { it.consume() }
+        }
+    }
+}
+
 /** Whether this is drawn in a dialog's own window rather than in the activity's under it. */
 @Composable
 fun isInDialogWindow(): Boolean = LocalView.current.parent is DialogWindowProvider
@@ -386,7 +398,7 @@ fun Overlay(
         ) {
             DialogWindowEffect(isDarkTheme)
 
-            MessageHost(modifier = Modifier.fillMaxSize()) {
+            MessageHost(modifier = Modifier.fillMaxSize(), accepting = visible) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -420,13 +432,7 @@ fun BoxScope.ContentOverlay(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface.copy(alpha = backgroundAlpha))
-                .pointerInput(Unit) {
-                    awaitPointerEventScope {
-                        while (true) {
-                            awaitPointerEvent(PointerEventPass.Initial).changes.forEach { it.consume() }
-                        }
-                    }
-                },
+                .consumesPointerInput(),
             contentAlignment = Alignment.Center,
             content = content
         )

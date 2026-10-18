@@ -32,6 +32,7 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.patcher.util.NativeLibs
 import app.morphe.manager.ui.model.displayedPackageInfo
 import app.morphe.manager.ui.model.trackedInstallPresentation
 import app.morphe.manager.ui.screen.home.AppliedPatchBundleUi
@@ -39,6 +40,7 @@ import app.morphe.manager.ui.screen.home.resolveAppliedBundleAttribution
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
@@ -68,6 +70,15 @@ class InstalledAppInfoViewModel(
         private set
     var appInfo: PackageInfo? by mutableStateOf(null)
         private set
+
+    /** Size in bytes of the APK installed under the app's package, null while none is. */
+    var installedApkSize: Long? by mutableStateOf(null)
+        private set
+
+    /** The ABIs the installed APK ships native libraries for, empty until read or when it ships none. */
+    var installedApkAbis: List<String> by mutableStateOf(emptyList())
+        private set
+    private var installedApkAbisJob: Job? = null
     private var usableSavedApk: File? = null
 
     private val _appliedPatches = MutableStateFlow<PatchSelection?>(null)
@@ -299,6 +310,9 @@ class InstalledAppInfoViewModel(
     private suspend fun refreshAppState(app: InstalledApp) {
         val snapshot = localApkSources.trackedAppSnapshot(app)
         val installedInfo = snapshot.installedPackageInfo
+        val installedApk = installedInfo?.applicationInfo?.sourceDir?.let(::File)
+        installedApkSize = installedApk?.length()
+        readInstalledApkAbis(installedApk)
         usableSavedApk = snapshot.savedPatchedApk
         hasSavedCopy = usableSavedApk != null
         val trackedPatchState = snapshot.patchState
@@ -324,6 +338,15 @@ class InstalledAppInfoViewModel(
             ?: (rootInstaller.isDeviceRooted() && rootInstaller.isAppMounted(app.currentPackageName))
 
         appLinksStatus = installedInfo?.let { appLinksManager.getStatus(app.currentPackageName) }
+    }
+
+    // Listing the native libraries walks the whole APK, which for the largest apps would hold the
+    // rest of the state back, so they are read on their own and the row comes in once they are
+    private fun readInstalledApkAbis(apk: File?) {
+        installedApkAbisJob?.cancel()
+        installedApkAbisJob = viewModelScope.launch {
+            installedApkAbis = apk?.let { withContext(Dispatchers.IO) { NativeLibs.extractAbisFromApk(it) } }.orEmpty()
+        }
     }
 
     /** Reads the link selection again, which only the system screen changes. */

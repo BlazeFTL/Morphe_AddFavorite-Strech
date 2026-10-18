@@ -463,7 +463,7 @@ fun DialogHostScope.InstalledAppInfoDialog(
     val loadedApp = installedApp?.takeUnless { isLoading }
     // A window with the room sets the actions, or the page opened in their place, beside the
     // information rather than under it
-    val split = loadedApp != null && hasRoomForPanes()
+    val split = hasRoomForPanes()
 
     // Writes the module again from the saved builds and mounts it, reinstalling the matching
     // original first when another version replaced it

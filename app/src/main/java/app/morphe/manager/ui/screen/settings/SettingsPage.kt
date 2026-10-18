@@ -35,17 +35,14 @@ import org.koin.compose.koinInject
  * The settings page of the main screen: every setting in its group, with the [SettingsSubpage]s
  * too long for a group each opening a page of its own.
  *
- * @param onOpenPatchSelections Opens the patch selections expert mode saves.
- * @param onStartTour Restarts the onboarding tour, when no tour is running.
+ * @param navigation Where the page and the pages it opens lead out to.
  * @param bottomBarHeight Height of the navigation floating over the page, which it ends clear of.
  * @param onboardingState Set while the tour runs, which points at some of the rows.
  */
 @Composable
 fun SettingsPage(
     homeViewModel: HomeViewModel,
-    onOpenSubpage: (SettingsSubpage) -> Unit,
-    onOpenPatchSelections: () -> Unit,
-    onStartTour: (() -> Unit)?,
+    navigation: SettingsNavigation,
     bottomBarHeight: Dp,
     modifier: Modifier = Modifier,
     onboardingState: OnboardingState? = null,
@@ -81,14 +78,12 @@ fun SettingsPage(
                             bottom = bottomBarHeight + Defaults.SpaceLarge
                         )
                 ) {
-                    GeneralSection(onOpenSubpage, onboardingState)
-                    PatchingSection(settingsViewModel, onOpenSubpage, onOpenPatchSelections, onboardingState)
+                    GeneralSection(navigation.openSubpage, onboardingState)
+                    PatchingSection(settingsViewModel, navigation, onboardingState)
                     UpdatesSection(settingsViewModel, homeViewModel)
-                    FilesSection(settingsViewModel, onboardingState, onOpenSubpage)
-                    AboutGroup(onOpenSubpage)
-                    if (settingsSearch.isActive) {
-                        SubpageMatches(homeViewModel, settingsViewModel, onOpenSubpage, onStartTour)
-                    }
+                    FilesSection(settingsViewModel, onboardingState, navigation.openSubpage)
+                    AboutGroup(navigation.openSubpage)
+                    if (settingsSearch.isActive) SubpageMatches(homeViewModel, settingsViewModel, navigation)
                     AnimatedVisibility(
                         visible = settingsSearch.isActive && settingsSearch.shown == 0,
                         enter = Animations.fadeIn,
@@ -121,8 +116,7 @@ fun SettingsPage(
 @Composable
 private fun PatchingSection(
     settingsViewModel: SettingsViewModel,
-    onOpenSubpage: (SettingsSubpage) -> Unit,
-    onOpenPatchSelections: () -> Unit,
+    navigation: SettingsNavigation,
     tour: OnboardingState?
 ) {
     val messages = koinInject<UserMessages>()
@@ -161,17 +155,17 @@ private fun PatchingSection(
             )
             // Each folds in as the other folds away, so the group reshapes around the swap
             FoldingVisibility(visible = useExpertMode) {
-                PatchSelectionsItem(onClick = onOpenPatchSelections)
+                PatchSelectionsItem(onClick = navigation.openPatchSelections)
             }
             FoldingVisibility(visible = !useExpertMode) {
-                SubpageItem(SettingsSubpage.PATCH_OPTIONS, onOpenSubpage)
+                SubpageItem(SettingsSubpage.PATCH_OPTIONS, navigation.openSubpage)
             }
             InstallerItem(
                 settingsViewModel = settingsViewModel,
-                onClick = { onOpenSubpage(SettingsSubpage.INSTALLER) },
+                onClick = { navigation.openSubpage(SettingsSubpage.INSTALLER) },
                 modifier = Modifier.tourTarget(TourTarget.INSTALLER, tour)
             )
-            SubpageItem(SettingsSubpage.PATCHER, onOpenSubpage)
+            SubpageItem(SettingsSubpage.PATCHER, navigation.openSubpage)
         }
     }
 }
@@ -234,8 +228,7 @@ internal fun SubpageItem(
 private fun SubpageMatches(
     homeViewModel: HomeViewModel,
     settingsViewModel: SettingsViewModel,
-    onOpenSubpage: (SettingsSubpage) -> Unit,
-    onStartTour: (() -> Unit)?
+    navigation: SettingsNavigation
 ) {
     val useExpertMode by settingsViewModel.prefs.useExpertMode.getAsState()
     SettingsSubpage.entries.forEach { subpage ->
@@ -245,9 +238,9 @@ private fun SubpageMatches(
         SettingsSection(
             title = stringResource(subpage.titleRes),
             icon = subpage.icon,
-            onTitleClick = { onOpenSubpage(subpage) }
+            onTitleClick = { navigation.openSubpage(subpage) }
         ) {
-            SettingsSubpageContent(subpage, homeViewModel, onStartTour)
+            SettingsSubpageContent(subpage, homeViewModel, navigation)
         }
     }
 }

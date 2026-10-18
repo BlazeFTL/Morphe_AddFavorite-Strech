@@ -7,12 +7,12 @@ package app.morphe.manager.ui.screen.settings.system
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Article
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.BugReport
+import androidx.compose.material.icons.outlined.Gavel
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.People
@@ -75,13 +75,15 @@ fun AboutGroup(onOpenSubpage: (SettingsSubpage) -> Unit) {
 
 /**
  * What there is to know about the manager past its version, and help with it, on a page of its
- * own, see [SettingsSubpage.ABOUT]: its changelog, credits, the logs a bug report asks for and the
- * tour.
+ * own, see [SettingsSubpage.ABOUT]: its changelog, credits and licenses, the logs a bug report
+ * asks for and the tour.
  *
+ * @param onOpenLicenses Opens the open-source licenses the manager is built on.
  * @param onStartTour Restarts the onboarding tour, when no tour is running.
  */
 @Composable
 fun AboutSettings(
+    onOpenLicenses: () -> Unit,
     onStartTour: (() -> Unit)?,
     importExportViewModel: ImportExportViewModel = koinViewModel()
 ) {
@@ -120,6 +122,12 @@ fun AboutSettings(
                     subtitle = stringResource(R.string.credits_description),
                     onClick = { showCreditsDialog = true }
                 )
+                SettingsItem(
+                    icon = Icons.Outlined.Gavel,
+                    title = stringResource(R.string.opensource_licenses),
+                    subtitle = stringResource(R.string.opensource_licenses_description),
+                    onClick = onOpenLicenses
+                )
             }
         }
 
@@ -147,22 +155,6 @@ fun AboutSettings(
                     )
                 }
             }
-        }
-    }
-}
-
-/**
- * Who made the manager, and the licenses past them, opening in place of the credits in the same
- * dialog.
- */
-@Composable
-private fun DialogHostScope.CreditsDialog(onDismiss: () -> Unit) {
-    var showLicenses by rememberSaveable { mutableStateOf(false) }
-    DialogPages(page = showLicenses, key = { it }, modifier = Modifier.fillMaxSize()) { licenses ->
-        if (licenses) {
-            LicensesPage(onBack = { showLicenses = false })
-        } else {
-            CreditsPage(onDismiss = onDismiss, onOpenLicenses = { showLicenses = true })
         }
     }
 }

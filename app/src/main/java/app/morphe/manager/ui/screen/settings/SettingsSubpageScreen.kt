@@ -24,17 +24,17 @@ import org.koin.androidx.compose.koinViewModel
 /**
  * One [subpage] of the settings, opened from its row on the settings page.
  *
- * @param onStartTour Restarts the onboarding tour, when no tour is running.
+ * @param navigation Where the page leads out to.
  */
 @Composable
 fun SettingsSubpageScreen(
     subpage: SettingsSubpage,
     homeViewModel: HomeViewModel,
-    onStartTour: (() -> Unit)?,
+    navigation: SettingsNavigation,
     onBack: () -> Unit
 ) {
     SubpageScaffold(title = stringResource(subpage.titleRes), onBack = onBack) {
-        SettingsSubpageContent(subpage, homeViewModel, onStartTour)
+        SettingsSubpageContent(subpage, homeViewModel, navigation)
     }
 }
 
@@ -43,7 +43,7 @@ fun SettingsSubpageScreen(
 internal fun SettingsSubpageContent(
     subpage: SettingsSubpage,
     homeViewModel: HomeViewModel,
-    onStartTour: (() -> Unit)?
+    navigation: SettingsNavigation
 ) {
     when (subpage) {
         SettingsSubpage.PATCH_OPTIONS -> PatchOptionsSettings(homeViewModel)
@@ -53,7 +53,10 @@ internal fun SettingsSubpageContent(
         SettingsSubpage.PATCHER -> PatcherSettings()
         SettingsSubpage.STORAGE -> StorageSettings()
         SettingsSubpage.APK_DOWNLOAD_HELPERS -> ApkDownloadHelpersSettings()
-        SettingsSubpage.ABOUT -> AboutSettings(onStartTour)
+        SettingsSubpage.ABOUT -> AboutSettings(
+            onOpenLicenses = navigation.openLicenses,
+            onStartTour = navigation.startTour
+        )
     }
 }
 

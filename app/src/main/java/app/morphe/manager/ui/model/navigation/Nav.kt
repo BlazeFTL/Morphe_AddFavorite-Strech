@@ -32,6 +32,10 @@ data class SettingsDetail(val subpage: String)
 @Serializable
 data object PatchSelections
 
+/** The open-source licenses the manager is built on, a list of its own opened from the settings. */
+@Serializable
+data object Licenses
+
 @Serializable
 data object BatchPatcher : ComplexParameter<BatchPatcher.ViewModelParams> {
     @Parcelize

@@ -226,7 +226,7 @@ fun BatchPatcherScreen(
     }
 
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
-    val openApkDownloadHelper = rememberApkDownloadHelperAction(
+    val apkDownloadHelpers = rememberApkDownloadHelperAction(
         host = viewModel,
         enabled = viewModel.apkSearch != null
     )
@@ -335,7 +335,7 @@ fun BatchPatcherScreen(
             downloadColor = metadata?.downloadColor ?: KnownApps.DEFAULT_DOWNLOAD_COLOR,
             isApkBundle = metadata?.apkFileType?.isApk == false,
             onDismiss = viewModel::cancelApkSearch,
-            onOpenApkDownloadHelper = openApkDownloadHelper,
+            onOpenApkDownloadHelper = apkDownloadHelpers.open,
             onContinue = viewModel::confirmApkSearch
         )
     }

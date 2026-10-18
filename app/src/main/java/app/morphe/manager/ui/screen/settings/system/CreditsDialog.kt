@@ -8,7 +8,6 @@ package app.morphe.manager.ui.screen.settings.system
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Article
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.History
@@ -57,10 +56,10 @@ private val priorContributors = listOf(
 
 /**
  * Who made the manager: current and prior contributors, each linking to their GitHub contributor
- * page, with the licenses opening in place of it in the credits dialog of [AboutSettings].
+ * page.
  */
 @Composable
-fun DialogHostScope.CreditsPage(onDismiss: () -> Unit, onOpenLicenses: () -> Unit) {
+fun DialogHostScope.CreditsDialog(onDismiss: () -> Unit) {
     val uriHandler = LocalUriHandler.current
     val accent = MaterialTheme.colorScheme.primary
 
@@ -104,13 +103,6 @@ fun DialogHostScope.CreditsPage(onDismiss: () -> Unit, onOpenLicenses: () -> Uni
                 contributors = priorContributors,
                 onContributorClick = { uriHandler.openUri(it.url) }
             )
-            SettingsGroup {
-                SettingsItem(
-                    onClick = onOpenLicenses,
-                    icon = Icons.AutoMirrored.Outlined.Article,
-                    title = stringResource(R.string.opensource_licenses)
-                )
-            }
         }
     }
 }

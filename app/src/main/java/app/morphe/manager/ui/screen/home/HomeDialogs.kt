@@ -60,12 +60,13 @@ fun HomeDialogs(
     storagePickerLauncher: () -> Unit,
     openBundlePicker: () -> Unit,
     patchesItem: MutableState<HomeAppItem?>,
-    onSourceAdded: () -> Unit
+    onSourceAdded: () -> Unit,
+    onOpenApkDownloadHelpers: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val messages = koinInject<UserMessages>()
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
-    val openApkDownloadHelper = rememberApkDownloadHelperAction(
+    val apkDownloadHelpers = rememberApkDownloadHelperAction(
         host = homeViewModel,
         enabled = homeViewModel.showDownloadInstructionsDialog
     )
@@ -174,7 +175,8 @@ fun HomeDialogs(
                 homeViewModel.showDownloadInstructionsDialog = false
                 homeViewModel.cleanupPendingData()
             },
-            onOpenApkDownloadHelper = openApkDownloadHelper,
+            onOpenApkDownloadHelper = apkDownloadHelpers.open,
+            onTrustApkDownloadHelpers = onOpenApkDownloadHelpers.takeIf { apkDownloadHelpers.hasUntrusted },
             onContinue = homeViewModel::handleDownloadInstructionsContinue
         )
     }

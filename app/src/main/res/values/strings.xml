@@ -256,6 +256,8 @@ Anything you add from this website is used at your own risk"</string>
     <string name="home_apk_availability_yes">Yes, help me find an APK</string>
     <string name="home_apk_availability_no">No, I already have an APK</string>
     <string name="home_apk_helper_download">Use a helper app</string>
+    <string name="home_apk_helper_untrusted">A helper app is installed but not trusted yet, so it is not offered here</string>
+    <string name="home_apk_helper_untrusted_action">Review helpers</string>
     <string name="home_apk_helper_title">Download with a helper app</string>
     <string name="home_apk_helper_description">Morphe will ask the helper app below to download the original APK and hand the file back</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1093,7 +1095,7 @@ The image dimensions must be as follows:
     <string name="installer_unavailable_title">%s unavailable</string>
     <string name="installer_unavailable_message">Your preferred installer (%s) is currently unavailable. You can fix the issue and retry, or use the standard installer instead</string>
     <string name="installer_unavailable_shizuku_hint">Make sure Shizuku is running and permission is granted to this app</string>
-    <string name="installer_use_standard">Use standard</string>
+    <string name="installer_choose_another">Choose another installer</string>
     <string name="installer_play_store_warning_title">Install as Play Store?</string>
     <string name="installer_play_store_warning_message">The patched app will be recorded as installed from Google Play Store. This can help services like Android Auto recognize it as a Play Store app, but it is not guaranteed for every app or device. Behavior may vary by Android version, ROM, device brand, and app-specific checks</string>
     <string name="installer_play_store_warning_risk">Play Store may offer updates for the patched app. Installing that update will overwrite the patched APK with the original version and remove the patches. If prompted to update, tap the three-dot menu on the app\'s Play Store page and choose \"Turn off updates\"</string>
@@ -1321,12 +1323,13 @@ Details: %2$s"</string>
     <string name="settings_system_about">About</string>
     <string name="settings_system_manager_description">An open-source project for modern, streamlined patching of popular Android apps, driven by community feedback and contributions</string>
     <string name="credits">Credits</string>
-    <string name="credits_description">Contributors and open-source licenses</string>
+    <string name="credits_description">The people behind Morphe</string>
     <string name="settings_about_section_project">Project</string>
     <string name="settings_about_section_help">Help</string>
     <string name="credits_current_development">Current development</string>
     <string name="credits_prior_development">Prior development</string>
     <string name="opensource_licenses">Open-source licenses</string>
+    <string name="opensource_licenses_description">The libraries Morphe is built on</string>
 
     <!-- Easter egg offered after seven taps on the version in the About dialog -->
     <string name="easter_egg_pill_title">A choice</string>

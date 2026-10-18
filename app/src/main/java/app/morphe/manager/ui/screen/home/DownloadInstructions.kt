@@ -227,6 +227,9 @@ private fun ApkDownloadSource.instructionSteps(
  * @param requestedVersion Version the APK has to be. Null when any version can be patched.
  * @param downloadColor App accent color, which APKMirror tints its download button with.
  * @param isApkBundle Whether the bundle requires a split archive, which APKMirror labels differently.
+ * @param onOpenApkDownloadHelper Downloads through a trusted helper app, null while none is.
+ * @param onTrustApkDownloadHelpers Opens where a helper installed but not trusted yet is let in,
+ * null while there is none or nowhere to open that from.
  * @param onContinue Moves on to picking the downloaded file once the link is handed off, given how
  * to hand it off. That returns false when the link could not be passed on.
  */
@@ -242,6 +245,7 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
     isApkBundle: Boolean,
     onDismiss: () -> Unit,
     onOpenApkDownloadHelper: (() -> Unit)? = null,
+    onTrustApkDownloadHelpers: (() -> Unit)? = null,
     onContinue: (handOff: (String) -> Boolean) -> Unit
 ) {
     val uriHandler = LocalUriHandler.current
@@ -265,11 +269,9 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
     val resolving = source == ApkDownloadSource.Unresolved
 
     // Latched for the same reason as the instructions above: dismissing the dialog withdraws the
-    // helper action at once, and a footer that drops a button mid-exit reads as a glitch
-    var offersHelper by remember { mutableStateOf(false) }
-    LaunchedEffect(onOpenApkDownloadHelper != null) {
-        if (onOpenApkDownloadHelper != null) offersHelper = true
-    }
+    // helper actions at once, and a dialog that drops one mid-exit reads as a glitch
+    val offersHelper = latchedOnce(onOpenApkDownloadHelper != null)
+    val offersTrust = latchedOnce(onTrustApkDownloadHelpers != null)
 
     val continueText = stringResource(
         R.string.home_download_instructions_continue_to,
@@ -311,78 +313,93 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
             )
         }
     ) {
-        // Waiting shows as waiting rather than as instructions that rewrite themselves once
-        // the destination turns out to be a different website
-        Crossfade(
-            targetState = source,
-            // Neither the wait nor the site specific steps are the same height, so the dialog
-            // grows into whatever it ends up holding
-            modifier = Modifier.animateContentSize(),
-            animationSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-            label = "downloadInstructions"
-        ) { currentSource ->
-            if (currentSource == ApkDownloadSource.Unresolved) {
-                PulsingLogoWithCaption(
-                    caption = stringResource(R.string.home_download_instructions_finding),
-                    size = 96.dp,
-                    spacing = 12.dp
-                )
-                return@Crossfade
-            }
-
-            val mountInstallRequired = usingMountInstall && !stockAppInstalled
-            val steps = currentSource.instructionSteps(
-                requestedVersion = requestedVersion,
-                mountInstallRequired = mountInstallRequired
-            )
-
-            // On a card of their own, as the version lists before them are, numbered down a rail
-            SurfaceCard(
-                cornerRadius = Defaults.CornerLarge,
-                showBorder = true,
-                color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
-            ) {
-                Column(
-                    modifier = Modifier.padding(
-                        horizontal = Defaults.SpaceLarge,
-                        vertical = Defaults.SpaceMedium
+        Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)) {
+            // Waiting shows as waiting rather than as instructions that rewrite themselves once
+            // the destination turns out to be a different website
+            Crossfade(
+                targetState = source,
+                // Neither the wait nor the site specific steps are the same height, so the dialog
+                // grows into whatever it ends up holding
+                modifier = Modifier.animateContentSize(),
+                animationSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
+                label = "downloadInstructions"
+            ) { currentSource ->
+                if (currentSource == ApkDownloadSource.Unresolved) {
+                    PulsingLogoWithCaption(
+                        caption = stringResource(R.string.home_download_instructions_finding),
+                        size = 96.dp,
+                        spacing = 12.dp
                     )
-                ) {
-                    steps.forEachIndexed { index, step ->
-                        InstructionStep(
-                            number = index + 1,
-                            isLast = index == steps.lastIndex
-                        ) {
-                            Text(
-                                text = step.text,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = dialogTextColor()
-                            )
+                    return@Crossfade
+                }
 
-                            step.button?.let { button ->
-                                Box(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    SiteDownloadButton(
-                                        button = button,
-                                        downloadColor = downloadColor,
-                                        isApkBundle = isApkBundle
+                val mountInstallRequired = usingMountInstall && !stockAppInstalled
+                val steps = currentSource.instructionSteps(
+                    requestedVersion = requestedVersion,
+                    mountInstallRequired = mountInstallRequired
+                )
+
+                // On a card of their own, as the version lists before them are, numbered down a rail
+                SurfaceCard(
+                    cornerRadius = Defaults.CornerLarge,
+                    showBorder = true,
+                    color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(
+                            horizontal = Defaults.SpaceLarge,
+                            vertical = Defaults.SpaceMedium
+                        )
+                    ) {
+                        steps.forEachIndexed { index, step ->
+                            InstructionStep(
+                                number = index + 1,
+                                isLast = index == steps.lastIndex
+                            ) {
+                                Text(
+                                    text = step.text,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = dialogTextColor()
+                                )
+
+                                step.button?.let { button ->
+                                    Box(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        SiteDownloadButton(
+                                            button = button,
+                                            downloadColor = downloadColor,
+                                            isApkBundle = isApkBundle
+                                        )
+                                    }
+                                }
+
+                                step.note?.let { note ->
+                                    Notice(
+                                        text = note,
+                                        tone = SemanticTone.Warning,
+                                        icon = Icons.Outlined.Warning,
+                                        density = NoticeDensity.Compact
                                     )
                                 }
-                            }
-
-                            step.note?.let { note ->
-                                Notice(
-                                    text = note,
-                                    tone = SemanticTone.Warning,
-                                    icon = Icons.Outlined.Warning,
-                                    density = NoticeDensity.Compact
-                                )
                             }
                         }
                     }
                 }
+            }
+
+            // A helper the user has installed but not trusted is not offered above, so this says why
+            if (offersTrust) {
+                Notice(
+                    text = stringResource(R.string.home_apk_helper_untrusted),
+                    tone = SemanticTone.Primary,
+                    icon = Icons.Outlined.Download,
+                    action = NoticeAction(
+                        text = stringResource(R.string.home_apk_helper_untrusted_action),
+                        onClick = { onTrustApkDownloadHelpers?.invoke() }
+                    )
+                )
             }
         }
     }
@@ -546,3 +563,14 @@ private fun InstructionStep(
         )
     }
 }
+
+/** True from the first time [present] is, as a dialog holds what it offered while it animates out. */
+@Composable
+private fun latchedOnce(present: Boolean): Boolean {
+    // Read only as the caller recomposes for [present] anyway, so a plain field is enough
+    val latch = remember { Latch() }
+    if (present) latch.on = true
+    return latch.on
+}
+
+private class Latch(var on: Boolean = false)

@@ -641,7 +641,7 @@ fun DialogHostScope.InstallerUnavailableDialog(
     state: InstallViewModel.InstallerUnavailableState,
     onOpenApp: () -> Unit,
     onRetry: () -> Unit,
-    onUseFallback: () -> Unit,
+    onChooseAnother: () -> Unit,
     onDismiss: () -> Unit
 ) {
     val installerName = when (state.installerToken) {
@@ -684,11 +684,11 @@ fun DialogHostScope.InstallerUnavailableDialog(
                         )
                     }
 
-                    // Fallback option
+                    // Any other installer for this install, the standard one among them
                     add(
                         DialogAction(
-                            text = stringResource(R.string.installer_use_standard),
-                            onClick = onUseFallback
+                            text = stringResource(R.string.installer_choose_another),
+                            onClick = onChooseAnother
                         )
                     )
 

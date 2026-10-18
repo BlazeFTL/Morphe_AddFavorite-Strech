@@ -51,8 +51,10 @@ import app.morphe.manager.ui.screen.BatchPatcherScreen
 import app.morphe.manager.ui.screen.HomeScreen
 import app.morphe.manager.ui.screen.PatcherScreen
 import app.morphe.manager.ui.screen.home.*
+import app.morphe.manager.ui.screen.settings.SettingsNavigation
 import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.settings.SettingsSubpageScreen
+import app.morphe.manager.ui.screen.settings.system.LicensesPage
 import app.morphe.manager.ui.screen.settings.system.PatchSelectionsPage
 import app.morphe.manager.ui.screen.shared.AnimatedBackground
 import app.morphe.manager.ui.screen.shared.Animations
@@ -594,13 +596,9 @@ private fun MorpheManager(vm: MainViewModel) {
                 }
 
                 HomeScreen(
-                    onOpenSettingsSubpage = { subpage ->
-                        navController.navigate(SettingsDetail(subpage.name)) { launchSingleTop = true }
+                    settingsNavigation = remember(navController, showOnboarding) {
+                        navController.settingsNavigation(startTour = startOnboardingTour.takeUnless { showOnboarding })
                     },
-                    onOpenPatchSelections = {
-                        navController.navigate(PatchSelections) { launchSingleTop = true }
-                    },
-                    onStartTour = startOnboardingTour.takeUnless { showOnboarding },
                     onboardingState = onboardingState.takeIf { showOnboarding },
                     onStartQuickPatch = { params ->
                         entry.lifecycleScope.launch {
@@ -671,10 +669,12 @@ private fun MorpheManager(vm: MainViewModel) {
                 SettingsSubpageScreen(
                     subpage = SettingsSubpage.valueOf(entry.toRoute<SettingsDetail>().subpage),
                     homeViewModel = homeViewModel,
-                    // The tour runs over the main screen, so it starts once back there
-                    onStartTour = {
-                        navController.popBackStack(HomeScreen, false)
-                        startOnboardingTour()
+                    navigation = remember(navController) {
+                        // The tour runs over the main screen, so it starts once back there
+                        navController.settingsNavigation(startTour = {
+                            navController.popBackStack(HomeScreen, false)
+                            startOnboardingTour()
+                        })
                     },
                     // Back to the main screen however it was asked for, so a second tap never leaves it
                     onBack = { navController.popBackStack(HomeScreen, false) }
@@ -683,6 +683,10 @@ private fun MorpheManager(vm: MainViewModel) {
 
             composable<PatchSelections> {
                 PatchSelectionsPage(onBack = { navController.popBackStack(HomeScreen, false) })
+            }
+
+            composable<Licenses> {
+                LicensesPage(onBack = { navController.popBackStack() })
             }
         }
 
@@ -693,6 +697,14 @@ private fun MorpheManager(vm: MainViewModel) {
         }
     }
 }
+
+/** Where the settings lead out to, as routes of this navigation, see [SettingsNavigation]. */
+private fun NavController.settingsNavigation(startTour: (() -> Unit)?) = SettingsNavigation(
+    openSubpage = { subpage -> navigate(SettingsDetail(subpage.name)) { launchSingleTop = true } },
+    openPatchSelections = { navigate(PatchSelections) { launchSingleTop = true } },
+    openLicenses = { navigate(Licenses) { launchSingleTop = true } },
+    startTour = startTour
+)
 
 // Androidx Navigation does not support storing complex types in route objects, so we have
 // to store them inside the saved state handle of the back stack entry instead

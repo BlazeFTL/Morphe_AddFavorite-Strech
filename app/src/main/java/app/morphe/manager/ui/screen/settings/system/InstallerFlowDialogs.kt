@@ -27,7 +27,7 @@ fun InstallerFlowDialogs(
             state = dialogState,
             onOpenApp = installViewModel::openInstallerApp,
             onRetry = installViewModel::retryWithPreferredInstaller,
-            onUseFallback = installViewModel::proceedWithFallbackInstaller,
+            onChooseAnother = installViewModel::chooseAnotherInstaller,
             onDismiss = installViewModel::dismissInstallerUnavailableDialog
         )
     }

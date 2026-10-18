@@ -6,6 +6,8 @@
 package app.morphe.manager.ui.screen.home
 
 import android.view.HapticFeedbackConstants
+import androidx.annotation.PluralsRes
+import androidx.annotation.StringRes
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
@@ -257,7 +259,9 @@ internal fun DialogHostScope.HiddenAppsDialog(
                             SelectionAction(
                                 icon = MaterialSymbols.Rounded.Visibility,
                                 label = stringResource(R.string.unhide),
-                                onClick = messages.confirming(stringResource(R.string.unhide_done)) {
+                                onClick = messages.confirming(
+                                    appsShownMessage(hiddenAppItems.filter { selectedPackages.contains(it.id) })
+                                ) {
                                     onUnhideMultiple(selectedPackages.keys.toSet())
                                     isMultiSelectMode.value = false
                                     selectedPackages.clear()
@@ -294,6 +298,7 @@ internal fun DialogHostScope.HiddenAppsDialog(
             ) { item ->
                 val isSelected = selectedPackages.contains(item.id)
                 val offsetX = remember(item.id) { Animatable(0f) }
+                val unhide = unhideReporting(item, onUnhide)
 
                 // Snap card back when entering multi-select
                 LaunchedEffect(isMultiSelectMode.value) {
@@ -308,7 +313,7 @@ internal fun DialogHostScope.HiddenAppsDialog(
                     SwipeableCardContainer(
                         offsetX = offsetX,
                         actionThresholdPx = actionThresholdPx,
-                        onSwipeToStart = { onUnhide(item.id) },
+                        onSwipeToStart = unhide,
                         onSwipeToEnd = { onShowPatches(item) },
                         startHaptic = HapticFeedbackConstants.LONG_PRESS,
                         endHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
@@ -331,7 +336,7 @@ internal fun DialogHostScope.HiddenAppsDialog(
                                 if (isMultiSelectMode.value) {
                                     selectedPackages.toggle(item.id)
                                 } else {
-                                    onUnhide(item.id)
+                                    unhide()
                                 }
                             },
                             onLongClick = {
@@ -495,3 +500,23 @@ fun DialogHostScope.AppPatchSourcesDialog(
         }
     }
 }
+
+/** What hiding [apps] reports: the app by name when it is the only one, otherwise how many went. */
+@Composable
+internal fun appsHiddenMessage(apps: List<HomeAppItem>): String =
+    appsVisibilityMessage(apps, R.string.home_app_hidden_named, R.plurals.home_apps_hidden_count)
+
+/** Shows [item] again through [onUnhide], reporting it as [appsShownMessage] does. */
+@Composable
+internal fun unhideReporting(item: HomeAppItem, onUnhide: (String) -> Unit): () -> Unit =
+    koinInject<UserMessages>().confirming(appsShownMessage(listOf(item))) { onUnhide(item.id) }
+
+/** What showing [apps] again reports, as [appsHiddenMessage] does for hiding them. */
+@Composable
+internal fun appsShownMessage(apps: List<HomeAppItem>): String =
+    appsVisibilityMessage(apps, R.string.home_app_shown_named, R.plurals.home_apps_shown_count)
+
+@Composable
+private fun appsVisibilityMessage(apps: List<HomeAppItem>, @StringRes named: Int, @PluralsRes counted: Int): String =
+    apps.singleOrNull()?.let { stringResource(named, it.displayName) }
+        ?: pluralStringResource(counted, apps.size, apps.size.toString())

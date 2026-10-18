@@ -120,7 +120,7 @@ internal fun HomeAppsFooterBars(
     val moveToCategoryLabel = stringResource(R.string.home_category_move_to)
     val reorderListLabel = stringResource(R.string.reorder_list)
     val hideLabel = stringResource(R.string.hide)
-    val hiddenMessage = stringResource(R.string.hidden)
+    val hiddenMessage = appsHiddenMessage(selectedPackages.keys.mapNotNull(itemsByPackage::get))
 
     val enterReorder: () -> Unit = {
         groupedSelectionPackages?.let { pkgs ->

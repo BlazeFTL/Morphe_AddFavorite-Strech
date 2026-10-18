@@ -9,6 +9,8 @@
     <string name="home_app_hide_title">Hide this app?</string>
     <string name="home_app_hide_message">This app will be hidden from the home screen. You can restore it later from the hidden apps using the button at the bottom of the list</string>
     <string name="home_app_will_be_hidden">This app will be hidden</string>
+    <string name="home_app_hidden_named">%s hidden</string>
+    <string name="home_app_shown_named">%s shown</string>
     <string name="home_app_no_hidden">No hidden apps</string>
     <string name="home_app_hidden_apps_title">Hidden apps</string>
     <string name="home_app_hidden_apps_hint">Tap to unhide</string>
@@ -1467,7 +1469,6 @@ Details: %2$s"</string>
     <string name="hide">Hide</string>
     <string name="hidden">Hidden</string>
     <string name="unhide">Unhide</string>
-    <string name="unhide_done">Shown</string>
     <string name="ignore">Ignore</string>
     <string name="stop_ignoring">Stop ignoring</string>
     <string name="logs">Logs</string>

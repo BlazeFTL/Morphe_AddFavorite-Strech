@@ -118,36 +118,25 @@ fun PatchOptionsSection(
                 }
             }
 
-            noPatchesAvailable -> {
-                Notice(
-                    text = stringResource(R.string.settings_advanced_patch_options_waiting_for_source),
-                    tone = SemanticTone.Primary,
-                    icon = Icons.Outlined.Info
-                )
-            }
+            noPatchesAvailable -> EmptyState(
+                message = stringResource(R.string.settings_advanced_patch_options_waiting_for_source),
+                icon = Icons.Outlined.HourglassEmpty
+            )
 
-            loadError != null -> {
-                Notice(
-                    text = stringResource(R.string.settings_advanced_patch_options_load_error) +
-                            "\n" + loadError,
-                    tone = SemanticTone.Error,
-                    icon = Icons.Outlined.Error
-                )
-            }
+            loadError != null -> EmptyState(
+                message = stringResource(R.string.settings_advanced_patch_options_load_error),
+                icon = Icons.Outlined.ErrorOutline,
+                subtitle = loadError
+            )
 
             else -> {
-                Notice(
-                    icon = Icons.Outlined.Info,
-                    text = stringResource(R.string.settings_advanced_patch_options_restart_message),
-                    tone = SemanticTone.Primary
-                )
-
                 PatchOptionGroups(
                     youtubePatches.isNotEmpty(),
                     youtubeMusicPatches.isNotEmpty(),
                     patchOptionsPrefs,
                     patchOptionsViewModel
                 )
+                SettingsFooter(text = stringResource(R.string.settings_advanced_patch_options_restart_message))
             }
         }
     }

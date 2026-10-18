@@ -11,7 +11,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AutoFixHigh
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material.icons.outlined.SettingsSuggest
@@ -30,6 +29,7 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 /**
  * The settings page of the main screen: every setting in its group, with the [SettingsSubpage]s
@@ -125,13 +125,9 @@ private fun PatchingSection(
     onOpenPatchSelections: () -> Unit,
     tour: OnboardingState?
 ) {
+    val messages = koinInject<UserMessages>()
     val useExpertMode by settingsViewModel.prefs.useExpertMode.getAsState()
     var showExpertModeDialog by remember { mutableStateOf(false) }
-
-    // Notify VM on expert mode changes so it can derive showExpertModeNotice
-    LaunchedEffect(useExpertMode) {
-        settingsViewModel.onExpertModeChanged(useExpertMode)
-    }
 
     DialogHost(visible = showExpertModeDialog) {
         ConfirmDialog(
@@ -141,6 +137,7 @@ private fun PatchingSection(
             onConfirm = {
                 settingsViewModel.setExpertMode(true)
                 showExpertModeDialog = false
+                messages.show(R.string.settings_advanced_patch_options_expert_mode_notice, long = true)
             },
             onDismiss = { showExpertModeDialog = false }
         )
@@ -175,15 +172,6 @@ private fun PatchingSection(
                 modifier = Modifier.tourTarget(TourTarget.INSTALLER, tour)
             )
             SubpageItem(SettingsSubpage.PATCHER, onOpenSubpage)
-        }
-
-        // Shown once after enabling, and not as a match for a search
-        if (useExpertMode && settingsViewModel.showExpertModeNotice && LocalSettingsSearch.current?.isActive != true) {
-            Notice(
-                icon = Icons.Outlined.Info,
-                text = stringResource(R.string.settings_advanced_patch_options_expert_mode_notice),
-                tone = SemanticTone.Warning
-            )
         }
     }
 }

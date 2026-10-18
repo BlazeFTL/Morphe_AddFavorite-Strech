@@ -15,7 +15,6 @@ import androidx.compose.material.icons.outlined.Api
 import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.LayersClear
 import androidx.compose.material.icons.outlined.Memory
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.rememberSliderState
@@ -167,20 +166,12 @@ private fun ProcessRuntimeSettings(settingsViewModel: SettingsViewModel) {
 
         else -> null
     }
-    // Held on to so the notice keeps its text and tone while it animates out
+    // Held on to so the warning keeps its text and tone while it animates out
     var lastWarning by remember { mutableStateOf(warning) }
     warning?.let { lastWarning = it }
 
-    // A warning is about the limit just picked, so a search leaves it out along with the slider
-    val searching = LocalSettingsSearch.current?.isActive == true
-    FoldingVisibility(visible = enabled && warning != null && !searching) {
-        lastWarning?.let { (text, tone) ->
-            Notice(
-                text = stringResource(text),
-                tone = tone,
-                icon = Icons.Outlined.Warning
-            )
-        }
+    FoldingVisibility(visible = enabled && warning != null) {
+        lastWarning?.let { (text, tone) -> SettingsFooter(text = stringResource(text), tone = tone) }
     }
 }
 

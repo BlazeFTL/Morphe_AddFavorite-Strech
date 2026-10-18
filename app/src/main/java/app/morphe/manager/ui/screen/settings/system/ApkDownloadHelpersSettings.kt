@@ -6,9 +6,6 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -47,6 +44,7 @@ fun ApkDownloadHelpersSettings(
     pm: PM = koinInject()
 ) {
     val helpers = rememberApkDownloadHelpers(settingsViewModel)
+    var pendingTrust by remember { mutableStateOf<ApkDownloadHelperApp?>(null) }
     val trustedPackages by settingsViewModel.prefs.trustedApkDownloadHelpers.getAsState()
     val unknownInstaller = stringResource(R.string.settings_system_apk_download_helper_installed_by_unknown)
 
@@ -66,13 +64,26 @@ fun ApkDownloadHelpersSettings(
         }
     }
 
-    SettingsColumn {
-        Notice(
-            text = stringResource(R.string.settings_system_apk_download_helper_dialog_description),
-            tone = SemanticTone.Neutral,
-            icon = Icons.Outlined.Info
+    DialogHost(target = pendingTrust) { helper ->
+        ConfirmDialog(
+            title = stringResource(R.string.settings_system_apk_download_helper_trust_title),
+            message = stringResource(R.string.settings_system_apk_download_helper_warning),
+            primaryText = stringResource(R.string.settings_system_apk_download_helper_trust),
+            isPrimaryDestructive = false,
+            subject = {
+                ConfirmSubject(name = helper.label) { modifier ->
+                    AppIcon(packageName = helper.packageName, contentDescription = null, modifier = modifier)
+                }
+            },
+            onConfirm = {
+                settingsViewModel.setApkDownloadHelperTrusted(helper.packageName, true)
+                pendingTrust = null
+            },
+            onDismiss = { pendingTrust = null }
         )
+    }
 
+    SettingsColumn {
         SettingsGroup {
             helpers.forEach { helper ->
                 val trusted = helper.packageName in trustedPackages
@@ -83,7 +94,11 @@ fun ApkDownloadHelpersSettings(
 
                 SettingsSwitchItem(
                     checked = trusted,
-                    onToggle = { settingsViewModel.setApkDownloadHelperTrusted(helper.packageName, !trusted) },
+                    // Trusting one is what lets its APKs in, so that waits on a confirmation
+                    onToggle = {
+                        if (trusted) settingsViewModel.setApkDownloadHelperTrusted(helper.packageName, false)
+                        else pendingTrust = helper
+                    },
                     leadingContent = {
                         AppIcon(
                             packageName = helper.packageName,
@@ -102,11 +117,7 @@ fun ApkDownloadHelpersSettings(
             }
         }
 
-        Notice(
-            text = stringResource(R.string.settings_system_apk_download_helper_warning),
-            tone = SemanticTone.Warning,
-            icon = Icons.Outlined.Warning
-        )
+        SettingsFooter(text = stringResource(R.string.settings_system_apk_download_helper_dialog_description))
     }
 }
 

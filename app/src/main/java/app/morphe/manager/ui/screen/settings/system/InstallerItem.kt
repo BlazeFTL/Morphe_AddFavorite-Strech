@@ -239,10 +239,13 @@ internal fun InstallerChoice(
         }
     }
 
-    // Not a match for a search, so it stays out of what one finds
-    ModuleUnmountNotice(
-        visible = selectedToken == InstallerManager.Token.AutoSaved && LocalSettingsSearch.current?.isActive != true
-    )
+    val moduleUnmountRisk = rememberModuleUnmountRisk()
+    FoldingVisibility(visible = selectedToken == InstallerManager.Token.AutoSaved && moduleUnmountRisk) {
+        SettingsFooter(
+            text = stringResource(R.string.root_mount_module_unmount_warning),
+            tone = SemanticTone.Warning
+        )
+    }
 
     val showPlayStoreToggle = selectedToken.supportsPlayStoreMode() &&
             options.any { it.token == selectedToken.withPlayStoreMode(true) }
@@ -370,15 +373,20 @@ internal fun InstallerManager.Token.isShizukuToken(): Boolean =
     baseInstallerToken() == InstallerManager.Token.Shizuku
 
 /**
- * Warns that a root manager hiding module mounts from an app also hides the patched APK from it.
- * Magisk never does, so the warning stays off there once root is known to come from it.
+ * Whether root comes from a manager that may hide module mounts from an app, which hides the
+ * patched APK from it too. Magisk never does, so this stays false there, and until it is known.
  */
 @Composable
-private fun ModuleUnmountNotice(visible: Boolean = true) {
+private fun rememberModuleUnmountRisk(): Boolean {
     val rootInstaller: RootInstaller = koinInject()
     val isMagisk by produceState<Boolean?>(null) { value = rootInstaller.isMagisk() }
+    return isMagisk == false
+}
 
-    FoldingVisibility(visible = visible && isMagisk == false) {
+/** The warning of [rememberModuleUnmountRisk], under a mount offered in a dialog. */
+@Composable
+private fun ModuleUnmountNotice() {
+    FoldingVisibility(visible = rememberModuleUnmountRisk()) {
         Notice(
             text = stringResource(R.string.root_mount_module_unmount_warning),
             tone = SemanticTone.Warning,

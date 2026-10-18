@@ -10,9 +10,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -190,27 +187,6 @@ class SettingsViewModel(
      * True for the duration of the current settings session after the user enables expert mode for the first time.
      * Reset to false when the user disables expert mode again.
      */
-    var showExpertModeNotice by mutableStateOf(false)
-        private set
-
-    private var previousExpertMode: Boolean? = null
-
-    /**
-     * Must be called from the UI whenever useExpertMode changes so the VM can
-     * derive [showExpertModeNotice] without holding its own coroutine-based observer here
-     * (the pref is already observed as Compose state in the composable).
-     */
-    fun onExpertModeChanged(newValue: Boolean) {
-        val prev = previousExpertMode
-        if (prev != null && newValue && !prev) {
-            showExpertModeNotice = true
-        }
-        if (!newValue) {
-            showExpertModeNotice = false
-        }
-        previousExpertMode = newValue
-    }
-
     fun setExpertMode(enabled: Boolean) = viewModelScope.launch {
         prefs.useExpertMode.update(enabled)
         if (enabled && !prefs.customFilePickerUserConfigured.get()) {

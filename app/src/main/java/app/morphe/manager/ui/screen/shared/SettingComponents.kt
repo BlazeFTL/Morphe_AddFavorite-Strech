@@ -22,6 +22,8 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.FolderOff
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -556,6 +558,44 @@ fun SectionCard(
         modifier = modifier
     ) {
         if (accentColor == null) content() else ProvideCardAccent(accentColor, fill, content)
+    }
+}
+
+/**
+ * A note closing a [SettingsGroup], the way a settings page ends a group with a footer rather than
+ * a card of its own: an icon in the column of the rows' icons, and its [text] where their titles
+ * start. A [tone] other than neutral marks one that warns about the value picked, its icon and
+ * text taking the role's color.
+ */
+@Composable
+fun SettingsFooter(
+    text: String,
+    modifier: Modifier = Modifier,
+    tone: SemanticTone = SemanticTone.Neutral
+) {
+    // About the page around the settings rather than one of them, so a search leaves it out
+    if (LocalSettingsSearch.current?.isActive == true) return
+    val color = tone.accent
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = Defaults.SpaceLarge),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
+    ) {
+        Box(modifier = Modifier.size(Defaults.IconSize), contentAlignment = Alignment.Center) {
+            Icon(
+                imageVector = if (tone == SemanticTone.Neutral) Icons.Outlined.Info else Icons.Outlined.Warning,
+                contentDescription = null,
+                tint = color,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium,
+            color = color,
+            modifier = Modifier.weight(1f)
+        )
     }
 }
 

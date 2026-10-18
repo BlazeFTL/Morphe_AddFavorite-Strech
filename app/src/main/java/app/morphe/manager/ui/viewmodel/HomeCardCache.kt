@@ -76,7 +76,6 @@ internal data class CachedHome(
         return HomeCards(
             visible = visible.distinctBy { it.id }.map { it.toItem(records) },
             hidden = hidden.distinctBy { it.id }.map { it.toItem(records) },
-            sortMode = prefs.sortMode,
             sourceGroups = sourceGroups.map { it.toGroup() }
         )
     }

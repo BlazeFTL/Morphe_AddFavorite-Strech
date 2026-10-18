@@ -59,7 +59,6 @@ class HomeCardCacheTest {
     private fun cards(vararg items: HomeAppItem) = HomeCards(
         visible = items.toList(),
         hidden = emptyList(),
-        sortMode = prefs.sortMode,
         sourceGroups = listOf(HomeAppSourceGroup(0, "Morphe", setOf("a"), listOf("a"), false, null, null))
     )
 

@@ -31,17 +31,60 @@ import org.koin.compose.koinInject
  * Hands the apps section's footer bar to the page that docks it. The bar acts on what the section
  * holds, but docks to the bottom edge of the page over controls a selection has no use for, which
  * the section cannot reach from inside its own bounds.
+ *
+ * What passes is what the bar is drawn from rather than the bar itself: a value that changes with
+ * the section, so the dock is drawn again whenever the section is, which a composable handed over
+ * once and kept by the composition is not.
  */
 @Stable
 internal class HomeFooterBarHost {
-    /** The bar the section wants drawn, or null while no section is on screen. */
-    var bar by mutableStateOf<(@Composable (Modifier) -> Unit)?>(null)
+    /** What the bar is drawn from, or null while no section is on screen. */
+    var content by mutableStateOf<HomeFooterBarContent?>(null)
 }
+
+/** Everything [HomeAppsFooterBars] is drawn from, see there. */
+internal data class HomeFooterBarContent(
+    val state: HomeAppsSectionState,
+    val apps: HomeAppListUi,
+    val appActions: HomeAppActions,
+    val search: SearchFieldState,
+    val listedItems: List<HomeAppItem>,
+    val reorderItems: List<HomeAppItem>,
+    val orderedItems: List<HomeAppItem>,
+    val itemsByPackage: Map<String, HomeAppItem>,
+    val groupedSelectionGroup: HomeCategoryGroup?,
+    val groupedSelectionPackages: Set<String>?,
+    val sourceGroups: List<HomeCategoryGroup>,
+    val isCustomCategoryView: Boolean,
+    val isSourceCategoryView: Boolean,
+    val listState: LazyListState,
+    val leadingItemCount: Int,
+    val scope: CoroutineScope
+)
 
 /** Draws the bar [host] carries, docked to the bottom of whatever [modifier] aligns it to. */
 @Composable
 internal fun HomeFooterBarDock(host: HomeFooterBarHost, modifier: Modifier = Modifier) {
-    host.bar?.invoke(modifier)
+    val content = host.content ?: return
+    HomeAppsFooterBars(
+        state = content.state,
+        apps = content.apps,
+        appActions = content.appActions,
+        search = content.search,
+        listedItems = content.listedItems,
+        reorderItems = content.reorderItems,
+        orderedItems = content.orderedItems,
+        itemsByPackage = content.itemsByPackage,
+        groupedSelectionGroup = content.groupedSelectionGroup,
+        groupedSelectionPackages = content.groupedSelectionPackages,
+        sourceGroups = content.sourceGroups,
+        isCustomCategoryView = content.isCustomCategoryView,
+        isSourceCategoryView = content.isSourceCategoryView,
+        listState = content.listState,
+        leadingItemCount = content.leadingItemCount,
+        scope = content.scope,
+        modifier = modifier
+    )
 }
 
 /**
@@ -50,7 +93,7 @@ internal fun HomeFooterBarDock(host: HomeFooterBarHost, modifier: Modifier = Mod
  * keeps the modes exclusive - so they live together here, out of the section body.
  */
 @Composable
-internal fun HomeAppsFooterBars(
+private fun HomeAppsFooterBars(
     state: HomeAppsSectionState,
     apps: HomeAppListUi,
     appActions: HomeAppActions,

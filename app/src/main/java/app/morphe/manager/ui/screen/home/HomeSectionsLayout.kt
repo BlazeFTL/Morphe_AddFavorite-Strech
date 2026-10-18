@@ -958,29 +958,26 @@ internal fun MainAppsSection(
                         )
                     }
 
-                    val footerBarContent: @Composable (Modifier) -> Unit = { barModifier ->
-                        HomeAppsFooterBars(
-                            state = state,
-                            apps = apps,
-                            appActions = appActions,
-                            search = search,
-                            listedItems = filteredItems,
-                            reorderItems = reorderItems,
-                            orderedItems = orderedItems,
-                            itemsByPackage = homeItemsByPackage,
-                            groupedSelectionGroup = groupedSelectionGroup,
-                            groupedSelectionPackages = groupedSelectionPackages,
-                            sourceGroups = displayedSourceCategoryGroups,
-                            isCustomCategoryView = isCustomCategoryView,
-                            isSourceCategoryView = isSourceCategoryView,
-                            listState = listState,
-                            leadingItemCount = leadingItemCount,
-                            scope = scope,
-                            modifier = barModifier
-                        )
-                    }
-                    SideEffect { footerBar.bar = footerBarContent }
-                    DisposableEffect(footerBar) { onDispose { footerBar.bar = null } }
+                    val footerBarContent = HomeFooterBarContent(
+                        state = state,
+                        apps = apps,
+                        appActions = appActions,
+                        search = search,
+                        listedItems = filteredItems,
+                        reorderItems = reorderItems,
+                        orderedItems = orderedItems,
+                        itemsByPackage = homeItemsByPackage,
+                        groupedSelectionGroup = groupedSelectionGroup,
+                        groupedSelectionPackages = groupedSelectionPackages,
+                        sourceGroups = displayedSourceCategoryGroups,
+                        isCustomCategoryView = isCustomCategoryView,
+                        isSourceCategoryView = isSourceCategoryView,
+                        listState = listState,
+                        leadingItemCount = leadingItemCount,
+                        scope = scope
+                    )
+                    SideEffect { footerBar.content = footerBarContent }
+                    DisposableEffect(footerBar) { onDispose { footerBar.content = null } }
                 }
             }
         }

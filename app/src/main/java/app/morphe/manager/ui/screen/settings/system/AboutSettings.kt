@@ -16,6 +16,7 @@ import androidx.compose.material.icons.outlined.Gavel
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.People
+import androidx.compose.material.icons.outlined.Upload
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -144,7 +145,9 @@ fun AboutSettings(
                     onClick = {
                         if (isTV) importExportViewModel.exportDebugLogsToDownloads()
                         else exportDebugLogsLauncher.launch(importExportViewModel.debugLogFileName)
-                    }
+                    },
+                    // Saves a file rather than opening a page, marked as the other exports are
+                    trailingContent = { ThemedIcon(icon = Icons.Outlined.Upload) }
                 )
                 if (onStartTour != null) {
                     SettingsItem(

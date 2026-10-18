@@ -20,7 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Launch
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.automirrored.outlined.VolumeUp
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
@@ -210,9 +210,11 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
                         // Manager and patch updates have channels of their own, tuned where Android keeps them
                         SettingsItem(
                             onClick = { context.openAppNotificationSettings() },
-                            leadingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.Launch) },
+                            leadingContent = { ThemedIcon(icon = Icons.Outlined.Category) },
                             title = stringResource(R.string.settings_system_notifications_categories),
-                            subtitle = stringResource(R.string.settings_system_notifications_categories_description)
+                            subtitle = stringResource(R.string.settings_system_notifications_categories_description),
+                            // Leaves for the system settings rather than going on within the manager
+                            trailingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.OpenInNew) }
                         )
                     }
                 }

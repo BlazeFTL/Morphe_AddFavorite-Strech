@@ -4,6 +4,8 @@ patch.py -- apply fork changes to a MorpheApp/morphe-manager checkout (dev branc
   1. favorite universal patches (star + long-press, favorites float to top)
   2. expert-gated "Skip APK signing" (morphe-manager PR #1008)
   3. fork identity (applicationId, app name)
+  4. "select APK" button moved out of the apps toolbar to a round button beside the bottom pill
+  5. Settings > Notifications: patch update check at launch limited to every 3/6/12/24 hours
 
 Anchors are structural (function bodies, call arguments, parameter lists, single
 lines), never pasted multi-line context. Files are found by declaration; the path
@@ -19,6 +21,7 @@ import argparse
 import pathlib
 import re
 import sys
+import textwrap
 from collections import namedtuple
 
 FORK_APP_ID = "app.morphe.manages"
@@ -358,7 +361,16 @@ SIGNING_STRINGS = [
      '<string name="settings_advanced_skip_signing_description">Leave patched APKs unsigned. You can still save or send them to the selected installer, but Android normally rejects unsigned APKs</string>'),
 ]
 
-OUR_STRINGS = [n for n, _ in FAVORITE_STRINGS + SIGNING_STRINGS]
+APK_BUTTON_STRINGS = [
+    ("floating_select_apk", '<string name="floating_select_apk">Select APK</string>'),
+]
+
+PATCH_INTERVAL_STRINGS = [
+    ("settings_patch_update_interval", '<string name="settings_patch_update_interval">Patch update check</string>'),
+    ("settings_patch_update_interval_value", '<string name="settings_patch_update_interval_value">Every %1$d hours</string>'),
+]
+
+OUR_STRINGS = [n for n, _ in FAVORITE_STRINGS + SIGNING_STRINGS + APK_BUTTON_STRINGS + PATCH_INTERVAL_STRINGS]
 
 
 def app_name_edit(src):
@@ -472,6 +484,13 @@ PREFS_EDITS = [
         "skipApkSigning",
         '\n/** Leave patched APKs unsigned; the original META-INF signature files stay in the output. */\nval skipApkSigning = booleanPreference("skip_apk_signing", false)',
         [r"^[ \t]*val\s+stripUnusedNativeLibs\s*=[^\n]*$", r"^[ \t]*val\s+useExpertMode\s*=[^\n]*$"]), False),
+    ("patch update interval prefs", prefs_decl(
+        "patchUpdateIntervalHours",
+        '\n/** Hours between automatic patch update checks at launch: 3, 6, 12 or 24. */\n'
+        'val patchUpdateIntervalHours = intPreference("patch_update_interval_hours", 3)\n\n'
+        '/** Epoch millis of the last automatic patch update check at launch. */\n'
+        'val lastPatchUpdateCheck = longPreference("last_patch_update_check", 0L)',
+        [r"^[ \t]*val\s+updateCheckInterval\s*=[^\n]*$", r"^[ \t]*val\s+useExpertMode\s*=[^\n]*$"]), False),
     ("SettingsSnapshot field", prefs_snapshot_field, False),
     ("export", prefs_export, False),
     ("restrictedTo", prefs_restricted, True),
@@ -503,15 +522,13 @@ def vm_edit(src):
 
 # ---------------------------------------------------------------- AdvancedTabContent
 
-SWITCH = """SettingsSwitchItem(
+SWITCH_ITEM = """SettingsSwitchItem(
     checked = skipApkSigning,
     onToggle = { settingsViewModel.setSkipApkSigning(!skipApkSigning) },
     icon = Icons.Outlined.LockOpen,
     title = stringResource(R.string.settings_advanced_skip_signing),
     subtitle = stringResource(R.string.settings_advanced_skip_signing_description)
 )
-
-SettingsDivider()
 """
 
 
@@ -530,6 +547,8 @@ def adv_switch(src):
     m = mask(src)
     if "R.string.settings_advanced_skip_signing" in m:
         return src
+    # Older layouts separate rows with dividers, the grouped rows of newer ones do not
+    SWITCH = SWITCH_ITEM + ("\nSettingsDivider()\n" if "SettingsDivider(" in m else "")
     hits = list(re.finditer(r"^[ \t]*GitHubPatSettingsItem\s*\(", m, re.M))
     if len(hits) == 1:
         s = line_start(src, hits[0].start())
@@ -682,18 +701,154 @@ def worker_autoinstall(src):
     return src[:pos] + "!skipSigning && " + src[pos:]
 
 
-# ---------------------------------------------------------------- AppDialog
+# ---------------------------------------------------------------- select APK button / patch update interval
 
-def appdialog_edit(src):
+def add_last_arg(src, m, lp, text, marker):
+    rp = match_close(m, lp)
+    if rp < 0:
+        return None
+    if re.search(marker, m[lp:rp]):
+        return src
+    mm = re.match(r"[ \t]*\n([ \t]*)", src[lp + 1:rp])
+    if not mm:
+        return None
+    ind = mm.group(1)
+    end = lp + 1 + len(m[lp + 1:rp].rstrip())
+    if m[end - 1] == ",":
+        return src[:end] + "\n" + ind + text + "," + src[end:]
+    return src[:end] + ",\n" + ind + text + src[end:]
+
+
+def pill_param(src):
     m = mask(src)
-    hits = list(re.finditer(r"\.widthIn\(max\s*=[^\n]*\)[ \t]*\n[ \t]*\.fillMaxHeight\(\)", m))
-    if not hits:
-        ok = re.search(r"\.fillMaxSize\(\)\s*,\s*horizontalAlignment\s*=\s*Alignment\.CenterHorizontally", m)
-        return src if ok else None
+    f = one(find_funs(m, "FloatingPillBar"))
+    if not f:
+        return None
+    return add_last_param(src, m, f, "trailing: (@Composable () -> Unit)? = null,", r"\btrailing\s*:")
+
+
+def pill_invoke(src):
+    m = mask(src)
+    f = one(find_funs(m, "FloatingPillBar"))
+    if not f or f.bo is None:
+        return None
+    if re.search(r"\btrailing\?\.invoke\(\)", m[f.bo:f.bc]):
+        return src
+    rows = []
+    for lp in find_calls(m, "Row", f.bo, f.bc):
+        rp = match_close(m, lp)
+        if rp < 0 or not re.search(r"\bhorizontalArrangement\s*=", m[lp:rp]):
+            continue
+        t = re.match(r"\s*\{", m[rp + 1:])
+        if not t:
+            continue
+        bo = rp + t.end()
+        bc = match_close(m, bo)
+        if bc > 0:
+            rows.append(bc)
+    if len(rows) != 1:
+        return None
+    bc = rows[0]
+    s = line_start(src, bc)
+    if src[s:bc].strip():
+        return None
+    ind = indent_of(src, s) + "    "
+    return src[:s] + ind + "trailing?.invoke()\n" + src[s:]
+
+
+def nav_param(src):
+    m = mask(src)
+    f = one(find_funs(m, "MainPagerScaffold"))
+    if not f:
+        return None
+    if re.search(r"\btrailingAction\s*:", m[f.lp:f.rp]):
+        return src
+    text = "trailingAction: (@Composable () -> Unit)? = null,"
+    r = insert_after_line(
+        src, m, r"^[ \t]*overlay\s*:\s*@Composable\s+BoxScope\.\(\)\s*->\s*Unit\s*=\s*\{\}\s*,[ \t]*$", text)
+    if r is not None:
+        return r
+    return insert_before_line(src, m, r"^[ \t]*page\s*:\s*@Composable\b[^\n]*$", text)
+
+
+def nav_pass(src):
+    m = mask(src)
+    calls = find_calls(m, "FloatingPillBar")
+    if len(calls) != 1:
+        return None
+    return add_last_arg(src, m, calls[0], "trailing = trailingAction", r"\btrailing\s*=")
+
+
+def home_extract(src):
+    m = mask(src)
+    if re.search(r"\bval\s+pickApkFromFile\b", m):
+        return src
+    hits = list(re.finditer(r"\bonOtherAppsClick\s*=\s*\{", m))
+    calls = list(re.finditer(r"(?<![\w.])MainPagerScaffold\s*\(", m))
+    if len(hits) != 1 or len(calls) != 1:
+        return None
+    bo = hits[0].end() - 1
+    bc = match_close(m, bo)
+    if bc < 0 or "return@onOtherAppsClick" in src[bo:bc]:
+        return None
+    body = textwrap.dedent(src[bo + 1:bc]).strip("\n")
+    src = src[:bo] + "pickApkFromFile" + src[bc + 1:]
+    s = line_start(src, calls[0].start())
+    ind = indent_of(src, s)
+    defn = "val pickApkFromFile: () -> Unit = {\n" + reindent(body, "    ") + "\n}"
+    return src[:s] + reindent(defn, ind) + "\n\n" + src[s:]
+
+
+def home_trailing(src):
+    m = mask(src)
+    calls = find_calls(m, "MainPagerScaffold")
+    if len(calls) != 1:
+        return None
+    text = "trailingAction = { FloatingApkButton(visible = showOtherAppsButton, onClick = pickApkFromFile) }"
+    return add_last_arg(src, m, calls[0], text, r"\btrailingAction\s*=")
+
+
+def home_flags(src):
+    m = mask(src)
+    if re.search(r"showOtherAppsButton\s*=\s*showOtherAppsButton\s*&&\s*isLandscape\(\)", m):
+        return src
+    hits = list(re.finditer(r"\bshowOtherAppsButton\s*=\s*showOtherAppsButton\b(?!\s*&&)", m))
     if len(hits) != 1:
         return None
     h = hits[0]
-    return src[:h.start()] + ".fillMaxSize()" + src[h.end():]
+    return src[:h.start()] + "showOtherAppsButton = showOtherAppsButton && isLandscape()" + src[h.end():]
+
+
+def app_gate(src):
+    m = mask(src)
+    if "PatchUpdateThrottle" in m:
+        return src
+    f = one(find_funs(m, "onFirstScreenCreated"))
+    if not f or f.bo is None:
+        return None
+    hits = list(re.finditer(r"^[ \t]*patchBundleRepository\.updateCheck\(\)[ \t]*$", m[f.bo:f.bc], re.M))
+    if len(hits) != 1:
+        return None
+    a, b = f.bo + hits[0].start(), f.bo + hits[0].end()
+    ind = indent_of(src, a)
+    new = (ind + "if (PatchUpdateThrottle.isDue(applicationContext, prefs)) {\n"
+           + ind + "    patchBundleRepository.updateCheck()\n"
+           + ind + "}")
+    return src[:a] + new + src[b:]
+
+
+def updates_row(src):
+    m = mask(src)
+    if "PatchUpdateIntervalSetting(" in m:
+        return src
+    text = "PatchUpdateIntervalSetting(prefs = prefs)"
+    for lp in find_calls(m, "SettingsSwitchItem"):
+        rp = match_close(m, lp)
+        if rp > 0 and re.search(r"\bsettings_advanced_updates_allow_metered\b", m[lp:rp]):
+            e = line_end(src, rp)
+            ind = indent_of(src, line_start(src, lp))
+            return src[:e] + "\n\n" + reindent(text, ind) + src[e:]
+    return insert_before_line(src, m, r"^[ \t]*if\s*\(\s*useExpertMode\s*\)\s*\{[ \t]*$", text + "\n")
 
 
 # ---------------------------------------------------------------- SettingComponents
@@ -1082,7 +1237,7 @@ import androidx.compose.ui.unit.dp
 import @@NS@@.R
 import @@PREFS_PKG@@.PreferencesManager
 import @@PATCHINFO_PKG@@.PatchInfo
-import @@TOAST_PKG@@.toast
+@@TOAST_IMPORT@@
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
@@ -1104,19 +1259,14 @@ internal class FavoritePatches(
 internal fun rememberFavoritePatches(): FavoritePatches {
     val prefs: PreferencesManager = koinInject()
     val names by prefs.favoriteUniversalPatches.getAsState()
-    val context = LocalContext.current
+    @@TOAST_DECL@@
     val scope = rememberCoroutineScope()
     return remember(names) {
         FavoritePatches(names) { patch ->
             val wasFavorite = patch.name in names || patch.displayName in names
             val updated = if (wasFavorite) names - patch.name - patch.displayName else names + patch.name
             scope.launch { prefs.favoriteUniversalPatches.update(updated) }
-            context.toast(
-                context.getString(
-                    if (wasFavorite) R.string.expert_mode_favorite_removed else R.string.expert_mode_favorite_added,
-                    patch.displayName
-                )
-            )
+            @@TOAST_CALL@@
         }
     }
 }
@@ -1160,6 +1310,159 @@ internal fun FavoriteStarButton(
 
 
 # ---------------------------------------------------------------- workspace
+
+FLOATING_APK_BUTTON = r'''package @@PKG@@
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FileOpen
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
+import @@NS@@.R
+import @@SHARED_PKG@@.*
+
+/** Round glass button beside the bottom pill that opens the select-APK flow. */
+@Composable
+internal fun FloatingApkButton(
+    visible: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    AnimatedRowPill(visible = visible) {
+        val description = stringResource(R.string.floating_select_apk)
+        Surface(
+            modifier = modifier
+                .size(FloatingApkButtonSize)
+                .glassFill(GlassButtonDefaults.containerColor(), CircleShape),
+            shape = CircleShape,
+            color = Color.Transparent,
+            border = CardBorder.of(GlassButtonDefaults.borderColor())
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(CircleShape)
+                    .clickable(role = Role.Button, onClick = rememberHapticClick(onClick))
+                    .semantics { contentDescription = description },
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.FileOpen,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+    }
+}
+
+private val FloatingApkButtonSize = 64.dp
+'''
+
+PATCH_UPDATE_THROTTLE = r'''package @@PKG@@
+
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+
+/** Limits the automatic patch update check at launch to once per chosen number of hours. */
+object PatchUpdateThrottle {
+    const val DEFAULT_HOURS = 3
+    val OPTIONS_HOURS = listOf(3, 6, 12, 24)
+
+    /**
+     * True when a check should run now. Stamps the time when it returns true, so the next launch
+     * inside the interval skips the check. Offline launches skip without stamping.
+     */
+    suspend fun isDue(context: Context, prefs: PreferencesManager): Boolean {
+        if (!isOnline(context)) return false
+        val hours = prefs.patchUpdateIntervalHours.get().takeIf { it in OPTIONS_HOURS } ?: DEFAULT_HOURS
+        val last = prefs.lastPatchUpdateCheck.get()
+        val now = System.currentTimeMillis()
+        // A stamp in the future means the clock moved back, so the check is due
+        if (last in 1..now && now - last < hours * 3_600_000L) return false
+        prefs.lastPatchUpdateCheck.update(now)
+        return true
+    }
+
+    private fun isOnline(context: Context): Boolean = runCatching {
+        val cm = context.getSystemService(ConnectivityManager::class.java) ?: return@runCatching true
+        val network = cm.activeNetwork ?: return@runCatching false
+        cm.getNetworkCapabilities(network)?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }.getOrDefault(true)
+}
+'''
+
+PATCH_UPDATE_INTERVAL_SETTING = r'''package @@PKG@@
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Schedule
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
+import @@NS@@.R
+import @@PREFS_PKG@@.PatchUpdateThrottle
+import @@PREFS_PKG@@.PreferencesManager
+import @@SHARED_PKG@@.*
+import kotlinx.coroutines.launch
+
+/** Row that picks how often the launch-time patch update check may run. */
+@Composable
+internal fun PatchUpdateIntervalSetting(prefs: PreferencesManager) {
+    val hours by prefs.patchUpdateIntervalHours.getAsState()
+    val scope = rememberCoroutineScope()
+    var expanded by remember { mutableStateOf(false) }
+
+    Box {
+        SettingsItem(
+            onClick = { expanded = true },
+            leadingContent = { ThemedIcon(icon = Icons.Outlined.Schedule) },
+            title = stringResource(R.string.settings_patch_update_interval),
+            subtitle = stringResource(R.string.settings_patch_update_interval_value, hours)
+        )
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            PatchUpdateThrottle.OPTIONS_HOURS.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.settings_patch_update_interval_value, option)) },
+                    onClick = {
+                        expanded = false
+                        scope.launch { prefs.patchUpdateIntervalHours.update(option) }
+                    },
+                    trailingIcon = if (option == hours) {
+                        { Icon(imageVector = Icons.Outlined.Check, contentDescription = null) }
+                    } else null
+                )
+            }
+        }
+    }
+}
+'''
+
 
 class Workspace:
     def __init__(self, root):
@@ -1241,18 +1544,32 @@ def build_plan(ws):
 
     prefs = locate("PreferencesManager", r"^class\s+PreferencesManager\b", P + "domain/manager/PreferencesManager.kt")
     vm = locate("SettingsViewModel", r"^class\s+SettingsViewModel\b", P + "ui/viewmodel/SettingsViewModel.kt")
-    adv = locate("AdvancedTabContent", r"\bfun\s+AdvancedTabContent\s*\(", P + "ui/screen/settings/AdvancedTabContent.kt")
+    adv = ws.find(r"\bfun\s+AdvancedTabContent\s*\(", P + "ui/screen/settings/AdvancedTabContent.kt")
+    if len(adv) != 1:
+        # Newer layouts split the tab into sections, the expert-only rows living with the GitHub token
+        adv = ws.find(r"^[ \t]*GitHubPatSettingsItem\s*\(", P + "ui/screen/settings/advanced/UpdatesItems.kt")
+    if len(adv) == 1:
+        adv = adv[0]
+    else:
+        problems.append("cannot locate the expert settings rows (AdvancedTabContent / GitHubPatSettingsItem call)")
+        adv = None
+    updates = locate("UpdatesItems", r"\bfun\s+UpdatesItems\s*\(", P + "ui/screen/settings/advanced/UpdatesItems.kt")
     worker = locate("PatcherWorker", r"^class\s+PatcherWorker\b", P + "patcher/worker/PatcherWorker.kt")
     card = locate("PatchCard", r"\bfun\s+PatchCard\s*\(", P + "ui/screen/home/ExpertPatchCard.kt")
-    appdialog = locate("AppDialog", r"\bfun\s+AppDialog\s*\(", P + "ui/screen/shared/AppDialog.kt")
     comps = locate("SurfaceCard", r"\bfun\s+SurfaceCard\s*\(", P + "ui/screen/shared/SettingComponents.kt")
     dialogs = locate("PatchCard call sites", r"(?<![\w.])PatchCard\s*\(", P + "ui/screen/home/ExpertModeDialog.kt",
                      multi=True, exclude=(card,) if card else ())
     stripper = ws.find(r"\bobject\s+NativeLibs\b", P + "patcher/util/NativeLibs.kt")
     if not stripper:
         stripper = ws.find(r"\bobject\s+NativeLibStripper\b", P + "patcher/util/NativeLibStripper.kt")
+    pill = locate("FloatingPillBar", r"\bfun\s+FloatingPillBar\s*\(", P + "ui/screen/shared/FloatingPillBar.kt")
+    nav = locate("MainPagerScaffold", r"\bfun\s+MainPagerScaffold\s*\(", P + "ui/screen/shared/MainNavigation.kt")
+    home = locate("HomeScreen", r"\bfun\s+HomeScreen\s*\(", P + "ui/screen/HomeScreen.kt")
+    app = locate("ManagerApplication", r"^class\s+ManagerApplication\b", P + "ManagerApplication.kt")
     patchinfo = ws.find(r"\bclass\s+PatchInfo\b", P + "patcher/patch/PatchInfo.kt")
     toast = ws.find(r"\bfun\s+Context\.toast\s*\(", P + "util/Util.kt")
+    # Newer upstream shows its messages through UserMessages instead of a toast helper
+    usermsgs = ws.find(r"\bclass\s+UserMessages\b", P + "ui/screen/shared/UserMessages.kt")
 
     strings = ws.main / "res" / "values" / "strings.xml"
     gradle = ws.root / "app" / "build.gradle.kts"
@@ -1273,8 +1590,9 @@ def build_plan(ws):
     upstream = idm.group(1) if idm and idm.group(1) != FORK_APP_ID else DEFAULT_UPSTREAM_APP_ID
     if not ns:
         return None, ["namespace not found in app/build.gradle.kts"]
-    if not (stripper and patchinfo and toast):
-        missing = [n for n, v in (("NativeLibs", stripper), ("PatchInfo", patchinfo), ("Context.toast", toast)) if not v]
+    if not (stripper and patchinfo and (usermsgs or toast)):
+        missing = [n for n, v in (("NativeLibs", stripper), ("PatchInfo", patchinfo),
+                                  ("UserMessages / Context.toast", usermsgs or toast)) if not v]
         return None, ["cannot locate " + ", ".join(missing)]
 
     util_dir = stripper[0].parent
@@ -1286,7 +1604,21 @@ def build_plan(ws):
         "NS": ns.group(1),
         "PREFS_PKG": package_of(ws.get(prefs)),
         "PATCHINFO_PKG": package_of(ws.get(patchinfo[0])),
-        "TOAST_PKG": package_of(ws.get(toast[0])),
+        "TOAST_IMPORT": "import %s.UserMessages" % package_of(ws.get(usermsgs[0])) if usermsgs
+        else "import %s.toast" % package_of(ws.get(toast[0])),
+        "TOAST_DECL": "val messages: UserMessages = koinInject()" if usermsgs else "val context = LocalContext.current",
+        "TOAST_CALL": (
+            "messages.show(\n"
+            "                if (wasFavorite) R.string.expert_mode_favorite_removed else R.string.expert_mode_favorite_added,\n"
+            "                patch.displayName\n"
+            "            )") if usermsgs else (
+            "context.toast(\n"
+            "                context.getString(\n"
+            "                    if (wasFavorite) R.string.expert_mode_favorite_removed else R.string.expert_mode_favorite_added,\n"
+            "                    patch.displayName\n"
+            "                )\n"
+            "            )"),
+        "SHARED_PKG": package_of(ws.get(pill)),
     }
 
     def render(tpl, pkg):
@@ -1300,6 +1632,8 @@ def build_plan(ws):
         ("favorite strings", strings_edit(FAVORITE_STRINGS, "expert_mode_universal_patches"), False),
         ("skip signing strings", strings_edit(SIGNING_STRINGS, "settings_advanced_strip_unused_libs_description"), False),
         ("app name", app_name_edit, False),
+        ("select APK button string", strings_edit(APK_BUTTON_STRINGS, "home_other_apps_action"), False),
+        ("patch update interval strings", strings_edit(PATCH_INTERVAL_STRINGS, "settings_advanced_update_interval"), False),
     ]))
     plan.append(("app/build.gradle.kts", gradle, [("applicationId", app_id_edit, False)]))
     if has_gservices:
@@ -1316,7 +1650,26 @@ def build_plan(ws):
         ("signing branch", worker_sign, False),
         ("auto-install guard", worker_autoinstall, False),
     ]))
-    plan.append((str(appdialog.relative_to(ws.root)), appdialog, [("dialog fills full size", appdialog_edit, False)]))
+    plan.append((str(pill.relative_to(ws.root)), pill, [
+        ("pill trailing param", pill_param, False),
+        ("pill trailing slot", pill_invoke, False),
+    ]))
+    plan.append((str(nav.relative_to(ws.root)), nav, [
+        ("scaffold trailingAction param", nav_param, False),
+        ("pill trailing pass-through", nav_pass, False),
+    ]))
+    plan.append((str(home.relative_to(ws.root)), home, [
+        ("pickApkFromFile extract", home_extract, False),
+        ("trailing APK button", home_trailing, False),
+        ("toolbar button landscape only", home_flags, False),
+        ("import FloatingApkButton", imp(helper_pkg + ".FloatingApkButton"), False),
+        ("import isLandscape", imp(package_of(ws.get(pill)) + ".isLandscape"), False),
+    ]))
+    plan.append((str(app.relative_to(ws.root)), app, [
+        ("patch update throttle", app_gate, False),
+        ("import PatchUpdateThrottle", imp(package_of(ws.get(prefs)) + ".PatchUpdateThrottle"), False),
+    ]))
+    plan.append((str(updates.relative_to(ws.root)), updates, [("patch update interval row", updates_row, False)]))
     plan.append((str(comps.relative_to(ws.root)), comps, COMPONENT_EDITS))
     plan.append((str(card.relative_to(ws.root)), card, [
         ("PatchCard params", card_params, False),
@@ -1329,11 +1682,16 @@ def build_plan(ws):
     new_files = [
         (util_dir / "SignatureRestorer.kt", render(SIGNATURE_RESTORER, util_pkg)),
         (helper_dir / "FavoritePatches.kt", render(FAVORITE_PATCHES, helper_pkg)),
+        (helper_dir / "FloatingApkButton.kt", render(FLOATING_APK_BUTTON, helper_pkg)),
+        (prefs.parent / "PatchUpdateThrottle.kt", render(PATCH_UPDATE_THROTTLE, package_of(ws.get(prefs)))),
+        (updates.parent / "PatchUpdateIntervalSetting.kt", render(PATCH_UPDATE_INTERVAL_SETTING, package_of(ws.get(updates)))),
     ]
     needles = [
         (r"\bval\s+skipApkSigning\s*=", prefs, "skipApkSigning preference"),
         (r"\bval\s+favoriteUniversalPatches\s*=", prefs, "favoriteUniversalPatches preference"),
         (r"\bfun\s+setSkipApkSigning\b", vm, "setSkipApkSigning"),
+        (r"\bval\s+patchUpdateIntervalHours\s*=", prefs, "patchUpdateIntervalHours preference"),
+        (r"\bval\s+lastPatchUpdateCheck\s*=", prefs, "lastPatchUpdateCheck preference"),
     ]
     return (plan, new_files, adv, needles), []
 

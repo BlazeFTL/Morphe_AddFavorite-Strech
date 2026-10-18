@@ -48,8 +48,17 @@ New switch in **Settings > Advanced** (visible only with Expert mode on). Based 
 
 Android normally rejects unsigned APKs. Use this for external signing tools or workflows that re-sign afterwards.
 
-### Strech Ui To Fill
-- Makes The Ui On Side Fill The Screen
+### Select APK button beside the bottom bar
+
+- The "Select other apps" button leaves the apps toolbar and sits as a round button on the right of the bottom navigation pill
+- Shown whenever the toolbar button was (a third-party source is active); landscape keeps it in the toolbar
+
+### Patch update check interval
+
+New row in **Settings > Advanced > Updates**: automatic patch update check at launch runs at most every 3, 6, 12 or 24 hours (default 3).
+
+- Pull to refresh and notification-triggered checks always run
+- Offline launches skip the check without using up the interval
 
 ### Fork identity
 

@@ -25,6 +25,8 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -218,8 +220,18 @@ fun MessageHost(
         content()
         SnackbarHost(
             hostState = state,
-            // Rounded off whole, as the pill floating over the screens is
-            snackbar = { data -> Snackbar(snackbarData = data, shape = CircleShape) },
+            snackbar = { data ->
+                // Swiped off either side, as a message on a phone can be, the button staying for
+                // whoever does not swipe
+                SwipeToDismissBox(
+                    state = rememberSwipeToDismissBoxState(),
+                    backgroundContent = {},
+                    onDismiss = { data.dismiss() }
+                ) {
+                    // Rounded off whole, as the pill floating over the screens is
+                    Snackbar(snackbarData = data, shape = CircleShape)
+                }
+            },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.ime))

@@ -154,11 +154,9 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                     // Taking it leads to the unsupported-version dialog, which is a wasted tap
                     // unless the user is told here what is wrong with the copy they kept
                     if (!savedApkMatchesTargets) {
-                        Notice(
+                        Footnote(
                             text = stringResource(R.string.home_apk_use_saved_unsupported),
-                            tone = SemanticTone.Warning,
-                            icon = MaterialSymbols.Rounded.Warning,
-                            density = NoticeDensity.Compact
+                            tone = SemanticTone.Warning
                         )
                     }
                 }
@@ -177,11 +175,9 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
 
                     // The certificate check could not run, so the installed app may already be patched
                     if (installedApkInfo.patchStateUnknown) {
-                        Notice(
+                        Footnote(
                             text = stringResource(R.string.home_apk_use_installed_unverified),
-                            tone = SemanticTone.Warning,
-                            icon = MaterialSymbols.Rounded.Warning,
-                            density = NoticeDensity.Compact
+                            tone = SemanticTone.Warning
                         )
                     }
                 }
@@ -264,23 +260,21 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
 
             // For reference only, so neutral rather than a warning
             unlistedInstalledVersion?.let {
-                Notice(
+                Footnote(
                     text = stringResource(
                         R.string.home_apk_availability_installed_version,
                         it.withVersionPrefix()
                     ),
                     tone = SemanticTone.Neutral,
-                    icon = MaterialSymbols.Rounded.Install_mobile,
-                    density = NoticeDensity.Compact
+                    icon = MaterialSymbols.Rounded.Install_mobile
                 )
             }
 
             // Root mode warning - only when there is no app on the device to mount over
             if (usingMountInstall && !stockAppInstalled) {
-                Notice(
+                Footnote(
                     text = stringResource(R.string.root_install_apk_required),
-                    tone = SemanticTone.Warning,
-                    icon = MaterialSymbols.Rounded.Warning
+                    tone = SemanticTone.Warning
                 )
             }
         }

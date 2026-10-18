@@ -91,11 +91,10 @@ fun DialogHostScope.ConfirmDialog(
                     }
                 }
                 if (notice != null) {
-                    Notice(
+                    Footnote(
                         text = notice,
                         tone = SemanticTone.Warning,
-                        icon = MaterialSymbols.Rounded.Info,
-                        density = NoticeDensity.Compact
+                        icon = MaterialSymbols.Rounded.Info
                     )
                 }
             }

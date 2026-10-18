@@ -600,7 +600,7 @@ fun DialogHostScope.InstalledAppInfoDialog(
         if (!viewModel.hasOriginalApk) {
             item(key = "no_saved_apk") {
                 StaggeredItem(entered = entered.value, index = 4) {
-                    Notice(
+                    Footnote(
                         text = stringResource(R.string.home_app_info_no_saved_apk),
                         tone = SemanticTone.Warning,
                         icon = MaterialSymbols.Rounded.Info,

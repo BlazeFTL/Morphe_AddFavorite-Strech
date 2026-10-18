@@ -140,10 +140,9 @@ fun DialogHostScope.RenameWarningDialog(
             )
 
             if (warning.replacesExisting) {
-                Notice(
+                Footnote(
                     text = stringResource(R.string.patcher_rename_replaces),
-                    tone = SemanticTone.Warning,
-                    icon = MaterialSymbols.Rounded.Warning
+                    tone = SemanticTone.Warning
                 )
             }
         }
@@ -385,7 +384,7 @@ fun DialogHostScope.UnusableOptionPathsDialog(
 
             // Show hint so user knows the workaround even if they dismiss
             if (storageAccessCanHelp) {
-                Notice(
+                Footnote(
                     text = stringResource(R.string.patcher_storage_permission_hint),
                     tone = SemanticTone.Warning,
                     icon = MaterialSymbols.Rounded.Folder_off

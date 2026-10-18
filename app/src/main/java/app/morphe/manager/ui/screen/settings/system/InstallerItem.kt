@@ -392,10 +392,9 @@ private fun rememberModuleUnmountRisk(): Boolean {
 @Composable
 private fun ModuleUnmountNotice() {
     FoldingVisibility(visible = rememberModuleUnmountRisk()) {
-        Notice(
+        Footnote(
             text = stringResource(R.string.root_mount_module_unmount_warning),
-            tone = SemanticTone.Warning,
-            icon = MaterialSymbols.Rounded.Warning
+            tone = SemanticTone.Warning
         )
     }
 }
@@ -481,10 +480,9 @@ private fun DialogHostScope.ShizukuStatusDialog(
                 )
 
                 if (issueText != null) {
-                    Notice(
+                    Footnote(
                         text = issueText,
-                        tone = SemanticTone.Primary,
-                        icon = MaterialSymbols.Rounded.Info
+                        tone = SemanticTone.Primary
                     )
                 }
 
@@ -727,7 +725,7 @@ fun DialogHostScope.InstallerUnavailableDialog(
                 (state.installerToken == InstallerManager.Token.Shizuku ||
                         state.installerToken == InstallerManager.Token.ShizukuPlayStore)
             ) {
-                Notice(
+                Footnote(
                     text = stringResource(R.string.installer_unavailable_shizuku_hint),
                     tone = SemanticTone.Primary
                 )
@@ -793,10 +791,9 @@ fun DialogHostScope.PrePatchInstallerDialog(
             )
 
             // Info hint
-            Notice(
+            Footnote(
                 text = stringResource(R.string.root_pre_patch_installer_hint),
-                tone = SemanticTone.Primary,
-                icon = MaterialSymbols.Rounded.Info
+                tone = SemanticTone.Primary
             )
         }
     }

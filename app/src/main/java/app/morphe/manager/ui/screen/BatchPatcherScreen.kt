@@ -581,10 +581,9 @@ fun BatchPatcherScreen(
                 // Nothing was installed yet, so say where the APKs went
                 if (current.phase == BatchPhase.FINISHED && current.patchedItems.isNotEmpty()) {
                     item(key = "saved_hint") {
-                        Notice(
+                        Footnote(
                             text = stringResource(R.string.batch_patch_saved_hint),
                             icon = MaterialSymbols.Rounded.Save,
-                            density = NoticeDensity.Compact,
                             modifier = Modifier.animateItem()
                         )
                     }

@@ -367,11 +367,9 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
                                 }
 
                                 step.note?.let { note ->
-                                    Notice(
+                                    Footnote(
                                         text = note,
-                                        tone = SemanticTone.Warning,
-                                        icon = MaterialSymbols.Rounded.Warning,
-                                        density = NoticeDensity.Compact
+                                        tone = SemanticTone.Warning
                                     )
                                 }
                             }

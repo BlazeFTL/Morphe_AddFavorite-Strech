@@ -258,10 +258,9 @@ fun FolderOptionCard(
         }
 
         if (isGone) {
-            Notice(
+            Footnote(
                 text = stringResource(R.string.settings_advanced_patch_options_path_gone),
-                tone = SemanticTone.Error,
-                density = NoticeDensity.Compact
+                tone = SemanticTone.Error
             )
         }
 

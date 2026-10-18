@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onPlaced
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
@@ -558,52 +557,19 @@ fun SectionCard(
 }
 
 /**
- * A note closing a [SettingsGroup], the way a settings page ends a group with a footer rather than
- * a card of its own: an icon in the column of the rows' icons, and its [text] where their titles
- * start. A [tone] other than neutral marks one that warns about the value picked, its icon and
- * text taking the role's color, and an [icon] of its own one that says more than that.
+ * A [Footnote] closing a [SettingsGroup], the way a settings page ends a group with a footer rather
+ * than a card of its own, about the value picked in it.
  */
 @Composable
 fun SettingsFooter(
     text: String,
     modifier: Modifier = Modifier,
     tone: SemanticTone = SemanticTone.Neutral,
-    icon: ImageVector = if (tone == SemanticTone.Neutral) MaterialSymbols.Rounded.Info else MaterialSymbols.Rounded.Warning
+    icon: ImageVector = footnoteIcon(tone)
 ) {
     // About the page around the settings rather than one of them, so a search leaves it out
     if (LocalSettingsSearch.current?.isActive == true) return
-    val color = tone.accent
-    val textStyle = MaterialTheme.typography.bodyMedium
-    // The icon and the first line are centered on each other, whichever is taller
-    val lineHeight = with(LocalDensity.current) { textStyle.lineHeight.toDp() }
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = Defaults.SpaceLarge),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(top = ((lineHeight - Defaults.IconSize) / 2).coerceAtLeast(0.dp))
-                .size(Defaults.IconSize),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = color,
-                modifier = Modifier.size(20.dp)
-            )
-        }
-        Text(
-            text = text,
-            style = textStyle,
-            color = color,
-            modifier = Modifier
-                .weight(1f)
-                .padding(top = ((Defaults.IconSize - lineHeight) / 2).coerceAtLeast(0.dp))
-        )
-    }
+    Footnote(text = text, modifier = modifier, tone = tone, icon = icon)
 }
 
 /**

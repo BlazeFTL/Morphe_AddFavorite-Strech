@@ -455,18 +455,18 @@ class HomeViewModel(
 
     /**
      * Adds a remote source for each of [urls], downloaded together as one update. With
-     * [chooseApps] the app list of each added source opens once its patches have loaded, and with
-     * [onlyApp] each one brings that app alone.
+     * [chooseApps] the app list of each added source opens once its patches have loaded, and each
+     * one brings as much as [scope] asks for.
      */
     fun createRemoteSources(
         urls: List<String>,
         chooseApps: Boolean = false,
-        onlyApp: String? = null
+        scope: SourceScope = SourceScope.Whole
     ) = viewModelScope.launch {
         val added = withContext(NonCancellable) {
-            patchBundleRepository.createRemotes(urls, autoUpdate = true, onlyApp = onlyApp)
+            patchBundleRepository.createRemotes(urls, autoUpdate = true, keptApps = scope.keptApps)
         }
-        onSourcesAdded(added, chooseApps, onlyApp)
+        onSourcesAdded(added, chooseApps, scope)
     }
 
     /**
@@ -477,30 +477,30 @@ class HomeViewModel(
      * list is built from. The sources load together, so they are taken as each one arrives rather
      * than in turn, and one that never loads holds back none of the others.
      *
-     * A source added for [onlyApp] has left out its other apps as it loaded, see
+     * A source added for less than the whole of it has left out its other apps as it loaded, see
      * [PatchBundleRepository.createRemotes]. They were never offered, so none of them is new to the
-     * user, and a source that turns out not to patch that app at all is added as any other.
+     * user, and a source that turns out not to have what [scope] asks for is added as any other.
      */
-    private suspend fun onSourcesAdded(uids: List<Int>, chooseApps: Boolean, onlyApp: String? = null) {
+    private suspend fun onSourcesAdded(uids: List<Int>, chooseApps: Boolean, scope: SourceScope = SourceScope.Whole) {
         if (uids.isEmpty()) return
 
         val pending = uids.toMutableList()
-        val loadedApps = mutableMapOf<Int, Set<String>>()
+        val loaded = mutableMapOf<Int, PatchBundleInfo>()
         withTimeoutOrNull(NEW_SOURCE_LOAD_TIMEOUT) {
             patchBundleRepository.allBundlesInfoFlow.first { info ->
                 pending.removeAll { uid ->
-                    val listed = info[uid]?.listedApps() ?: return@removeAll false
-                    loadedApps[uid] = listed
+                    val bundle = info[uid] ?: return@removeAll false
+                    loaded[uid] = bundle
                     // Universal patches put no app on the home screen, so there would be nothing to list
-                    if (chooseApps && listed.isNotEmpty()) sourceAppsQueue += uid
+                    if (chooseApps && bundle.listedApps().isNotEmpty()) sourceAppsQueue += uid
                     true
                 }
                 pending.isEmpty()
             }
         }
-        if (onlyApp != null) withContext(NonCancellable) {
-            loadedApps.forEach { (uid, listed) ->
-                if (onlyApp in listed) sourceMuteRepository.markNewAppsSeen(uid)
+        if (scope != SourceScope.Whole) withContext(NonCancellable) {
+            loaded.forEach { (uid, bundle) ->
+                if (scope.isMetBy(bundle)) sourceMuteRepository.markNewAppsSeen(uid)
                 else sourceMuteRepository.resetForBundle(uid)
             }
         }
@@ -583,12 +583,12 @@ class HomeViewModel(
     fun confirmDeepLinkSource(chooseApps: Boolean) {
         val source = deepLinkPendingSource ?: return
         deepLinkPendingSource = null
-        val packageName = source.packageName
+        val scope = source.scope
         val existingUid = patchBundleRepository.existingSourceUid(source.url)
-        if (packageName != null && existingUid != null) {
-            viewModelScope.launch { sourceMuteRepository.unmuteApps(existingUid, listOf(packageName)) }
+        if (scope is SourceScope.App && existingUid != null) {
+            viewModelScope.launch { sourceMuteRepository.unmuteApps(existingUid, listOf(scope.packageName)) }
         } else {
-            createRemoteSources(listOf(source.url), chooseApps, onlyApp = packageName)
+            createRemoteSources(listOf(source.url), chooseApps, scope)
         }
     }
 

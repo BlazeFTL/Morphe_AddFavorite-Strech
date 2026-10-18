@@ -15,6 +15,7 @@ import app.morphe.manager.domain.batch.BatchPatchCoordinator
 import app.morphe.manager.domain.batch.BatchPlanResolver
 import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.domain.manager.PreferencesManager
+import app.morphe.manager.ui.model.SourceScope
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -164,15 +165,11 @@ class MainViewModel(
         approvedBatchPatch = null
     }
 
-    /**
-     * A source a link asks to add. [packageName] names the app the link was opened for, so the
-     * source is added for that app alone, and [appName] is what the link calls that app.
-     */
+    /** A source a link asks to add, as much of it as [scope] says. */
     data class DeepLinkSource(
         val url: String,
         val name: String?,
-        val packageName: String? = null,
-        val appName: String? = null
+        val scope: SourceScope = SourceScope.Whole
     )
 
     /**

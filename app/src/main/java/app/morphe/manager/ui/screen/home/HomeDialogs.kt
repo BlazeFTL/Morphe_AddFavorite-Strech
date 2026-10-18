@@ -37,6 +37,7 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.model.SourceScope
 import app.morphe.manager.ui.screen.patcher.UnusableOptionPathsDialog
 import app.morphe.manager.ui.screen.settings.SettingsNavigation
 import app.morphe.manager.ui.screen.settings.SettingsSubpage
@@ -128,15 +129,16 @@ fun HomeDialogs(
         val existingUid = remember(source, sources) {
             homeViewModel.patchBundleRepository.existingSourceUid(source.url)
         }
+        val app = source.scope as? SourceScope.App
         DeepLinkAddSourceDialog(
             url = source.url,
             name = source.name,
-            packageName = source.packageName,
+            scope = source.scope,
             // The source is not read yet, so a name another source knows wins over the one the link gives
-            appName = source.packageName?.let { appMetadata[it]?.displayName ?: source.appName ?: it },
-            appGradientColors = source.packageName?.let { appMetadata[it]?.gradientColors },
+            appName = app?.let { appMetadata[it.packageName]?.displayName ?: it.appName ?: it.packageName },
+            appGradientColors = app?.let { appMetadata[it.packageName]?.gradientColors },
             isAdded = existingUid != null,
-            isAppLeftOut = existingUid != null && existingUid in keptFrom[source.packageName].orEmpty(),
+            isAppLeftOut = app != null && existingUid != null && existingUid in keptFrom[app.packageName].orEmpty(),
             onConfirm = { chooseApps -> homeViewModel.confirmDeepLinkSource(chooseApps) },
             onDismiss = { homeViewModel.dismissDeepLinkSource() }
         )
@@ -772,16 +774,16 @@ private fun SourceIcon(
  * Confirmation dialog shown when the app is opened via a deep link to add a patch source, headed
  * by the repository under its owner's avatar as on the page the link comes from.
  *
- * A link opened for [packageName], named [appName], adds the source for that app alone, so it lists
- * the app instead of offering to choose, in [appGradientColors] while its icon is not on the device.
- * From a source that [isAdded] already, that app is all there is left to do, and [isAppLeftOut]
- * says whether it needs bringing back.
+ * A link that narrows the source by [scope] lists what it adds instead of offering to choose: the
+ * app named [appName], in [appGradientColors] while its icon is not on the device, or the universal
+ * patches. From a source that [isAdded] already, that app is all there is left to do, and
+ * [isAppLeftOut] says whether it needs bringing back.
  */
 @Composable
 fun DialogHostScope.DeepLinkAddSourceDialog(
     url: String,
     name: String?,
-    packageName: String?,
+    scope: SourceScope,
     appName: String?,
     appGradientColors: List<Color>?,
     isAdded: Boolean,
@@ -789,7 +791,7 @@ fun DialogHostScope.DeepLinkAddSourceDialog(
     onConfirm: (chooseApps: Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val bringsAppBack = packageName != null && isAdded
+    val bringsAppBack = scope is SourceScope.App && isAdded
     // Links reach here for a repository only, which reads as owner/repo
     val repository = remoteLinkTitle(url)
     val patchBundleRepository: PatchBundleRepository = koinInject()
@@ -814,39 +816,75 @@ fun DialogHostScope.DeepLinkAddSourceDialog(
             )
         },
         // The header names the source, so only what the link narrows it to is listed
-        details = if (packageName == null) null else {
-            {
-                SettingsGroup {
-                    SettingsItemCard(onClick = null) {
-                        IconTextRow(
-                            modifier = Modifier.padding(Defaults.SpaceLarge),
-                            leadingContent = {
-                                AppIcon(
-                                    packageName = packageName,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(SourceRowIconSize),
-                                    placeholderGradientColors = appGradientColors
-                                        ?: AppCardColorDefaults.defaultGradientColors
-                                )
-                            },
-                            title = appName ?: packageName,
-                            description = stringResource(
-                                when {
-                                    !isAdded -> R.string.deep_link_add_source_only_app
-                                    isAppLeftOut -> R.string.sources_apps_left_out
-                                    else -> R.string.sources_apps_brought
-                                }
+        details = when (scope) {
+            SourceScope.Whole -> null
+            is SourceScope.App -> {
+                {
+                    DeepLinkScopeRow(
+                        leadingContent = {
+                            AppIcon(
+                                packageName = scope.packageName,
+                                contentDescription = null,
+                                modifier = Modifier.size(SourceRowIconSize),
+                                placeholderGradientColors = appGradientColors
+                                    ?: AppCardColorDefaults.defaultGradientColors
                             )
+                        },
+                        title = appName ?: scope.packageName,
+                        description = stringResource(
+                            when {
+                                !isAdded -> R.string.deep_link_add_source_only_app
+                                isAppLeftOut -> R.string.sources_apps_left_out
+                                else -> R.string.sources_apps_brought
+                            }
                         )
-                    }
+                    )
+                }
+            }
+            // Universal patches are never left out, so an added source brings them already
+            SourceScope.Universal -> {
+                {
+                    DeepLinkScopeRow(
+                        leadingContent = {
+                            Icon(
+                                imageVector = MaterialSymbols.Rounded.Public,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(SourceRowIconSize)
+                            )
+                        },
+                        title = stringResource(R.string.expert_mode_universal_patches),
+                        description = stringResource(
+                            if (isAdded) R.string.sources_apps_brought else R.string.deep_link_add_source_only_universal
+                        )
+                    )
                 }
             }
         },
-        offersChooseApps = packageName == null,
+        offersChooseApps = scope == SourceScope.Whole,
         warns = !bringsAppBack,
         onConfirm = onConfirm,
         onDismiss = onDismiss
     )
+}
+
+/** The one row a narrowed deep link lists, for the part of the source it adds. */
+@Composable
+private fun DeepLinkScopeRow(
+    leadingContent: @Composable () -> Unit,
+    title: String,
+    description: String
+) {
+    SettingsGroup {
+        SettingsItemCard(onClick = null) {
+            IconTextRow(
+                modifier = Modifier.padding(Defaults.SpaceLarge),
+                leadingContent = leadingContent,
+                title = title,
+                description = description
+            )
+        }
+    }
 }
 
 /**

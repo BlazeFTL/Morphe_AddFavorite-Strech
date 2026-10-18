@@ -46,6 +46,7 @@ import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.domain.manager.HomeAppButtonPreferences
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.ui.model.SourceScope
 import app.morphe.manager.ui.model.navigation.*
 import app.morphe.manager.ui.screen.BatchPatcherScreen
 import app.morphe.manager.ui.screen.HomeScreen
@@ -316,8 +317,7 @@ class MainActivity : AppCompatActivity() {
         vm.pendingDeepLinkSource = MainViewModel.DeepLinkSource(
             url = url,
             name = param("name"),
-            packageName = param("app"),
-            appName = param("appName")
+            scope = SourceScope.fromLink(app = param("app"), appName = param("appName"))
         )
     }
 

@@ -1277,12 +1277,12 @@ class PatchBundleRepository(
      * reports as one download rather than one per source. A URL that is invalid, blocked or
      * already added is skipped, with one message per kind of refusal.
      *
-     * With [onlyApp] each added source leaves out every other app it names, the ones it adds later
+     * With [keptApps] each added source leaves out every other app it names, the ones it adds later
      * included. It is recorded before the download starts, so the others never reach the home screen.
      *
      * @return The uid of each source added, in the order of [urls].
      */
-    suspend fun createRemotes(urls: List<String>, autoUpdate: Boolean, onlyApp: String? = null): List<Int> {
+    suspend fun createRemotes(urls: List<String>, autoUpdate: Boolean, keptApps: Set<String>? = null): List<Int> {
         val added = CompletableDeferred<List<Int>>()
         dispatchAction("Add bundles (${urls.size})") { state ->
             val ready = state as? BundleState.Ready
@@ -1316,8 +1316,8 @@ class PatchBundleRepository(
             rejections.forEach { messages.showIfInForeground(it.messageRes) }
             if (created.isEmpty()) return@dispatchAction state
 
-            onlyApp?.let { app ->
-                created.forEach { sourceMuteRepository.setBringsNewApps(it.uid, false, setOf(app)) }
+            keptApps?.let { apps ->
+                created.forEach { sourceMuteRepository.setBringsNewApps(it.uid, false, apps) }
             }
             update(*created.toTypedArray(), allowUnsafeNetwork = prefs.allowMeteredUpdates.get())
             ready.copy(sources = ready.sources.mutate { sources -> created.forEach { sources[it.uid] = it } })

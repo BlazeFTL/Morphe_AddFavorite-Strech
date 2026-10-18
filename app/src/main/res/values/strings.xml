@@ -26,6 +26,8 @@
     <string name="deep_link_add_source_warning">Only add sources you trust</string>
     <!-- Shown under the app a link was opened for -->
     <string name="deep_link_add_source_only_app">Only this app is added. You can add other apps from the source\'s app list</string>
+    <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
+    <string name="deep_link_add_source_only_universal">Only the universal patches are added. You can add apps from the source\'s app list</string>
     <!-- Asked when the link names an app of a source that is already added -->
     <string name="deep_link_add_source_app_back">This source is already added. Add this app from the existing source?</string>
 

@@ -62,6 +62,7 @@
     <string name="home_app_filter_uninstalled_description">Apps patched with Morphe that are no longer on this device</string>
     <string name="home_app_filter_clones">Clones</string>
     <string name="home_app_filter_clones_description">Apps built under a package name of their own, installed alongside the original</string>
+    <string name="home_app_grouping_none">None</string>
     <string name="home_app_grouping_all_apps_description">One list with every app</string>
     <string name="home_app_grouping_sources_description">Apps under the patch source that provides them</string>
     <string name="home_app_grouping_custom_description">Apps in categories you create</string>

@@ -17,12 +17,13 @@ data class SortModeOption<T>(
 )
 
 /**
- * Options of [T] in the order they are offered to the user, which is alphabetical rather than
- * the declaration order: the lists are read as a menu, and every list of them has to agree on
- * where an entry sits, including the ones the enums share.
+ * Options of [T] in the order they are offered to the user: [default] first, as what the list
+ * comes back to, then the rest alphabetically rather than in declaration order. The lists are read
+ * as a menu, and every list of them has to agree on where an entry sits, including the ones the
+ * enums share.
  */
 @Composable
-inline fun <reified T> sortModeOptions(): List<SortModeOption<T>>
+inline fun <reified T> sortModeOptions(default: T): List<SortModeOption<T>>
     where T : Enum<T>, T : SortModeSpec =
     enumValues<T>().map { mode ->
         SortModeOption(
@@ -30,7 +31,10 @@ inline fun <reified T> sortModeOptions(): List<SortModeOption<T>>
             title = stringResource(mode.labelRes),
             description = stringResource(mode.descriptionRes)
         )
-    }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.title })
+    }.sortedWith(
+        compareBy<SortModeOption<T>> { it.value != default }
+            .thenBy(String.CASE_INSENSITIVE_ORDER) { it.title }
+    )
 
 /**
  * [options] as an [AppDropdownMenu] opening from whatever holds it, the [current] one checked and

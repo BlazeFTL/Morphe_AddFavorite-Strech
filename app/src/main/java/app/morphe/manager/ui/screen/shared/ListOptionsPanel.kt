@@ -44,7 +44,7 @@ inline fun <reified T> listOptionSection(
     default: T,
     noinline onSelect: (T) -> Unit
 ): ListOptionSection<T> where T : Enum<T>, T : SortModeSpec =
-    ListOptionSection(titleRes, icon, current, default, sortModeOptions<T>(), onSelect)
+    ListOptionSection(titleRes, icon, current, default, sortModeOptions(default), onSelect)
 
 /**
  * What the button opening a [ListOptionsPanel] says it holds: the order alone while nothing is

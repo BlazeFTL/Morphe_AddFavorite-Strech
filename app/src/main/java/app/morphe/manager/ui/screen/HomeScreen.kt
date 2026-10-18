@@ -151,13 +151,15 @@ fun HomeScreen(
     val homeAppState by homeViewModel.apps.homeAppState.collectAsStateWithLifecycle()
     val homeAppItems = homeAppState?.visible ?: emptyList()
     val hiddenAppItems = homeAppState?.hidden ?: emptyList()
-    val homeAppSortMode = homeAppState?.sortMode ?: HomeAppSortMode.RECOMMENDED
     val homeAppCategoryState = homeAppState?.categoryState ?: HomeAppCategoryState(emptyList(), emptyMap())
     val homeAppCategoryViewMode = homeAppState?.categoryViewMode ?: HomeAppCategoryViewMode.ALL_APPS
     val homeAppSourceGroups = homeAppState?.sourceGroups ?: emptyList()
     val bundlePipelineLoading = homeAppState == null
     val batchRun by homeViewModel.batchRun.collectAsStateWithLifecycle()
     val savedBatchQueue by homeViewModel.savedBatchQueue.collectAsStateWithLifecycle()
+    // Read from the preferences rather than the built cards, so the options show a pick at once
+    // while the cards are still being sorted by it
+    val homeAppSortMode by homeAppButtonPrefs.sortMode.collectAsStateWithLifecycle()
     val homeAppFilterModePref by homeAppButtonPrefs.filterMode.collectAsStateWithLifecycle()
     val useExpertMode by prefs.useExpertMode.getAsState()
 

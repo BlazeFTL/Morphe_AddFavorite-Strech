@@ -9,38 +9,33 @@ import android.content.Context
 import android.os.Build
 import android.view.accessibility.AccessibilityManager
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.union
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.layout.ime
-import androidx.compose.foundation.layout.systemBars
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.rememberSwipeToDismissBoxState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.ManagerApplication
+import app.morphe.manager.R
+import app.morphe.manager.util.AppCoroutineScope
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.Close
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import org.koin.compose.koinInject
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -49,12 +44,27 @@ import kotlin.time.Duration.Companion.seconds
 /**
  * Short messages for the user, shown as a snackbar on whichever surface is on top, see
  * [MessageHost]. A screen or the work behind it raises one without holding a [Context], as a
- * string resource is resolved by the surface that shows it. One raised before any surface is up
- * waits for the first, and a surface closing with messages left hands them to the one below.
+ * string resource is resolved by the surface that shows it.
+ *
+ * The messages are played here, one at a time and on a clock of their own, while the surfaces only
+ * draw the one playing. A surface opening or closing therefore moves the message that is up to
+ * another surface without starting it over, and one raised before any surface is up waits for the
+ * first.
  */
-class UserMessages {
-    private val hosts = mutableListOf<MessageHostSlot>()
-    private val waiting = mutableListOf<Message>()
+class UserMessages(
+    context: Context,
+    scope: AppCoroutineScope
+) {
+    private val appContext = context.applicationContext
+    private val incoming = Channel<Message>(Channel.UNLIMITED)
+    private val surfaces = MutableStateFlow<List<MessageSurface>>(emptyList())
+    private val _playing = MutableStateFlow<Message?>(null)
+
+    init {
+        scope.launch {
+            for (message in incoming) play(message)
+        }
+    }
 
     fun show(text: String, long: Boolean = false, action: MessageAction? = null) =
         post(Message({ text }, long, action))
@@ -72,9 +82,9 @@ class UserMessages {
 
     /** Shows [text] until the returned handle takes it down, for work whose end is not known up front. */
     fun showUntilDismissed(@StringRes text: Int): MessageHandle {
-        val dismissed = CompletableDeferred<Unit>()
-        post(Message({ it.getString(text) }, long = true, dismissed = dismissed))
-        return MessageHandle(dismissed)
+        val closed = CompletableDeferred<Unit>()
+        post(Message({ it.getString(text) }, long = true, closed = closed, untilClosed = true))
+        return MessageHandle(closed)
     }
 
     /** [action], confirming itself with [done], the feedback every selection gives. */
@@ -84,41 +94,68 @@ class UserMessages {
     }
 
     private fun post(message: Message) {
-        synchronized(hosts) {
-            val host = hosts.lastOrNull()
-            if (host != null) host.post(message) else waiting += message
-        }
+        incoming.trySend(message)
     }
 
-    internal fun attach(host: MessageHostSlot) {
-        synchronized(hosts) {
-            hosts += host
-            waiting.forEach(host::post)
-            waiting.clear()
-        }
+    private suspend fun play(message: Message) {
+        if (message.closed.isCompleted) return
+        surfaces.first { it.isNotEmpty() }
+        _playing.value = message
+        val timeout = message.timeout()
+        if (timeout == null) message.closed.await() else withTimeoutOrNull(timeout) { message.closed.await() }
+        // Over, so a press landing on it as it fades no longer acts
+        message.closed.complete(Unit)
+        _playing.value = null
     }
 
-    internal fun detach(host: MessageHostSlot) {
-        synchronized(hosts) { hosts -= host }
-        host.takeUnshown().forEach(::post)
+    /** How long [this] stays up, or null for one that stays until it is closed. */
+    private fun Message.timeout(): Duration? {
+        if (untilClosed) return null
+        val base = if (long) LongMessageDuration else ShortMessageDuration
+        val accessibility = appContext.getSystemService(AccessibilityManager::class.java)
+        return readableTimeout(base, accessibility, hasAction = action != null)
+    }
+
+    /** The message playing, while [surface] is the one on top, and nothing while another is. */
+    internal fun playingOn(surface: MessageSurface): Flow<Message?> =
+        combine(_playing, surfaces) { message, open -> message.takeIf { open.lastOrNull() === surface } }
+
+    internal fun attach(surface: MessageSurface) {
+        surfaces.update { it + surface }
+    }
+
+    internal fun detach(surface: MessageSurface) {
+        surfaces.update { it - surface }
+    }
+
+    /** Takes [message] down, as the user swiping or closing it does. */
+    internal fun dismiss(message: Message) {
+        message.closed.complete(Unit)
+    }
+
+    /** Runs the action on [message], which takes it down. Once, however many times it is pressed. */
+    internal fun perform(message: Message) {
+        if (message.closed.complete(Unit)) message.action?.onClick?.invoke()
     }
 }
 
 /** A button on a message, such as one undoing what the message reports. */
 class MessageAction(@param:StringRes val label: Int, val onClick: () -> Unit)
 
+/** How long a short message stays up, as long as Material keeps its own. */
+private val ShortMessageDuration = 4.seconds
+
 /** How long a long message stays up, unless accessibility settings ask for longer. */
 private val LongMessageDuration = 6.seconds
 
 /**
- * [LongMessageDuration], stretched to what the user's accessibility settings recommend for a
- * message that holds text and, with [hasAction], a control, as Material stretches its own.
+ * [base], stretched to what the user's accessibility settings recommend for a message that holds
+ * text and, with [hasAction], a control, as Material stretches its own.
  */
-private fun longMessageTimeout(accessibility: AccessibilityManager?, hasAction: Boolean): Duration {
-    if (accessibility == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return LongMessageDuration
-    val millis = LongMessageDuration.inWholeMilliseconds.toInt()
+private fun readableTimeout(base: Duration, accessibility: AccessibilityManager?, hasAction: Boolean): Duration {
+    if (accessibility == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return base
     return accessibility.getRecommendedTimeoutMillis(
-        millis,
+        base.inWholeMilliseconds.toInt(),
         if (hasAction) {
             AccessibilityManager.FLAG_CONTENT_TEXT or AccessibilityManager.FLAG_CONTENT_ICONS or
                     AccessibilityManager.FLAG_CONTENT_CONTROLS
@@ -129,9 +166,9 @@ private fun longMessageTimeout(accessibility: AccessibilityManager?, hasAction: 
 }
 
 /** Takes down a message shown by [UserMessages.showUntilDismissed], wherever it has got to. */
-class MessageHandle internal constructor(private val dismissed: CompletableDeferred<Unit>) {
+class MessageHandle internal constructor(private val closed: CompletableDeferred<Unit>) {
     fun dismiss() {
-        dismissed.complete(Unit)
+        closed.complete(Unit)
     }
 }
 
@@ -139,70 +176,26 @@ internal class Message(
     val text: (Context) -> String,
     val long: Boolean,
     val action: MessageAction? = null,
-    val dismissed: CompletableDeferred<Unit>? = null
-) {
-    val isDismissed get() = dismissed?.isCompleted == true
-}
+    /** Completed when the message is over, however it ended. */
+    val closed: CompletableDeferred<Unit> = CompletableDeferred(),
+    /** Whether it stays until [closed], rather than for a time. */
+    val untilClosed: Boolean = false
+)
 
-/** A surface's place in [UserMessages], holding what it has yet to show. */
-internal class MessageHostSlot {
-    private val queue = Channel<Message>(Channel.UNLIMITED)
-    private var current: Message? = null
-
-    fun post(message: Message) {
-        queue.trySend(message)
-    }
-
-    suspend fun showAll(state: SnackbarHostState, context: Context) = coroutineScope {
-        val accessibility = context.getSystemService(AccessibilityManager::class.java)
-        for (message in queue) {
-            if (message.isDismissed) continue
-            current = message
-            // Material's long duration keeps a message up for ten seconds, longer than one takes
-            // to read, so a long one is timed here and only a short one is left to Material
-            val timeout = if (message.long && message.dismissed == null) {
-                longMessageTimeout(accessibility, hasAction = message.action != null)
-            } else null
-            val shown = launch {
-                val result = state.showSnackbar(
-                    message = message.text(context),
-                    actionLabel = message.action?.let { context.getString(it.label) },
-                    // One that stays up a while can be closed once read, a short one goes before
-                    // a close button would be reached
-                    withDismissAction = message.long,
-                    duration = if (message.long) SnackbarDuration.Indefinite else SnackbarDuration.Short
-                )
-                if (result == SnackbarResult.ActionPerformed) message.action?.onClick?.invoke()
-            }
-            // Cancelling the call takes the snackbar down with it
-            val watcher = launch {
-                message.dismissed?.await() ?: delay(timeout ?: return@launch)
-                shown.cancel()
-            }
-            shown.join()
-            watcher.cancel()
-            current = null
-        }
-    }
-
-    /** The message cut short, if any, then those still waiting, in the order they came. */
-    fun takeUnshown(): List<Message> = buildList {
-        current?.let(::add)
-        current = null
-        while (true) add(queue.tryReceive().getOrNull() ?: break)
-    }.filterNot { it.isDismissed }
-}
+/** A place messages are drawn, which is the top one of those open. */
+internal class MessageSurface
 
 /** How far a message floats above the navigation bar or the keyboard, clear of the screen's bottom edge. */
 private val MessageBottomInset = 64.dp
 
 /**
  * [content] with the app's messages shown over its bottom edge while it is the top surface. The
- * snackbar keeps one place on every surface, just clear of the navigation bar or the keyboard,
- * over whatever bar the surface has there, rather than moving with the bars of each.
+ * snackbar keeps one place on every surface, just clear of the navigation bar or the keyboard.
+ * It sits over whatever bar the surface has there rather than moving with the bars of each, and
+ * is only as wide as its text needs.
  *
- * @param accepting Whether the surface still takes messages. One on its way out hands them to the
- * surface below at once, rather than showing them as it fades and again once it is gone.
+ * @param accepting Whether the surface still takes messages. One on its way out gives them up at
+ * once, so the surface below carries on with the message that is up rather than both showing it.
  */
 @Composable
 fun MessageHost(
@@ -211,44 +204,101 @@ fun MessageHost(
     content: @Composable BoxScope.() -> Unit
 ) {
     val messages = koinInject<UserMessages>()
-    val context = LocalContext.current
-    val slot = remember { MessageHostSlot() }
-    val state = remember { SnackbarHostState() }
+    val surface = remember { MessageSurface() }
     if (accepting) {
-        DisposableEffect(messages, slot) {
-            messages.attach(slot)
-            onDispose { messages.detach(slot) }
+        DisposableEffect(messages, surface) {
+            messages.attach(surface)
+            onDispose { messages.detach(surface) }
         }
-        LaunchedEffect(slot) { slot.showAll(state, context) }
     }
+    val playing by remember(messages, surface) { messages.playingOn(surface) }.collectAsState(initial = null)
 
     Box(modifier = modifier) {
         content()
-        SnackbarHost(
-            hostState = state,
-            snackbar = { data ->
-                // Swiped off either side, as a message on a phone can be, the button staying for
-                // whoever does not swipe
-                SwipeToDismissBox(
-                    state = rememberSwipeToDismissBoxState(),
-                    backgroundContent = {},
-                    onDismiss = { data.dismiss() }
-                ) {
-                    // Rounded off whole, as the pill floating over the screens is
-                    Snackbar(snackbarData = data, shape = CircleShape)
-                }
-            },
+        AnimatedContent(
+            targetState = playing,
+            // Faded only, as the room it takes growing up from the bottom edge would read as a slide
+            transitionSpec = { (fadeIn(tween(200)) togetherWith fadeOut(tween(200))).using(null) },
+            contentAlignment = Alignment.BottomCenter,
+            label = "message",
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.ime))
                 .widthIn(max = Defaults.ContentMaxWidth)
-                .fillMaxWidth()
                 .padding(
                     start = Defaults.SpaceLarge,
                     top = Defaults.SpaceSmall,
                     end = Defaults.SpaceLarge,
                     bottom = MessageBottomInset
                 )
-        )
+                .semantics { liveRegion = LiveRegionMode.Polite }
+        ) { message ->
+            if (message != null) {
+                key(message) { MessageBubble(message, messages) }
+            }
+        }
     }
 }
+
+/**
+ * [message] as a pill as wide as what it holds, in the colors Material gives a snackbar. Drawn here
+ * rather than as a Material [androidx.compose.material3.Snackbar], which always takes the whole
+ * width it is offered.
+ */
+@Composable
+private fun MessageBubble(message: Message, messages: UserMessages) {
+    val hasControls = message.action != null || message.long
+    // Swiped off either side, as a message on a phone can be, the button staying for whoever does
+    // not swipe
+    SwipeToDismissBox(
+        state = rememberSwipeToDismissBoxState(),
+        backgroundContent = {},
+        onDismiss = { messages.dismiss(message) }
+    ) {
+        Surface(
+            // Rounded off whole, as the pill floating over the screens is
+            shape = CircleShape,
+            color = SnackbarDefaults.color,
+            contentColor = SnackbarDefaults.contentColor
+        ) {
+            Row(
+                modifier = Modifier
+                    .heightIn(min = MessageMinHeight)
+                    .padding(
+                        start = Defaults.SpaceLarge,
+                        // The buttons bring their own room, as they do in a Material snackbar
+                        end = if (hasControls) Defaults.SpaceExtraSmall else Defaults.SpaceLarge
+                    ),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = message.text(LocalContext.current),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier
+                        .weight(1f, fill = false)
+                        .padding(vertical = Defaults.SpaceMedium)
+                )
+                message.action?.let { action ->
+                    TextButton(
+                        onClick = { messages.perform(message) },
+                        colors = ButtonDefaults.textButtonColors(contentColor = SnackbarDefaults.actionColor)
+                    ) { Text(stringResource(action.label)) }
+                }
+                // One that stays up a while can be closed once read, a short one goes before a
+                // close button would be reached
+                if (message.long) {
+                    IconButton(onClick = { messages.dismiss(message) }) {
+                        Icon(
+                            MaterialSymbols.Rounded.Close,
+                            contentDescription = stringResource(R.string.close),
+                            tint = SnackbarDefaults.dismissActionContentColor
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** The height Material gives a snackbar, kept by the pill drawn in its place. */
+private val MessageMinHeight = 48.dp

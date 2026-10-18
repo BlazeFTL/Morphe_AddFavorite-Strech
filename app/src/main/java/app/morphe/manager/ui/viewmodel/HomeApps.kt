@@ -68,7 +68,6 @@ private data class PatchUpdates(
 data class HomeAppState(
     val visible: List<HomeAppItem>,
     val hidden: List<HomeAppItem>,
-    val sortMode: HomeAppSortMode,
     val categoryState: HomeAppCategoryState,
     val categoryViewMode: HomeAppCategoryViewMode,
     val sourceGroups: List<HomeAppSourceGroup>
@@ -109,7 +108,6 @@ internal data class HomePrefs(
 internal data class HomeCards(
     val visible: List<HomeAppItem>,
     val hidden: List<HomeAppItem>,
-    val sortMode: HomeAppSortMode,
     val sourceGroups: List<HomeAppSourceGroup>
 )
 
@@ -487,7 +485,6 @@ class HomeApps(
     private fun HomeCards.arrangedBy(categoryPrefs: HomeCategoryPrefs) = HomeAppState(
         visible = visible,
         hidden = hidden,
-        sortMode = sortMode,
         categoryState = categoryPrefs.categoryState,
         categoryViewMode = categoryPrefs.categoryViewMode,
         sourceGroups = sourceGroups.map { group ->
@@ -666,7 +663,6 @@ class HomeApps(
         val cards = HomeCards(
             visible = visible,
             hidden = hidden,
-            sortMode = homePrefs.sortMode,
             sourceGroups = sourceGroups
         )
         scope.launch(homeCardCacheWrites) { homeCardCache.write(cards) }

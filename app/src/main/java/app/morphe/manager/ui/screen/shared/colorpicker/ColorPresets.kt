@@ -40,7 +40,6 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.animateCornersAsState
 import app.morphe.manager.ui.screen.shared.rememberPressShape
-import app.morphe.manager.ui.screen.shared.horizontalScrollFade
 import app.morphe.manager.util.darken
 import app.morphe.manager.util.readableOn
 import com.composables.icons.materialsymbols.MaterialSymbols
@@ -48,11 +47,12 @@ import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * The colors offered before anyone reaches for the picker. One list, shared by the settings grid
- * and by the row inside the picker, so the two can never drift into offering different palettes.
+ * and by the grid inside the picker, so the two can never drift into offering different palettes.
  *
  * Ordered around the color wheel, with the two muted ones last, so a color is found by where its
- * hue sits rather than by scanning. Kept at sixteen so the grid, counting the swatches that clear
- * it and open the picker, fills three whole rows of [PRESET_GRID_COLUMNS].
+ * hue sits rather than by scanning. Kept at sixteen so the settings grid, counting the swatches
+ * that clear it and open the picker, fills three whole rows of [PRESET_GRID_COLUMNS], and the
+ * picker's own two rows of eight.
  */
 val THEME_PRESET_COLORS = listOf(
     Color(0xFFD32F2F),
@@ -184,40 +184,9 @@ private fun Modifier.transparencyChecker(): Modifier = drawBehind {
 }
 
 /**
- * Single scrolling row of [colors], for the picker, where every row spent on presets is a row the
- * panel below does not get.
- */
-@Composable
-fun ColorPresetRow(
-    colors: List<Color>,
-    selected: Color?,
-    onSelect: (Color) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val selectedArgb = selected?.toArgb()
-    val scrollState = rememberScrollState()
-
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            // Fades out at an end the row runs past, so there are plainly more swatches to reach
-            .horizontalScrollFade(scrollState)
-            .horizontalScroll(scrollState),
-        horizontalArrangement = Arrangement.spacedBy(SwatchSpacing)
-    ) {
-        colors.forEach { preset ->
-            ColorSwatch(
-                color = preset,
-                selected = preset.toArgb() == selectedArgb,
-                onClick = { onSelect(preset) }
-            )
-        }
-    }
-}
-
-/**
  * [ColorPresetGrid] of plain [colors], each preset being the color it shows.
  *
+ * @param columns Swatches to a row, see the other overload.
  * @param onClear Adds the leading swatch, for keeping no color at all.
  * @param onCustomClick Adds the trailing swatch, which opens the picker.
  */
@@ -227,6 +196,7 @@ fun ColorPresetGrid(
     selected: Color?,
     onSelect: (Color) -> Unit,
     modifier: Modifier = Modifier,
+    columns: Int = PRESET_GRID_COLUMNS,
     enabled: Boolean = true,
     onClear: (() -> Unit)? = null,
     onCustomClick: (() -> Unit)? = null
@@ -238,6 +208,7 @@ fun ColorPresetGrid(
         selectedKey = selectedArgb,
         onSelect = { preset -> onSelect(preset.color) },
         modifier = modifier,
+        columns = columns,
         enabled = enabled,
         onClear = onClear,
         // A color the user picked rather than took from the grid is what the trailing swatch stands for
@@ -247,13 +218,15 @@ fun ColorPresetGrid(
 }
 
 /**
- * Grid of [presets], [PRESET_GRID_COLUMNS] to a row, bracketed by the two choices that are not
- * presets: clearing the selection and picking something the presets do not carry. Swatches shrink
- * to keep that many to a row on a narrow screen, and centering keeps a partly filled last row
- * balanced under the ones above it.
+ * Grid of [presets], [columns] to a row, bracketed by the two choices that are not presets:
+ * clearing the selection and picking something the presets do not carry. Swatches shrink to keep
+ * that many to a row on a narrow screen, and centering keeps a partly filled last row balanced
+ * under the ones above it.
  *
  * Both ends are optional, and each one added is a cell the row count has to account for.
  *
+ * @param columns Swatches to a row, [PRESET_GRID_COLUMNS] where the grid has the room for its
+ *   swatches at full size, more where fewer rows matter more than larger swatches.
  * @param selectedKey [ColorPresetSwatch.key] of the preset in effect, or null for none.
  * @param onClear Adds the leading swatch, for keeping no color at all, selected while [selectedKey]
  *   is null.
@@ -267,6 +240,7 @@ fun ColorPresetGrid(
     selectedKey: Any?,
     onSelect: (ColorPresetSwatch) -> Unit,
     modifier: Modifier = Modifier,
+    columns: Int = PRESET_GRID_COLUMNS,
     enabled: Boolean = true,
     onClear: (() -> Unit)? = null,
     customColor: Color? = null,
@@ -277,15 +251,15 @@ fun ColorPresetGrid(
         // Worked out in whole pixels, the way the row lays them out: a size that only fits before
         // rounding would push the last swatch of every row onto the next one
         val swatchSize = with(density) {
-            val spacingPx = SwatchSpacing.roundToPx() * (PRESET_GRID_COLUMNS - 1)
-            ((constraints.maxWidth - spacingPx) / PRESET_GRID_COLUMNS).toDp()
+            val spacingPx = SwatchSpacing.roundToPx() * (columns - 1)
+            ((constraints.maxWidth - spacingPx) / columns).toDp()
         }.coerceAtMost(SwatchSize)
 
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(SwatchSpacing, Alignment.CenterHorizontally),
             verticalArrangement = Arrangement.spacedBy(SwatchSpacing),
-            maxItemsInEachRow = PRESET_GRID_COLUMNS
+            maxItemsInEachRow = columns
         ) {
             // Leads the row, being where the grid starts out rather than one more color to weigh
             if (onClear != null) {

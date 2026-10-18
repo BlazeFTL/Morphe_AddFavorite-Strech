@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import app.morphe.manager.R
 import com.composables.icons.materialsymbols.MaterialSymbols
@@ -28,6 +29,9 @@ import dev.chrisbanes.haze.rememberHazeState
 /**
  * Title a full page opens on, after a back action where the page was opened from another and
  * before the page's own [actions] and the toggle of its [search], see [HeaderBar].
+ *
+ * @param emblem Heads a page with no way back, at the size of the header's controls.
+ * @param titleMaxLines Lines the title may wrap to before it is cut short.
  */
 @Composable
 fun PageHeader(
@@ -35,6 +39,8 @@ fun PageHeader(
     modifier: Modifier = Modifier,
     subtitle: String? = null,
     onBack: (() -> Unit)? = null,
+    emblem: (@Composable (Modifier) -> Unit)? = null,
+    titleMaxLines: Int = Int.MAX_VALUE,
     search: SearchFieldState? = null,
     searchLabel: String? = null,
     searchEnabled: Boolean = true,
@@ -48,6 +54,8 @@ fun PageHeader(
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = titleMaxLines,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.semantics { heading() }
                 )
                 if (subtitle != null) {
@@ -69,7 +77,7 @@ fun PageHeader(
                     style = TitleActionStyle.Neutral
                 )
             }
-        },
+        } ?: emblem?.let { { it(Modifier.size(HeaderControlDefaults.Size)) } },
         actions = actions,
         search = search,
         searchLabel = searchLabel,

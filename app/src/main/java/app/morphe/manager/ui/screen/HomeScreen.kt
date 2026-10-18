@@ -40,7 +40,6 @@ import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
 import app.morphe.manager.ui.screen.shared.MainPage
 import app.morphe.manager.ui.screen.shared.MainPagerScaffold
-import app.morphe.manager.ui.screen.shared.StatusBarScrim
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberInstallQueue
 import app.morphe.manager.ui.screen.sources.SourcesPage
@@ -498,8 +497,6 @@ fun HomeScreen(
                     bottomBarHeight = bottomBarHeight,
                     onboardingState = onboardingState
                 )
-                // The only page whose content runs on under the status bar with no header over it
-                StatusBarScrim()
             }
         }
     }

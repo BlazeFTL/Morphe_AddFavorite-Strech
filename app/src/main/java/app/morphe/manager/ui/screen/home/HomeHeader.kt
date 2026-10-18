@@ -5,20 +5,16 @@
 
 package app.morphe.manager.ui.screen.home
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import app.morphe.manager.R
-import app.morphe.manager.domain.manager.HomeAppSortMode
-import app.morphe.manager.ui.screen.shared.Defaults
-import app.morphe.manager.ui.screen.shared.ListSearchField
+import app.morphe.manager.ui.screen.shared.MorpheEmblem
+import app.morphe.manager.ui.screen.shared.PageHeader
+import app.morphe.manager.ui.screen.shared.SearchFieldState
 import app.morphe.manager.ui.screen.shared.TitleAction
 import app.morphe.manager.ui.screen.shared.TitleActionStyle
 import app.morphe.manager.ui.screen.shared.autoMirrored
@@ -27,41 +23,41 @@ import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 
 /**
- * What the apps page offers over its list: the search, the list's order and filter, and patching
- * an app the list does not hold, from its APK.
+ * Heads the apps page with Morphe itself and how many apps it lists, then offers the list's order
+ * and filter, patching an app the list does not hold from its APK, and the search.
  *
+ * @param loading Whether the list is still coming in, which leaves the count out but keeps its
+ *   line, so the header does not grow once the apps arrive.
  * @param sortEnabled Whether the list's options can be opened, which a selection under way holds off.
  * @param sortOpen Whether the list's options are docked under the list, which the button then closes.
- * @param optionsChanged Whether any of the list's options is off its default, which marks the button.
  */
 @Composable
-internal fun HomeAppsToolbar(
-    searchState: HomeSearchState,
+internal fun HomeHeader(
+    apps: HomeAppListUi,
+    appActions: HomeAppActions,
+    search: SearchFieldState,
+    loading: Boolean,
     sortEnabled: Boolean,
     sortOpen: Boolean,
-    sortMode: HomeAppSortMode,
-    filterMode: HomeAppFilterMode,
-    optionsChanged: Boolean,
     onSortClick: () -> Unit,
-    onPatchFileClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onPatchFileClick: () -> Unit
 ) {
-    // The same controls as a header's, so the page reads as headed like the dialogs it opens
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-        verticalAlignment = Alignment.CenterVertically
+    val appCount = apps.visible.size
+    PageHeader(
+        title = stringResource(R.string.app_name),
+        subtitle = if (loading) "" else {
+            pluralStringResource(R.plurals.home_category_app_count, appCount, appCount.toString())
+        },
+        emblem = { modifier -> MorpheEmblem(modifier = modifier) },
+        // Kept to one line, so the build's name never pushes the controls into a taller header
+        titleMaxLines = 1,
+        search = search,
+        searchLabel = stringResource(R.string.home_search_apps)
     ) {
-        ListSearchField(
-            value = searchState.query,
-            onValueChange = searchState.onQueryChange,
-            label = stringResource(R.string.home_search_apps),
-            modifier = Modifier
-                .weight(1f)
-                .onFocusChanged { searchState.onFocusChange(it.isFocused) }
+        val sortState = listOptionsStateDescription(
+            apps.sortMode.labelRes,
+            apps.filterMode.labelRes.takeIf { apps.filterMode.isActive }
         )
-
-        val sortState = listOptionsStateDescription(sortMode.labelRes, filterMode.labelRes.takeIf { filterMode.isActive })
         TitleAction(
             icon = MaterialSymbols.Rounded.Sort.autoMirrored,
             contentDescription = stringResource(R.string.sort),
@@ -69,7 +65,7 @@ internal fun HomeAppsToolbar(
             // Engaged while the options are docked, and marked while any is off its default
             style = TitleActionStyle.Toggle,
             active = sortOpen,
-            marked = optionsChanged,
+            marked = homeListOptions(apps, appActions).any { it.isChanged },
             enabled = sortEnabled,
             modifier = Modifier.semantics { stateDescription = sortState }
         )

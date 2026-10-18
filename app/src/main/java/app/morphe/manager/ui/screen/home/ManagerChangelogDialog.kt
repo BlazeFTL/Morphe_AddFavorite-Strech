@@ -144,11 +144,7 @@ fun DialogHostScope.ManagerChangelogDialog(
             // Headed by Morphe itself, as a source's changelog is by the source. The version is the
             // one on its way where there is one, so a download names what it fetches
             ListDialogHeader(
-                icon = { modifier ->
-                    Surface(modifier = modifier, shape = CircleShape, color = Color.White) {
-                        MorpheLauncherLogo(modifier = Modifier.fillMaxSize())
-                    }
-                },
+                icon = { modifier -> MorpheEmblem(modifier = modifier) },
                 // With no update on the way, this is just the changelog
                 title = if (state == UpdateViewModel.State.CAN_DOWNLOAD && !hasUpdate && !expectsUpdate) {
                     stringResource(R.string.changelog)

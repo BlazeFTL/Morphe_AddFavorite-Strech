@@ -8,9 +8,13 @@ package app.morphe.manager.ui.screen.shared
 import android.graphics.Canvas
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
@@ -37,6 +41,14 @@ fun MorpheLauncherLogo(modifier: Modifier = Modifier) {
             scaleY = 1.5f
         }
     )
+}
+
+/** Morphe itself as a [MorpheLauncherLogo] in its white circle, heading what is about Morphe. */
+@Composable
+fun MorpheEmblem(modifier: Modifier = Modifier) {
+    Surface(modifier = modifier, shape = CircleShape, color = Color.White) {
+        MorpheLauncherLogo(modifier = Modifier.fillMaxSize())
+    }
 }
 
 /**

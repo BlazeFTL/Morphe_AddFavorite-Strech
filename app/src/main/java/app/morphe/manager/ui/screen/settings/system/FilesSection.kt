@@ -6,11 +6,9 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import android.net.Uri
-import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -21,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
@@ -112,9 +109,9 @@ fun FilesSection(
         KeystoreCredentialsDialog(
             onDismiss = importExportViewModel::cancelKeystoreImport,
             initialFormat = importExportViewModel.detectedKeystoreFormat,
-            onSubmit = { alias, pass, storePass, format ->
+            onSubmit = { alias, pass, format ->
                 scope.launch {
-                    if (!importExportViewModel.tryKeystoreImport(alias, pass, storePass, format)) {
+                    if (!importExportViewModel.tryKeystoreImport(alias, pass, format = format)) {
                         messages.show(wrongCredentialsText)
                     }
                 }
@@ -292,21 +289,10 @@ private fun SigningKeyPreview(key: SigningKeyInfo) {
     // Colon-separated uppercase bytes, the form other tools print a certificate fingerprint in
     val fingerprintBytes = remember(key.sha256) { key.sha256.uppercase().chunked(2) }
     val copyToClipboard = rememberCopyToClipboard()
-    val view = LocalView.current
 
     SettingsItemCard(onClick = null, showBorder = true) {
         Column(
-            modifier = Modifier
-                .combinedClickable(
-                    onClick = {},
-                    onLongClickLabel = stringResource(R.string.copy),
-                    // Copied on one line, as other tools expect to be handed a fingerprint
-                    onLongClick = {
-                        view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-                        copyToClipboard(fingerprintBytes.joinToString(":"))
-                    }
-                )
-                .padding(Defaults.SpaceLarge),
+            modifier = Modifier.padding(Defaults.SpaceLarge),
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             Row(
@@ -329,6 +315,13 @@ private fun SigningKeyPreview(key: SigningKeyInfo) {
                         )
                     }
                 }
+                TitleAction(
+                    icon = MaterialSymbols.Rounded.Content_copy,
+                    contentDescription = stringResource(R.string.copy),
+                    // Copied on one line, as other tools expect to be handed a fingerprint
+                    onClick = { copyToClipboard(fingerprintBytes.joinToString(":")) },
+                    style = TitleActionStyle.Neutral
+                )
             }
 
             MonospaceValuePanel(

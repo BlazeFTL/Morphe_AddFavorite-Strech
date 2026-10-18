@@ -660,7 +660,7 @@ private fun MorpheManager(vm: MainViewModel) {
                     onDeclineTour = declineOnboardingTour,
                     onChangePatches = {
                         leavePatcher()
-                        homeViewModel.reopenPatchSelection(params)
+                        homeViewModel.patchFlow.reopenPatchSelection(params)
                     }
                 )
             }

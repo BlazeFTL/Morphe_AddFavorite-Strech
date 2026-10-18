@@ -178,12 +178,12 @@ fun HomeScreen(
 
     // Set up HomeViewModel
     LaunchedEffect(Unit) {
-        homeViewModel.onStartQuickPatch = onStartQuickPatch
+        homeViewModel.patchFlow.onStartQuickPatch = onStartQuickPatch
     }
 
     val openApkPicker = rememberAdaptiveFilePicker(
         mimeTypes = APK_FILE_MIME_TYPES,
-        onResult = { uri -> uri?.let { homeViewModel.handleApkSelection(it) } }
+        onResult = homeViewModel.patchFlow::handleApkSelection
     )
 
     val openBundlePicker = rememberAdaptiveMultiFilePicker(
@@ -258,7 +258,7 @@ fun HomeScreen(
     // Handle patch trigger from dialog
     LaunchedEffect(patchTriggerPackage) {
         patchTriggerPackage?.let { packageName ->
-            homeViewModel.showPatchDialog(packageName)
+            homeViewModel.patchFlow.showPatchDialog(packageName)
             onPatchTriggerHandled()
         }
     }
@@ -430,7 +430,7 @@ fun HomeScreen(
                                 installedApp = item.installedApp
                             )
                             item.installedApp?.let {
-                                homeViewModel.openInstalledAppInfo(it.currentPackageName)
+                                homeViewModel.patchFlow.openInstalledAppInfo(it.currentPackageName)
                             }
                         },
                         onHideApp = { packageName -> homeViewModel.apps.hideApp(packageName) },
@@ -486,7 +486,7 @@ fun HomeScreen(
                             if (availablePatches <= 0) {
                                 messages.show(sourcesLoadingText)
                             } else {
-                                homeViewModel.startOtherAppsFlow(otherAppsText)
+                                homeViewModel.patchFlow.startOtherAppsFlow(otherAppsText)
                             }
                         },
                         onOpenSources = { openPage(MainPage.SOURCES) },

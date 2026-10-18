@@ -8,6 +8,7 @@ package app.morphe.manager.ui.viewmodel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import app.morphe.manager.patcher.patch.PatchBundleInfo
 
 /**
  * A dialog of the patch flow, or the information on an installed app the flow can start from.
@@ -18,8 +19,14 @@ sealed interface HomeDialog {
     data class AppInfo(val packageName: String, val token: Int) : HomeDialog
 
     data class NoCompatibleVersions(val packageName: String) : HomeDialog
-    data object SimpleBundleSelect : HomeDialog
-    data object LowDiskSpace : HomeDialog
+
+    /** Asks which of [candidates], each with the patches it would apply, to patch [packageName] from. */
+    data class SimpleBundleSelect(
+        val packageName: String,
+        val candidates: List<Pair<PatchBundleInfo.Scoped, Set<String>>>
+    ) : HomeDialog
+
+    data class LowDiskSpace(val freeBytes: Long) : HomeDialog
     data object MeteredPatching : HomeDialog
 
     /** A step of getting the APK to patch, which going back from returns to the step before. */

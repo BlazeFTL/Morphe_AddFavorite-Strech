@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.BundleSourceType
+import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.bundleAvatarUrl
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.ownerAvatarUrl
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
@@ -35,6 +36,7 @@ import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerel
 import app.morphe.manager.domain.bundles.recommended
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.SourceMuteRepository
+import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.model.SourceScope
@@ -279,6 +281,7 @@ private fun DialogHostScope.PatchFlowDialog(
             savedApkInfo = session.savedApk,
             installedApkInfo = session.installedApk,
             installedAppVersion = session.installedVersion,
+            hiddenSourceCount = session.hiddenSources,
             onDismiss = flow::backFromApkSource,
             onHaveApk = storagePickerLauncher,
             onNeedApk = flow::showDownloadInstructions,
@@ -407,30 +410,13 @@ private fun DialogHostScope.PatchFlowDialog(
         )
 
         // Shown in simple mode when 2+ bundles have patches for the same app
-        is HomeDialog.SimpleBundleSelect -> {
-            val versionsBySource = homeViewModel.compatibleVersions[dialog.packageName]
-                .orEmpty()
-                .groupBy { it.bundleUid }
-            SimpleBundleSelectDialog(
-                packageName = dialog.packageName,
-                candidates = dialog.candidates.map { (bundle, patches) ->
-                    val source = homeViewModel.getPatchSource(bundle.uid)
-                    SimpleBundleCandidate(
-                        uid = bundle.uid,
-                        displayTitle = source?.displayTitle
-                            ?: homeViewModel.getBundleDisplayName(bundle.uid)
-                            ?: bundle.name,
-                        patchCount = patches.size,
-                        recommendedVersion = versionsBySource[bundle.uid].orEmpty().recommended()?.version,
-                        patchVersion = source?.version ?: bundle.version,
-                        sourceType = source?.sourceType
-                    )
-                },
-                onSelect = { uid, rememberChoice -> flow.proceedWithSelectedBundle(dialog, uid, rememberChoice) },
-                onDismiss = dismiss,
-                canRemember = true
-            )
-        }
+        is HomeDialog.SimpleBundleSelect -> SimpleBundleSelectDialog(
+            packageName = dialog.packageName,
+            choices = dialog.candidates,
+            versions = homeViewModel.compatibleVersions[dialog.packageName].orEmpty(),
+            onSelect = { uid, rememberChoice -> flow.proceedWithSelectedBundle(dialog, uid, rememberChoice) },
+            onDismiss = dismiss
+        )
 
         // The dialogs raised over the selection wear the app's color, as the selection does
         HomeDialog.ExpertMode -> {
@@ -946,35 +932,35 @@ fun DialogHostScope.MppImportDialog(
     )
 }
 
-/** A single selectable bundle entry for [SimpleBundleSelectDialog]. */
-data class SimpleBundleCandidate(
-    val uid: Int,
-    val displayTitle: String,
-    val patchCount: Int,
-    val recommendedVersion: String? = null,
-    val patchVersion: String? = null,
-    val sourceType: BundleSourceType? = null
-)
-
 /**
  * Dialog shown in Simple mode when 2+ patch sources have patches for the selected app.
  * Lets the user pick exactly one source to apply.
  *
- * [canRemember] offers to settle the question for this app rather than only for this run, which
- * the caller answers by keeping the app from the sources that were turned down. Callers picking a
- * source for one run of their own leave it off.
+ * The remember option settles the question for this app rather than only for this run, which the
+ * caller answers by keeping the app from the sources that were turned down.
+ *
+ * @param choices Each source on offer with the patches it would apply.
+ * @param versions The versions the sources cover, which tell each source's recommended one.
+ * @param initiallySelected The source picked when the dialog opens, the first one otherwise.
  */
 @Composable
 fun DialogHostScope.SimpleBundleSelectDialog(
     packageName: String?,
-    candidates: List<SimpleBundleCandidate>,
+    choices: List<Pair<PatchBundleInfo.Scoped, Set<String>>>,
+    versions: List<BundledAppTarget>,
     onSelect: (uid: Int, rememberChoice: Boolean) -> Unit,
     onDismiss: () -> Unit,
-    canRemember: Boolean = false
+    initiallySelected: Int? = null
 ) {
-    val selected = remember { mutableStateOf(candidates.firstOrNull()?.uid) }
+    val selected = remember {
+        mutableStateOf(
+            initiallySelected?.takeIf { uid -> choices.any { (bundle, _) -> bundle.uid == uid } }
+                ?: choices.firstOrNull()?.first?.uid
+        )
+    }
     val rememberChoice = remember { mutableStateOf(false) }
     val sourcesByUid = rememberSourcesByUid()
+    val versionsBySource = remember(versions) { versions.groupBy { it.bundleUid } }
 
     AppDialog(
         onDismissRequest = onDismiss,
@@ -996,23 +982,26 @@ fun DialogHostScope.SimpleBundleSelectDialog(
             val localLabel = stringResource(R.string.sources_dialog_local)
             val patchLabel = stringResource(R.string.patches)
             val recommendedVersionLabel = stringResource(R.string.home_recommended_version)
-            candidates.forEach { candidate ->
-                val isSelected = selected.value == candidate.uid
+            choices.forEach { (bundle, patches) ->
+                val isSelected = selected.value == bundle.uid
                 // Drawn and colored the way the source list draws it, so the source is recognized
                 // at a glance
-                val source = sourcesByUid[candidate.uid]
+                val source = sourcesByUid[bundle.uid]
                 val accentColor = source?.let { rememberBundleAccent(it) }
+                val displayTitle = source?.displayTitle ?: bundle.name
+                val sourceType = source?.sourceType
                 val patchCountText = pluralStringResource(
                     R.plurals.patch_count,
-                    candidate.patchCount,
-                    candidate.patchCount.toString()
+                    patches.size,
+                    patches.size.toString()
                 )
-                val patchVersionText = candidate.patchVersion
+                val patchVersionText = (source?.version ?: bundle.version)
                     ?.takeIf { it.isNotBlank() }
                     ?.let { "$patchLabel v${it.removePrefix("v")}" }
-                val recommendedVersionText = candidate.recommendedVersion
+                val recommendedVersionText = versionsBySource[bundle.uid].orEmpty().recommended()
+                    ?.version
                     ?.let { "$recommendedVersionLabel v$it" }
-                val sourceTypeLabel = candidate.sourceType?.let { type ->
+                val sourceTypeLabel = sourceType?.let { type ->
                     when (type) {
                         BundleSourceType.PreInstalled -> preInstalledLabel
                         BundleSourceType.Remote -> remoteLabel
@@ -1020,7 +1009,7 @@ fun DialogHostScope.SimpleBundleSelectDialog(
                     }
                 }
                 val cardContentDescription = buildString {
-                    append(candidate.displayTitle)
+                    append(displayTitle)
                     sourceTypeLabel?.let { append(", $it") }
                     append(", $patchCountText")
                     patchVersionText?.let { append(", $it") }
@@ -1029,7 +1018,7 @@ fun DialogHostScope.SimpleBundleSelectDialog(
 
                 RadioSelectionCard(
                     selected = isSelected,
-                    onSelect = { selected.value = candidate.uid },
+                    onSelect = { selected.value = bundle.uid },
                     contentDescription = cardContentDescription,
                     accentColor = accentColor
                 ) {
@@ -1045,12 +1034,12 @@ fun DialogHostScope.SimpleBundleSelectDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = candidate.displayTitle,
+                                text = displayTitle,
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = dialogTextColor(),
                                 modifier = Modifier.weight(1f, fill = false)
                             )
-                            candidate.sourceType?.let { type ->
+                            sourceType?.let { type ->
                                 BundleTypeBadge(type)
                             }
                         }
@@ -1079,17 +1068,15 @@ fun DialogHostScope.SimpleBundleSelectDialog(
         }
 
         // Outside the group above, since this answers what to do with the sources that were not
-        // picked rather than being one more of them
-        if (canRemember) {
-            // The cards above carry the same round indicator, so the two kinds of choice in
-            // this dialog are told apart by their shape rather than by two styles of box
-            SelectionCheckRow(
-                text = stringResource(R.string.home_simple_bundle_select_remember),
-                checked = rememberChoice.value,
-                onCheckedChange = { rememberChoice.value = it },
-                modifier = Modifier.padding(top = Defaults.SpaceSmall)
-            )
-        }
+        // picked rather than being one more of them. The cards above carry the same round
+        // indicator, so the two kinds of choice in this dialog are told apart by their shape
+        // rather than by two styles of box
+        SelectionCheckRow(
+            text = stringResource(R.string.home_simple_bundle_select_remember),
+            checked = rememberChoice.value,
+            onCheckedChange = { rememberChoice.value = it },
+            modifier = Modifier.padding(top = Defaults.SpaceSmall)
+        )
     }
 }
 

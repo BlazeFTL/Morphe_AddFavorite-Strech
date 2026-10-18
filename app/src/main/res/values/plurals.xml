@@ -32,6 +32,10 @@
         <item quantity="one">Patch sources for %s app</item>
         <item quantity="other">Patch sources for %s apps</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s source is hidden for this app. Select the app on the Apps tab and open Patch sources to bring it back</item>
+        <item quantity="other">%s sources are hidden for this app. Select the app on the Apps tab and open Patch sources to bring them back</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s source hidden. Tap to show</item>
         <item quantity="other">%s sources hidden. Tap to show</item>

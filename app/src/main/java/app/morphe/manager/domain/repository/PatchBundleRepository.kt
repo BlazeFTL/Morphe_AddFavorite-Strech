@@ -182,6 +182,33 @@ class PatchBundleRepository(
             bundles.withoutMutedSources(muted) { it.uid }
         }
 
+    /**
+     * The sources simple mode asks the user to choose between for [packageName], each with the
+     * patches it would apply. Asked before the APK is known, so every version a source covers
+     * counts.
+     */
+    suspend fun simpleSourceChoices(packageName: String): List<Pair<PatchBundleInfo.Scoped, Set<String>>> =
+        offeredBundleInfoFlow(packageName, version = null).first()
+            .filter { it.enabled }
+            .map { bundle ->
+                bundle to bundle.patchSequence(allowIncompatible = true)
+                    .filter { it.include }
+                    .mapTo(mutableSetOf()) { it.name }
+            }
+            .filter { (_, patches) -> patches.isNotEmpty() }
+
+    /**
+     * How many sources with patches for [packageName] it is kept from, which every point
+     * offering a choice leaves out. Counted the way [offeredBundleInfoFlow] drops them, so an
+     * app kept from every source hides none.
+     */
+    suspend fun hiddenSourceCount(packageName: String): Int {
+        val covering = scopedBundleInfoFlow(packageName, version = null).first()
+            .filter { it.enabled && it.patchSequence(allowIncompatible = true).any() }
+        val muted = sourceMuteRepository.getMutedFor(packageName)
+        return covering.size - covering.withoutMutedSources(muted) { it.uid }.size
+    }
+
     val patchCountsFlow = allBundlesInfoFlow.map { it.mapValues { (_, info) -> info.patches.size } }
 
     private val manualUpdateInfoFlow = MutableStateFlow<Map<Int, ManualBundleUpdateInfo>>(emptyMap())

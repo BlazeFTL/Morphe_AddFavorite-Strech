@@ -159,8 +159,10 @@ data class BatchPatchItem(
     val suggestedVersion: String? = null,
     val forceVersionMismatch: Boolean = false,
     val forceUnverifiedSignature: Boolean = false,
-    /** Selection before the user narrowed it to one source, so another can still be chosen. */
-    val resolvedSelection: PatchSelection? = null,
+    /** The one source simple mode was told to patch this app from, null to use every source. */
+    val chosenBundleUid: Int? = null,
+    /** True once the user edited the patches by hand, which resolving the app again would lose. */
+    val selectionEdited: Boolean = false,
     val unreadableOptionPaths: List<PathValidationResult> = emptyList(),
     val restoreState: BatchItemState? = null,
     val patchedFile: File? = null,

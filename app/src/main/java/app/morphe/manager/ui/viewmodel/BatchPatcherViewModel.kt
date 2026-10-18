@@ -26,11 +26,13 @@ import app.morphe.manager.domain.batch.*
 import app.morphe.manager.domain.bundles.AppVersionCatalog
 import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.bundles.patchableBy
+import app.morphe.manager.domain.bundles.recommended
 import app.morphe.manager.domain.manager.DownloadUrlResolver
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
+import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.ui.model.ApkDownloadHelperHost
 import app.morphe.manager.ui.model.PostPatchPrompts
@@ -221,6 +223,7 @@ class BatchPatcherViewModel(
     private val installedAppRepository: InstalledAppRepository,
     private val patchBundleRepository: PatchBundleRepository,
     private val patchSelectionRepository: PatchSelectionRepository,
+    private val sourceMuteRepository: SourceMuteRepository,
     private val downloadUrlResolver: DownloadUrlResolver,
     private val versionCatalog: AppVersionCatalog,
     private val localApkSources: LocalApkSources,
@@ -270,34 +273,64 @@ class BatchPatcherViewModel(
         /** The unpatched version on the device, even where [installed] is no source to patch from. */
         val installedVersion: String?,
         val hasStockInstall: Boolean,
-        val selectedVersion: AppTarget?
+        val selectedVersion: AppTarget?,
+        /** Sources the app is kept from, which the dialog says how to bring back. */
+        val hiddenSources: Int
     )
 
     var apkChoice: ApkChoice? by mutableStateOf(null)
         private set
 
+    /**
+     * Opens the APK availability dialog, asking simple mode which source to patch from first the
+     * way the single-app flow does: the source settles which versions are worth looking for.
+     */
     fun beginApkChoice(item: BatchPatchItem) {
         viewModelScope.launch {
-            val recommended = versionCatalog.recommendedVersions.first()[item.packageName]
-            val compatible = versionCatalog.compatibleVersions.first()[item.packageName].orEmpty()
-            val expertMode = prefs.useExpertMode.get()
-            val device = withContext(Dispatchers.IO) {
-                localApkSources.installed(item.packageName)
+            if (!prefs.useExpertMode.get()) {
+                val choices = withContext(Dispatchers.IO) {
+                    patchBundleRepository.simpleSourceChoices(item.packageName)
+                }
+                if (choices.size > 1) {
+                    sourcePick = SourcePick(
+                        item = item,
+                        choices = choices,
+                        versions = versionCatalog.compatibleVersions.first()[item.packageName].orEmpty()
+                    )
+                    return@launch
+                }
             }
-
-            apkChoice = ApkChoice(
-                item = item,
-                recommended = recommended,
-                compatible = compatible,
-                saved = withContext(Dispatchers.IO) { localApkSources.saved(item.packageName) },
-                // The installed source is an expert-mode offer, and only for a version the
-                // patches target: the two conditions the single-app flow puts on the button
-                installed = device.apk.takeIf { expertMode }.patchableBy(compatible),
-                installedVersion = device.version,
-                hasStockInstall = device.hasStockInstall,
-                selectedVersion = recommended
-            )
+            showApkChoice(item, item.chosenBundleUid)
         }
+    }
+
+    /** The availability dialog for [item], covering the versions of [bundleUid] alone when given. */
+    private suspend fun showApkChoice(item: BatchPatchItem, bundleUid: Int?) {
+        val allCompatible = versionCatalog.compatibleVersions.first()[item.packageName].orEmpty()
+        val sourceVersions = allCompatible.filter { it.bundleUid == bundleUid }
+        val (compatible, recommended) = if (sourceVersions.isNotEmpty()) {
+            sourceVersions to sourceVersions.recommended()
+        } else {
+            allCompatible to versionCatalog.recommendedVersions.first()[item.packageName]
+        }
+        val expertMode = prefs.useExpertMode.get()
+        val device = withContext(Dispatchers.IO) {
+            localApkSources.installed(item.packageName)
+        }
+
+        apkChoice = ApkChoice(
+            item = item,
+            recommended = recommended,
+            compatible = compatible,
+            saved = withContext(Dispatchers.IO) { localApkSources.saved(item.packageName) },
+            // The installed source is an expert-mode offer, and only for a version the
+            // patches target: the two conditions the single-app flow puts on the button
+            installed = device.apk.takeIf { expertMode }.patchableBy(compatible),
+            installedVersion = device.version,
+            hasStockInstall = device.hasStockInstall,
+            selectedVersion = recommended,
+            hiddenSources = patchBundleRepository.hiddenSourceCount(item.packageName)
+        )
     }
 
     fun selectApkVersion(target: AppTarget) {
@@ -519,27 +552,35 @@ class BatchPatcherViewModel(
         editCopy.close()
     }
 
-    /**
-     * App whose patch source is being chosen, null when no picker is open.
-     *
-     * Simple mode is asked which source to use in the single-app flow too. The queue cannot
-     * ask mid-run, so the same question is answered here instead.
-     */
-    var sourcePick: BatchPatchItem? by mutableStateOf(null)
-        private set
+    /** The source question simple mode answers before an APK is chosen for one queued app. */
+    data class SourcePick(
+        val item: BatchPatchItem,
+        val choices: List<Pair<PatchBundleInfo.Scoped, Set<String>>>,
+        val versions: List<BundledAppTarget>
+    )
 
-    fun beginSourcePick(item: BatchPatchItem) {
-        sourcePick = item
-    }
+    var sourcePick: SourcePick? by mutableStateOf(null)
+        private set
 
     fun cancelSourcePick() {
         sourcePick = null
     }
 
-    fun pickSource(bundleUid: Int) {
-        val item = sourcePick ?: return
+    /**
+     * Patches the app from [bundleUid] and moves on to its APK. [rememberChoice] keeps the app
+     * from the other sources the same way the single-app question does.
+     */
+    fun pickSource(bundleUid: Int, rememberChoice: Boolean) {
+        val pick = sourcePick ?: return
         sourcePick = null
-        coordinator.narrowToSource(item.id, bundleUid)
+        coordinator.chooseSource(pick.item.id, bundleUid)
+        viewModelScope.launch {
+            if (rememberChoice) {
+                val offered = pick.choices.mapTo(mutableSetOf()) { (bundle, _) -> bundle.uid }
+                sourceMuteRepository.keepOnly(pick.item.packageName, bundleUid, offered)
+            }
+            showApkChoice(pick.item, bundleUid)
+        }
     }
 
     fun applyEdit() {

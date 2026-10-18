@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -55,6 +56,9 @@ import com.composables.icons.materialsymbols.rounded.*
  * download target. [selectedDownloadVersion] reflects the current selection (defaults to
  * [recommendedVersion]); [onVersionSelect] propagates the change to the ViewModel.
  * In simple mode there is only one version and no selection UI is shown.
+ *
+ * [hiddenSourceCount] names the sources the app is kept from, whose versions are missing from
+ * the list, so the user is told where that choice is undone.
  */
 @Composable
 internal fun DialogHostScope.ApkAvailabilityDialog(
@@ -70,6 +74,7 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
     savedApkInfo: SavedApkInfo?,
     installedApkInfo: InstalledApkInfo?,
     installedAppVersion: String?,
+    hiddenSourceCount: Int,
     onDismiss: () -> Unit,
     onHaveApk: () -> Unit,
     onNeedApk: () -> Unit,
@@ -267,6 +272,18 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                     ),
                     tone = SemanticTone.Neutral,
                     icon = MaterialSymbols.Rounded.Install_mobile
+                )
+            }
+
+            // A remembered source choice is otherwise never seen again, nor where it is undone
+            if (hiddenSourceCount > 0) {
+                Footnote(
+                    text = pluralStringResource(
+                        R.plurals.home_apk_availability_hidden_sources,
+                        hiddenSourceCount,
+                        hiddenSourceCount.toString()
+                    ),
+                    icon = MaterialSymbols.Rounded.Visibility_off
                 )
             }
 

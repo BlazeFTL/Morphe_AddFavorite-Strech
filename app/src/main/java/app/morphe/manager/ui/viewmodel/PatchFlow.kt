@@ -125,7 +125,9 @@ data class PatchFlowSession(
     val installedApk: InstalledApkInfo? = null,
     val installedVersion: String? = null,
     val stockAppInstalled: Boolean? = null,
-    val downloadUrl: String? = null
+    val downloadUrl: String? = null,
+    /** Sources the app is kept from, which the APK dialog says how to bring back. */
+    val hiddenSources: Int = 0
 ) {
     /** The version an APK is looked for at. */
     val requestedVersion: String? get() = (selectedVersion ?: recommendedVersion)?.version
@@ -308,21 +310,9 @@ class PatchFlow(
         // In simple mode: if multiple bundles cover this package, ask the user to pick one
         // before showing the APK selection dialog so the correct recommended version is used
         if (!isExpertMode() && session?.bundleUid == null) {
-            val allBundlesForCheck = withContext(Dispatchers.IO) {
-                patchBundleRepository
-                    .offeredBundleInfoFlow(packageName, version = null)
-                    .first()
+            val candidates = withContext(Dispatchers.IO) {
+                patchBundleRepository.simpleSourceChoices(packageName)
             }
-            val candidates = allBundlesForCheck
-                .filter { it.enabled }
-                .map { bundle ->
-                    val patchNames = bundle.patchSequence(allowIncompatible = true)
-                        .filter { it.include }
-                        .mapTo(mutableSetOf()) { it.name }
-                    bundle to patchNames
-                }
-                .filter { (_, patches) -> patches.isNotEmpty() }
-
             if (candidates.size > 1) {
                 dialogs.advanceTo(HomeDialog.SimpleBundleSelect(packageName, candidates))
                 return
@@ -341,10 +331,11 @@ class PatchFlow(
         val packageName = dialog.packageName
 
         // Settles the question for good rather than for this run: the sources turned down here
-        // stop being offered for this app, so the dialog has nothing left to ask next time
+        // stop being offered for this app, so the dialog has nothing left to ask next time.
+        // Written before moving on, so the APK dialog already counts them as hidden
         if (rememberChoice) {
             val offeredUids = dialog.candidates.mapTo(mutableSetOf()) { (bundle, _) -> bundle.uid }
-            scope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
                 sourceMuteRepository.keepOnly(packageName, bundleUid, offeredUids)
             }
         }
@@ -384,8 +375,10 @@ class PatchFlow(
                 async(Dispatchers.IO) { localApkSources.saved(packageName) }
             } else null
             val installedJob = async(Dispatchers.IO) { localApkSources.installed(packageName) }
+            val hiddenJob = async(Dispatchers.IO) { patchBundleRepository.hiddenSourceCount(packageName) }
             savedJob?.await()?.let { saved -> session = session?.copy(savedApk = saved) }
             applyInstalledAppSource(installedJob.await(), offersApk = expertMode)
+            session = session?.copy(hiddenSources = hiddenJob.await())
         }
 
         val current = session ?: return

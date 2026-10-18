@@ -115,7 +115,10 @@ fun sharedAxisZEnter(forward: Boolean): EnterTransition =
 
 /** The screen making way in a [sharedAxisZEnter]. */
 fun sharedAxisZExit(forward: Boolean): ExitTransition =
-    scaleOut(SharedAxisScale, targetScale = if (forward) SHARED_AXIS_Z_ABOVE else SHARED_AXIS_Z_BELOW) + SharedAxisFadeOut
+    scaleOut(SharedAxisScale, targetScale = if (forward) SHARED_AXIS_Z_ABOVE else SHARED_AXIS_Z_BELOW) + sharedAxisZFadeOut()
+
+/** The fade of a [sharedAxisZExit] alone, for what covers the screen without growing with it. */
+fun sharedAxisZFadeOut(): ExitTransition = SharedAxisFadeOut
 
 /**
  * Shared [EnterTransition] and [ExitTransition] for all AppDialog and ListDialog instances and

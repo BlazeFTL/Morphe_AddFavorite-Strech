@@ -38,8 +38,12 @@ import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.patcher.UnusableOptionPathsDialog
+import app.morphe.manager.ui.screen.settings.SettingsNavigation
+import app.morphe.manager.ui.screen.settings.SettingsSubpage
+import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.sources.*
+import app.morphe.manager.ui.viewmodel.HomeDialog
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
 import app.morphe.manager.util.*
@@ -52,6 +56,9 @@ import org.koin.core.parameter.parametersOf
 
 /**
  * Container for all home screen dialogs.
+ *
+ * @param settingsNavigation Where a dialog leads out to the settings. The dialogs are put away
+ *   while the settings are open and come back as they stood once they close.
  */
 @Composable
 fun HomeDialogs(
@@ -60,38 +67,15 @@ fun HomeDialogs(
     openBundlePicker: () -> Unit,
     patchesItem: MutableState<HomeAppItem?>,
     onSourceAdded: () -> Unit,
-    onOpenApkDownloadHelpers: () -> Unit
+    settingsNavigation: SettingsNavigation
 ) {
     val scope = rememberCoroutineScope()
     val messages = koinInject<UserMessages>()
 
-    // Installed App Info Dialog. Composed ahead of the rest, as windows coming back after a trip
-    // to another screen stack in composition order, and the patch flow it starts stays over it
-    DialogHost(target = homeViewModel.showInstalledAppInfoDialog) { packageName ->
-        key(packageName, homeViewModel.installedAppDialogToken) {
-            val installedAppInfoViewModel: InstalledAppInfoViewModel = koinViewModel(
-                key = "${packageName}_${homeViewModel.installedAppDialogToken}",
-                parameters = { parametersOf(packageName) }
-            )
-            InstalledAppInfoDialog(
-                packageName = packageName,
-                onDismiss = homeViewModel::dismissInstalledAppInfo,
-                onTriggerPatchFlow = { originalPackageName, repatchedPackageName ->
-                    homeViewModel.showPatchDialog(
-                        packageName = originalPackageName,
-                        repatchedPackageName = repatchedPackageName
-                    )
-                },
-                homeViewModel = homeViewModel,
-                viewModel = installedAppInfoViewModel
-            )
-        }
-    }
-
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
     val apkDownloadHelpers = rememberApkDownloadHelperAction(
         host = homeViewModel,
-        enabled = homeViewModel.showDownloadInstructionsDialog
+        enabled = homeViewModel.dialogs.top == HomeDialog.DownloadInstructions
     )
 
     // APK selection processing overlay - blocks interaction while APK is loaded/validated in background
@@ -99,346 +83,15 @@ fun HomeDialogs(
         PulsingLogoWithCaption(caption = stringResource(R.string.processing_apk))
     }
 
-    // Dialog 1: APK availability
-    DialogHost(
-        visible = homeViewModel.showApkAvailabilityDialog &&
-                homeViewModel.pendingPackageName != null &&
-                homeViewModel.pendingAppName != null,
-        handsOver = homeViewModel.showDownloadInstructionsDialog
-    ) {
-        val appName = held(homeViewModel.pendingAppName) ?: return@DialogHost
-        // Held so the dialog leaves as it stood, color included, as dismissing it clears the pending data
-        val packageName = held(homeViewModel.pendingPackageName)
-        val recommendedVersion = held(homeViewModel.pendingRecommendedVersion)
-        val compatibleVersions = held(homeViewModel.pendingCompatibleVersions)
-        val selectedDownloadVersion = held(homeViewModel.pendingSelectedDownloadVersion)
-        val usingMountInstall = homeViewModel.usingMountInstall
-        val isExpertMode = homeViewModel.prefs.useExpertMode.getBlocking()
-        val savedApkInfo = held(homeViewModel.pendingSavedApkInfo)
-        val installedApkInfo = held(homeViewModel.pendingInstalledApkInfo)
-        val installedAppVersion = held(homeViewModel.pendingInstalledAppVersion)
-        val stockAppInstalled = held(homeViewModel.pendingStockAppInstalled) == true
-
-        ApkAvailabilityDialog(
-            appName = appName,
-            packageName = packageName,
-            recommendedVersion = recommendedVersion,
-            compatibleVersions = compatibleVersions,
-            selectedDownloadVersion = selectedDownloadVersion,
-            onVersionSelect = { homeViewModel.pendingSelectedDownloadVersion = it },
-            usingMountInstall = usingMountInstall,
-            stockAppInstalled = stockAppInstalled,
-            isExpertMode = isExpertMode,
-            savedApkInfo = savedApkInfo,
-            installedApkInfo = installedApkInfo,
-            installedAppVersion = installedAppVersion,
-            onDismiss = {
-                homeViewModel.showApkAvailabilityDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onHaveApk = {
-                homeViewModel.showApkAvailabilityDialog = false
-                storagePickerLauncher()
-            },
-            onNeedApk = {
-                homeViewModel.showApkAvailabilityDialog = false
-                homeViewModel.showDownloadInstructionsDialog = true
-                homeViewModel.resolveDownloadRedirect()
-            },
-            onUseSaved = {
-                homeViewModel.handleSavedApkSelection()
-            },
-            onUseInstalled = {
-                homeViewModel.handleInstalledApkSelection()
-            }
+    // The patch flow over the app information it may have started from, in the order they opened
+    DialogStack(homeViewModel.dialogs.entries) { dialog ->
+        PatchFlowDialog(
+            dialog = dialog,
+            homeViewModel = homeViewModel,
+            storagePickerLauncher = storagePickerLauncher,
+            apkDownloadHelpers = apkDownloadHelpers,
+            onTrustApkDownloadHelpers = { settingsNavigation.openSubpage(SettingsSubpage.APK_DOWNLOAD_HELPERS) }
         )
-    }
-
-    // Dialog 2: Download instructions
-    DialogHost(
-        visible = homeViewModel.showDownloadInstructionsDialog &&
-                homeViewModel.pendingPackageName != null &&
-                homeViewModel.pendingAppName != null,
-        handsOver = homeViewModel.showFilePickerPromptDialog
-    ) {
-        val usingMountInstall = homeViewModel.usingMountInstall
-        // Held so the color does not flicker during the exit animation
-        val packageName = held(homeViewModel.pendingPackageName)
-        // Held for the same reason, since the pending data is cleared as the dialog leaves
-        val appName = held(homeViewModel.pendingAppName).orEmpty()
-        val downloadUrl = held(homeViewModel.resolvedDownloadUrl)
-        val stockAppInstalled = held(homeViewModel.pendingStockAppInstalled) == true
-        // Settled in dialog 1 and held for the same reason, so the steps stay put on the way out
-        val requestedVersion = held(
-            (homeViewModel.pendingSelectedDownloadVersion ?: homeViewModel.pendingRecommendedVersion)?.version
-        )
-
-        // Resolve download button color: bundle declared → default
-        val bundleMetadata by homeViewModel.bundleAppMetadataFlow.collectAsStateWithLifecycle()
-        val downloadColor = remember(packageName, bundleMetadata) {
-            bundleMetadata[packageName ?: ""]?.downloadColor
-                ?: KnownApps.DEFAULT_DOWNLOAD_COLOR
-        }
-        // True when the patch bundle explicitly requires a split archive (APKM/APKS/XAPK).
-        // In that case the APKMirror button label becomes "DOWNLOAD APK BUNDLE" to match the site.
-        val isApkBundle = remember(packageName, bundleMetadata) {
-            bundleMetadata[packageName ?: ""]?.apkFileType?.isApk == false
-        }
-
-        DownloadInstructionsDialog(
-            appName = appName,
-            packageName = packageName,
-            downloadUrl = downloadUrl,
-            requestedVersion = requestedVersion,
-            usingMountInstall = usingMountInstall,
-            stockAppInstalled = stockAppInstalled,
-            downloadColor = downloadColor,
-            isApkBundle = isApkBundle,
-            onDismiss = {
-                homeViewModel.showDownloadInstructionsDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onOpenApkDownloadHelper = apkDownloadHelpers.open,
-            onTrustApkDownloadHelpers = onOpenApkDownloadHelpers.takeIf { apkDownloadHelpers.hasUntrusted },
-            onContinue = homeViewModel::handleDownloadInstructionsContinue
-        )
-    }
-
-    // Dialog 3: File picker prompt
-    DialogHost(visible = homeViewModel.showFilePickerPromptDialog && homeViewModel.pendingAppName != null) {
-        val appName = held(homeViewModel.pendingAppName) ?: return@DialogHost
-        val packageName = held(homeViewModel.pendingPackageName)
-        val isOtherApps = packageName == null
-
-        FilePickerPromptDialog(
-            appName = appName,
-            packageName = packageName,
-            isOtherApps = isOtherApps,
-            isLoadingInstalledApps = homeViewModel.loadingInstalledApps,
-            onDismiss = {
-                homeViewModel.showFilePickerPromptDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onOpenFilePicker = {
-                homeViewModel.showFilePickerPromptDialog = false
-                storagePickerLauncher()
-            },
-            onUseInstalledApp = if (isOtherApps) {
-                { homeViewModel.loadInstalledAppsForPicker() }
-            } else null
-        )
-    }
-
-    // Dialog 3.5: Installed app picker (universal patches)
-    DialogHost(visible = homeViewModel.showInstalledAppPickerDialog) {
-        InstalledAppPickerDialog(
-            items = homeViewModel.installedAppsForPicker,
-            isLoading = homeViewModel.loadingInstalledApps,
-            onDismiss = {
-                homeViewModel.showInstalledAppPickerDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onSelect = { homeViewModel.handleInstalledAppPickerSelection(it) }
-        )
-    }
-
-    // Unsupported version dialog
-    DialogHost(target = homeViewModel.showUnsupportedVersionDialog) { dialogState ->
-        val isExpertMode = homeViewModel.prefs.useExpertMode.getBlocking()
-
-        UnsupportedVersionWarningDialog(
-            packageName = dialogState.packageName,
-            version = dialogState.version,
-            versionCode = dialogState.versionCode,
-            recommendedVersion = dialogState.recommendedVersion?.version,
-            allCompatibleVersions = dialogState.compatibleVersionNames,
-            versionDescriptions = dialogState.compatibleVersionDescriptions,
-            compatibleVersionCodes = dialogState.compatibleVersionCodes,
-            experimentalVersions = homeViewModel.getExperimentalVersionsForPackage(dialogState.packageName),
-            isExperimental = dialogState.isExperimental,
-            isExpertMode = isExpertMode,
-            onDismiss = { homeViewModel.dismissUnsupportedVersionDialog() },
-            onProceed = { homeViewModel.proceedWithUnsupportedVersion() }
-        )
-    }
-
-    // Experimental version warning dialog
-    DialogHost(target = homeViewModel.showExperimentalVersionDialog) { dialogState ->
-        ExperimentalVersionWarningDialog(
-            appName = dialogState.packageName.let { homeViewModel.bundleAppMetadataFlow.value[it]?.displayName ?: it },
-            packageName = dialogState.packageName,
-            onDismiss = { homeViewModel.dismissExperimentalVersionDialog() },
-            onProceed = { homeViewModel.proceedWithExperimentalVersion() }
-        )
-    }
-
-    // Wrong package dialog
-    DialogHost(target = homeViewModel.showWrongPackageDialog) { dialogState ->
-        WrongPackageDialog(
-            expectedPackage = dialogState.expectedPackage,
-            actualPackage = dialogState.actualPackage,
-            onDismiss = { homeViewModel.dismissWrongPackageDialog() }
-        )
-    }
-
-    // No compatible versions dialog - shown when every declared version requires a higher SDK
-    DialogHost(target = homeViewModel.showNoCompatibleVersionsDialog) { packageName ->
-        val appName = homeViewModel.bundleAppMetadataFlow.value[packageName]?.displayName
-            ?: KnownApps.getAppName(packageName)
-        NoCompatibleVersionsDialog(
-            appName = appName,
-            packageName = packageName,
-            onDismiss = { homeViewModel.showNoCompatibleVersionsDialog = null }
-        )
-    }
-
-    // Split APK Warning Dialog - shown when user picks a split APK for an app that prefers full APK
-    DialogHost(visible = homeViewModel.showSplitApkWarningDialog) {
-        val appName = homeViewModel.pendingAppName ?: ""
-        SplitApkWarningDialog(
-            appName = appName,
-            packageName = homeViewModel.pendingPackageName,
-            onProceed = { homeViewModel.proceedWithSplitApk() },
-            onPickAnother = {
-                homeViewModel.dismissSplitApkWarning()
-                storagePickerLauncher()
-            },
-            onDismiss = { homeViewModel.dismissSplitApkWarning() }
-        )
-    }
-
-    // Invalid Signature Dialog - shown when the APK is not signed by the expected certificate
-    DialogHost(target = homeViewModel.showInvalidSignatureDialog) { dialogState ->
-        InvalidSignatureDialog(
-            appName = dialogState.appName,
-            packageName = homeViewModel.pendingPackageName,
-            onPickAnother = {
-                homeViewModel.dismissInvalidSignatureDialog()
-                storagePickerLauncher()
-            },
-            onProceed = { homeViewModel.proceedIgnoringSignature() },
-            onDismiss = { homeViewModel.dismissInvalidSignatureDialog() }
-        )
-    }
-
-    // Metered Data dialog
-    DialogHost(visible = homeViewModel.showMeteredPatchingDialog) {
-        MeteredPatchingDialog(
-            packageName = homeViewModel.pendingPackageName,
-            onDismiss = { homeViewModel.dismissMeteredPatchingDialog() },
-            onRefreshAndPatch = { homeViewModel.refreshBundlesAndContinuePatching() },
-            onPatchAnyway = { homeViewModel.dismissMeteredPatchingDialogAndProceed() }
-        )
-    }
-
-    // Low Disk Space warning dialog
-    DialogHost(visible = homeViewModel.showLowDiskSpaceDialog) {
-        LowDiskSpaceDialog(
-            packageName = homeViewModel.pendingPackageName,
-            freeBytes = homeViewModel.lowDiskSpaceFreeBytes,
-            thresholdBytes = homeViewModel.lowDiskSpaceThresholdBytes,
-            onDismiss = { homeViewModel.dismissLowDiskSpaceDialog() },
-            onPatchAnyway = { homeViewModel.dismissLowDiskSpaceDialogAndProceed() }
-        )
-    }
-
-    // Simple mode bundle selection dialog - shown when 2+ bundles have patches for the same app
-    DialogHost(visible = homeViewModel.showSimpleBundleSelectDialog) {
-        val candidates = homeViewModel.simpleBundleSelectCandidates
-        val versionsBySource = homeViewModel.pendingPackageName
-            ?.let { homeViewModel.compatibleVersions[it] }
-            .orEmpty()
-            .groupBy { it.bundleUid }
-        SimpleBundleSelectDialog(
-            packageName = homeViewModel.pendingPackageName,
-            candidates = candidates.map { (bundle, patches) ->
-                val source = homeViewModel.getPatchSource(bundle.uid)
-                SimpleBundleCandidate(
-                    uid = bundle.uid,
-                    displayTitle = source?.displayTitle
-                        ?: homeViewModel.getBundleDisplayName(bundle.uid)
-                        ?: bundle.name,
-                    patchCount = patches.size,
-                    recommendedVersion = versionsBySource[bundle.uid].orEmpty().recommended()?.version,
-                    patchVersion = source?.version ?: bundle.version,
-                    sourceType = source?.sourceType
-                )
-            },
-            onSelect = { uid, rememberChoice ->
-                homeViewModel.proceedWithSelectedBundle(uid, rememberChoice)
-            },
-            onDismiss = { homeViewModel.dismissSimpleBundleSelectDialog() },
-            canRemember = true
-        )
-    }
-
-    // Expert Mode Dialog
-    DialogHost(visible = homeViewModel.showExpertModeDialog) {
-        // The dialogs raised over the selection wear the app's color, as the selection does
-        ProvideAccent(rememberAppColor(homeViewModel.expertModeSelectedApp?.packageName)) {
-            ExpertModeDialog(
-                packageName = homeViewModel.expertModeSelectedApp?.packageName.orEmpty(),
-                appIcon = homeViewModel.expertModeAppIcon,
-                selection = ExpertPatchSelection(
-                    allPatchesInfo = homeViewModel.expertModeAllPatchesInfo,
-                    options = homeViewModel.expertModeOptions,
-                    totalSelectedCount = homeViewModel.expertModeTotalSelectedCount,
-                    newPatches = homeViewModel.expertModeNewPatches,
-                    savedPatches = homeViewModel.expertModeInitialPatches,
-                    lockStateOf = homeViewModel::expertModeLockState,
-                    holdsUniversalPatches = homeViewModel::expertModeSelectAllHoldsUniversal
-                ),
-                hasMultipleBundles = homeViewModel.expertModeHasMultipleBundles,
-                patchActions = ExpertPatchActions(
-                    onPatchToggle = homeViewModel::togglePatchInExpertMode,
-                    onSelectAll = homeViewModel::expertModeSelectAll,
-                    onDeselectAll = homeViewModel::expertModeDeselectAll,
-                    onResetToDefault = homeViewModel::expertModeResetToDefault,
-                    onRestoreSaved = homeViewModel::expertModeRestoreSaved,
-                    onCopyFromBundle = homeViewModel::openExpertModeCopyDialog,
-                    onOptionChange = homeViewModel::updateOptionInExpertMode,
-                    onResetOptions = homeViewModel::resetOptionsInExpertMode
-                ),
-                usesPrerelease = { homeViewModel.getPatchSource(it)?.usesPrerelease == true },
-                hiddenSourceCount = homeViewModel.expertModeHiddenSources,
-                onShowHiddenSources = homeViewModel::revealHiddenExpertModeSources,
-                onDismiss = homeViewModel::cleanupExpertModeData,
-                onProceed = homeViewModel::proceedExpertMode
-            )
-
-            // Raised over the selection, so closing it puts the user back in the dialog with the
-            // offending option still there rather than dropping them out of the flow entirely
-            DialogHost(target = homeViewModel.expertModeUnreadablePaths.takeIf { it.isNotEmpty() }) { failures ->
-                UnusableOptionPathsDialog(
-                    failures = failures,
-                    onRetryAfterPermission = { homeViewModel.proceedExpertMode() },
-                    canClearPaths = true,
-                    onClearPaths = { homeViewModel.clearExpertModeUnreadablePaths() },
-                    onDismiss = { homeViewModel.dismissExpertModeUnreadablePaths() }
-                )
-            }
-
-            val copyTarget = homeViewModel.expertModeSelectedApp?.let { selectedApp ->
-                homeViewModel.expertModeBundles
-                    .firstOrNull { it.uid == homeViewModel.expertModeCopy.targetBundleUid }
-                    ?.let { targetBundle ->
-                        CopySelectionTarget(
-                            packageName = selectedApp.packageName,
-                            bundleUid = targetBundle.uid,
-                            bundleName = targetBundle.name,
-                            appDisplayName = targetBundle.displayName ?: selectedApp.packageName
-                        )
-                    }
-            }
-            DialogHost(target = copyTarget) { target ->
-                CopySelectionFromBundleDialog(
-                    target = target,
-                    candidates = homeViewModel.expertModeCopy.candidates,
-                    onConfirm = { homeViewModel.applyExpertModeCopy(it) },
-                    onDismiss = { homeViewModel.expertModeCopy.close() }
-                )
-            }
-        }
     }
 
     // Add bundle dialog
@@ -573,6 +226,339 @@ fun HomeDialogs(
             bundleNames = bundleNames,
             isLoading = patchesByBundle == null,
             onDismiss = { patchesItem.value = null }
+        )
+    }
+}
+
+/**
+ * The [dialog] of the patch flow, or the app information it may have started from.
+ *
+ * @param onTrustApkDownloadHelpers Opens the settings where an installed helper is trusted.
+ */
+@Composable
+private fun DialogHostScope.PatchFlowDialog(
+    dialog: HomeDialog,
+    homeViewModel: HomeViewModel,
+    storagePickerLauncher: () -> Unit,
+    apkDownloadHelpers: ApkDownloadHelperOffer,
+    onTrustApkDownloadHelpers: () -> Unit
+) {
+    when (dialog) {
+        is HomeDialog.AppInfo -> {
+            val installedAppInfoViewModel: InstalledAppInfoViewModel = koinViewModel(
+                key = "${dialog.packageName}_${dialog.token}",
+                parameters = { parametersOf(dialog.packageName) }
+            )
+            InstalledAppInfoDialog(
+                packageName = dialog.packageName,
+                onDismiss = homeViewModel::dismissInstalledAppInfo,
+                onTriggerPatchFlow = { originalPackageName, repatchedPackageName ->
+                    homeViewModel.showPatchDialog(
+                        packageName = originalPackageName,
+                        repatchedPackageName = repatchedPackageName
+                    )
+                },
+                homeViewModel = homeViewModel,
+                viewModel = installedAppInfoViewModel
+            )
+        }
+
+        // Dialog 1: APK availability
+        HomeDialog.ApkAvailability -> {
+            val appName = held(homeViewModel.pendingAppName) ?: return
+            // Held so the dialog leaves as it stood, color included, as dismissing it clears the pending data
+            val packageName = held(homeViewModel.pendingPackageName)
+            val recommendedVersion = held(homeViewModel.pendingRecommendedVersion)
+            val compatibleVersions = held(homeViewModel.pendingCompatibleVersions)
+            val selectedDownloadVersion = held(homeViewModel.pendingSelectedDownloadVersion)
+            val usingMountInstall = homeViewModel.usingMountInstall
+            val isExpertMode = homeViewModel.prefs.useExpertMode.getBlocking()
+            val savedApkInfo = held(homeViewModel.pendingSavedApkInfo)
+            val installedApkInfo = held(homeViewModel.pendingInstalledApkInfo)
+            val installedAppVersion = held(homeViewModel.pendingInstalledAppVersion)
+            val stockAppInstalled = held(homeViewModel.pendingStockAppInstalled) == true
+
+            ApkAvailabilityDialog(
+                appName = appName,
+                packageName = packageName,
+                recommendedVersion = recommendedVersion,
+                compatibleVersions = compatibleVersions,
+                selectedDownloadVersion = selectedDownloadVersion,
+                onVersionSelect = { homeViewModel.pendingSelectedDownloadVersion = it },
+                usingMountInstall = usingMountInstall,
+                stockAppInstalled = stockAppInstalled,
+                isExpertMode = isExpertMode,
+                savedApkInfo = savedApkInfo,
+                installedApkInfo = installedApkInfo,
+                installedAppVersion = installedAppVersion,
+                onDismiss = homeViewModel::backFromApkSource,
+                onHaveApk = {
+                    homeViewModel.leaveApkSource()
+                    storagePickerLauncher()
+                },
+                onNeedApk = homeViewModel::showDownloadInstructions,
+                onUseSaved = homeViewModel::handleSavedApkSelection,
+                onUseInstalled = homeViewModel::handleInstalledApkSelection
+            )
+        }
+
+        // Dialog 2: Download instructions
+        HomeDialog.DownloadInstructions -> {
+            val usingMountInstall = homeViewModel.usingMountInstall
+            // Held so the color does not flicker during the exit animation
+            val packageName = held(homeViewModel.pendingPackageName)
+            // Held for the same reason, since the pending data is cleared as the dialog leaves
+            val appName = held(homeViewModel.pendingAppName).orEmpty()
+            val downloadUrl = held(homeViewModel.resolvedDownloadUrl)
+            val stockAppInstalled = held(homeViewModel.pendingStockAppInstalled) == true
+            // Settled in dialog 1 and held for the same reason, so the steps stay put on the way out
+            val requestedVersion = held(
+                (homeViewModel.pendingSelectedDownloadVersion ?: homeViewModel.pendingRecommendedVersion)?.version
+            )
+
+            // Resolve download button color: bundle declared → default
+            val bundleMetadata by homeViewModel.bundleAppMetadataFlow.collectAsStateWithLifecycle()
+            val downloadColor = remember(packageName, bundleMetadata) {
+                bundleMetadata[packageName ?: ""]?.downloadColor
+                    ?: KnownApps.DEFAULT_DOWNLOAD_COLOR
+            }
+            // True when the patch bundle explicitly requires a split archive (APKM/APKS/XAPK).
+            // In that case the APKMirror button label becomes "DOWNLOAD APK BUNDLE" to match the site.
+            val isApkBundle = remember(packageName, bundleMetadata) {
+                bundleMetadata[packageName ?: ""]?.apkFileType?.isApk == false
+            }
+
+            DownloadInstructionsDialog(
+                appName = appName,
+                packageName = packageName,
+                downloadUrl = downloadUrl,
+                requestedVersion = requestedVersion,
+                usingMountInstall = usingMountInstall,
+                stockAppInstalled = stockAppInstalled,
+                downloadColor = downloadColor,
+                isApkBundle = isApkBundle,
+                onDismiss = homeViewModel::backFromApkSource,
+                onOpenApkDownloadHelper = apkDownloadHelpers.open,
+                onTrustApkDownloadHelpers = onTrustApkDownloadHelpers.takeIf { apkDownloadHelpers.hasUntrusted },
+                onContinue = homeViewModel::handleDownloadInstructionsContinue
+            )
+        }
+
+        // Dialog 3: File picker prompt
+        HomeDialog.FilePickerPrompt -> {
+            val appName = held(homeViewModel.pendingAppName) ?: return
+            val packageName = held(homeViewModel.pendingPackageName)
+            val isOtherApps = packageName == null
+
+            FilePickerPromptDialog(
+                appName = appName,
+                packageName = packageName,
+                isOtherApps = isOtherApps,
+                isLoadingInstalledApps = homeViewModel.loadingInstalledApps,
+                onDismiss = homeViewModel::backFromApkSource,
+                onOpenFilePicker = {
+                    homeViewModel.leaveApkSource()
+                    storagePickerLauncher()
+                },
+                onUseInstalledApp = if (isOtherApps) {
+                    { homeViewModel.loadInstalledAppsForPicker() }
+                } else null
+            )
+        }
+
+        // Dialog 3.5: Installed app picker (universal patches)
+        HomeDialog.InstalledAppPicker -> InstalledAppPickerDialog(
+            items = homeViewModel.installedAppsForPicker,
+            isLoading = homeViewModel.loadingInstalledApps,
+            onDismiss = homeViewModel::backFromApkSource,
+            onSelect = { homeViewModel.handleInstalledAppPickerSelection(it) }
+        )
+
+        is HomeDialog.UnsupportedVersion -> {
+            val dialogState = dialog.state
+            val isExpertMode = homeViewModel.prefs.useExpertMode.getBlocking()
+
+            UnsupportedVersionWarningDialog(
+                packageName = dialogState.packageName,
+                version = dialogState.version,
+                versionCode = dialogState.versionCode,
+                recommendedVersion = dialogState.recommendedVersion?.version,
+                allCompatibleVersions = dialogState.compatibleVersionNames,
+                versionDescriptions = dialogState.compatibleVersionDescriptions,
+                compatibleVersionCodes = dialogState.compatibleVersionCodes,
+                experimentalVersions = homeViewModel.getExperimentalVersionsForPackage(dialogState.packageName),
+                isExperimental = dialogState.isExperimental,
+                isExpertMode = isExpertMode,
+                onDismiss = { homeViewModel.dismissUnsupportedVersionDialog() },
+                onProceed = { homeViewModel.proceedWithUnsupportedVersion() }
+            )
+        }
+
+        is HomeDialog.ExperimentalVersion -> ExperimentalVersionWarningDialog(
+            appName = dialog.state.packageName.let { homeViewModel.bundleAppMetadataFlow.value[it]?.displayName ?: it },
+            packageName = dialog.state.packageName,
+            onDismiss = { homeViewModel.dismissExperimentalVersionDialog() },
+            onProceed = { homeViewModel.proceedWithExperimentalVersion() }
+        )
+
+        is HomeDialog.WrongPackage -> WrongPackageDialog(
+            expectedPackage = dialog.state.expectedPackage,
+            actualPackage = dialog.state.actualPackage,
+            onDismiss = { homeViewModel.dismissWrongPackageDialog() }
+        )
+
+        // Shown when every declared version requires a higher SDK
+        is HomeDialog.NoCompatibleVersions -> {
+            val appName = homeViewModel.bundleAppMetadataFlow.value[dialog.packageName]?.displayName
+                ?: KnownApps.getAppName(dialog.packageName)
+            NoCompatibleVersionsDialog(
+                appName = appName,
+                packageName = dialog.packageName,
+                onDismiss = { homeViewModel.dialogs.close(dialog) }
+            )
+        }
+
+        // Shown when user picks a split APK for an app that prefers full APK
+        HomeDialog.SplitApkWarning -> SplitApkWarningDialog(
+            appName = homeViewModel.pendingAppName ?: "",
+            packageName = homeViewModel.pendingPackageName,
+            onProceed = { homeViewModel.proceedWithSplitApk() },
+            onPickAnother = {
+                homeViewModel.dismissSplitApkWarning()
+                storagePickerLauncher()
+            },
+            onDismiss = { homeViewModel.dismissSplitApkWarning() }
+        )
+
+        // Shown when the APK is not signed by the expected certificate
+        is HomeDialog.InvalidSignature -> InvalidSignatureDialog(
+            appName = dialog.state.appName,
+            packageName = homeViewModel.pendingPackageName,
+            onPickAnother = {
+                homeViewModel.dismissInvalidSignatureDialog()
+                storagePickerLauncher()
+            },
+            onProceed = { homeViewModel.proceedIgnoringSignature() },
+            onDismiss = { homeViewModel.dismissInvalidSignatureDialog() }
+        )
+
+        HomeDialog.MeteredPatching -> MeteredPatchingDialog(
+            packageName = homeViewModel.pendingPackageName,
+            onDismiss = { homeViewModel.dismissMeteredPatchingDialog() },
+            onRefreshAndPatch = { homeViewModel.refreshBundlesAndContinuePatching() },
+            onPatchAnyway = { homeViewModel.dismissMeteredPatchingDialogAndProceed() }
+        )
+
+        HomeDialog.LowDiskSpace -> LowDiskSpaceDialog(
+            packageName = homeViewModel.pendingPackageName,
+            freeBytes = homeViewModel.lowDiskSpaceFreeBytes,
+            thresholdBytes = homeViewModel.lowDiskSpaceThresholdBytes,
+            onDismiss = { homeViewModel.dismissLowDiskSpaceDialog() },
+            onPatchAnyway = { homeViewModel.dismissLowDiskSpaceDialogAndProceed() }
+        )
+
+        // Shown in simple mode when 2+ bundles have patches for the same app
+        HomeDialog.SimpleBundleSelect -> {
+            val candidates = homeViewModel.simpleBundleSelectCandidates
+            val versionsBySource = homeViewModel.pendingPackageName
+                ?.let { homeViewModel.compatibleVersions[it] }
+                .orEmpty()
+                .groupBy { it.bundleUid }
+            SimpleBundleSelectDialog(
+                packageName = homeViewModel.pendingPackageName,
+                candidates = candidates.map { (bundle, patches) ->
+                    val source = homeViewModel.getPatchSource(bundle.uid)
+                    SimpleBundleCandidate(
+                        uid = bundle.uid,
+                        displayTitle = source?.displayTitle
+                            ?: homeViewModel.getBundleDisplayName(bundle.uid)
+                            ?: bundle.name,
+                        patchCount = patches.size,
+                        recommendedVersion = versionsBySource[bundle.uid].orEmpty().recommended()?.version,
+                        patchVersion = source?.version ?: bundle.version,
+                        sourceType = source?.sourceType
+                    )
+                },
+                onSelect = { uid, rememberChoice ->
+                    homeViewModel.proceedWithSelectedBundle(uid, rememberChoice)
+                },
+                onDismiss = { homeViewModel.dismissSimpleBundleSelectDialog() },
+                canRemember = true
+            )
+        }
+
+        // The dialogs raised over the selection wear the app's color, as the selection does
+        HomeDialog.ExpertMode -> ProvideAccent(rememberAppColor(homeViewModel.expertModeSelectedApp?.packageName)) {
+            ExpertModeDialog(
+                packageName = homeViewModel.expertModeSelectedApp?.packageName.orEmpty(),
+                appIcon = homeViewModel.expertModeAppIcon,
+                selection = ExpertPatchSelection(
+                    allPatchesInfo = homeViewModel.expertModeAllPatchesInfo,
+                    options = homeViewModel.expertModeOptions,
+                    totalSelectedCount = homeViewModel.expertModeTotalSelectedCount,
+                    newPatches = homeViewModel.expertModeNewPatches,
+                    savedPatches = homeViewModel.expertModeInitialPatches,
+                    lockStateOf = homeViewModel::expertModeLockState,
+                    holdsUniversalPatches = homeViewModel::expertModeSelectAllHoldsUniversal
+                ),
+                hasMultipleBundles = homeViewModel.expertModeHasMultipleBundles,
+                patchActions = ExpertPatchActions(
+                    onPatchToggle = homeViewModel::togglePatchInExpertMode,
+                    onSelectAll = homeViewModel::expertModeSelectAll,
+                    onDeselectAll = homeViewModel::expertModeDeselectAll,
+                    onResetToDefault = homeViewModel::expertModeResetToDefault,
+                    onRestoreSaved = homeViewModel::expertModeRestoreSaved,
+                    onCopyFromBundle = homeViewModel::openExpertModeCopyDialog,
+                    onOptionChange = homeViewModel::updateOptionInExpertMode,
+                    onResetOptions = homeViewModel::resetOptionsInExpertMode
+                ),
+                usesPrerelease = { homeViewModel.getPatchSource(it)?.usesPrerelease == true },
+                hiddenSourceCount = homeViewModel.expertModeHiddenSources,
+                onShowHiddenSources = homeViewModel::revealHiddenExpertModeSources,
+                onDismiss = homeViewModel::cleanupExpertModeData,
+                onProceed = homeViewModel::proceedExpertMode
+            )
+
+            // Raised over the selection, so closing it puts the user back in the dialog with the
+            // offending option still there rather than dropping them out of the flow entirely
+            DialogHost(target = homeViewModel.expertModeUnreadablePaths.takeIf { it.isNotEmpty() }) { failures ->
+                UnusableOptionPathsDialog(
+                    failures = failures,
+                    onRetryAfterPermission = { homeViewModel.proceedExpertMode() },
+                    canClearPaths = true,
+                    onClearPaths = { homeViewModel.clearExpertModeUnreadablePaths() },
+                    onDismiss = { homeViewModel.dismissExpertModeUnreadablePaths() }
+                )
+            }
+
+            val copyTarget = homeViewModel.expertModeSelectedApp?.let { selectedApp ->
+                homeViewModel.expertModeBundles
+                    .firstOrNull { it.uid == homeViewModel.expertModeCopy.targetBundleUid }
+                    ?.let { targetBundle ->
+                        CopySelectionTarget(
+                            packageName = selectedApp.packageName,
+                            bundleUid = targetBundle.uid,
+                            bundleName = targetBundle.name,
+                            appDisplayName = targetBundle.displayName ?: selectedApp.packageName
+                        )
+                    }
+            }
+            DialogHost(target = copyTarget) { target ->
+                CopySelectionFromBundleDialog(
+                    target = target,
+                    candidates = homeViewModel.expertModeCopy.candidates,
+                    onConfirm = { homeViewModel.applyExpertModeCopy(it) },
+                    onDismiss = { homeViewModel.expertModeCopy.close() }
+                )
+            }
+        }
+
+        // Asked on a rooted device before patching, as the patch mode decides which patches apply
+        HomeDialog.PrePatchInstaller -> PrePatchInstallerDialog(
+            packageName = homeViewModel.pendingPackageName,
+            onSelectMount = { homeViewModel.resolvePrePatchInstallerChoice(useMount = true) },
+            onSelectStandard = { homeViewModel.resolvePrePatchInstallerChoice(useMount = false) },
+            onDismiss = homeViewModel::dismissPrePatchInstallerDialog
         )
     }
 }

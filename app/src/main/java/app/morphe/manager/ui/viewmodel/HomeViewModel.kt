@@ -196,19 +196,19 @@ class HomeViewModel(
         sourceAppsQueue = sourceAppsQueue.drop(1)
     }
 
-    // Installed App Info dialog state
-    var showInstalledAppInfoDialog: String? by mutableStateOf(null)
-        private set
-    var installedAppDialogToken by mutableIntStateOf(0)
-        private set
+    /** The patch flow's dialogs and the app information it can start from, see [HomeDialog]. */
+    val dialogs = HomeDialogStack()
+
+    // Counts the openings of the app information, so each one starts afresh
+    private var appInfoOpenings = 0
 
     fun openInstalledAppInfo(packageName: String) {
-        showInstalledAppInfoDialog = packageName
-        installedAppDialogToken++
+        dismissInstalledAppInfo()
+        dialogs.open(HomeDialog.AppInfo(packageName, ++appInfoOpenings))
     }
 
     fun dismissInstalledAppInfo() {
-        showInstalledAppInfoDialog = null
+        dialogs.closeAll { it is HomeDialog.AppInfo }
     }
 
     // Deep link: pending source to add via confirmation dialog
@@ -245,7 +245,6 @@ class HomeViewModel(
     }
 
     // Expert mode state
-    var showExpertModeDialog by mutableStateOf(false)
     var expertModeSelectedApp by mutableStateOf<SelectedApp?>(null)
 
     private var pickedApkIcon by mutableStateOf<Pair<File, Drawable>?>(null)
@@ -362,23 +361,11 @@ class HomeViewModel(
     /** Local source waiting for a replacement file, so the picker result knows what it updates. */
     var localBundleUpdateUid by mutableStateOf<Int?>(null)
 
-    // APK selection flow dialogs
-    var showApkAvailabilityDialog by mutableStateOf(false)
-    var showDownloadInstructionsDialog by mutableStateOf(false)
-    var showFilePickerPromptDialog by mutableStateOf(false)
-    var showInstalledAppPickerDialog by mutableStateOf(false)
+    // APK selection flow
     var loadingInstalledApps by mutableStateOf(false)
     var installedAppsForPicker by mutableStateOf<List<InstalledAppPickerItem>>(emptyList())
     // True while APK loading/processing runs in the background
     var processingApkSelection by mutableStateOf(false)
-
-    // Error/warning dialogs
-    var showUnsupportedVersionDialog by mutableStateOf<UnsupportedVersionDialogState?>(null)
-    var showExperimentalVersionDialog by mutableStateOf<UnsupportedVersionDialogState?>(null)
-    var showWrongPackageDialog by mutableStateOf<WrongPackageDialogState?>(null)
-    var showSplitApkWarningDialog by mutableStateOf(false)
-    var showInvalidSignatureDialog by mutableStateOf<InvalidSignatureDialogState?>(null)
-    var showNoCompatibleVersionsDialog by mutableStateOf<String?>(null) // packageName
 
     // Pending data during APK selection
     var pendingPackageName by mutableStateOf<String?>(null)
@@ -415,7 +402,6 @@ class HomeViewModel(
     var updatesSkippedDueToMetered by mutableStateOf(false)
 
     // Simple mode bundle selection dialog: shown when 2+ bundles have patches for the same app
-    var showSimpleBundleSelectDialog by mutableStateOf(false)
     var simpleBundleSelectApp by mutableStateOf<SelectedApp?>(null)
     var simpleBundleSelectCandidates by mutableStateOf<List<Pair<PatchBundleInfo.Scoped, Set<String>>>>(emptyList())
     // Bundle pre-selected by the user before the APK selection flow (simple mode)
@@ -423,7 +409,7 @@ class HomeViewModel(
         private set
 
     fun dismissSimpleBundleSelectDialog() {
-        showSimpleBundleSelectDialog = false
+        dialogs.close(HomeDialog.SimpleBundleSelect)
         simpleBundleSelectApp = null
         simpleBundleSelectCandidates = emptyList()
         cleanupPendingData()
@@ -437,7 +423,7 @@ class HomeViewModel(
     fun proceedWithSelectedBundle(bundleUid: Int, rememberChoice: Boolean = false) {
         val packageName = pendingPackageName ?: return
         val offeredUids = simpleBundleSelectCandidates.mapTo(mutableSetOf()) { (bundle, _) -> bundle.uid }
-        showSimpleBundleSelectDialog = false
+        dialogs.close(HomeDialog.SimpleBundleSelect)
         simpleBundleSelectApp = null
         simpleBundleSelectCandidates = emptyList()
 
@@ -466,14 +452,8 @@ class HomeViewModel(
         }
     }
 
-    // Metered network dialog: shown when user tries to patch on mobile data with updates disabled
-    var showMeteredPatchingDialog by mutableStateOf(false)
-        private set
-
     // Low disk space warning dialog: shown when free storage is below the threshold before patching starts
     val lowDiskSpaceThresholdBytes = 1_000_000_000L // Minimum free storage required before patching
-    var showLowDiskSpaceDialog by mutableStateOf(false)
-        private set
     var lowDiskSpaceFreeBytes by mutableLongStateOf(0L)
         private set
 
@@ -514,9 +494,6 @@ class HomeViewModel(
     var currentApkArchitecture: ApkArchitecture = ApkArchitecture.UNIVERSAL
         private set
 
-    // Controls the pre-patching mode selection dialog for root-capable devices.
-    var showPrePatchInstallerDialog by mutableStateOf(false)
-
     // Stores the pending arguments while the pre-patching mode dialog is visible.
     private var pendingPatchApp: SelectedApp? = null
     private var pendingPatchAllowIncompatible: Boolean = false
@@ -532,7 +509,7 @@ class HomeViewModel(
     ) {
         pendingPatchApp = selectedApp
         pendingPatchAllowIncompatible = allowIncompatible
-        showPrePatchInstallerDialog = true
+        dialogs.open(HomeDialog.PrePatchInstaller)
     }
 
     /**
@@ -540,7 +517,7 @@ class HomeViewModel(
      * Sets [usingMountInstall] and starts patching with the correct patch configuration.
      */
     fun resolvePrePatchInstallerChoice(useMount: Boolean) {
-        showPrePatchInstallerDialog = false
+        dialogs.close(HomeDialog.PrePatchInstaller)
         usingMountInstall = useMount
 
         val selectedApp = pendingPatchApp ?: return
@@ -556,7 +533,7 @@ class HomeViewModel(
      * Dismisses the pre-patching mode dialog without starting patching.
      */
     fun dismissPrePatchInstallerDialog() {
-        showPrePatchInstallerDialog = false
+        dialogs.close(HomeDialog.PrePatchInstaller)
         pendingPatchApp = null
     }
 
@@ -566,7 +543,7 @@ class HomeViewModel(
      */
     fun proceedWithSplitApk() {
         val app = pendingSelectedApp ?: return
-        showSplitApkWarningDialog = false
+        dialogs.close(HomeDialog.SplitApkWarning)
         pendingSelectedApp = null
         viewModelScope.launch {
             processSelectedApp(app, skipSplitCheck = true)
@@ -586,7 +563,7 @@ class HomeViewModel(
      * Cleans up the temporary file if needed.
      */
     fun dismissSplitApkWarning() {
-        showSplitApkWarningDialog = false
+        dialogs.close(HomeDialog.SplitApkWarning)
         clearPendingApp()
     }
 
@@ -595,7 +572,7 @@ class HomeViewModel(
      * Discards the pending selection and cleans up the temporary file if needed.
      */
     fun dismissUnsupportedVersionDialog() {
-        showUnsupportedVersionDialog = null
+        dialogs.closeAll { it is HomeDialog.UnsupportedVersion }
         clearPendingApp()
     }
 
@@ -612,7 +589,7 @@ class HomeViewModel(
      * Starts patching with allowIncompatible=true so version-incompatible patches are included.
      */
     fun proceedWithUnsupportedVersion() {
-        showUnsupportedVersionDialog = null
+        dialogs.closeAll { it is HomeDialog.UnsupportedVersion }
         proceedWithPendingApp(allowIncompatible = true)
     }
 
@@ -621,7 +598,7 @@ class HomeViewModel(
      * Discards the pending selection and cleans up the temporary file if needed.
      */
     fun dismissExperimentalVersionDialog() {
-        showExperimentalVersionDialog = null
+        dialogs.closeAll { it is HomeDialog.ExperimentalVersion }
         clearPendingApp()
     }
 
@@ -631,7 +608,7 @@ class HomeViewModel(
      * just flagged as experimental in the patch bundle.
      */
     fun proceedWithExperimentalVersion() {
-        showExperimentalVersionDialog = null
+        dialogs.closeAll { it is HomeDialog.ExperimentalVersion }
         proceedWithPendingApp(allowIncompatible = false)
     }
 
@@ -639,7 +616,7 @@ class HomeViewModel(
      * User dismissed the wrong package dialog.
      */
     fun dismissWrongPackageDialog() {
-        showWrongPackageDialog = null
+        dialogs.closeAll { it is HomeDialog.WrongPackage }
     }
 
     /**
@@ -647,7 +624,7 @@ class HomeViewModel(
      * Discards the pending selection and cleans up the temporary file if needed.
      */
     fun dismissInvalidSignatureDialog() {
-        showInvalidSignatureDialog = null
+        dialogs.closeAll { it is HomeDialog.InvalidSignature }
         clearPendingApp()
     }
 
@@ -656,7 +633,7 @@ class HomeViewModel(
      * Skips signature verification and resumes the patching flow.
      */
     fun proceedIgnoringSignature() {
-        showInvalidSignatureDialog = null
+        dialogs.closeAll { it is HomeDialog.InvalidSignature }
         val app = pendingSelectedApp ?: return
         pendingSelectedApp = null
         viewModelScope.launch {
@@ -796,12 +773,12 @@ class HomeViewModel(
         if (freeBytes < lowDiskSpaceThresholdBytes) {
             pendingPatchAction = action
             lowDiskSpaceFreeBytes = freeBytes
-            showLowDiskSpaceDialog = true
+            dialogs.open(HomeDialog.LowDiskSpace)
             return
         }
         if (isOnMeteredWithUpdatesDisabled()) {
             pendingPatchAction = action
-            showMeteredPatchingDialog = true
+            dialogs.open(HomeDialog.MeteredPatching)
         } else {
             viewModelScope.launch { action() }
         }
@@ -811,7 +788,7 @@ class HomeViewModel(
      * User chose to update patches first, then automatically continue patching.
      */
     fun refreshBundlesAndContinuePatching() {
-        showMeteredPatchingDialog = false
+        dialogs.close(HomeDialog.MeteredPatching)
         val action = pendingPatchAction ?: return
         pendingPatchAction = null
         viewModelScope.launch {
@@ -825,7 +802,7 @@ class HomeViewModel(
      * User chose to patch with the currently cached patches despite being on metered network.
      */
     fun dismissMeteredPatchingDialogAndProceed() {
-        showMeteredPatchingDialog = false
+        dialogs.close(HomeDialog.MeteredPatching)
         val action = pendingPatchAction ?: return
         pendingPatchAction = null
         viewModelScope.launch { action() }
@@ -835,7 +812,7 @@ class HomeViewModel(
      * User canceled patching from the metered network dialog.
      */
     fun dismissMeteredPatchingDialog() {
-        showMeteredPatchingDialog = false
+        dialogs.close(HomeDialog.MeteredPatching)
         pendingPatchAction = null
     }
 
@@ -844,12 +821,12 @@ class HomeViewModel(
      * Continues to the metered network check if applicable, then launches the action.
      */
     fun dismissLowDiskSpaceDialogAndProceed() {
-        showLowDiskSpaceDialog = false
+        dialogs.close(HomeDialog.LowDiskSpace)
         val action = pendingPatchAction ?: return
         pendingPatchAction = null
         if (isOnMeteredWithUpdatesDisabled()) {
             pendingPatchAction = action
-            showMeteredPatchingDialog = true
+            dialogs.open(HomeDialog.MeteredPatching)
         } else {
             viewModelScope.launch { action() }
         }
@@ -859,7 +836,7 @@ class HomeViewModel(
      * User canceled patching from the low disk space dialog.
      */
     fun dismissLowDiskSpaceDialog() {
-        showLowDiskSpaceDialog = false
+        dialogs.close(HomeDialog.LowDiskSpace)
         pendingPatchAction = null
     }
 
@@ -1071,18 +1048,17 @@ class HomeViewModel(
      * one, and so the flow the user resumes afterward is rebuilt from the new set of sources.
      */
     private fun dismissOpenDialogs() {
+        // Each lets go of what its dialog was holding, and the stack then closes whatever is left
         cleanupExpertModeData()
         dismissSimpleBundleSelectDialog()
         dismissSplitApkWarning()
         dismissUnsupportedVersionDialog()
         dismissExperimentalVersionDialog()
-        dismissWrongPackageDialog()
         dismissInvalidSignatureDialog()
         dismissPrePatchInstallerDialog()
         dismissMeteredPatchingDialog()
         dismissLowDiskSpaceDialog()
-        dismissInstalledAppInfo()
-        showNoCompatibleVersionsDialog = null
+        dialogs.closeAll()
         showAndroid11Dialog = false
         showRenameBundleDialog = false
         bundleToRename = null
@@ -1319,7 +1295,7 @@ class HomeViewModel(
         val versions = compatibleVersions[packageName].orEmpty().offered()
         val allIncompatible = versions.isNotEmpty() && versions.none { it.installableOnDevice() }
         if (allIncompatible) {
-            showNoCompatibleVersionsDialog = packageName
+            dialogs.open(HomeDialog.NoCompatibleVersions(packageName))
             return
         }
 
@@ -1343,7 +1319,7 @@ class HomeViewModel(
 
             if (candidates.size > 1) {
                 simpleBundleSelectCandidates = candidates
-                showSimpleBundleSelectDialog = true
+                dialogs.open(HomeDialog.SimpleBundleSelect)
                 return
             }
         }
@@ -1382,7 +1358,7 @@ class HomeViewModel(
             handleSavedApkSelection()
         } else {
             // Show dialog
-            showApkAvailabilityDialog = true
+            dialogs.open(HomeDialog.ApkAvailability)
         }
     }
 
@@ -1414,7 +1390,7 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            showApkAvailabilityDialog = false
+            leaveApkSource()
             processingApkSelection = true
             try {
                 val selectedApp = withContext(Dispatchers.IO) {
@@ -1532,7 +1508,7 @@ class HomeViewModel(
         if (pendingSavedApkInfo == null) {
             pendingSavedApkInfo = withContext(Dispatchers.IO) { localApkSources.saved(packageName) }
         }
-        showApkAvailabilityDialog = true
+        dialogs.open(HomeDialog.ApkAvailability)
     }
 
     /**
@@ -1544,8 +1520,7 @@ class HomeViewModel(
         viewModelScope.launch {
             installedAppsForPicker = emptyList()
             loadingInstalledApps = true
-            showFilePickerPromptDialog = false
-            showInstalledAppPickerDialog = true
+            dialogs.open(HomeDialog.InstalledAppPicker)
             try {
                 val items = withContext(Dispatchers.IO) {
                     try {
@@ -1596,7 +1571,7 @@ class HomeViewModel(
      * Extracts the APK (or packs splits into an archive) and sends it through the patch flow.
      */
     fun handleInstalledAppPickerSelection(item: InstalledAppPickerItem) {
-        showInstalledAppPickerDialog = false
+        leaveApkSource()
         pendingAppName = item.label
         viewModelScope.launch {
             processingApkSelection = true
@@ -1713,7 +1688,7 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            showApkAvailabilityDialog = false
+            leaveApkSource()
             processingApkSelection = true
             try {
                 // Create SelectedApp from saved APK file
@@ -1766,9 +1741,13 @@ class HomeViewModel(
     ) {
         // Validate package name if expected (known-app flow sets pendingPackageName)
         if (pendingPackageName != null && selectedApp.packageName != pendingPackageName) {
-            showWrongPackageDialog = WrongPackageDialogState(
-                expectedPackage = pendingPackageName!!,
-                actualPackage = selectedApp.packageName
+            dialogs.open(
+                HomeDialog.WrongPackage(
+                    WrongPackageDialogState(
+                        expectedPackage = pendingPackageName!!,
+                        actualPackage = selectedApp.packageName
+                    )
+                )
             )
             if (selectedApp is SelectedApp.Local && selectedApp.temporary) {
                 selectedApp.file.delete()
@@ -1788,7 +1767,7 @@ class HomeViewModel(
 
             if (isSplitFile && requiredApkFileType?.isApk == true && requiredApkFileType.isRequired) {
                 pendingSelectedApp = selectedApp
-                showSplitApkWarningDialog = true
+                dialogs.open(HomeDialog.SplitApkWarning)
                 cleanupPendingData(keepSelectedApp = true, keepBundleUid = true)
                 return
             }
@@ -1810,9 +1789,13 @@ class HomeViewModel(
                     }
                     if (!signatureMatch) {
                         pendingSelectedApp = selectedApp
-                        showInvalidSignatureDialog = InvalidSignatureDialogState(
-                            packageName = selectedApp.packageName,
-                            appName = pendingAppName ?: KnownApps.getAppName(selectedApp.packageName)
+                        dialogs.open(
+                            HomeDialog.InvalidSignature(
+                                InvalidSignatureDialogState(
+                                    packageName = selectedApp.packageName,
+                                    appName = pendingAppName ?: KnownApps.getAppName(selectedApp.packageName)
+                                )
+                            )
                         )
                         cleanupPendingData(keepSelectedApp = true, keepBundleUid = true)
                         return
@@ -1872,7 +1855,7 @@ class HomeViewModel(
 
         if (versionMismatch && !allowIncompatible) {
             pendingSelectedApp = selectedApp
-            showUnsupportedVersionDialog = unsupportedVersionState(selectedApp, isVersionExperimental)
+            dialogs.open(HomeDialog.UnsupportedVersion(unsupportedVersionState(selectedApp, isVersionExperimental)))
             cleanupPendingData(keepSelectedApp = true, keepBundleUid = true)
             return
         }
@@ -1883,11 +1866,13 @@ class HomeViewModel(
         if (isVersionExperimental && !allowIncompatible) {
             pendingSelectedApp = selectedApp
             val state = unsupportedVersionState(selectedApp, isExperimental = true)
-            if (isExperimentalModeEnabled) {
-                showExperimentalVersionDialog = state
-            } else {
-                showUnsupportedVersionDialog = state
-            }
+            dialogs.open(
+                if (isExperimentalModeEnabled) {
+                    HomeDialog.ExperimentalVersion(state)
+                } else {
+                    HomeDialog.UnsupportedVersion(state)
+                }
+            )
             cleanupPendingData(keepSelectedApp = true, keepBundleUid = true)
             return
         }
@@ -2113,7 +2098,7 @@ class HomeViewModel(
             patches.toMutableMap().also { expertModePatches = it; expertModeInitialPatches = it }
             expertModeOptions = validatedOptions.toMutableMap()
             expertModeNewPatches = newPatchesMap
-            showExpertModeDialog = true
+            dialogs.open(HomeDialog.ExpertMode)
         } else {
             // Simple Mode: collect patches from all enabled bundles, then either use the sole result directly
             // or ask the user to pick one if multiple bundles have applicable patches.
@@ -2154,7 +2139,7 @@ class HomeViewModel(
                 savedSelections.applyInstallerRules().toMutableMap()
                     .also { expertModePatches = it; expertModeInitialPatches = it }
                 expertModeOptions = savedOptions.toMutableMap()
-                showExpertModeDialog = true
+                dialogs.open(HomeDialog.ExpertMode)
                 return
             }
 
@@ -2183,7 +2168,7 @@ class HomeViewModel(
             if (bundleWithPatches.size > 1) {
                 simpleBundleSelectApp = selectedApp
                 simpleBundleSelectCandidates = bundleWithPatches
-                showSimpleBundleSelectDialog = true
+                dialogs.open(HomeDialog.SimpleBundleSelect)
                 return
             }
 
@@ -2237,10 +2222,6 @@ class HomeViewModel(
         options: Options,
         allowIncompatible: Boolean
     ) {
-        // Dismiss InstalledAppInfoDialog here, right before navigating to PatcherScreen.
-        // This ensures there is never a gap between the info dialog closing and the next screen appearing
-        dismissInstalledAppInfo()
-
         onStartQuickPatch?.invoke(
             Patcher.ViewModelParams(
                 selectedApp = selectedApp,
@@ -2254,6 +2235,10 @@ class HomeViewModel(
             )
         )
 
+        // Closed as the patcher opens over them, the app information the flow may have started from
+        // included, so they leave along with the home screen
+        dialogs.closeAll()
+
         // Clean only UI state
         pendingPackageName = null
         pendingRepatchPackageName = null
@@ -2263,8 +2248,6 @@ class HomeViewModel(
         pendingSelectedDownloadVersion = null
         pendingSelectedBundleUid = null
         resolvedDownloadUrl = null
-        showDownloadInstructionsDialog = false
-        showFilePickerPromptDialog = false
     }
 
     /**
@@ -2474,7 +2457,7 @@ class HomeViewModel(
      * Clean up expert mode data.
      */
     fun cleanupExpertModeData() {
-        showExpertModeDialog = false
+        dialogs.close(HomeDialog.ExpertMode)
         expertModeSelectedApp = null
         expertModeBundles = emptyList()
         expertModeAllBundles = emptyList()
@@ -2594,7 +2577,7 @@ class HomeViewModel(
                 return@launch
             }
 
-            showExpertModeDialog = false
+            dialogs.close(HomeDialog.ExpertMode)
 
             withContext(Dispatchers.IO) {
                 // Saved before patching runs so a long selection survives a failed run. It lands
@@ -2639,10 +2622,13 @@ class HomeViewModel(
         proceedExpertMode()
     }
 
+    // The redirect being resolved, given up for the next one when the user comes back for another version
+    private var downloadRedirectJob: Job? = null
+
     /**
      * Resolve download redirect.
      */
-    fun resolveDownloadRedirect() {
+    private fun resolveDownloadRedirect() {
         val packageName = pendingPackageName ?: return
         // Use the version selected by the user in Dialog 1; fall back to recommended
         val version = (pendingSelectedDownloadVersion ?: pendingRecommendedVersion)?.version
@@ -2651,7 +2637,8 @@ class HomeViewModel(
         // say anything about the download or let the user leave for it
         resolvedDownloadUrl = downloadUrlResolver.apiSearchUrl(packageName, version)
 
-        viewModelScope.launch {
+        downloadRedirectJob?.cancel()
+        downloadRedirectJob = viewModelScope.launch {
             val resolved = withContext(Dispatchers.IO) {
                 downloadUrlResolver.resolve(packageName, version)
             }
@@ -2688,15 +2675,19 @@ class HomeViewModel(
      * an overlay of its own and two of them on screen at once reads as a stuck flow.
      */
     override fun onHelperApkReceived(uri: Uri) {
-        showDownloadInstructionsDialog = false
-        showFilePickerPromptDialog = false
+        leaveApkSource()
         handleApkSelection(uri)
     }
 
     override fun onHelperInstalledAppChosen(packageName: String) {
-        showDownloadInstructionsDialog = false
-        showFilePickerPromptDialog = false
+        leaveApkSource()
         handleHelperInstalledAppSelection(packageName)
+    }
+
+    /** Opens the download instructions over the APK availability, which going back returns to. */
+    fun showDownloadInstructions() {
+        dialogs.open(HomeDialog.DownloadInstructions)
+        resolveDownloadRedirect()
     }
 
     /**
@@ -2706,14 +2697,30 @@ class HomeViewModel(
         val urlToOpen = resolvedDownloadUrl!!
 
         if (handOff(urlToOpen)) {
-            showDownloadInstructionsDialog = false
-            showFilePickerPromptDialog = true
+            dialogs.open(HomeDialog.FilePickerPrompt)
         } else {
             Log.w(tag, "Failed to open URL")
             messages.show(R.string.sources_management_failed_to_open_url)
-            showDownloadInstructionsDialog = false
             cleanupPendingData()
         }
+    }
+
+    /** Starts the flow for [appName], an app no source names, at picking its APK. */
+    fun startOtherAppsFlow(appName: String) {
+        cleanupPendingData()
+        pendingAppName = appName
+        dialogs.open(HomeDialog.FilePickerPrompt)
+    }
+
+    /** Goes back a step of getting the APK, which from the first one leaves the flow. */
+    fun backFromApkSource() {
+        (dialogs.top as? HomeDialog.ApkSource)?.let(dialogs::close)
+        if (dialogs.entries.none { it is HomeDialog.ApkSource }) cleanupPendingData()
+    }
+
+    /** Closes the steps of getting the APK, keeping what they learned for the APK they led to. */
+    fun leaveApkSource() {
+        dialogs.closeAll { it is HomeDialog.ApkSource }
     }
 
     /**
@@ -2726,6 +2733,7 @@ class HomeViewModel(
         pendingCompatibleVersions = emptyList()
         pendingSelectedDownloadVersion = null
         if (!keepBundleUid) pendingSelectedBundleUid = null
+        downloadRedirectJob?.cancel()
         resolvedDownloadUrl = null
         pendingSavedApkInfo = null
         pendingInstalledApkInfo = null
@@ -2742,10 +2750,7 @@ class HomeViewModel(
             // same run, and it must still know which install it was aimed at
             pendingRepatchPackageName = null
         }
-        showApkAvailabilityDialog = false
-        showDownloadInstructionsDialog = false
-        showFilePickerPromptDialog = false
-        showInstalledAppPickerDialog = false
+        leaveApkSource()
     }
 
     /**

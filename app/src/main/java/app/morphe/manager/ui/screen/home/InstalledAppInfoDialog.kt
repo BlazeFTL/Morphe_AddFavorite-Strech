@@ -427,12 +427,8 @@ fun DialogHostScope.InstalledAppInfoDialog(
         }
     }
 
-    // Patch flow always starts with onTriggerPatchFlow → showPatchDialog → ApkAvailabilityDialog,
-    // where the user picks the APK source. Expert mode dialog opens after APK selection.
-    // We do NOT call onDismiss() here. InstalledAppInfoDialog stays open (hidden behind
-    // ApkAvailabilityDialog) and is dismissed in HomeViewModel.proceedWithPatching() right
-    // before navigating to PatcherScreen. This eliminates the flash of background that would
-    // appear between closing this dialog and opening the next one
+    // The flow opens over this dialog rather than in its place, so backing out of it lands here,
+    // and patching closes the two together as the patcher opens
     fun handlePatchClick() {
         val app = viewModel.installedApp ?: return
         onTriggerPatchFlow(app.originalPackageName, app.trackingKey)

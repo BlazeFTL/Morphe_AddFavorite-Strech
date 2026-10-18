@@ -36,9 +36,7 @@ import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.settings.SettingsPage
 import app.morphe.manager.ui.screen.settings.SettingsNavigation
-import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
-import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
 import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
 import app.morphe.manager.ui.screen.shared.MainPage
@@ -306,22 +304,10 @@ fun HomeScreen(
         patchesItem = patchesSheetItem,
         // The new source's apps come up on the list, so that is where adding one ends
         onSourceAdded = { openPage(MainPage.APPS) },
-        onOpenApkDownloadHelpers = { settingsNavigation.openSubpage(SettingsSubpage.APK_DOWNLOAD_HELPERS) }
+        settingsNavigation = settingsNavigation
     )
 
     InstallerFlowDialogs(installViewModel = installViewModel)
-
-    // Pre-patching mode selection dialog for root-capable devices.
-    // This dialog must appear before patching starts because the patch mode determines
-    // which patches are applied.
-    DialogHost(visible = homeViewModel.showPrePatchInstallerDialog) {
-        PrePatchInstallerDialog(
-            packageName = homeViewModel.pendingPackageName,
-            onSelectMount = { homeViewModel.resolvePrePatchInstallerChoice(useMount = true) },
-            onSelectStandard = { homeViewModel.resolvePrePatchInstallerChoice(useMount = false) },
-            onDismiss = homeViewModel::dismissPrePatchInstallerDialog
-        )
-    }
 
     val notifications = HomeNotificationsUi(
         managerUpdate = AlertState(hasManagerUpdate) { showUpdateDetailsDialog.value = true },
@@ -500,10 +486,7 @@ fun HomeScreen(
                             if (availablePatches <= 0) {
                                 messages.show(sourcesLoadingText)
                             } else {
-                                homeViewModel.pendingPackageName = null
-                                homeViewModel.pendingAppName = otherAppsText
-                                homeViewModel.pendingRecommendedVersion = null
-                                homeViewModel.showFilePickerPromptDialog = true
+                                homeViewModel.startOtherAppsFlow(otherAppsText)
                             }
                         },
                         onOpenSources = { openPage(MainPage.SOURCES) },

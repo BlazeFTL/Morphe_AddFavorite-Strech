@@ -2,10 +2,13 @@
 """
 patch.py -- apply fork changes to a MorpheApp/morphe-manager checkout (dev branch):
   1. favorite universal patches (star + long-press, favorites float to top)
-  2. expert-gated "Skip APK signing" (morphe-manager PR #1008)
+  2. expert-gated "Skip APK signing" (morphe-manager PR #1008), a row under the Expert mode
+     switch in Settings > Patching, shown and honored only while expert mode is on
   3. fork identity (applicationId, app name)
-  4. "select APK" button moved out of the apps toolbar to a round button beside the bottom pill
-  5. Settings > Notifications: patch update check at launch limited to every 3/6/12/24 hours
+  4. "select APK" button moved out of the apps toolbar to a labelled pill button beside the
+     bottom navigation pill, always visible from first frame
+  5. Settings > Updates: patch update check at launch limited to every 3/6/12/24 hours,
+     picked in a radio dialog
 
 Anchors are structural (function bodies, call arguments, parameter lists, single
 lines), never pasted multi-line context. Files are found by declaration; the path
@@ -409,6 +412,8 @@ APK_BUTTON_STRINGS = [
 PATCH_INTERVAL_STRINGS = [
     ("settings_patch_update_interval", '<string name="settings_patch_update_interval">Patch update check</string>'),
     ("settings_patch_update_interval_value", '<string name="settings_patch_update_interval_value">Every %1$d hours</string>'),
+    ("settings_patch_update_interval_description",
+     '<string name="settings_patch_update_interval_description">Patches are checked when the app opens, at most once per interval. Skipped while offline</string>'),
 ]
 
 OUR_STRINGS = [n for n, _ in FAVORITE_STRINGS + SIGNING_STRINGS + APK_BUTTON_STRINGS + PATCH_INTERVAL_STRINGS]
@@ -607,6 +612,59 @@ def adv_switch(src):
     return src[:h.end()] + reindent(SWITCH, ind) + "\n" + src[h.end():]
 
 
+PATCHING_SWITCH_ITEM = """FoldingVisibility(visible = useExpertMode) {
+    SettingsSwitchItem(
+        checked = skipApkSigning,
+        onToggle = { @@VM@@.setSkipApkSigning(!skipApkSigning) },
+        icon = @@ICON_LOCK_OPEN@@,
+        title = stringResource(R.string.settings_advanced_skip_signing),
+        subtitle = stringResource(R.string.settings_advanced_skip_signing_description)
+    )
+}"""
+
+
+def _patching_section(src):
+    m = mask(src)
+    f = one(find_funs(m, "PatchingSection"))
+    if not f or f.bo is None:
+        return m, None
+    return m, f
+
+
+def patching_state(src):
+    m, f = _patching_section(src)
+    if not f:
+        return None
+    body = m[f.bo:f.bc]
+    if re.search(r"\bval\s+skipApkSigning\s+by\b", body):
+        return src
+    h = re.search(r"^[ \t]*val\s+useExpertMode\s+by\s+([\w.]+)\.useExpertMode\.getAsState\(\)[ \t]*$", body, re.M)
+    if not h:
+        return None
+    a = f.bo + h.start()
+    e = line_end(src, f.bo + h.end())
+    text = "val skipApkSigning by %s.skipApkSigning.getAsState()" % h.group(1)
+    return src[:e] + "\n" + indent_of(src, a) + text + src[e:]
+
+
+def patching_switch(src):
+    m, f = _patching_section(src)
+    if not f:
+        return None
+    if "R.string.settings_advanced_skip_signing" in m[f.bo:f.bc]:
+        return src
+    vm = re.search(r"\b(\w+)\.prefs\.useExpertMode\b", m[f.bo:f.bc])
+    if not vm:
+        return None
+    for lp in find_calls(m, "SettingsSwitchItem", f.bo, f.bc):
+        rp = match_close(m, lp)
+        if rp > 0 and re.search(r"\bchecked\s*=\s*useExpertMode\b", m[lp:rp]):
+            text = PATCHING_SWITCH_ITEM.replace("@@VM@@", vm.group(1)).replace("@@ICON_LOCK_OPEN@@", ICON["LOCK_OPEN"])
+            e = line_end(src, rp)
+            return src[:e] + "\n" + reindent(text, indent_of(src, lp)) + src[e:]
+    return None
+
+
 def fix_duplicate_strip_toggle(ws, adv_path):
     rx = re.compile(r"R\.string\.settings_advanced_strip_unused_libs\b")
     others = 0
@@ -675,7 +733,7 @@ def worker_sign(src):
     else:
         return None
 
-    decl = "val skipSigning = prefs.skipApkSigning.get()"
+    decl = "val skipSigning = prefs.skipApkSigning.get() && prefs.useExpertMode.get()"
     hoist = None
     ls = line_start(m, h.start())
     k = ls
@@ -845,19 +903,20 @@ def home_trailing(src):
     calls = find_calls(m, "MainPagerScaffold")
     if len(calls) != 1:
         return None
-    text = "trailingAction = { FloatingApkButton(visible = showOtherAppsButton, onClick = pickApkFromFile) }"
+    text = "trailingAction = { FloatingApkButton(onClick = pickApkFromFile) }"
     return add_last_arg(src, m, calls[0], text, r"\btrailingAction\s*=")
 
 
 def home_flags(src):
     m = mask(src)
-    if re.search(r"showOtherAppsButton\s*=\s*showOtherAppsButton\s*&&\s*isLandscape\(\)", m):
+    if re.search(r"showOtherAppsButton\s*=\s*isLandscape\(\)", m):
         return src
+    # Upstream waits for the apps to load and a third-party source before offering the button
     hits = list(re.finditer(r"\bshowOtherAppsButton\s*=\s*showOtherAppsButton\b(?!\s*&&)", m))
     if len(hits) != 1:
         return None
     h = hits[0]
-    return src[:h.start()] + "showOtherAppsButton = showOtherAppsButton && isLandscape()" + src[h.end():]
+    return src[:h.start()] + "showOtherAppsButton = isLandscape()" + src[h.end():]
 
 
 def app_gate(src):
@@ -1353,63 +1412,99 @@ internal fun FavoriteStarButton(
 FLOATING_APK_BUTTON = r'''package @@PKG@@
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 @@ICON_IMPORTS@@
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import @@NS@@.R
 import @@SHARED_PKG@@.*
 
-/** Round glass button beside the bottom pill that opens the select-APK flow. */
+/**
+ * Button beside the bottom pill that opens the select-APK flow. Built as one slot of that pill,
+ * with its height, rounding, icon size and label, so the two read as one control. Always shown:
+ * it does not wait for the apps to load.
+ */
 @Composable
 internal fun FloatingApkButton(
-    visible: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    AnimatedRowPill(visible = visible) {
-        val description = stringResource(R.string.floating_select_apk)
+    val label = stringResource(R.string.floating_select_apk)
+    val interactionSource = remember { MutableInteractionSource() }
+    val shape = rememberPressShape(interactionSource, CircleShape)
+    val tint = MaterialTheme.colorScheme.primary
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Spacer(modifier = Modifier.width(Defaults.SpaceSmall))
         Surface(
             modifier = modifier
-                .size(FloatingApkButtonSize)
+                .height(FloatingApkButtonHeight)
+                .widthIn(min = FloatingApkButtonHeight, max = FloatingApkButtonMaxWidth)
                 .glassFill(GlassButtonDefaults.containerColor(), CircleShape),
             shape = CircleShape,
             color = Color.Transparent,
             border = CardBorder.of(GlassButtonDefaults.borderColor())
         ) {
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape)
-                    .clickable(role = Role.Button, onClick = rememberHapticClick(onClick))
-                    .semantics { contentDescription = description },
-                contentAlignment = Alignment.Center
+                    .padding(FloatingApkButtonInset)
+                    .height(FloatingApkButtonHeight - FloatingApkButtonInset * 2)
+                    .pressScale(interactionSource, label = "floating_apk_press_scale")
+                    .clip(shape)
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = ripple(),
+                        role = Role.Button,
+                        onClick = rememberHapticClick(onClick)
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 Icon(
                     imageVector = @@ICON_FILE_OPEN@@,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = tint,
+                    modifier = Modifier.size(22.dp)
+                )
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = tint,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(horizontal = 10.dp)
                 )
             }
         }
     }
 }
 
-private val FloatingApkButtonSize = 64.dp
+private val FloatingApkButtonHeight = 64.dp
+private val FloatingApkButtonInset = 6.dp
+private val FloatingApkButtonMaxWidth = 128.dp
 '''
 
 PATCH_UPDATE_THROTTLE = r'''package @@PKG@@
@@ -1448,12 +1543,9 @@ object PatchUpdateThrottle {
 
 PATCH_UPDATE_INTERVAL_SETTING = r'''package @@PKG@@
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 @@ICON_IMPORTS@@
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -1467,32 +1559,38 @@ import @@PREFS_PKG@@.PreferencesManager
 import @@SHARED_PKG@@.*
 import kotlinx.coroutines.launch
 
-/** Row that picks how often the launch-time patch update check may run. */
+/** Row that opens a dialog picking how often the launch-time patch update check may run. */
 @Composable
 internal fun PatchUpdateIntervalSetting(prefs: PreferencesManager) {
     val hours by prefs.patchUpdateIntervalHours.getAsState()
     val scope = rememberCoroutineScope()
-    var expanded by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }
 
-    Box {
-        SettingsItem(
-            onClick = { expanded = true },
-            leadingContent = { ThemedIcon(icon = @@ICON_SCHEDULE@@) },
+    SettingsItem(
+        onClick = { showDialog = true },
+        icon = @@ICON_SCHEDULE@@,
+        title = stringResource(R.string.settings_patch_update_interval),
+        subtitle = stringResource(R.string.settings_patch_update_interval_value, hours)
+    )
+
+    DialogHost(visible = showDialog) {
+        AppDialog(
+            onDismissRequest = { showDialog = false },
             title = stringResource(R.string.settings_patch_update_interval),
-            subtitle = stringResource(R.string.settings_patch_update_interval_value, hours)
-        )
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            PatchUpdateThrottle.OPTIONS_HOURS.forEach { option ->
-                DropdownMenuItem(
-                    text = { Text(stringResource(R.string.settings_patch_update_interval_value, option)) },
-                    onClick = {
-                        expanded = false
-                        scope.launch { prefs.patchUpdateIntervalHours.update(option) }
-                    },
-                    trailingIcon = if (option == hours) {
-                        { Icon(imageVector = @@ICON_CHECK@@, contentDescription = null) }
-                    } else null
-                )
+            description = stringResource(R.string.settings_patch_update_interval_description),
+            dismissOnClickOutside = true
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
+                PatchUpdateThrottle.OPTIONS_HOURS.forEach { option ->
+                    RadioSelectionCard(
+                        selected = option == hours,
+                        onSelect = {
+                            showDialog = false
+                            scope.launch { prefs.patchUpdateIntervalHours.update(option) }
+                        },
+                        title = stringResource(R.string.settings_patch_update_interval_value, option)
+                    )
+                }
             }
         }
     }
@@ -1580,14 +1678,27 @@ def build_plan(ws):
 
     prefs = locate("PreferencesManager", r"^class\s+PreferencesManager\b", P + "domain/manager/PreferencesManager.kt")
     vm = locate("SettingsViewModel", r"^class\s+SettingsViewModel\b", P + "ui/viewmodel/SettingsViewModel.kt")
-    adv = ws.find(r"\bfun\s+AdvancedTabContent\s*\(", P + "ui/screen/settings/AdvancedTabContent.kt")
+    # Newest layout: the Patching section of the settings page, whose Expert mode switch the skip row follows
+    adv = ws.find(r"\bfun\s+PatchingSection\s*\(", P + "ui/screen/settings/SettingsPage.kt")
+    skip_edits = [
+        ("skip signing state", patching_state, False),
+        ("skip signing switch", patching_switch, False),
+        ("icon imports", icon_imports, False),
+    ]
     if len(adv) != 1:
-        # Newer layouts split the tab into sections, the expert-only rows living with the GitHub token
+        adv = ws.find(r"\bfun\s+AdvancedTabContent\s*\(", P + "ui/screen/settings/AdvancedTabContent.kt")
+        skip_edits = [
+            ("skip signing state", adv_state, False),
+            ("skip signing switch", adv_switch, False),
+            ("icon imports", icon_imports, False),
+        ]
+    if len(adv) != 1:
+        # Older layouts split the tab into sections, the expert-only rows living with the GitHub token
         adv = ws.find(r"^[ \t]*GitHubPatSettingsItem\s*\(", P + "ui/screen/settings/advanced/UpdatesItems.kt")
     if len(adv) == 1:
         adv = adv[0]
     else:
-        problems.append("cannot locate the expert settings rows (AdvancedTabContent / GitHubPatSettingsItem call)")
+        problems.append("cannot locate the expert settings rows (PatchingSection / AdvancedTabContent / GitHubPatSettingsItem call)")
         adv = None
     updates = locate("UpdatesItems", r"\bfun\s+UpdatesItems\s*\(", P + "ui/screen/settings/advanced/UpdatesItems.kt")
     worker = locate("PatcherWorker", r"^class\s+PatcherWorker\b", P + "patcher/worker/PatcherWorker.kt")
@@ -1682,11 +1793,7 @@ def build_plan(ws):
         plan.append(("app/google-services.json", gservices, [("package_name", gservices_edit(upstream), False)]))
     plan.append((str(prefs.relative_to(ws.root)), prefs, PREFS_EDITS))
     plan.append((str(vm.relative_to(ws.root)), vm, [("setSkipApkSigning", vm_edit, False)]))
-    plan.append((str(adv.relative_to(ws.root)), adv, [
-        ("skip signing state", adv_state, False),
-        ("skip signing switch", adv_switch, False),
-        ("icon imports", icon_imports, False),
-    ]))
+    plan.append((str(adv.relative_to(ws.root)), adv, skip_edits))
     plan.append((str(worker.relative_to(ws.root)), worker, [
         ("import SignatureRestorer", imp(util_pkg + ".SignatureRestorer"), False),
         ("signing branch", worker_sign, False),

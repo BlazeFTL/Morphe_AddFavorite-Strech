@@ -53,7 +53,6 @@ import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.bundles.versionStatus
 import app.morphe.manager.domain.links.AppLinksStatus
 import app.morphe.manager.patcher.patch.PatchInfo
-import app.morphe.manager.patcher.util.NativeLibs
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.sources.*
@@ -68,11 +67,8 @@ import app.morphe.manager.util.*
 import app.morphe.manager.util.isRtl
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.androidx.compose.koinViewModel
-import java.io.File
 import org.koin.compose.koinInject
 
 data class AppliedPatchBundleUi(
@@ -658,6 +654,8 @@ fun DialogHostScope.InstalledAppInfoDialog(
                                 appliedPatches = appliedPatches,
                                 bundlesUsedSummary = bundlesUsedSummary,
                                 appLinksStatus = viewModel.appLinksStatus,
+                                installedApkSize = viewModel.installedApkSize,
+                                installedApkAbis = viewModel.installedApkAbis,
                                 onShowPatches = { page = InfoPage.AppliedPatches },
                                 onOpenAppLinks = { page = InfoPage.AppLinks },
                                 accentColor = infoAccentColor
@@ -1160,6 +1158,8 @@ private fun InfoSection(
     appliedPatches: Map<Int, Set<String>>?,
     bundlesUsedSummary: String,
     appLinksStatus: AppLinksStatus?,
+    installedApkSize: Long?,
+    installedApkAbis: List<String>,
     onShowPatches: () -> Unit,
     onOpenAppLinks: () -> Unit,
     accentColor: Color,
@@ -1168,28 +1168,7 @@ private fun InfoSection(
     val totalPatches = appliedPatches?.values?.sumOf { it.size } ?: 0
     val context = LocalContext.current
 
-    // Read off the main thread: listing the native libraries walks the whole APK, which for the
-    // largest apps holds the dialog's first frame back noticeably
-    val installedApk by produceState<File?>(null, installedApp.currentPackageName) {
-        value = withContext(Dispatchers.IO) {
-            try {
-                context.packageManager.getPackageInfo(installedApp.currentPackageName, 0)
-                    .applicationInfo?.sourceDir?.let(::File)
-            } catch (_: Exception) { null }
-        }
-    }
-
-    // APK size from sourceDir
-    val apkSize = remember(installedApk) { installedApk?.let { context.formatBytes(it.length()) } }
-
-    val apkAbis by produceState(emptyList(), installedApk) {
-        val apk = installedApk ?: return@produceState
-        value = withContext(Dispatchers.IO) {
-            try {
-                NativeLibs.extractAbisFromApk(apk)
-            } catch (_: Exception) { emptyList() }
-        }
-    }
+    val apkSize = remember(installedApkSize) { installedApkSize?.let(context::formatBytes) }
 
     // Edged like the app's cards elsewhere, so the panel reads as part of the app's dialog
     SurfaceCard(
@@ -1235,7 +1214,7 @@ private fun InfoSection(
                 )
             }
 
-            InfoSlot(apkAbis.takeIf { it.isNotEmpty() }) { abis ->
+            InfoSlot(installedApkAbis.takeIf { it.isNotEmpty() }) { abis ->
                 InfoRow(
                     icon = MaterialSymbols.Rounded.Memory,
                     label = stringResource(R.string.home_app_info_cpu_arch),

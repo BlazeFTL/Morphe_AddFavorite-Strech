@@ -667,6 +667,11 @@ private fun MorpheManager(vm: MainViewModel) {
                 SettingsSubpageScreen(
                     subpage = SettingsSubpage.valueOf(entry.toRoute<SettingsDetail>().subpage),
                     homeViewModel = homeViewModel,
+                    // The tour runs over the main screen, so it starts once back there
+                    onStartTour = {
+                        navController.popBackStack(HomeScreen, false)
+                        startOnboardingTour()
+                    },
                     // Back to the main screen however it was asked for, so a second tap never leaves it
                     onBack = { navController.popBackStack(HomeScreen, false) }
                 )

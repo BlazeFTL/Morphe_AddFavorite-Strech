@@ -13,20 +13,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.People
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -56,60 +47,18 @@ private const val PILL_TAP_COUNT = 7
 // Counting stops after a pause, so the seventh tap has to belong to one deliberate run
 private val PILL_TAP_TIMEOUT = 1500.milliseconds
 
-/**
- * About dialog: the manager's icon, version, description and social links, with its credits, and
- * the licenses past them, opening in place of it.
- */
+/** The manager itself: its icon, version, description and social links. */
 @Composable
 fun DialogHostScope.AboutDialog(
     onDismiss: () -> Unit,
     themeViewModel: ThemeSettingsViewModel = koinViewModel()
 ) {
-    // The credits, and the licenses past them, open in place of the about page in the same dialog
-    var page by rememberSaveable { mutableStateOf(AboutPage.About) }
-    val showPillDialog = remember { mutableStateOf(false) }
-    val matrixUnlocked by themeViewModel.prefs.matrixBackgroundUnlocked.getAsState()
-
-    DialogHost(visible = showPillDialog.value) {
-        RedPillDialog(
-            alreadyUnlocked = matrixUnlocked,
-            onRedPill = { themeViewModel.unlockMatrixBackground() },
-            // Waking up puts the rain back out of sight, and the pills stay where they were found
-            onBluePill = { if (matrixUnlocked) themeViewModel.forgetMatrixBackground() },
-            onDismiss = { showPillDialog.value = false }
-        )
-    }
-
-    DialogPages(page = page, key = { it }, modifier = Modifier.fillMaxSize()) { shown ->
-        when (shown) {
-            AboutPage.About -> AboutOverview(
-                onDismiss = onDismiss,
-                onOpenCredits = { page = AboutPage.Credits },
-                onOpenPill = { showPillDialog.value = true }
-            )
-            AboutPage.Credits -> CreditsPage(
-                onBack = { page = AboutPage.About },
-                onOpenLicenses = { page = AboutPage.Licenses }
-            )
-            AboutPage.Licenses -> LicensesPage(onBack = { page = AboutPage.Credits })
-        }
-    }
-}
-
-/** The pages of the about dialog, each going back to the one before it. */
-private enum class AboutPage { About, Credits, Licenses }
-
-/** The manager itself: its icon, version, description and social links. */
-@Composable
-private fun DialogHostScope.AboutOverview(
-    onDismiss: () -> Unit,
-    onOpenCredits: () -> Unit,
-    onOpenPill: () -> Unit
-) {
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
     val view = LocalView.current
+    val matrixUnlocked by themeViewModel.prefs.matrixBackgroundUnlocked.getAsState()
     var versionTaps by remember { mutableIntStateOf(0) }
+    var showPillDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(versionTaps) {
         if (versionTaps == 0) return@LaunchedEffect
@@ -118,23 +67,23 @@ private fun DialogHostScope.AboutOverview(
         versionTaps = 0
     }
 
+    DialogHost(visible = showPillDialog) {
+        RedPillDialog(
+            alreadyUnlocked = matrixUnlocked,
+            onRedPill = { themeViewModel.unlockMatrixBackground() },
+            // Waking up puts the rain back out of sight, and the pills stay where they were found
+            onBluePill = { if (matrixUnlocked) themeViewModel.forgetMatrixBackground() },
+            onDismiss = { showPillDialog = false }
+        )
+    }
+
     AppDialog(
         onDismissRequest = onDismiss,
         footer = {
-            AppDialogActions(
-                actions = listOf(
-                    DialogAction(
-                        text = stringResource(R.string.credits),
-                        onClick = onOpenCredits,
-                        icon = Icons.Outlined.People,
-                        emphasis = DialogActionEmphasis.Outlined
-                    ),
-                    DialogAction(
-                        text = stringResource(R.string.close),
-                        onClick = onDismiss
-                    )
-                ),
-                layout = DialogButtonLayout.Vertical
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
+                modifier = Modifier.fillMaxWidth()
             )
         }
     ) {
@@ -150,7 +99,7 @@ private fun DialogHostScope.AboutOverview(
             Box(
                 modifier = Modifier
                     .size(100.dp)
-                    .background(neutralVeil(dialogTextColor()), RoundedCornerShape(Defaults.CornerExtraLarge)),
+                    .background(neutralVeil(textColor), RoundedCornerShape(Defaults.CornerExtraLarge)),
                 contentAlignment = Alignment.Center
             ) {
                 val icon = rememberDrawablePainter(
@@ -193,7 +142,7 @@ private fun DialogHostScope.AboutOverview(
                                 versionTaps >= PILL_TAP_COUNT -> {
                                     versionTaps = 0
                                     view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-                                    onOpenPill()
+                                    showPillDialog = true
                                 }
                                 // The halfway point is where the taps start answering back,
                                 // enough of a hint to keep going without naming what is coming
@@ -232,10 +181,7 @@ private fun DialogHostScope.AboutOverview(
     }
 }
 
-/**
- * Social link button.
- * Styled button for opening social media links.
- */
+/** A round button opening one of the manager's social links. */
 @Composable
 private fun SocialIconButton(
     icon: ImageVector,

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Api
 import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Psychology
@@ -24,7 +23,6 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.screen.home.OnboardingState
 import app.morphe.manager.ui.screen.home.TourTarget
 import app.morphe.manager.ui.screen.home.tourTarget
-import app.morphe.manager.ui.screen.settings.advanced.PatcherTuningSection
 import app.morphe.manager.ui.screen.settings.advanced.UpdatesItems
 import app.morphe.manager.ui.screen.settings.system.*
 import app.morphe.manager.ui.screen.shared.*
@@ -83,12 +81,13 @@ fun SettingsPage(
                 ) {
                     AppearanceItem(onOpenSubpage, onboardingState)
                     PatchingSection(settingsViewModel, onOpenSubpage, onboardingState)
-                    PatcherTuningSection(settingsViewModel)
                     UpdatesSection(settingsViewModel, homeViewModel)
                     BackgroundSection(onOpenSubpage)
                     FilesSection(settingsViewModel, onboardingState)
-                    AboutSection(onStartTour)
-                    if (settingsSearch.isActive) SubpageMatches(homeViewModel, settingsViewModel, onOpenSubpage)
+                    AboutGroup(onOpenSubpage)
+                    if (settingsSearch.isActive) {
+                        SubpageMatches(homeViewModel, settingsViewModel, onOpenSubpage, onStartTour)
+                    }
                     AnimatedVisibility(
                         visible = settingsSearch.isActive && settingsSearch.shown == 0,
                         enter = Animations.fadeIn,
@@ -116,7 +115,7 @@ fun SettingsPage(
 
 /**
  * What apps are patched with and installed through: expert mode, then the patch selections it
- * saves or, without it, the options simple mode patches apps with, and the installer.
+ * saves or, without it, the options simple mode patches apps with, the installer and the patcher.
  */
 @Composable
 private fun PatchingSection(
@@ -126,7 +125,6 @@ private fun PatchingSection(
     importExportViewModel: ImportExportViewModel = koinViewModel()
 ) {
     val useExpertMode by settingsViewModel.prefs.useExpertMode.getAsState()
-    val externalBatchPatchEnabled by settingsViewModel.prefs.externalBatchPatchEnabled.getAsState()
     var showExpertModeDialog by remember { mutableStateOf(false) }
 
     // Notify VM on expert mode changes so it can derive showExpertModeNotice
@@ -178,14 +176,7 @@ private fun PatchingSection(
                 onClick = { onOpenSubpage(SettingsSubpage.INSTALLER) },
                 modifier = Modifier.tourTarget(TourTarget.INSTALLER, tour)
             )
-            // Entry point other apps use to start a re-patch queue
-            SettingsSwitchItem(
-                checked = externalBatchPatchEnabled,
-                onToggle = { settingsViewModel.toggleExternalBatchPatch(externalBatchPatchEnabled) },
-                icon = Icons.Outlined.Api,
-                title = stringResource(R.string.settings_advanced_external_batch_patch),
-                subtitle = stringResource(R.string.settings_advanced_external_batch_patch_description)
-            )
+            SubpageItem(SettingsSubpage.PATCHER, onOpenSubpage)
         }
 
         // Shown once after enabling, and not as a match for a search
@@ -251,7 +242,8 @@ internal fun SubpageItem(
 private fun SubpageMatches(
     homeViewModel: HomeViewModel,
     settingsViewModel: SettingsViewModel,
-    onOpenSubpage: (SettingsSubpage) -> Unit
+    onOpenSubpage: (SettingsSubpage) -> Unit,
+    onStartTour: (() -> Unit)?
 ) {
     val useExpertMode by settingsViewModel.prefs.useExpertMode.getAsState()
     SettingsSubpage.entries.forEach { subpage ->
@@ -262,7 +254,7 @@ private fun SubpageMatches(
             icon = subpage.icon,
             onTitleClick = { onOpenSubpage(subpage) }
         ) {
-            SettingsSubpageContent(subpage, homeViewModel)
+            SettingsSubpageContent(subpage, homeViewModel, onStartTour)
         }
     }
 }

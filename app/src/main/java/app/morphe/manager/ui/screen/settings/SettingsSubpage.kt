@@ -7,7 +7,9 @@ package app.morphe.manager.ui.screen.settings
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.InstallMobile
+import androidx.compose.material.icons.outlined.Memory
 import androidx.compose.material.icons.outlined.NotificationsActive
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Tune
@@ -42,5 +44,15 @@ enum class SettingsSubpage(
         R.string.settings_installation,
         R.string.onboarding_system_installer_desc,
         Icons.Outlined.InstallMobile
+    ),
+    PATCHER(
+        R.string.settings_section_patcher,
+        R.string.settings_section_patcher_summary,
+        Icons.Outlined.Memory
+    ),
+    ABOUT(
+        R.string.settings_system_about,
+        R.string.settings_section_about_summary,
+        Icons.Outlined.Info
     )
 }

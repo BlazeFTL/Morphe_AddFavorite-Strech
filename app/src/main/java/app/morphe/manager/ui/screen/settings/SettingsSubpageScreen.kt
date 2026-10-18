@@ -10,6 +10,8 @@ import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.ui.screen.settings.advanced.PatchOptionsSection
+import app.morphe.manager.ui.screen.settings.advanced.PatcherSettings
+import app.morphe.manager.ui.screen.settings.system.AboutSettings
 import app.morphe.manager.ui.screen.settings.system.InstallerSettings
 import app.morphe.manager.ui.screen.settings.system.NotificationsSettings
 import app.morphe.manager.ui.screen.shared.SubpageScaffold
@@ -17,26 +19,37 @@ import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.PatchOptionsViewModel
 import org.koin.androidx.compose.koinViewModel
 
-/** One [subpage] of the settings, opened from its row on the settings page. */
+/**
+ * One [subpage] of the settings, opened from its row on the settings page.
+ *
+ * @param onStartTour Restarts the onboarding tour, when no tour is running.
+ */
 @Composable
 fun SettingsSubpageScreen(
     subpage: SettingsSubpage,
     homeViewModel: HomeViewModel,
+    onStartTour: (() -> Unit)?,
     onBack: () -> Unit
 ) {
     SubpageScaffold(title = stringResource(subpage.titleRes), onBack = onBack) {
-        SettingsSubpageContent(subpage, homeViewModel)
+        SettingsSubpageContent(subpage, homeViewModel, onStartTour)
     }
 }
 
 /** What [subpage] holds, on its own page or among what a search of the settings page finds. */
 @Composable
-internal fun SettingsSubpageContent(subpage: SettingsSubpage, homeViewModel: HomeViewModel) {
+internal fun SettingsSubpageContent(
+    subpage: SettingsSubpage,
+    homeViewModel: HomeViewModel,
+    onStartTour: (() -> Unit)?
+) {
     when (subpage) {
         SettingsSubpage.PATCH_OPTIONS -> PatchOptionsSettings(homeViewModel)
         SettingsSubpage.APPEARANCE -> AppearanceSettings()
         SettingsSubpage.NOTIFICATIONS -> NotificationsSettings()
         SettingsSubpage.INSTALLER -> InstallerSettings()
+        SettingsSubpage.PATCHER -> PatcherSettings()
+        SettingsSubpage.ABOUT -> AboutSettings(onStartTour)
     }
 }
 

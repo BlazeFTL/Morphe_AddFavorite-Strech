@@ -68,7 +68,7 @@ service marks, or logos.
 """
 
 /**
- * The open-source libraries the manager is built on, with their licenses, on a page of the about
+ * The open-source libraries the manager is built on, with their licenses, on a page of the credits
  * dialog that [onBack] leaves for the credits, see [CreditsPage].
  */
 @OptIn(ExperimentalMaterial3Api::class)

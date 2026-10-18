@@ -6,14 +6,16 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Article
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
+import androidx.compose.material.icons.outlined.Code
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.People
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
@@ -55,15 +57,15 @@ private val priorContributors = listOf(
 
 /**
  * Who made the manager: current and prior contributors, each linking to their GitHub contributor
- * page, on a page of the about dialog that [onBack] leaves for it, see [AboutDialog].
+ * page, with the licenses opening in place of it in the credits dialog of [AboutSettings].
  */
 @Composable
-fun DialogHostScope.CreditsPage(onBack: () -> Unit, onOpenLicenses: () -> Unit) {
+fun DialogHostScope.CreditsPage(onDismiss: () -> Unit, onOpenLicenses: () -> Unit) {
     val uriHandler = LocalUriHandler.current
     val accent = MaterialTheme.colorScheme.primary
 
     ListDialog(
-        onDismissRequest = onBack,
+        onDismissRequest = onDismiss,
         header = {
             ListDialogHeader(
                 icon = { modifier ->
@@ -80,8 +82,8 @@ fun DialogHostScope.CreditsPage(onBack: () -> Unit, onOpenLicenses: () -> Unit) 
         },
         footer = {
             AppDialogOutlinedButton(
-                text = stringResource(R.string.back),
-                onClick = onBack,
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -91,12 +93,14 @@ fun DialogHostScope.CreditsPage(onBack: () -> Unit, onOpenLicenses: () -> Unit) 
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
         ) {
             ContributorSection(
-                label = stringResource(R.string.credits_current_development),
+                title = stringResource(R.string.credits_current_development),
+                icon = Icons.Outlined.Code,
                 contributors = currentContributors,
                 onContributorClick = { uriHandler.openUri(it.url) }
             )
             ContributorSection(
-                label = stringResource(R.string.credits_prior_development),
+                title = stringResource(R.string.credits_prior_development),
+                icon = Icons.Outlined.History,
                 contributors = priorContributors,
                 onContributorClick = { uriHandler.openUri(it.url) }
             )
@@ -111,25 +115,24 @@ fun DialogHostScope.CreditsPage(onBack: () -> Unit, onOpenLicenses: () -> Unit) 
     }
 }
 
+/** [contributors] under one titled section, laid out as the settings pages lay out theirs. */
 @Composable
 private fun ContributorSection(
-    label: String,
+    title: String,
+    icon: ImageVector,
     contributors: List<Contributor>,
     onContributorClick: (Contributor) -> Unit
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = dialogSecondaryTextColor()
-        )
+    SettingsSection(title = title, icon = icon) {
         SettingsGroup {
-            contributors.forEachIndexed { index, contributor ->
+            contributors.forEach { contributor ->
                 SettingsItem(
                     onClick = { onContributorClick(contributor) },
                     icon = FontAwesomeIcons.Brands.Github,
                     title = contributor.name,
-                    subtitle = "github.com/${contributor.organisation}"
+                    subtitle = "github.com/${contributor.organisation}",
+                    // Leaves for the browser rather than going on within the dialog
+                    trailingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.OpenInNew) }
                 )
             }
         }

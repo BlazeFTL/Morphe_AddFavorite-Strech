@@ -34,6 +34,7 @@ import org.koin.compose.koinInject
  * @param navigation Where the page and the pages it opens lead out to.
  * @param bottomBarHeight Height of the navigation floating over the page, which it ends clear of.
  * @param onboardingState Set while the tour runs, which points at some of the rows.
+ * @param onHeaderHeightChange Told the header's height, for the alerts floating over the page below it.
  */
 @Composable
 fun SettingsPage(
@@ -42,6 +43,7 @@ fun SettingsPage(
     bottomBarHeight: Dp,
     modifier: Modifier = Modifier,
     onboardingState: OnboardingState? = null,
+    onHeaderHeightChange: (Dp) -> Unit = {},
     settingsViewModel: SettingsViewModel = koinViewModel()
 ) {
     val scrollState = rememberScrollState()
@@ -57,7 +59,8 @@ fun SettingsPage(
             PageHeader(title = stringResource(R.string.settings), search = search, searchLabel = searchLabel)
         },
         scrollState = scrollState,
-        modifier = modifier
+        modifier = modifier,
+        onHeaderHeightChange = onHeaderHeightChange
     ) { headerHeight, _ ->
         CompositionLocalProvider(LocalSettingsSearch provides settingsSearch) {
             // A row the tour turns to comes out from under the header and the navigation

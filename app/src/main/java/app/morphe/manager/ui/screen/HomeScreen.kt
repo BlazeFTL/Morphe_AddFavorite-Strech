@@ -7,7 +7,9 @@ package app.morphe.manager.ui.screen
 
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.rememberPagerState
@@ -22,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.trackingKey
@@ -346,6 +350,13 @@ fun HomeScreen(
             progress = bundleUpdateProgress
         )
     )
+    val alerts = rememberHomeAlerts(notifications)
+    // Each page's header, which the alerts hang under on whichever page is on screen
+    val pageHeaderHeights = remember { mutableStateMapOf<MainPage, Dp>() }
+    val alertsTop by animateDpAsState(
+        targetValue = pageHeaderHeights[MainPage.entries[pagerState.currentPage]] ?: 0.dp,
+        label = "alertsTop"
+    )
 
     val pullToRefreshState = rememberPullToRefreshState()
     MainPagerScaffold(
@@ -363,13 +374,13 @@ fun HomeScreen(
         onItemPositioned = onboardingState?.let { tour -> { page, bounds -> tour.navigationBounds[page] = bounds } },
         overlay = {
             NotificationsOverlay(
-                notifications = notifications,
+                alerts = alerts,
                 // Only an update under way follows to the other pages
                 showAlerts = pagerState.currentPage == MainPage.APPS.ordinal,
                 modifier = Modifier
                     .widthIn(max = homeCardMaxWidth())
                     .align(Alignment.TopCenter)
-                    .statusBarsPadding()
+                    .padding(top = alertsTop)
             )
         }
     ) { page, bottomBarHeight ->
@@ -379,14 +390,16 @@ fun HomeScreen(
                 bottomBarHeight = bottomBarHeight,
                 listOptionsOpen = sourcesListOptionsOpen,
                 onListOptionsOpenChange = { sourcesListOptionsOpen = it },
-                onboardingState = onboardingState
+                onboardingState = onboardingState,
+                onHeaderHeightChange = { pageHeaderHeights[MainPage.SOURCES] = it }
             )
 
             MainPage.SETTINGS -> SettingsPage(
                 homeViewModel = homeViewModel,
                 navigation = settingsNavigation,
                 bottomBarHeight = bottomBarHeight,
-                onboardingState = onboardingState
+                onboardingState = onboardingState,
+                onHeaderHeightChange = { pageHeaderHeights[MainPage.SETTINGS] = it }
             )
 
             MainPage.APPS -> PullToRefreshBox(
@@ -495,7 +508,9 @@ fun HomeScreen(
                     greetingMessage = greetingMessage,
                     state = sectionState,
                     bottomBarHeight = bottomBarHeight,
-                    onboardingState = onboardingState
+                    alerts = alerts,
+                    onboardingState = onboardingState,
+                    onHeaderHeightChange = { pageHeaderHeights[MainPage.APPS] = it }
                 )
             }
         }

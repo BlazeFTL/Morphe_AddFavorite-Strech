@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -93,6 +94,7 @@ fun PageHeader(
  * @param scrollState The page's scroll, which lays the header's band down once it moves off the start.
  * @param bottomBar Docked over the bottom of the page, such as a [DockedPanel], blurring the content
  *   under it as the header does.
+ * @param onHeaderHeightChange Told the header's height, for what floats over the page below it.
  */
 @Composable
 fun PinnedHeaderPage(
@@ -100,6 +102,7 @@ fun PinnedHeaderPage(
     scrollState: ScrollableState,
     modifier: Modifier = Modifier,
     bottomBar: @Composable () -> Unit = {},
+    onHeaderHeightChange: (Dp) -> Unit = {},
     content: @Composable BoxScope.(headerHeight: Dp, bottomBarHeight: Dp) -> Unit
 ) {
     val haze = rememberHazeState()
@@ -121,6 +124,7 @@ fun PinnedHeaderPage(
             }
         }
     ) { headerHeight, bottomBarHeight ->
+        SideEffect { onHeaderHeightChange(headerHeight) }
         Box(modifier = Modifier.fillMaxSize().hazeSource(haze)) { content(headerHeight, bottomBarHeight) }
     }
 }

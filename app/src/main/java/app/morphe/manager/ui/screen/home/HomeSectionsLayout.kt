@@ -122,6 +122,8 @@ class HomeChromeActions(
  * @param state The list's selection and reorder, held by the screen, whose navigation gives way to
  *   the docked bars.
  * @param bottomBarHeight Height of the navigation floating over the page, which the list ends clear of.
+ * @param alerts The alerts of the main screen, those swiped aside brought back from the header.
+ * @param onHeaderHeightChange Told the header's height, for the alerts floating over the page below it.
  */
 @Composable
 internal fun SectionsLayout(
@@ -131,7 +133,9 @@ internal fun SectionsLayout(
     greetingMessage: String?,
     state: HomeAppsSectionState,
     bottomBarHeight: Dp,
-    onboardingState: OnboardingState? = null
+    alerts: HomeAlerts,
+    onboardingState: OnboardingState? = null,
+    onHeaderHeightChange: (Dp) -> Unit = {}
 ) {
     val windowSize = rememberWindowSize()
     val maxCardWidth = homeCardMaxWidth()
@@ -156,6 +160,7 @@ internal fun SectionsLayout(
                 apps = apps,
                 appActions = appActions,
                 search = search,
+                alerts = alerts,
                 loading = state.isLoading,
                 sortEnabled = !state.isEditing,
                 sortOpen = state.isListOptionsOpen,
@@ -171,7 +176,8 @@ internal fun SectionsLayout(
                     .widthIn(max = maxCardWidth)
                     .fillMaxWidth()
             )
-        }
+        },
+        onHeaderHeightChange = onHeaderHeightChange
     ) { headerHeight, footerBarHeight ->
         MainAppsSection(
             apps = apps,

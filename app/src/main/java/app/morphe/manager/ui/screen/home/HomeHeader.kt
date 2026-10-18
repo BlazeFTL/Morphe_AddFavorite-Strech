@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.home
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
@@ -19,12 +20,14 @@ import app.morphe.manager.ui.screen.shared.TitleAction
 import app.morphe.manager.ui.screen.shared.TitleActionStyle
 import app.morphe.manager.ui.screen.shared.autoMirrored
 import app.morphe.manager.ui.screen.shared.listOptionsStateDescription
+import app.morphe.manager.ui.screen.shared.rememberLatest
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Heads the apps page with Morphe itself and how many apps it lists, then offers the list's order
- * and filter, patching an app the list does not hold from its APK, and the search.
+ * and filter, patching an app the list does not hold from its APK, and the search, after the bell
+ * bringing back the alerts swiped aside while there are any.
  *
  * @param loading Whether the list is still coming in, which leaves the count out but keeps its
  *   line, so the header does not grow once the apps arrive.
@@ -36,6 +39,7 @@ internal fun HomeHeader(
     apps: HomeAppListUi,
     appActions: HomeAppActions,
     search: SearchFieldState,
+    alerts: HomeAlerts,
     loading: Boolean,
     sortEnabled: Boolean,
     sortOpen: Boolean,
@@ -54,6 +58,22 @@ internal fun HomeHeader(
         search = search,
         searchLabel = stringResource(R.string.home_search_apps)
     ) {
+        // Comes and goes with what it brings back, as the alerts it stands for do
+        val snoozedCount = alerts.snoozedCount
+        AnimatedVisibility(visible = snoozedCount > 0) {
+            val shownCount = rememberLatest(snoozedCount.takeIf { it > 0 }) ?: 0
+            TitleAction(
+                icon = MaterialSymbols.Rounded.Notifications,
+                contentDescription = pluralStringResource(
+                    R.plurals.home_alerts_snoozed_count,
+                    shownCount,
+                    shownCount.toString()
+                ),
+                onClick = alerts::restoreSnoozed,
+                style = TitleActionStyle.Neutral
+            )
+        }
+
         val sortState = listOptionsStateDescription(
             apps.sortMode.labelRes,
             apps.filterMode.labelRes.takeIf { apps.filterMode.isActive }

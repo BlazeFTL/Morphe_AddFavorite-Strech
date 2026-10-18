@@ -78,6 +78,7 @@ private val SourceShimmerRows = (0 until 4).toList()
  * @param listOptionsOpen Whether the options the list is sorted and filtered by are docked under it,
  *   held by the screen, whose navigation gives way to them.
  * @param onboardingState Set while the tour runs, which points into the first source.
+ * @param onHeaderHeightChange Told the header's height, for the alerts floating over the page below it.
  */
 @Composable
 fun SourcesPage(
@@ -85,7 +86,8 @@ fun SourcesPage(
     bottomBarHeight: Dp,
     listOptionsOpen: Boolean,
     onListOptionsOpenChange: (Boolean) -> Unit,
-    onboardingState: OnboardingState? = null
+    onboardingState: OnboardingState? = null,
+    onHeaderHeightChange: (Dp) -> Unit = {}
 ) {
     val scope = rememberCoroutineScope()
     val repository = homeViewModel.patchBundleRepository
@@ -106,6 +108,7 @@ fun SourcesPage(
         listOptionsOpen = listOptionsOpen,
         onListOptionsOpenChange = onListOptionsOpenChange,
         onboardingState = onboardingState,
+        onHeaderHeightChange = onHeaderHeightChange,
         onAddSource = { homeViewModel.showAddSourceDialog = true },
         onDelete = { bundle -> scope.launch { repository.remove(bundle) } },
         onDisable = { bundle -> scope.launch { repository.disable(bundle) } },
@@ -139,6 +142,7 @@ private fun SourcesPageContent(
     listOptionsOpen: Boolean,
     onListOptionsOpenChange: (Boolean) -> Unit,
     onboardingState: OnboardingState?,
+    onHeaderHeightChange: (Dp) -> Unit,
     onAddSource: () -> Unit,
     onDelete: (PatchBundleSource) -> Unit,
     onDisable: (PatchBundleSource) -> Unit,
@@ -400,7 +404,8 @@ private fun SourcesPageContent(
                     .widthIn(max = Defaults.ContentMaxWidth)
                     .fillMaxWidth()
             )
-        }
+        },
+        onHeaderHeightChange = onHeaderHeightChange
     ) { headerHeight, panelHeight ->
         // Clear of whichever floats over the list's lower edge, the navigation or the options
         val listBottom = maxOf(bottomBarHeight, panelHeight)

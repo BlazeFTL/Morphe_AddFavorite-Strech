@@ -15,10 +15,11 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 
 /**
- * Footer of a dialog that moves data in and out of Morphe. The transfer pair shares a row and
- * close keeps its own, so dismissing is never mistaken for one of the two.
+ * Footer of a dialog or page that moves data in and out of Morphe. The transfer pair shares a row
+ * and close keeps its own, so dismissing is never mistaken for one of the two.
  *
  * @param onExport Null while there is nothing to export, which leaves import on its own.
+ * @param onClose Null on a page, which has a way back of its own.
  * @param exportLeads Puts export in the filled, leading spot, for data whose backup matters more
  *        than its restore.
  * @param enabled False while the dialog has nothing picked to move either way.
@@ -27,7 +28,7 @@ import app.morphe.manager.R
 fun ImportExportFooter(
     onImport: () -> Unit,
     onExport: (() -> Unit)?,
-    onClose: () -> Unit,
+    onClose: (() -> Unit)? = null,
     exportLeads: Boolean = false,
     enabled: Boolean = true
 ) {
@@ -55,15 +56,17 @@ fun ImportExportFooter(
         } else {
             AppDialogActions(actions = listOf(import), layout = DialogButtonLayout.Vertical)
         }
-        AppDialogActions(
-            actions = listOf(
-                DialogAction(
-                    text = stringResource(R.string.close),
-                    onClick = onClose,
-                    emphasis = DialogActionEmphasis.Outlined
-                )
-            ),
-            layout = DialogButtonLayout.Vertical
-        )
+        if (onClose != null) {
+            AppDialogActions(
+                actions = listOf(
+                    DialogAction(
+                        text = stringResource(R.string.close),
+                        onClick = onClose,
+                        emphasis = DialogActionEmphasis.Outlined
+                    )
+                ),
+                layout = DialogButtonLayout.Vertical
+            )
+        }
     }
 }

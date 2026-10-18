@@ -53,6 +53,7 @@ import app.morphe.manager.ui.screen.PatcherScreen
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.settings.SettingsSubpageScreen
+import app.morphe.manager.ui.screen.settings.system.PatchSelectionsPage
 import app.morphe.manager.ui.screen.shared.AnimatedBackground
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.LocalBackdropHaze
@@ -596,6 +597,9 @@ private fun MorpheManager(vm: MainViewModel) {
                     onOpenSettingsSubpage = { subpage ->
                         navController.navigate(SettingsDetail(subpage.name)) { launchSingleTop = true }
                     },
+                    onOpenPatchSelections = {
+                        navController.navigate(PatchSelections) { launchSingleTop = true }
+                    },
                     onStartTour = startOnboardingTour.takeUnless { showOnboarding },
                     onboardingState = onboardingState.takeIf { showOnboarding },
                     onStartQuickPatch = { params ->
@@ -675,6 +679,10 @@ private fun MorpheManager(vm: MainViewModel) {
                     // Back to the main screen however it was asked for, so a second tap never leaves it
                     onBack = { navController.popBackStack(HomeScreen, false) }
                 )
+            }
+
+            composable<PatchSelections> {
+                PatchSelectionsPage(onBack = { navController.popBackStack(HomeScreen, false) })
             }
         }
 

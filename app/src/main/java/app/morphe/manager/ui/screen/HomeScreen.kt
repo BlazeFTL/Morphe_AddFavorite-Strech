@@ -59,12 +59,14 @@ import kotlin.time.Duration.Companion.milliseconds
  * [MainPagerScaffold], with the dialogs any of them can raise.
  *
  * @param onOpenSettingsSubpage Opens a part of the settings as a page of its own.
+ * @param onOpenPatchSelections Opens the patch selections expert mode saves.
  * @param onStartTour Restarts the onboarding tour, when no tour is running.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HomeScreen(
     onOpenSettingsSubpage: (SettingsSubpage) -> Unit,
+    onOpenPatchSelections: () -> Unit,
     onStartTour: (() -> Unit)?,
     onStartQuickPatch: (Patcher.ViewModelParams) -> Unit,
     onStartBatchPatch: (List<BatchTarget>, Boolean) -> Unit,
@@ -388,6 +390,7 @@ fun HomeScreen(
             MainPage.SETTINGS -> SettingsPage(
                 homeViewModel = homeViewModel,
                 onOpenSubpage = onOpenSettingsSubpage,
+                onOpenPatchSelections = onOpenPatchSelections,
                 onStartTour = onStartTour,
                 bottomBarHeight = bottomBarHeight,
                 onboardingState = onboardingState

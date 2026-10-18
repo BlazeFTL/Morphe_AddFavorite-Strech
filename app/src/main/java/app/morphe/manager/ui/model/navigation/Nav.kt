@@ -28,6 +28,10 @@ object HomeScreen
 @Serializable
 data class SettingsDetail(val subpage: String)
 
+/** The patch selections expert mode saves, a list of its own opened from the settings. */
+@Serializable
+data object PatchSelections
+
 @Serializable
 data object BatchPatcher : ComplexParameter<BatchPatcher.ViewModelParams> {
     @Parcelize

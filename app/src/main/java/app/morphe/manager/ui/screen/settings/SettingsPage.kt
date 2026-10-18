@@ -28,7 +28,6 @@ import app.morphe.manager.ui.screen.settings.advanced.UpdatesItems
 import app.morphe.manager.ui.screen.settings.system.*
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
-import app.morphe.manager.ui.viewmodel.ImportExportViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -36,6 +35,7 @@ import org.koin.androidx.compose.koinViewModel
  * The settings page of the main screen: every setting in its group, with the [SettingsSubpage]s
  * too long for a group each opening a page of its own.
  *
+ * @param onOpenPatchSelections Opens the patch selections expert mode saves.
  * @param onStartTour Restarts the onboarding tour, when no tour is running.
  * @param bottomBarHeight Height of the navigation floating over the page, which it ends clear of.
  * @param onboardingState Set while the tour runs, which points at some of the rows.
@@ -44,6 +44,7 @@ import org.koin.androidx.compose.koinViewModel
 fun SettingsPage(
     homeViewModel: HomeViewModel,
     onOpenSubpage: (SettingsSubpage) -> Unit,
+    onOpenPatchSelections: () -> Unit,
     onStartTour: (() -> Unit)?,
     bottomBarHeight: Dp,
     modifier: Modifier = Modifier,
@@ -81,7 +82,7 @@ fun SettingsPage(
                         )
                 ) {
                     GeneralSection(onOpenSubpage, onboardingState)
-                    PatchingSection(settingsViewModel, onOpenSubpage, onboardingState)
+                    PatchingSection(settingsViewModel, onOpenSubpage, onOpenPatchSelections, onboardingState)
                     UpdatesSection(settingsViewModel, homeViewModel)
                     FilesSection(settingsViewModel, onboardingState, onOpenSubpage)
                     AboutGroup(onOpenSubpage)
@@ -121,8 +122,8 @@ fun SettingsPage(
 private fun PatchingSection(
     settingsViewModel: SettingsViewModel,
     onOpenSubpage: (SettingsSubpage) -> Unit,
-    tour: OnboardingState?,
-    importExportViewModel: ImportExportViewModel = koinViewModel()
+    onOpenPatchSelections: () -> Unit,
+    tour: OnboardingState?
 ) {
     val useExpertMode by settingsViewModel.prefs.useExpertMode.getAsState()
     var showExpertModeDialog by remember { mutableStateOf(false) }
@@ -163,10 +164,7 @@ private fun PatchingSection(
             )
             // Each folds in as the other folds away, so the group reshapes around the swap
             FoldingVisibility(visible = useExpertMode) {
-                PatchSelectionsItem(
-                    settingsViewModel = settingsViewModel,
-                    importExportViewModel = importExportViewModel
-                )
+                PatchSelectionsItem(onClick = onOpenPatchSelections)
             }
             FoldingVisibility(visible = !useExpertMode) {
                 SubpageItem(SettingsSubpage.PATCH_OPTIONS, onOpenSubpage)

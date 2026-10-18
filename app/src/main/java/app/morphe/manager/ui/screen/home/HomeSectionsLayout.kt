@@ -161,7 +161,6 @@ internal fun SectionsLayout(
                 appActions = appActions,
                 search = search,
                 alerts = alerts,
-                loading = state.isLoading,
                 sortEnabled = !state.isEditing,
                 sortOpen = state.isListOptionsOpen,
                 onSortClick = { state.isListOptionsOpen = !state.isListOptionsOpen },

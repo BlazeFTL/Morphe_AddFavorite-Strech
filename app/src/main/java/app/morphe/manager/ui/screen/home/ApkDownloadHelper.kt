@@ -32,7 +32,7 @@ import org.koin.compose.koinInject
  *
  * @param open Starts the helper flow with one of those trusted, null while none is.
  * @param hasUntrusted Whether one is installed that is not trusted yet, which only the settings
- *   let in.
+ *   let in, while none trusted is there to download with instead.
  */
 @Immutable
 class ApkDownloadHelperOffer(
@@ -127,7 +127,7 @@ fun rememberApkDownloadHelperAction(
     val openPicker = remember { { showPicker = true } }
     return ApkDownloadHelperOffer(
         open = openPicker.takeIf { helpers.isNotEmpty() },
-        hasUntrusted = installed.any { it.componentName.packageName !in trustedPackages }
+        hasUntrusted = helpers.isEmpty() && installed.any { it.componentName.packageName !in trustedPackages }
     )
 }
 

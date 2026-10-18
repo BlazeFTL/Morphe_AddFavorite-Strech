@@ -415,7 +415,10 @@ PATCH_INTERVAL_STRINGS = [
     ("settings_patch_update_interval", '<string name="settings_patch_update_interval">Patch update check</string>'),
     ("settings_patch_update_interval_value", '<string name="settings_patch_update_interval_value">Every %1$d hours</string>'),
     ("settings_patch_update_interval_description",
-     '<string name="settings_patch_update_interval_description">Patches are checked when the app opens, at most once per interval. Skipped while offline</string>'),
+     '<string name="settings_patch_update_interval_description">Patches are checked when the app opens. With an interval, the check is skipped if one ran recently or while offline</string>'),
+    ("settings_patch_update_interval_on_launch", '<string name="settings_patch_update_interval_on_launch">On app launch</string>'),
+    ("settings_patch_update_interval_on_launch_description",
+     '<string name="settings_patch_update_interval_on_launch_description">Checks every time the app starts, like stock Morphe</string>'),
 ]
 
 OUR_STRINGS = [n for n, _ in FAVORITE_STRINGS + SIGNING_STRINGS + APK_BUTTON_STRINGS + PATCH_INTERVAL_STRINGS]
@@ -576,7 +579,7 @@ PREFS_EDITS = [
         [r"^[ \t]*val\s+stripUnusedNativeLibs\s*=[^\n]*$", r"^[ \t]*val\s+useExpertMode\s*=[^\n]*$"]), False),
     ("patch update interval prefs", prefs_decl(
         "patchUpdateIntervalHours",
-        '\n/** Hours between automatic patch update checks at launch: 3, 6, 12 or 24. */\n'
+        '\n/** Hours between automatic patch update checks at launch: 0 (every launch, like stock), 3, 6, 12 or 24. */\n'
         'val patchUpdateIntervalHours = intPreference("patch_update_interval_hours", 3)\n\n'
         '/** Epoch millis of the last automatic patch update check at launch. */\n'
         'val lastPatchUpdateCheck = longPreference("last_patch_update_check", 0L)',
@@ -1580,16 +1583,20 @@ import android.net.NetworkCapabilities
 
 /** Limits the automatic patch update check at launch to once per chosen number of hours. */
 object PatchUpdateThrottle {
+    /** Stock behavior: the check runs at every launch. */
+    const val ON_LAUNCH = 0
     const val DEFAULT_HOURS = 3
-    val OPTIONS_HOURS = listOf(3, 6, 12, 24)
+    val OPTIONS_HOURS = listOf(ON_LAUNCH, 3, 6, 12, 24)
 
     /**
      * True when a check should run now. Stamps the time when it returns true, so the next launch
      * inside the interval skips the check. Offline launches skip without stamping.
+     * [ON_LAUNCH] always returns true and leaves the rest to the stock check.
      */
     suspend fun isDue(context: Context, prefs: PreferencesManager): Boolean {
-        if (!isOnline(context)) return false
         val hours = prefs.patchUpdateIntervalHours.get().takeIf { it in OPTIONS_HOURS } ?: DEFAULT_HOURS
+        if (hours == ON_LAUNCH) return true
+        if (!isOnline(context)) return false
         val last = prefs.lastPatchUpdateCheck.get()
         val now = System.currentTimeMillis()
         // A stamp in the future means the clock moved back, so the check is due
@@ -1624,6 +1631,11 @@ import @@PREFS_PKG@@.PreferencesManager
 import @@SHARED_PKG@@.*
 import kotlinx.coroutines.launch
 
+@Composable
+private fun intervalLabel(hours: Int): String =
+    if (hours == PatchUpdateThrottle.ON_LAUNCH) stringResource(R.string.settings_patch_update_interval_on_launch)
+    else stringResource(R.string.settings_patch_update_interval_value, hours)
+
 /** Row that opens a dialog picking how often the launch-time patch update check may run. */
 @Composable
 internal fun PatchUpdateIntervalSetting(prefs: PreferencesManager) {
@@ -1635,7 +1647,7 @@ internal fun PatchUpdateIntervalSetting(prefs: PreferencesManager) {
         onClick = { showDialog = true },
         icon = @@ICON_SCHEDULE@@,
         title = stringResource(R.string.settings_patch_update_interval),
-        subtitle = stringResource(R.string.settings_patch_update_interval_value, hours)
+        subtitle = intervalLabel(hours)
     )
 
     DialogHost(visible = showDialog) {
@@ -1653,7 +1665,10 @@ internal fun PatchUpdateIntervalSetting(prefs: PreferencesManager) {
                             showDialog = false
                             scope.launch { prefs.patchUpdateIntervalHours.update(option) }
                         },
-                        title = stringResource(R.string.settings_patch_update_interval_value, option)
+                        title = intervalLabel(option),
+                        description = if (option == PatchUpdateThrottle.ON_LAUNCH) {
+                            stringResource(R.string.settings_patch_update_interval_on_launch_description)
+                        } else null
                     )
                 }
             }

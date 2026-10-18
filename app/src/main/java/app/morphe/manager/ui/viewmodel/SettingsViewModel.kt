@@ -24,6 +24,7 @@ import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFA
 import app.morphe.manager.domain.repository.PatchOptionsRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
 import app.morphe.manager.domain.repository.SourceMuteRepository
+import app.morphe.manager.network.api.MorpheAPI
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.settings.system.CopyTarget
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
@@ -74,6 +75,7 @@ class SettingsViewModel(
     private val optionsRepository: PatchOptionsRepository,
     private val patchBundleRepository: PatchBundleRepository,
     private val appDataResolver: AppDataResolver,
+    private val api: MorpheAPI,
     private val appContext: Context,
 ) : ViewModel() {
     /** True when Google Play Services is available; FCM handles notifications on these devices. */
@@ -206,6 +208,13 @@ class SettingsViewModel(
     fun setStripUnusedNativeLibs(enabled: Boolean) = viewModelScope.launch {
         prefs.stripUnusedNativeLibs.update(enabled)
     }
+
+    /** Whether GitHub has turned down the token in use, which leaves requests going out without it. */
+    val gitHubPatRejected = combine(prefs.gitHubPat.flow, api.rejectedPat) { pat, rejected ->
+        pat.isNotBlank() && pat == rejected
+    }
+
+    suspend fun checkGitHubPat(pat: String) = api.checkGitHubPat(pat)
 
     fun setGitHubPat(pat: String, includeInExport: Boolean) = viewModelScope.launch {
         prefs.gitHubPat.update(pat)

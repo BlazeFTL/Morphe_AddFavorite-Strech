@@ -969,14 +969,17 @@ Patches are not affected: enable pre-release patches for each source in the patc
 
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat" translatable="false">GitHub PAT</string>
-    <string name="settings_advanced_github_pat_description">Required for pull request sources</string>
+    <string name="settings_advanced_github_pat_summary">Unlocks pull request sources and private repositories</string>
+    <string name="settings_advanced_github_pat_description">For pull request sources, private repositories and a higher GitHub rate limit</string>
     <string name="settings_advanced_github_pat_configured">Token configured</string>
-    <string name="settings_advanced_github_pat_how_to_get">How to get a token</string>
-    <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
-    <string name="settings_advanced_github_pat_dialog_title">Set %s</string>
-    <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
-    <string name="settings_advanced_github_pat_dialog_description">"Set a %3$s in order to be able to add pull requests as external sources. Create a PAT with scope %2$s on
-%1$s"</string>
+    <string name="settings_advanced_github_pat_create">Create a token on GitHub</string>
+    <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Opens GitHub with the %s scope already picked</string>
+    <string name="settings_advanced_github_pat_checking">Checking with GitHub…</string>
+    <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Signed in to GitHub as %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub turned this token down. It may have expired or been revoked</string>
+    <string name="settings_advanced_github_pat_unreachable">Couldn\'t reach GitHub to check this token</string>
     <string name="settings_advanced_github_pat_export_include_label">Include in settings export</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Adds this PAT to exported Morphe settings</string>

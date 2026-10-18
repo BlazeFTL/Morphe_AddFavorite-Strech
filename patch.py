@@ -21,6 +21,7 @@ Usage:
     python3 patch.py [path] --check     dry run, exit 1 if anything is pending
 """
 import argparse
+import os
 import pathlib
 import re
 import sys
@@ -29,6 +30,7 @@ from collections import namedtuple
 
 FORK_APP_ID = "app.morphe.manages"
 FORK_APP_NAME = "MorpheFork"
+FORK_REPO = os.environ.get("FORK_REPO", "").strip()
 DEFAULT_UPSTREAM_APP_ID = "app.morphe.manager"
 
 BOM = "\ufeff"
@@ -455,6 +457,48 @@ def gservices_edit(upstream):
         out = re.sub(r'("package_name"\s*:\s*")([^"]+)(")', repl, src)
         return out if found[0] else None
     return fn
+
+
+GMS_RX = re.compile(
+    r"GoogleApiAvailability\s*\.getInstance\(\)\s*\.isGooglePlayServicesAvailable\([^)]*\)\s*==\s*ConnectionResult\.SUCCESS")
+
+
+def update_source_edit(src):
+    raw = "https://raw.githubusercontent.com/%s/refs/heads/updates/app-release.json" % FORK_REPO
+    want = (
+        ("MANAGER_REPO_URL", "https://github.com/" + FORK_REPO),
+        ("MANAGER_RELEASE_JSON_URL", raw),
+        ("MANAGER_PRERELEASE_JSON_URL", raw),
+    )
+    out = src
+    for name, url in want:
+        h = re.search(r'(\bconst\s+val\s+%s\s*=\s*")([^"]*)(")' % name, out)
+        if not h:
+            return None
+        out = out[:h.start(2)] + url + out[h.end(2):]
+    return out
+
+
+def prerelease_filter_edit(src):
+    rx = r"\(usePrereleases\s*\|\|\s*!it\.version\.contains\('-'\)\)\s*&&\s*"
+    if re.search(rx, src):
+        return re.sub(rx, "", src, count=1)
+    return src if "versionWeight(it.version" in src else None
+
+
+def no_gms_edit(src):
+    if GMS_RX.search(src):
+        return GMS_RX.sub("false", src)
+    return src if "hasGms" in src else None
+
+
+def interval_default_edit(src):
+    h = re.search(r'(enumPreference\(\s*"update_check_interval"\s*,\s*UpdateCheckInterval\.)(\w+)(\s*\))', src)
+    if not h:
+        return None
+    if h.group(2) == "HOURLY":
+        return src
+    return src[:h.start(2)] + "HOURLY" + src[h.end(2):]
 
 
 # ---------------------------------------------------------------- PreferencesManager
@@ -1718,6 +1762,12 @@ def build_plan(ws):
     # Newer upstream shows its messages through UserMessages instead of a toast helper
     usermsgs = ws.find(r"\bclass\s+UserMessages\b", P + "ui/screen/shared/UserMessages.kt")
 
+    consts = api = postprompts = None
+    if FORK_REPO:
+        consts = locate("Constants", r"\bconst\s+val\s+MANAGER_RELEASE_JSON_URL\b", P + "util/Constants.kt")
+        api = locate("MorpheAPI.getAppUpdate", r"\bsuspend\s+fun\s+getAppUpdate\s*\(", P + "network/api/MorpheAPI.kt")
+        postprompts = locate("PostPatchPrompts", r"\bval\s+hasGms\s*=", P + "ui/model/PostPatchPrompts.kt")
+
     strings = ws.main / "res" / "values" / "strings.xml"
     gradle = ws.root / "app" / "build.gradle.kts"
     gservices = ws.root / "app" / "google-services.json"
@@ -1791,8 +1841,11 @@ def build_plan(ws):
     plan.append(("app/build.gradle.kts", gradle, [("applicationId", app_id_edit, False)]))
     if has_gservices:
         plan.append(("app/google-services.json", gservices, [("package_name", gservices_edit(upstream), False)]))
-    plan.append((str(prefs.relative_to(ws.root)), prefs, PREFS_EDITS))
-    plan.append((str(vm.relative_to(ws.root)), vm, [("setSkipApkSigning", vm_edit, False)]))
+    plan.append((str(prefs.relative_to(ws.root)), prefs,
+                 PREFS_EDITS + ([("update interval default", interval_default_edit, False)] if FORK_REPO else [])))
+    plan.append((str(vm.relative_to(ws.root)), vm,
+                 [("setSkipApkSigning", vm_edit, False)]
+                 + ([("update worker without GMS gate", no_gms_edit, False)] if FORK_REPO else [])))
     plan.append((str(adv.relative_to(ws.root)), adv, skip_edits))
     plan.append((str(worker.relative_to(ws.root)), worker, [
         ("import SignatureRestorer", imp(util_pkg + ".SignatureRestorer"), False),
@@ -1817,7 +1870,11 @@ def build_plan(ws):
     plan.append((str(app.relative_to(ws.root)), app, [
         ("patch update throttle", app_gate, False),
         ("import PatchUpdateThrottle", imp(package_of(ws.get(prefs)) + ".PatchUpdateThrottle"), False),
-    ]))
+    ] + ([("update worker without GMS gate", no_gms_edit, False)] if FORK_REPO else [])))
+    if FORK_REPO:
+        plan.append((str(consts.relative_to(ws.root)), consts, [("fork update source", update_source_edit, False)]))
+        plan.append((str(api.relative_to(ws.root)), api, [("stable channel accepts dev versions", prerelease_filter_edit, False)]))
+        plan.append((str(postprompts.relative_to(ws.root)), postprompts, [("update worker without GMS gate", no_gms_edit, False)]))
     plan.append((str(updates.relative_to(ws.root)), updates, [("patch update interval row", updates_row, False)]))
     plan.append((str(comps.relative_to(ws.root)), comps, COMPONENT_EDITS))
     plan.append((str(card.relative_to(ws.root)), card, [

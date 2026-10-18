@@ -188,7 +188,7 @@ private fun DialogWindow(transition: Transition<Boolean>, content: @Composable (
         DialogWindowEffect(isDarkTheme)
 
         // A window of its own, so messages raised while it is open are shown in it
-        MessageHost(modifier = Modifier.fillMaxSize()) {
+        MessageHost(modifier = Modifier.fillMaxSize(), accepting = transition.targetState) {
             // Opaque from the first frame, so nothing behind shows as one dialog hands over to the
             // next, and faded out with the content as the dialog leaves
             transition.AnimatedVisibility(
@@ -386,7 +386,7 @@ fun Overlay(
         ) {
             DialogWindowEffect(isDarkTheme)
 
-            MessageHost(modifier = Modifier.fillMaxSize()) {
+            MessageHost(modifier = Modifier.fillMaxSize(), accepting = visible) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()

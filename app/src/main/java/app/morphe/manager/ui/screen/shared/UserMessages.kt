@@ -200,21 +200,27 @@ private val MessageBottomInset = 64.dp
  * [content] with the app's messages shown over its bottom edge while it is the top surface. The
  * snackbar keeps one place on every surface, just clear of the navigation bar or the keyboard,
  * over whatever bar the surface has there, rather than moving with the bars of each.
+ *
+ * @param accepting Whether the surface still takes messages. One on its way out hands them to the
+ * surface below at once, rather than showing them as it fades and again once it is gone.
  */
 @Composable
 fun MessageHost(
     modifier: Modifier = Modifier,
+    accepting: Boolean = true,
     content: @Composable BoxScope.() -> Unit
 ) {
     val messages = koinInject<UserMessages>()
     val context = LocalContext.current
     val slot = remember { MessageHostSlot() }
     val state = remember { SnackbarHostState() }
-    DisposableEffect(messages, slot) {
-        messages.attach(slot)
-        onDispose { messages.detach(slot) }
+    if (accepting) {
+        DisposableEffect(messages, slot) {
+            messages.attach(slot)
+            onDispose { messages.detach(slot) }
+        }
+        LaunchedEffect(slot) { slot.showAll(state, context) }
     }
-    LaunchedEffect(slot) { slot.showAll(state, context) }
 
     Box(modifier = modifier) {
         content()

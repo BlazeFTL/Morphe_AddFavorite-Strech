@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalViewConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -28,8 +29,11 @@ import app.morphe.manager.R
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -56,6 +60,7 @@ fun BoxScope.ScrollToTopButton(
     }
     ScrollToTopButtonImpl(
         scrollable = listState,
+        scrollDeltas = remember(listState) { listState.scrollDeltas() },
         awayFromTop = awayFromTop,
         scrollToTop = { listState.animateScrollToTop() },
         modifier = modifier.align(Alignment.BottomEnd),
@@ -80,6 +85,7 @@ fun BoxScope.ScrollToTopButton(
     }
     ScrollToTopButtonImpl(
         scrollable = scrollState,
+        scrollDeltas = remember(scrollState) { scrollState.scrollDeltas() },
         awayFromTop = awayFromTop,
         scrollToTop = { scrollState.animateScrollTo(0) },
         modifier = modifier.align(Alignment.BottomEnd),
@@ -112,6 +118,38 @@ private suspend fun LazyListState.animateScrollToTop() {
     animateScrollBy(-distance.toFloat())
 }
 
+/** How far the content moves each time it scrolls, positive toward its end. */
+private fun ScrollState.scrollDeltas(): Flow<Float> = flow {
+    var last: Int? = null
+    snapshotFlow { value }.collect { position ->
+        last?.let { emit((position - it).toFloat()) }
+        last = position
+    }
+}
+
+/**
+ * How far the list moves each time it is laid out, positive toward its end. A row in view both
+ * before and after is followed, as its offset changes by exactly the distance scrolled, while the
+ * first visible row's own offset starts over each time another row takes its place.
+ */
+private fun LazyListState.scrollDeltas(): Flow<Float> = flow {
+    var last: Map<Int, Int>? = null
+    snapshotFlow { layoutInfo.visibleItemsInfo.associate { it.index to it.offset } }.collect { rows ->
+        last?.let { previous ->
+            val shared = rows.keys.firstOrNull { it in previous }
+            val delta = when {
+                shared != null -> previous.getValue(shared) - rows.getValue(shared)
+                // Nothing in common after a jump, so it is taken as a screenful in its direction
+                rows.isEmpty() || previous.isEmpty() -> 0
+                rows.keys.first() > previous.keys.first() -> layoutInfo.viewportSize.height
+                else -> -layoutInfo.viewportSize.height
+            }
+            if (delta != 0) emit(delta.toFloat())
+        }
+        last = rows
+    }
+}
+
 /**
  * [RestingHideDelay] stretched to how long the user asked for controls to stay up in the system's
  * accessibility settings, as someone using switches or voice needs longer to reach the button.
@@ -128,6 +166,7 @@ private fun restingHideDelay(accessibility: AccessibilityManager?): Duration {
 @Composable
 private fun ScrollToTopButtonImpl(
     scrollable: ScrollableState,
+    scrollDeltas: Flow<Float>,
     awayFromTop: Boolean,
     scrollToTop: suspend () -> Unit,
     modifier: Modifier = Modifier,
@@ -146,20 +185,37 @@ private fun ScrollToTopButtonImpl(
     val context = LocalContext.current
     val accessibility = remember(context) { context.getSystemService(AccessibilityManager::class.java) }
     // The button sits over the trailing edge of the rows, where their switches and arrows are, so
-    // it is offered only once the user heads back up and leaves again when they stop there to read
-    var resting by remember(scrollable) { mutableStateOf(false) }
+    // it is offered only once the user heads back up and leaves again when they stop there to read.
+    // The way they head turns only once they have gone a touch slop the other way, so a finger's
+    // tremor or the first frames of a drag never flip it back and forth
+    val slop = LocalViewConfiguration.current.touchSlop
+    val headingBack = remember(scrollable) { mutableStateOf(false) }
+    LaunchedEffect(scrollDeltas, slop) {
+        var against = 0f
+        scrollDeltas.collect { delta ->
+            if ((delta < 0) == headingBack.value) {
+                against = 0f
+            } else {
+                against += abs(delta)
+                if (against >= slop) {
+                    headingBack.value = !headingBack.value
+                    against = 0f
+                }
+            }
+        }
+    }
+    // A rest ends the heading, so the next drag starts from neither way rather than from the last
     LaunchedEffect(scrollable, accessibility) {
         snapshotFlow { scrollable.isScrollInProgress }.collectLatest { scrolling ->
-            resting = false
             if (!scrolling) {
                 // Read on each rest, so a change to the setting applies without leaving the screen
                 delay(restingHideDelay(accessibility))
-                resting = true
+                headingBack.value = false
             }
         }
     }
     // A screen reader reaches it by focus rather than mid-swipe, so there it stays put
-    val visible = awayFromTop && (a11y || (scrollable.lastScrolledBackward && !resting))
+    val visible = awayFromTop && (a11y || headingBack.value)
 
     AnimatedVisibility(
         visible = visible,

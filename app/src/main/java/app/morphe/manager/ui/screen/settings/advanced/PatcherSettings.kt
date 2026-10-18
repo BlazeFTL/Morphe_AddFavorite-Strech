@@ -104,7 +104,7 @@ private fun ProcessRuntimeSettings(settingsViewModel: SettingsViewModel) {
         SettingsSwitchItem(
             checked = enabled,
             onToggle = { settingsViewModel.setProcessRuntime(!enabled) },
-            icon = MaterialSymbols.Rounded.Memory,
+            icon = MaterialSymbols.Rounded.Call_split,
             title = stringResource(R.string.settings_system_process_runtime_enable),
             subtitle = stringResource(R.string.settings_system_process_runtime_description)
         )
@@ -168,7 +168,7 @@ private fun ProcessRuntimeUnavailable() {
                     modifier = Modifier.padding(Defaults.SpaceLarge),
                     leadingContent = {
                         ThemedIcon(
-                            icon = MaterialSymbols.Rounded.Memory,
+                            icon = MaterialSymbols.Rounded.Call_split,
                             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                         )
                     },

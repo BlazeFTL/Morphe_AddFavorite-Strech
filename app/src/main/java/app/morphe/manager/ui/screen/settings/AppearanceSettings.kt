@@ -31,7 +31,6 @@ import app.morphe.manager.util.AppCardColorMode
 import app.morphe.manager.util.AppCardColorStop
 import app.morphe.manager.util.AppCardColorValues
 import app.morphe.manager.util.AppLocale
-import app.morphe.manager.util.MORPHE_WEBSITE_URL
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.launch
@@ -70,7 +69,6 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
     val uiScale by themeViewModel.prefs.uiScale.getAsState()
 
     val showLanguageDialog = remember { mutableStateOf(false) }
-    val showTranslationInfoDialog = remember { mutableStateOf(false) }
     val showBackgroundDialog = remember { mutableStateOf(false) }
     val appCardColorValues = remember(customAppCardColors) {
         AppCardColorDefaults.decodeColorValues(customAppCardColors)
@@ -87,7 +85,7 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
         DisplaySection(
             appLanguage = appLanguage,
             uiScale = uiScale,
-            onLanguageClick = { showTranslationInfoDialog.value = true },
+            onLanguageClick = { showLanguageDialog.value = true },
             // The scale lives on the activity context, so it takes effect on the next attach.
             // To write has to land first, or that attach would read the previous value
             onUiScaleApply = { scale ->
@@ -149,25 +147,6 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
             seasonalEvent = seasonalEvent,
             onSeasonalThemesToggle = { themeViewModel.toggleSeasonalThemes(seasonalThemes) },
             matrixUnlocked = matrixUnlocked
-        )
-    }
-
-    // Translation info dialog, shown ahead of the language picker, which takes over from it
-    DialogHost(
-        visible = showTranslationInfoDialog.value,
-        handsOver = showLanguageDialog.value
-    ) {
-        AppDialogWithLinks(
-            title = stringResource(R.string.settings_appearance_translations_info_title),
-            message = stringResource(
-                R.string.settings_appearance_translations_info_text,
-                stringResource(R.string.settings_appearance_translations_info_url)
-            ),
-            urlLink = "$MORPHE_WEBSITE_URL/translate",
-            onDismiss = {
-                showTranslationInfoDialog.value = false
-                showLanguageDialog.value = true
-            }
         )
     }
 

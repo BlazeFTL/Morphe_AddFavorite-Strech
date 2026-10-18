@@ -12,11 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.util.MORPHE_WEBSITE_URL
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 
@@ -30,6 +32,7 @@ fun DialogHostScope.LanguagePickerDialog(
     onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
     val search = rememberSearchFieldState()
 
     val allLanguages = remember(context) {
@@ -78,6 +81,23 @@ fun DialogHostScope.LanguagePickerDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
         ) {
+            // Offered ahead of the languages rather than in a dialog of its own before them, and
+            // left out of a search, which looks for a language rather than how to add one
+            if (search.query.isBlank()) {
+                item(key = "translate") {
+                    SettingsItem(
+                        onClick = { uriHandler.openUri("$MORPHE_WEBSITE_URL/translate") },
+                        showBorder = true,
+                        icon = MaterialSymbols.Rounded.Translate,
+                        title = stringResource(R.string.settings_appearance_translate),
+                        subtitle = stringResource(R.string.settings_appearance_translations_info_title),
+                        // Leaves for the browser rather than going on within the dialog
+                        trailingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored) },
+                        modifier = Modifier.animatedListItem(this)
+                    )
+                }
+            }
+
             if (filteredLanguages.isEmpty()) {
                 item(key = "empty_state") {
                     EmptyState(

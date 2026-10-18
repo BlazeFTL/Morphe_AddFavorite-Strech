@@ -848,10 +848,8 @@ Uninstalling will permanently erase all app data"</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language">App language</string>
     <string name="settings_appearance_app_language_current">Current language</string>
+    <string name="settings_appearance_translate">Help translate Morphe</string>
     <string name="settings_appearance_translations_info_title">Translations for some languages may be missing or incomplete</string>
-    <string name="settings_appearance_translations_info_text">"To translate new languages or improve the existing translations, visit
-%s"</string>
-    <string name="settings_appearance_translations_info_url" translatable="false">morphe.software/translate</string>
 
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">Interface scale</string>
@@ -927,12 +925,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_system_notifications_categories">Notification categories</string>
     <string name="settings_system_notifications_categories_description">Choose in system settings which updates notify you</string>
     <string name="settings_advanced_update_interval">Check frequency</string>
-    <string name="settings_advanced_update_interval_dialog_title">Check for updates</string>
-    <string name="settings_advanced_update_interval_hourly">Once an hour</string>
-    <string name="settings_advanced_update_interval_daily">Once a day</string>
-    <string name="settings_advanced_update_interval_weekly">Once a week</string>
-    <string name="settings_advanced_update_interval_monthly">Once a month</string>
-    <string name="settings_advanced_update_interval_chip_subtitle">Background check frequency</string>
+    <string name="settings_advanced_update_interval_hourly">Hourly</string>
+    <string name="settings_advanced_update_interval_daily">Daily</string>
+    <string name="settings_advanced_update_interval_weekly">Weekly</string>
+    <string name="settings_advanced_update_interval_monthly">Monthly</string>
     <string name="settings_advanced_update_interval_battery_warning">Background checks may not work reliably on some devices. Manufacturers like Xiaomi, Huawei, Samsung, and OnePlus often aggressively restrict background processes to save battery</string>
 
     <string name="settings_advanced_external_batch_patch">Allow external triggers</string>

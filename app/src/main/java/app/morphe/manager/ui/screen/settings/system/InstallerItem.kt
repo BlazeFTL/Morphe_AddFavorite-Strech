@@ -267,7 +267,13 @@ internal fun InstallerChoice(
     }
 
     DialogHost(visible = pendingPlayStoreModeConfirm) {
-        PlayStoreInstallerWarningDialog(
+        ConfirmDialog(
+            title = stringResource(R.string.installer_play_store_warning_title),
+            message = stringResource(R.string.installer_play_store_warning_message),
+            primaryText = stringResource(R.string.installer_play_store_warning_continue),
+            isPrimaryDestructive = false,
+            // A risk the user can avoid by turning off updates, not a failure
+            notice = stringResource(R.string.installer_play_store_warning_risk),
             onConfirm = {
                 pendingPlayStoreModeConfirm = false
                 onSelect(selectedToken.withPlayStoreMode(true))
@@ -726,50 +732,6 @@ fun DialogHostScope.InstallerUnavailableDialog(
                     tone = SemanticTone.Primary
                 )
             }
-        }
-    }
-}
-
-/**
- * Warning shown when the user enables Play Store install-source mode.
- *
- * Recording Google Play Store as the installation source lets Play Store offer updates for the patched
- * app - accepting the update overwrites the patched APK with the stock one and loses the patches.
- */
-@Composable
-fun DialogHostScope.PlayStoreInstallerWarningDialog(
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.installer_play_store_warning_title),
-        description = stringResource(R.string.installer_play_store_warning_message),
-        footer = {
-            AppDialogActions(
-                actions = listOf(
-                    DialogAction(
-                        text = stringResource(R.string.installer_play_store_warning_continue),
-                        onClick = onConfirm
-                    ),
-                    DialogAction(
-                        text = stringResource(android.R.string.cancel),
-                        onClick = onDismiss
-                    )
-                )
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
-        ) {
-            // A risk the user can avoid by turning off updates, not a failure
-            Notice(
-                text = stringResource(R.string.installer_play_store_warning_risk),
-                tone = SemanticTone.Warning,
-                icon = MaterialSymbols.Rounded.Warning
-            )
         }
     }
 }

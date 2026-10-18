@@ -279,18 +279,6 @@ fun RowScope.SliderResetAction(
     }
 }
 
-/** The two ends of the scale, shown under the track. */
-@Composable
-fun SliderScaleLabels(start: String, end: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        SliderScaleLabel(start)
-        SliderScaleLabel(end)
-    }
-}
-
 /** One end of a slider's scale. */
 @Composable
 fun SliderScaleLabel(text: String) {

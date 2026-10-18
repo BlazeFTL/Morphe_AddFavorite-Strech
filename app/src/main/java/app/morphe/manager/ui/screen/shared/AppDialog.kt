@@ -99,23 +99,22 @@ object FullscreenDialogs {
  * The window sits over every screen, so the dialog is part of the screen it was raised from: it
  * leaves as another screen opens over that one and comes back with it, see [ScreenPhase].
  *
- * @param handsOver Whether the next dialog takes over as this one closes. This one then stays as it
- *   stood under the next until that one has come in over it, so nothing behind shows between them.
  * @param content Reads what goes away with the dialog through [DialogHostScope.held].
  */
 @Composable
 fun DialogHost(
     visible: Boolean,
-    handsOver: Boolean = false,
     content: @Composable DialogHostScope.() -> Unit
 ) {
-    DialogHost(visible = visible, handsOver = handsOver, covered = false, onGone = null, content = content)
+    DialogHost(visible = visible, handsOver = false, covered = false, onGone = null, content = content)
 }
 
 /**
  * [DialogHost] that calls [onGone] once it is no longer [visible] and has finished leaving, so
  * whatever keeps it composed for its way out can let it go.
  *
+ * @param handsOver Whether the next dialog takes over as this one closes. This one then stays as it
+ *   stood under the next until that one has come in over it, so nothing behind shows between them.
  * @param covered Whether another dialog stands over this one, which then leaves with the screen at
  *   once, under that one, rather than with motion of its own showing through it.
  */
@@ -282,10 +281,9 @@ private enum class DialogMotion {
 @Composable
 fun <T : Any> DialogHost(
     target: T?,
-    handsOver: Boolean = false,
     content: @Composable DialogHostScope.(T) -> Unit
 ) {
-    DialogHost(visible = target != null, handsOver = handsOver) {
+    DialogHost(visible = target != null) {
         held(target)?.let { content(it) }
     }
 }

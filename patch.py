@@ -963,6 +963,27 @@ def home_flags(src):
     return src[:h.start()] + "showOtherAppsButton = isLandscape()" + src[h.end():]
 
 
+def header_flags(src):
+    m = mask(src)
+    hits = []
+    for lp in find_calls(m, "TitleAction"):
+        rp = match_close(m, lp)
+        if rp > 0 and re.search(r"\bonClick\s*=\s*onPatchFileClick\b", m[lp:rp]):
+            hits.append((lp, rp))
+    if len(hits) != 1:
+        return None
+    lp, rp = hits[0]
+    start = m.rfind("TitleAction", 0, lp)
+    s = line_start(src, start)
+    if src[s:start].strip() or src[rp + 1:line_end(src, rp)].strip():
+        return None
+    if re.search(r"\bif\s*\(\s*isLandscape\(\)\s*\)\s*\{\s*$", m[:s]):
+        return src
+    ind = indent_of(src, start)
+    block = reindent(src[s:rp + 1], "    ")
+    return src[:s] + ind + "if (isLandscape()) {\n" + block + "\n" + ind + "}" + src[rp + 1:]
+
+
 def app_gate(src):
     m = mask(src)
     if "PatchUpdateThrottle" in m:
@@ -1860,13 +1881,29 @@ def build_plan(ws):
         ("scaffold trailingAction param", nav_param, False),
         ("pill trailing pass-through", nav_pass, False),
     ]))
-    plan.append((str(home.relative_to(ws.root)), home, [
+    land = ws.find(r"\bfun\s+isLandscape\s*\(", P + "ui/screen/shared/WindowSize.kt")
+    land_pkg = package_of(ws.get(land[0])) if land else package_of(ws.get(pill))
+    # Older upstream gates the toolbar button in HomeScreen with a flag, newer keeps it in HomeHeader
+    legacy_flag = re.search(r"\bshowOtherAppsButton\s*=\s*(?:showOtherAppsButton|isLandscape\(\))", mask(ws.get(home)))
+    header = ws.find(r"\bfun\s+HomeHeader\s*\(", P + "ui/screen/home/HomeHeader.kt")
+    if not legacy_flag and len(header) != 1:
+        return None, ["cannot locate the toolbar button (showOtherAppsButton flag / HomeHeader)"]
+    home_edits = [
         ("pickApkFromFile extract", home_extract, False),
         ("trailing APK button", home_trailing, False),
-        ("toolbar button landscape only", home_flags, False),
-        ("import FloatingApkButton", imp(helper_pkg + ".FloatingApkButton"), False),
-        ("import isLandscape", imp(package_of(ws.get(pill)) + ".isLandscape"), False),
-    ]))
+    ]
+    if legacy_flag:
+        home_edits += [
+            ("toolbar button landscape only", home_flags, False),
+            ("import isLandscape", imp(land_pkg + ".isLandscape"), False),
+        ]
+    home_edits.append(("import FloatingApkButton", imp(helper_pkg + ".FloatingApkButton"), False))
+    plan.append((str(home.relative_to(ws.root)), home, home_edits))
+    if not legacy_flag:
+        plan.append((str(header[0].relative_to(ws.root)), header[0], [
+            ("toolbar button landscape only", header_flags, False),
+            ("import isLandscape", imp(land_pkg + ".isLandscape"), False),
+        ]))
     plan.append((str(app.relative_to(ws.root)), app, [
         ("patch update throttle", app_gate, False),
         ("import PatchUpdateThrottle", imp(package_of(ws.get(prefs)) + ".PatchUpdateThrottle"), False),

@@ -379,12 +379,11 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
     val bundleUpdate = notifications.bundleUpdate
 
     return listOf(
-        // Leads while it lasts, so the progress of a running update stays in sight. Only how it
-        // ended can be swiped, and a new status brings it back
+        // Leads while it lasts, so the progress of a running update stays in sight until swiped
+        // aside, and how the update ended brings it back
         HomeAlert(
             key = "bundle_update",
             visible = bundleUpdate.visible,
-            snoozable = bundleUpdate.status != BundleUpdateStatus.Updating,
             revision = bundleUpdate.status.name,
             passing = true
         ) {

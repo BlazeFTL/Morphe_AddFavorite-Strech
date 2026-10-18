@@ -1136,10 +1136,8 @@ Details: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Battery optimization</string>
     <string name="settings_system_battery_optimization_description">Keeps the patcher running when the app is minimized</string>
-    <string name="settings_system_background">Background</string>
     <string name="settings_system_process_runtime">Process runtime</string>
     <string name="settings_system_process_runtime_description">Runs patching in a separate process for better stability</string>
-    <string name="settings_system_process_runtime_memory_limit_description">Higher limits speed up patching on capable devices</string>
     <string name="settings_system_process_runtime_enable">Enable process runtime</string>
     <string name="settings_system_memory_limit_subtitle">Memory available for patching</string>
     <string name="settings_system_process_runtime_heap_limit_ignored">This device ignored the memory limit on the last run, so patching may fall back to running inside Morphe</string>
@@ -1222,6 +1220,9 @@ Details: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Storage management</string>
     <string name="settings_system_storage_management_description">Shows disk usage and clears cached files</string>
+    <string name="settings_system_storage_used_free">Used by Morphe / free on this device</string>
+    <string name="settings_system_storage_saved_apks">Saved APKs</string>
+    <string name="settings_system_storage_caches">Caches</string>
     <string name="settings_system_storage_keystore_title">Signing keystore</string>
     <string name="settings_system_storage_app_data_title">App data</string>
     <string name="settings_system_storage_patch_bundles_title">Patch bundles</string>
@@ -1247,7 +1248,6 @@ Details: %2$s"</string>
 
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <string name="settings_system_patched_apks_title">Patched APKs</string>
-    <string name="settings_system_patched_apks_description">Manages saved patched application files</string>
     <string name="settings_system_patched_apks_empty">No patched APKs saved yet</string>
     <string name="settings_system_patched_apks_delete_title">Delete patched APK?</string>
     <string name="settings_system_patched_apks_deleted">Patched APK deleted successfully</string>
@@ -1256,7 +1256,6 @@ Details: %2$s"</string>
 
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <string name="settings_system_original_apks_title">Original APKs</string>
-    <string name="settings_system_original_apks_description">Saved for repatching. One version per app is kept</string>
     <string name="settings_system_original_apks_empty">No original APKs stored</string>
     <string name="settings_system_original_apks_deleted">Original APK deleted successfully</string>
     <string name="settings_system_original_apks_delete_title">Delete original APK?</string>
@@ -1354,9 +1353,12 @@ Details: %2$s"</string>
     <string name="settings_section_patching">Patching</string>
     <string name="settings_section_appearance_summary">How Morphe looks</string>
     <string name="settings_section_patch_options_summary">What simple mode patches apps with</string>
+    <string name="settings_section_general">General</string>
     <string name="settings_section_patcher_summary">How apps are patched on this device</string>
+    <string name="settings_section_help_info">Help &amp; info</string>
     <string name="settings_section_about_summary">More about Morphe and getting help</string>
-    <string name="settings_section_files">Files &amp; backups</string>
+    <string name="settings_section_local_files">Files</string>
+    <string name="settings_section_backup">Backup</string>
     <string name="settings_search">Search settings</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>

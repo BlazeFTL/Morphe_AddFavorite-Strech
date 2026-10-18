@@ -14,12 +14,12 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Backup
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -41,20 +41,19 @@ import app.morphe.manager.domain.manager.SigningKeyInfo
 import app.morphe.manager.ui.screen.home.OnboardingState
 import app.morphe.manager.ui.screen.home.TourTarget
 import app.morphe.manager.ui.screen.home.tourTarget
+import app.morphe.manager.ui.screen.settings.SettingsSubpage
+import app.morphe.manager.ui.screen.settings.SubpageItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.ui.viewmodel.ImportExportViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
-import app.morphe.manager.util.ApkDownloadHelperContract
 import app.morphe.manager.util.JSON_MIMETYPE
 import app.morphe.manager.util.TEXT_MIMETYPE
 import app.morphe.manager.util.isAndroidTv
 import app.morphe.manager.util.rememberAdaptiveFilePicker
 import java.text.DateFormat
 import java.util.Date
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -62,7 +61,7 @@ import org.koin.compose.koinInject
 private const val FINGERPRINT_BYTES_PER_LINE = 8
 
 /**
- * The files the manager works with: where the APKs it patches come from, what it keeps on the
+ * The files the manager works with: where the APKs it patches come from and what it keeps on the
  * device, then the backups of it: the signing key, which a lost install cannot recreate, and the
  * manager's settings.
  */
@@ -70,6 +69,7 @@ private const val FINGERPRINT_BYTES_PER_LINE = 8
 fun FilesSection(
     settingsViewModel: SettingsViewModel,
     tour: OnboardingState?,
+    onOpenSubpage: (SettingsSubpage) -> Unit,
     importExportViewModel: ImportExportViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
@@ -77,7 +77,6 @@ fun FilesSection(
     val scope = rememberCoroutineScope()
     val isTV = remember { context.isAndroidTv() }
     val wrongCredentialsText = stringResource(R.string.settings_system_import_keystore_wrong_credentials)
-    var showStorageDialog by remember { mutableStateOf(false) }
 
     val importKeystoreLauncher = rememberAdaptiveFilePicker(
         mimeTypes = arrayOf("*/*"),
@@ -114,10 +113,6 @@ fun FilesSection(
         contract = ActivityResultContracts.CreateDocument(JSON_MIMETYPE)
     ) { uri -> uri?.let { importExportViewModel.exportManagerSettings(it) } }
 
-    DialogHost(visible = showStorageDialog) {
-        StorageManagementDialog(onDismissRequest = { showStorageDialog = false })
-    }
-
     DialogHost(visible = importExportViewModel.showCredentialsDialog) {
         KeystoreCredentialsDialog(
             onDismiss = importExportViewModel::cancelKeystoreImport,
@@ -145,19 +140,20 @@ fun FilesSection(
     }
 
     SettingsSection(
-        title = stringResource(R.string.settings_section_files),
+        title = stringResource(R.string.settings_section_local_files),
         icon = Icons.Outlined.Folder
     ) {
         SettingsGroup {
-            OriginalApkItems(settingsViewModel, tour)
+            OriginalApkItems(settingsViewModel, tour, onOpenSubpage)
+            SubpageItem(SettingsSubpage.STORAGE, onOpenSubpage)
+        }
+    }
 
-            SettingsItem(
-                onClick = { showStorageDialog = true },
-                title = stringResource(R.string.settings_system_storage_management_title),
-                subtitle = stringResource(R.string.settings_system_storage_management_description),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.Storage) }
-            )
-
+    SettingsSection(
+        title = stringResource(R.string.settings_section_backup),
+        icon = Icons.Outlined.Backup
+    ) {
+        SettingsGroup {
             ImportExportItems(
                 importExportViewModel = importExportViewModel,
                 onImportKeystore = { importKeystoreLauncher() },
@@ -429,30 +425,17 @@ private fun fingerprintColors(sha256: String): List<Color> {
  * file picker and the download helpers installed on the device, each only where it is offered.
  */
 @Composable
-private fun OriginalApkItems(settingsViewModel: SettingsViewModel, tour: OnboardingState?) {
+private fun OriginalApkItems(
+    settingsViewModel: SettingsViewModel,
+    tour: OnboardingState?,
+    onOpenSubpage: (SettingsSubpage) -> Unit
+) {
     val context = LocalContext.current
     val isTV = remember { context.isAndroidTv() }
     val useCustomFilePicker by settingsViewModel.prefs.useCustomFilePicker.getAsState()
     val trustedApkDownloadHelpers by settingsViewModel.prefs.trustedApkDownloadHelpers.getAsState()
-    var showApkDownloadHelpersDialog by remember { mutableStateOf(false) }
-
     // Keeps the entry hidden until a helper is installed, so it never advertises a third-party app
-    var apkDownloadHelpers by remember { mutableStateOf(emptyList<ApkDownloadHelperApp>()) }
-    LaunchedEffect(Unit) {
-        apkDownloadHelpers = withContext(Dispatchers.IO) {
-            ApkDownloadHelperContract.findHelpers(context)
-                .distinctBy { it.componentName.packageName }
-                .map { ApkDownloadHelperApp(packageName = it.componentName.packageName, label = it.label) }
-        }
-    }
-
-    DialogHost(visible = showApkDownloadHelpersDialog) {
-        ApkDownloadHelpersDialog(
-            settingsViewModel = settingsViewModel,
-            helpers = apkDownloadHelpers,
-            onDismiss = { showApkDownloadHelpersDialog = false }
-        )
-    }
+    val apkDownloadHelpers = rememberApkDownloadHelpers()
 
     // TV always uses the custom picker regardless of this toggle, so hide it to avoid confusion
     if (!isTV) {
@@ -468,7 +451,7 @@ private fun OriginalApkItems(settingsViewModel: SettingsViewModel, tour: Onboard
 
     if (apkDownloadHelpers.isNotEmpty()) {
         SettingsItem(
-            onClick = { showApkDownloadHelpersDialog = true },
+            onClick = { onOpenSubpage(SettingsSubpage.APK_DOWNLOAD_HELPERS) },
             title = stringResource(R.string.settings_system_apk_download_helper),
             subtitle = stringResource(
                 R.string.settings_system_apk_download_helper_trusted_count,

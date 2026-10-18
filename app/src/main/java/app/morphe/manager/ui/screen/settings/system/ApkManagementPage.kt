@@ -35,7 +35,6 @@ import app.morphe.manager.domain.apk.InstalledPatchState
 import app.morphe.manager.domain.apk.LocalApkSources
 import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.installer.UninstallCancelledException
-import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
 import app.morphe.manager.patcher.util.NativeLibs
@@ -149,15 +148,6 @@ data class ApkListMeta(
     val zipExportFileName: String
 )
 
-/** Retention preference toggle rendered inside the APK management dialog. */
-@Immutable
-data class RetentionToggle(
-    val title: String,
-    val description: String,
-    val checked: Boolean,
-    val onCheckedChange: (Boolean) -> Unit
-)
-
 /** Callbacks for per-item and bulk APK operations. */
 @Stable
 class ApkListActions(
@@ -173,25 +163,24 @@ class ApkListActions(
 )
 
 /**
- * The saved APKs of one [type], managed on a page of the storage dialog that [onBack] leaves for
- * the storage overview, see [StorageManagementDialog].
+ * The saved APKs of one [type], managed in a dialog over the storage page, see [StorageSettings].
  */
 @Composable
 fun DialogHostScope.ApkManagementPage(
     type: ApkManagementType,
-    onBack: () -> Unit
+    onDismiss: () -> Unit
 ) {
     val installViewModel: InstallViewModel = koinViewModel()
     when (type) {
-        ApkManagementType.PATCHED -> PatchedApksContent(onBack, installViewModel)
-        ApkManagementType.ORIGINAL -> OriginalApksContent(onBack, installViewModel)
+        ApkManagementType.PATCHED -> PatchedApksContent(onDismiss, installViewModel)
+        ApkManagementType.ORIGINAL -> OriginalApksContent(onDismiss, installViewModel)
     }
     InstallerFlowDialogs(installViewModel = installViewModel)
 }
 
 @Composable
 private fun DialogHostScope.PatchedApksContent(
-    onBack: () -> Unit,
+    onDismiss: () -> Unit,
     installViewModel: InstallViewModel
 ) {
     val context = LocalContext.current
@@ -203,11 +192,9 @@ private fun DialogHostScope.PatchedApksContent(
     val repository: InstalledAppRepository = koinInject()
     val originalApkRepository: OriginalApkRepository = koinInject()
     val appDataResolver: AppDataResolver = koinInject()
-    val prefs: PreferencesManager = koinInject()
     val pm: PM = koinInject()
     val localApkSources: LocalApkSources = koinInject()
     val installerManager: InstallerManager = koinInject()
-    val savePatchedApks by prefs.savePatchedApks.getAsState()
 
     var state by remember { mutableStateOf<ApkLoadState<ApkItemDataWithApp>>(ApkLoadState.Loading) }
 
@@ -379,12 +366,6 @@ private fun DialogHostScope.PatchedApksContent(
             deleteAllTitle = stringResource(R.string.settings_system_patched_apks_delete_all_title),
             zipExportFileName = stringResource(R.string.settings_system_patched_apks_export_zip_name)
         ),
-        retentionToggle = RetentionToggle(
-            title = stringResource(R.string.settings_system_save_patched_apks_title),
-            description = stringResource(R.string.settings_system_save_patched_apks_description),
-            checked = savePatchedApks,
-            onCheckedChange = { checked -> scope.launch { prefs.savePatchedApks.update(checked) } }
-        ),
         actions = ApkListActions(
             onShare = { item ->
                 item.file?.let { file ->
@@ -426,7 +407,7 @@ private fun DialogHostScope.PatchedApksContent(
             }
         ),
         items = displayItems,
-        onBack = onBack
+        onDismiss = onDismiss
     )
 
     DialogHost(target = pendingDelete) { (data, app) ->
@@ -449,7 +430,7 @@ private fun DialogHostScope.PatchedApksContent(
 
 @Composable
 private fun DialogHostScope.OriginalApksContent(
-    onBack: () -> Unit,
+    onDismiss: () -> Unit,
     installViewModel: InstallViewModel
 ) {
     val context = LocalContext.current
@@ -460,10 +441,8 @@ private fun DialogHostScope.OriginalApksContent(
     val repository: OriginalApkRepository = koinInject()
     val installedAppRepository: InstalledAppRepository = koinInject()
     val appDataResolver: AppDataResolver = koinInject()
-    val prefs: PreferencesManager = koinInject()
     val pm: PM = koinInject()
     val installerManager: InstallerManager = koinInject()
-    val saveOriginalApks by prefs.saveOriginalApks.getAsState()
 
     var state by remember { mutableStateOf<ApkLoadState<OriginalApkEntry>>(ApkLoadState.Loading) }
 
@@ -581,7 +560,7 @@ private fun DialogHostScope.OriginalApksContent(
     ApkManagementDialogContent(
         meta = ApkListMeta(
             title = stringResource(R.string.settings_system_original_apks_title),
-            icon = Icons.Outlined.Storage,
+            icon = Icons.Outlined.FileDownload,
             accentColor = StorageColors.OriginalApks,
             count = apkItems.size,
             totalSize = totalSize,
@@ -590,12 +569,6 @@ private fun DialogHostScope.OriginalApksContent(
             emptyMessage = stringResource(R.string.settings_system_original_apks_empty),
             deleteAllTitle = stringResource(R.string.settings_system_original_apks_delete_all_title),
             zipExportFileName = stringResource(R.string.settings_system_original_apks_export_zip_name)
-        ),
-        retentionToggle = RetentionToggle(
-            title = stringResource(R.string.settings_system_save_original_apks_title),
-            description = stringResource(R.string.settings_system_save_original_apks_description),
-            checked = saveOriginalApks,
-            onCheckedChange = { checked -> scope.launch { prefs.saveOriginalApks.update(checked) } }
         ),
         actions = ApkListActions(
             onShare = { item ->
@@ -629,7 +602,7 @@ private fun DialogHostScope.OriginalApksContent(
             }
         ),
         items = apkItems,
-        onBack = onBack
+        onDismiss = onDismiss
     )
 
     DialogHost(target = pendingDelete) { (data, apk) ->
@@ -656,8 +629,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
     meta: ApkListMeta,
     actions: ApkListActions,
     items: List<ApkItemData>,
-    onBack: () -> Unit,
-    retentionToggle: RetentionToggle? = null
+    onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
     val messages = koinInject<UserMessages>()
@@ -725,7 +697,7 @@ private fun DialogHostScope.ApkManagementDialogContent(
 
     ListDialog(
         onDismissRequest = {
-            if (!isExporting) onBack()
+            if (!isExporting) onDismiss()
         },
         accentColor = meta.accentColor,
         header = {
@@ -756,8 +728,8 @@ private fun DialogHostScope.ApkManagementDialogContent(
         },
         footer = {
             AppDialogOutlinedButton(
-                text = stringResource(R.string.back),
-                onClick = onBack,
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )
         },
@@ -859,22 +831,6 @@ private fun DialogHostScope.ApkManagementDialogContent(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(DialogListSpacing)
         ) {
-            if (retentionToggle != null) {
-                item(key = "retention") {
-                    Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)) {
-                        SettingsSwitchItem(
-                            checked = retentionToggle.checked,
-                            onToggle = { retentionToggle.onCheckedChange(!retentionToggle.checked) },
-                            leadingContent = { ThemedIcon(icon = meta.icon, tint = meta.accentColor) },
-                            title = retentionToggle.title,
-                            subtitle = retentionToggle.description,
-                            showBorder = true
-                        )
-                        SettingsDivider(fullWidth = true)
-                    }
-                }
-            }
-
             // List of APKs or loading state
             when {
                 // Show shimmer while loading

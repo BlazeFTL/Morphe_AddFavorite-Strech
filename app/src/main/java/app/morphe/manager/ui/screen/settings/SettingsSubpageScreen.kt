@@ -12,8 +12,10 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.ui.screen.settings.advanced.PatchOptionsSection
 import app.morphe.manager.ui.screen.settings.advanced.PatcherSettings
 import app.morphe.manager.ui.screen.settings.system.AboutSettings
+import app.morphe.manager.ui.screen.settings.system.ApkDownloadHelpersSettings
 import app.morphe.manager.ui.screen.settings.system.InstallerSettings
 import app.morphe.manager.ui.screen.settings.system.NotificationsSettings
+import app.morphe.manager.ui.screen.settings.system.StorageSettings
 import app.morphe.manager.ui.screen.shared.SubpageScaffold
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.PatchOptionsViewModel
@@ -49,6 +51,8 @@ internal fun SettingsSubpageContent(
         SettingsSubpage.NOTIFICATIONS -> NotificationsSettings()
         SettingsSubpage.INSTALLER -> InstallerSettings()
         SettingsSubpage.PATCHER -> PatcherSettings()
+        SettingsSubpage.STORAGE -> StorageSettings()
+        SettingsSubpage.APK_DOWNLOAD_HELPERS -> ApkDownloadHelpersSettings()
         SettingsSubpage.ABOUT -> AboutSettings(onStartTour)
     }
 }

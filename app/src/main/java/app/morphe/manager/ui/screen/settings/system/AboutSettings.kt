@@ -36,8 +36,8 @@ import app.morphe.manager.util.isolateLtr
 import org.koin.androidx.compose.koinViewModel
 
 /**
- * The manager itself, closing the settings page: its version, which opens [AboutDialog], over the
- * row opening the rest of what there is to know about it, see [AboutSettings].
+ * The manager itself, closing the settings page as a section of its own: its version, which opens
+ * [AboutDialog], over the row opening its changelog, credits and help, see [AboutSettings].
  */
 @Composable
 fun AboutGroup(onOpenSubpage: (SettingsSubpage) -> Unit) {
@@ -48,29 +48,35 @@ fun AboutGroup(onOpenSubpage: (SettingsSubpage) -> Unit) {
         AboutDialog(onDismiss = { showAboutDialog = false })
     }
 
-    SettingsGroup {
-        SettingsItem(
-            onClick = { showAboutDialog = true },
-            title = stringResource(R.string.app_name),
-            subtitle = stringResource(R.string.version) + " " + BuildConfig.VERSION_NAME.isolateLtr(),
-            leadingContent = {
-                logo?.let {
-                    Icon(
-                        bitmap = it,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(Defaults.IconSize)
-                    )
+    SettingsSection(
+        title = stringResource(R.string.settings_system_about),
+        icon = Icons.Outlined.Info
+    ) {
+        SettingsGroup {
+            SettingsItem(
+                onClick = { showAboutDialog = true },
+                title = stringResource(R.string.app_name),
+                subtitle = stringResource(R.string.version) + " " + BuildConfig.VERSION_NAME.isolateLtr(),
+                leadingContent = {
+                    logo?.let {
+                        Icon(
+                            bitmap = it,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(Defaults.IconSize)
+                        )
+                    }
                 }
-            }
-        )
-        SubpageItem(SettingsSubpage.ABOUT, onOpenSubpage)
+            )
+            SubpageItem(SettingsSubpage.ABOUT, onOpenSubpage)
+        }
     }
 }
 
 /**
- * What there is to know about the manager past its version, on a page of its own, see
- * [SettingsSubpage.ABOUT]: its changelog, credits, the logs a bug report asks for and the tour.
+ * What there is to know about the manager past its version, and help with it, on a page of its
+ * own, see [SettingsSubpage.ABOUT]: its changelog, credits, the logs a bug report asks for and the
+ * tour.
  *
  * @param onStartTour Restarts the onboarding tour, when no tour is running.
  */

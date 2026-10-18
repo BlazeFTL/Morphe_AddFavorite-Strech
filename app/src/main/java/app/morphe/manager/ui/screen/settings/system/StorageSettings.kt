@@ -7,7 +7,7 @@ package app.morphe.manager.ui.screen.settings.system
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Launch
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,9 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.repository.StorageStats
+import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.StorageManagementViewModel
 import app.morphe.manager.util.formatBytes
@@ -29,34 +33,43 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 /**
- * Where the manager's storage goes and what clears it. The saved APKs of each kind open in place of
- * the overview, in the same dialog, see [ApkManagementPage].
+ * Where the manager's storage goes and what clears it, on a page of its own, see
+ * [SettingsSubpage.STORAGE]. The saved APKs of each kind open over it, see [ApkManagementPage].
+ * A search of the settings only goes through whether APKs are kept, the rest being no setting.
  */
 @Composable
-fun DialogHostScope.StorageManagementDialog(
-    onDismissRequest: () -> Unit,
-    viewModel: StorageManagementViewModel = koinViewModel()
-) {
-    var apkPage by rememberSaveable { mutableStateOf<ApkManagementType?>(null) }
-    DialogPages(page = apkPage, key = { it ?: "overview" }, modifier = Modifier.fillMaxSize()) { type ->
-        if (type == null) {
-            StorageOverview(viewModel = viewModel, onOpenApks = { apkPage = it }, onDismissRequest = onDismissRequest)
-        } else {
-            ApkManagementPage(type = type, onBack = { apkPage = null })
-        }
+fun StorageSettings(viewModel: StorageManagementViewModel = koinViewModel()) {
+    val stats by viewModel.stats.collectAsStateWithLifecycle()
+    var apkType by rememberSaveable { mutableStateOf<ApkManagementType?>(null) }
+
+    DialogHost(target = apkType) { type ->
+        ApkManagementPage(type = type, onDismiss = { apkType = null })
+    }
+
+    if (LocalSettingsSearch.current != null) {
+        SavedApksSection(viewModel = viewModel, stats = stats, onOpen = { apkType = it })
+    } else {
+        StorageOverview(
+            viewModel = viewModel,
+            stats = stats,
+            apksOpen = apkType != null,
+            onOpenApks = { apkType = it }
+        )
     }
 }
 
-/** How much the manager holds and in what, with what clears it. Read again each time it shows. */
+/** How much the manager holds and in what, with whether APKs are kept and what clears the rest. */
 @Composable
-private fun DialogHostScope.StorageOverview(
+private fun StorageOverview(
     viewModel: StorageManagementViewModel,
-    onOpenApks: (ApkManagementType) -> Unit,
-    onDismissRequest: () -> Unit
+    stats: StorageStats,
+    apksOpen: Boolean,
+    onOpenApks: (ApkManagementType) -> Unit
 ) {
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     val messages = koinInject<UserMessages>()
-    val stats by viewModel.stats.collectAsStateWithLifecycle()
+    var showClearAllConfirm by remember { mutableStateOf(false) }
 
     val nothingToClearText = stringResource(R.string.settings_system_storage_nothing_to_clear)
     val clearedTemplate = stringResource(R.string.settings_system_storage_cleared)
@@ -67,11 +80,12 @@ private fun DialogHostScope.StorageOverview(
         messages.show(message)
     }
 
-    var showClearAllConfirm by remember { mutableStateOf(false) }
-    // Incremented on manual refresh to re-key the histogram and replay its entry animation.
-    var histogramNonce by remember { mutableIntStateOf(0) }
-
-    LaunchedEffect(Unit) { viewModel.refresh() }
+    // Read again whenever the page comes back into view, from the saved APKs as from elsewhere,
+    // as either may have freed or taken up room meanwhile
+    LaunchedEffect(lifecycleOwner, apksOpen) {
+        if (apksOpen) return@LaunchedEffect
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) { viewModel.refresh() }
+    }
 
     DialogHost(visible = showClearAllConfirm) {
         ConfirmDialog(
@@ -98,66 +112,35 @@ private fun DialogHostScope.StorageOverview(
     // Nothing has been read until the first reading lands, and a real one always has room free
     val loading = stats == StorageStats.Empty
 
-    ListDialog(
-        onDismissRequest = onDismissRequest,
-        header = {
-            // Headed like the other lists, with how much Morphe holds against what is left free
-            // where the subtitle goes, above the breakdown that scrolls under it
-            val accent = MaterialTheme.colorScheme.primary
-            ListDialogHeader(
-                icon = { modifier ->
-                    ListDialogHeaderIcon(icon = Icons.Outlined.Storage, color = accent, modifier = modifier)
-                },
-                title = stringResource(R.string.settings_system_storage_management_title),
-                subtitle = context.formatUsedFree(used = stats.appUsedBytes, free = stats.deviceFreeBytes),
-                subtitleLoading = loading,
-                accentColor = accent,
-                alwaysShowBand = true
-            ) {
-                TitleAction(
-                    icon = Icons.Outlined.Refresh,
-                    contentDescription = stringResource(R.string.refresh),
-                    onClick = {
-                        viewModel.refresh()
-                        histogramNonce++
-                    },
-                    style = TitleActionStyle.Accent
-                )
+    SettingsColumn {
+        SettingsGroup {
+            SettingsItemCard(onClick = null) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(Defaults.SpaceLarge),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
+                ) {
+                    // How much Morphe holds against what is left free, heading the breakdown of it
+                    InfoStatBox(
+                        value = if (loading) "…" else context.formatUsedFree(
+                            used = stats.appUsedBytes,
+                            free = stats.deviceFreeBytes
+                        ),
+                        subtitle = stringResource(R.string.settings_system_storage_used_free),
+                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                    )
+                    StorageHistogram(segments = stats.toSegments(), loading = loading)
+                }
             }
-        },
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismissRequest,
-                modifier = Modifier.fillMaxWidth()
-            )
         }
-    ) {
-        DialogScrollColumn(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
+
+        SavedApksSection(viewModel = viewModel, stats = stats, onOpen = onOpenApks)
+
+        SettingsSection(
+            title = stringResource(R.string.settings_system_storage_caches),
+            icon = Icons.Outlined.Cached
         ) {
-            key(histogramNonce) {
-                StorageHistogram(segments = stats.toSegments(), loading = loading)
-            }
-
-            SettingsGroup {
-                DataRow(
-                    icon = Icons.Outlined.Storage,
-                    accentColor = StorageColors.OriginalApks,
-                    title = stringResource(R.string.settings_system_original_apks_title),
-                    description = stringResource(R.string.settings_system_original_apks_description),
-                    onClick = { onOpenApks(ApkManagementType.ORIGINAL) }
-                )
-                DataRow(
-                    icon = Icons.Outlined.Apps,
-                    accentColor = StorageColors.PatchedApks,
-                    title = stringResource(R.string.settings_system_patched_apks_title),
-                    description = stringResource(R.string.settings_system_patched_apks_description),
-                    onClick = { onOpenApks(ApkManagementType.PATCHED) }
-                )
-            }
-
             SettingsGroup {
                 CacheActionRow(
                     icon = Icons.Outlined.CloudDownload,
@@ -191,6 +174,9 @@ private fun DialogHostScope.StorageOverview(
                     bytes = stats.temporaryBytes,
                     onClear = { viewModel.clearTemporary(onCleared) }
                 )
+            }
+            // Apart from the caches it sums up, so it does not read as one more of them
+            SettingsGroup {
                 CacheActionRow(
                     icon = Icons.Outlined.DeleteSweep,
                     accentColor = MaterialTheme.colorScheme.error,
@@ -200,33 +186,100 @@ private fun DialogHostScope.StorageOverview(
                     onClear = { showClearAllConfirm = true }
                 )
             }
+        }
 
-            SettingsGroup {
-                SettingsItem(
-                    onClick = { context.openAppDetailsSettings() },
-                    title = stringResource(R.string.settings_system_storage_open_app_info_title),
-                    subtitle = stringResource(R.string.settings_system_storage_open_app_info_description),
-                    leadingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.Launch) }
-                )
-            }
+        SettingsGroup {
+            SettingsItem(
+                onClick = { context.openAppDetailsSettings() },
+                title = stringResource(R.string.settings_system_storage_open_app_info_title),
+                subtitle = stringResource(R.string.settings_system_storage_open_app_info_description),
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.PhoneAndroid) },
+                // Leaves for the system settings rather than going on within the manager
+                trailingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.OpenInNew) }
+            )
         }
     }
 }
 
+/**
+ * Whether original and patched APKs are kept, each over the row opening those already kept.
+ *
+ * @param stats How much the kept APKs take up, as last read.
+ */
 @Composable
-private fun DataRow(
+private fun SavedApksSection(
+    viewModel: StorageManagementViewModel,
+    stats: StorageStats,
+    onOpen: (ApkManagementType) -> Unit
+) {
+    val context = LocalContext.current
+    val saveOriginalApks by viewModel.prefs.saveOriginalApks.getAsState()
+    val savePatchedApks by viewModel.prefs.savePatchedApks.getAsState()
+    // Nothing has been read until the first reading lands, and a real one always has room free
+    val loading = stats == StorageStats.Empty
+
+    SettingsSection(
+        title = stringResource(R.string.settings_system_storage_saved_apks),
+        icon = Icons.Outlined.Inventory2
+    ) {
+        SavedApksGroup(
+            icon = Icons.Outlined.FileDownload,
+            accentColor = StorageColors.OriginalApks,
+            saveTitle = stringResource(R.string.settings_system_save_original_apks_title),
+            saveDescription = stringResource(R.string.settings_system_save_original_apks_description),
+            save = saveOriginalApks,
+            onToggleSave = { viewModel.setSaveOriginalApks(!saveOriginalApks) },
+            title = stringResource(R.string.settings_system_original_apks_title),
+            size = context.formatBytes(stats.originalApksBytes).takeUnless { loading },
+            onOpen = { onOpen(ApkManagementType.ORIGINAL) }
+        )
+        SavedApksGroup(
+            icon = Icons.Outlined.Apps,
+            accentColor = StorageColors.PatchedApks,
+            saveTitle = stringResource(R.string.settings_system_save_patched_apks_title),
+            saveDescription = stringResource(R.string.settings_system_save_patched_apks_description),
+            save = savePatchedApks,
+            onToggleSave = { viewModel.setSavePatchedApks(!savePatchedApks) },
+            title = stringResource(R.string.settings_system_patched_apks_title),
+            size = context.formatBytes(stats.patchedApksBytes).takeUnless { loading },
+            onOpen = { onOpen(ApkManagementType.PATCHED) }
+        )
+    }
+}
+
+/**
+ * Whether APKs of one kind are kept, over the row opening those already kept. The row stays while
+ * keeping is off, as what was kept before is still there to clear.
+ *
+ * @param size How much the kept APKs take up, null while it is still being read.
+ */
+@Composable
+private fun SavedApksGroup(
     icon: ImageVector,
     accentColor: Color,
+    saveTitle: String,
+    saveDescription: String,
+    save: Boolean,
+    onToggleSave: () -> Unit,
     title: String,
-    description: String,
-    onClick: () -> Unit
+    size: String?,
+    onOpen: () -> Unit
 ) {
-    SettingsItem(
-        onClick = onClick,
-        title = title,
-        subtitle = description,
-        leadingContent = { ThemedIcon(icon = icon, tint = accentColor) }
-    )
+    SettingsGroup {
+        SettingsSwitchItem(
+            checked = save,
+            onToggle = onToggleSave,
+            leadingContent = { ThemedIcon(icon = icon, tint = accentColor) },
+            title = saveTitle,
+            subtitle = saveDescription
+        )
+        SettingsItem(
+            onClick = onOpen,
+            icon = Icons.Outlined.FolderOpen,
+            title = title,
+            subtitle = size ?: "…"
+        )
+    }
 }
 
 @Composable

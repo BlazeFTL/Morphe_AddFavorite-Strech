@@ -14,6 +14,7 @@ import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.outlined.SearchOff
+import androidx.compose.material.icons.outlined.SettingsSuggest
 import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -79,11 +80,10 @@ fun SettingsPage(
                             bottom = bottomBarHeight + Defaults.SpaceLarge
                         )
                 ) {
-                    AppearanceItem(onOpenSubpage, onboardingState)
+                    GeneralSection(onOpenSubpage, onboardingState)
                     PatchingSection(settingsViewModel, onOpenSubpage, onboardingState)
                     UpdatesSection(settingsViewModel, homeViewModel)
-                    BackgroundSection(onOpenSubpage)
-                    FilesSection(settingsViewModel, onboardingState)
+                    FilesSection(settingsViewModel, onboardingState, onOpenSubpage)
                     AboutGroup(onOpenSubpage)
                     if (settingsSearch.isActive) {
                         SubpageMatches(homeViewModel, settingsViewModel, onOpenSubpage, onStartTour)
@@ -190,15 +190,21 @@ private fun PatchingSection(
     }
 }
 
-/** How the manager looks, heading the page in a group of its own. */
+/** How the manager looks and how it keeps the user informed, heading the page. */
 @Composable
-private fun AppearanceItem(onOpenSubpage: (SettingsSubpage) -> Unit, tour: OnboardingState?) {
-    SettingsGroup {
-        SubpageItem(
-            subpage = SettingsSubpage.APPEARANCE,
-            onOpen = onOpenSubpage,
-            modifier = Modifier.tourTarget(TourTarget.APPEARANCE, tour)
-        )
+private fun GeneralSection(onOpenSubpage: (SettingsSubpage) -> Unit, tour: OnboardingState?) {
+    SettingsSection(
+        title = stringResource(R.string.settings_section_general),
+        icon = Icons.Outlined.SettingsSuggest
+    ) {
+        SettingsGroup {
+            SubpageItem(
+                subpage = SettingsSubpage.APPEARANCE,
+                onOpen = onOpenSubpage,
+                modifier = Modifier.tourTarget(TourTarget.APPEARANCE, tour)
+            )
+            SubpageItem(SettingsSubpage.NOTIFICATIONS, onOpenSubpage)
+        }
     }
 }
 
@@ -247,6 +253,7 @@ private fun SubpageMatches(
 ) {
     val useExpertMode by settingsViewModel.prefs.useExpertMode.getAsState()
     SettingsSubpage.entries.forEach { subpage ->
+        if (!subpage.searchable) return@forEach
         // Expert mode picks options patch by patch, so the page is not offered meanwhile
         if (subpage == SettingsSubpage.PATCH_OPTIONS && useExpertMode) return@forEach
         SettingsSection(

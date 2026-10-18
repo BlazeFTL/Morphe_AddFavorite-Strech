@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Api
 import androidx.compose.material.icons.outlined.AutoFixHigh
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.LayersClear
 import androidx.compose.material.icons.outlined.Memory
 import androidx.compose.material.icons.outlined.Warning
@@ -27,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.patcher.runtime.*
 import app.morphe.manager.ui.screen.settings.SettingsSubpage
+import app.morphe.manager.ui.screen.settings.system.BatteryOptimizationItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.formatMebibytes
@@ -34,9 +34,10 @@ import org.koin.androidx.compose.koinViewModel
 import kotlin.math.roundToInt
 
 /**
- * How the patcher runs: the process it runs in and the memory it is given there, how much of the
- * app it leaves out of the APK, and whether other apps may start it, on a page of their own, see
- * [SettingsSubpage.PATCHER]. A change made here is saved at once.
+ * How the patcher runs: the process it runs in and the memory it is given there, whether it keeps
+ * running in the background, how much of the app it leaves out of the APK, and whether other apps
+ * may start it, on a page of their own, see [SettingsSubpage.PATCHER]. A change made here is saved
+ * at once.
  */
 @Composable
 fun PatcherSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
@@ -61,6 +62,7 @@ fun PatcherSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
             icon = Icons.Outlined.AutoFixHigh
         ) {
             SettingsGroup {
+                BatteryOptimizationItem()
                 // Strip unused native libraries + filter split APKs for device
                 SettingsSwitchItem(
                     checked = stripUnusedNativeLibs,
@@ -104,7 +106,6 @@ private fun ProcessRuntimeSettings(settingsViewModel: SettingsViewModel) {
     )
     val selectedLimit = sliderState.value.roundToInt()
     val memoryLimitTitle = stringResource(R.string.settings_system_memory_limit_subtitle)
-    val memoryLimitDescription = stringResource(R.string.settings_system_process_runtime_memory_limit_description)
 
     SettingsGroup {
         SettingsSwitchItem(
@@ -116,7 +117,7 @@ private fun ProcessRuntimeSettings(settingsViewModel: SettingsViewModel) {
         )
 
         FoldingVisibility(visible = enabled) {
-            SearchableSetting(listOf(memoryLimitTitle, memoryLimitDescription)) {
+            SearchableSetting(listOf(memoryLimitTitle)) {
                 SettingsItemCard(onClick = null) {
                     Column(
                         modifier = Modifier
@@ -149,16 +150,6 @@ private fun ProcessRuntimeSettings(settingsViewModel: SettingsViewModel) {
                     }
                 }
             }
-        }
-    }
-
-    FoldingVisibility(visible = enabled) {
-        SearchableSetting(listOf(memoryLimitTitle, memoryLimitDescription)) {
-            Notice(
-                text = memoryLimitDescription,
-                tone = SemanticTone.Neutral,
-                icon = Icons.Outlined.Info
-            )
         }
     }
 

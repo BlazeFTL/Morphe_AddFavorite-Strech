@@ -1,3 +1,21 @@
+# [2.0.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.6...v2.0.0-dev.7) (2026-10-18)
+
+
+### Bug Fixes
+
+* Draw messages flat rather than lifting them with a shadow ([491ba3f](https://github.com/MorpheApp/morphe-manager/commit/491ba3fd686e89d99cb29b9945eacaea6ddd84d5))
+* Keep each step of patching up until the next one takes its place, and move the open dialogs out and back with their screen without the home screen showing in between ([cc3ec2c](https://github.com/MorpheApp/morphe-manager/commit/cc3ec2c8b6f004aa333658063421cea6317d6910))
+* Keep the patch flow's dialogs stacked in the order they opened, step back through them one at a time, and put them away with the home screen when another screen opens over it ([692ae53](https://github.com/MorpheApp/morphe-manager/commit/692ae53e5a52862c34445bdac31bc73618207a18))
+* Set up a patching run in a flow of its own that keeps the app's name through every warning, patches a picked APK from the source chosen for it, and lets go of the run the same way whichever dialog turns it down ([adff362](https://github.com/MorpheApp/morphe-manager/commit/adff3625e32008633d15f877b7c94f8286fb80af))
+* Show a sort or filter picked in the home options panel at once rather than only once it is reopened ([f0ed33a](https://github.com/MorpheApp/morphe-manager/commit/f0ed33ae6cfe0e34b2413a3e9fcf24c18572723e))
+* Show or hide an app on the home screen at once while the sources are still loading ([29ed4ad](https://github.com/MorpheApp/morphe-manager/commit/29ed4ad79b8ffdc8234423ecfe64640ff9d323af))
+
+
+### Features
+
+* Offer each list option's default first and call the home list without groups None ([00d5ad0](https://github.com/MorpheApp/morphe-manager/commit/00d5ad0331593069b5002edc602052a436373fc4))
+* Size messages to their text and carry one on as a dialog closes rather than showing it again ([c8b619b](https://github.com/MorpheApp/morphe-manager/commit/c8b619bed72e6f6eb7072e56b6b1fe559aca4a60))
+
 # [2.0.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.5...v2.0.0-dev.6) (2026-10-18)
 
 

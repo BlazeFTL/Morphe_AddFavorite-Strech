@@ -43,6 +43,7 @@ import androidx.compose.ui.util.lerp
 import app.morphe.manager.R
 import app.morphe.manager.domain.batch.BatchRunState
 import app.morphe.manager.domain.batch.SavedBatchQueue
+import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
@@ -714,7 +715,10 @@ private fun BundleUpdateCard(
         isDownloading -> stringResource(R.string.patcher_percentage, (downloadFraction * 100).toInt().toString())
         else -> null
     }
+    // The source at work, by its own picture once it has one. One not downloaded yet, or that failed
+    // the last time, is only being fetched, which the ring's own glyph says rather than a warning
     val activeSource = progress?.activeUids?.firstOrNull()?.let(sourcesByUid::get)
+        ?.takeIf { it.state is PatchBundleSource.State.Available }
 
     StatusCard(
         tone = status.tone,

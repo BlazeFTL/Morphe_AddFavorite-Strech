@@ -51,6 +51,9 @@ object Defaults {
     /** Width a centered content column stops at, so a bar under one lines up with its cards. */
     val ContentMaxWidth = 560.dp
 
+    /** Width a column of two panes side by side stops at, each as wide as a [ContentMaxWidth] column. */
+    val SplitContentMaxWidth = ContentMaxWidth * 2
+
     // Spacing on Material's 4dp grid, named as a scale like the corners, since one step serves as
     // the inset of a surface in one place and the gap between items in another
     val SpaceExtraSmall = 4.dp

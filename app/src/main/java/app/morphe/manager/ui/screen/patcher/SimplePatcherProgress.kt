@@ -128,10 +128,10 @@ private fun AdaptiveProgressContent(
     val useTwoColumns = isLandscape()
 
     if (useTwoColumns) {
-        // Two-column layout for landscape
+        // Two-column layout for landscape, each column as wide as a dialog's pane
         Row(
             modifier = Modifier
-                .fillMaxWidth()
+                .contentColumn(Defaults.SplitContentMaxWidth)
                 .padding(horizontal = contentPadding),
             horizontalArrangement = Arrangement.spacedBy(itemSpacing * 3),
             verticalAlignment = Alignment.CenterVertically

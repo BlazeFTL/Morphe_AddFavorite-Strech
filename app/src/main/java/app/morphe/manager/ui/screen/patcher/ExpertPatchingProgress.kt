@@ -468,11 +468,12 @@ fun ExpertPatchingInProgress(
     ) {
         // Content area
         if (landscape) {
-            // Landscape: header + action bar left, log right
+            // Landscape: header + action bar left, log right, together as wide as a dialog's two panes
             Row(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .contentColumn(Defaults.SplitContentMaxWidth)
                     .padding(horizontal = windowSize.contentPadding),
                 horizontalArrangement = Arrangement.spacedBy(windowSize.contentPadding),
                 verticalAlignment = Alignment.Top

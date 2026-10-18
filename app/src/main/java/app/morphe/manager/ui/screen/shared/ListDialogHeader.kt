@@ -189,8 +189,7 @@ fun ListDialogHeader(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
-                .widthIn(max = Defaults.ContentMaxWidth)
-                .fillMaxWidth()
+                .contentColumn(LocalDialogColumnWidth.current)
                 .padding(horizontal = LocalDialogHorizontalInset.current)
         )
     }

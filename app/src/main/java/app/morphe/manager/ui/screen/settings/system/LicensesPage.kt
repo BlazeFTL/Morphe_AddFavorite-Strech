@@ -74,7 +74,6 @@ service marks, or logos.
 fun LicensesPage(onBack: () -> Unit) {
     val libraries by produceLibraries(R.raw.aboutlibraries)
     val count = libraries?.libraries?.size
-    val horizontal = rememberWindowSize().contentPadding
     val navigationBar = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
     val lazyListState = rememberLazyListState()
     var openDialog by remember { mutableStateOf<Library?>(null) }
@@ -101,7 +100,7 @@ fun LicensesPage(onBack: () -> Unit) {
             )
         },
         scrollState = lazyListState
-    ) { headerHeight, _ ->
+    ) { insets ->
         LibrariesContainer(
             modifier = Modifier
                 .fillMaxSize()
@@ -113,9 +112,9 @@ fun LicensesPage(onBack: () -> Unit) {
             onSheetLibraryChange = { openSheet = it },
             lazyListState = lazyListState,
             contentPadding = PaddingValues(
-                start = horizontal,
-                top = headerHeight + Defaults.SpaceMedium,
-                end = horizontal,
+                start = insets.horizontal,
+                top = insets.top + Defaults.SpaceMedium,
+                end = insets.horizontal,
                 bottom = navigationBar + Defaults.SpaceLarge
             ),
             colors = colors,
@@ -145,7 +144,7 @@ fun LicensesPage(onBack: () -> Unit) {
         ListScrollbar(
             listState = lazyListState,
             modifier = Modifier.padding(
-                top = headerHeight + Defaults.SpaceMedium,
+                top = insets.top + Defaults.SpaceMedium,
                 bottom = navigationBar + Defaults.SpaceMedium
             )
         )

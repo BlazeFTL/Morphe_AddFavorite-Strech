@@ -41,7 +41,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.compose.currentStateAsState
 import app.morphe.manager.ui.theme.isDarkTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -238,29 +237,58 @@ private enum class ScreenPhase {
 private fun screenPhase(): ScreenPhase {
     val screen = LocalLifecycleOwner.current.lifecycle
     val app = (LocalActivity.current as? LifecycleOwner)?.lifecycle ?: screen
+    return remember(screen, app) { ScreenLifecycles(screen, app) }.phase
+}
+
+/**
+ * Where a screen's lifecycle and the app's stand, written as each move rather than collected a
+ * frame later: a screen is left in the same moment its dialogs close for the one opening over it.
+ */
+private class ScreenLifecycles(
+    private val screen: Lifecycle,
+    private val app: Lifecycle
+) : RememberObserver {
+    private var screenResumed by mutableStateOf(false)
+    private var appResumed by mutableStateOf(false)
     // Which way a screen between started and resumed is moving: one coming in has just started,
     // one making way has just paused
-    var comingIn by remember(screen) { mutableStateOf(true) }
-    DisposableEffect(screen) {
-        val observer = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_START -> comingIn = true
-                Lifecycle.Event.ON_PAUSE -> comingIn = false
-                else -> Unit
-            }
+    private var comingIn by mutableStateOf(true)
+
+    private val screenObserver = LifecycleEventObserver { _, event ->
+        screenResumed = event.targetState.isAtLeast(Lifecycle.State.RESUMED)
+        when (event) {
+            Lifecycle.Event.ON_START -> comingIn = true
+            Lifecycle.Event.ON_PAUSE -> comingIn = false
+            else -> Unit
         }
-        screen.addObserver(observer)
-        onDispose { screen.removeObserver(observer) }
     }
-    // Observed so a change recomposes, but read as it stands: a screen is left in the same moment
-    // its dialogs close for the one opening over it, ahead of the observed state catching up
-    screen.currentStateAsState().value
-    app.currentStateAsState().value
-    return when {
-        screen.currentState.isAtLeast(Lifecycle.State.RESUMED) ||
-                !app.currentState.isAtLeast(Lifecycle.State.RESUMED) -> ScreenPhase.InFront
-        comingIn -> ScreenPhase.ComingIn
-        else -> ScreenPhase.Leaving
+    private val appObserver = LifecycleEventObserver { _, event ->
+        appResumed = event.targetState.isAtLeast(Lifecycle.State.RESUMED)
+    }
+
+    init {
+        // Each is brought up to where its lifecycle already stands as it is added, so the first
+        // frame reads the phase as it is
+        screen.addObserver(screenObserver)
+        app.addObserver(appObserver)
+    }
+
+    val phase: ScreenPhase
+        get() = when {
+            screenResumed || !appResumed -> ScreenPhase.InFront
+            comingIn -> ScreenPhase.ComingIn
+            else -> ScreenPhase.Leaving
+        }
+
+    override fun onRemembered() = Unit
+
+    override fun onForgotten() = release()
+
+    override fun onAbandoned() = release()
+
+    private fun release() {
+        screen.removeObserver(screenObserver)
+        app.removeObserver(appObserver)
     }
 }
 
@@ -651,8 +679,7 @@ private fun CompactDialogContent(
                         modifier = Modifier
                             .align(Alignment.TopCenter)
                             .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
-                            .widthIn(max = Defaults.ContentMaxWidth)
-                            .fillMaxWidth()
+                            .contentColumn()
                             .padding(top = Defaults.SpaceLarge)
                     ) {
                         if (title != null) {
@@ -675,11 +702,7 @@ private fun CompactDialogContent(
                 end = DialogInset,
                 bottom = bottomInset
             )
-            Box(
-                modifier = Modifier
-                    .widthIn(max = Defaults.ContentMaxWidth)
-                    .fillMaxWidth()
-            ) {
+            Box(modifier = Modifier.contentColumn()) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()

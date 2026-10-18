@@ -37,6 +37,7 @@ import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.settings.SettingsPage
 import app.morphe.manager.ui.screen.settings.SettingsNavigation
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
+import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
 import app.morphe.manager.ui.screen.shared.MainPage
@@ -366,7 +367,7 @@ fun HomeScreen(
                     // Only an update under way follows to the other pages
                     showAlerts = pagerState.currentPage == MainPage.APPS.ordinal,
                     modifier = Modifier
-                        .widthIn(max = homeCardMaxWidth())
+                        .widthIn(max = Defaults.ContentMaxWidth)
                         .align(Alignment.TopCenter)
                         .padding(top = alertsTop)
                 )

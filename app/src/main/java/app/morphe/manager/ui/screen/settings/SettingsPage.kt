@@ -47,7 +47,6 @@ fun SettingsPage(
     settingsViewModel: SettingsViewModel = koinViewModel()
 ) {
     val scrollState = rememberScrollState()
-    val horizontal = rememberWindowSize().contentPadding
     val search = rememberSearchFieldState()
     val settingsSearch = remember(search) { SettingsSearch { search.query } }
     val searchLabel = stringResource(R.string.settings_search)
@@ -61,19 +60,19 @@ fun SettingsPage(
         scrollState = scrollState,
         modifier = modifier,
         onHeaderHeightChange = onHeaderHeightChange
-    ) { headerHeight, _ ->
+    ) { insets ->
         CompositionLocalProvider(LocalSettingsSearch provides settingsSearch) {
             // A row the tour turns to comes out from under the header and the navigation
-            ProvideBringIntoViewInsets(top = headerHeight, bottom = bottomBarHeight) {
+            ProvideBringIntoViewInsets(top = insets.top, bottom = bottomBarHeight) {
                 SettingsColumn(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScrollFade(scrollState)
                         .verticalScroll(scrollState)
                         .padding(
-                            start = horizontal,
-                            top = headerHeight + Defaults.SpaceMedium,
-                            end = horizontal,
+                            start = insets.horizontal,
+                            top = insets.top + Defaults.SpaceMedium,
+                            end = insets.horizontal,
                             bottom = bottomBarHeight + Defaults.SpaceLarge
                         )
                 ) {
@@ -100,7 +99,7 @@ fun SettingsPage(
         ListScrollbar(
             scrollState = scrollState,
             modifier = Modifier.padding(
-                top = headerHeight + Defaults.SpaceMedium,
+                top = insets.top + Defaults.SpaceMedium,
                 bottom = bottomBarHeight + Defaults.SpaceMedium
             )
         )

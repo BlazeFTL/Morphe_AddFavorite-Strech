@@ -319,7 +319,6 @@ private fun SourcesPageContent(
         }
     }
 
-    val horizontalPadding = rememberWindowSize().contentPadding
     val context = LocalContext.current
     val messages = koinInject<UserMessages>()
     val uriHandler = LocalUriHandler.current
@@ -400,20 +399,18 @@ private fun SourcesPageContent(
                 visible = listOptionsOpen,
                 sections = listOptions,
                 onClose = { onListOptionsOpenChange(false) },
-                modifier = Modifier
-                    .widthIn(max = Defaults.ContentMaxWidth)
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             )
         },
         onHeaderHeightChange = onHeaderHeightChange
-    ) { headerHeight, panelHeight ->
+    ) { insets ->
         // Clear of whichever floats over the list's lower edge, the navigation or the options
-        val listBottom = maxOf(bottomBarHeight, panelHeight)
+        val listBottom = maxOf(bottomBarHeight, insets.bottom)
         // Bundle cards, running on under the header and the navigation floating over the page
         val listRowResizing = remember { ListRowResizing() }
         CompositionLocalProvider(LocalListRowResizing provides listRowResizing) {
             // A row the tour turns to comes out from under the header and the navigation
-            ProvideBringIntoViewInsets(top = headerHeight, bottom = listBottom) {
+            ProvideBringIntoViewInsets(top = insets.top, bottom = listBottom) {
                 LazyColumn(
                     state = listState,
                     modifier = Modifier
@@ -421,9 +418,9 @@ private fun SourcesPageContent(
                         .verticalScrollFade(listState),
                     verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
                     contentPadding = PaddingValues(
-                        start = horizontalPadding,
-                        top = headerHeight + Defaults.SpaceMedium,
-                        end = horizontalPadding,
+                        start = insets.horizontal,
+                        top = insets.top + Defaults.SpaceMedium,
+                        end = insets.horizontal,
                         bottom = listBottom + Defaults.SpaceLarge
                     )
                 ) {
@@ -560,7 +557,7 @@ private fun SourcesPageContent(
             listState = listState,
             // The same step at both ends as on the screens, so the end shows past rounded corners
             modifier = Modifier.padding(
-                top = headerHeight + Defaults.SpaceMedium,
+                top = insets.top + Defaults.SpaceMedium,
                 bottom = listBottom + Defaults.SpaceMedium
             ),
             alphabetTargets = sourceScrollTargets,

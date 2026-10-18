@@ -397,10 +397,12 @@ private fun ResultLayout(
             .navigationBarsPadding()
     ) {
         if (isLandscape()) {
+            // Each column as wide as a dialog's pane
             Row(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .contentColumn(Defaults.SplitContentMaxWidth)
                     .padding(horizontal = windowSize.contentPadding),
                 horizontalArrangement = Arrangement.spacedBy(itemSpacing * 3)
             ) {
@@ -473,8 +475,7 @@ private fun ResultActionsDock(
     ) {
         Box(
             modifier = Modifier
-                .widthIn(max = Defaults.ContentMaxWidth)
-                .fillMaxWidth()
+                .contentColumn()
                 .padding(horizontal = horizontalPadding)
         ) {
             content()
@@ -499,8 +500,7 @@ private fun CenteredScrollColumn(
                 .verticalScrollFade(scrollState)
                 .verticalScroll(scrollState)
                 .heightIn(min = maxHeight)
-                .widthIn(max = Defaults.ContentMaxWidth)
-                .fillMaxWidth(),
+                .contentColumn(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(spacing, Alignment.CenterVertically),
             content = content

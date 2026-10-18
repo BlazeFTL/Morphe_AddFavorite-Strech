@@ -11,38 +11,28 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.viewmodel.ApkDownloadHelperApp
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
-import app.morphe.manager.util.ApkDownloadHelperContract
 import app.morphe.manager.util.PM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
-/** An installed helper app as the trust list shows it. Trust is per app, not per activity. */
-data class ApkDownloadHelperApp(
-    val packageName: String,
-    val label: String
-)
-
-/** The APK download helpers installed on the device, one per app, empty until they are found. */
+/**
+ * The APK download helpers installed on the device, as [SettingsViewModel] last found them, looked
+ * up again each time the caller comes into composition.
+ */
 @Composable
-fun rememberApkDownloadHelpers(): List<ApkDownloadHelperApp> {
-    val context = LocalContext.current
-    var helpers by remember { mutableStateOf(emptyList<ApkDownloadHelperApp>()) }
-    LaunchedEffect(context) {
-        helpers = withContext(Dispatchers.IO) {
-            ApkDownloadHelperContract.findHelpers(context)
-                .distinctBy { it.componentName.packageName }
-                .map { ApkDownloadHelperApp(packageName = it.componentName.packageName, label = it.label) }
-        }
-    }
+fun rememberApkDownloadHelpers(settingsViewModel: SettingsViewModel): List<ApkDownloadHelperApp> {
+    val helpers by settingsViewModel.apkDownloadHelpers.collectAsStateWithLifecycle()
+    LaunchedEffect(settingsViewModel) { settingsViewModel.refreshApkDownloadHelpers() }
     return helpers
 }
 
@@ -56,7 +46,7 @@ fun ApkDownloadHelpersSettings(
     settingsViewModel: SettingsViewModel = koinViewModel(),
     pm: PM = koinInject()
 ) {
-    val helpers = rememberApkDownloadHelpers()
+    val helpers = rememberApkDownloadHelpers(settingsViewModel)
     val trustedPackages by settingsViewModel.prefs.trustedApkDownloadHelpers.getAsState()
     val unknownInstaller = stringResource(R.string.settings_system_apk_download_helper_installed_by_unknown)
 

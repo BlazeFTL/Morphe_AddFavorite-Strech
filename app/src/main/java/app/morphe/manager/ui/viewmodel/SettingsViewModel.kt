@@ -30,6 +30,7 @@ import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.settings.system.CopyTarget
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
+import app.morphe.manager.util.ApkDownloadHelperContract
 import app.morphe.manager.util.AppDataResolver
 import app.morphe.manager.util.AppDataSource
 import app.morphe.manager.util.syncFcmTopics
@@ -58,6 +59,13 @@ data class SelectionApp(
     val displayName: String,
     val dataSource: AppDataSource,
     val bundles: Map<Int, Int>
+)
+
+/** An installed APK download helper as the trust list shows it. Trust is per app, not per activity. */
+@Immutable
+data class ApkDownloadHelperApp(
+    val packageName: String,
+    val label: String
 )
 
 class SettingsViewModel(
@@ -254,6 +262,24 @@ class SettingsViewModel(
     fun setUseCustomFilePicker(enabled: Boolean) = viewModelScope.launch {
         prefs.useCustomFilePicker.update(enabled)
         prefs.customFilePickerUserConfigured.update(true)
+    }
+
+    private val _apkDownloadHelpers = MutableStateFlow(emptyList<ApkDownloadHelperApp>())
+
+    /**
+     * The APK download helpers installed on the device, one per app. Kept here rather than looked
+     * up by each page that lists them, so a page coming back shows them at once instead of growing
+     * a row under a scroll it restored, see [refreshApkDownloadHelpers].
+     */
+    val apkDownloadHelpers: StateFlow<List<ApkDownloadHelperApp>> = _apkDownloadHelpers.asStateFlow()
+
+    /** Looks the installed helpers up again, as one may have come or gone since the last look. */
+    fun refreshApkDownloadHelpers() = viewModelScope.launch {
+        _apkDownloadHelpers.value = withContext(Dispatchers.IO) {
+            ApkDownloadHelperContract.findHelpers(appContext)
+                .distinctBy { it.componentName.packageName }
+                .map { ApkDownloadHelperApp(packageName = it.componentName.packageName, label = it.label) }
+        }
     }
 
     fun setApkDownloadHelperTrusted(packageName: String, trusted: Boolean) = viewModelScope.launch {

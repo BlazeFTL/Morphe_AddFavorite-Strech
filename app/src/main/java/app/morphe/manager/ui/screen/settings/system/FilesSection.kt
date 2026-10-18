@@ -435,7 +435,7 @@ private fun OriginalApkItems(
     val useCustomFilePicker by settingsViewModel.prefs.useCustomFilePicker.getAsState()
     val trustedApkDownloadHelpers by settingsViewModel.prefs.trustedApkDownloadHelpers.getAsState()
     // Keeps the entry hidden until a helper is installed, so it never advertises a third-party app
-    val apkDownloadHelpers = rememberApkDownloadHelpers()
+    val apkDownloadHelpers = rememberApkDownloadHelpers(settingsViewModel)
 
     // TV always uses the custom picker regardless of this toggle, so hide it to avoid confusion
     if (!isTV) {

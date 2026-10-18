@@ -149,13 +149,11 @@ fun HomeScreen(
     val homeAppState by homeViewModel.apps.homeAppState.collectAsStateWithLifecycle()
     val homeAppItems = homeAppState?.visible ?: emptyList()
     val hiddenAppItems = homeAppState?.hidden ?: emptyList()
-    val homeAppSortMode = homeAppState?.sortMode ?: HomeAppSortMode.MANUAL
+    val homeAppSortMode = homeAppState?.sortMode ?: HomeAppSortMode.RECOMMENDED
     val homeAppCategoryState = homeAppState?.categoryState ?: HomeAppCategoryState(emptyList(), emptyMap())
     val homeAppCategoryViewMode = homeAppState?.categoryViewMode ?: HomeAppCategoryViewMode.ALL_APPS
     val homeAppSourceGroups = homeAppState?.sourceGroups ?: emptyList()
     val bundlePipelineLoading = homeAppState == null
-    val showOtherAppsButton by homeViewModel.apps.showOtherAppsButton.collectAsStateWithLifecycle()
-    val showSearchButton by homeViewModel.apps.showSearchButton.collectAsStateWithLifecycle()
     val batchRun by homeViewModel.batchRun.collectAsStateWithLifecycle()
     val savedBatchQueue by homeViewModel.savedBatchQueue.collectAsStateWithLifecycle()
     val homeAppFilterModePref by homeAppButtonPrefs.filterMode.collectAsStateWithLifecycle()
@@ -494,10 +492,6 @@ fun HomeScreen(
                         },
                         onOpenSources = { openPage(MainPage.SOURCES) },
                         onRefreshGreeting = onRefresh
-                    ),
-                    chromeFlags = HomeChromeFlags(
-                        showSearchButton = showSearchButton,
-                        showOtherAppsButton = showOtherAppsButton
                     ),
                     greetingMessage = greetingMessage,
                     state = sectionState,

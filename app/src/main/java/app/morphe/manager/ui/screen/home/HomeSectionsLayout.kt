@@ -122,13 +122,6 @@ class HomeChromeActions(
     val onRefreshGreeting: (() -> Unit)?
 )
 
-/** Which actions the toolbar over the list offers. */
-@Immutable
-data class HomeChromeFlags(
-    val showSearchButton: Boolean,
-    val showOtherAppsButton: Boolean
-)
-
 /** The apps search: its query, and the callbacks that change it, follow its focus or clear it. */
 @Stable
 class HomeSearchState(
@@ -151,7 +144,6 @@ internal fun SectionsLayout(
     apps: HomeAppListUi,
     appActions: HomeAppActions,
     chromeActions: HomeChromeActions,
-    chromeFlags: HomeChromeFlags,
     greetingMessage: String?,
     state: HomeAppsSectionState,
     bottomBarHeight: Dp,
@@ -161,10 +153,6 @@ internal fun SectionsLayout(
 
     // Saveable, as the pager disposes the page while another one is shown
     var searchQuery by rememberSaveable { mutableStateOf("") }
-    // A search the toolbar no longer offers would go on filtering with no field to clear it from
-    LaunchedEffect(chromeFlags.showSearchButton) {
-        if (!chromeFlags.showSearchButton) searchQuery = ""
-    }
     var searchFocused by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
     // Back leaves the field first, then clears the search (registered before the footer bars' own
@@ -182,15 +170,11 @@ internal fun SectionsLayout(
             focusManager.clearFocus()
         }
     )
-    // The saved filter applies only while the sort button is there to undo it, which comes and
-    // goes with the search. Not written back when it goes, since it is also absent while loading
-    val filterMode = if (chromeFlags.showSearchButton) apps.filterMode else HomeAppFilterMode.ALL
-    val onClearFilter = { appActions.onFilterModeChange(HomeAppFilterMode.ALL) }
     val footerBar = remember { HomeFooterBarHost() }
     // The options share the footer slot, so they make way for a selection or a reorder started
-    // under them, and for the sort button going
-    LaunchedEffect(state.isEditing, chromeFlags.showSearchButton) {
-        if (state.isEditing || !chromeFlags.showSearchButton) state.isListOptionsOpen = false
+    // under them
+    LaunchedEffect(state.isEditing) {
+        if (state.isEditing) state.isListOptionsOpen = false
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -204,9 +188,6 @@ internal fun SectionsLayout(
             appActions = appActions,
             searchState = searchState,
             chromeActions = chromeActions,
-            chromeFlags = chromeFlags,
-            filterMode = filterMode,
-            onClearFilter = onClearFilter,
             onSortClick = { state.isListOptionsOpen = !state.isListOptionsOpen },
             state = state,
             footerBar = footerBar,
@@ -241,9 +222,6 @@ private fun AdaptiveContent(
     appActions: HomeAppActions,
     searchState: HomeSearchState,
     chromeActions: HomeChromeActions,
-    chromeFlags: HomeChromeFlags,
-    filterMode: HomeAppFilterMode,
-    onClearFilter: () -> Unit,
     onSortClick: () -> Unit,
     state: HomeAppsSectionState,
     footerBar: HomeFooterBarHost,
@@ -268,23 +246,18 @@ private fun AdaptiveContent(
     val greeting: (@Composable () -> Unit)? = greetingMessage?.takeIf { it.isNotEmpty() }?.let { message ->
         { GreetingSection(message = message, onRefresh = chromeActions.onRefreshGreeting) }
     }
-    val toolbar: (@Composable () -> Unit)? = if (
-        chromeFlags.showSearchButton || chromeFlags.showOtherAppsButton
-    ) {
-        {
-            HomeAppsToolbar(
-                searchState = searchState.takeIf { chromeFlags.showSearchButton },
-                showSort = chromeFlags.showSearchButton,
-                sortEnabled = !state.isEditing,
-                sortOpen = state.isListOptionsOpen,
-                sortMode = apps.sortMode,
-                filterMode = filterMode,
-                optionsChanged = homeListOptions(apps, appActions).any { it.isChanged },
-                onSortClick = onSortClick,
-                onPatchFileClick = chromeActions.onOtherAppsClick.takeIf { chromeFlags.showOtherAppsButton }
-            )
-        }
-    } else null
+    val toolbar = @Composable {
+        HomeAppsToolbar(
+            searchState = searchState,
+            sortEnabled = !state.isEditing,
+            sortOpen = state.isListOptionsOpen,
+            sortMode = apps.sortMode,
+            filterMode = apps.filterMode,
+            optionsChanged = homeListOptions(apps, appActions).any { it.isChanged },
+            onSortClick = onSortClick,
+            onPatchFileClick = chromeActions.onOtherAppsClick
+        )
+    }
     // The list starts below the status bar it scrolls on under, a step further down in a grouped
     // view with no greeting, so its first header does not sit flush against the top
     val listTopPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() +
@@ -298,8 +271,6 @@ private fun AdaptiveContent(
             appActions = appActions,
             state = state,
             searchState = searchState,
-            filterMode = filterMode,
-            onClearFilter = onClearFilter,
             onOpenSources = chromeActions.onOpenSources,
             itemSpacing = itemSpacing,
             horizontalPadding = contentPadding,
@@ -396,8 +367,6 @@ internal fun MainAppsSection(
     appActions: HomeAppActions,
     state: HomeAppsSectionState,
     searchState: HomeSearchState,
-    filterMode: HomeAppFilterMode,
-    onClearFilter: () -> Unit,
     onOpenSources: () -> Unit,
     footerBar: HomeFooterBarHost,
     modifier: Modifier = Modifier,
@@ -411,7 +380,7 @@ internal fun MainAppsSection(
     // Heads the list and scrolls away with it, such as the greeting
     header: (@Composable () -> Unit)? = null,
     // Follows the header and scrolls away with it too
-    toolbar: (@Composable () -> Unit)? = null,
+    toolbar: @Composable () -> Unit,
     // Room above the first row, for the status bar the list scrolls on under
     topPadding: Dp = 0.dp,
     // When false, the section wraps its content vertically so the parent can center it as a
@@ -423,6 +392,8 @@ internal fun MainAppsSection(
     val homeAppItems = apps.visible
     val hiddenAppItems = apps.hidden
     val searchQuery = searchState.query
+    val filterMode = apps.filterMode
+    val onClearFilter = { appActions.onFilterModeChange(HomeAppFilterMode.ALL) }
     val isFilterActive = filterMode.isActive
     val isFilteringList = searchQuery.isNotBlank() || isFilterActive
     val appGrouping = apps.categoryViewMode
@@ -733,8 +704,8 @@ internal fun MainAppsSection(
         }
     }
 
-    // Rows above the cards, which the reorder indices count
-    val leadingItemCount = listOfNotNull(header, toolbar).size
+    // Rows above the cards, which the reorder indices count: the toolbar, under the header if any
+    val leadingItemCount = if (header != null) 2 else 1
     val reorderableState = rememberReorderableLazyListState(listState) { from, to ->
         moveReorderOrder(from.index - leadingItemCount, to.index - leadingItemCount)
     }
@@ -1007,7 +978,7 @@ internal fun MainAppsSection(
                                 contentPadding = listContentPadding
                             ) {
                                 if (header != null) item(key = "header") { header() }
-                                if (toolbar != null) item(key = "toolbar") { toolbar() }
+                                item(key = "toolbar") { toolbar() }
 
                                 // Cold start: homeAppItems still empty - show placeholder shimmer cards
                                 if (state.isLoading && homeAppItems.isEmpty()) {

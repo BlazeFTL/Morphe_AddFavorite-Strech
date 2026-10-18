@@ -363,11 +363,6 @@ class HomeApps(
     }
 
     // Track when at least one third-party source is enabled
-    private val hasThirdPartySource: StateFlow<Boolean> =
-        patchBundleRepository.sources
-            .map { sources -> sources.any { it.enabled && it.uid != DEFAULT_SOURCE_UID } }
-            .stateIn(scope, SharingStarted.Eagerly, false)
-
     private val _homeCategoryPrefsFlow = combine(
         homeAppButtonPrefs.categoryState,
         homeAppButtonPrefs.categoryViewMode,
@@ -820,28 +815,6 @@ class HomeApps(
 
     /** Triggers the swipe gesture hint whenever a custom bundle is added. */
     val showSwipeGestureHint = MutableStateFlow(false)
-
-    /**
-     * Whether the "Other apps" button should be visible: once the apps have loaded, and only with
-     * a third-party source active, since the default source's apps are all on the list already.
-     */
-    val showOtherAppsButton: StateFlow<Boolean> =
-        combine(homeAppState, hasThirdPartySource) { state, thirdParty ->
-            !state?.visible.isNullOrEmpty() && thirdParty
-        }.stateIn(scope, SharingStarted.Eagerly, false)
-
-    /**
-     * Whether the search and sort buttons should be visible.
-     * Shown when there are more than 4 app buttons or a third-party source is active: fewer
-     * apps than that fit on screen at a glance, so both search and reordering are noise.
-     */
-    val showSearchButton: StateFlow<Boolean> =
-        combine(
-            homeAppState,
-            hasThirdPartySource
-        ) { state, thirdParty ->
-            (state?.visible?.size ?: 0) > 4 || thirdParty
-        }.stateIn(scope, SharingStarted.Eagerly, false)
 
     init {
         ContextCompat.registerReceiver(

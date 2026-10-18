@@ -10,7 +10,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -411,9 +410,10 @@ fun HomeScreen(
                     PullToRefreshDefaults.LoadingIndicator(
                         state = pullToRefreshState,
                         isRefreshing = isRefreshing,
+                        // Drawn out from under the header rather than the status bar, as the list is
                         modifier = Modifier
                             .align(Alignment.TopCenter)
-                            .statusBarsPadding()
+                            .padding(top = pageHeaderHeights[MainPage.APPS] ?: 0.dp)
                     )
                 }
             ) {

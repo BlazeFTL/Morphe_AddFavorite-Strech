@@ -47,7 +47,7 @@ enum class HomeAppCategoryViewMode(
     @param:StringRes override val labelRes: Int,
     @param:StringRes override val descriptionRes: Int
 ) : SortModeSpec {
-    ALL_APPS(R.string.home_category_all_apps, R.string.home_app_grouping_all_apps_description),
+    ALL_APPS(R.string.home_app_grouping_none, R.string.home_app_grouping_all_apps_description),
     SOURCES(R.string.sources, R.string.home_app_grouping_sources_description),
     CUSTOM(R.string.home_category_custom, R.string.home_app_grouping_custom_description);
 

@@ -97,10 +97,10 @@ fun HomeScreen(
         when {
             touring -> {
                 tourShown = true
-                onboardingState?.pageShown = null
+                onboardingState.pageShown = null
                 tourPage?.let {
                     pagerState.animateScrollToPage(it.ordinal)
-                    onboardingState?.pageShown = it
+                    onboardingState.pageShown = it
                 }
             }
             tourShown -> {

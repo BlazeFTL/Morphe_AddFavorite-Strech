@@ -8,9 +8,9 @@ package app.morphe.manager.ui.viewmodel
 import android.app.Application
 import android.content.*
 import android.content.pm.PackageInfo
-import android.net.Uri
 import android.os.SystemClock
 import android.util.Log
+import androidx.annotation.StringRes
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -20,31 +20,42 @@ import androidx.lifecycle.viewModelScope
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.domain.installer.*
+import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
 import app.morphe.manager.domain.manager.PreferencesManager
+import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import kotlinx.coroutines.*
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.io.File
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+
+/** What a running mount install is doing, in the words its button shows. */
+@get:StringRes
+val MountStage.labelRes: Int
+    get() = when (this) {
+        MountStage.RESTORING_STOCK -> R.string.mount_stage_restoring_stock
+        MountStage.COPYING -> R.string.mount_stage_copying
+        MountStage.MOUNTING -> R.string.mounting_ellipsis
+    }
 
 /**
  * Centralized view model for all installation operations, mounting/unmounting and exporting.
  * Handles installation with support for multiple installers (Standard, Shizuku, Root, External).
  */
-class InstallViewModel : ViewModel(), KoinComponent {
-    private val app: Application by inject()
-    private val pm: PM by inject()
-    private val rootInstaller: RootInstaller by inject()
-    private val sessionInstaller: SessionInstaller by inject()
-    private val installerManager: InstallerManager by inject()
-    private val prefs: PreferencesManager by inject()
-    private val appDataResolver: AppDataResolver by inject()
-    private val originalApkRepository: OriginalApkRepository by inject()
-    private val applicationScope: AppCoroutineScope by inject()
-
+class InstallViewModel(
+    private val app: Application,
+    private val messages: UserMessages,
+    private val pm: PM,
+    private val rootInstaller: RootInstaller,
+    private val sessionInstaller: SessionInstaller,
+    private val installerManager: InstallerManager,
+    private val prefs: PreferencesManager,
+    private val appDataResolver: AppDataResolver,
+    private val originalApkRepository: OriginalApkRepository,
+    private val installedAppRepository: InstalledAppRepository,
+    private val applicationScope: AppCoroutineScope
+) : ViewModel() {
     /**
      * Current installation state.
      */
@@ -52,8 +63,8 @@ class InstallViewModel : ViewModel(), KoinComponent {
         /** Ready to install - shows Install button. */
         data object Ready : InstallState()
 
-        /** Currently installing - shows progress indicator. */
-        data object Installing : InstallState()
+        /** Currently installing - shows progress indicator, named by [stage] for a mount install. */
+        data class Installing(val stage: MountStage? = null) : InstallState()
 
         /** Successfully installed - shows Open button. */
         data class Installed(val packageName: String) : InstallState()
@@ -216,7 +227,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
                 return@launch
             }
 
-            installState = InstallState.Installing
+            installState = InstallState.Installing()
 
             try {
                 // APK metadata reads parse the archive on disk; keep them off the main thread
@@ -507,7 +518,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
 
         onPersistApp(targetPackageName, InstallType.ROOT_PLAY_STORE)
         handleInstallSuccess(targetPackageName)
-        app.toast(app.getString(R.string.install_app_success))
+        messages.show(R.string.install_app_success)
     }
 
     private suspend fun confirmInstallCompleted(
@@ -556,7 +567,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
                 onPersistApp(targetPackageName, InstallType.SHIZUKU_PLAY_STORE)
                 installedPackageName = targetPackageName
                 installState = InstallState.Installed(targetPackageName)
-                app.toast(app.getString(R.string.install_app_success))
+                messages.show(R.string.install_app_success)
             }
             is InstallResult.Conflict -> handleConflict(targetPackageName, result.message)
             is InstallResult.Failure -> {
@@ -564,7 +575,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
                     Log.w(TAG, "Shizuku Play Store result failed but APK SHA-256 verification succeeded for $targetPackageName")
                     onPersistApp(targetPackageName, InstallType.SHIZUKU_PLAY_STORE)
                     handleInstallSuccess(targetPackageName)
-                    app.toast(app.getString(R.string.install_app_success))
+                    messages.show(R.string.install_app_success)
                 } else if (result.message.isSignatureRejection()) {
                     handleConflict(targetPackageName, result.message)
                 } else {
@@ -605,7 +616,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
                 onPersistApp(targetPackageName, InstallType.SHIZUKU)
                 installedPackageName = targetPackageName
                 installState = InstallState.Installed(targetPackageName)
-                app.toast(app.getString(R.string.install_app_success))
+                messages.show(R.string.install_app_success)
             }
             is InstallResult.Conflict -> handleConflict(targetPackageName, result.message)
             is InstallResult.Failure -> {
@@ -613,7 +624,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
                     Log.w(TAG, "Shizuku result failed but APK SHA-256 verification succeeded for $targetPackageName")
                     onPersistApp(targetPackageName, InstallType.SHIZUKU)
                     handleInstallSuccess(targetPackageName)
-                    app.toast(app.getString(R.string.install_app_success))
+                    messages.show(R.string.install_app_success)
                 } else if (result.message.isSignatureRejection()) {
                     handleConflict(targetPackageName, result.message)
                 } else {
@@ -643,7 +654,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
             // Add FLAG_ACTIVITY_NEW_TASK since we're starting from Application context
             plan.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             app.startActivity(plan.intent)
-            app.toast(app.getString(R.string.installer_external_launched, plan.installerLabel))
+            messages.show(R.string.installer_external_launched, plan.installerLabel)
         } catch (e: ActivityNotFoundException) {
             installerManager.cleanup(plan)
             pendingExternalInstall = null
@@ -816,7 +827,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
 
         installedPackageName = packageName
         installState = InstallState.Installed(packageName)
-        app.toast(app.getString(R.string.installer_external_success, plan.installerLabel))
+        messages.show(R.string.installer_external_success, plan.installerLabel)
         return true
     }
 
@@ -833,9 +844,12 @@ class InstallViewModel : ViewModel(), KoinComponent {
     ) {
         if (installState is InstallState.Installing) return
 
-        viewModelScope.launch {
+        // Detached from viewModelScope: leaving the screen must not stop the install between
+        // writing the module and recording it, or the app runs a build the record does not know
+        applicationScope.launch(Dispatchers.Main.immediate) {
             currentInstallType = InstallType.MOUNT
-            installState = InstallState.Installing
+            installState = InstallState.Installing()
+            var recordCreated = false
 
             try {
                 val inputs = withContext(Dispatchers.IO) {
@@ -874,7 +888,14 @@ class InstallViewModel : ViewModel(), KoinComponent {
                 fun MountStockCandidate.matchesPatched() =
                     info.matchesPatched()
 
-                if (waitForStockInstall && stockInfo != null && !stockInfo.matchesPatched()) {
+                val restorableStock = listOfNotNull(
+                    inputs.inputCandidate,
+                    inputs.savedOriginalCandidate
+                ).firstOrNull { it.matchesPatched() }
+
+                // Only worth waiting for when nothing here can restore the stock app, since the
+                // install below reinstalls a matching one and waits for it on its own
+                if (waitForStockInstall && restorableStock == null && stockInfo != null && !stockInfo.matchesPatched()) {
                     stockInfo = waitForMatchingInstalledStock(
                         packageName = packageName,
                         versionName = patchedVersion
@@ -883,11 +904,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
 
                 val stockMatchesPatched = stockInfo?.matchesPatched() == true
 
-                val stockCandidate = listOfNotNull(
-                    inputs.inputCandidate,
-                    inputs.savedOriginalCandidate
-                ).takeUnless { stockMatchesPatched }
-                    ?.firstOrNull { it.matchesPatched() }
+                val stockCandidate = restorableStock.takeUnless { stockMatchesPatched }
 
                 // Check version mismatch for mount
                 val stockVersion = stockInfo?.versionName
@@ -910,19 +927,24 @@ class InstallViewModel : ViewModel(), KoinComponent {
                     }
                 }
 
-                // Install as root
+                // Install as root. The build is recorded once the module is staged, and before it
+                // is switched in, so the record never trails what the module mounts at boot
                 rootInstaller.install(
                     outputFile,
                     stockCandidate?.file,
                     packageName,
                     patchedVersion,
-                    label
+                    label,
+                    onStage = { installState = InstallState.Installing(it) },
+                    onStaged = {
+                        val hadRecord = installedAppRepository.get(packageName) != null
+                        onPersistApp(packageInfo.packageName, InstallType.MOUNT)
+                        recordCreated = !hadRecord
+                    }
                 )
 
-                // Persist app data
-                onPersistApp(packageInfo.packageName, InstallType.MOUNT)
-
                 // Mount
+                installState = InstallState.Installing(MountStage.MOUNTING)
                 rootInstaller.mount(packageName)
 
                 // Drop only caller-owned temporary inputs; persistent saved originals must survive
@@ -948,6 +970,16 @@ class InstallViewModel : ViewModel(), KoinComponent {
                 try {
                     rootInstaller.uninstall(packageName)
                 } catch (_: Exception) {}
+
+                // The module is gone, so a record this attempt created would describe nothing,
+                // while one that was already there keeps the saved build to install again
+                if (recordCreated) {
+                    try {
+                        installedAppRepository.get(packageName)?.let { installedAppRepository.delete(it) }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Failed to remove the record of the failed mount", e)
+                    }
+                }
             }
         }
     }
@@ -986,11 +1018,11 @@ class InstallViewModel : ViewModel(), KoinComponent {
 
         try {
             mountOperation = MountOperation.MOUNTING
-            app.toast(app.getString(R.string.mounting_ellipsis))
+            messages.show(R.string.mounting_ellipsis)
             rootInstaller.mount(packageName)
-            app.toast(app.getString(R.string.mounted))
+            messages.show(R.string.mounted)
         } catch (e: Exception) {
-            app.toast(app.getString(R.string.failed_to_mount, e.simpleMessage()))
+            messages.show(R.string.failed_to_mount, e.simpleMessage())
             Log.e(TAG, "Failed to mount", e)
         } finally {
             mountOperation = null
@@ -1003,11 +1035,11 @@ class InstallViewModel : ViewModel(), KoinComponent {
     fun unmount(packageName: String) = viewModelScope.launch {
         try {
             mountOperation = MountOperation.UNMOUNTING
-            app.toast(app.getString(R.string.unmounting_ellipsis))
+            messages.show(R.string.unmounting_ellipsis)
             rootInstaller.unmount(packageName)
-            app.toast(app.getString(R.string.unmounted))
+            messages.show(R.string.unmounted)
         } catch (e: Exception) {
-            app.toast(app.getString(R.string.failed_to_unmount, e.simpleMessage()))
+            messages.show(R.string.failed_to_unmount, e.simpleMessage())
             Log.e(TAG, "Failed to unmount", e)
         } finally {
             mountOperation = null
@@ -1032,32 +1064,20 @@ class InstallViewModel : ViewModel(), KoinComponent {
 
         try {
             mountOperation = MountOperation.UNMOUNTING
-            app.toast(app.getString(R.string.unmounting_ellipsis))
+            messages.show(R.string.unmounting_ellipsis)
             rootInstaller.unmount(packageName)
-            app.toast(app.getString(R.string.unmounted))
+            messages.show(R.string.unmounted)
 
             mountOperation = MountOperation.MOUNTING
-            app.toast(app.getString(R.string.mounting_ellipsis))
+            messages.show(R.string.mounting_ellipsis)
             rootInstaller.mount(packageName)
-            app.toast(app.getString(R.string.mounted))
+            messages.show(R.string.mounted)
         } catch (e: Exception) {
-            app.toast(app.getString(R.string.failed_to_mount, e.simpleMessage()))
+            messages.show(R.string.failed_to_mount, e.simpleMessage())
             Log.e(TAG, "Failed to remount", e)
         } finally {
             mountOperation = null
         }
-    }
-
-    /**
-     * Export patched app to URI.
-     */
-    fun export(outputFile: File, uri: Uri?, onComplete: (Boolean) -> Unit = {}) = viewModelScope.launch {
-        if (uri == null) {
-            onComplete(false)
-            return@launch
-        }
-
-        onComplete(app.exportApkTo(outputFile, uri))
     }
 
     /**
@@ -1077,7 +1097,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
             InstallerManager.Token.ShizukuPlayStore -> {
                 val opened = installerManager.openShizukuApp()
                 if (!opened) {
-                    app.toast(app.getString(R.string.installer_status_shizuku_not_installed))
+                    messages.show(R.string.installer_status_shizuku_not_installed)
                 }
             }
             else -> {}
@@ -1110,7 +1130,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
         val callback = pendingPersistCallback ?: return
 
         viewModelScope.launch {
-            installState = InstallState.Installing
+            installState = InstallState.Installing()
             currentInstallType = InstallType.DEFAULT
             try {
                 performStandardInstall(file, originalPkg, callback)
@@ -1212,7 +1232,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
         installAfterUninstall: Boolean
     ) {
         if (installAfterUninstall && shouldUseShizukuUninstallForPendingInstall()) {
-            installState = InstallState.Installing
+            installState = InstallState.Installing()
             when (val result = sessionInstaller.uninstallShizuku(packageName)) {
                 UninstallResult.Success -> {
                     if (waitUntilPackageRemoved(packageName)) {
@@ -1293,13 +1313,19 @@ class InstallViewModel : ViewModel(), KoinComponent {
     }
 
     /**
-     * Returns installer entries for the one-time selection dialog shown during install.
-     * Mirrors the logic in SettingsViewModel but scoped to PATCHER target only.
+     * Installer the one-time selection dialog starts on: the default one, with the system installer
+     * in place of root mount, which mounts builds and never installs one.
      */
+    fun getPromptInstallerToken(): InstallerManager.Token =
+        installerManager.getPrimaryToken().let {
+            if (it == InstallerManager.Token.AutoSaved) InstallerManager.Token.Internal else it
+        }
+
+    /** Installer entries for the one-time selection dialog shown during install, root mount left out. */
     fun getInstallerOptions(): List<InstallerManager.Entry> {
-        val token = installerManager.getPrimaryToken()
         val raw = installerManager.listEntries(InstallerManager.InstallTarget.PATCHER, includeNone = false)
-        return installerManager.ensureValidEntries(raw, token, InstallerManager.InstallTarget.PATCHER)
+            .filterNot { it.token == InstallerManager.Token.AutoSaved }
+        return installerManager.ensureValidEntries(raw, getPromptInstallerToken(), InstallerManager.InstallTarget.PATCHER)
     }
 
     fun getPrimaryInstallerToken(): InstallerManager.Token =

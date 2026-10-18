@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">Add source</string>
     <string name="deep_link_add_source_message">Do you want to add this patch source to Morphe?</string>
     <string name="deep_link_add_source_warning">Only add sources you trust</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">Only this app is added. You can add other apps from the source\'s app list</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">This source is already added. Add this app from the existing source?</string>
 
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe update available</string>
@@ -47,8 +51,8 @@
     <string name="home_update_success_subtitle">Your sources are up to date</string>
     <string name="home_sources_are_loading">Sources are loading, please wait…</string>
     <string name="home_search_apps">Search apps</string>
-    <string name="home_app_list_options_title">Sort and filter</string>
-    <string name="home_app_list_options_state_description">Sorted by %1$s, filtered by %2$s</string>
+    <string name="list_options_title">Sort and filter</string>
+    <string name="list_options_state_description">Sorted by %1$s, filtered by %2$s</string>
     <string name="home_app_filter_all_description">Every app on the home screen</string>
     <string name="home_app_filter_patched_description">Apps you have patched or saved with Morphe</string>
     <string name="home_app_filter_not_patched_description">Apps you have not patched in Morphe yet</string>
@@ -56,6 +60,9 @@
     <string name="home_app_filter_uninstalled_description">Apps patched with Morphe that are no longer on this device</string>
     <string name="home_app_filter_clones">Clones</string>
     <string name="home_app_filter_clones_description">Apps built under a package name of their own, installed alongside the original</string>
+    <string name="home_app_grouping_all_apps_description">One list with every app</string>
+    <string name="home_app_grouping_sources_description">Apps under the patch source that provides them</string>
+    <string name="home_app_grouping_custom_description">Apps in categories you create</string>
     <string name="home_app_sort_manual_description">Long-press an app, then tap reorder button</string>
     <string name="home_app_sort_recommended">Recommended order</string>
     <string name="home_app_sort_recommended_description">Installed and pinned apps first</string>
@@ -150,7 +157,14 @@
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch sources</string>
     <string name="sources_search">Search sources and patches</string>
-    <string name="sources_sort_title">Sort patch sources</string>
+    <!-- Which sources the sources page lists, each with what it keeps -->
+    <string name="sources_filter_all_description">Every source</string>
+    <string name="sources_filter_enabled_description">Sources patches are taken from</string>
+    <string name="sources_filter_disabled_description">Sources switched off</string>
+    <string name="sources_filter_updates">Updates</string>
+    <string name="sources_filter_updates_description">Sources with a newer version to get</string>
+    <string name="sources_filter_issues">Need attention</string>
+    <string name="sources_filter_issues_description">Sources that are blocked, failed to load or need a newer Morphe</string>
     <string name="sources_sort_manual">Manual order</string>
     <string name="sources_sort_manual_hint">Long-press a source to reorder</string>
     <string name="sources_sort_last_updated">Last updated</string>
@@ -162,12 +176,16 @@
     <string name="sources_management_report_issue">Report an issue</string>
     <string name="sources_management_failed_to_open_url">Failed to open URL</string>
     <string name="sources_apps">Apps</string>
-    <string name="sources_apps_description">Tap an app to leave it out of this source or bring it back, or long-press to pick several. An app leaves the home screen once no source brings it</string>
+    <string name="sources_apps_description">Ticked apps come from this source. Tap an app to leave it out or bring it back. An app leaves the home screen once no source brings it, unless you have patched it</string>
     <string name="sources_apps_brought">Brought by this source</string>
     <string name="sources_apps_left_out">Left out of this source</string>
-    <string name="sources_apps_leave_out">Leave out</string>
-    <string name="sources_apps_leave_out_done">Left out</string>
-    <string name="sources_apps_bring_back">Bring back</string>
+    <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
+    <string name="sources_apps_stays_patched">Kept as patched</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">New</string>
+    <string name="sources_apps_new_apps">Bring new apps</string>
+    <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
+    <string name="sources_apps_new_apps_description">Apps it adds later show up on the home screen</string>
     <string name="sources_management_prerelease_toggle">Pre-release patches</string>
     <string name="sources_management_prerelease_toggle_description">Receives early access to new experimental patch versions</string>
     <string name="sources_prerelease_warning_title">Enable pre-release patches?</string>
@@ -213,7 +231,6 @@
     <string name="sources_dialog_url_invalid">URL must point to a GitHub/GitLab repo or .json file</string>
     <string name="sources_dialog_preinstalled">Pre-installed</string>
     <string name="sources_dialog_community">Community patches</string>
-    <string name="sources_dialog_choose_apps">Choose apps</string>
     <string name="sources_dialog_choose_apps_description">Pick which of its apps to keep once the source has loaded</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Third-party patch sources</string>
@@ -403,45 +420,44 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="adaptive_icon_select_image">Select image</string>
     <string name="adaptive_icon_change_image">Change image</string>
     <string name="image_load_failed">Couldn\'t load this image</string>
-    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
-    <string name="adaptive_icon_foreground">Foreground image</string>
-    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <!-- Card of the adaptive icon creator where the picture is placed on the icon -->
     <string name="adaptive_icon_launcher">Launcher icon</string>
+    <string name="adaptive_icon_gesture_hint">Drag to move, pinch to resize</string>
+    <!-- Card of the adaptive icon creator showing the icons as the device draws them -->
+    <string name="adaptive_icon_preview">Preview</string>
+    <!-- Caption under the launcher icon in its own colors -->
+    <string name="adaptive_icon_standard">Standard</string>
+    <!-- Caption under the launcher icon recolored by the system theme -->
+    <string name="adaptive_icon_themed">Themed</string>
     <string name="adaptive_icon_background_color">Background color</string>
     <string name="adaptive_icon_reset_transform">Reset position and scale</string>
-    <string name="adaptive_icon_safe_zone_inner">Safe zone (always visible)</string>
-    <string name="adaptive_icon_safe_zone_outer">Mask zone (may be clipped)</string>
-    <string name="adaptive_icon_no_transparency_warning">Image has no transparent pixels. The result may look incorrect</string>
+    <string name="adaptive_icon_no_transparency_warning">This image has no transparent pixels, so the themed and notification icons keep the Morphe logo</string>
     <string name="adaptive_icon_created_success">Adaptive icon created successfully</string>
     <string name="adaptive_icon_creation_failed">Failed to create adaptive icon</string>
-    <string name="adaptive_icon_label">Adaptive</string>
-    <string name="adaptive_icon_monochrome_label">Monochrome</string>
     <string name="adaptive_icon_guide">Icon creation guide</string>
     <string name="adaptive_icon_guide_png_title">Use a PNG with a transparent background</string>
-    <string name="adaptive_icon_guide_png_body">The foreground must be a PNG file with a transparent background. A solid-colored background will look incorrect - the background color should come from the background picker below.</string>
+    <string name="adaptive_icon_guide_png_body">A logo on a transparent background works best, with the background color picked below. A picture without transparency fills the whole icon instead, and the themed and notification icons then keep the Morphe logo.</string>
     <string name="adaptive_icon_guide_safe_zones_title">Safe zones</string>
-    <string name="adaptive_icon_guide_safe_zones_body">"Inner zone (solid): content is always fully visible on all launcher shapes.
-Outer zone (dashed): may be clipped by the launcher mask - keep important details inside the inner zone."</string>
+    <string name="adaptive_icon_guide_safe_zones_body">The outline shows the icon shape of your launcher, and everything outside it is cut away. Other launchers use other shapes, so keep important details inside the dashed circle, which every shape shows.</string>
     <string name="adaptive_icon_guide_notification_title">Notification icon</string>
-    <string name="adaptive_icon_guide_notification_body">Generated automatically from the foreground image. Adjust its size using the Notification slider. All visible content appears white in the status bar.</string>
-    <string name="adaptive_icon_guide_monochrome_title">Monochrome icon</string>
-    <string name="adaptive_icon_guide_monochrome_body">Generated automatically from the foreground image using the same adaptive icon transforms. It appears tinted with the wallpaper accent color on Android 13 and later.</string>
+    <string name="adaptive_icon_guide_notification_body">Cut from the visible part of the image and sized like other status bar icons, whatever margin the file has. Adjust it with the slider under the preview. Android shows it in a single color.</string>
+    <string name="adaptive_icon_guide_monochrome_title">Themed icon</string>
+    <string name="adaptive_icon_guide_monochrome_body">Cut from the image with the same position and size as the launcher icon. On Android 13 and later, launchers with themed icons turned on color it from the wallpaper.</string>
     <string name="notification_icon_preview">Notification</string>
 
     <!-- Header Creator -->
     <string name="header_creator_create">Create custom header</string>
     <string name="header_creator_light_theme">Light theme header</string>
     <string name="header_creator_dark_theme">Dark theme header</string>
-    <string name="header_creator_no_image">No image selected</string>
     <string name="header_creator_success">Header created successfully</string>
     <string name="header_creator_failed">Failed to create header</string>
     <string name="header_creator_guide">Header creation guide</string>
     <string name="header_creator_guide_image_title">Image requirements</string>
-    <string name="header_creator_guide_image_body">Use any image file (PNG or JPEG). For best results, use a wide-format image with an approximately 2.7:1 aspect ratio. PNG files with transparent backgrounds will blend naturally with the app theme.</string>
+    <string name="header_creator_guide_image_body">A PNG with a transparent background blends into the app bar. Margins around the logo in the file are ignored, so it starts at the size and place of the stock logo.</string>
     <string name="header_creator_guide_themes_title">Light and dark themes</string>
     <string name="header_creator_guide_themes_body">Most apps require separate images for the light and dark themes. Some apps (such as YouTube Music) only use the dark theme, so only that section is shown.</string>
     <string name="header_creator_guide_positioning_title">Positioning and scaling</string>
-    <string name="header_creator_guide_positioning_body">Use pinch-to-zoom and drag gestures directly in the preview to position and scale your image. Snap guides appear when the image is near the center. You can also use the slider below the preview.</string>
+    <string name="header_creator_guide_positioning_body">Drag and pinch the image in the editor, or size it with the slider. The dashed box marks where the stock logo sits, and guides appear when the image lines up with it.</string>
 
     <!-- Batch patching -->
     <string name="batch_patch_action">Patch selected</string>
@@ -467,7 +483,7 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="batch_patch_state_no_patches">No patches</string>
     <string name="batch_patch_policy_install">Install when finished</string>
     <string name="batch_patch_policy_install_description">Installs every patched app right after the queue finishes. Off keeps the APKs for later</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Stop batch patching?</string>
     <string name="batch_patch_stop_description">The app being patched right now and everything still queued will be cancelled</string>
@@ -476,6 +492,10 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="batch_patch_install_failed">Install failed</string>
     <string name="batch_patch_in_progress">Batch patching is already running</string>
     <string name="batch_patch_nothing_outdated">Every patched app is up to date</string>
+    <string name="batch_queue_add_action">Add to queue</string>
+    <string name="batch_queue_pending_subtitle">Tap to review and start</string>
+    <string name="batch_queue_clear_title">Clear the queue?</string>
+    <string name="batch_queue_clear_description">All apps will be removed from the queue</string>
     <string name="shortcut_repatch_short">Re-patch</string>
     <string name="shortcut_repatch_long">Re-patch outdated apps</string>
     <string name="shortcut_check_updates_short">Check updates</string>
@@ -510,9 +530,12 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="home_app_info_app_update_available_description">The patch sources support a newer version of this app. Patch it again to move to that version</string>
     <string name="home_app_info_newest_supported_version">Newest supported</string>
     <string name="home_app_info_version_move">Installed %1$s, newest supported %2$s</string>
+    <string name="home_app_info_version_restore">Installed %1$s, patched %2$s</string>
     <string name="home_app_info_app_deleted_warning">App was uninstalled</string>
     <string name="home_app_info_app_deleted_description">This app was uninstalled outside the Morphe. Repatch it to restore functionality</string>
     <string name="home_app_info_not_patched_description">An unpatched version of this app is installed. Morphe still has its previous patch record</string>
+    <string name="home_app_info_mount_replaced_description">Another version replaced the mounted app, so the patch no longer applies. Restore puts the patched version back</string>
+    <string name="home_app_info_mount_replaced_by_play_store_description">Google Play updated the mounted app, so the patch no longer applies. Restore puts the patched version back. Turn off auto-update for it in Google Play to keep it patched</string>
     <string name="app_links_title">Supported web links</string>
     <string name="app_links_description">On Android 12+, links to supported domains open in your browser by default unless approved</string>
     <string name="app_links_unverified_banner_title">Web links not verified</string>
@@ -541,7 +564,7 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="root_mount_module_unmount_warning">If KernelSU has Unmount modules by default enabled, open KernelSU > Superuser > the app you mounted > Profile > Custom and disable Unmount modules. Otherwise the mounted patched APK may not take effect, even if Morphe shows it as mounted</string>
     <string name="root_pre_patch_installer_standard_title">Standard install mode</string>
     <string name="root_pre_patch_installer_standard_description">Patches as a normal APK with GmsCore support. Your installer setting is used after patching</string>
-    <string name="root_pre_patch_installer_hint">This patch mode is separate from Settings > System > Installer and cannot be changed after patching</string>
+    <string name="root_pre_patch_installer_hint">Asked while Settings > Patching > Installation > Installer selection prompt is on. The patch mode cannot be changed after patching</string>
 
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Error copied to clipboard</string>
@@ -554,6 +577,7 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <!-- Field labels, shown in a column beside their values. Keep them short, a long one is cut off rather than wrapped -->
     <string name="patcher_field_app">App</string>
     <string name="patcher_field_package">Package</string>
+    <string name="patcher_field_failed_patch">Failed patch</string>
     <string name="patcher_field_source">Source</string>
     <string name="patcher_field_split">Split APK</string>
     <string name="patcher_field_manager">Manager</string>
@@ -589,6 +613,7 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="patcher_installing_subtitle">Almost ready to rock! 🎸</string>
     <string name="patcher_success_title">All done! 🎉</string>
     <string name="patcher_success_subtitle">Your app is patched and installed!</string>
+    <string name="patcher_mounted_subtitle">Your app is patched and mounted!</string>
     <string name="patcher_complete_title">Patching complete! ✨</string>
     <string name="patcher_failed_title">Oops! Something went wrong</string>
     <string name="patcher_failed_dialog_title">Patching failed</string>
@@ -607,6 +632,7 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
 
 Uninstalling will permanently erase all app data"</string>
     <string name="patcher_install_error_title">Installation error</string>
+    <string name="patcher_mount_error_title">Mount error</string>
     <string name="patcher_install_error_subtitle">Try uninstalling and installing again</string>
     <string name="patcher_ready_to_mount_subtitle">Press the button below to mount</string>
     <string name="patcher_patches_excluded_for_installer">Not available for this install method and excluded: %s</string>
@@ -648,6 +674,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="patcher_memory_adjustment_title">Not enough memory</string>
     <string name="patcher_memory_adjustment_description">The patcher was stopped by the system while running with a %1$d MB memory limit. Lowering the limit to %2$d MB makes the patcher a smaller target and can let the run finish</string>
     <string name="patcher_memory_adjustment_description_at_minimum">The patcher was stopped by the system while running with a %1$d MB memory limit, which is already the lowest available. Try patching with fewer patch sources, or select fewer patches</string>
+    <string name="patcher_memory_adjustment_description_finished">The system stopped the patcher at a %1$d MB memory limit, and it only finished at %2$d MB. Starting at %2$d MB skips that lost attempt next time</string>
     <string name="patcher_memory_adjustment_apply">Lower to %1$d MB</string>
 
     <!-- Patcher Screen - Patcher Worker -->
@@ -760,7 +787,6 @@ Uninstalling will permanently erase all app data"</string>
 
     <!-- Settings -->
     <string name="appearance">Appearance</string>
-    <string name="advanced">Advanced</string>
     <string name="system">System</string>
 
     <!-- Settings - Appearance Tab - Background animation -->
@@ -791,6 +817,8 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_seasonal_background_notice">The %1$s background is on until %2$s while seasonal themes are on</string>
 
     <!-- Settings - Appearance Tab - Theme -->
+    <string name="settings_appearance_display">Display</string>
+    <string name="settings_appearance_effects">Effects</string>
     <string name="settings_appearance_theme">Theme</string>
     <string name="settings_appearance_theme_mode">Theme mode</string>
     <string name="settings_appearance_system">System</string>
@@ -800,17 +828,17 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_monochrome">Monochrome</string>
     <string name="settings_appearance_color_style">Color style</string>
     <string name="settings_appearance_style_morphe" translatable="false">Morphe</string>
-    <string name="settings_appearance_colors">Colors</string>
     <string name="settings_appearance_accent_color">Accent color</string>
     <string name="settings_appearance_pure_black">Pure Black</string>
     <string name="settings_appearance_pure_black_description">Uses true black backgrounds</string>
     <string name="settings_appearance_color_accents">App and source colors</string>
-    <string name="settings_appearance_color_accents_description">Uses each app\'s and source\'s own color instead of the accent color</string>
+    <string name="settings_appearance_color_accents_description">Uses each app\'s and source\'s color instead of the accent</string>
     <string name="settings_appearance_outlines">Outlines</string>
     <string name="settings_appearance_outlines_description">Draws a thin edge around cards, panels and buttons</string>
+    <string name="settings_appearance_blur">Blur</string>
+    <string name="settings_appearance_blur_description">Blurs what scrolls under headers, bars and panels</string>
 
     <!-- Settings - Appearance Tab - Language Selector -->
-    <string name="settings_appearance_language_and_display">Language &amp; display</string>
     <string name="settings_appearance_app_language">App language</string>
     <string name="settings_appearance_app_language_current">Current language</string>
     <string name="settings_appearance_translations_info_title">Translations for some languages may be missing or incomplete</string>
@@ -828,13 +856,9 @@ Uninstalling will permanently erase all app data"</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Home screen</string>
     <string name="settings_appearance_greeting_phrases">Greeting phrases</string>
-    <string name="settings_appearance_greeting_phrases_subtitle">Show a greeting message on the home screen</string>
-    <string name="settings_appearance_app_grouping">App grouping</string>
-    <string name="settings_appearance_app_grouping_description">Show a switcher to group apps by source or category</string>
+    <string name="settings_appearance_greeting_phrases_subtitle">Shows a greeting message</string>
     <string name="settings_appearance_repatch_notice">Re-patch notice</string>
-    <string name="settings_appearance_repatch_notice_description">Show a banner when patched apps can be re-patched</string>
-    <string name="settings_appearance_sort_button">Sort and filter button</string>
-    <string name="settings_appearance_sort_button_description">Show the sort and filter button on the home screen</string>
+    <string name="settings_appearance_repatch_notice_description">Shows a banner when patched apps can be re-patched</string>
     <string name="settings_appearance_app_card_colors">App card colors</string>
     <string name="settings_appearance_app_card_colors_default">Default</string>
     <string name="settings_appearance_app_card_colors_default_description">Give each app the color of its own bundle</string>
@@ -893,7 +917,7 @@ Uninstalling will permanently erase all app data"</string>
 
 Patches are not affected: enable pre-release patches for each source in the patch sources list"</string>
     <string name="settings_advanced_updates_allow_metered">Mobile data updates</string>
-    <string name="settings_advanced_updates_allow_metered_description">Allows Morphe and patch updates to download over mobile data</string>
+    <string name="settings_advanced_updates_allow_metered_description">Downloads Morphe and patch updates over mobile data</string>
     <string name="settings_advanced_updates_background_notifications">Background update notifications</string>
     <string name="settings_advanced_updates_background_notifications_description">Periodically check for updates in the background and notify when available</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Push notifications for new releases, even when the app is closed</string>
@@ -909,7 +933,7 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_update_interval_battery_warning">Background checks may not work reliably on some devices. Manufacturers like Xiaomi, Huawei, Samsung, and OnePlus often aggressively restrict background processes to save battery</string>
 
     <string name="settings_advanced_external_batch_patch">Allow external triggers</string>
-    <string name="settings_advanced_external_batch_patch_description">Lets automation apps start batch patching via an intent</string>
+    <string name="settings_advanced_external_batch_patch_description">Lets automation apps start batch patching</string>
     <string name="external_batch_patch_title">Start batch patching?</string>
     <string name="external_batch_patch_description">%s wants Morphe to patch and install apps</string>
     <string name="external_batch_patch_trust_caller">Always allow this app</string>
@@ -927,15 +951,18 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="notification_channel_patch_updates">Patch updates</string>
     <string name="notification_channel_patch_updates_description">Notifications about new patch releases</string>
     <string name="notification_channel_patcher_description">Shown while Morphe is patching an app in the background</string>
+    <string name="notification_channel_mounted_apps">Mounted apps</string>
+    <string name="notification_channel_mounted_apps_description">When another version replaced a mounted app and its patch no longer applies</string>
+    <string name="notification_mount_replaced_title">%1$s is no longer patched</string>
+    <string name="notification_mount_replaced_text">v%1$s replaced the patched v%2$s. Open Morphe to restore it</string>
 
     <!-- Settings - Advanced Tab - Expert settings Section -->
-    <string name="settings_advanced_expert">Expert settings</string>
     <string name="settings_advanced_expert_mode">Expert mode</string>
-    <string name="settings_advanced_expert_mode_description">Enables complex Morphe patching settings and customization options</string>
+    <string name="settings_advanced_expert_mode_description">Unlocks advanced patching settings and patch options</string>
     <string name="settings_advanced_expert_mode_dialog_title">Enable Expert mode?</string>
     <string name="settings_advanced_expert_mode_dialog_message">Expert mode gives more control over how patches are applied, but misconfiguring settings in expert mode can result in a non-functional app</string>
     <string name="settings_advanced_strip_unused_libs">Optimize for device architecture</string>
-    <string name="settings_advanced_strip_unused_libs_description">Removes unused CPU architecture libs and split APK modules</string>
+    <string name="settings_advanced_strip_unused_libs_description">Removes unused native libraries and APK splits</string>
 
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat" translatable="false">GitHub PAT</string>
@@ -1037,6 +1064,7 @@ The image dimensions must be as follows:
     <!-- Settings - System Tab - Installer Section -->
     <string name="installer">Installer</string>
     <string name="installer_settings_title">Default installer</string>
+    <string name="settings_installation">Installation</string>
     <string name="installer_title">Select installer</string>
     <string name="installer_internal_description">Uses the Android package installer</string>
     <string name="installer_play_store_description">Uses the system installer and sets Google Play Store as the install source</string>
@@ -1073,13 +1101,15 @@ The image dimensions must be as follows:
     <string name="installer_play_store_warning_risk">Play Store may offer updates for the patched app. Installing that update will overwrite the patched APK with the original version and remove the patches. If prompted to update, tap the three-dot menu on the app\'s Play Store page and choose \"Turn off updates\"</string>
     <string name="installer_play_store_warning_continue">I understand, continue</string>
     <string name="installer_play_store_mode">Install as Play Store</string>
-    <string name="installer_play_store_mode_description">Record Google Play Store as the installation source for this install method</string>
+    <string name="installer_play_store_mode_description">Marks Google Play Store as the install source</string>
     <string name="settings_prompt_installer_on_install">Installer selection prompt</string>
-    <string name="settings_prompt_installer_on_install_description">Shows installer selection dialog each time a patched app is installed</string>
+    <string name="settings_prompt_installer_on_install_description">Asks how to install every app: with root before patching, otherwise after it</string>
     <string name="settings_auto_install_with_shizuku">Auto-install after patching</string>
-    <string name="settings_auto_install_with_shizuku_description">Installs the patched APK as soon as patching completes</string>
+    <string name="settings_auto_install_with_shizuku_description">Installs or mounts the patched APK as soon as patching completes</string>
     <string name="settings_auto_uninstall_with_shizuku">Auto-uninstall on conflict</string>
-    <string name="settings_auto_uninstall_with_shizuku_description">When auto-installing with Shizuku, uninstall the existing app first if Android reports a signature conflict. This can remove app data</string>
+    <string name="settings_auto_uninstall_with_shizuku_description">Uninstalls the existing app on a signature conflict. This can remove app data</string>
+    <string name="settings_ignore_install_target_rules">Ignore install target requirements</string>
+    <string name="settings_ignore_install_target_rules_description">Lets patches the install target requires be turned off and those it rules out be turned on. The patched app may not work</string>
     <string name="settings_auto_uninstall_warning_title">Enable auto-uninstall?</string>
     <string name="settings_auto_uninstall_warning_message">If Android reports a signature conflict during Shizuku auto-install, Morphe will uninstall the existing app before installing the patched APK</string>
     <string name="settings_auto_uninstall_warning_risk">This can remove app data. If the patched APK fails to install after uninstalling, the previous app may already be gone</string>
@@ -1118,14 +1148,14 @@ Details: %2$s"</string>
     <string name="settings_system_memory_limit_warning">A low memory limit may cause failures when patching larger apps</string>
     <string name="settings_system_memory_limit_high_warning">A high memory limit can make patching much slower on some devices. Raise it only if patching keeps failing at lower limits</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limit</string>
-    <string name="settings_system_process_runtime_disabled_description">Click to configure</string>
+    <string name="settings_system_process_runtime_disabled_description">Tap to configure</string>
     <string name="settings_system_process_runtime_description_not_available">This feature requires Android 11 or greater</string>
     <string name="settings_system_patcher_completion_sound">Completion sound</string>
     <string name="settings_system_patcher_completion_sound_description">Plays a distinct tone for success or failure when patching finishes</string>
 
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">Notifications</string>
-    <string name="settings_system_notifications_description">Configure background alerts and completion sounds</string>
+    <string name="settings_system_notifications_description">Configures background alerts and completion sounds</string>
     <string name="settings_system_notifications_success_sound">Success sound</string>
     <string name="settings_system_notifications_error_sound">Failure sound</string>
     <string name="settings_system_notifications_sound_default">Default</string>
@@ -1136,9 +1166,8 @@ Details: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Pick a tone</string>
 
     <!-- Settings - System Tab - Import and Export Section -->
-    <string name="settings_system_import_export">Import &amp; export</string>
     <string name="settings_system_signing_key">Signing key</string>
-    <string name="settings_system_signing_key_description">Backs up and restores the key your patched apps are signed with</string>
+    <string name="settings_system_signing_key_description">Backs up or restores the key that signs patched apps</string>
     <string name="settings_system_signing_key_dialog_description">Every app Morphe patches is signed with this key. Keep a copy: without it, patched apps can only be updated after uninstalling them</string>
     <string name="settings_system_signing_key_missing">Morphe creates one with your first patch</string>
     <string name="settings_system_signing_key_created">Created %s</string>
@@ -1184,7 +1213,6 @@ Details: %2$s"</string>
     <string name="settings_system_export_debug_logs_export_success">Logs exported</string>
 
     <!-- Settings - System Tab - Files & Storage Section -->
-    <string name="settings_system_files">Files &amp; storage</string>
     <string name="settings_system_apks_size">Total size: %s</string>
     <string name="settings_system_apks_delete_all_confirm">This will permanently delete the saved APK files shown here</string>
     <string name="settings_system_apks_delete_selected_title">Delete selected APKs?</string>
@@ -1197,7 +1225,7 @@ Details: %2$s"</string>
 
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Storage management</string>
-    <string name="settings_system_storage_management_description">Review disk usage and clear cached files</string>
+    <string name="settings_system_storage_management_description">Shows disk usage and clears cached files</string>
     <string name="settings_system_storage_keystore_title">Signing keystore</string>
     <string name="settings_system_storage_app_data_title">App data</string>
     <string name="settings_system_storage_patch_bundles_title">Patch bundles</string>
@@ -1244,14 +1272,11 @@ Details: %2$s"</string>
     <string name="settings_system_patch_selections_title">Patch selections</string>
     <string name="settings_system_patch_selections_description">Saved patch selections, retained after uninstall</string>
     <string name="settings_system_patch_selection_reset_all_confirm_title">Reset all selections?</string>
-    <string name="settings_system_patch_selection_reset_package_confirm_title">Reset package selections?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Reset selected packages?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Reset source selection?</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s across %2$s</string>
-    <string name="settings_system_patch_selection_patches_in_sources_format">%1$s in %2$s</string>
     <string name="settings_system_patch_selection_source_format">Source #%s</string>
     <string name="settings_system_patch_selection_reset_all_warning">This will permanently delete all saved patch selections for all packages and sources</string>
-    <string name="settings_system_patch_selection_reset_package_warning">This will permanently delete all saved patch selections for &lt;b&gt;%s&lt;/b&gt; across all sources</string>
     <string name="settings_system_patch_selection_reset_source_warning">This will permanently delete saved patch selections for &lt;b&gt;%1$s&lt;/b&gt; in &lt;b&gt;%2$s&lt;/b&gt;</string>
     <string name="settings_system_patch_selection_reset_selected_warning">This will permanently delete all saved patch selections for the selected packages</string>
     <string name="settings_system_export_source_data_fail">Failed to export source data</string>
@@ -1270,7 +1295,7 @@ Details: %2$s"</string>
 
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Custom file picker</string>
-    <string name="settings_system_custom_file_picker_description">Browse storage with Morphe\'s built-in file picker instead of the system default</string>
+    <string name="settings_system_custom_file_picker_description">Uses Morphe\'s built-in file picker instead of the system one</string>
 
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK download helper</string>
@@ -1323,10 +1348,20 @@ Details: %2$s"</string>
     <string name="patches">Patches</string>
     <string name="home">Home</string>
     <string name="settings">Settings</string>
+    <string name="apps">Apps</string>
+    <!-- Sections the settings page lists, each opening a page of its own. A summary names what the section holds -->
+    <string name="settings_section_patcher">Patcher</string>
+    <string name="settings_section_updates">Updates</string>
+    <string name="settings_section_patching">Patching</string>
+    <string name="settings_section_appearance_summary">Language, theme, colors and home screen</string>
+    <string name="settings_section_patch_options_summary">What simple mode patches apps with</string>
+    <string name="settings_section_files">Files &amp; backups</string>
+    <string name="settings_search">Search settings</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="all">All</string>
     <string name="filter">Filter</string>
+    <string name="group">Group</string>
     <string name="reset">Reset</string>
     <string name="reset_all">Reset All</string>
     <string name="apply">Apply</string>
@@ -1369,9 +1404,7 @@ Details: %2$s"</string>
     <string name="selected">Selected</string>
     <string name="not_selected">Not selected</string>
     <string name="select_all">Select all</string>
-    <string name="select_all_done">All selected</string>
     <string name="deselect_all">Deselect all</string>
-    <string name="deselect_all_done">All deselected</string>
     <string name="reorder_list">Reorder list</string>
     <string name="reorder_list_hint">Drag to reorder</string>
     <string name="reorder_done">Order saved</string>
@@ -1396,6 +1429,10 @@ Details: %2$s"</string>
     <string name="available">Available</string>
     <string name="continue_">Continue</string>
     <string name="version">Version</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">Author</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">File</string>
     <string name="clone">Clone</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>
@@ -1407,6 +1444,8 @@ Details: %2$s"</string>
     <string name="unmount">Unmount</string>
     <string name="unmounted">Unmounted</string>
     <string name="remount">Remount</string>
+    <string name="restore">Restore</string>
+    <string name="google_play" translatable="false">Google Play</string>
     <string name="share">Share</string>
     <string name="install">Install</string>
     <string name="installed">Installed</string>
@@ -1427,6 +1466,8 @@ Details: %2$s"</string>
     <string name="sources">Sources</string>
     <string name="installing_ellipsis">Installing…</string>
     <string name="mounting_ellipsis">Mounting…</string>
+    <string name="mount_stage_restoring_stock">Restoring original…</string>
+    <string name="mount_stage_copying">Copying…</string>
     <string name="unmounting_ellipsis">Unmounting…</string>
     <string name="importing_ellipsis">Importing…</string>
     <string name="imported_successfully">Imported successfully</string>
@@ -1496,13 +1537,9 @@ Do you still want to continue?"</string>
     <string name="onboarding_sources_version_desc">Tap the version to view the full changelog for this source</string>
     <string name="onboarding_sources_prerelease_desc">Enable this to receive pre-release patch versions from this source</string>
     <string name="onboarding_appearance_tab_desc">Customize the app\'s look: theme, accent color, and background</string>
-    <string name="onboarding_appearance_theme_desc">Choose between light, dark, or system theme. You can also pick a custom accent color or enable Dynamic Color</string>
     <string name="onboarding_expert_mode_desc">Enable Expert Mode to unlock patch selection, custom options, and other advanced features</string>
     <!-- Translate "System" the same way as the System settings tab -->
-    <string name="onboarding_system_tab_title">System tab</string>
-    <string name="onboarding_system_tab_desc">Keystore management, import/export tools, and app information</string>
     <string name="onboarding_system_installer_desc">Choose how patched apps are installed: standard, root mount, or Shizuku</string>
-    <string name="onboarding_system_process_runtime_desc">Run patching in a separate process to improve stability and control memory usage. Recommended for large apps</string>
     <string name="onboarding_system_file_picker_desc">Enable to use the built-in file browser instead of the system picker when selecting APKs or keystores</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Quick feature tour</string>

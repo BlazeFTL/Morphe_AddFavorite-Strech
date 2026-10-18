@@ -155,25 +155,23 @@ fun SliderValuePill(
     val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
     val container by animateColorAsState(
         targetValue = if (active) accent.copy(alpha = AccentAlpha.STEP)
-        else LocalDialogTextColor.current.copy(alpha = 0.06f),
+        else dialogTextColor().copy(alpha = 0.06f),
         label = "pillContainer"
     )
-    val content = LocalDialogTextColor.current
-
-    val shape = RoundedCornerShape(percent = 50)
+    val content = dialogTextColor()
 
     Surface(
-        shape = shape,
+        shape = Defaults.PillShape,
         color = container,
         modifier = Modifier
             .scale(scale)
             // Clipped before the click, otherwise the ripple is drawn on the square bounds
-            .clip(shape)
+            .clip(Defaults.PillShape)
             .clickable(onClick = onClick)
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.padding(horizontal = Defaults.SpaceMedium, vertical = Defaults.SpaceSmall),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -226,16 +224,16 @@ fun ScaleSliderRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 4.dp),
+            .padding(horizontal = Defaults.SpaceExtraSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = icon,
             contentDescription = null,
             modifier = Modifier.size(16.dp),
-            tint = LocalDialogSecondaryTextColor.current
+            tint = dialogSecondaryTextColor()
         )
-        Spacer(Modifier.width(8.dp))
+        Spacer(Modifier.width(Defaults.SpaceSmall))
         val sliderState = remember(valueRange) { SliderState(value = value, trackRange = valueRange) }
         // The caller owns the value, so anything that moves it elsewhere has to reach the state
         sliderState.value = value
@@ -244,12 +242,12 @@ fun ScaleSliderRow(
             onValueChange = { onValueChange(it.coerceIn(valueRange.start, valueRange.endInclusive)) },
             modifier = Modifier.weight(1f)
         )
-        Spacer(Modifier.width(8.dp))
+        Spacer(Modifier.width(Defaults.SpaceSmall))
         Icon(
             imageVector = icon,
             contentDescription = null,
             modifier = Modifier.size(22.dp),
-            tint = LocalDialogSecondaryTextColor.current
+            tint = dialogSecondaryTextColor()
         )
         trailing()
     }
@@ -267,7 +265,7 @@ fun RowScope.SliderResetAction(
 ) {
     AnimatedVisibility(visible = visible) {
         Row {
-            Spacer(Modifier.width(8.dp))
+            Spacer(Modifier.width(Defaults.SpaceSmall))
             IconButton(
                 onClick = onReset,
                 modifier = Modifier.size(40.dp)
@@ -276,7 +274,7 @@ fun RowScope.SliderResetAction(
                     imageVector = Icons.Outlined.RestartAlt,
                     contentDescription = contentDescription,
                     modifier = Modifier.size(24.dp),
-                    tint = LocalDialogTextColor.current
+                    tint = dialogTextColor()
                 )
             }
         }
@@ -301,6 +299,6 @@ fun SliderScaleLabel(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.labelSmall,
-        color = LocalDialogSecondaryTextColor.current
+        color = dialogSecondaryTextColor()
     )
 }

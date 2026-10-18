@@ -24,6 +24,7 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.work.Data
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
@@ -39,6 +40,7 @@ import app.morphe.manager.domain.manager.KeystoreManager
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
+import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.worker.Worker
 import app.morphe.manager.domain.worker.WorkerRepository
 import app.morphe.manager.patcher.logger.Logger
@@ -57,8 +59,6 @@ import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -68,17 +68,23 @@ typealias ProgressEventHandler = (name: String?, state: State?, message: String?
 
 class PatcherWorker(
     context: Context,
-    parameters: WorkerParameters
-) : Worker<PatcherWorker.Args>(context, parameters), KoinComponent {
-    private val workerRepository: WorkerRepository by inject()
-    private val prefs: PreferencesManager by inject()
-    private val keystoreManager: KeystoreManager by inject()
-    private val pm: PM by inject()
-    private val fs: Filesystem by inject()
-    private val installedAppRepository: InstalledAppRepository by inject()
-    private val originalApkRepository: OriginalApkRepository by inject()
-    private val rootInstaller: RootInstaller by inject()
-    private val installerManager: InstallerManager by inject()
+    parameters: WorkerParameters,
+    private val workerRepository: WorkerRepository,
+    private val prefs: PreferencesManager,
+    private val keystoreManager: KeystoreManager,
+    private val pm: PM,
+    private val fs: Filesystem,
+    private val installedAppRepository: InstalledAppRepository,
+    private val originalApkRepository: OriginalApkRepository,
+    private val rootInstaller: RootInstaller,
+    private val installerManager: InstallerManager,
+    private val patchBundleRepository: PatchBundleRepository,
+    private val appScope: AppCoroutineScope
+) : Worker<PatcherWorker.Args>(context, parameters) {
+    private fun coroutineRuntime() = CoroutineRuntime(applicationContext, fs, patchBundleRepository, prefs)
+
+    private fun processRuntime() =
+        ProcessRuntime(applicationContext, fs, patchBundleRepository, prefs, pm, appScope)
 
     class Args(
         val input: SelectedApp,
@@ -87,6 +93,8 @@ class PatcherWorker(
         val options: Options,
         val logger: Logger,
         val onPatchCompleted: suspend () -> Unit,
+        /** Called with the name of the patch the run failed on. */
+        val onPatchFailed: (String) -> Unit,
         /**
          * Patching was abandoned and started over from the first step, so anything reported by
          * the previous attempt has to be discarded rather than counted twice.
@@ -101,7 +109,9 @@ class PatcherWorker(
          */
         val announceCompletion: Boolean = true,
         /** Apps already done and the queue total, null for a single run. */
-        val queuePosition: Pair<Int, Int>? = null
+        val queuePosition: Pair<Int, Int>? = null,
+        /** Whether the build is mounted over the stock app rather than installed. */
+        val useMount: Boolean = false
     ) {
         val packageName get() = input.packageName
     }
@@ -349,8 +359,6 @@ class PatcherWorker(
         val errorSoundUri = prefs.patcherErrorSoundUri.get()
 
         return try {
-            val startTime = System.currentTimeMillis()
-
             if (args.input is SelectedApp.Installed) {
                 installedAppRepository.get(args.packageName)?.let {
                     if (it.installType == InstallType.MOUNT) {
@@ -430,10 +438,11 @@ class PatcherWorker(
                 )
             }
 
+            // The limit the process runtime will actually start with, not the raw setting
+            val memLimit = coerceMemoryLimit(applicationContext, prefs.patcherProcessMemoryLimit.get())
+
             // Log runtime mode info
             if (useProcessRuntime) {
-                // The limit the runtime will actually start with, not the raw setting
-                val memLimit = coerceMemoryLimit(applicationContext, prefs.patcherProcessMemoryLimit.get())
                 args.logger.info("$LOG_WORKER_PREFIX_RUNTIME process $LOG_WORKER_FIELD_MEMORY_LIMIT=$memLimit")
             } else {
                 // CoroutineRuntime starts memory polling internally; only log the heap size here
@@ -442,11 +451,7 @@ class PatcherWorker(
             }
 
             // Execute patching. ProcessRuntime has its own retry loop that reduces memory on OOM
-            val runtime = if (useProcessRuntime) {
-                ProcessRuntime(applicationContext)
-            } else {
-                CoroutineRuntime(applicationContext)
-            }
+            val runtime = if (useProcessRuntime) processRuntime() else coroutineRuntime()
 
             val options = args.options.restrictTo(args.selectedPatches)
 
@@ -467,7 +472,7 @@ class PatcherWorker(
                 args.setInputFile(savedFile ?: mergedFile, true, true)
             }
 
-            try {
+            val (loweredMemoryLimit, elapsed) = try {
                 runtime.execute(
                     inputFile.absolutePath,
                     patchedApk.absolutePath,
@@ -476,6 +481,7 @@ class PatcherWorker(
                     options,
                     args.logger,
                     onPatchCompleted,
+                    args.onPatchFailed,
                     ::updateProgress,
                     stripNativeLibs,
                     onMergedApkReady,
@@ -496,7 +502,7 @@ class PatcherWorker(
                 onRestart()
                 args.logger.logCoroutineHeap()
 
-                CoroutineRuntime(applicationContext).execute(
+                coroutineRuntime().execute(
                     inputFile.absolutePath,
                     patchedApk.absolutePath,
                     args.packageName,
@@ -504,6 +510,7 @@ class PatcherWorker(
                     options,
                     args.logger,
                     onPatchCompleted,
+                    args.onPatchFailed,
                     ::updateProgress,
                     stripNativeLibs,
                     onMergedApkReady,
@@ -521,8 +528,6 @@ class PatcherWorker(
             args.logger.info("Signed apk in ${signTime.inWholeMilliseconds}ms")
             updateProgress(state = State.COMPLETED) // Signing
 
-            val elapsed = System.currentTimeMillis() - startTime
-
             args.logger.info(
                 "$LOG_WORKER_PREFIX_SUCCEEDED $LOG_WORKER_FIELD_OUTPUT=${args.output} " +
                         "$LOG_WORKER_FIELD_SIZE=${File(args.output).length()} " +
@@ -531,9 +536,15 @@ class PatcherWorker(
 
             Log.i(tag, "Patching succeeded".logFmt())
             val outputPackageName = pm.getPackageInfo(File(args.output))?.packageName ?: args.packageName
-            autoInstallPending = installerManager.autoInstallAllowed(outputPackageName)
+            autoInstallPending = installerManager.autoInstallAllowed(outputPackageName, mount = args.useMount)
             succeeded = true
-            Result.success()
+            // A run that only got through on less memory is the same suggestion a killed one
+            // leads to, offered while the limit that worked is known
+            Result.success(
+                loweredMemoryLimit?.let {
+                    workDataOf(PROCESS_PREVIOUS_LIMIT_KEY to memLimit, PROCESS_LOWERED_LIMIT_KEY to it)
+                } ?: Data.EMPTY
+            )
         } catch (e: ProcessRuntime.ProcessExitException) {
             Log.e(
                 tag,
@@ -624,6 +635,7 @@ class PatcherWorker(
 
         const val PROCESS_EXIT_CODE_KEY = "process_exit_code"
         const val PROCESS_PREVIOUS_LIMIT_KEY = "process_previous_limit"
+        const val PROCESS_LOWERED_LIMIT_KEY = "process_lowered_limit"
         const val PROCESS_FAILURE_MESSAGE_KEY = "process_failure_message"
 
         const val LOG_WORKER_PREFIX_STARTED = "Patching started at"

@@ -35,6 +35,10 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.navigation.compose)
 
+    // Haze (blur of what scrolls under floating dialog chrome)
+    implementation(libs.haze)
+    implementation(libs.haze.blur)
+
     // Coil (async image loading, network image)
     implementation(libs.coil.compose)
     implementation(libs.coil.appiconloader)
@@ -70,8 +74,6 @@ dependencies {
 
     // LibSU
     implementation(libs.libsu.core)
-    implementation(libs.libsu.service)
-    implementation(libs.libsu.nio)
 
     // Koin
     implementation(libs.koin.android)

@@ -11,6 +11,9 @@
 package app.morphe.manager.patcher.runtime
 
 import android.content.Context
+import app.morphe.manager.data.platform.Filesystem
+import app.morphe.manager.domain.manager.PreferencesManager
+import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.Session
 import app.morphe.manager.patcher.logger.Logger
 import app.morphe.manager.patcher.patch.PatchBundle
@@ -25,7 +28,12 @@ import java.io.File
 /**
  * Simple [Runtime] implementation that runs the patcher using coroutines.
  */
-class CoroutineRuntime(private val context: Context) : Runtime(context) {
+class CoroutineRuntime(
+    private val context: Context,
+    fs: Filesystem,
+    patchBundlesRepo: PatchBundleRepository,
+    prefs: PreferencesManager
+) : Runtime(fs, patchBundlesRepo, prefs) {
     override suspend fun execute(
         inputFile: String,
         outputFile: String,
@@ -34,12 +42,14 @@ class CoroutineRuntime(private val context: Context) : Runtime(context) {
         options: Options,
         logger: Logger,
         onPatchCompleted: suspend (String) -> Unit,
+        onPatchFailed: (String) -> Unit,
         onProgress: ProgressEventHandler,
         stripUnusedNativeLibs: Boolean,
         onMergedApkReady: (suspend (File) -> Unit)?,
         // This runtime patches in the app's own process and gets one attempt at it
         onRestart: suspend () -> Unit
-    ) {
+    ): ExecutionResult {
+        val startTime = System.currentTimeMillis()
         ResourceMonitor.startPolling(logger)
 
         try {
@@ -89,12 +99,12 @@ class CoroutineRuntime(private val context: Context) : Runtime(context) {
 
                 Session(
                     cacheDir = cacheDir,
-                    frameworkDir = frameworkPath,
                     androidContext = context,
                     logger = logger,
                     input = preparation.file,
                     stripUnusedNativeLibs = stripUnusedNativeLibs,
                     onPatchCompleted = onPatchCompleted,
+                    onPatchFailed = onPatchFailed,
                     onProgress = onProgress
                 ).use { session ->
                     session.run(
@@ -113,5 +123,8 @@ class CoroutineRuntime(private val context: Context) : Runtime(context) {
         } finally {
             ResourceMonitor.stopPolling(logger)
         }
+
+        val elapsed = System.currentTimeMillis() - startTime
+        return ExecutionResult(loweredMemoryLimit = null, elapsedTimeMs = elapsed)
     }
 }

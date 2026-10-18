@@ -19,6 +19,7 @@ import app.morphe.manager.domain.apk.*
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.asRemoteOrNull
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
+import app.morphe.manager.domain.installer.RootInstaller
 import app.morphe.manager.domain.manager.*
 import app.morphe.manager.domain.repository.*
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
@@ -40,13 +41,24 @@ internal fun <K, V> changedMapKeys(previous: Map<K, V>, current: Map<K, V>): Set
     (previous.keys + current.keys).filterTo(mutableSetOf()) { previous[it] != current[it] }
 
 /**
- * The patch update waiting for an installed app: the source carrying it and the version the
- * app was patched with. [appNames] is empty when no changelog narrowed the update down.
+ * The patch update waiting for an installed app: the source carrying it, the version the app
+ * was patched with and the one the source is at now. [subject] is null when no changelog
+ * narrowed the update down.
  */
 data class AppPatchUpdate(
     val bundleUid: Int,
     val patchedWithVersion: String?,
-    val appNames: Set<String> = emptySet()
+    val availableVersion: String,
+    val subject: ChangelogSubject? = null
+) {
+    /** The source and the version it is at, which an ignored update is remembered by. */
+    val release: String get() = "$bundleUid:$availableVersion"
+}
+
+/** Patch updates split by whether the user turned down the release each one brings. */
+private data class PatchUpdates(
+    val offered: Map<String, AppPatchUpdate>,
+    val ignored: Map<String, AppPatchUpdate>
 )
 
 /**
@@ -59,7 +71,6 @@ data class HomeAppState(
     val sortMode: HomeAppSortMode,
     val categoryState: HomeAppCategoryState,
     val categoryViewMode: HomeAppCategoryViewMode,
-    val showCategoryViewSwitcher: Boolean,
     val sourceGroups: List<HomeAppSourceGroup>
 )
 
@@ -83,21 +94,28 @@ data class HomeAppSourceGroup(
     val collapsible: Boolean get() = !isDefault
 }
 
+/** The preferences the cards themselves are built from: which are shown and in what order. */
 internal data class HomePrefs(
     val hiddenPackages: Set<String>,
     val customOrder: List<String>,
     val sourceOrders: Map<Int, List<String>>,
+    val sortMode: HomeAppSortMode
+)
+
+/**
+ * The cards of one build, before the view preferences arrange them into a [HomeAppState].
+ * Source groups come out expanded and are folded by what the user collapsed afterward.
+ */
+internal data class HomeCards(
+    val visible: List<HomeAppItem>,
+    val hidden: List<HomeAppItem>,
     val sortMode: HomeAppSortMode,
-    val categoryState: HomeAppCategoryState,
-    val categoryViewMode: HomeAppCategoryViewMode,
-    val showCategoryViewSwitcher: Boolean,
-    val expandedSourceGroups: Set<Int>
+    val sourceGroups: List<HomeAppSourceGroup>
 )
 
 private data class HomeCategoryPrefs(
     val categoryState: HomeAppCategoryState,
     val categoryViewMode: HomeAppCategoryViewMode,
-    val showCategoryViewSwitcher: Boolean,
     val expandedSourceGroups: Set<Int>
 )
 
@@ -120,11 +138,31 @@ class HomeApps(
     private val homeAppButtonPrefs: HomeAppButtonPreferences,
     private val appDataResolver: AppDataResolver,
     versionCatalog: AppVersionCatalog,
-    private val localApkSources: LocalApkSources
+    private val localApkSources: LocalApkSources,
+    private val rootInstaller: RootInstaller
 ) {
     // Updates available for installed apps, null until the first check lands
     private val _appUpdatesAvailable = MutableStateFlow<Map<String, AppPatchUpdate>?>(null)
-    val appUpdatesAvailable: StateFlow<Map<String, AppPatchUpdate>?> = _appUpdatesAvailable.asStateFlow()
+
+    // Split in one pass, so the offered and the ignored updates always come from the same check
+    private val patchUpdates: StateFlow<PatchUpdates?> = combine(
+        _appUpdatesAvailable,
+        homeAppButtonPrefs.ignoredPatchReleases
+    ) { updates, ignoredReleases ->
+        updates?.toList()
+            ?.partition { (packageName, update) -> ignoredReleases[packageName] != update.release }
+            ?.let { (offered, ignored) -> PatchUpdates(offered.toMap(), ignored.toMap()) }
+    }.stateIn(scope, SharingStarted.Eagerly, null)
+
+    /** Updates still offered for installed apps, null until the first check lands. */
+    val appUpdatesAvailable: StateFlow<Map<String, AppPatchUpdate>?> = patchUpdates
+        .map { it?.offered }
+        .stateIn(scope, SharingStarted.Eagerly, null)
+
+    /** Updates the user turned down, kept until their source brings a newer release. */
+    val ignoredAppUpdates: StateFlow<Map<String, AppPatchUpdate>> = patchUpdates
+        .map { it?.ignored.orEmpty() }
+        .stateIn(scope, SharingStarted.Eagerly, emptyMap())
 
     // Ticker to force homeAppState recomputation after install/uninstall without changing DB state
     private val _appStateTicker = MutableStateFlow(0L)
@@ -210,22 +248,28 @@ class HomeApps(
             .filter { it.isNotEmpty() }
             .collectLatest { pending ->
                 delay(PACKAGE_CHANGE_DEBOUNCE_MS.milliseconds)
-                pending.forEach {
-                    appDataResolver.invalidate(it)
-                }
-                markTrackedPackagesPending(pending, invalidateCache = true)
-                _appStateTicker.update { it + 1 }
+                refreshPackages(pending)
                 pendingPackageChanges.value = emptySet()
             }
     }
 
     /** Rechecks only tracked evidence when storage management removes a retained patched APK. */
     private fun observeSavedPatchedApkChanges() = scope.launch {
-        installedAppRepository.savedPatchedApkChanges.collect { packageNames ->
-            packageNames.forEach(appDataResolver::invalidate)
-            markTrackedPackagesPending(packageNames, invalidateCache = true)
-            _appStateTicker.update { it + 1 }
+        installedAppRepository.savedPatchedApkChanges.collect(::refreshPackages)
+    }
+
+    /** A mount swaps the APK behind a package without a broadcast, so it joins the package changes. */
+    private fun observeMountChanges() = scope.launch {
+        rootInstaller.mountChanges.collect { packageName ->
+            pendingPackageChanges.update { it + packageName }
         }
+    }
+
+    /** Drops what is known about [packageNames] and rebuilds the home state around them. */
+    private fun refreshPackages(packageNames: Set<String>) {
+        packageNames.forEach(appDataResolver::invalidate)
+        markTrackedPackagesPending(packageNames, invalidateCache = true)
+        _appStateTicker.update { it + 1 }
     }
 
     /**
@@ -327,13 +371,11 @@ class HomeApps(
     private val _homeCategoryPrefsFlow = combine(
         homeAppButtonPrefs.categoryState,
         homeAppButtonPrefs.categoryViewMode,
-        homeAppButtonPrefs.showCategoryViewSwitcher,
         homeAppButtonPrefs.expandedSourceGroups,
-    ) { categoryState, categoryViewMode, showCategoryViewSwitcher, expandedSourceGroups ->
+    ) { categoryState, categoryViewMode, expandedSourceGroups ->
         HomeCategoryPrefs(
             categoryState = categoryState,
             categoryViewMode = categoryViewMode,
-            showCategoryViewSwitcher = showCategoryViewSwitcher,
             expandedSourceGroups = expandedSourceGroups
         )
     }
@@ -343,19 +385,8 @@ class HomeApps(
         homeAppButtonPrefs.customOrder,
         homeAppButtonPrefs.sourceOrders,
         homeAppButtonPrefs.sortMode,
-        _homeCategoryPrefsFlow,
-    ) { hidden, order, sourceOrders, sortMode, categoryPrefs ->
-        HomePrefs(
-            hiddenPackages = hidden,
-            customOrder = order,
-            sourceOrders = sourceOrders,
-            sortMode = sortMode,
-            categoryState = categoryPrefs.categoryState,
-            categoryViewMode = categoryPrefs.categoryViewMode,
-            showCategoryViewSwitcher = categoryPrefs.showCategoryViewSwitcher,
-            expandedSourceGroups = categoryPrefs.expandedSourceGroups
-        )
-    }
+        ::HomePrefs
+    )
 
     /**
      * The bundle state, the versions derived from it, the ones the user turned down and the
@@ -388,6 +419,17 @@ class HomeApps(
     fun stopIgnoringSupportedVersion(packageName: String) =
         homeAppButtonPrefs.stopIgnoringVersion(packageName)
 
+    /**
+     * Stops offering [update] for [packageName], leaving the next release of its source to be
+     * offered as usual.
+     */
+    fun ignorePatchUpdate(packageName: String, update: AppPatchUpdate) =
+        homeAppButtonPrefs.ignorePatchRelease(packageName, update.release)
+
+    /** Undoes [ignorePatchUpdate], so the update waiting for [packageName] is offered again. */
+    fun stopIgnoringPatchUpdate(packageName: String) =
+        homeAppButtonPrefs.stopIgnoringPatchRelease(packageName)
+
     private val homeCardCache = HomeCardCache(filesystem.homeCardCacheDir.resolve("cards.json"))
 
     // Read once, shown until the bundles load
@@ -411,9 +453,9 @@ class HomeApps(
     *
     * Sort mode is persisted with the home app button preferences. Custom mode applies
     * the user's saved manual order and falls back to Morphe ordering when no saved order exists.
-    * Hidden apps are excluded from [HomeAppState.visible].
+    * Hidden apps are excluded from [HomeCards.visible].
     */
-    val homeAppState: StateFlow<HomeAppState?> = combine(
+    private val homeCards: Flow<HomeCards?> = combine(
         _homeBundleStateFlow,
         _homePrefsFlow,
         installedAppRepository.getAll().onEach { apps ->
@@ -427,24 +469,50 @@ class HomeApps(
                 }
             }
         },
-        _appUpdatesAvailable,
+        appUpdatesAvailable,
         appStateSignal,
     ) { bundle, prefs, installedApps, updates, (_, trackedSnapshots) ->
         HomeInputs(bundle, prefs, installedApps, updates, trackedSnapshots)
     }
         // Inputs arriving mid-build are coalesced, only the newest one is built
         .conflate()
-        .map(::buildHomeAppState)
+        .map(::buildHomeCards)
         .flowOn(Dispatchers.IO)
+
+    /**
+     * The cards arranged by the view preferences. Collapsing a group or switching the grouping
+     * only runs this step, so the cards are not built again for it.
+     */
+    val homeAppState: StateFlow<HomeAppState?> = combine(
+        homeCards,
+        _homeCategoryPrefsFlow
+    ) { cards, categoryPrefs -> cards?.arrangedBy(categoryPrefs) }
         .stateIn(scope, SharingStarted.Eagerly, null)
+
+    private fun HomeCards.arrangedBy(categoryPrefs: HomeCategoryPrefs) = HomeAppState(
+        visible = visible,
+        hidden = hidden,
+        sortMode = sortMode,
+        categoryState = categoryPrefs.categoryState,
+        categoryViewMode = categoryPrefs.categoryViewMode,
+        sourceGroups = sourceGroups.map { group ->
+            group.copy(collapsed = group.collapsible && group.uid !in categoryPrefs.expandedSourceGroups)
+        }
+    )
 
     /**
      * What the enabled bundles say about each app, and what every bundle does. The cards are
      * rebuilt for every change to the apps and the preferences, while the bundles change far less
-     * often, so this is only walked again when they do. Read by [buildHomeAppState] alone, which
+     * often, so this is only walked again when they do. Read by [buildHomeCards] alone, which
      * runs one build at a time.
      */
     private var homeMetadata: Pair<Map<Int, PatchBundleInfo.Global>, HomeMetadata>? = null
+
+    /**
+     * The cards of the last build by id. Read and replaced by [buildHomeCards] alone, like
+     * [homeMetadata].
+     */
+    private var lastBuiltItems: Map<String, HomeAppItem> = emptyMap()
 
     private data class HomeMetadata(
         val enabled: Map<String, BundleAppMetadata>,
@@ -464,11 +532,11 @@ class HomeApps(
     }
 
     /** The home cards for [inputs], or the cached ones while the bundles load. */
-    private suspend fun buildHomeAppState(inputs: HomeInputs): HomeAppState? {
+    private suspend fun buildHomeCards(inputs: HomeInputs): HomeCards? {
         val (homeBundle, homePrefs, installedApps, updatesMap, trackedSnapshots) = inputs
         val (bundleState, supportedVersions, ignoredVersions, keptFrom) = homeBundle
         val ready = bundleState as? PatchBundleRepository.BundleState.Ready
-            ?: return cachedHomeCards?.toState(installedApps, homePrefs)
+            ?: return cachedHomeCards?.toCards(installedApps, homePrefs)
 
         val enabledInfo = ready.info.filter { (_, info) -> info.enabled }
         val (metadata, allMetadata) = homeMetadataFor(ready.info, enabledInfo)
@@ -479,8 +547,7 @@ class HomeApps(
             appsBySource = appsBySource,
             sources = ready.sources,
             sortMode = homePrefs.sortMode,
-            sourceOrders = homePrefs.sourceOrders,
-            expandedSourceGroups = homePrefs.expandedSourceGroups
+            sourceOrders = homePrefs.sourceOrders
         )
 
         // One query for installed packages instead of one per card
@@ -585,7 +652,7 @@ class HomeApps(
             (visibleSlots + hiddenSlots)
                 .map { slot -> async { buildItem(slot) } }
                 .awaitAll()
-        }.withNameSuffixes()
+        }.withNameSuffixes().reusingUnchanged()
         val visibleItems = builtItems.subList(0, visibleSlots.size)
         val hiddenItems = builtItems.subList(visibleSlots.size, builtItems.size)
 
@@ -601,17 +668,25 @@ class HomeApps(
             customOrder = homePrefs.customOrder
         )
 
-        val state = HomeAppState(
+        val cards = HomeCards(
             visible = visible,
             hidden = hidden,
             sortMode = homePrefs.sortMode,
-            categoryState = homePrefs.categoryState,
-            categoryViewMode = homePrefs.categoryViewMode,
-            showCategoryViewSwitcher = homePrefs.showCategoryViewSwitcher,
             sourceGroups = sourceGroups
         )
-        scope.launch(homeCardCacheWrites) { homeCardCache.write(state) }
-        return state
+        scope.launch(homeCardCacheWrites) { homeCardCache.write(cards) }
+        return cards
+    }
+
+    /**
+     * Hands back the previous instance of every card the build left unchanged. A card holds a
+     * PackageInfo, so Compose tells cards apart by instance, and a fresh copy of an unchanged card
+     * would draw it again.
+     */
+    private fun List<HomeAppItem>.reusingUnchanged(): List<HomeAppItem> {
+        val previous = lastBuiltItems
+        return map { item -> previous[item.id]?.takeIf { it == item } ?: item }
+            .also { items -> lastBuiltItems = items.associateBy { it.id } }
     }
 
     /**
@@ -635,8 +710,7 @@ class HomeApps(
         appsBySource: Map<Int, Set<String>>,
         sources: Map<Int, PatchBundleSource>,
         sortMode: HomeAppSortMode,
-        sourceOrders: Map<Int, List<String>>,
-        expandedSourceGroups: Set<Int>
+        sourceOrders: Map<Int, List<String>>
     ): List<HomeAppSourceGroup> {
         // enabledInfo is already filtered to enabled entries by the caller
         // Keep source sections in repository order. Home sorting should reorder app cards
@@ -674,7 +748,7 @@ class HomeApps(
                         name = sourceName,
                         packageNames = packageNames,
                         packageOrder = packageOrder,
-                        collapsed = info.uid != DEFAULT_SOURCE_UID && info.uid !in expandedSourceGroups,
+                        collapsed = false,
                         avatarUrl = avatarUrls?.primary,
                         fallbackAvatarUrl = avatarUrls?.fallback
                     )
@@ -742,26 +816,18 @@ class HomeApps(
      * Invalidates AppDataResolver cache for [packageName] and forces homeAppState recomputation.
      * Call this after any install/uninstall operation that doesn't change the DB record.
      */
-    fun notifyAppStateChanged(packageName: String) {
-        appDataResolver.invalidate(packageName)
-        markTrackedPackagesPending(setOf(packageName), invalidateCache = true)
-        _appStateTicker.update { it + 1 }
-    }
+    fun notifyAppStateChanged(packageName: String) = refreshPackages(setOf(packageName))
 
     /** Triggers the swipe gesture hint whenever a custom bundle is added. */
     val showSwipeGestureHint = MutableStateFlow(false)
 
     /**
-     * Whether the "Other apps" button should be visible.
-     * Hidden while no apps are loaded; shown in expert mode or when a third-party source is active.
+     * Whether the "Other apps" button should be visible: once the apps have loaded, and only with
+     * a third-party source active, since the default source's apps are all on the list already.
      */
     val showOtherAppsButton: StateFlow<Boolean> =
-        combine(
-            homeAppState,
-            hasThirdPartySource,
-            prefs.useExpertMode.flow
-        ) { state, thirdParty, expertMode ->
-            !state?.visible.isNullOrEmpty() && (expertMode || thirdParty)
+        combine(homeAppState, hasThirdPartySource) { state, thirdParty ->
+            !state?.visible.isNullOrEmpty() && thirdParty
         }.stateIn(scope, SharingStarted.Eagerly, false)
 
     /**
@@ -793,6 +859,7 @@ class HomeApps(
         )
         observePackageChanges()
         observeSavedPatchedApkChanges()
+        observeMountChanges()
         observeTrackedApps()
         observeInstalledAppUpdates()
     }
@@ -956,6 +1023,11 @@ class HomeApps(
             .filter { runCatching { it.fetchChangelogEntries() }.isSuccess }
             .associateBy { it.uid }
 
+        // Third-party authors rarely scope their commits, which would hide a single-app bundle's updates
+        val bundlesInfo = patchBundleRepository.allBundlesInfoFlow.first()
+        val soleApps = soleAppByUid(bundlesInfo)
+        val appMetadata = patchBundleRepository.allAppMetadata.value
+
         val updates = mutableMapOf<String, AppPatchUpdate>()
 
         installedApps.forEach { app ->
@@ -970,8 +1042,10 @@ class HomeApps(
                 // Bundle is newer - refine with changelog if available.
                 // No changelog → show badge (network error or local bundle).
                 // No resolvable app name → show badge (can't match scopes).
-                // Known name, no matching scope → no badge.
-                val unscoped = AppPatchUpdate(bundleUid, storedVersion)
+                // Bundle lists only this app → show badge (every change is for it).
+                // Known name, nothing in the changelog for the app → no badge.
+                val unscoped = AppPatchUpdate(bundleUid, storedVersion, currentVersion)
+                if (soleApps[bundleUid] == app.originalPackageName) return@firstNotNullOfOrNull unscoped
                 val source = readableByUid[bundleUid] ?: return@firstNotNullOfOrNull unscoped
                 if (appNames.isEmpty()) return@firstNotNullOfOrNull unscoped
                 // The same releases the update's changelog lists, so the badge never promises
@@ -979,11 +1053,20 @@ class HomeApps(
                 val entries = runCatching { source.fetchChangelogSince(storedVersion) }.getOrNull()
                     ?: return@firstNotNullOfOrNull unscoped
 
-                AppPatchUpdate(bundleUid, storedVersion, appNames).takeIf {
+                val subject = ChangelogSubject(
+                    appNames = appNames,
+                    patchNames = app.selectionPayload?.bundles
+                        ?.find { it.bundleUid == bundleUid }?.patches.orEmpty().toSet(),
+                    packageName = app.originalPackageName,
+                    otherAppNames = bundlesInfo[bundleUid]?.listedApps().orEmpty()
+                        .minus(app.originalPackageName)
+                        .mapNotNullTo(mutableSetOf()) { appMetadata[it]?.displayName }
+                )
+                AppPatchUpdate(bundleUid, storedVersion, currentVersion, subject).takeIf {
                     ChangelogParser.hasChangesFor(
                         entries = entries,
                         installedVersion = storedVersion,
-                        appNames = appNames,
+                        subject = subject,
                     )
                 }
             }
@@ -1026,3 +1109,7 @@ internal fun outdatedBundleUids(
         isNewerVersion(storedVersion, currentVersion)
     }.keys
 }
+
+/** The app each single-app bundle lists, by bundle uid. */
+internal fun soleAppByUid(bundles: Map<Int, PatchBundleInfo>): Map<Int, String> =
+    bundles.mapNotNull { (uid, info) -> info.listedApps().singleOrNull()?.let { uid to it } }.toMap()

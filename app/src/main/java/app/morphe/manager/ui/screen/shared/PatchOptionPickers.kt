@@ -36,7 +36,7 @@ fun PickerButtonRow(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AppDialogOutlinedButton(
@@ -55,7 +55,7 @@ fun PickerButtonRow(
                 Icon(
                     imageVector = Icons.Outlined.Clear,
                     contentDescription = stringResource(R.string.clear),
-                    tint = LocalDialogTextColor.current.copy(alpha = 0.7f),
+                    tint = dialogTextColor().copy(alpha = 0.7f),
                 )
             }
         }

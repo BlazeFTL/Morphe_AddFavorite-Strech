@@ -50,6 +50,7 @@ import app.morphe.manager.patcher.worker.PatcherWorker
 import app.morphe.manager.ui.model.*
 import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.patcher.PatcherErrorInfo
+import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.restrictTo
 import app.morphe.patcher.patch.ApkArchitecture
@@ -59,9 +60,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
-import org.koin.core.component.inject
 import java.io.File
 import java.io.IOException
 import java.util.UUID
@@ -69,24 +67,34 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
+/**
+ * Log lines the error dialog already spells out field by field in its diagnostics card, dropped
+ * from the log it falls back to so the same values are not read twice.
+ */
+private val SummarisedLogPrefixes = listOf(
+    PatcherWorker.LOG_WORKER_PREFIX_BUILD,
+    PatcherWorker.LOG_WORKER_PREFIX_DEVICE,
+    PatcherWorker.LOG_WORKER_PREFIX_SOURCE
+)
+
 @OptIn(SavedStateHandleSaveableApi::class)
 class PatcherViewModel(
-    private val input: Patcher.ViewModelParams
-) : ViewModel(), KoinComponent, StepProgressProvider {
-    private val app: Application by inject()
-    private val fs: Filesystem by inject()
-    private val pm: PM by inject()
-    private val workerRepository: WorkerRepository by inject()
-    private val patchBundleRepository: PatchBundleRepository by inject()
-    private val patchSelectionRepository: PatchSelectionRepository by inject()
-    private val patchOptionsRepository: PatchOptionsRepository by inject()
-    private val installedAppRepository: InstalledAppRepository by inject()
-    private val prefs: PreferencesManager by inject()
-    private val patchOptionsPrefs: PatchOptionsPreferencesManager by inject()
-    private val originalApkRepository: OriginalApkRepository by inject()
-    private val installerManager: InstallerManager by inject()
-    private val savedStateHandle: SavedStateHandle = get()
-
+    private val input: Patcher.ViewModelParams,
+    private val app: Application,
+    private val messages: UserMessages,
+    private val fs: Filesystem,
+    private val pm: PM,
+    private val workerRepository: WorkerRepository,
+    private val patchBundleRepository: PatchBundleRepository,
+    private val patchSelectionRepository: PatchSelectionRepository,
+    private val patchOptionsRepository: PatchOptionsRepository,
+    private val installedAppRepository: InstalledAppRepository,
+    private val prefs: PreferencesManager,
+    private val patchOptionsPrefs: PatchOptionsPreferencesManager,
+    private val originalApkRepository: OriginalApkRepository,
+    private val installerManager: InstallerManager,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel(), StepProgressProvider {
     private var savedPatchedApp by savedStateHandle.saveableVar { false }
 
     private val saveOriginalApkMutex = Mutex()
@@ -119,6 +127,11 @@ class PatcherViewModel(
 
     private val _autoInstallChannel = Channel<Unit>(Channel.CONFLATED)
     val autoInstallEvent: Flow<Unit> = _autoInstallChannel.receiveAsFlow()
+
+    private val _patchingFailedChannel = Channel<Unit>(Channel.CONFLATED)
+
+    /** Fires once a run fails, for the screen to open the error dialog on. A recreated screen does not hear it again. */
+    val patchingFailedEvent: Flow<Unit> = _patchingFailedChannel.receiveAsFlow()
 
     /** Whether this run installs on its own, set before the event so the screen shows it coming. */
     var autoInstallPending by mutableStateOf(false)
@@ -167,6 +180,9 @@ class PatcherViewModel(
     private val selectedApp = input.selectedApp
     val packageName = selectedApp.packageName
     val version = selectedApp.version
+
+    /** Whether the build is mounted over the stock app rather than installed. */
+    val usingMountInstall = input.useMount
 
     /**
      * How the finished APK differs from the install this run was aimed at, or null when it lands
@@ -221,12 +237,14 @@ class PatcherViewModel(
 
     /**
      * Offered after the patcher process was killed, holding the lower limit that might get the
-     * run through. The limit is the user's setting, so it is only ever a suggestion.
+     * run through. The limit is the user's setting, so it is only ever a suggestion. [finished]
+     * marks a run that got through anyway once the limit was lowered on the way.
      */
     data class MemoryAdjustmentDialogState(
         val currentLimit: Int,
         val suggestedLimit: Int,
-        val canAdjust: Boolean
+        val canAdjust: Boolean,
+        val finished: Boolean = false
     )
 
     var memoryAdjustmentDialog by mutableStateOf<MemoryAdjustmentDialogState?>(null)
@@ -241,6 +259,15 @@ class PatcherViewModel(
 
     fun dismissMemoryAdjustment() {
         memoryAdjustmentDialog = null
+    }
+
+    private fun offerMemoryAdjustment(currentLimit: Int, suggestedLimit: Int, finished: Boolean) {
+        memoryAdjustmentDialog = MemoryAdjustmentDialogState(
+            currentLimit = currentLimit,
+            suggestedLimit = suggestedLimit,
+            canAdjust = suggestedLimit < currentLimit,
+            finished = finished
+        )
     }
 
     /**
@@ -359,8 +386,9 @@ class PatcherViewModel(
         ).first().associateBy { it.uid }
 
     /**
-     * Patches the sources declare unavailable for [installerType], so the finished app can name
-     * what it was built without instead of leaving the user to spot the missing patch.
+     * Patches the sources declare unavailable for [installerType] that the run left out, so the
+     * finished app can name what it was built without instead of leaving the user to spot the
+     * missing patch. One the user picked regardless of the install target is built in, so not named.
      */
     suspend fun unavailablePatchNames(installerType: InstallerType): List<String> {
         // Kept once resolved, because the input a temporary APK was read from is gone by the time
@@ -370,7 +398,10 @@ class PatcherViewModel(
 
         return gatherScopedBundles().values
             .asSequence()
-            .flatMap { it.patches }
+            .flatMap { bundle ->
+                val selected = appliedSelection[bundle.uid].orEmpty()
+                bundle.patches.filter { it.name !in selected }
+            }
             .filter { it.lockState(installerType, architecture) == PatchLockState.LOCKED_OFF }
             .map { it.displayName }
             .distinct()
@@ -428,6 +459,7 @@ class PatcherViewModel(
             packageName = packageName,
             appVersion = version ?: "unspecified",
             patchCount = patchCount,
+            failedPatch = patchRun.failedPatch,
             bundles = bundles,
             stripsNativeLibs = prefs.stripUnusedNativeLibs.get()
         )
@@ -450,6 +482,12 @@ class PatcherViewModel(
         }
     }
 
+    /** [exportFileName] once the metadata it is built from has been read, for a name used at once. */
+    suspend fun resolvedExportFileName(): String {
+        ensureExportMetadata()
+        return exportFileName
+    }
+
     private val tempDir = savedStateHandle.saveable(key = "tempDir") {
         fs.uiTempDir.resolve("installer").also {
             it.deleteRecursively()
@@ -470,8 +508,8 @@ class PatcherViewModel(
             val file = inputFile ?: return false
             // Files under originalApksDir back the repatch flow and outlive this VM.
             val savedOriginalsRoot = fs.originalApksDir.absolutePath + File.separator
-            if (file.absolutePath.startsWith(savedOriginalsRoot)) return false
-            return (selectedApp as? SelectedApp.Local)?.temporary == true
+            return !file.absolutePath.startsWith(savedOriginalsRoot) &&
+                    (selectedApp as? SelectedApp.Local)?.temporary == true
         }
 
     val outputFile = tempDir.resolve("output.apk")
@@ -493,10 +531,26 @@ class PatcherViewModel(
         restoredSteps = restoredProgress?.let {
             BundleCompat.getParcelableArrayList(it, KEY_STEPS, Step::class.java)
         },
-        restoredCompletedPatches = restoredProgress?.getInt(KEY_COMPLETED_PATCHES) ?: 0
+        restoredCompletedPatches = restoredProgress?.getInt(KEY_COMPLETED_PATCHES) ?: 0,
+        restoredFailedPatch = restoredProgress?.getString(KEY_FAILED_PATCH)
     )
 
     val steps: List<Step> get() = patchRun.steps
+
+    /** What the failed step reported, empty while the run has not failed or where it said nothing. */
+    val failureMessage: String
+        get() = steps.firstOrNull { it.state == State.FAILED }?.message.orEmpty()
+
+    /**
+     * The error as the error dialog spells it out. A failed step that says nothing falls back to
+     * the patching log, so the user always has something to act on.
+     */
+    val failureDetails: String
+        get() = failureMessage.ifBlank {
+            patchRun.logs
+                .filterNot { (_, message) -> SummarisedLogPrefixes.any { message.startsWith(it) } }
+                .joinToString("\n") { (level, message) -> "[$level] $message" }
+        }
     val progress: Float get() = patchRun.progress
     val patchesProgress get() = patchRun.patchesProgress
 
@@ -535,6 +589,7 @@ class PatcherViewModel(
             Bundle().apply {
                 putParcelableArrayList(KEY_STEPS, ArrayList(patchRun.steps))
                 putInt(KEY_COMPLETED_PATCHES, patchRun.completedPatches)
+                putString(KEY_FAILED_PATCH, patchRun.failedPatch)
                 putBoolean(KEY_SUCCESS_SCREEN, showSuccessScreen)
                 _patcherSucceeded.value?.let { putBoolean(KEY_SUCCEEDED, it) }
             }
@@ -887,21 +942,21 @@ class PatcherViewModel(
     }
 
     /**
-     * Shared post-export logic: persists the patched app record, shows a toast,
+     * Shared post-export logic: persists the patched app record, shows a message,
      * and raises the post-patch prompts on success.
      */
     private suspend fun finishExport(exportSucceeded: Boolean) {
         if (!exportSucceeded) {
-            app.toast(app.getString(R.string.saved_app_export_failed))
+            messages.show(R.string.saved_app_export_failed)
             return
         }
 
         val saved = persistPatchedApp(null, InstallType.SAVED)
 
         if (!saved) {
-            app.toast(app.getString(R.string.patched_app_save_failed_toast))
+            messages.show(R.string.patched_app_save_failed_toast)
         } else {
-            app.toast(app.getString(R.string.save_apk_success))
+            messages.show(R.string.save_apk_success)
             delay(2.seconds)
         }
 
@@ -929,7 +984,7 @@ class PatcherViewModel(
         val selectedForRun = when (val selected = input.selectedApp) {
             is SelectedApp.Local -> {
                 val reuseFile = inputFile ?: selected.file
-                val temporary = if (forceKeepLocalInput) false else selected.temporary
+                val temporary = !forceKeepLocalInput && selected.temporary
                 selected.copy(file = reuseFile, temporary = temporary)
             }
 
@@ -959,6 +1014,7 @@ class PatcherViewModel(
             mergedOptions,
             patchRun.logger,
             onPatchCompleted = { patchRun.onPatchCompleted() },
+            onPatchFailed = patchRun::onPatchFailed,
             onPatchingRestarted = { patchRun.onRestart() },
             setInputFile = { file, needsSplit, merged ->
                 val storedFile = if (shouldPreserveInput) {
@@ -987,6 +1043,7 @@ class PatcherViewModel(
             },
             onProgress = patchRun::onProgress,
             patchSources = patchSourcesForLog,
+            useMount = usingMountInstall
         )
     }
 
@@ -1002,6 +1059,16 @@ class PatcherViewModel(
                     WorkInfo.State.SUCCEEDED -> {
                         forceKeepLocalInput = false
                         patchRun.stopStallWatch()
+
+                        // Every later run would lose the same attempt to the same kill
+                        val loweredLimit = workInfo.outputData.getInt(PatcherWorker.PROCESS_LOWERED_LIMIT_KEY, -1)
+                        if (loweredLimit > 0) {
+                            offerMemoryAdjustment(
+                                currentLimit = workInfo.outputData.getInt(PatcherWorker.PROCESS_PREVIOUS_LIMIT_KEY, -1),
+                                suggestedLimit = loweredLimit,
+                                finished = true
+                            )
+                        }
 
                         // Save original APK before deleting temporary file (blocking).
                         // Launched independently so cancelling observeWorkerJob (new patch run)
@@ -1031,6 +1098,7 @@ class PatcherViewModel(
                         isPatching = false
                         _patcherSucceeded.value = false
                         showSuccessScreen = true
+                        _patchingFailedChannel.trySend(Unit)
                     }
 
                     WorkInfo.State.RUNNING,
@@ -1066,7 +1134,7 @@ class PatcherViewModel(
         // A patch is free to rename the app, and the name it built under is the one being replaced
         val target = withContext(Dispatchers.IO) { pm.getPackageInfo(outputFile)?.packageName }
             ?: packageName
-        if (!installerManager.autoInstallAllowed(target)) return@launch
+        if (!installerManager.autoInstallAllowed(target, mount = usingMountInstall)) return@launch
         autoInstallPending = true
         // Started by the success screen rather than on a timer of its own: an install starting
         // sooner puts the system dialog over a run still drawn as unfinished, or over a game
@@ -1099,11 +1167,7 @@ class PatcherViewModel(
                 val suggestedLimit = lowerMemoryLimit(currentLimit)
                 // The setting is left alone until the user accepts the suggestion: silently
                 // lowering it made the configured limit drift down across failed runs
-                memoryAdjustmentDialog = MemoryAdjustmentDialogState(
-                    currentLimit = currentLimit,
-                    suggestedLimit = suggestedLimit,
-                    canAdjust = suggestedLimit < currentLimit
-                )
+                offerMemoryAdjustment(currentLimit, suggestedLimit, finished = false)
             }
         }
     }
@@ -1202,6 +1266,7 @@ class PatcherViewModel(
         private const val KEY_PROGRESS = "patch_progress"
         private const val KEY_STEPS = "steps"
         private const val KEY_COMPLETED_PATCHES = "completed_patches"
+        private const val KEY_FAILED_PATCH = "failed_patch"
         private const val KEY_SUCCEEDED = "succeeded"
         private const val KEY_SUCCESS_SCREEN = "success_screen"
     }

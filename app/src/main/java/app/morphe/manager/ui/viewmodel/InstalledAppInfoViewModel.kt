@@ -36,6 +36,7 @@ import app.morphe.manager.ui.model.displayedPackageInfo
 import app.morphe.manager.ui.model.trackedInstallPresentation
 import app.morphe.manager.ui.screen.home.AppliedPatchBundleUi
 import app.morphe.manager.ui.screen.home.resolveAppliedBundleAttribution
+import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -43,26 +44,23 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.io.File
 
 class InstalledAppInfoViewModel(
-    packageName: String
-) : ViewModel(), KoinComponent {
-
-    private val context: Application by inject()
-    private val pm: PM by inject()
-    private val installedAppRepository: InstalledAppRepository by inject()
-    private val patchBundleRepository: PatchBundleRepository by inject()
-    private val rootInstaller: RootInstaller by inject()
-    private val installerManager: InstallerManager by inject()
-    private val originalApkRepository: OriginalApkRepository by inject()
-    private val applicationScope: AppCoroutineScope by inject()
-    private val localApkSources: LocalApkSources by inject()
-    private val appLinksManager: AppLinksManager by inject()
-    private val prefs: PreferencesManager by inject()
-
+    packageName: String,
+    private val context: Application,
+    private val messages: UserMessages,
+    private val pm: PM,
+    private val installedAppRepository: InstalledAppRepository,
+    private val patchBundleRepository: PatchBundleRepository,
+    private val rootInstaller: RootInstaller,
+    private val installerManager: InstallerManager,
+    private val originalApkRepository: OriginalApkRepository,
+    private val applicationScope: AppCoroutineScope,
+    private val localApkSources: LocalApkSources,
+    private val appLinksManager: AppLinksManager,
+    private val prefs: PreferencesManager
+) : ViewModel() {
     lateinit var onBackClick: () -> Unit
     var onAppStateChanged: ((packageName: String) -> Unit)? = null
 
@@ -101,6 +99,10 @@ class InstalledAppInfoViewModel(
     var isAppDeleted by mutableStateOf(false)
         private set
     var isInstallStateNotPatched by mutableStateOf(false)
+        private set
+
+    /** Whether the unpatched install that replaced the record came from Google Play. */
+    var isReplacedByPlayStore by mutableStateOf(false)
         private set
     var isInstallStateUnknown by mutableStateOf(false)
         private set
@@ -168,7 +170,7 @@ class InstalledAppInfoViewModel(
     fun launch() {
         val app = installedApp ?: return
         if (app.installType == InstallType.SAVED) {
-            context.toast(context.getString(R.string.saved_app_launch_unavailable))
+            messages.show(R.string.saved_app_launch_unavailable)
         } else {
             viewModelScope.launch {
                 if (localApkSources.trackedPatchState(app) == InstalledPatchState.Patched) {
@@ -176,7 +178,7 @@ class InstalledAppInfoViewModel(
                 } else {
                     // Covers both a package replaced under an open dialog and one whose identity
                     // cannot be established, so the message must not claim which of the two it is
-                    context.toast(context.getString(R.string.launch_app_unverified))
+                    messages.show(R.string.launch_app_unverified)
                     refreshAppState(app)
                     onAppStateChanged?.invoke(app.currentPackageName)
                 }
@@ -197,7 +199,7 @@ class InstalledAppInfoViewModel(
                 viewModelScope.launch {
                     try {
                         if (localApkSources.trackedPatchState(app) != InstalledPatchState.Patched) {
-                            context.toast(context.getString(R.string.uninstall_app_unverified))
+                            messages.show(R.string.uninstall_app_unverified)
                             refreshAppState(app)
                             onAppStateChanged?.invoke(app.currentPackageName)
                             return@launch
@@ -208,7 +210,7 @@ class InstalledAppInfoViewModel(
                     } catch (_: UninstallCancelledException) {
                         // User dismissed dialog - do nothing
                     } catch (e: Exception) {
-                        context.toast(context.getString(R.string.uninstall_app_fail, e.simpleMessage()))
+                        messages.show(R.string.uninstall_app_fail, e.simpleMessage())
                     }
                 }
             }
@@ -253,7 +255,7 @@ class InstalledAppInfoViewModel(
             appInfo = null
             appliedPatches = null
             isInstalledOnDevice = false
-            context.toast(context.getString(R.string.saved_app_removed_toast))
+            messages.show(R.string.saved_app_removed_toast)
             onAppStateChanged?.invoke(app.currentPackageName)
             if (app.originalPackageName != app.currentPackageName) {
                 onAppStateChanged?.invoke(app.originalPackageName)
@@ -311,6 +313,8 @@ class InstalledAppInfoViewModel(
         )
         isAppDeleted = trackedPresentation.isDeleted
         isInstallStateNotPatched = trackedPresentation.isNotPatched
+        isReplacedByPlayStore = isInstallStateNotPatched &&
+                pm.getInstallerPackageName(app.currentPackageName) == PLAY_STORE_INSTALLER_PACKAGE
         isInstallStateUnknown = trackedPresentation.isUnknown
 
         canRemoveRecord = canRemoveTrackedRecord(app.installType, trackedPatchState, hasSavedCopy)

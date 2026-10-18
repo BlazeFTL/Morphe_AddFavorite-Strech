@@ -213,38 +213,55 @@ class GameHaptics {
  */
 @Stable
 class MiniGameState(prefs: PreferencesManager, scope: CoroutineScope) {
-    val game2048 = Game2048State(
-        initialHighScore = prefs.miniGame2048HighScore.getBlocking(),
-        onHighScoreUpdated = { scope.launch { prefs.miniGame2048HighScore.update(it) } }
-    )
-    val flappy = FlappyGameState(
-        initialHighScore = prefs.miniGameFlappyHighScore.getBlocking(),
-        onHighScoreUpdated = { scope.launch { prefs.miniGameFlappyHighScore.update(it) } }
-    )
-    val snake = SnakeGameState(
-        initialHighScore = prefs.miniGameSnakeHighScore.getBlocking(),
-        onHighScoreUpdated = { scope.launch { prefs.miniGameSnakeHighScore.update(it) } }
-    )
-    val dino = DinoGameState(
-        initialHighScore = prefs.miniGameDinoHighScore.getBlocking(),
-        onHighScoreUpdated = { scope.launch { prefs.miniGameDinoHighScore.update(it) } }
-    )
-    val blocks = BlocksGameState(
-        initialHighScore = prefs.miniGameBlocksHighScore.getBlocking(),
-        onHighScoreUpdated = { scope.launch { prefs.miniGameBlocksHighScore.update(it) } }
-    )
-    val bricks = BricksGameState(
-        initialHighScore = prefs.miniGameBricksHighScore.getBlocking(),
-        onHighScoreUpdated = { scope.launch { prefs.miniGameBricksHighScore.update(it) } }
-    )
-    val miner = MinerGameState(
-        initialHighScore = prefs.miniGameMinerHighScore.getBlocking(),
-        onHighScoreUpdated = { scope.launch { prefs.miniGameMinerHighScore.update(it) } }
-    )
-    val pairs = PairsGameState(
-        initialHighScore = prefs.miniGamePairsHighScore.getBlocking(),
-        onHighScoreUpdated = { scope.launch { prefs.miniGamePairsHighScore.update(it) } }
-    )
+    // Built on first use, since most runs open no game and each reads its high score blocking
+    val game2048 by lazy {
+        Game2048State(
+            initialHighScore = prefs.miniGame2048HighScore.getBlocking(),
+            onHighScoreUpdated = { scope.launch { prefs.miniGame2048HighScore.update(it) } }
+        )
+    }
+    val flappy by lazy {
+        FlappyGameState(
+            initialHighScore = prefs.miniGameFlappyHighScore.getBlocking(),
+            onHighScoreUpdated = { scope.launch { prefs.miniGameFlappyHighScore.update(it) } }
+        )
+    }
+    val snake by lazy {
+        SnakeGameState(
+            initialHighScore = prefs.miniGameSnakeHighScore.getBlocking(),
+            onHighScoreUpdated = { scope.launch { prefs.miniGameSnakeHighScore.update(it) } }
+        )
+    }
+    val dino by lazy {
+        DinoGameState(
+            initialHighScore = prefs.miniGameDinoHighScore.getBlocking(),
+            onHighScoreUpdated = { scope.launch { prefs.miniGameDinoHighScore.update(it) } }
+        )
+    }
+    val blocks by lazy {
+        BlocksGameState(
+            initialHighScore = prefs.miniGameBlocksHighScore.getBlocking(),
+            onHighScoreUpdated = { scope.launch { prefs.miniGameBlocksHighScore.update(it) } }
+        )
+    }
+    val bricks by lazy {
+        BricksGameState(
+            initialHighScore = prefs.miniGameBricksHighScore.getBlocking(),
+            onHighScoreUpdated = { scope.launch { prefs.miniGameBricksHighScore.update(it) } }
+        )
+    }
+    val miner by lazy {
+        MinerGameState(
+            initialHighScore = prefs.miniGameMinerHighScore.getBlocking(),
+            onHighScoreUpdated = { scope.launch { prefs.miniGameMinerHighScore.update(it) } }
+        )
+    }
+    val pairs by lazy {
+        PairsGameState(
+            initialHighScore = prefs.miniGamePairsHighScore.getBlocking(),
+            onHighScoreUpdated = { scope.launch { prefs.miniGamePairsHighScore.update(it) } }
+        )
+    }
     var selectedGame by mutableStateOf<MiniGame?>(null)
 
     /** State backing [game], which is the one place a new game has to be wired in. */
@@ -293,7 +310,7 @@ class MiniGameState(prefs: PreferencesManager, scope: CoroutineScope) {
 private val GamePickerMinCardWidth = 150.dp
 private val GamePickerCardHeight = 140.dp
 private val GamePickerIconTileSize = 44.dp
-private val GamePickerIconTileShape = RoundedCornerShape(14.dp)
+private val GamePickerIconTileShape = RoundedCornerShape(Defaults.CornerMedium)
 
 /**
  * Game selection screen shown when no game is active yet.
@@ -334,7 +351,7 @@ private fun GamePickerGridCard(
 
     SurfaceCard(
         onClick = onClick,
-        cornerRadius = Defaults.CompactCornerRadius,
+        cornerRadius = Defaults.CornerMedium,
         showBorder = true,
         borderColor = appAccentBorder(game.accent),
         modifier = modifier
@@ -356,7 +373,7 @@ private fun GamePickerGridCard(
             ) {
                 ThemedIcon(icon = game.icon, tint = accent)
             }
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(Defaults.SpaceSmall))
             Text(
                 text = stringResource(game.titleRes),
                 style = MaterialTheme.typography.titleSmall,
@@ -364,7 +381,7 @@ private fun GamePickerGridCard(
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
             )
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(Defaults.SpaceExtraSmall))
             Text(
                 text = stringResource(game.subtitleRes),
                 style = MaterialTheme.typography.bodySmall,
@@ -414,7 +431,7 @@ internal fun MiniGameContent(state: MiniGameState) {
                                     .align(Alignment.Center)
                                     // The canvases round their own corners, and the overlays
                                     // drawn over them have to stop at the same edge
-                                    .clip(RoundedCornerShape(Defaults.CompactCornerRadius))
+                                    .clip(RoundedCornerShape(Defaults.CornerMedium))
                             ) {
                                 GameCanvasSlot(selected = selected, state = state)
 
@@ -469,7 +486,7 @@ internal fun GameScoreRow(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         AppAccentBadge(text = stringResource(R.string.mini_game_score, score))
@@ -505,7 +522,7 @@ internal fun GameOverOverlay(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
             Text(
                 text = stringResource(R.string.mini_game_game_over),
@@ -556,7 +573,7 @@ internal fun GamePauseOverlay(onResume: () -> Unit, modifier: Modifier = Modifie
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
             Text(
                 text = stringResource(R.string.mini_game_paused),

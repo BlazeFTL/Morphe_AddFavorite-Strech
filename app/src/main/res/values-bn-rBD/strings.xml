@@ -22,6 +22,10 @@
     <string name="deep_link_add_source_title">সোর্স যোগ করুন</string>
     <string name="deep_link_add_source_message">আপনি কি এই প্যাচ সোর্স Morphe-এ যোগ করতে চান?</string>
     <string name="deep_link_add_source_warning">আপনি শুধুমাত্র যে উৎসগুলির উপর বিশ্বাস করেন সেগুলিই যোগ করুন</string>
+    <!-- Shown under the app a link was opened for -->
+    <string name="deep_link_add_source_only_app">শুধুমাত্র এই অ্যাপটি যোগ করা হয়েছে। আপনি সোর্সের অ্যাপ তালিকা থেকে অন্যান্য অ্যাপ যোগ করতে পারেন</string>
+    <!-- Asked when the link names an app of a source that is already added -->
+    <string name="deep_link_add_source_app_back">এই সোর্সটি ইতিমধ্যে যোগ করা হয়েছে। বিদ্যমান সোর্স থেকে এই অ্যাপটি যোগ করবেন?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe আপডেট উপলব্ধ</string>
     <string name="home_update_available_subtitle">নতুন সংস্করণ ইনস্টল করতে প্রস্তুত</string>
@@ -54,6 +58,9 @@
     <string name="home_app_filter_uninstalled_description">Morphe দিয়ে প্যাচ করা অ্যাপগুলো যেগুলো আর এই ডিভাইসে নেই</string>
     <string name="home_app_filter_clones">ক্লোন</string>
     <string name="home_app_filter_clones_description">নিজস্ব প্যাকেজ নামে তৈরি, মূল অ্যাপের পাশাপাশি ইনস্টল করা অ্যাপ</string>
+    <string name="home_app_grouping_all_apps_description">প্রতিটি অ্যাপসহ একটি তালিকা</string>
+    <string name="home_app_grouping_sources_description">যারা সেগুলো সরবরাহ করে সেই পেচ উৎসের অধীনে অ্যাপস</string>
+    <string name="home_app_grouping_custom_description">আপনি যে বিষয়শ্রেণীগুলো তৈরি করেন তাতে অ্যাপস</string>
     <string name="home_app_sort_manual_description">কোনো অ্যাপ দীর্ঘক্ষণ চাপুন, তারপর পুনর্বিন্যাস বোতামে আলতো চাপুন</string>
     <string name="home_app_sort_recommended">সুপারিশকৃত ক্রম</string>
     <string name="home_app_sort_recommended_description">ইনস্টল করা এবং পিন করা অ্যাপগুলি প্রথমে</string>
@@ -138,11 +145,14 @@
     <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
     <string name="home_greeting_winter_4">তুষার ভেদ করে প্যাচ করা</string>
     <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <string name="home_greeting_new_year_1">শুভ নববর্ষ!</string>
+    <string name="home_greeting_new_year_2">নতুন প্যাচের কাউন্টডাউন চলছে</string>
+    <string name="home_greeting_new_year_3">নতুন বছর, একই বিজ্ঞাপন-মুক্ত অ্যাপস</string>
     <!-- Pun on the saying "Out with the old, in with the new" -->
+    <string name="home_greeting_new_year_4">পুরোনো সংস্করণকে বিদায়, নতুনকে স্বাগতম</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">প্যাচ সোর্সগুলো</string>
     <string name="sources_search">উৎস এবং প্যাচ অনুসন্ধান করুন</string>
-    <string name="sources_sort_title">প্যাচ সোর্স সাজান</string>
     <string name="sources_sort_manual">ম্যানুয়াল অর্ডার</string>
     <string name="sources_sort_manual_hint">পুনরায় সাজানোর জন্য একটি উৎসের উপর দীর্ঘক্ষণ চাপুন</string>
     <string name="sources_sort_last_updated">সর্বশেষ আপডেট করা হয়েছে</string>
@@ -154,12 +164,17 @@
     <string name="sources_management_report_issue">একটি সমস্যা রিপোর্ট করুন</string>
     <string name="sources_management_failed_to_open_url">URL খুলতে ব্যর্থ হয়েছে</string>
     <string name="sources_apps">অ্যাপস</string>
-    <string name="sources_apps_description">কোনো অ্যাপকে এই সোর্স থেকে বাদ দিতে বা ফিরিয়ে আনতে এটিতে আলতো চাপুন, বা একাধিক বাছতে দীর্ঘ চাপ দিন। কোনো সোর্স আর অ্যাপটি না আনলে অ্যাপটি হোম স্ক্রিন থেকে চলে যায়।</string>
+    <string name="sources_apps_description">এই উৎস থেকে টিক করা অ্যাপগুলি আসে। বাদ দিতে বা আবার আনতে একটি অ্যাপে ট্যাপ করুন। কোনো উৎস এটি আর নিয়ে না এলে হোম স্ক্রিন থেকে অ্যাপ চলে যায়, যতক্ষণ আপনি এটি প্যাচ করেন না</string>
     <string name="sources_apps_brought">এই সোর্স থেকে আনা</string>
     <string name="sources_apps_left_out">এই সোর্স থেকে বাদ দেওয়া</string>
-    <string name="sources_apps_leave_out">বাদ দিন</string>
-    <string name="sources_apps_leave_out_done">বাদ দেওয়া হয়েছে</string>
     <string name="sources_apps_bring_back">ফিরিয়ে আনুন</string>
+    <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
+    <string name="sources_apps_stays_patched">প্যাচ করা অবস্থায় রাখা হয়েছে</string>
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">নতুন</string>
+    <string name="sources_apps_new_apps">নতুন অ্যাপ আনুন</string>
+    <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
+    <string name="sources_apps_new_apps_description">আগে যে অ্যাপগুলো যোগ করে সেগুলো হোম স্ক্রিনে দেখা যায়</string>
     <string name="sources_management_prerelease_toggle">প্রি-রিলিজ প্যাচ</string>
     <string name="sources_management_prerelease_toggle_description">নতুন পরীক্ষামূলক প্যাচ সংস্করণে প্রাথমিক অ্যাক্সেস গ্রহণ করে</string>
     <string name="sources_prerelease_warning_title">প্রি-রিলিজ প্যাচ সক্রিয় করবেন?</string>
@@ -204,7 +219,6 @@
     <string name="sources_dialog_url_invalid">URL টি অবশ্যই একটি GitHub/GitLab রেপো অথবা .json ফাইল নির্দেশ করতে হবে।</string>
     <string name="sources_dialog_preinstalled">প্র-ইনস্টল করা হয়েছে</string>
     <string name="sources_dialog_community">কমিউনিটি প্যাচ</string>
-    <string name="sources_dialog_choose_apps">অ্যাপ নির্বাচন করুন</string>
     <string name="sources_dialog_choose_apps_description">সোর্স লোড হয়ে গেলে তার কোন অ্যাপগুলো রাখতে চান তা বেছে নিন।</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">তৃতীয় পক্ষের প্যাচ উৎস</string>
@@ -288,7 +302,6 @@
     <string name="home_use_installed_app">ইনস্টল করা অ্যাপ ব্যবহার করুন</string>
     <string name="home_installed_app_picker_title">ইনস্টল করা অ্যাপ</string>
     <string name="home_installed_app_picker_empty">কোনো অ্যাপস খুঁজে পাওয়া যায়নি</string>
-    <string name="home_installed_app_picker_filter_all">সব অ্যাপস</string>
     <string name="home_installed_app_picker_filter_user">শুধুমাত্র ব্যবহারকারীর অ্যাপস</string>
     <string name="home_installed_app_picker_filter_system">শুধুমাত্র সিস্টেম অ্যাপস</string>
     <string name="home_invalid_apk_unreadable">ফাইলটি পড়া যায়নি। \'এক্সটার্নাল স্টোরেজ\' ব্যাটারি দ্বারা সীমাবদ্ধ কিনা তা পরীক্ষা করুন</string>
@@ -297,7 +310,6 @@
     <string name="home_invalid_apk_io_error">ফাইলটি খুলতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন</string>
     <string name="home_external_apk_expert_mode_required">এই বৈশিষ্ট্যটি শুধুমাত্র বিশেষজ্ঞ মোডে উপলব্ধ</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
-    <string name="expert_mode_title">এক্সপার্ট মোড</string>
     <string name="expert_mode_search">প্যাচ খুঁজুন</string>
     <string name="expert_mode_disable_all">সবকিছু নিষ্ক্রিয় করুন</string>
     <string name="expert_mode_disable_all_done">সমস্ত প্যাচ নিষ্ক্রিয় করা হয়েছে</string>
@@ -388,44 +400,43 @@
     <string name="adaptive_icon_select_image">চিত্র নির্বাচন করুন</string>
     <string name="adaptive_icon_change_image">চিত্র পরিবর্তন করুন</string>
     <string name="image_load_failed">এই ছবিটি লোড করা যায়নি</string>
-    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
-    <string name="adaptive_icon_foreground">অগ্রভাগের চিত্র</string>
-    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <!-- Card of the adaptive icon creator where the picture is placed on the icon -->
     <string name="adaptive_icon_launcher">লঞ্চার আইকন</string>
+    <string name="adaptive_icon_gesture_hint">সরাতে টেনে আনুন, আকার পরিবর্তন করতে চিমটি করুন</string>
+    <!-- Card of the adaptive icon creator showing the icons as the device draws them -->
+    <string name="adaptive_icon_preview">পূর্বরূপ</string>
+    <!-- Caption under the launcher icon in its own colors -->
+    <string name="adaptive_icon_standard">স্ট্যান্ডার্ড</string>
+    <!-- Caption under the launcher icon recolored by the system theme -->
+    <string name="adaptive_icon_themed">থিমযুক্ত</string>
     <string name="adaptive_icon_background_color">ব্যাকগ্রাউন্ড রং</string>
     <string name="adaptive_icon_reset_transform">পজিশন এবং স্কেল রিসেট করুন</string>
-    <string name="adaptive_icon_safe_zone_inner">সেফ জোন (সময়কালে দৃশ্যমান)</string>
-    <string name="adaptive_icon_safe_zone_outer">মাস্ক জোন (মুছে ফেলা হতে পারে)</string>
-    <string name="adaptive_icon_no_transparency_warning">ছবিতে কোনো স্বচ্ছ পিক্সেল নেই। ফলাফল ভুল দেখাতে পারে</string>
+    <string name="adaptive_icon_no_transparency_warning">এই ছবিতে কোনো স্বচ্ছ পিক্সেল নেই, তাই থিমযুক্ত এবং বিজ্ঞপ্তি আইকনে Morphe লোগোই থাকে</string>
     <string name="adaptive_icon_created_success">অ্যাডাপ্টিভ আইকন সফলভাবে তৈরি হয়েছে</string>
     <string name="adaptive_icon_creation_failed">অ্যাডাপ্টিভ আইকন তৈরি করতে ব্যর্থ হয়েছে</string>
-    <string name="adaptive_icon_label">অভিযোজিত</string>
-    <string name="adaptive_icon_monochrome_label">একবর্ণ</string>
     <string name="adaptive_icon_guide">আইকন তৈরি করার নির্দেশিকা</string>
     <string name="adaptive_icon_guide_png_title">স্বচ্ছ পটভূমি সহ একটি PNG ব্যবহার করুন</string>
-    <string name="adaptive_icon_guide_png_body">foregroundView অবশ্যই একটি স্বচ্ছ পটভূমি সহ একটি PNG ফাইল হতে হবে। একটি সলিড রঙের পটভূমি ভুল দেখাবে - পটভূমির রঙটি নীচের ব্যাকগ্রাউন্ড পিকার থেকে আসা উচিত।</string>
+    <string name="adaptive_icon_guide_png_body">নিচে বেছে নেওয়া ব্যাকগ্রাউন্ডের রঙসহ স্বচ্ছ ব্যাকগ্রাউন্ডে থাকা লোগো সবচেয়ে ভালো কাজ করে। স্বচ্ছতা ছাড়া একটি ছবি পুরো আইকনটি ভরাট করে এবং তখন থিমযুক্ত ও বিজ্ঞপ্তি আইকনে Morphe লোগোই থাকে।</string>
     <string name="adaptive_icon_guide_safe_zones_title">নিরাপদ অঞ্চল</string>
-    <string name="adaptive_icon_guide_safe_zones_body">"অভ্যন্তরীণ অঞ্চল (সলিড): বিষয়বস্তু সর্বদা সমস্ত লঞ্চার আকারে সম্পূর্ণরূপে দৃশ্যমান হবে।
-বাহ্য অঞ্চল (ড্যাশড): লঞ্চার মাস্ক দ্বারা ক্লিপ করা হতে পারে - গুরুত্বপূর্ণ বিবরণগুলি অভ্যন্তরীণ অঞ্চলে রাখুন।"</string>
+    <string name="adaptive_icon_guide_safe_zones_body">রূপরেখাটি আপনার লঞ্চারের আইকনের আকৃতি দেখায় এবং এর বাইরের সবকিছু কেটে যায়। অন্যান্য লঞ্চার অন্য আকৃতি ব্যবহার করে, তাই গুরুত্বপূর্ণ বিবরণ ড্যাশযুক্ত বৃত্তের ভিতরে রাখুন, যা প্রতিটি আকৃতিতে দেখা যায়।</string>
     <string name="adaptive_icon_guide_notification_title">নোটিফিকেশন আইকন</string>
-    <string name="adaptive_icon_guide_notification_body">foregroundView থেকে স্বয়ংক্রিয়ভাবে তৈরি করা হয়েছে। নোটিফিকেশন স্লাইডার ব্যবহার করে এর আকার সামঞ্জস্য করুন। স্ট্যাটাস বারে সমস্ত দৃশ্যমান বিষয়বস্তু সাদা দেখাবে।</string>
-    <string name="adaptive_icon_guide_monochrome_title">একবর্ণ আইকন</string>
-    <string name="adaptive_icon_guide_monochrome_body">foregroundView থেকে একই অভিযোজিত আইকন রূপান্তর ব্যবহার করে স্বয়ংক্রিয়ভাবে তৈরি করা হয়েছে। Android 13 এবং পরবর্তী সংস্করণে এটি ওয়ালপেপার অ্যাকসেন্ট রঙের সাথে টিন্টেড দেখা যাবে।</string>
+    <string name="adaptive_icon_guide_notification_body">ছবির দৃশ্যমান অংশ থেকে কাটা হয় এবং ফাইলের মার্জিন যাই হোক না কেন, অন্যান্য স্ট্যাটাস বার আইকনের মতো আকার দেওয়া হয়। প্রিভিউয়ের নিচের স্লাইডার দিয়ে এটি সামঞ্জস্য করুন। Android এটি একটি একক রঙে দেখায়।</string>
+    <string name="adaptive_icon_guide_monochrome_title">থিমযুক্ত আইকন</string>
+    <string name="adaptive_icon_guide_monochrome_body">লঞ্চার আইকনের মতো একই অবস্থান এবং আকারে ছবি থেকে কাটা হয়। Android 13 এবং পরবর্তী সংস্করণে, থিমযুক্ত আইকন চালু থাকা লঞ্চারগুলো ওয়ালপেপার থেকে এতে রঙ করে।</string>
     <string name="notification_icon_preview">নোটিফিকেশন</string>
     <!-- Header Creator -->
     <string name="header_creator_create">মুখপাতা তৈরি করুন</string>
     <string name="header_creator_light_theme">লাইট থিম হেডার</string>
     <string name="header_creator_dark_theme">ডার্ক থিম হেডার</string>
-    <string name="header_creator_no_image">কোন ছবি নির্বাচন করা হয়নি</string>
     <string name="header_creator_success">হেডার সফলভাবে তৈরি হয়েছে</string>
     <string name="header_creator_failed">হেডার তৈরি করতে ব্যর্থ হয়েছে</string>
     <string name="header_creator_guide">হেডার তৈরি করার নির্দেশিকা</string>
     <string name="header_creator_guide_image_title">ইমেজ প্রয়োজনীয়তা</string>
-    <string name="header_creator_guide_image_body">যেকোনো ইমেজ ফাইল (PNG বা JPEG) ব্যবহার করুন। সেরা ফলাফলের জন্য, প্রায় 2.7:1 এর দিক অনুপাত সহ একটি ওয়াইড-ফরম্যাট ইমেজ ব্যবহার করুন। স্বচ্ছ পটভূমি সহ PNG ফাইলগুলি অ্যাপের থিমের সাথে স্বাভাবিকভাবে মিশে যাবে।</string>
+    <string name="header_creator_guide_image_body">স্বচ্ছ ব্যাকগ্রাউন্ডযুক্ত একটি PNG অ্যাপ বারের সাথে মিশে যায়। ফাইলে লোগোর চারপাশের মার্জিন উপেক্ষা করা হয়, তাই এটি স্টক লোগোর আকার এবং অবস্থানে শুরু হয়।</string>
     <string name="header_creator_guide_themes_title">লাইট এবং ডার্ক থিম</string>
     <string name="header_creator_guide_themes_body">বেশিরভাগ অ্যাপের জন্য লাইট এবং ডার্ক থিমের জন্য আলাদা ইমেজ প্রয়োজন। কিছু অ্যাপ (যেমন YouTube Music) শুধুমাত্র ডার্ক থিম ব্যবহার করে, তাই শুধুমাত্র সেই অংশটি দেখানো হয়েছে।</string>
     <string name="header_creator_guide_positioning_title">অবস্থান এবং স্কেলিং</string>
-    <string name="header_creator_guide_positioning_body">অবস্থান এবং স্কেল করার জন্য সরাসরি প্রিভিউতে পিঞ্চ-টু-জুম এবং ড্র্যাগ অঙ্গভঙ্গি ব্যবহার করুন। ইমেজটি কেন্দ্রের কাছাকাছি এলে স্ন্যাপ গাইড প্রদর্শিত হবে। আপনি প্রিভিউর নীচে স্লাইডারটিও ব্যবহার করতে পারেন।</string>
+    <string name="header_creator_guide_positioning_body">এডিটরে ছবিটি টেনে আনুন বা চিমটি করুন, অথবা স্লাইডার দিয়ে এর আকার দিন। ড্যাশযুক্ত বাক্সটি স্টক লোগো যেখানে থাকে তা চিহ্নিত করে এবং ছবিটি এর সাথে সারিবদ্ধ হলে গাইড প্রদর্শিত হয়।</string>
     <!-- Batch patching -->
     <string name="batch_patch_action">টি প্যাচ নির্বাচন করা হয়েছে</string>
     <string name="batch_patch_title">ব্যাচ প্যাচিং</string>
@@ -450,7 +461,7 @@
     <string name="batch_patch_state_no_patches">কোনো প্যাচ নেই</string>
     <string name="batch_patch_policy_install">শেষ হলে ইনস্টল করুন</string>
     <string name="batch_patch_policy_install_description">সারিবদ্ধ শেষ হওয়ার সাথে সাথেই প্রতিটি প্যাচ করা অ্যাপ ইনস্টল করে। বন্ধ করলে APKগুলি পরে ব্যবহারের জন্য সেভ করা থাকবে</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">শুরু</string>
     <string name="batch_patch_stop_title">ব্যাচ প্যাচিং বন্ধ করবেন?</string>
     <string name="batch_patch_stop_description">বর্তমানে প্যাচ করা অ্যাপ এবং সারিতে থাকা সবকিছু বাতিল করা হবে</string>
@@ -459,6 +470,10 @@
     <string name="batch_patch_install_failed">ইনস্টল করতে ব্যর্থ</string>
     <string name="batch_patch_in_progress">ব্যাচ প্যাচিং ইতিমধ্যে চলছে</string>
     <string name="batch_patch_nothing_outdated">প্রতিটি প্যাচ করা অ্যাপ আপ টু ডেট</string>
+    <string name="batch_queue_add_action">ভিডিও তালিকায় যুক্ত করুন</string>
+    <string name="batch_queue_pending_subtitle">সমীক্ষা করে শুরু করতে ট্যাপ করুন</string>
+    <string name="batch_queue_clear_title">কিউ পরিষ্কার করবেন?</string>
+    <string name="batch_queue_clear_description">সব অ্যাপ কিউ থেকে সরানো হবে</string>
     <string name="shortcut_repatch_short">পুনরায় প্যাচ করুন</string>
     <string name="shortcut_repatch_long">পুরানো অ্যাপগুলি পুনরায় প্যাচ করুন</string>
     <string name="shortcut_check_updates_short">আপডেটগুলি দেখুন</string>
@@ -491,9 +506,12 @@
     <string name="home_app_info_app_update_available_description">প্যাচ সোর্সসগুলো এই অ্যাপের একটি নতুন ভার্শন সমর্থন করে। সেই ভার্শনে যেতে আবার প্যাচ করুন।</string>
     <string name="home_app_info_newest_supported_version">নতুনতম সমর্থিত</string>
     <string name="home_app_info_version_move">ইনস্টল করা %1$s, নতুনতম সমর্থিত %2$s</string>
+    <string name="home_app_info_version_restore">ইনস্টল হয়েছে %1$s, প্যাচ করা হয়েছে %2$s</string>
     <string name="home_app_info_app_deleted_warning">অ্যাপটি বের করা হয়েছে</string>
     <string name="home_app_info_app_deleted_description">এই অ্যাপটি মরফে বাইরে বের করা হয়েছে। ফাংশনালিটি পুনরুদ্ধার করতে পুনরায় প্যাচ করুন</string>
     <string name="home_app_info_not_patched_description">এই অ্যাপের একটি অপ্যাচড সংস্করণ ইনস্টল করা আছে। Morphe এখনও তার পূর্ববর্তী প্যাচ রেকর্ড ধারণ করে।</string>
+    <string name="home_app_info_mount_replaced_description">অন্য একটি সংস্করণ মাউন্ট করা অ্যাপটি প্রতিস্থাপন করেছে, তাই প্যাচটি আর প্রযোজ্য নয়। পুনরুদ্ধার করলে প্যাচ করা সংস্করণটি ফিরে আসে</string>
+    <string name="home_app_info_mount_replaced_by_play_store_description">Google Play মাউন্ট করা অ্যাপটি আপডেট করেছে, তাই প্যাচটি আর প্রযোজ্য নয়। পুনরুদ্ধার করলে প্যাচ করা সংস্করণটি ফিরে আসে। এটি প্যাচ করা রাখতে Google Play-তে এর স্বয়ংক্রিয় আপডেট বন্ধ করুন</string>
     <string name="app_links_title">সমর্থিত ওয়েব লিঙ্ক</string>
     <string name="app_links_description">Android 12+ এ, সমর্থিত ডোমেইনের লিঙ্কগুলি অনুমোদিত না হলে ডিফল্টরূপে আপনার ব্রাউজারে খোলে</string>
     <string name="app_links_unverified_banner_title">ওয়েব লিঙ্ক যাচাই করা হয়নি</string>
@@ -503,8 +521,6 @@
     <string name="app_links_open_settings">লিঙ্ক সেটিংস খুলুন</string>
     <string name="app_links_repair_success">অ্যাপ লিঙ্ক সফলভাবে সক্রিয় করা হয়েছে</string>
     <string name="app_links_repair_failed">অ্যাপ লিংক স্বয়ংক্রিয়ভাবে সক্রিয় করা যায়নি</string>
-    <string name="app_links_badge_enabled">সক্রিয়</string>
-    <string name="app_links_badge_disabled">বন্ধ রাখুন</string>
     <string name="app_links_all_verified">সকল সমর্থিত লিংক এই অ্যাপে খোলার জন্য কনফিগার করা হয়েছে</string>
     <string name="app_links_fix">লিংক ঠিক করুন</string>
     <string name="configure">কনফিগার করুন</string>
@@ -535,10 +551,10 @@
     <!-- Field labels, shown in a column beside their values. Keep them short, a long one is cut off rather than wrapped -->
     <string name="patcher_field_app">অ্যাপ</string>
     <string name="patcher_field_package">প্যাকেজ</string>
+    <string name="patcher_field_failed_patch">প্যাচ ব্যর্থ হয়েছে</string>
     <string name="patcher_field_source">উৎস</string>
     <string name="patcher_field_split">স্প্লিট APK</string>
     <string name="patcher_field_manager">ম্যানেজার</string>
-    <string name="patcher_field_patcher">প্যাচার</string>
     <string name="patcher_field_runtime">রানটাইম</string>
     <!-- Native code libraries (.so files) packed inside the APK -->
     <string name="patcher_field_libraries">লাইব্রেরি</string>
@@ -569,6 +585,7 @@
     <string name="patcher_installing_subtitle">প্রায় রক-এর জন্য প্রস্তুত! 🎸</string>
     <string name="patcher_success_title">সবকিছু সম্পন্ন! 🎉</string>
     <string name="patcher_success_subtitle">আপনার অ্যাপটি প্যাচ করা এবং ইনস্টল করা হয়েছে!</string>
+    <string name="patcher_mounted_subtitle">আপনার অ্যাপটি প্যাচ করা হয়েছে এবং মাউন্ট করা হয়েছে!</string>
     <string name="patcher_complete_title">প্যাচিং সম্পন্ন! ✨</string>
     <string name="patcher_failed_title">ওহ! কিছু একটা ভুল হয়েছে</string>
     <string name="patcher_failed_dialog_title">প্যাচিং ব্যর্থ হয়েছে</string>
@@ -587,6 +604,7 @@
 
 আনইনস্টল করলে সমস্ত অ্যাপের ডেটা স্থায়ীভাবে মুছে যাবে"</string>
     <string name="patcher_install_error_title">ইনস্টলেশন ত্রুটি</string>
+    <string name="patcher_mount_error_title">মাউন্ট ত্রুটি</string>
     <string name="patcher_install_error_subtitle">আনইনস্টল করে আবার ইনস্টল করার চেষ্টা করুন</string>
     <string name="patcher_ready_to_mount_subtitle">মাউন্ট করতে নিচের বোতামটি টিপুন</string>
     <string name="patcher_patches_excluded_for_installer">এটি এই ইনস্টল পদ্ধতি এবং বাদ দেওয়ার জন্য পাওয়া যাচ্ছে না: %s</string>
@@ -614,7 +632,6 @@
     <string name="patcher_step_load_patches">প্যাচ লোড হচ্ছে</string>
     <string name="patcher_step_prepare_split_apk">বিভক্ত APK মर्ज করুন</string>
     <string name="patcher_step_unpack">APK ファイルを読み込む</string>
-    <string name="patcher_step_group_patching">প্যাচিং</string>
     <string name="patcher_step_group_saving">সংরক্ষণ</string>
     <string name="patcher_step_write_patched">প্যাচযুক্ত APK ফাইল লেখা হচ্ছে</string>
     <string name="patcher_step_sign_apk">প্যাচ করা APK ফাইল সাইন করা হচ্ছে</string>
@@ -626,6 +643,7 @@
     <string name="patcher_memory_adjustment_title">পর্যাপ্ত মেমোরি নেই</string>
     <string name="patcher_memory_adjustment_description">প্যাচারটি %1$d MB মেমোরি সীমা নিয়ে চলার সময় সিস্টেম এটি বন্ধ করে দিয়েছিল। সীমাটি %2$d MB-এ কমালে প্যাচারটি ছোট লক্ষ্য হয়ে যায় এবং রানটি শেষ হতে পারে।</string>
     <string name="patcher_memory_adjustment_description_at_minimum">প্যাচারটি %1$d MB মেমোরি সীমা নিয়ে চলার সময় সিস্টেম এটি বন্ধ করে দিয়েছিল, যা ইতিমধ্যে সর্বনিম্ন উপলব্ধ। কম প্যাচ উৎস দিয়ে প্যাচিং করার চেষ্টা করুন, অথবা কম প্যাচ নির্বাচন করুন।</string>
+    <string name="patcher_memory_adjustment_description_finished">সিস্টেমটি %1$d MB মেমরি সীমাতে প্যাচারটি বন্ধ করে দিয়েছে, এবং এটি কেবল %2$d MB-তে শেষ হয়েছে। পরের বার %2$d MB থেকে শুরু করলে সেই ব্যর্থ প্রচেষ্টাটি এড়িয়ে যাবে</string>
     <string name="patcher_memory_adjustment_apply">%1$d MB-এ নামান</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">প্যাচিং চলছে…</string>
@@ -725,6 +743,9 @@
     <string name="settings_appearance_background_snow">নেই</string>
     <string name="settings_appearance_background_grid">গ্রিড</string>
     <string name="settings_appearance_background_particles">কণা</string>
+    <string name="settings_appearance_background_lava">লাভা ল্যাম্প</string>
+    <string name="settings_appearance_background_halloween">হ্যালোইন</string>
+    <string name="settings_appearance_background_fireworks">আতশবাজি</string>
     <string name="settings_appearance_background_none">থিম</string>
     <string name="settings_appearance_background_random">র্যান্ডম</string>
     <string name="settings_appearance_background_random_interval_launch">চালু করার সময়</string>
@@ -732,7 +753,10 @@
     <string name="settings_appearance_background_random_interval_3days">প্রতি ৩ দিনে</string>
     <string name="settings_appearance_parallax_effect">প্যারাল্যাক্স ইফেক্ট</string>
     <string name="settings_appearance_parallax_effect_description">ডিভাইসকে কাঁটিলে পটভূমি পরিবর্তনের সাবলীলতা</string>
+    <string name="settings_appearance_seasonal_themes">মৌসুমি থিম</string>
+    <string name="settings_appearance_seasonal_themes_description">ছুটির দিনগুলোতে উৎসবমুখর ব্যাকগ্রাউন্ড ও শুভেচ্ছা বার্তা</string>
     <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
+    <string name="settings_appearance_seasonal_background_notice">মৌসুমি থিম চালু থাকলে %1$s ব্যাকগ্রাউন্ড %2$s পর্যন্ত চালু থাকবে</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">সিস্টেম</string>
     <string name="settings_appearance_theme_mode">বিষয়বস্তুর ধরণ</string>
@@ -747,7 +771,7 @@
     <string name="settings_appearance_pure_black">পুরো কালো</string>
     <string name="settings_appearance_pure_black_description">ব্যবহার করে খাঁটি কালো ব্যাকগ্রাউন্ড।</string>
     <string name="settings_appearance_color_accents">অ্যাপ এবং উৎসের রং</string>
-    <string name="settings_appearance_color_accents_description">অ্যাকসেন্ট রঙের পরিবর্তে প্রতিটি অ্যাপ ও উৎসের নিজস্ব রঙ ব্যবহার করা হয়</string>
+    <string name="settings_appearance_color_accents_description">এসেন্টের পরিবর্তে প্রতিটি অ্যাপ এবং সূত্রের রং ব্যবহার করে</string>
     <string name="settings_appearance_outlines">আউটলাইন</string>
     <string name="settings_appearance_outlines_description">কার্ড, প্যানেল এবং বাটনের চারপাশে একটি পাতলা কিনারা আঁকে।</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -766,13 +790,11 @@
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">হোম স্ক্রিন</string>
     <string name="settings_appearance_greeting_phrases">শুভেচ্ছা বার্তা</string>
-    <string name="settings_appearance_greeting_phrases_subtitle">হোম স্ক্রিনে একটি শুভেচ্ছা বার্তা দেখান</string>
-    <string name="settings_appearance_app_grouping">অ্যাপ grouping</string>
-    <string name="settings_appearance_app_grouping_description">উৎস বা বিভাগ অনুসারে অ্যাপগুলো গ্রুপ করতে একটি সুইচার দেখান</string>
+    <string name="settings_appearance_greeting_phrases_subtitle">একটি অভিবাদন বার্তা দেখায়</string>
     <string name="settings_appearance_repatch_notice">পুনরায় প্যাচ বিজ্ঞপ্তি</string>
-    <string name="settings_appearance_repatch_notice_description">প্যাচ করা অ্যাপগুলো পুনরায় প্যাচ করা গেলে একটি ব্যানার দেখান</string>
+    <string name="settings_appearance_repatch_notice_description">যখন প্যাচড অ্যাপগুলিকে পুনরায় প্যাচ করা যায় তখন একটি ব্যানার দেখায়</string>
     <string name="settings_appearance_sort_button">সাজানো ও ফিল্টার বাটন</string>
-    <string name="settings_appearance_sort_button_description">হোম স্ক্রিনে সাজানো ও ফিল্টার বাটন দেখান</string>
+    <string name="settings_appearance_sort_button_description">অ্যাপ সাজানো এবং ফিল্টার করার জন্য একটি বাটন দেখায়</string>
     <string name="settings_appearance_app_card_colors">অ্যাপ কার্ডের রং</string>
     <string name="settings_appearance_app_card_colors_default">ডিফল্ট</string>
     <string name="settings_appearance_app_card_colors_default_description">প্রতিটি অ্যাপকে তার নিজস্ব বান্ডেলের রং দিন</string>
@@ -794,8 +816,24 @@
     <string name="settings_appearance_app_icon_default">ডিফল্ট</string>
     <string name="settings_appearance_app_icon_light_2">স্কাই</string>
     <string name="settings_appearance_app_icon_light_3">সানসেট</string>
+    <string name="settings_appearance_app_icon_light_4">ল্যাভেন্ডার</string>
+    <string name="settings_appearance_app_icon_light_5">হিমবাহ</string>
+    <string name="settings_appearance_app_icon_light_6">কুয়াশা</string>
+    <string name="settings_appearance_app_icon_light_7">বালি</string>
+    <string name="settings_appearance_app_icon_dark_1">টিল</string>
     <string name="settings_appearance_app_icon_dark_2">ভয়েড</string>
+    <string name="settings_appearance_app_icon_dark_3">প্লাম</string>
+    <string name="settings_appearance_app_icon_dark_4">মধ্যরাত</string>
+    <string name="settings_appearance_app_icon_dark_5">স্লেট</string>
+    <string name="settings_appearance_app_icon_accent_1">অরোরা</string>
+    <string name="settings_appearance_app_icon_accent_2">কালি</string>
+    <string name="settings_appearance_app_icon_accent_3">কাগজ</string>
+    <string name="settings_appearance_app_icon_accent_4">সন্ধ্যা</string>
+    <string name="settings_appearance_app_icon_background">ব্যাকগ্রাউন্ড</string>
+    <string name="settings_appearance_app_icon_mark">লোগো</string>
     <string name="settings_appearance_app_icon_mark_color">রং</string>
+    <string name="settings_appearance_app_icon_mark_white">সাদা</string>
+    <string name="settings_appearance_app_icon_mark_black">কালো</string>
     <string name="settings_appearance_app_icon_change_dialog_title">অ্যাপ আইকন পরিবর্তন? </string>
     <string name="settings_appearance_app_icon_change_dialog_message">&lt;b&gt;%s&lt;/b&gt;-এ পরিবর্তন করুন এবং পুনরায় চালু করুন?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -812,7 +850,7 @@
 
 প্যাচগুলো প্রভাবিত হয় না: প্যাচ উৎস তালিকায় প্রতিটি উৎসের জন্য প্রাক-রিলিজ প্যাচ সক্রিয় করুন।"</string>
     <string name="settings_advanced_updates_allow_metered">মোবাইল ডেটা আপডেট।</string>
-    <string name="settings_advanced_updates_allow_metered_description">Morphe এবং প্যাচ আপডেট মোবাইল ডেটার মাধ্যমে ডাউনলোড করার অনুমতি দেয়।</string>
+    <string name="settings_advanced_updates_allow_metered_description">মোবাইল ডেটা দিয়ে Morphe এবং প্যাচ আপডেট ডাউনলোড করে</string>
     <string name="settings_advanced_updates_background_notifications">ব্যাকগ্রাউন্ড আপডেট নোটিফিকেশন</string>
     <string name="settings_advanced_updates_background_notifications_description">ব্যাকগ্রাউন্ডে আপডেটের জন্য পর্যায়ক্রমে চেক করুন এবং উপলব্ধ হলে বিজ্ঞপ্তি দিন।</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">অ্যাপটি বন্ধ থাকা অবস্থায়ও নতুন রিলিজের জন্য পুশ বিজ্ঞপ্তি।</string>
@@ -827,13 +865,12 @@
     <string name="settings_advanced_update_interval_chip_subtitle">ব্যাকগ্রাউন্ড চেকের সময়</string>
     <string name="settings_advanced_update_interval_battery_warning">কিছু ডিভাইসে ব্যাকগ্রাউন্ড চেকগুলি সঠিকভাবে কাজ করতে পারে না। ব্যাটারি সংরক্ষণের জন্য ম্যানুফ্যাকচারাররা যেমন এক্সিয়োমি, হুয়াওয়েই, স্যামসাং এবং অনেপ্লাস ব্যাকগ্রাউন্ড প্রসেসগুলি সীমিত করে।</string>
     <string name="settings_advanced_external_batch_patch">বাহ্যিক ট্রিগার করার অনুমতি দিন</string>
-    <string name="settings_advanced_external_batch_patch_description">অটোমেশন অ্যাপগুলোকে একটি ইন্টেন্টের মাধ্যমে ব্যাচ প্যাচিং শুরু করতে দেয়</string>
+    <string name="settings_advanced_external_batch_patch_description">অটোমেশন অ্যাপগুলোকে ব্যাচ প্যাচিং শুরু করতে দেয়</string>
     <string name="external_batch_patch_title">ব্যাচ প্যাচিং শুরু করবেন?</string>
     <string name="external_batch_patch_description">%s Morphe কে অ্যাপগুলি প্যাচ এবং ইনস্টল করতে চায়</string>
     <string name="external_batch_patch_trust_caller">সর্বদা এই অ্যাপটিকে অনুমতি দিন</string>
     <string name="external_batch_patch_unknown_caller">একটি অজানা অ্যাপ</string>
     <!-- Notification content -->
-    <string name="notification_manager_update_title">Morphe আপডেট উপলব্ধ</string>
     <string name="notification_bundle_update_title">নতুন প্যাচ পাওয়া গেছে</string>
     <string name="notification_update_text">Version %s ডাউনলোড করার জন্য প্রস্তুত</string>
     <string name="notification_bundle_update_text_unversioned">Morphe খুলুন এবং আপডেট করুন</string>
@@ -844,16 +881,19 @@
     <string name="notification_channel_manager_updates_description">নতুন Morphe রিলিজ সম্পর্কে বিজ্ঞপ্তি</string>
     <string name="notification_channel_patch_updates">প্যাচ আপডেট</string>
     <string name="notification_channel_patch_updates_description">নতুন প্যাচ রিলিজ সম্পর্কে বিজ্ঞপ্তি</string>
-    <string name="notification_channel_patcher">প্যাচিং</string>
     <string name="notification_channel_patcher_description">Morphe ব্যাকগ্রাউন্ডে কোনো অ্যাপ প্যাচ করার সময় দেখানো হয়</string>
+    <string name="notification_channel_mounted_apps">মাউন্ট করা অ্যাপগুলো</string>
+    <string name="notification_channel_mounted_apps_description">যখন অন্য কোনো সংস্করণ একটি মাউন্ট করা অ্যাপকে প্রতিস্থাপন করেছে এবং এর প্যাচটি আর প্রযোজ্য নয়</string>
+    <string name="notification_mount_replaced_title">%1$s আর প্যাচ করা নেই</string>
+    <string name="notification_mount_replaced_text">v%1$s প্যাচ করা v%2$s-কে প্রতিস্থাপন করেছে। এটি পুনরুদ্ধার করতে Morphe খুলুন</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert">বিশেষ্ট সেটিংস</string>
     <string name="settings_advanced_expert_mode">বিশেষ্ট মোড</string>
-    <string name="settings_advanced_expert_mode_description">জটিল Morphe প্যাচিং সেটিংস এবং কাস্টমাইজেশন বিকল্পগুলি সক্ষম করে।</string>
+    <string name="settings_advanced_expert_mode_description">উন্নত প্যাচিং সেটিংস এবং প্যাচ বিকল্পগুলি আনলক করে</string>
     <string name="settings_advanced_expert_mode_dialog_title">এক্সপার্ট মোড সক্ষম করবেন?</string>
     <string name="settings_advanced_expert_mode_dialog_message">এক্সপার্ট মোড অ্যাপ্লিকেশনগুলিতে প্যাচগুলি কীভাবে প্রয়োগ করা হবে তার উপর বেশি নিয়ন্ত্রণ প্রদান করে, কিন্তু এক্সপার্ট মোডে সেটিংস মিসকনফিগার করলে অ্যাপ্লিকেশনটি কাজ না করবে এমন অবস্থা হতে পারে</string>
     <string name="settings_advanced_strip_unused_libs">যন্ত্রের আর্কিটেকচারের জন্য অপ্টিমাইজ করুন</string>
-    <string name="settings_advanced_strip_unused_libs_description">অব্যবহৃত CPU আর্কিটেকচার লাইব এবং বিভক্ত APK মডিউলগুলি সরিয়ে দেয়।</string>
+    <string name="settings_advanced_strip_unused_libs_description">অব্যবহৃত নেটিভ লাইব্রেরি এবং APK স্প্লিটস মুছে ফেলে</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat_description">পুল অনুরোধ উৎসের জন্য প্রয়োজনীয়</string>
     <string name="settings_advanced_github_pat_configured">টোকেন কনফিগার করা হয়েছে</string>
@@ -974,13 +1014,13 @@ morphe_adaptive_monochrome_custom.xml
     <string name="installer_play_store_warning_risk">প্লে স্টোর প্যাচ করা অ্যাপের জন্য আপডেট দিতে পারে। সেই আপডেট ইনস্টল করলে, এটি আসল সংস্করণ দিয়ে প্যাচ করা APK প্রতিস্থাপন করবে এবং প্যাচগুলি সরিয়ে দেবে। আপডেট করার জন্য অনুরোধ করা হলে, অ্যাপের প্লে স্টোর পৃষ্ঠায় তিনটি ডট মেনুতে আলতো চাপুন এবং \"আপডেট বন্ধ করুন\" নির্বাচন করুন।</string>
     <string name="installer_play_store_warning_continue">আমি বুঝতে পেরেছি, চালিয়ে যান</string>
     <string name="installer_play_store_mode">Play Store হিসাবে ইনস্টল করুন</string>
-    <string name="installer_play_store_mode_description">এই ইনস্টল পদ্ধতির জন্য Google Play Store-কে ইনস্টলেশন উৎস হিসাবে রেকর্ড করুন</string>
+    <string name="installer_play_store_mode_description">Google Play Store-কে ইনস্টলেশনের উৎস হিসেবে চিহ্নিত করে</string>
     <string name="settings_prompt_installer_on_install">ইনস্টলার নির্বাচন প্রম্পট।</string>
-    <string name="settings_prompt_installer_on_install_description">প্যাচ করা অ্যাপ ইনস্টল করার সময়마다 ইনস্টলার নির্বাচন ডায়ালগ দেখায়।</string>
+    <string name="settings_prompt_installer_on_install_description">প্রতিটি ইনস্টলেশনের জন্য কোন ইনস্টলার ব্যবহার করতে হবে তা জিজ্ঞেস করে</string>
     <string name="settings_auto_install_with_shizuku">প্যাচিং করার পরে স্বয়ংক্রিয়ভাবে ইনস্টল করুন</string>
     <string name="settings_auto_install_with_shizuku_description">প্যাচিং শেষ হওয়া মাত্রই প্যাচ করা APK ইনস্টল করে</string>
     <string name="settings_auto_uninstall_with_shizuku">সংঘাত হলে স্বয়ংক্রিয়ভাবে আনইনস্টল করুন</string>
-    <string name="settings_auto_uninstall_with_shizuku_description">Shizuku দিয়ে স্বয়ংক্রিয়ভাবে ইনস্টল করার সময়, যদি Android সিগনেচার কনফ্লিক্ট রিপোর্ট করে তবে প্রথমে বিদ্যমান অ্যাপটি আনইনস্টল করুন। এটি অ্যাপের ডেটা মুছে ফেলতে পারে।</string>
+    <string name="settings_auto_uninstall_with_shizuku_description">সাড়া সংঘাতে বিদ্যমান অ্যাপটি আনইনস্টল করে। এতে অ্যাপের ডেটা মুছে যেতে পারে</string>
     <string name="settings_auto_uninstall_warning_title">স্বয়ংক্রিয়ভাবে আনইনস্টল করা কি সক্রিয় করবেন?</string>
     <string name="settings_auto_uninstall_warning_message">Shizuku স্বয়ংক্রিয় ইনস্টলের সময়, যদি Android সিগনেচার কনফ্লিক্ট রিপোর্ট করে, তাহলে Morphe প্যাচ করা APK ইনস্টল করার আগে বিদ্যমান অ্যাপটি আনইনস্টল করবে।</string>
     <string name="settings_auto_uninstall_warning_risk">এটি অ্যাপের ডেটা মুছে ফেলতে পারে। যদি আনইনস্টল করার পরে প্যাচ করা APK ইনস্টল করতে ব্যর্থ হয়, তাহলে আগের অ্যাপটি সম্ভবত ইতিমধ্যে চলে গেছে।</string>
@@ -1019,13 +1059,13 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_memory_limit_warning">পুরাতন মেমরি সীমিত উচ্চ মেমরি সীমিতগুলি পুরাতন ডিভাইসের জন্য অকার্যকার হতে পারে</string>
     <string name="settings_system_memory_limit_high_warning">উচ্চ মেমরি সীমা কিছু ডিভাইসে প্যাচিং অনেক ধীর করে দিতে পারে। কম সীমায় প্যাচিং ব্যর্থ হতে থাকলেই কেবল এটি বাড়ান।</string>
     <string name="settings_system_process_runtime_enabled_description">%s এমবি সীমা</string>
-    <string name="settings_system_process_runtime_disabled_description">ক্লিক করুন</string>
+    <string name="settings_system_process_runtime_disabled_description">কনফিগার করতে ট্যাপ করুন</string>
     <string name="settings_system_process_runtime_description_not_available">এই বৈশিষ্ট্যটি অ্যান্ড্রয়েড 11 বা তার চেয়ে বেশি সংস্করণের প্রয়োজন।</string>
     <string name="settings_system_patcher_completion_sound">সম্পূর্ণ হওয়ার শব্দ</string>
     <string name="settings_system_patcher_completion_sound_description">প্যাচিং শেষ হলে সাফল্য বা ব্যর্থতার জন্য একটি স্বতন্ত্র সুর বাজায়</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">নোটিস্য়াসেগ</string>
-    <string name="settings_system_notifications_description">ব্যাকগ্রাউন্ড সতর্কতা এবং সম্পূর্ণ হওয়ার শব্দ কনফিগার করুন</string>
+    <string name="settings_system_notifications_description">ব্যাকগ্রাউন্ড সতর্কতা এবং সম্পূর্ণ হওয়ার শব্দ কনফিগার করে</string>
     <string name="settings_system_notifications_success_sound">সাফল্যের শব্দ</string>
     <string name="settings_system_notifications_error_sound">ব্যর্থতার শব্দ</string>
     <string name="settings_system_notifications_sound_default">ডিফল্ট</string>
@@ -1037,7 +1077,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">ইমপোর্ট &amp; এক্সপোর্ট </string>
     <string name="settings_system_signing_key">স্বাক্ষর কী</string>
-    <string name="settings_system_signing_key_description">আপনার প্যাচ করা অ্যাপগুলো যে কী দিয়ে স্বাক্ষরিত হয় তা ব্যাকআপ এবং পুনরুদ্ধার করে</string>
+    <string name="settings_system_signing_key_description">প্যাচড অ্যাপগুলিকে সাইন করা কি backup বা restore করে</string>
     <string name="settings_system_signing_key_dialog_description">Morphe প্যাচ করা প্রতিটি অ্যাপ এই কী দিয়ে স্বাক্ষরিত হয়। একটি কপি রাখুন: এটি ছাড়া, প্যাচ করা অ্যাপগুলো কেবল আনইনস্টল করার পরে আপডেট করা যাবে।</string>
     <string name="settings_system_signing_key_missing">Morphe আপনার প্রথম প্যাচ করার সময় একটি তৈরি করে দেয়</string>
     <string name="settings_system_signing_key_created">তৈরি হয়েছে %s</string>
@@ -1095,7 +1135,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_apks_export_zip_failed">নির্বাচিত APK রপ্তানি করতে ব্যর্থ</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">স্টোরেজ ব্যবস্থাপনা</string>
-    <string name="settings_system_storage_management_description">ডিস্কের ব্যবহার পর্যালোচনা করুন এবং ক্যাশে করা ফাইলগুলি পরিষ্কার করুন</string>
+    <string name="settings_system_storage_management_description">ডিস্ক ব্যবহার দেখায় এবং ক্যাশed ফাইলস মুছে ফেলে</string>
     <string name="settings_system_storage_keystore_title">সাইন করার কীস্টোর</string>
     <string name="settings_system_storage_app_data_title">অ্যাপ ডেটা</string>
     <string name="settings_system_storage_patch_bundles_title">প্যাচ বান্ডেল</string>
@@ -1161,7 +1201,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="copy_selection_same_source">একই উৎস</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">কাস্টম ফাইল পিকার</string>
-    <string name="settings_system_custom_file_picker_description">সিস্টেম ডিফল্টের পরিবর্তে Morphe-এর বিল্ট-ইন ফাইল পিকার দিয়ে স্টোরেজ ব্রাউজ করুন</string>
+    <string name="settings_system_custom_file_picker_description">সিস্টেমের ফাইল পিকারের পরিবর্তে Morphe-এর বিল্ট-ইন ফাইল পিকার ব্যবহার করে</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK ডাউনলোড সহায়ক</string>
     <string name="settings_system_apk_download_helper_trusted_count">বিশ্বস্ত: %2$d-এর মধ্যে %1$d</string>
@@ -1212,6 +1252,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="no">না</string>
     <string name="all">সব</string>
     <string name="filter">ফিল্টার</string>
+    <string name="group">গ্রুপ</string>
     <string name="reset">আবার সেট করুন</string>
     <string name="reset_all">সব রিসেট করুন</string>
     <string name="apply">প্রয়োগ করুন</string>
@@ -1254,9 +1295,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="selected">নির্বাচিত</string>
     <string name="not_selected">নির্বাচিত নয়</string>
     <string name="select_all">সবগুলি নির্বাচন করুন</string>
-    <string name="select_all_done">সব নির্বাচন করা হয়েছে</string>
     <string name="deselect_all">সবগুলি নির্বাচন বাতিল করুন</string>
-    <string name="deselect_all_done">সব ডি-সিলেক্ট করা হয়েছে</string>
     <string name="reorder_list">তালিকাটি নতুন করে সাজান</string>
     <string name="reorder_list_hint">নতুন করে সাজাতে টেনে আনুন</string>
     <string name="reorder_done">নতুন ক্রমটি সেভ করা হয়েছে</string>
@@ -1281,6 +1320,10 @@ morphe_adaptive_monochrome_custom.xml
     <string name="available">উপলব্ধ</string>
     <string name="continue_">এগিয়ে যান</string>
     <string name="version">সংস্করণ</string>
+    <!-- Who made a patch source, as a field label -->
+    <string name="author">লেখক</string>
+    <!-- A file a patch source is added from, as a field label -->
+    <string name="file">ফাইল</string>
     <string name="clone">ক্লোন করুন</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">প্যাচ</string>
@@ -1292,6 +1335,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="unmount">আনমাউন্ট</string>
     <string name="unmounted">আনমাউন্ট করা</string>
     <string name="remount">পুনঃস্থাপন</string>
+    <string name="restore">পুনরুদ্ধার করুন</string>
     <string name="share">শেয়ার করুন</string>
     <string name="install">ইনস্টল করুন</string>
     <string name="installed">ইনস্টল করা হয়েছে</string>
@@ -1312,6 +1356,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="sources">\"সোর্স\"</string>
     <string name="installing_ellipsis">ইনস্টল হচ্ছে…</string>
     <string name="mounting_ellipsis">মাউন্ট হচ্ছে…</string>
+    <string name="mount_stage_restoring_stock">মূল অ্যাপ পুনরুদ্ধার করা হচ্ছে…</string>
+    <string name="mount_stage_copying">কপি করা হচ্ছে…</string>
     <string name="unmounting_ellipsis">মুছে ফেলছেন…</string>
     <string name="importing_ellipsis">আমদানি করছেন…</string>
     <string name="imported_successfully">সফলভাবে আমদানি করা হয়েছে</string>
@@ -1359,7 +1405,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">এই রিলিজটি এখনও প্রকাশ করা হচ্ছে। কয়েক মিনিট পর আবার চেষ্টা করুন।</string>
     <string name="update_download_missing">ডাউনলোড করা আপডেটটি আর উপলব্ধ নেই। আবার ডাউনলোড করুন।</string>
-    <string name="download_manager_failed">আপডেট ডাউনলোড করা যায়নি: %s</string>
     <string name="failed_to_check_updates">আপডেটগুলি পরীক্ষা করতে ব্যর্থ: %s</string>
     <string name="failed_to_download_update">আপডেট ডাউনলোড করতে ব্যর্থ: %s</string>
     <string name="download_confirmation_metered">"আপনি বর্তমানে একটি মিটারযুক্ত সংযোগে আছেন, এবং আপনার পরিষেবা প্রদানকারীর ডেটা চার্জ প্রযোজ্য হতে পারে।

@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -74,6 +75,7 @@ class NoticeAction(
  * Full-width tinted block carrying a warning, a hint or a status line.
  *
  * @param text The message
+ * @param title Optional headline set above the message, not counted against [maxLines]
  * @param icon Optional icon drawn before the message
  * @param tone Semantic color role
  * @param density How much room the block takes
@@ -88,6 +90,7 @@ class NoticeAction(
 fun Notice(
     text: String,
     modifier: Modifier = Modifier,
+    title: String? = null,
     icon: ImageVector? = null,
     tone: SemanticTone = SemanticTone.Neutral,
     density: NoticeDensity = NoticeDensity.Comfortable,
@@ -105,6 +108,7 @@ fun Notice(
         NoticeDensity.Compact -> MaterialTheme.typography.bodySmall
     }
     val contentColor = tone.content
+    val textAlign = if (isCentered) TextAlign.Center else TextAlign.Start
 
     // Add zero-width space so long tokens can break at "/" and "." - cached per text value
     val breakableText = remember(text) {
@@ -113,9 +117,14 @@ fun Notice(
 
     var cutShort by remember(breakableText, maxLines) { mutableStateOf(false) }
 
+    // The icon heads the first line rather than the middle of the block, which a long message or a
+    // large font would leave out of view. Centered on that line, whatever height the font gives it
+    val firstLineHeight = with(LocalDensity.current) { textStyle.lineHeight.toDp() }
+    val iconTopInset = ((firstLineHeight - metrics.iconSize) / 2).coerceAtLeast(0.dp)
+
     Surface(
         modifier = if (isCentered) modifier.wrapContentWidth() else modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+        shape = RoundedCornerShape(Defaults.CornerMedium),
         color = tone.container,
         border = CardBorder.tinted(tone.accent)
     ) {
@@ -130,20 +139,36 @@ fun Notice(
                 } else {
                     Arrangement.spacedBy(metrics.itemSpacing)
                 },
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.Top
             ) {
                 icon?.let {
-                    ThemedIcon(icon = it, tint = contentColor, size = metrics.iconSize)
+                    ThemedIcon(
+                        icon = it,
+                        tint = contentColor,
+                        size = metrics.iconSize,
+                        modifier = Modifier.padding(top = iconTopInset)
+                    )
                 }
-                Text(
-                    text = breakableText,
-                    style = textStyle,
-                    color = contentColor,
-                    textAlign = if (isCentered) TextAlign.Center else TextAlign.Start,
-                    maxLines = maxLines,
-                    overflow = TextOverflow.Ellipsis,
-                    onTextLayout = { cutShort = it.hasVisualOverflow }
-                )
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    title?.let {
+                        Text(
+                            text = it,
+                            style = textStyle,
+                            fontWeight = FontWeight.SemiBold,
+                            color = contentColor,
+                            textAlign = textAlign
+                        )
+                    }
+                    Text(
+                        text = breakableText,
+                        style = textStyle,
+                        color = contentColor,
+                        textAlign = textAlign,
+                        maxLines = maxLines,
+                        overflow = TextOverflow.Ellipsis,
+                        onTextLayout = { cutShort = it.hasVisualOverflow }
+                    )
+                }
             }
 
             val shownAction = action ?: overflowAction?.takeIf { cutShort }

@@ -15,6 +15,8 @@
     <string name="deep_link_add_source_title">Додај извор</string>
     <string name="deep_link_add_source_message">Дали сакате да го додадете овој извор на закрпување во Morphe?</string>
     <string name="deep_link_add_source_warning">Додајте ги само изворите во кои верувате</string>
+    <!-- Shown under the app a link was opened for -->
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Достапно е ажурирање на Morphe</string>
     <string name="home_update_available_subtitle">Достапно е ажурирање</string>
@@ -76,6 +78,9 @@
     <string name="sources_management_title">Извори на поправки</string>
     <string name="sources_management_open_in_browser">Отвори во прелистувач</string>
     <string name="sources_management_failed_to_open_url">Не успеа да се отвори URL адреса</string>
+    <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
     <string name="sources_management_prerelease_toggle">Пред-издадени закрпи</string>
     <string name="sources_management_prerelease_toggle_description">Прима ран пристап до нови експериментални верзии на закрпи</string>
     <string name="sources_management_experimental_versions_toggle">Експериментални верзии на апликацијата</string>
@@ -146,7 +151,6 @@
     <string name="home_select_any_apk_description">Изберете APK датотека на било која апликација или изберете апликација веќе инсталирана на оваа уредба</string>
     <string name="home_use_installed_app">Користете инсталирана апликација</string>
     <string name="home_installed_app_picker_empty">Не се пронајдени апликации</string>
-    <string name="home_installed_app_picker_filter_all">Сите апликации</string>
     <string name="home_installed_app_picker_filter_user">Само кориснички апликации</string>
     <string name="home_installed_app_picker_filter_system">Само системски апликации</string>
     <string name="home_invalid_apk_unreadable">Не можеше да се прочита датотеката. Проверете дали „Надворешна меморија“ не е ограничена од батеријата</string>
@@ -154,7 +158,6 @@
     <string name="home_invalid_apk_io_error">Неуспешно отворање на датотеката. Обидете се повторно</string>
     <string name="home_external_apk_expert_mode_required">Оваа функција е достапна само во експертски режим</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
-    <string name="expert_mode_title">Експертски режим</string>
     <string name="expert_mode_search">Пребарувај поправки</string>
     <string name="expert_mode_disable_all">Исклучи ги сите</string>
     <string name="expert_mode_disable_all_done">Сите закрпи се деактивирани</string>
@@ -220,45 +223,33 @@
     <string name="adaptive_icon_create">Креирај адаптивна икона</string>
     <string name="adaptive_icon_select_image">Избери слика</string>
     <string name="adaptive_icon_change_image">Промени слика</string>
-    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
-    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <!-- Card of the adaptive icon creator where the picture is placed on the icon -->
+    <!-- Card of the adaptive icon creator showing the icons as the device draws them -->
+    <!-- Caption under the launcher icon in its own colors -->
+    <!-- Caption under the launcher icon recolored by the system theme -->
     <string name="adaptive_icon_background_color">Боја на позадината</string>
     <string name="adaptive_icon_reset_transform">Ресетирај позиција и скала</string>
-    <string name="adaptive_icon_safe_zone_inner">Сигурна зона (секогаш видлива)</string>
-    <string name="adaptive_icon_safe_zone_outer">Маска зона (може да биде исечена)</string>
-    <string name="adaptive_icon_no_transparency_warning">Сликата нема транспарентни пиксели. Резултатот може да изгледа неточно</string>
     <string name="adaptive_icon_created_success">Адаптивна икона успешно креирана</string>
     <string name="adaptive_icon_creation_failed">Неуспешно креирање на адаптивна икона</string>
-    <string name="adaptive_icon_label">Адаптивен</string>
-    <string name="adaptive_icon_monochrome_label">Монохромен</string>
     <string name="adaptive_icon_guide">Прирачник за креирање икони</string>
     <string name="adaptive_icon_guide_png_title">Искористете PNG со транспарентна позадина</string>
-    <string name="adaptive_icon_guide_png_body">Предниот план мора да биде PNG датотека со транспарентна позадина. Цврста позадина ќе изгледа неточно – бојата на позадината треба да дојде од изборот на позадина подолу.</string>
     <string name="adaptive_icon_guide_safe_zones_title">Безбедни зони</string>
-    <string name="adaptive_icon_guide_safe_zones_body">"Внатрешна зона (цврста): содржината е секогаш целосно видлива на сите облици на стартерот.
-Надворешна зона (испрекината): може да биде исечена од маската на стартерот – чувајте важни детали во внатрешната зона."</string>
     <string name="adaptive_icon_guide_notification_title">Икона за известување</string>
-    <string name="adaptive_icon_guide_notification_body">Генерирана автоматски од сликата во преден план. Прилагодете ја нејзината големина користејќи го лизгалката за известување. Целата видлива содржина се појавува бела во лентата за статус.</string>
-    <string name="adaptive_icon_guide_monochrome_title">Монохроматска икона</string>
-    <string name="adaptive_icon_guide_monochrome_body">Генерирана автоматски од сликата во преден план со користење на истите трансформации на адаптивна икона. Се појавува нијансирана со бојата на позадината на вашиот телефон на Android 13 и подоцна.</string>
     <string name="notification_icon_preview">Известување</string>
     <!-- Header Creator -->
     <string name="header_creator_create">Креирај прилагоден горни дел</string>
     <string name="header_creator_light_theme">Светла тема за горниот дел</string>
     <string name="header_creator_dark_theme">Темна тема за горниот дел</string>
-    <string name="header_creator_no_image">Не е избрана слика</string>
     <string name="header_creator_success">Горниот дел е успешно креиран</string>
     <string name="header_creator_failed">Неуспешно креирање на горниот дел</string>
     <string name="header_creator_guide">Прирачник за креирање на заглавие</string>
     <string name="header_creator_guide_image_title">Барања за слики</string>
-    <string name="header_creator_guide_image_body">Искористете било која датотека со слика (PNG или JPEG). За најдобри резултати, користете слика широк формат со приближен однос на страните од 2,7:1. PNG датотеките со транспарентни позадини природно ќе се спојат со темата на апликацијата.</string>
     <string name="header_creator_guide_themes_title">Светли и темни теми</string>
     <string name="header_creator_guide_themes_body">Повеќето апликации бараат посебни слики за светлата и темната тема. Некои апликации (како што е YouTube Music) користат само темна тема, па се прикажува само таа секција.</string>
     <string name="header_creator_guide_positioning_title">Поставување и скалирање</string>
-    <string name="header_creator_guide_positioning_body">Искористете гестови со пинцети за зумирање и превлекување директно во преглед за да ја позиционирате и скалирате вашата слика. Возилата за менување се појавуваат кога сликата е близу центарот. Можете исто така да ја користите лизгалката подолу од прегледот.</string>
     <!-- Batch patching -->
     <string name="batch_patch_action">Поправка избрана</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Табела на водечки спонзори SponsorBlock</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="shortcut_check_updates_short">Проверете ажурирања</string>
@@ -282,8 +273,6 @@
     <string name="home_app_info_patch_update_available_description">Достапна е нова верзија на закрпи. Закрпете ја вашата апликација за да ги добиете најновите подобрувања и поправки</string>
     <string name="home_app_info_app_deleted_warning">Апликацијата беше деинсталирана</string>
     <string name="home_app_info_app_deleted_description">Оваа апликација беше деинсталирана надвор од Morphe. Повторно закрпете ја за да ја вратите функционалноста</string>
-    <string name="app_links_badge_enabled">Овозможено</string>
-    <string name="app_links_badge_disabled">Оневозможено</string>
     <string name="home_app_info_apk_size">Големина на APK</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Оригиналниот APK не е пронајден. Не можете повторно да закрпите оваа апликација</string>
@@ -332,7 +321,6 @@
     <string name="patcher_step_load_patches">Вчитување поправки</string>
     <string name="patcher_step_prepare_split_apk">Спојување на поделена APK</string>
     <string name="patcher_step_unpack">Прочитај APK датотека</string>
-    <string name="patcher_step_group_patching">Поправување</string>
     <string name="patcher_step_group_saving">Зачувување</string>
     <string name="patcher_step_write_patched">Запишување на поправена APK датотека</string>
     <string name="patcher_step_sign_apk">Потпишување на поправена APK датотека</string>
@@ -442,7 +430,6 @@
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Почетен екран</string>
     <string name="settings_appearance_greeting_phrases">Поздрави</string>
-    <string name="settings_appearance_greeting_phrases_subtitle">Прикажи порака за поздрав на почетниот екран</string>
     <string name="settings_appearance_app_card_colors_default">Стандардно</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Икона на апликација</string>
@@ -460,7 +447,6 @@
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <string name="settings_advanced_updates_allow_metered">Завршува закрпувањето во посебен процес за поголема стабилност</string>
-    <string name="settings_advanced_updates_allow_metered_description">Повисоките граници го забрзуваат закрпувањето на способни уреди</string>
     <string name="settings_advanced_updates_background_notifications">Известувања за ажурирање во позадина</string>
     <string name="settings_advanced_updates_background_notifications_description">Периодично проверувај за ажурирања во позадина и извести кога се достапни</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Увезува или извезува вашиот keystore за потпишување</string>
@@ -473,23 +459,19 @@
     <string name="settings_advanced_update_interval_chip_subtitle">Фреквенција на проверка во позадина</string>
     <string name="settings_advanced_update_interval_battery_warning">Проверките во позадина можеби нема да работат доверливо на некои уреди. Производители како Xiaomi, Huawei, Samsung и OnePlus често агресивно ги ограничуваат процесите во позадина за да заштедат батерија</string>
     <!-- Notification content -->
-    <string name="notification_manager_update_title">Достапно е ажурирање на Morphe</string>
     <string name="notification_bundle_update_title">Достапни се нови закрпи</string>
     <string name="notification_update_text">Подготвена е верзијата %s за преземање</string>
     <string name="notification_bundle_update_text_unversioned">Допрете за да ја отворите Morphe и да ја ажурирате</string>
     <string name="notification_permission_dialog_title">Дозволи известувања</string>
     <string name="notification_permission_dialog_description">На Morphe му е потребна дозвола за известувања за да ве извести кога има достапни ажурирања во позадина</string>
     <string name="notification_post_patch_dialog_title">Дали сакате да бидете известени кога се достапни ажурирања?</string>
-    <string name="notification_channel_patcher">Закрпување</string>
     <string name="notification_channel_patcher_description">Се прикажува додека Morphe го закрпува апликацијата во позадина</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert">Напредни поставки</string>
     <string name="settings_advanced_expert_mode">Експертски режим</string>
-    <string name="settings_advanced_expert_mode_description">Препорачува и обновува амаждите од Morphe</string>
     <string name="settings_advanced_expert_mode_dialog_title">Дали сакате да го вклучите Expert режим?</string>
     <string name="settings_advanced_expert_mode_dialog_message">Expert режимот дава повеќе контрола врз тоа како се применуваат закрпите, но лошо конфигурирање на поставките во Expert режимот може да резултира со апликација која не функционира</string>
     <string name="settings_advanced_strip_unused_libs">Оптимизирај за архитектура на уред</string>
-    <string name="settings_advanced_strip_unused_libs_description">Ја прави резевата на постоечките апликации за оптимизација</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat_description">Потребно за извори на pull барања</string>
     <string name="settings_advanced_github_pat_configured">Token е конфигуриран</string>
@@ -598,7 +580,6 @@ morphe_header_custom_dark.png
     <string name="installer_unavailable_shizuku_hint">Проверете дали Shizuku работи и дали дозволата е доделена на оваа апликација</string>
     <string name="installer_use_standard">Користи стандардно</string>
     <string name="settings_prompt_installer_on_install">Помошни информации за инсталирање</string>
-    <string name="settings_prompt_installer_on_install_description">Го одржува закрпувачот за целосно закрпување</string>
     <string name="settings_auto_install_with_shizuku">Автоматски инсталирај по закрпа</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Оптимизација на батеријата</string>
@@ -610,7 +591,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_memory_limit_subtitle">Меморија достапна за закрпување</string>
     <string name="settings_system_memory_limit_warning">Нисзок лимит на меморија може да предизвика неуспеси при закрпување на поголеми апликации</string>
     <string name="settings_system_process_runtime_enabled_description">Лимит од %s MB</string>
-    <string name="settings_system_process_runtime_disabled_description">Кликнете за да конфигурирате</string>
     <string name="settings_system_process_runtime_description_not_available">Оваа функција бара Android 11 или подоцна</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications_sound_default">Стандардно</string>
@@ -672,7 +652,6 @@ morphe_header_custom_dark.png
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Прилагоден избирач на датотеки</string>
-    <string name="settings_system_custom_file_picker_description">Прелистајте складиште со вградениот избирач на датотеки на Morphe наместо стандардниот систем</string>
     <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_no_files">Нема датотеки овде</string>
@@ -733,9 +712,7 @@ morphe_header_custom_dark.png
     <string name="selected">Избрано</string>
     <string name="not_selected">Неизбрано</string>
     <string name="select_all">Избери ги сите</string>
-    <string name="select_all_done">Сите избрани</string>
     <string name="deselect_all">Деселектирај ги сите</string>
-    <string name="deselect_all_done">Сите деселектирани</string>
     <string name="rename">Преименувај</string>
     <string name="import_">Увоз</string>
     <string name="export">Извези</string>
@@ -749,6 +726,8 @@ morphe_header_custom_dark.png
     <string name="available">Достапно</string>
     <string name="continue_">Продолжи</string>
     <string name="version">Верзија</string>
+    <!-- Who made a patch source, as a field label -->
+    <!-- A file a patch source is added from, as a field label -->
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Закрпи</string>
     <string name="open">Отвори</string>
@@ -793,7 +772,6 @@ morphe_header_custom_dark.png
     <string name="downloading_manager_update">Преземање ажурирање…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
-    <string name="download_manager_failed">Не успеа да се преземе ажурирање: %s</string>
     <string name="failed_to_check_updates">Не успеа да се провери за ажурирања: %s</string>
     <string name="failed_to_download_update">Не успеа да се преземе ажурирање: %s</string>
     <string name="download_confirmation_metered">"Во моментов сте на мерена врска, и може да се наплатат трошоци за податоци од вашиот провајдер.

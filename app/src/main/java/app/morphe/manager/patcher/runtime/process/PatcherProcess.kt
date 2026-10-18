@@ -123,12 +123,12 @@ class PatcherProcess(private val context: Context) : IPatcherProcess.Stub() {
 
                 Session(
                     cacheDir = parameters.cacheDir,
-                    frameworkDir = parameters.frameworkDir,
                     androidContext = context,
                     logger = logger,
                     input = input,
                     stripUnusedNativeLibs = parameters.stripUnusedNativeLibs,
                     onPatchCompleted = { patchName -> events.patchSucceeded(patchName) },
+                    onPatchFailed = { patchName -> events.patchFailed(patchName) },
                     onProgress = { name, state, message ->
                         events.progress(name, state?.name, message)
                     }

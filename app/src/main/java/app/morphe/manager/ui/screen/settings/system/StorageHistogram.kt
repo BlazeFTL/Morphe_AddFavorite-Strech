@@ -12,7 +12,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -30,8 +29,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import app.morphe.manager.ui.screen.shared.LocalDialogSecondaryTextColor
-import app.morphe.manager.ui.screen.shared.LocalDialogTextColor
+import app.morphe.manager.ui.screen.shared.Defaults
+import app.morphe.manager.ui.screen.shared.dialogSecondaryTextColor
+import app.morphe.manager.ui.screen.shared.dialogTextColor
 import app.morphe.manager.ui.screen.shared.ShimmerText
 import app.morphe.manager.util.formatBytes
 
@@ -70,7 +70,7 @@ fun StorageHistogram(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
     ) {
         HistogramLayout(
             bar = {
@@ -140,16 +140,14 @@ private fun HistogramBar(
     safeTotal: Long,
     modifier: Modifier = Modifier
 ) {
-    val trackColor = LocalDialogSecondaryTextColor.current.copy(alpha = 0.12f)
-
     // Captures the height assigned by [HistogramLayout] so segments can use absolute Dp values
     var barHeightPx by remember { mutableIntStateOf(0) }
     val barHeightDp = with(LocalDensity.current) { barHeightPx.toDp() }
 
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(percent = 50))
-            .background(trackColor)
+            .clip(Defaults.PillShape)
+            .background(dialogSecondaryTextColor().copy(alpha = 0.12f))
             .onSizeChanged { barHeightPx = it.height }
     ) {
         Column(
@@ -204,7 +202,7 @@ private fun HistogramLegend(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
     ) {
         segments.forEach { segment ->
             LegendItem(segment, loading)
@@ -218,7 +216,7 @@ private fun LegendItem(segment: StorageSegment, loading: Boolean) {
         modifier = Modifier
             .fillMaxWidth()
             .alpha(if (loading || segment.bytes > 0) 1f else 0.5f),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
@@ -231,7 +229,7 @@ private fun LegendItem(segment: StorageSegment, loading: Boolean) {
             Text(
                 text = segment.label,
                 style = MaterialTheme.typography.bodyMedium,
-                color = LocalDialogTextColor.current,
+                color = dialogTextColor(),
                 fontWeight = FontWeight.Medium
             )
             val sizeStyle = MaterialTheme.typography.bodySmall
@@ -245,7 +243,7 @@ private fun LegendItem(segment: StorageSegment, loading: Boolean) {
                 Text(
                     text = LocalContext.current.formatBytes(segment.bytes),
                     style = sizeStyle,
-                    color = LocalDialogSecondaryTextColor.current
+                    color = dialogSecondaryTextColor()
                 )
             }
         }

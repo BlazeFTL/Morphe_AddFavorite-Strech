@@ -15,6 +15,8 @@
     <string name="deep_link_add_source_title">زیادکردنی سەرچاوە</string>
     <string name="deep_link_add_source_message">دەتەوێت ئەم سەرچاوەی پاچە زیاد بکەیت بۆ Morphe؟</string>
     <string name="deep_link_add_source_warning">تەنها ئەو سەرچاوانە زیاد بکە کە متمانەت پێیانە</string>
+    <!-- Shown under the app a link was opened for -->
+    <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe نوێکردنەوە بەردەستە</string>
     <string name="home_update_available_subtitle">وەشانی نوێ ئامادەیە بۆ دابەزاندن</string>
@@ -69,6 +71,10 @@
     <string name="sources_management_title">سەرچاوەکانی پینە</string>
     <string name="sources_management_open_in_browser">کردنەوە لە وێبگەڕ</string>
     <string name="sources_management_failed_to_open_url">شکستی هێنا لەکردنەوەی بەستەر</string>
+    <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
+    <!-- Marks an app (not a patch) the source started supporting since its app list was last opened -->
+    <string name="sources_apps_new">نوێ</string>
+    <!-- Under the Bring new apps switch in a source's app list, whichever way it is set. "It" is the patch source -->
     <string name="sources_management_already_exists">ئەم سەرچاوەیە پێشتر زیاد کراوە</string>
     <string name="sources_management_invalid_url">بەستەری سەرچاوەی نادروستە. تکایە ناونیشانەکە بپشکنە و دووبارە هەوڵدەوە</string>
     <string name="sources_management_metadata_unavailable">مێتاداتا N/A</string>
@@ -134,7 +140,6 @@
     <string name="home_invalid_apk_io_error">شکستی هێنا لە کردنەوەی فایلەکە. تکایە دووبارە هەوڵ بدە</string>
     <string name="home_external_apk_expert_mode_required">ئەم تایبەتمەندیە تەنها لە مۆدی شارەزا بەردەستە</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
-    <string name="expert_mode_title">مۆدی شارەزا</string>
     <string name="expert_mode_search">گەڕانی پینەکان</string>
     <string name="expert_mode_disable_all">هەموو لە کاربخە</string>
     <string name="expert_mode_disable_all_done">هەموو پینەکان لە کارخراون</string>
@@ -201,26 +206,24 @@
     <string name="adaptive_icon_create">دروستکردنی ئایکۆنی گونجاندن</string>
     <string name="adaptive_icon_select_image">وێنە دیاریبکە</string>
     <string name="adaptive_icon_change_image">گۆڕینی وێنە</string>
-    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
-    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <!-- Card of the adaptive icon creator where the picture is placed on the icon -->
+    <!-- Card of the adaptive icon creator showing the icons as the device draws them -->
+    <!-- Caption under the launcher icon in its own colors -->
+    <!-- Caption under the launcher icon recolored by the system theme -->
     <string name="adaptive_icon_background_color">ڕەنگی پاشخان</string>
     <string name="adaptive_icon_reset_transform">ڕێکخستنەوەی شوێن و پێوانە</string>
-    <string name="adaptive_icon_safe_zone_inner">ناوچەی پارێزراو (هەمیشە بینراوە)</string>
-    <string name="adaptive_icon_safe_zone_outer">ناوچەی ماسک (لەوانەیە قرتێنرابێت)</string>
     <string name="adaptive_icon_created_success">وێنۆچکەی گونجاندن بە سەرکەوتوویی دروستکرا</string>
     <string name="adaptive_icon_creation_failed">شکستی هێنا لە دروستکردنی وێنۆچکەی گونجاندن</string>
-    <string name="adaptive_icon_monochrome_label">منۆكرۆم</string>
     <string name="adaptive_icon_guide_notification_title">وێنۆکەی ئاگانامە</string>
     <!-- Header Creator -->
     <string name="header_creator_create">دروستکردنی سەرپەڕی تایبەت</string>
     <string name="header_creator_light_theme">سەرپەڕەی ڕووکاری ڕووناک</string>
     <string name="header_creator_dark_theme">سەرپەڕەی ڕووکاری تاریک</string>
-    <string name="header_creator_no_image">هیچ وێنەیەک دیاری نەکراوە</string>
     <string name="header_creator_success">سەرپەڕە بە سەرکەوتوویی دروستکرا</string>
     <string name="header_creator_failed">شکستی هێنا لە دروستکردنی سەرپەڕە</string>
     <!-- Batch patching -->
     <string name="batch_patch_action">پینە دیاریکراوە</string>
-    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">دەستپێکردن</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="shortcut_check_updates_short">پشکنینی نوێکردنەوەکان</string>
@@ -243,8 +246,6 @@
     <string name="home_app_info_patch_update_available_description">وەشانێکی نوێتری پینەکردن بەردەستە. دووبارە پینەکردنی ئەپەکەت بۆ بەدەستهێنانی نوێترین چاکسازی و چاککردنەوەکان</string>
     <string name="home_app_info_app_deleted_warning">App was uninstalled</string>
     <string name="home_app_info_app_deleted_description">ئەم کاربەرنامەیە لە دەرەوەی Morphe سڕاوەتەوە. دووبارە بیچەوە بۆ گەڕاندنەوەی ئەرکەکان</string>
-    <string name="app_links_badge_enabled">چالاککراو</string>
-    <string name="app_links_badge_disabled">لەکارخراو</string>
     <string name="home_app_info_apk_size">قەبارەی APK</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">دۆخی ڕۆت پێویستی بە دامەزراندنی APK ی ڕەسەن هەیە لەسەر ئامێرەکەت پێش پینەکردن</string>
@@ -292,7 +293,6 @@
     <string name="patcher_step_load_patches">بارکردنی پینەکان</string>
     <string name="patcher_step_prepare_split_apk">ئاوێتەکردنی APKی دابەشکراو</string>
     <string name="patcher_step_unpack">خوێندنەوەی پەڕگەی APK</string>
-    <string name="patcher_step_group_patching">پینەکردن</string>
     <string name="patcher_step_group_saving">هەڵگرتن</string>
     <string name="patcher_step_write_patched">نووسینی فایلی APK پینەکراو</string>
     <string name="patcher_step_sign_apk">واژۆکردنی فایلی APK پینەکراو</string>
@@ -391,7 +391,6 @@
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">شاشەی ماڵەوە</string>
     <string name="settings_appearance_greeting_phrases">دەستەواژەی بەخێرهاتن</string>
-    <string name="settings_appearance_greeting_phrases_subtitle">پەیامێکی بەخێرهاتن پیشان بدە لەسەر شاشەی سەرەکی</string>
     <string name="settings_appearance_app_card_colors_default">بنەڕەت</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">وێنۆچکەی ئەپ</string>
@@ -419,10 +418,8 @@
     <string name="settings_advanced_update_interval_chip_subtitle">فریکوێنسی پشکنینی پاشخان</string>
     <string name="settings_advanced_update_interval_battery_warning">لەوانەیە پشکنینی پاشبنەما بە شێوەیەکی باوەڕپێکراو کار نەکات لەسەر هەندێک ئامێر. بەرهەمهێنەرانی وەک شیاومی، هواوی، سامسۆنگ و وەن پڵەس زۆرجار پرۆسەکانی پاشخان سنووردار دەکەن بۆ پاشەکەوت کردنی پاتری.</string>
     <!-- Notification content -->
-    <string name="notification_manager_update_title">نوێکردنەوەی Morphe بەردەستە</string>
     <string name="notification_bundle_update_title">پینەی نوێ بەردەستە</string>
     <string name="notification_update_text">وەشانی %s ئامادەیە بۆ دابەزاندن</string>
-    <string name="notification_channel_patcher">پینەکردن</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert_mode">مۆدی شارەزا</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
@@ -501,6 +498,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="copy">وێنەلەمەر</string>
     <string name="download">دابەزاندن</string>
     <string name="continue_">بەردەوامبوون</string>
+    <!-- Who made a patch source, as a field label -->
+    <!-- A file a patch source is added from, as a field label -->
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patching">پینەکردن</string>
     <string name="patched">پینەکراو</string>

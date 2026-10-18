@@ -12,16 +12,14 @@ package app.morphe.manager.patcher
 
 import android.content.Context
 import app.morphe.manager.R
+import app.morphe.manager.patcher.logger.Logger
+import app.morphe.manager.patcher.util.NativeLibs
+import app.morphe.manager.ui.model.State
 import app.morphe.patcher.Patcher
 import app.morphe.patcher.PatcherConfig
 import app.morphe.patcher.apk.ApkUtils.applyTo
 import app.morphe.patcher.patch.Patch
 import app.morphe.patcher.patch.PatchResult
-import app.morphe.manager.patcher.Session.Companion.component1
-import app.morphe.manager.patcher.Session.Companion.component2
-import app.morphe.manager.patcher.logger.Logger
-import app.morphe.manager.patcher.util.NativeLibs
-import app.morphe.manager.ui.model.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.Closeable
@@ -35,12 +33,12 @@ internal typealias PatchList = List<Patch<*>>
 
 class Session(
     cacheDir: String,
-    frameworkDir: String,
     private val androidContext: Context,
     private val logger: Logger,
     private val input: File,
     stripUnusedNativeLibs: Boolean,
     private val onPatchCompleted: suspend (String) -> Unit,
+    private val onPatchFailed: (String) -> Unit,
     private val onProgress: (name: String?, state: State?, message: String?) -> Unit
 ) : Closeable {
     private fun updateProgress(name: String? = null, state: State? = null, message: String? = null) =
@@ -57,7 +55,6 @@ class Session(
         PatcherConfig(
             apkFile = input,
             temporaryFilesPath = tempDir,
-            frameworkFileDirectory = frameworkDir,
             // The patcher drops every other ABI while it writes the output, sparing a second pass over it
             keepArchitectures = if (stripUnusedNativeLibs) NativeLibs.keptArchitectures(input) else emptySet(),
             fileWorkspacePath = fileWorkspace
@@ -79,6 +76,7 @@ class Session(
 
                 logger.error("${patch.name} failed:")
                 logger.error(exception.stackTraceToString())
+                patch.name?.let(onPatchFailed)
                 throw exception
             }
 

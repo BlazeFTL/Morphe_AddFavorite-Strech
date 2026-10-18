@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.settings.advanced
 
 import android.os.Build
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -101,7 +99,6 @@ private fun ProcessRuntimeSettings(settingsViewModel: SettingsViewModel) {
         trackRange = PROCESS_RUNTIME_MEMORY_MINIMUM.toFloat()..maxLimit.toFloat()
     )
     val selectedLimit = sliderState.value.roundToInt()
-    val memoryLimitTitle = stringResource(R.string.settings_system_memory_limit_subtitle)
 
     SettingsGroup {
         SettingsSwitchItem(
@@ -113,39 +110,26 @@ private fun ProcessRuntimeSettings(settingsViewModel: SettingsViewModel) {
         )
 
         FoldingVisibility(visible = enabled) {
-            SearchableSetting(listOf(memoryLimitTitle)) {
-                SettingsItemCard(onClick = null) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(Defaults.SpaceLarge),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
-                    ) {
-                        InfoStatBox(
-                            value = context.formatMebibytes(selectedLimit),
-                            subtitle = memoryLimitTitle,
-                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-                            modifier = Modifier.padding(bottom = Defaults.SpaceSmall)
-                        )
-                        Slider(
-                            state = sliderState,
-                            // Passing `onValueChange` makes the slider fully controlled, so the
-                            // thumb only moves once the new value is written back to the state
-                            onValueChange = {
-                                sliderState.value = it
-                                // Saved here rather than from `onValueChangeFinished`, which a track
-                                // tap fires in the same pointer event and would persist the pre-tap value
-                                settingsViewModel.setMemoryLimit(it.roundToInt())
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        SliderScaleLabels(
-                            start = context.formatMebibytes(PROCESS_RUNTIME_MEMORY_MINIMUM),
-                            end = context.formatMebibytes(maxLimit)
-                        )
-                    }
+            SettingsSliderCard(
+                value = context.formatMebibytes(selectedLimit),
+                title = stringResource(R.string.settings_system_memory_limit_subtitle),
+                rangeStart = context.formatMebibytes(PROCESS_RUNTIME_MEMORY_MINIMUM),
+                rangeEnd = context.formatMebibytes(maxLimit),
+                slider = {
+                    Slider(
+                        state = sliderState,
+                        // Passing `onValueChange` makes the slider fully controlled, so the
+                        // thumb only moves once the new value is written back to the state
+                        onValueChange = {
+                            sliderState.value = it
+                            // Saved here rather than from `onValueChangeFinished`, which a track
+                            // tap fires in the same pointer event and would persist the pre-tap value
+                            settingsViewModel.setMemoryLimit(it.roundToInt())
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
-            }
+            )
         }
     }
 

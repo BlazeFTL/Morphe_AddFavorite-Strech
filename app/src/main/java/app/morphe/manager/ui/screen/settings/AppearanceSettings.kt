@@ -24,7 +24,6 @@ import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.theme.Theme
 import app.morphe.manager.ui.theme.ThemeStyle
 import app.morphe.manager.ui.theme.resolveThemeStyle
-import app.morphe.manager.ui.theme.toUiScalePercent
 import app.morphe.manager.ui.viewmodel.RandomInterval
 import app.morphe.manager.ui.viewmodel.ThemeSettingsViewModel
 import app.morphe.manager.util.AppCardColorDefaults
@@ -70,7 +69,6 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
     val uiScale by themeViewModel.prefs.uiScale.getAsState()
 
     val showLanguageDialog = remember { mutableStateOf(false) }
-    val showUiScaleDialog = remember { mutableStateOf(false) }
     val showTranslationInfoDialog = remember { mutableStateOf(false) }
     val showAppCardColorDialog = remember { mutableStateOf(false) }
     val showBackgroundDialog = remember { mutableStateOf(false) }
@@ -94,7 +92,14 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
             appLanguage = appLanguage,
             uiScale = uiScale,
             onLanguageClick = { showTranslationInfoDialog.value = true },
-            onUiScaleClick = { showUiScaleDialog.value = true }
+            // The scale lives on the activity context, so it takes effect on the next attach.
+            // To write has to land first, or that attach would read the previous value
+            onUiScaleApply = { scale ->
+                scope.launch {
+                    themeViewModel.setUiScale(scale).join()
+                    (context as? Activity)?.recreate()
+                }
+            }
         )
 
         ThemeSection(
@@ -163,22 +168,6 @@ fun AppearanceSettings(themeViewModel: ThemeSettingsViewModel = koinViewModel())
         )
     }
 
-    // Interface scale dialog
-    DialogHost(visible = showUiScaleDialog.value) {
-        UiScaleDialog(
-            currentScale = uiScale,
-            // The scale lives on the activity context, so it takes effect on the next attach.
-            // To write has to land first, or that attach would read the previous value
-            onApply = { scale ->
-                scope.launch {
-                    themeViewModel.setUiScale(scale).join()
-                    (context as? Activity)?.recreate()
-                }
-            },
-            onDismiss = { showUiScaleDialog.value = false }
-        )
-    }
-
     // Translation info dialog, shown ahead of the language picker, which takes over from it
     DialogHost(
         visible = showTranslationInfoDialog.value,
@@ -220,7 +209,7 @@ private fun DisplaySection(
     appLanguage: String,
     uiScale: Float,
     onLanguageClick: () -> Unit,
-    onUiScaleClick: () -> Unit
+    onUiScaleApply: (Float) -> Unit
 ) {
     val context = LocalContext.current
     val currentLanguage = remember(appLanguage, context) {
@@ -249,12 +238,7 @@ private fun DisplaySection(
                     }
                 }
             )
-            SettingsItem(
-                onClick = onUiScaleClick,
-                title = stringResource(R.string.settings_appearance_ui_scale),
-                subtitle = "${uiScale.toUiScalePercent()}%",
-                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Format_size) }
-            )
+            UiScaleSetting(currentScale = uiScale, onApply = onUiScaleApply)
             // How the manager shows on the launcher, as the language and scale say how it reads
             AppIconSettingsItem()
         }

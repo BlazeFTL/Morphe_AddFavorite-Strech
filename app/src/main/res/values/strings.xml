@@ -852,10 +852,6 @@ Uninstalling will permanently erase all app data"</string>
 
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">Interface scale</string>
-    <string name="settings_appearance_ui_scale_current">Current scale</string>
-    <string name="settings_appearance_ui_scale_description">Scales everything in the app, on top of the system screen zoom and font size</string>
-    <string name="settings_appearance_ui_scale_preview_title">Sample setting</string>
-    <string name="settings_appearance_ui_scale_preview_subtitle">Text and controls at this scale</string>
 
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Home screen</string>

@@ -300,3 +300,48 @@ fun SliderScaleLabel(text: String) {
         color = dialogSecondaryTextColor()
     )
 }
+
+/**
+ * A setting picked on a slider, in a card of its own: the picked [value] captioned with [title],
+ * over the [slider] flanked by the two ends of its scale, then any [footer] the setting needs.
+ *
+ * The footer is laid out without gaps of its own, so what it folds away leaves none behind;
+ * each part of it brings its own top padding.
+ */
+@Composable
+fun SettingsSliderCard(
+    value: String,
+    title: String,
+    rangeStart: String,
+    rangeEnd: String,
+    slider: @Composable () -> Unit,
+    footer: @Composable ColumnScope.() -> Unit = {}
+) {
+    SearchableSetting(listOf(title)) {
+        SettingsItemCard(onClick = null) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Defaults.SpaceLarge)
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
+                    InfoStatBox(
+                        value = value,
+                        subtitle = title,
+                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                        modifier = Modifier.padding(bottom = Defaults.SpaceSmall)
+                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)
+                    ) {
+                        SliderScaleLabel(rangeStart)
+                        Box(modifier = Modifier.weight(1f)) { slider() }
+                        SliderScaleLabel(rangeEnd)
+                    }
+                }
+                footer()
+            }
+        }
+    }
+}

@@ -22,8 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.BundleAppMetadata
-import app.morphe.manager.ui.screen.home.AppCardContent
-import app.morphe.manager.ui.screen.home.AppCardLayout
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.LocalAppCardColorResolver
 import app.morphe.manager.util.*
@@ -229,20 +227,6 @@ private fun AppCardColorSwatch(colors: List<Color>) {
 }
 
 /**
- * App the preview card stands for: YouTube where a source colors it, otherwise the first app a
- * source does. The home screen opens each card on its app's color, so a preview without one would
- * not show what [AppCardColorMode.DEFAULT] looks like.
- */
-@Composable
-private fun rememberPreviewApp(): BundleAppMetadata? {
-    val metadata = rememberAppMetadata()
-    return remember(metadata) {
-        metadata[KnownApps.YOUTUBE]?.takeIf { it.gradientColors != null }
-            ?: metadata.values.firstOrNull { it.gradientColors != null }
-    }
-}
-
-/**
  * Renders a real home app card so the preview matches the home screen exactly, down to the
  * layered glass background and the icon. [colors] is provided the same way the theme provides it
  * at runtime; null leaves the card on [appColors], the ones its bundle declares.
@@ -258,18 +242,7 @@ private fun AppCardColorPreview(
     val resolver = remember(colors) { colors?.let { fixed -> AppCardColorResolver { fixed } } }
 
     CompositionLocalProvider(LocalAppCardColorResolver provides resolver) {
-        AppCardLayout(
-            gradientColors = appColors,
-            onClick = {}
-        ) {
-            AppCardContent(
-                packageName = app?.packageName,
-                packageInfo = null,
-                displayName = app?.displayName ?: stringResource(R.string.app_name),
-                subtitle = stringResource(R.string.home_not_patched_yet),
-                gradientColors = appColors
-            )
-        }
+        PreviewAppCard(app = app, appColors = appColors)
     }
 }
 

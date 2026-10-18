@@ -328,6 +328,18 @@ internal fun DialogHostScope.DialogShell(
 /** Takes in taps on a dialog's content, so they do not reach a tap outside that dismisses it. */
 internal fun Modifier.consumesTaps(): Modifier = pointerInput(Unit) { detectTapGestures { } }
 
+/**
+ * Takes in every pointer event before the content under it sees one, leaving it shown but out of
+ * reach of touch.
+ */
+internal fun Modifier.consumesPointerInput(): Modifier = pointerInput(Unit) {
+    awaitPointerEventScope {
+        while (true) {
+            awaitPointerEvent(PointerEventPass.Initial).changes.forEach { it.consume() }
+        }
+    }
+}
+
 /** Whether this is drawn in a dialog's own window rather than in the activity's under it. */
 @Composable
 fun isInDialogWindow(): Boolean = LocalView.current.parent is DialogWindowProvider
@@ -420,13 +432,7 @@ fun BoxScope.ContentOverlay(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface.copy(alpha = backgroundAlpha))
-                .pointerInput(Unit) {
-                    awaitPointerEventScope {
-                        while (true) {
-                            awaitPointerEvent(PointerEventPass.Initial).changes.forEach { it.consume() }
-                        }
-                    }
-                },
+                .consumesPointerInput(),
             contentAlignment = Alignment.Center,
             content = content
         )

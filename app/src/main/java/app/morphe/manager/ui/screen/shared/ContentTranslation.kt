@@ -7,8 +7,6 @@ package app.morphe.manager.ui.screen.shared
 
 import android.app.Application
 import android.content.res.Resources
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
@@ -19,6 +17,8 @@ import app.morphe.manager.util.ChangelogSection
 import app.morphe.manager.util.ContentTranslator
 import app.morphe.manager.util.mapItemTexts
 import app.morphe.manager.util.simpleMessage
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -174,7 +174,7 @@ fun translateAction(): DialogAction? {
             if (translation.isEnabled) R.string.content_show_original else R.string.content_translate
         ),
         onClick = translation::toggle,
-        icon = Icons.Outlined.Translate,
+        icon = MaterialSymbols.Rounded.Translate,
         emphasis = DialogActionEmphasis.Outlined
     )
 }

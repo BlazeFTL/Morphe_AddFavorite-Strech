@@ -7,8 +7,6 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Package + bundle the user is copying INTO.
@@ -102,7 +102,7 @@ fun DialogHostScope.CopySelectionFromBundleDialog(
                 primaryText = confirmLabel,
                 onPrimaryClick = { selectedCandidate?.let(onConfirm) },
                 primaryEnabled = canConfirm,
-                primaryIcon = Icons.Outlined.ContentCopy,
+                primaryIcon = MaterialSymbols.Rounded.Content_copy,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
             )
@@ -140,7 +140,7 @@ private fun CandidateList(
             item(key = "empty_state") {
                 EmptyState(
                     message = stringResource(R.string.copy_selection_empty),
-                    icon = Icons.Outlined.FolderOff
+                    icon = MaterialSymbols.Rounded.Folder_off
                 )
             }
         }
@@ -215,7 +215,7 @@ private fun CandidateRow(
             StatusBadge(
                 text = availableText,
                 tone = if (enabled) SemanticTone.Primary else SemanticTone.Neutral,
-                icon = Icons.Outlined.CheckCircle
+                icon = MaterialSymbols.Rounded.Check_circle
             )
         }
     }

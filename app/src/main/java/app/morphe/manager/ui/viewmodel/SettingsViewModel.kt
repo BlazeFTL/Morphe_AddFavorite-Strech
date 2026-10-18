@@ -10,9 +10,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,6 +27,7 @@ import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.settings.system.CopyTarget
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
+import app.morphe.manager.util.ApkDownloadHelperContract
 import app.morphe.manager.util.AppDataResolver
 import app.morphe.manager.util.AppDataSource
 import app.morphe.manager.util.syncFcmTopics
@@ -58,6 +56,13 @@ data class SelectionApp(
     val displayName: String,
     val dataSource: AppDataSource,
     val bundles: Map<Int, Int>
+)
+
+/** An installed APK download helper as the trust list shows it. Trust is per app, not per activity. */
+@Immutable
+data class ApkDownloadHelperApp(
+    val packageName: String,
+    val label: String
 )
 
 class SettingsViewModel(
@@ -182,27 +187,6 @@ class SettingsViewModel(
      * True for the duration of the current settings session after the user enables expert mode for the first time.
      * Reset to false when the user disables expert mode again.
      */
-    var showExpertModeNotice by mutableStateOf(false)
-        private set
-
-    private var previousExpertMode: Boolean? = null
-
-    /**
-     * Must be called from the UI whenever useExpertMode changes so the VM can
-     * derive [showExpertModeNotice] without holding its own coroutine-based observer here
-     * (the pref is already observed as Compose state in the composable).
-     */
-    fun onExpertModeChanged(newValue: Boolean) {
-        val prev = previousExpertMode
-        if (prev != null && newValue && !prev) {
-            showExpertModeNotice = true
-        }
-        if (!newValue) {
-            showExpertModeNotice = false
-        }
-        previousExpertMode = newValue
-    }
-
     fun setExpertMode(enabled: Boolean) = viewModelScope.launch {
         prefs.useExpertMode.update(enabled)
         if (enabled && !prefs.customFilePickerUserConfigured.get()) {
@@ -254,6 +238,24 @@ class SettingsViewModel(
     fun setUseCustomFilePicker(enabled: Boolean) = viewModelScope.launch {
         prefs.useCustomFilePicker.update(enabled)
         prefs.customFilePickerUserConfigured.update(true)
+    }
+
+    private val _apkDownloadHelpers = MutableStateFlow(emptyList<ApkDownloadHelperApp>())
+
+    /**
+     * The APK download helpers installed on the device, one per app. Kept here rather than looked
+     * up by each page that lists them, so a page coming back shows them at once instead of growing
+     * a row under a scroll it restored, see [refreshApkDownloadHelpers].
+     */
+    val apkDownloadHelpers: StateFlow<List<ApkDownloadHelperApp>> = _apkDownloadHelpers.asStateFlow()
+
+    /** Looks the installed helpers up again, as one may have come or gone since the last look. */
+    fun refreshApkDownloadHelpers() = viewModelScope.launch {
+        _apkDownloadHelpers.value = withContext(Dispatchers.IO) {
+            ApkDownloadHelperContract.findHelpers(appContext)
+                .distinctBy { it.componentName.packageName }
+                .map { ApkDownloadHelperApp(packageName = it.componentName.packageName, label = it.label) }
+        }
     }
 
     fun setApkDownloadHelperTrusted(packageName: String, trusted: Boolean) = viewModelScope.launch {

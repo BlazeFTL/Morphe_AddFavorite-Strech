@@ -1120,30 +1120,12 @@ class InstallViewModel(
     }
 
     /**
-     * Proceed with standard installer instead.
+     * Offers every installer for this install in place of the unavailable one, the standard one
+     * among them, leaving the default as it is.
      */
-    fun proceedWithFallbackInstaller() {
+    fun chooseAnotherInstaller() {
         installerUnavailableDialog = null
-
-        val file = pendingInstallFile ?: return
-        val originalPkg = pendingOriginalPackageName ?: return
-        val callback = pendingPersistCallback ?: return
-
-        viewModelScope.launch {
-            installState = InstallState.Installing()
-            currentInstallType = InstallType.DEFAULT
-            try {
-                performStandardInstall(file, originalPkg, callback)
-            } catch (e: Exception) {
-                Log.e(TAG, "Fallback install failed", e)
-                handleInstallError(
-                    app.getString(
-                        R.string.install_app_fail,
-                        e.simpleMessage() ?: e.javaClass.simpleName
-                    )
-                )
-            }
-        }
+        showInstallerSelectionDialog = true
     }
 
     /**

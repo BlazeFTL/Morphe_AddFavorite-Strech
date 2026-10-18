@@ -11,9 +11,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +30,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Search field for the app's lists, a pill as tall as the title actions beside it and filled with
@@ -91,7 +90,7 @@ fun ListSearchField(
                 ) {
                     // The placeholder already names the field, so the icon stays decorative
                     Icon(
-                        imageVector = Icons.Outlined.Search,
+                        imageVector = MaterialSymbols.Rounded.Search,
                         contentDescription = null,
                         tint = iconColor,
                         modifier = Modifier
@@ -116,7 +115,7 @@ fun ListSearchField(
                             modifier = Modifier.size(HeaderControlDefaults.Size)
                         ) {
                             Icon(
-                                imageVector = Icons.Outlined.Clear,
+                                imageVector = MaterialSymbols.Rounded.Close,
                                 contentDescription = stringResource(R.string.clear),
                                 tint = iconColor
                             )

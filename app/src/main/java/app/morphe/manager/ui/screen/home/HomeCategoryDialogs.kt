@@ -9,11 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Category
-import androidx.compose.material.icons.outlined.Folder
-import androidx.compose.material.icons.outlined.FolderOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -22,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppCategory
 import app.morphe.manager.ui.screen.shared.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Prompt for a category name. Reused for both create and rename flows: pass a non-null
@@ -58,7 +55,7 @@ internal fun DialogHostScope.CategoryNameDialog(
             onValueChange = { name = it },
             label = { Text(stringResource(R.string.home_category_name)) },
             leadingIcon = {
-                Icon(Icons.Outlined.Category, contentDescription = null)
+                Icon(MaterialSymbols.Rounded.Category, contentDescription = null)
             },
             showClearButton = true,
             modifier = Modifier.fillMaxWidth()
@@ -112,7 +109,7 @@ internal fun DialogHostScope.MoveToCategoryDialog(
             SettingsItemCard(onClick = { showCreateDialog = true }, showBorder = true) {
                 IconTextRow(
                     modifier = Modifier.padding(Defaults.SpaceLarge),
-                    leadingContent = { ThemedIcon(icon = Icons.Outlined.Add) },
+                    leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Add) },
                     title = stringResource(R.string.home_category_add),
                     trailingContent = null
                 )
@@ -121,7 +118,7 @@ internal fun DialogHostScope.MoveToCategoryDialog(
             SettingsItemCard(onClick = { onSelect(null) }, showBorder = true) {
                 IconTextRow(
                     modifier = Modifier.padding(Defaults.SpaceLarge),
-                    leadingContent = { ThemedIcon(icon = Icons.Outlined.FolderOff) },
+                    leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Folder_off) },
                     title = stringResource(R.string.home_category_uncategorized),
                     trailingContent = null
                 )
@@ -131,7 +128,7 @@ internal fun DialogHostScope.MoveToCategoryDialog(
                 SettingsItemCard(onClick = { onSelect(category.id) }, showBorder = true) {
                     IconTextRow(
                         modifier = Modifier.padding(Defaults.SpaceLarge),
-                        leadingContent = { ThemedIcon(icon = Icons.Outlined.Folder) },
+                        leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Folder) },
                         title = category.name,
                         trailingContent = null
                     )

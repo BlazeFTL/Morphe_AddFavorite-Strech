@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.patcher
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -27,6 +25,8 @@ import app.morphe.manager.ui.model.PatchProgressSource
 import app.morphe.manager.ui.model.State
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeAndPatcherMessages
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
@@ -249,7 +249,7 @@ private fun ProgressDetailsSection(
             Notice(
                 text = stringResource(R.string.patcher_long_step_warning),
                 tone = SemanticTone.Primary,
-                icon = Icons.Outlined.Info,
+                icon = MaterialSymbols.Rounded.Info,
                 isCentered = true,
                 density = NoticeDensity.Compact
             )

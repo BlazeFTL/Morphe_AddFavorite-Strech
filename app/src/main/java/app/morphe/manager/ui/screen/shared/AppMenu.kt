@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -24,6 +22,8 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 // Material's expressive menu: a large container, its entries inset by a small step and rounded
 // less by as much, so both corners share a center
@@ -129,7 +129,7 @@ fun AppDropdownMenuItem(
             .semantics { this.selected = selected },
         leadingIcon = leadingIcon?.let { icon -> { Icon(icon, contentDescription = null) } },
         trailingIcon = trailing ?: if (selected) {
-            { Icon(Icons.Outlined.Check, contentDescription = null) }
+            { Icon(MaterialSymbols.Rounded.Check, contentDescription = null) }
         } else null,
         interactionSource = interactionSource,
         colors = MenuDefaults.itemColors(

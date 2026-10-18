@@ -8,8 +8,6 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -21,6 +19,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /** Expandable surface with a header icon, title, and collapsible content. */
 @Composable
@@ -28,7 +28,7 @@ fun ExpandableSurface(
     title: String,
     content: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    icon: ImageVector = Icons.Outlined.Info,
+    icon: ImageVector = MaterialSymbols.Rounded.Info,
     initialExpanded: Boolean = false,
     headerTint: Color = dialogTextColor()
 ) {

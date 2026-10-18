@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +29,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /** One thing a confirmed action removes or resets, with its size or amount as [detail]. */
 @Immutable
@@ -93,7 +91,7 @@ fun DialogHostScope.ConfirmDialog(
                 if (items.isNotEmpty()) {
                     LabeledSection(
                         title = itemsTitle,
-                        icon = Icons.Outlined.Delete.takeIf { itemsTitle != null }
+                        icon = MaterialSymbols.Rounded.Delete.takeIf { itemsTitle != null }
                     ) {
                         items.forEach { DeleteListItem(icon = it.icon, text = it.text, detail = it.detail) }
                     }
@@ -102,7 +100,7 @@ fun DialogHostScope.ConfirmDialog(
                     Notice(
                         text = notice,
                         tone = SemanticTone.Warning,
-                        icon = Icons.Outlined.Info,
+                        icon = MaterialSymbols.Rounded.Info,
                         density = NoticeDensity.Compact
                     )
                 }
@@ -154,7 +152,7 @@ fun DialogHostScope.MeteredDownloadDialog(
         }
     ) {
         Notice(
-            icon = Icons.Outlined.Warning,
+            icon = MaterialSymbols.Rounded.Warning,
             text = stringResource(R.string.download_confirmation_metered),
             tone = SemanticTone.Warning
         )

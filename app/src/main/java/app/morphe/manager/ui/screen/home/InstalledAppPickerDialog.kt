@@ -7,8 +7,6 @@ package app.morphe.manager.ui.screen.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -19,6 +17,8 @@ import androidx.compose.ui.semantics.stateDescription
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstalledAppPickerItem
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 private enum class AppFilter { All, UserOnly, SystemOnly }
 
@@ -68,7 +68,7 @@ fun DialogHostScope.InstalledAppPickerDialog(
         header = {
             ListDialogHeader(
                 icon = { modifier ->
-                    ListDialogHeaderIcon(icon = Icons.Outlined.Apps, color = accent, modifier = modifier)
+                    ListDialogHeaderIcon(icon = MaterialSymbols.Rounded.Apps, color = accent, modifier = modifier)
                 },
                 title = stringResource(R.string.home_installed_app_picker_title),
                 // The filter names itself here, so switching it says what the list now holds. A line
@@ -86,7 +86,7 @@ fun DialogHostScope.InstalledAppPickerDialog(
                 // The menu hangs off the button, so it opens under the header's end
                 Box {
                     TitleAction(
-                        icon = Icons.Outlined.FilterList,
+                        icon = MaterialSymbols.Rounded.Filter_list,
                         contentDescription = stringResource(R.string.filter),
                         onClick = { filterMenuOpen.value = true },
                         style = TitleActionStyle.Toggle,
@@ -128,7 +128,7 @@ fun DialogHostScope.InstalledAppPickerDialog(
                     item(key = "empty_state") {
                         EmptyState(
                             message = stringResource(R.string.home_installed_app_picker_empty),
-                            icon = Icons.Outlined.SearchOff,
+                            icon = MaterialSymbols.Rounded.Search_off,
                             modifier = Modifier.animateItem()
                         )
                     }

@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -20,10 +18,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Picker row: the main "select…" outlined button plus an inline trailing
- * [Icons.Outlined.Clear] icon button. The clear button is only rendered when
+ * [MaterialSymbols.Rounded.Close] icon button. The clear button is only rendered when
  * [selectedPath] is not blank.
  */
 @Composable
@@ -53,7 +53,7 @@ fun PickerButtonRow(
                 modifier = Modifier.size(40.dp),
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Clear,
+                    imageVector = MaterialSymbols.Rounded.Close,
                     contentDescription = stringResource(R.string.clear),
                     tint = dialogTextColor().copy(alpha = 0.7f),
                 )

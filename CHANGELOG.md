@@ -1,3 +1,23 @@
+# [2.0.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.4...v2.0.0-dev.5) (2026-10-18)
+
+
+### Bug Fixes
+
+* Keep the settings in place on coming back from one of their pages, the APK download helper row no longer showing up late under the restored scroll ([fdef76c](https://github.com/MorpheApp/morphe-manager/commit/fdef76ce5f896f2736a7d7f4e3ad51116eebedfa))
+* Mark the notification categories row as leading out to the system settings and the debug log export row as an export ([db01408](https://github.com/MorpheApp/morphe-manager/commit/db014080b735a3c5debda76c1d5a757ad954197f))
+
+
+### Features
+
+* Close the settings groups with plain notes instead of cards, warn as a value is picked or a helper is trusted, and tell what expert mode changes as it turns on ([071106c](https://github.com/MorpheApp/morphe-manager/commit/071106c361e0393b243280c3e471b3c8651061cd))
+* Draw every icon from Material Symbols Rounded in place of the frozen Material Icons ([2fab1ac](https://github.com/MorpheApp/morphe-manager/commit/2fab1acf9a5a4de36fe6380d2b7c992354d6a730))
+* Let messages be swiped away to either side ([c3fb2cf](https://github.com/MorpheApp/morphe-manager/commit/c3fb2cfd321deab87737bb216180cb725f3c34fc))
+* Open storage and the APK download helpers as pages of their own, keeping APKs switched where their space is shown, and group the settings root into titled sections with backups apart from files ([ae2dcae](https://github.com/MorpheApp/morphe-manager/commit/ae2dcaea73ab4c14873e43d48c4a4c17b261241d))
+* Open the licenses as a page of their own, point out a helper app installed but not trusted where helpers are offered, and let an unavailable installer be swapped for any other one ([77660a5](https://github.com/MorpheApp/morphe-manager/commit/77660a50aedc5f59a9dbdbe1709b00668bb32810))
+* Open the patch selections as a page of their own, with the import and export floating under the list and a source's patches opening over it ([fb713c1](https://github.com/MorpheApp/morphe-manager/commit/fb713c1ade7cdc3b47b39a90fc00ff6e984e078a))
+* Open the patcher settings and the rest of about as pages of their own, keeping the version dialog at the root, and lay the credits and patch options out in titled sections like the other settings pages ([dacc2f6](https://github.com/MorpheApp/morphe-manager/commit/dacc2f646fcd1a1a843903c7d465ee8d5045c7b4))
+* Show the scroll to top button only while scrolling back up, so it no longer covers the rows under it ([#1187](https://github.com/MorpheApp/morphe-manager/issues/1187)) ([378c7ad](https://github.com/MorpheApp/morphe-manager/commit/378c7ad20ef3876e778ec54b16050f3c1eee3122))
+
 # [2.0.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.3...v2.0.0-dev.4) (2026-10-17)
 
 

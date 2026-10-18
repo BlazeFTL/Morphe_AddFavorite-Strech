@@ -7,13 +7,13 @@ package app.morphe.manager.ui.screen.home
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import org.koin.compose.koinInject
 
 /**
@@ -155,7 +155,7 @@ internal fun CategoryActionBar(
                 Column {
                     PanelHeader(title = { category.title?.let { PanelTitle(text = it) } }) {
                         TitleAction(
-                            icon = Icons.Outlined.Close,
+                            icon = MaterialSymbols.Rounded.Close,
                             contentDescription = cancelLabel,
                             onClick = onCancel,
                             style = TitleActionStyle.Neutral
@@ -164,13 +164,13 @@ internal fun CategoryActionBar(
                     PanelActions(
                         actions = buildList {
                             if (category.showEditActions) {
-                                add(SelectionAction(Icons.Outlined.Edit, renameLabel, onRename))
+                                add(SelectionAction(MaterialSymbols.Rounded.Edit, renameLabel, onRename))
                             }
-                            add(SelectionAction(Icons.Outlined.Reorder, reorderListLabel, onEnterReorder))
+                            add(SelectionAction(MaterialSymbols.Rounded.Reorder, reorderListLabel, onEnterReorder))
                             if (category.showEditActions) {
                                 add(
                                     SelectionAction(
-                                        icon = Icons.Outlined.Delete,
+                                        icon = MaterialSymbols.Rounded.Delete,
                                         label = deleteLabel,
                                         onClick = onDelete,
                                         tone = ActionTone.Destructive
@@ -205,7 +205,7 @@ private fun ReorderPanel(
         PanelHeader(title = { PanelTitle(text = reorderListHint) }) {
             if (onCancel != null) {
                 TitleAction(
-                    icon = Icons.Outlined.Close,
+                    icon = MaterialSymbols.Rounded.Close,
                     contentDescription = cancelLabel,
                     onClick = onCancel,
                     style = TitleActionStyle.Neutral
@@ -215,14 +215,14 @@ private fun ReorderPanel(
         PanelActions(
             actions = listOfNotNull(
                 SelectionAction(
-                    icon = Icons.Outlined.Check,
+                    icon = MaterialSymbols.Rounded.Check,
                     label = doneLabel,
                     onClick = onDone,
                     tone = ActionTone.Primary
                 ),
                 onReset?.let {
                     SelectionAction(
-                        icon = Icons.Outlined.Restore,
+                        icon = MaterialSymbols.Rounded.History,
                         label = resetOrderLabel,
                         onClick = it,
                         tone = ActionTone.Destructive

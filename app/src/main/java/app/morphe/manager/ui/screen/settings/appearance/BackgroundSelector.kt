@@ -7,8 +7,6 @@ package app.morphe.manager.ui.screen.settings.appearance
 
 import android.text.format.DateFormat
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -19,6 +17,8 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.theme.backgroundOver
 import app.morphe.manager.ui.viewmodel.RandomInterval
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import java.time.format.DateTimeFormatter
 
 /**
@@ -117,7 +117,7 @@ fun DialogHostScope.BackgroundPickerDialog(
             FoldingVisibility(visible = shownBackground != selectedBackground && seasonalNotice != null) {
                 Notice(
                     text = seasonalNotice.orEmpty(),
-                    icon = Icons.Outlined.Celebration,
+                    icon = MaterialSymbols.Rounded.Celebration,
                     tone = SemanticTone.Primary,
                     density = NoticeDensity.Compact,
                     modifier = Modifier.padding(bottom = Defaults.SpaceSmall)
@@ -167,7 +167,7 @@ fun DialogHostScope.BackgroundPickerDialog(
                         SettingsSwitchItem(
                             title = stringResource(R.string.settings_appearance_parallax_effect),
                             subtitle = stringResource(R.string.settings_appearance_parallax_effect_description),
-                            icon = Icons.Outlined.ScreenRotation,
+                            icon = MaterialSymbols.Rounded.Screen_rotation,
                             checked = enableParallax,
                             onToggle = onParallaxToggle
                         )
@@ -181,7 +181,7 @@ fun DialogHostScope.BackgroundPickerDialog(
                 SettingsSwitchItem(
                     title = stringResource(R.string.settings_appearance_seasonal_themes),
                     subtitle = stringResource(R.string.settings_appearance_seasonal_themes_description),
-                    icon = Icons.Outlined.Celebration,
+                    icon = MaterialSymbols.Rounded.Celebration,
                     checked = seasonalThemes,
                     onToggle = onSeasonalThemesToggle
                 )
@@ -191,24 +191,24 @@ fun DialogHostScope.BackgroundPickerDialog(
 }
 
 private fun backgroundIcon(type: BackgroundType): ImageVector = when (type) {
-    BackgroundType.CIRCLES   -> Icons.Outlined.Circle
-    BackgroundType.RINGS     -> Icons.Outlined.Adjust
-    BackgroundType.MESH      -> Icons.Outlined.Grid3x3
-    BackgroundType.SPACE     -> Icons.Outlined.AutoAwesome
-    BackgroundType.SHAPES    -> Icons.Outlined.Pentagon
-    BackgroundType.SNOW      -> Icons.Outlined.AcUnit
-    BackgroundType.HALLOWEEN -> Icons.Outlined.NightsStay
-    BackgroundType.FIREWORKS -> Icons.Outlined.Flare
-    BackgroundType.GRID      -> Icons.Outlined.Apps
-    BackgroundType.PARTICLES -> Icons.Outlined.BubbleChart
-    BackgroundType.LAVA      -> Icons.Outlined.WaterDrop
-    BackgroundType.MATRIX    -> Icons.Outlined.Code
-    BackgroundType.NONE      -> Icons.Outlined.VisibilityOff
-    BackgroundType.RANDOM    -> Icons.Outlined.Shuffle
+    BackgroundType.CIRCLES   -> MaterialSymbols.Rounded.Circle
+    BackgroundType.RINGS     -> MaterialSymbols.Rounded.Adjust
+    BackgroundType.MESH      -> MaterialSymbols.Rounded.Grid_3x3
+    BackgroundType.SPACE     -> MaterialSymbols.Rounded.Auto_awesome
+    BackgroundType.SHAPES    -> MaterialSymbols.Rounded.Pentagon
+    BackgroundType.SNOW      -> MaterialSymbols.Rounded.Ac_unit
+    BackgroundType.HALLOWEEN -> MaterialSymbols.Rounded.Nights_stay
+    BackgroundType.FIREWORKS -> MaterialSymbols.Rounded.Flare
+    BackgroundType.GRID      -> MaterialSymbols.Rounded.Apps
+    BackgroundType.PARTICLES -> MaterialSymbols.Rounded.Bubble_chart
+    BackgroundType.LAVA      -> MaterialSymbols.Rounded.Water_drop
+    BackgroundType.MATRIX    -> MaterialSymbols.Rounded.Code
+    BackgroundType.NONE      -> MaterialSymbols.Rounded.Visibility_off
+    BackgroundType.RANDOM    -> MaterialSymbols.Rounded.Shuffle
 }
 
 private fun intervalIcon(interval: RandomInterval): ImageVector = when (interval) {
-    RandomInterval.ON_LAUNCH    -> Icons.Outlined.PlayCircleOutline
-    RandomInterval.DAILY        -> Icons.Outlined.Today
-    RandomInterval.EVERY_3_DAYS -> Icons.Outlined.DateRange
+    RandomInterval.ON_LAUNCH    -> MaterialSymbols.Rounded.Play_circle
+    RandomInterval.DAILY        -> MaterialSymbols.Rounded.Today
+    RandomInterval.EVERY_3_DAYS -> MaterialSymbols.Rounded.Date_range
 }

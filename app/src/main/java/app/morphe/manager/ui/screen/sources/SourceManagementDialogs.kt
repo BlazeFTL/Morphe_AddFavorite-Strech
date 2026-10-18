@@ -16,10 +16,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
@@ -65,10 +61,10 @@ import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel.PickedBundle
 import app.morphe.manager.util.*
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Brands
-import compose.icons.fontawesomeicons.brands.Github
-import compose.icons.fontawesomeicons.brands.Gitlab
+import com.composables.icons.fontawesome.FontAwesome
+import com.composables.icons.fontawesome.brands.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.mapNotNull
@@ -135,7 +131,7 @@ fun DialogHostScope.AddSourceDialog(
                         AppDialogOutlinedButton(
                             text = stringResource(R.string.sources_dialog_community),
                             onClick = { showCommunityNotice = true },
-                            icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                            icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored,
                             modifier = Modifier.fillMaxWidth()
                         )
                         // As far as the buttons under it stand apart, so the three read as one grid
@@ -165,11 +161,11 @@ fun DialogHostScope.AddSourceDialog(
             options = listOf(
                 SegmentedTab(
                     label = stringResource(R.string.sources_dialog_remote),
-                    icon = Icons.Outlined.Language
+                    icon = MaterialSymbols.Rounded.Language
                 ),
                 SegmentedTab(
                     label = stringResource(R.string.sources_dialog_local),
-                    icon = Icons.AutoMirrored.Outlined.InsertDriveFile
+                    icon = MaterialSymbols.Rounded.Draft.autoMirrored
                 )
             ),
             selectedIndex = selectedTab,
@@ -299,9 +295,9 @@ private val RemoteSourceRejection.hintRes: Int
 /** Hosts whose links name a repository, by the icon they show. Any other host serves a bundle file. */
 private val REPOSITORY_HOST_ICONS: Map<String, ImageVector> by lazy {
     mapOf(
-        "github.com" to FontAwesomeIcons.Brands.Github,
-        "raw.githubusercontent.com" to FontAwesomeIcons.Brands.Github,
-        "gitlab.com" to FontAwesomeIcons.Brands.Gitlab
+        "github.com" to FontAwesome.Brands.Github,
+        "raw.githubusercontent.com" to FontAwesome.Brands.Github,
+        "gitlab.com" to FontAwesome.Brands.Gitlab
     )
 }
 
@@ -317,7 +313,7 @@ internal fun remoteLinkTitle(link: String): String {
     return if (link.linkHost() in REPOSITORY_HOST_ICONS && segments.size >= 2) "${segments[0]}/${segments[1]}" else bare
 }
 
-internal fun remoteLinkIcon(link: String): ImageVector = REPOSITORY_HOST_ICONS[link.linkHost()] ?: Icons.Outlined.Link
+internal fun remoteLinkIcon(link: String): ImageVector = REPOSITORY_HOST_ICONS[link.linkHost()] ?: MaterialSymbols.Rounded.Link
 
 @Composable
 private fun RemoteTabContent(state: RemoteLinksState) {
@@ -337,7 +333,7 @@ private fun RemoteTabContent(state: RemoteLinksState) {
             trailingIcon = {
                 if (state.input.isNotEmpty()) {
                     IconButton(onClick = state::clearInput) {
-                        Icon(Icons.Outlined.Clear, contentDescription = stringResource(R.string.clear))
+                        Icon(MaterialSymbols.Rounded.Close, contentDescription = stringResource(R.string.clear))
                     }
                 } else {
                     IconButton(
@@ -352,7 +348,7 @@ private fun RemoteTabContent(state: RemoteLinksState) {
                             }
                         }
                     ) {
-                        Icon(Icons.Outlined.ContentPaste, contentDescription = stringResource(R.string.paste))
+                        Icon(MaterialSymbols.Rounded.Content_paste, contentDescription = stringResource(R.string.paste))
                     }
                 }
             },
@@ -375,17 +371,17 @@ private fun RemoteTabContent(state: RemoteLinksState) {
             ) {
                 val (icon, color, text) = when (inputCheck) {
                     is RemoteUrlCheck.Rejected -> Triple(
-                        Icons.Outlined.ErrorOutline,
+                        MaterialSymbols.Rounded.Error,
                         MaterialTheme.colorScheme.error,
                         stringResource(inputCheck.reason.hintRes)
                     )
                     is RemoteUrlCheck.Accepted -> Triple(
-                        Icons.Outlined.CheckCircle,
+                        MaterialSymbols.Rounded.Check_circle,
                         SemanticTone.Success.accent,
                         stringResource(R.string.sources_dialog_url_valid)
                     )
                     // Cleared while the row fades out
-                    null -> Triple(Icons.Outlined.Info, Color.Transparent, "")
+                    null -> Triple(MaterialSymbols.Rounded.Info, Color.Transparent, "")
                 }
                 Icon(icon, contentDescription = null, tint = color, modifier = Modifier.size(15.dp))
                 Text(text, style = MaterialTheme.typography.bodySmall, color = color)
@@ -401,7 +397,7 @@ private fun RemoteTabContent(state: RemoteLinksState) {
                     modifier = Modifier.padding(horizontal = Defaults.SpaceLarge)
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Info,
+                        imageVector = MaterialSymbols.Rounded.Info,
                         contentDescription = null,
                         tint = dialogSecondaryTextColor(),
                         modifier = Modifier.padding(top = 1.dp).size(14.dp)
@@ -412,9 +408,9 @@ private fun RemoteTabContent(state: RemoteLinksState) {
                         color = dialogSecondaryTextColor()
                     )
                 }
-                UrlFormatRow(icon = FontAwesomeIcons.Brands.Github, text = "github.com/owner/repo")
-                UrlFormatRow(icon = FontAwesomeIcons.Brands.Gitlab, text = "gitlab.com/owner/repo")
-                UrlFormatRow(icon = Icons.Outlined.Link, text = "example.com/patches-bundle.json")
+                UrlFormatRow(icon = FontAwesome.Brands.Github, text = "github.com/owner/repo")
+                UrlFormatRow(icon = FontAwesome.Brands.Gitlab, text = "gitlab.com/owner/repo")
+                UrlFormatRow(icon = MaterialSymbols.Rounded.Link, text = "example.com/patches-bundle.json")
             }
         } else {
             Column(verticalArrangement = Arrangement.spacedBy(CompactCardSpacing)) {
@@ -478,7 +474,7 @@ private fun LocalTabContent(
                 entries.forEach { entry ->
                     val check = entry.check
                     PendingSourceRow(
-                        icon = if (check is LocalFileCheck.Update) Icons.Outlined.Update else Icons.AutoMirrored.Outlined.InsertDriveFile,
+                        icon = if (check is LocalFileCheck.Update) MaterialSymbols.Rounded.Update else MaterialSymbols.Rounded.Draft.autoMirrored,
                         title = entry.name,
                         detail = when (check) {
                             is LocalFileCheck.Update -> stringResource(R.string.sources_dialog_local_updates, check.title)
@@ -495,7 +491,7 @@ private fun LocalTabContent(
             AppDialogOutlinedButton(
                 text = stringResource(R.string.sources_dialog_local_add_more),
                 onClick = onPickFiles,
-                icon = Icons.Outlined.Add,
+                icon = MaterialSymbols.Rounded.Add,
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -537,7 +533,7 @@ private fun LocalFilesDropZone(onPickFiles: () -> Unit) {
         EmptyState(
             message = stringResource(R.string.sources_dialog_local_files),
             subtitle = stringResource(R.string.sources_dialog_local_file_tap_hint),
-            icon = Icons.Outlined.UploadFile,
+            icon = MaterialSymbols.Rounded.Upload_file,
             // About as tall as the remote tab's hint card, so switching tabs barely moves the dialog
             contentPadding = PaddingValues(horizontal = Defaults.SpaceLarge, vertical = Defaults.SpaceMedium),
             iconSize = 40.dp
@@ -561,7 +557,7 @@ private fun PendingSourceRow(
     CompactListCard(onClick = null) {
         if (isError) {
             CompactCardIconTile(containerColor = colors.errorContainer, contentColor = colors.onErrorContainer) {
-                Icon(Icons.Outlined.ErrorOutline, contentDescription = null, modifier = Modifier.size(CompactCardGlyphSize))
+                Icon(MaterialSymbols.Rounded.Error, contentDescription = null, modifier = Modifier.size(CompactCardGlyphSize))
             }
         } else {
             CompactCardIconTile {
@@ -571,7 +567,7 @@ private fun PendingSourceRow(
         CardHeadingText(name = title, description = detail, modifier = Modifier.weight(1f))
         IconButton(onClick = onRemove) {
             Icon(
-                imageVector = Icons.Outlined.Close,
+                imageVector = MaterialSymbols.Rounded.Close,
                 contentDescription = stringResource(R.string.remove),
                 tint = dialogSecondaryTextColor()
             )
@@ -620,7 +616,7 @@ fun DialogHostScope.RenameBundleDialog(
                 onValueChange = { textValue = it },
                 placeholder = { Text(stringResource(R.string.patch_option_enter_value)) },
                 leadingIcon = {
-                    Icon(imageVector = Icons.Outlined.Edit, contentDescription = null)
+                    Icon(imageVector = MaterialSymbols.Rounded.Edit, contentDescription = null)
                 },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
@@ -679,7 +675,7 @@ fun DialogHostScope.BundlePatchesDialog(
             {
                 Notice(
                     text = stringResource(R.string.sources_patches_source_disabled_hint),
-                    icon = Icons.Outlined.VisibilityOff,
+                    icon = MaterialSymbols.Rounded.Visibility_off,
                     tone = SemanticTone.Warning,
                     density = NoticeDensity.Compact
                 )
@@ -730,7 +726,7 @@ private fun patchesByApp(patches: List<PatchInfo>, universalTitle: String): List
                     packageName = null,
                     icon = { modifier ->
                         Icon(
-                            imageVector = Icons.Outlined.Public,
+                            imageVector = MaterialSymbols.Rounded.Public,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = modifier
@@ -945,7 +941,7 @@ fun DialogHostScope.BundleChangelogDialog(
                             DialogAction(
                                 text = stringResource(R.string.retry),
                                 onClick = { fetchTrigger++ },
-                                icon = Icons.Outlined.Refresh
+                                icon = MaterialSymbols.Rounded.Refresh
                             ),
                             DialogAction(
                                 text = stringResource(R.string.close),
@@ -1165,7 +1161,7 @@ fun DialogHostScope.SourceAppsDialog(
                 // one tap here and a few on the apps wanted
                 actions = {
                     TitleAction(
-                        icon = if (allFilteredBrought) Icons.Outlined.RemoveDone else Icons.Outlined.DoneAll,
+                        icon = if (allFilteredBrought) MaterialSymbols.Rounded.Remove_done else MaterialSymbols.Rounded.Done_all,
                         contentDescription = stringResource(
                             if (allFilteredBrought) R.string.deselect_all else R.string.select_all
                         ),
@@ -1219,7 +1215,7 @@ fun DialogHostScope.SourceAppsDialog(
                         onToggle = {
                             persist { sourceMuteRepository.setBringsNewApps(src.uid, !bringsNewApps, listedApps) }
                         },
-                        icon = Icons.Outlined.AutoAwesome,
+                        icon = MaterialSymbols.Rounded.Auto_awesome,
                         title = stringResource(R.string.sources_apps_new_apps),
                         subtitle = stringResource(R.string.sources_apps_new_apps_description),
                         showBorder = true,
@@ -1232,7 +1228,7 @@ fun DialogHostScope.SourceAppsDialog(
                 item(key = "empty_state") {
                     EmptyState(
                         message = stringResource(R.string.search_no_results),
-                        icon = Icons.Outlined.SearchOff,
+                        icon = MaterialSymbols.Rounded.Search_off,
                         modifier = Modifier.animateItem()
                     )
                 }

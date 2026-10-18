@@ -16,8 +16,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,6 +32,8 @@ import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.CompatiblePackage
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.shared.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * One block of a patch list dialog: the patches of one app, of one source, or the universal ones.
@@ -155,7 +155,7 @@ internal fun DialogHostScope.PatchListDialog(
                 // A source can patch dozens of apps, more than a row of chips could hold
                 if (hasSections) {
                     TitleAction(
-                        icon = Icons.Outlined.FilterList,
+                        icon = MaterialSymbols.Rounded.Filter_list,
                         contentDescription = stringResource(R.string.filter),
                         onClick = { showFilterPanel = !showFilterPanel },
                         style = TitleActionStyle.Toggle,
@@ -327,7 +327,7 @@ private fun SectionFilterPanel(
         Column(modifier = Modifier.fillMaxWidth()) {
             PanelHeader(title = { PanelTitle(text = stringResource(R.string.filter)) }) {
                 TitleAction(
-                    icon = Icons.Outlined.Close,
+                    icon = MaterialSymbols.Rounded.Close,
                     contentDescription = stringResource(R.string.close),
                     onClick = onClose,
                     style = TitleActionStyle.Neutral
@@ -347,7 +347,7 @@ private fun SectionFilterPanel(
                         selected = selectedKey == null,
                         onClick = { onSelect(null) },
                         label = stringResource(R.string.all),
-                        selectedIcon = Icons.Outlined.DoneAll
+                        selectedIcon = MaterialSymbols.Rounded.Done_all
                     )
                     sections.forEach { section ->
                         val isSelected = section.key == selectedKey
@@ -446,7 +446,7 @@ internal fun PatchItemCard(
                         if (options.isNotEmpty()) {
                             AppAccentBadge(
                                 text = pluralStringResource(R.plurals.option_count, options.size, options.size.toString()),
-                                icon = Icons.Outlined.Tune,
+                                icon = MaterialSymbols.Rounded.Tune,
                                 onClick = { expandOptions = !expandOptions }
                             )
                         }
@@ -455,7 +455,7 @@ internal fun PatchItemCard(
                         if (isExpertOnly) {
                             StatusBadge(
                                 text = stringResource(R.string.sources_patch_expert_badge),
-                                icon = Icons.Outlined.Lock,
+                                icon = MaterialSymbols.Rounded.Lock,
                                 tone = SemanticTone.Warning,
                                 onClick = onExpertBadgeClick
                             )
@@ -569,7 +569,7 @@ private fun PatchVersionBadge(
     AppAccentBadge(
         text = version,
         accentColor = accentColor.takeUnless { isExperimental },
-        icon = if (isExperimental) VersionTag.Experimental.icon else Icons.Outlined.Code,
+        icon = if (isExperimental) VersionTag.Experimental.icon else MaterialSymbols.Rounded.Code,
         tone = if (isExperimental) VersionTag.Experimental.tone else SemanticTone.Neutral
     )
 }

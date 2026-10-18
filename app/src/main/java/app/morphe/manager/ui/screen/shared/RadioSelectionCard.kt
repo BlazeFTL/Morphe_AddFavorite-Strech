@@ -14,9 +14,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.Remove
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +29,8 @@ import androidx.compose.ui.semantics.*
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Selectable card used in radio-button style dialogs. Shares the outer card look
@@ -237,8 +236,8 @@ fun SelectionCheckIndicator(
         label = "selection_check"
     ) { shown ->
         val icon = when (shown) {
-            ToggleableState.On -> Icons.Outlined.Check
-            ToggleableState.Indeterminate -> Icons.Outlined.Remove
+            ToggleableState.On -> MaterialSymbols.Rounded.Check
+            ToggleableState.Indeterminate -> MaterialSymbols.Rounded.Remove
             ToggleableState.Off -> return@Crossfade StatusCirclePlaceholder()
         }
 

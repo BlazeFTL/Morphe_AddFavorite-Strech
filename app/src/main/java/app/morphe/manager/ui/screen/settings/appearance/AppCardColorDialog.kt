@@ -9,8 +9,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -29,12 +27,14 @@ import app.morphe.manager.ui.screen.home.AppCardLayout
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.LocalAppCardColorResolver
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 private val MODE_OPTIONS = listOf(
-    AppCardColorMode.DEFAULT to Icons.Outlined.Apps,
-    AppCardColorMode.ACCENT to Icons.Outlined.ColorLens,
-    AppCardColorMode.GRADIENT to Icons.Outlined.Gradient,
-    AppCardColorMode.SOLID to Icons.Outlined.Circle
+    AppCardColorMode.DEFAULT to MaterialSymbols.Rounded.Apps,
+    AppCardColorMode.ACCENT to MaterialSymbols.Rounded.Palette,
+    AppCardColorMode.GRADIENT to MaterialSymbols.Rounded.Gradient,
+    AppCardColorMode.SOLID to MaterialSymbols.Rounded.Circle
 )
 
 @Composable
@@ -112,7 +112,7 @@ fun DialogHostScope.AppCardColorDialog(
         title = stringResource(R.string.settings_appearance_app_card_colors),
         titleTrailingContent = {
             TitleAction(
-                icon = Icons.Outlined.Restore,
+                icon = MaterialSymbols.Rounded.History,
                 contentDescription = stringResource(R.string.reset),
                 onClick = resetDraft
             )

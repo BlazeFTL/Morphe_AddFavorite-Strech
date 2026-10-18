@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.FolderZip
-import androidx.compose.material.icons.outlined.Key
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -24,6 +20,8 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.KeystoreInputFormat
 import app.morphe.manager.util.enumByNameOrNull
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Keystore Credentials Dialog.
@@ -70,7 +68,7 @@ fun DialogHostScope.KeystoreCredentialsDialog(
                 label = { Text(stringResource(R.string.settings_system_import_keystore_dialog_format_field)) },
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.FolderZip,
+                        imageVector = MaterialSymbols.Rounded.Folder_zip,
                         contentDescription = null
                     )
                 }
@@ -85,7 +83,7 @@ fun DialogHostScope.KeystoreCredentialsDialog(
                 },
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.Person,
+                        imageVector = MaterialSymbols.Rounded.Person,
                         contentDescription = null
                     )
                 },
@@ -101,7 +99,7 @@ fun DialogHostScope.KeystoreCredentialsDialog(
                 },
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.Key,
+                        imageVector = MaterialSymbols.Rounded.Key,
                         contentDescription = null
                     )
                 },

@@ -11,9 +11,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -31,7 +31,10 @@ import app.morphe.manager.ui.viewmodel.ImportExportViewModel
 import app.morphe.manager.ui.viewmodel.SelectionApp
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 /** Snapshot of package/bundle selection counts. */
 @Immutable
@@ -54,39 +57,30 @@ class PatchSelectionMultiSelect(
 
 /**
  * Entry into the patch selections expert mode saves per app and source, a row of the group it
- * is placed in.
+ * is placed in, opening [PatchSelectionsPage].
  */
 @Composable
-fun PatchSelectionsItem(
-    settingsViewModel: SettingsViewModel,
-    importExportViewModel: ImportExportViewModel
-) {
-    var showDialog by remember { mutableStateOf(false) }
-
-    DialogHost(visible = showDialog) {
-        PatchSelectionManagementDialog(
-            settingsViewModel = settingsViewModel,
-            importExportViewModel = importExportViewModel,
-            onDismiss = { showDialog = false }
-        )
-    }
-
+fun PatchSelectionsItem(onClick: () -> Unit) {
     SettingsItem(
-        onClick = { showDialog = true },
+        onClick = onClick,
         title = stringResource(R.string.settings_system_patch_selections_title),
         subtitle = stringResource(R.string.settings_system_patch_selections_description),
-        leadingContent = { ThemedIcon(icon = Icons.Outlined.Tune) }
+        leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Tune) }
     )
 }
 
 /**
- * Dialog for managing patch selections.
+ * The patch selections expert mode saves, each app a block of the sources it has one from, on a
+ * page of their own. A selection made of the apps resets them together, and one source's
+ * selection opens over the page, see [PatchDetailsDialog].
+ *
+ * @param onBack Leaves the page for the settings it was opened from.
  */
 @Composable
-fun DialogHostScope.PatchSelectionManagementDialog(
-    settingsViewModel: SettingsViewModel,
-    importExportViewModel: ImportExportViewModel,
-    onDismiss: () -> Unit
+fun PatchSelectionsPage(
+    onBack: () -> Unit,
+    settingsViewModel: SettingsViewModel = koinViewModel(),
+    importExportViewModel: ImportExportViewModel = koinViewModel()
 ) {
     val scope = rememberCoroutineScope()
     val showResetAllConfirmation = remember { mutableStateOf(false) }
@@ -119,61 +113,53 @@ fun DialogHostScope.PatchSelectionManagementDialog(
         selectedPackages.clear()
     }
 
-    // One app's selection opens in place of the list, which keeps its scroll and search meanwhile
-    DialogPages(
-        page = showPatchDetailsTarget.value,
-        key = { it?.let { target -> "${target.packageName}/${target.bundleUid}" } ?: "list" },
-        modifier = Modifier.fillMaxSize()
-    ) { target ->
-        if (target != null) {
-            PatchDetailsPage(
-                packageName = target.packageName,
-                bundleUid = target.bundleUid,
-                appDisplayName = target.appDisplayName,
-                bundleName = bundleNames[target.bundleUid],
-                settingsViewModel = settingsViewModel,
-                onBack = { showPatchDetailsTarget.value = null }
-            )
-            return@DialogPages
-        }
-
-        PatchSelectionManagementDialogContent(
-            data = PatchSelectionData(
-                selections = selections,
-                totalSelections = totalSelections,
-                bundleNames = bundleNames,
-                apps = selectionApps
-            ),
-            multiSelect = PatchSelectionMultiSelect(
-                selectedPackages = selectedPackages,
-                isSelectionMode = isSelectionMode.value,
-                onEnterSelection = { pkg ->
-                    isSelectionMode.value = true
-                    selectedPackages.toggle(pkg)
-                },
-                onToggleSelection = { pkg -> selectedPackages.toggle(pkg) }
-            ),
-            importExportViewModel = importExportViewModel,
-            onDismiss = onDismiss,
-            onShowResetAllConfirmation = { showResetAllConfirmation.value = true },
-            onSetResetTarget = { resetTarget.value = it },
-            onShowPatchDetails = { showPatchDetailsTarget.value = it },
-            onOpenCopyFromBundle = { target ->
-                copyTarget.value = target
-                copyCandidates.value = null
-                scope.launch {
-                    val loaded = settingsViewModel.loadCopySelectionCandidates(
-                        targetPackageName = target.packageName,
-                        targetBundleUid = target.bundleUid
-                    )
-                    // Discard the result if the picker was closed or retargeted while loading.
-                    if (copyTarget.value == target) copyCandidates.value = loaded
-                }
+    PatchSelectionsContent(
+        data = PatchSelectionData(
+            selections = selections,
+            totalSelections = totalSelections,
+            bundleNames = bundleNames,
+            apps = selectionApps
+        ),
+        multiSelect = PatchSelectionMultiSelect(
+            selectedPackages = selectedPackages,
+            isSelectionMode = isSelectionMode.value,
+            onEnterSelection = { pkg ->
+                isSelectionMode.value = true
+                selectedPackages.toggle(pkg)
             },
-            onImportUriPicked = { pendingImportUri = it },
-            onExitSelection = exitSelection,
-            onSelectAll = { selectedPackages.setAll(selections.keys) },
-            onShowResetSelectedConfirmation = { showResetSelectedConfirmation.value = true }
+            onToggleSelection = { pkg -> selectedPackages.toggle(pkg) }
+        ),
+        importExportViewModel = importExportViewModel,
+        onBack = onBack,
+        onShowResetAllConfirmation = { showResetAllConfirmation.value = true },
+        onSetResetTarget = { resetTarget.value = it },
+        onShowPatchDetails = { showPatchDetailsTarget.value = it },
+        onOpenCopyFromBundle = { target ->
+            copyTarget.value = target
+            copyCandidates.value = null
+            scope.launch {
+                val loaded = settingsViewModel.loadCopySelectionCandidates(
+                    targetPackageName = target.packageName,
+                    targetBundleUid = target.bundleUid
+                )
+                // Discard the result if the picker was closed or retargeted while loading.
+                if (copyTarget.value == target) copyCandidates.value = loaded
+            }
+        },
+        onImportUriPicked = { pendingImportUri = it },
+        onExitSelection = exitSelection,
+        onSelectAll = { selectedPackages.setAll(selections.keys) },
+        onShowResetSelectedConfirmation = { showResetSelectedConfirmation.value = true }
+    )
+
+    DialogHost(target = showPatchDetailsTarget.value) { target ->
+        PatchDetailsDialog(
+            packageName = target.packageName,
+            bundleUid = target.bundleUid,
+            appDisplayName = target.appDisplayName,
+            bundleName = bundleNames[target.bundleUid],
+            settingsViewModel = settingsViewModel,
+            onDismiss = { showPatchDetailsTarget.value = null }
         )
     }
 
@@ -276,14 +262,17 @@ fun DialogHostScope.PatchSelectionManagementDialog(
 }
 
 /**
- * Main dialog content.
+ * The page itself: the apps under a header with the search and a reset of them all, over either
+ * the import and export of the selections or, while apps are being selected, what can be done
+ * with them.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun DialogHostScope.PatchSelectionManagementDialogContent(
+private fun PatchSelectionsContent(
     data: PatchSelectionData,
     multiSelect: PatchSelectionMultiSelect,
     importExportViewModel: ImportExportViewModel,
-    onDismiss: () -> Unit,
+    onBack: () -> Unit,
     onShowResetAllConfirmation: () -> Unit,
     onSetResetTarget: (ResetTarget) -> Unit,
     onShowPatchDetails: (PatchDetailsTarget) -> Unit,
@@ -294,6 +283,8 @@ private fun DialogHostScope.PatchSelectionManagementDialogContent(
     onShowResetSelectedConfirmation: () -> Unit
 ) {
     val selections = data.selections
+    val horizontal = rememberWindowSize().contentPadding
+    val listState = rememberLazyListState()
     val openImportAllSelectionsPicker = rememberAdaptiveFilePicker(
         mimeTypes = arrayOf(JSON_MIMETYPE, TEXT_MIMETYPE),
         customPickerMimeTypes = arrayOf(JSON_MIMETYPE),
@@ -311,27 +302,24 @@ private fun DialogHostScope.PatchSelectionManagementDialogContent(
     // Hoisted out of the list so the title action can drive it
     val search = rememberSearchFieldState(searchable = isSearchable)
     val canResetAll = !multiSelect.isSelectionMode && selections.isNotEmpty()
+    // Registered inside the page so it outranks the way back out of it
+    SearchFieldBackHandler(search)
 
-    ListDialog(
-        onDismissRequest = onDismiss,
+    PinnedHeaderPage(
         header = {
-            val accent = MaterialTheme.colorScheme.primary
-            ListDialogHeader(
-                icon = { modifier ->
-                    ListDialogHeaderIcon(icon = Icons.Outlined.Tune, color = accent, modifier = modifier)
-                },
+            PageHeader(
                 title = stringResource(R.string.settings_system_patch_selections_title),
                 subtitle = listOf(
                     pluralStringResource(R.plurals.package_count, selections.size, selections.size.toString()),
                     pluralStringResource(R.plurals.patch_count, data.totalSelections, data.totalSelections.toString())
                 ).joinToString(" · "),
+                onBack = onBack,
                 search = search,
                 searchLabel = stringResource(R.string.home_search_apps),
-                searchEnabled = isSearchable,
-                accentColor = accent
+                searchEnabled = isSearchable
             ) {
                 TitleAction(
-                    icon = Icons.Outlined.Restore,
+                    icon = MaterialSymbols.Rounded.History,
                     contentDescription = stringResource(R.string.reset),
                     onClick = onShowResetAllConfirmation,
                     style = TitleActionStyle.Destructive,
@@ -339,22 +327,10 @@ private fun DialogHostScope.PatchSelectionManagementDialogContent(
                 )
             }
         },
-        footer = {
-            ImportExportFooter(
-                onImport = { openImportAllSelectionsPicker() },
-                onExport = if (selections.isNotEmpty()) {
-                    {
-                        exportAllSelectionsLauncher.launch(
-                            importExportViewModel.getAllSelectionsExportFileName()
-                        )
-                    }
-                } else null,
-                onClose = onDismiss
-            )
-        },
-        bottomBar = if (multiSelect.isSelectionMode) {
-            {
-                DockedPanel(visible = true, onBack = onExitSelection) {
+        scrollState = listState,
+        bottomBar = {
+            when {
+                multiSelect.isSelectionMode -> DockedPanel(visible = true, onBack = onExitSelection) {
                     SelectionActionBar(
                         selectedCount = multiSelect.selectedPackages.size,
                         totalCount = selections.size,
@@ -363,7 +339,7 @@ private fun DialogHostScope.PatchSelectionManagementDialogContent(
                         onCancel = onExitSelection,
                         actions = listOf(
                             SelectionAction(
-                                icon = Icons.Outlined.Delete,
+                                icon = MaterialSymbols.Rounded.Delete,
                                 label = stringResource(R.string.reset),
                                 onClick = onShowResetSelectedConfirmation,
                                 tone = ActionTone.Destructive
@@ -371,17 +347,38 @@ private fun DialogHostScope.PatchSelectionManagementDialogContent(
                         )
                     )
                 }
-            }
-        } else null,
-        hideFooterWhileTyping = true
-    ) {
-        SearchFieldBackHandler(search)
 
+                // Out of the search's way while the keyboard is up, which wants every row of room
+                !WindowInsets.isImeVisible -> Box(
+                    modifier = Modifier
+                        .navigationBarsPadding()
+                        .widthIn(max = Defaults.ContentMaxWidth)
+                        .fillMaxWidth()
+                        .padding(start = horizontal, end = horizontal, bottom = Defaults.SpaceLarge)
+                ) {
+                    ImportExportFooter(
+                        onImport = { openImportAllSelectionsPicker() },
+                        onExport = if (selections.isNotEmpty()) {
+                            {
+                                exportAllSelectionsLauncher.launch(
+                                    importExportViewModel.getAllSelectionsExportFileName()
+                                )
+                            }
+                        } else null
+                    )
+                }
+            }
+        }
+    ) { headerHeight, bottomBarHeight ->
         val apps = data.apps
         if (selections.isEmpty()) {
             EmptyState(
                 message = stringResource(R.string.settings_system_no_patches_or_options),
-                modifier = Modifier.padding(LocalDialogBarInsets.current)
+                modifier = Modifier.padding(
+                    start = horizontal,
+                    top = headerHeight + Defaults.SpaceMedium,
+                    end = horizontal
+                )
             )
         } else if (apps != null) {
             SelectionList(
@@ -390,17 +387,34 @@ private fun DialogHostScope.PatchSelectionManagementDialogContent(
                 multiSelect = multiSelect,
                 importExportViewModel = importExportViewModel,
                 search = search,
+                listState = listState,
+                contentPadding = PaddingValues(
+                    start = horizontal,
+                    top = headerHeight + Defaults.SpaceMedium,
+                    end = horizontal,
+                    bottom = bottomBarHeight + Defaults.SpaceLarge
+                ),
                 onSetResetTarget = onSetResetTarget,
                 onShowPatchDetails = onShowPatchDetails,
                 onOpenCopyFromBundle = onOpenCopyFromBundle,
                 onImport = openImportAllSelectionsPicker
             )
         }
+
+        ListScrollbar(
+            listState = listState,
+            modifier = Modifier.padding(
+                top = headerHeight + Defaults.SpaceMedium,
+                bottom = bottomBarHeight + Defaults.SpaceMedium
+            )
+        )
+        ScrollToTopButton(listState = listState, extraBottomPadding = bottomBarHeight)
     }
 }
 
 /**
- * List of selections.
+ * The apps with selections, each a block: its header, then a row for every source it has a
+ * selection from while it is folded out.
  */
 @Composable
 private fun SelectionList(
@@ -409,12 +423,13 @@ private fun SelectionList(
     multiSelect: PatchSelectionMultiSelect,
     importExportViewModel: ImportExportViewModel,
     search: SearchFieldState,
+    listState: LazyListState,
+    contentPadding: PaddingValues,
     onSetResetTarget: (ResetTarget) -> Unit,
     onShowPatchDetails: (PatchDetailsTarget) -> Unit,
     onOpenCopyFromBundle: (CopyTarget) -> Unit,
     onImport: () -> Unit
 ) {
-    val listState = rememberLazyListState()
     val expandedPackages = remember { mutableStateOf<Set<String>>(emptySet()) }
     // Named and in order already, so the search only narrows them down
     val shownApps = remember(apps, search.query) {
@@ -433,17 +448,20 @@ private fun SelectionList(
         }
     }
 
-    DialogLazyList(
-        modifier = Modifier.fillMaxWidth(),
+    LazyColumn(
         state = listState,
-        verticalArrangement = Arrangement.spacedBy(SegmentGap)
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScrollFade(listState),
+        verticalArrangement = Arrangement.spacedBy(SegmentGap),
+        contentPadding = contentPadding
     ) {
         if (shownApps.isEmpty()) {
             // No matches for the current search query
             item(key = "search_empty") {
                 EmptyState(
                     message = stringResource(R.string.search_no_results),
-                    icon = Icons.Outlined.SearchOff
+                    icon = MaterialSymbols.Rounded.Search_off
                 )
             }
         }
@@ -575,7 +593,7 @@ private fun PackageSelectionHeader(
                         text = displayName,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
-                        color = dialogTextColor()
+                        color = MaterialTheme.colorScheme.onSurface
                     )
 
                     // Cloned copies of an app carry the same name, so the package is what
@@ -583,7 +601,7 @@ private fun PackageSelectionHeader(
                     Text(
                         text = packageName,
                         style = MaterialTheme.typography.bodySmall,
-                        color = dialogSecondaryTextColor(),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -663,7 +681,7 @@ private fun BundleSelectionItem(
         ) {
             InfoPanel {
                 InfoRow(
-                    icon = Icons.Outlined.Extension,
+                    icon = MaterialSymbols.Rounded.Extension,
                     label = displayName,
                     value = patchCountText,
                     onClick = onShowDetails
@@ -674,7 +692,7 @@ private fun BundleSelectionItem(
                 val copyLabel = stringResource(R.string.copy)
                 ActionPillButton(
                     onClick = onCopyFromBundle,
-                    icon = Icons.Outlined.ContentCopy,
+                    icon = MaterialSymbols.Rounded.Content_copy,
                     contentDescription = copyLabel,
                     tooltip = copyLabel
                 )
@@ -682,7 +700,7 @@ private fun BundleSelectionItem(
                 val importLabel = stringResource(R.string.import_)
                 ActionPillButton(
                     onClick = onImport,
-                    icon = Icons.Outlined.Download,
+                    icon = MaterialSymbols.Rounded.Download,
                     contentDescription = importLabel,
                     tooltip = importLabel
                 )
@@ -695,7 +713,7 @@ private fun BundleSelectionItem(
                         )
                         exportLauncher.launch(fileName)
                     },
-                    icon = Icons.Outlined.Upload,
+                    icon = MaterialSymbols.Rounded.Upload,
                     contentDescription = exportLabel,
                     tooltip = exportLabel
                 )
@@ -703,7 +721,7 @@ private fun BundleSelectionItem(
                 val resetLabel = stringResource(R.string.reset)
                 ActionPillButton(
                     onClick = onReset,
-                    icon = Icons.Outlined.Restore,
+                    icon = MaterialSymbols.Rounded.History,
                     contentDescription = resetLabel,
                     tooltip = resetLabel,
                     destructive = true
@@ -732,7 +750,7 @@ private fun DialogHostScope.ConfirmResetSelectedDialog(
         onConfirm = onConfirm,
         onDismiss = onDismiss,
         items = listOfNotNull(
-            ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText))
+            ConfirmItem(MaterialSymbols.Rounded.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText))
         )
     )
 }
@@ -764,8 +782,8 @@ private fun DialogHostScope.ConfirmResetAllDialog(
         onConfirm = onConfirm,
         onDismiss = onDismiss,
         items = listOfNotNull(
-            ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText)),
-            ConfirmItem(Icons.Outlined.Tune, pluralStringResource(R.plurals.option_count, totalOptions, totalOptions.toString())).takeIf { totalOptions > 0 }
+            ConfirmItem(MaterialSymbols.Rounded.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText)),
+            ConfirmItem(MaterialSymbols.Rounded.Tune, pluralStringResource(R.plurals.option_count, totalOptions, totalOptions.toString())).takeIf { totalOptions > 0 }
         )
     )
 }
@@ -801,25 +819,22 @@ private fun DialogHostScope.ConfirmResetPackageBundleDialog(
         onConfirm = onConfirm,
         onDismiss = onDismiss,
         items = listOfNotNull(
-            ConfirmItem(Icons.Outlined.Delete, pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())),
-            ConfirmItem(Icons.Outlined.Tune, pluralStringResource(R.plurals.option_count, optionsCount, optionsCount.toString())).takeIf { optionsCount > 0 }
+            ConfirmItem(MaterialSymbols.Rounded.Delete, pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())),
+            ConfirmItem(MaterialSymbols.Rounded.Tune, pluralStringResource(R.plurals.option_count, optionsCount, optionsCount.toString())).takeIf { optionsCount > 0 }
         )
     )
 }
 
-/**
- * The patch selections and options saved for one package and source, on a page of the selections
- * dialog that [onBack] leaves for the list.
- */
+/** The patch selections and options saved for one package and source, over the selections page. */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun DialogHostScope.PatchDetailsPage(
+private fun DialogHostScope.PatchDetailsDialog(
     packageName: String,
     bundleUid: Int,
     appDisplayName: String,
     bundleName: String?,
     settingsViewModel: SettingsViewModel,
-    onBack: () -> Unit
+    onDismiss: () -> Unit
 ) {
     var details by remember { mutableStateOf<SettingsViewModel.PatchDetails?>(null) }
     var isLoading by remember { mutableStateOf(true) }
@@ -848,7 +863,7 @@ private fun DialogHostScope.PatchDetailsPage(
     val copyToClipboard = rememberCopyToClipboard()
 
     DetailsDialog(
-        onDismissRequest = onBack,
+        onDismissRequest = onDismiss,
         icon = { modifier -> AppIcon(packageName = packageName, contentDescription = null, modifier = modifier) },
         title = appDisplayName,
         subtitle = subtitle,
@@ -856,14 +871,13 @@ private fun DialogHostScope.PatchDetailsPage(
         actions = listOf(
             DialogAction(
                 text = stringResource(R.string.copy),
-                icon = Icons.Outlined.ContentCopy,
+                icon = MaterialSymbols.Rounded.Content_copy,
                 enabled = entries.isNotEmpty(),
                 onClick = {
                     copyToClipboard(patchListText(title = appDisplayName, lists = listOf(subtitle to entries)))
                 }
             )
-        ),
-        dismissText = stringResource(R.string.back)
+        )
     ) {
         if (isLoading) {
             Box(
@@ -879,7 +893,7 @@ private fun DialogHostScope.PatchDetailsPage(
                 LabeledSection(
                     title = stringResource(R.string.settings_system_selected_patches_section),
                     count = patchList.size,
-                    icon = Icons.Outlined.Checklist
+                    icon = MaterialSymbols.Rounded.Checklist
                 ) {
                     PatchEntryList(entries)
                 }

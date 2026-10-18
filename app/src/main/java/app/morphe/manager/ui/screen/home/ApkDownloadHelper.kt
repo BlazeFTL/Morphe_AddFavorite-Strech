@@ -12,9 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -24,13 +21,28 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.ui.model.ApkDownloadHelperHost
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.ApkDownloadHelperContract
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.compose.koinInject
 
 /**
- * Wires up the optional APK download helper flow and returns the action that starts it,
- * or null when no trusted helper can serve the request.
+ * What the download instructions can offer of the APK download helpers installed.
+ *
+ * @param open Starts the helper flow with one of those trusted, null while none is.
+ * @param hasUntrusted Whether one is installed that is not trusted yet, which only the settings
+ *   let in.
+ */
+@Immutable
+class ApkDownloadHelperOffer(
+    val open: (() -> Unit)?,
+    val hasUntrusted: Boolean
+)
+
+/**
+ * Wires up the optional APK download helper flow and returns what it can offer, see
+ * [ApkDownloadHelperOffer].
  *
  * @param host The patching flow asking for the APK, which is what a result is handed back to.
  * @param enabled Whether a helper may be offered right now. Resolving helpers queries
@@ -41,27 +53,25 @@ fun rememberApkDownloadHelperAction(
     host: ApkDownloadHelperHost,
     enabled: Boolean,
     prefs: PreferencesManager = koinInject()
-): (() -> Unit)? {
+): ApkDownloadHelperOffer {
     val context = LocalContext.current
     val messages = koinInject<UserMessages>()
     val trustedPackages by prefs.trustedApkDownloadHelpers.getAsState()
     val noResultMessage = stringResource(R.string.home_apk_helper_no_result)
     val noAccessMessage = stringResource(R.string.home_apk_helper_no_access)
     val noPackageMessage = stringResource(R.string.home_apk_helper_no_package)
-    var helpers by remember { mutableStateOf(emptyList<ApkDownloadHelperContract.Helper>()) }
+    var installed by remember { mutableStateOf(emptyList<ApkDownloadHelperContract.Helper>()) }
     var showPicker by remember { mutableStateOf(false) }
 
     // Re-resolved every time the dialog opens, so helpers installed mid-session are picked up
-    LaunchedEffect(enabled, trustedPackages) {
-        helpers = if (enabled && trustedPackages.isNotEmpty()) {
-            withContext(Dispatchers.IO) {
-                ApkDownloadHelperContract.findHelpers(context)
-                    .filter { it.componentName.packageName in trustedPackages }
-            }
+    LaunchedEffect(enabled) {
+        installed = if (enabled) {
+            withContext(Dispatchers.IO) { ApkDownloadHelperContract.findHelpers(context) }
         } else {
             emptyList()
         }
     }
+    val helpers = installed.filter { it.componentName.packageName in trustedPackages }
 
     val helperLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
@@ -107,7 +117,7 @@ fun rememberApkDownloadHelperAction(
                         helperLauncher.launch(intent)
                     } catch (_: ActivityNotFoundException) {
                         // The helper was uninstalled between resolving and launching it
-                        helpers = helpers - helper
+                        installed = installed - helper
                     }
                 }
             }
@@ -115,7 +125,10 @@ fun rememberApkDownloadHelperAction(
     }
 
     val openPicker = remember { { showPicker = true } }
-    return if (helpers.isEmpty()) null else openPicker
+    return ApkDownloadHelperOffer(
+        open = openPicker.takeIf { helpers.isNotEmpty() },
+        hasUntrusted = installed.any { it.componentName.packageName !in trustedPackages }
+    )
 }
 
 /**
@@ -139,7 +152,7 @@ private fun DialogHostScope.ApkDownloadHelperDialog(
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_apk_helper_continue),
                 onPrimaryClick = { selected?.let(onConfirm) },
-                primaryIcon = Icons.Outlined.Download,
+                primaryIcon = MaterialSymbols.Rounded.Download,
                 primaryEnabled = selected != null,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
@@ -170,7 +183,7 @@ private fun DialogHostScope.ApkDownloadHelperDialog(
                     }
                 ),
                 tone = SemanticTone.Warning,
-                icon = Icons.Outlined.Warning
+                icon = MaterialSymbols.Rounded.Warning
             )
         }
     }

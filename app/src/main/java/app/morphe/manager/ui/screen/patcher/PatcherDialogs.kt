@@ -16,9 +16,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -46,6 +43,9 @@ import app.morphe.manager.util.PathValidationResult
 import app.morphe.manager.util.deviceStats
 import app.morphe.manager.util.htmlAnnotatedString
 import app.morphe.manager.util.requestIgnoreBatteryOptimizations
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
+import com.composables.icons.materialsymbols.roundedfilled.*
 
 /**
  * Ceiling for the label column, past which a translation that runs long would leave its value
@@ -91,7 +91,7 @@ fun DialogHostScope.IncompatiblePatcherVersionDialog(
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.sources_management_outdated_manager_badge),
                 onPrimaryClick = { showManagerUpdate.value = true },
-                primaryIcon = Icons.Outlined.SystemUpdate,
+                primaryIcon = MaterialSymbols.Rounded.System_update,
                 secondaryText = stringResource(R.string.close),
                 onSecondaryClick = onDismiss
             )
@@ -142,7 +142,7 @@ fun DialogHostScope.RenameWarningDialog(
                 Notice(
                     text = stringResource(R.string.patcher_rename_replaces),
                     tone = SemanticTone.Warning,
-                    icon = Icons.Outlined.Warning
+                    icon = MaterialSymbols.Rounded.Warning
                 )
             }
         }
@@ -258,7 +258,7 @@ fun DialogHostScope.UnusableOptionPathsDialog(
             val clearPaths = DialogAction(
                 text = stringResource(R.string.patcher_option_paths_clear),
                 onClick = onClearPaths,
-                icon = Icons.Outlined.FolderOff
+                icon = MaterialSymbols.Rounded.Folder_off
             )
             val grant = when {
                 // Nothing left to grant, so dropping the paths is the way to go on
@@ -279,7 +279,7 @@ fun DialogHostScope.UnusableOptionPathsDialog(
                         // permission the patcher will start when they return
                         onRetryAfterPermission()
                     },
-                    icon = Icons.Outlined.Settings
+                    icon = MaterialSymbols.Rounded.Settings
                 )
 
                 // Android 10 and below request READ_EXTERNAL_STORAGE inline
@@ -289,7 +289,7 @@ fun DialogHostScope.UnusableOptionPathsDialog(
                         permissionDenied.value = false
                         readStorageLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
                     },
-                    icon = Icons.Outlined.Lock
+                    icon = MaterialSymbols.Rounded.Lock
                 )
             }
 
@@ -322,7 +322,7 @@ fun DialogHostScope.UnusableOptionPathsDialog(
                 Notice(
                     text = stringResource(R.string.patcher_storage_permission_denied_warning),
                     tone = SemanticTone.Error,
-                    icon = Icons.Outlined.Lock
+                    icon = MaterialSymbols.Rounded.Lock
                 )
             }
 
@@ -386,7 +386,7 @@ fun DialogHostScope.UnusableOptionPathsDialog(
                 Notice(
                     text = stringResource(R.string.patcher_storage_permission_hint),
                     tone = SemanticTone.Warning,
-                    icon = Icons.Outlined.FolderOff
+                    icon = MaterialSymbols.Rounded.Folder_off
                 )
             }
         }
@@ -414,7 +414,7 @@ fun DialogHostScope.BatteryOptimizationDialog(
                     context.requestIgnoreBatteryOptimizations()
                     onResult()
                 },
-                primaryIcon = Icons.Outlined.BatterySaver,
+                primaryIcon = MaterialSymbols.Rounded.Battery_android_frame_plus,
                 secondaryText = stringResource(R.string.battery_optimization_not_now),
                 onSecondaryClick = onResult
             )
@@ -458,7 +458,7 @@ fun DialogHostScope.MemoryAdjustmentDialog(
                     DialogAction(
                         text = stringResource(R.string.patcher_memory_adjustment_apply, suggestedLimit),
                         onClick = onApply,
-                        icon = Icons.Outlined.Memory
+                        icon = MaterialSymbols.Rounded.Memory
                     ).takeIf { canAdjust },
                     DialogAction(
                         text = stringResource(R.string.close),
@@ -502,7 +502,7 @@ fun DialogHostScope.PatcherErrorDialog(
             AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.copy),
                 onPrimaryClick = { copyToClipboard(report) },
-                primaryIcon = Icons.Default.ContentCopy,
+                primaryIcon = MaterialSymbols.RoundedFilled.Content_copy,
                 secondaryText = stringResource(R.string.close),
                 onSecondaryClick = onDismiss
             )
@@ -523,7 +523,7 @@ fun DialogHostScope.PatcherErrorDialog(
                     Column {
                         CardHeader(
                             title = stringResource(R.string.patcher_error_dialog_diagnostics),
-                            icon = Icons.Outlined.Info
+                            icon = MaterialSymbols.Rounded.Info
                         )
                         val diagnosticsScrollState = rememberScrollState()
                         Box(
@@ -541,7 +541,7 @@ fun DialogHostScope.PatcherErrorDialog(
                     Column {
                         CardHeader(
                             title = stringResource(R.string.patcher_error_log),
-                            icon = Icons.Outlined.BugReport,
+                            icon = MaterialSymbols.Rounded.Bug_report,
                             trailing = {
                                 StatusBadge(
                                     text = stringResource(R.string.patcher_error_technical),

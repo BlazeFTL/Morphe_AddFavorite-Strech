@@ -7,9 +7,6 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -21,6 +18,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.SortModeSpec
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /** One way of arranging a list, its options and the one picked, as a row of a [ListOptionsPanel]. */
 class ListOptionSection<T>(
@@ -78,14 +77,14 @@ fun ListOptionsPanel(
         Column(modifier = Modifier.padding(bottom = Defaults.SpaceSmall)) {
             PanelHeader(title = { PanelTitle(text = stringResource(R.string.list_options_title)) }) {
                 TitleAction(
-                    icon = Icons.Outlined.Restore,
+                    icon = MaterialSymbols.Rounded.History,
                     contentDescription = stringResource(R.string.reset),
                     onClick = { sections.forEach { it.reset() } },
                     style = TitleActionStyle.Accent,
                     enabled = sections.any { it.isChanged }
                 )
                 TitleAction(
-                    icon = Icons.Outlined.Close,
+                    icon = MaterialSymbols.Rounded.Close,
                     contentDescription = stringResource(R.string.close),
                     onClick = onClose,
                     style = TitleActionStyle.Neutral

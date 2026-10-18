@@ -11,10 +11,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Apps
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Source
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -27,15 +23,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.launch
 
 /** The places the main screen pages between, in the order its pager lays them out. */
 enum class MainPage(@param:StringRes val titleRes: Int, val icon: ImageVector) {
-    SOURCES(R.string.sources, Icons.Outlined.Source),
-    APPS(R.string.apps, Icons.Outlined.Apps),
-    SETTINGS(R.string.settings, Icons.Outlined.Settings)
+    SOURCES(R.string.sources, MaterialSymbols.Rounded.Folder_code),
+    APPS(R.string.apps, MaterialSymbols.Rounded.Apps),
+    SETTINGS(R.string.settings, MaterialSymbols.Rounded.Settings)
 }
 
 /**

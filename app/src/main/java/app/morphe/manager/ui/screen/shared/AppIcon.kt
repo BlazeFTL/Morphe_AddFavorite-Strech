@@ -13,8 +13,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Android
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -45,6 +43,8 @@ import app.morphe.manager.util.startEdgeX
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.roundedfilled.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.zhanghai.android.appiconloader.iconloaderlib.IconNormalizer
@@ -202,7 +202,7 @@ private fun FallbackIcon(
     contentDescription: String?,
     modifier: Modifier = Modifier
 ) {
-    val image = rememberVectorPainter(Icons.Default.Android)
+    val image = rememberVectorPainter(MaterialSymbols.RoundedFilled.Android)
     val colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
 
     Image(

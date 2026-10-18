@@ -8,8 +8,6 @@ package app.morphe.manager.ui.screen.settings
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,6 +31,8 @@ import app.morphe.manager.util.AppCardColorDefaults
 import app.morphe.manager.util.AppCardColorMode
 import app.morphe.manager.util.AppLocale
 import app.morphe.manager.util.MORPHE_WEBSITE_URL
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -229,7 +229,7 @@ private fun DisplaySection(
 
     SettingsSection(
         title = stringResource(R.string.settings_appearance_display),
-        icon = Icons.Outlined.Language
+        icon = MaterialSymbols.Rounded.Language
     ) {
         SettingsGroup {
             SettingsItem(
@@ -253,7 +253,7 @@ private fun DisplaySection(
                 onClick = onUiScaleClick,
                 title = stringResource(R.string.settings_appearance_ui_scale),
                 subtitle = "${uiScale.toUiScalePercent()}%",
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.FormatSize) }
+                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Format_size) }
             )
             // How the manager shows on the launcher, as the language and scale say how it reads
             AppIconSettingsItem()
@@ -284,7 +284,7 @@ private fun ThemeSection(
 ) {
     SettingsSection(
         title = stringResource(R.string.settings_appearance_theme),
-        icon = Icons.Outlined.Palette
+        icon = MaterialSymbols.Rounded.Palette
     ) {
         SearchableSetting(listOf(stringResource(R.string.settings_appearance_theme))) {
             ThemeSelector(
@@ -316,7 +316,7 @@ private fun ThemeSection(
                 SettingsSwitchItem(
                     title = stringResource(R.string.settings_appearance_pure_black),
                     subtitle = stringResource(R.string.settings_appearance_pure_black_description),
-                    icon = Icons.Outlined.Contrast,
+                    icon = MaterialSymbols.Rounded.Contrast,
                     checked = pureBlackTheme,
                     onToggle = onPureBlackToggle
                 )
@@ -329,7 +329,7 @@ private fun ThemeSection(
                     SettingsSwitchItem(
                         title = stringResource(R.string.settings_appearance_color_accents),
                         subtitle = stringResource(R.string.settings_appearance_color_accents_description),
-                        icon = Icons.Outlined.FormatColorFill,
+                        icon = MaterialSymbols.Rounded.Format_color_fill,
                         checked = colorAccents,
                         onToggle = onColorAccentsToggle
                     )
@@ -337,7 +337,7 @@ private fun ThemeSection(
                         onClick = onAppCardColorsClick,
                         title = stringResource(R.string.settings_appearance_app_card_colors),
                         subtitle = stringResource(appCardColorMode.descriptionResId),
-                        leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
+                        leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Style) }
                     )
                 }
             }
@@ -358,13 +358,13 @@ private fun EffectsSection(
 ) {
     SettingsSection(
         title = stringResource(R.string.settings_appearance_effects),
-        icon = Icons.Outlined.AutoAwesome
+        icon = MaterialSymbols.Rounded.Auto_awesome
     ) {
         SettingsGroup {
             SettingsSwitchItem(
                 title = stringResource(R.string.settings_appearance_outlines),
                 subtitle = stringResource(R.string.settings_appearance_outlines_description),
-                icon = Icons.Outlined.BorderStyle,
+                icon = MaterialSymbols.Rounded.Border_style,
                 checked = outlines,
                 onToggle = onOutlinesToggle
             )
@@ -374,7 +374,7 @@ private fun EffectsSection(
                 SettingsSwitchItem(
                     title = stringResource(R.string.settings_appearance_blur),
                     subtitle = stringResource(R.string.settings_appearance_blur_description),
-                    icon = Icons.Outlined.BlurOn,
+                    icon = MaterialSymbols.Rounded.Blur_on,
                     checked = blur,
                     onToggle = onBlurToggle
                 )
@@ -401,20 +401,20 @@ private fun HomeScreenSection(
 ) {
     SettingsSection(
         title = stringResource(R.string.settings_appearance_home_screen),
-        icon = Icons.Outlined.Dashboard
+        icon = MaterialSymbols.Rounded.Dashboard
     ) {
         SettingsGroup {
             SettingsSwitchItem(
                 title = stringResource(R.string.settings_appearance_greeting_phrases),
                 subtitle = stringResource(R.string.settings_appearance_greeting_phrases_subtitle),
-                icon = Icons.Outlined.ChatBubbleOutline,
+                icon = MaterialSymbols.Rounded.Chat_bubble,
                 checked = showGreetingPhrases,
                 onToggle = onGreetingPhrasesToggle
             )
             SettingsSwitchItem(
                 title = stringResource(R.string.settings_appearance_repatch_notice),
                 subtitle = stringResource(R.string.settings_appearance_repatch_notice_description),
-                icon = Icons.Outlined.AutoFixHigh,
+                icon = MaterialSymbols.Rounded.Auto_fix_high,
                 checked = showRepatchNotice,
                 onToggle = onRepatchNoticeToggle
             )

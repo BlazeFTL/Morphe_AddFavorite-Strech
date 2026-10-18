@@ -31,7 +31,6 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.preview)
     debugImplementation(libs.compose.ui.tooling)
-    implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.material3)
     implementation(libs.navigation.compose)
 
@@ -101,8 +100,10 @@ dependencies {
     // Reorderable lists
     implementation(libs.reorderable)
 
-    // Compose Icons
-    implementation(libs.compose.icons.fontawesome)
+    // Icons
+    implementation(libs.icons.material.symbols.rounded)
+    implementation(libs.icons.material.symbols.rounded.filled)
+    implementation(libs.icons.font.awesome.brands)
 
     // Semantic versioning parser
     implementation(libs.semver.parser)

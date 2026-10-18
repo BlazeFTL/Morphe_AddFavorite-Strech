@@ -13,9 +13,6 @@ import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Launch
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -51,6 +48,8 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BatchPatcherViewModel
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -226,7 +225,7 @@ fun BatchPatcherScreen(
     }
 
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
-    val openApkDownloadHelper = rememberApkDownloadHelperAction(
+    val apkDownloadHelpers = rememberApkDownloadHelperAction(
         host = viewModel,
         enabled = viewModel.apkSearch != null
     )
@@ -335,7 +334,7 @@ fun BatchPatcherScreen(
             downloadColor = metadata?.downloadColor ?: KnownApps.DEFAULT_DOWNLOAD_COLOR,
             isApkBundle = metadata?.apkFileType?.isApk == false,
             onDismiss = viewModel::cancelApkSearch,
-            onOpenApkDownloadHelper = openApkDownloadHelper,
+            onOpenApkDownloadHelper = apkDownloadHelpers.open,
             onContinue = viewModel::confirmApkSearch
         )
     }
@@ -506,7 +505,7 @@ fun BatchPatcherScreen(
                 // Headed like the other lists, with how the run stands where the subtitle goes
                 ListDialogHeader(
                     icon = { modifier ->
-                        ListDialogHeaderIcon(icon = Icons.Outlined.AutoFixHigh, color = accent, modifier = modifier)
+                        ListDialogHeaderIcon(icon = MaterialSymbols.Rounded.Auto_fix_high, color = accent, modifier = modifier)
                     },
                     title = stringResource(R.string.batch_patch_title),
                     subtitle = current?.let { batchSummary(it) }.orEmpty(),
@@ -517,7 +516,7 @@ fun BatchPatcherScreen(
                             // Kept out of the footer, where the button beside Start only closes the screen
                             if (isPreflight) {
                                 TitleAction(
-                                    icon = Icons.Outlined.Delete,
+                                    icon = MaterialSymbols.Rounded.Delete,
                                     contentDescription = stringResource(R.string.clear),
                                     onClick = { showClearDialog = true },
                                     style = TitleActionStyle.Destructive
@@ -526,7 +525,7 @@ fun BatchPatcherScreen(
                             // Every APK the run made in one go, for sending them on together
                             if (hasPatched) {
                                 TitleAction(
-                                    icon = Icons.Outlined.Share,
+                                    icon = MaterialSymbols.Rounded.Share,
                                     contentDescription = stringResource(R.string.share),
                                     onClick = { share(patchedItems) },
                                     style = TitleActionStyle.Accent
@@ -534,7 +533,7 @@ fun BatchPatcherScreen(
                             }
                             if (hasUnfinished) {
                                 TitleAction(
-                                    icon = Icons.Outlined.Refresh,
+                                    icon = MaterialSymbols.Rounded.Refresh,
                                     contentDescription = stringResource(R.string.retry),
                                     onClick = viewModel::retryUnfinished,
                                     style = TitleActionStyle.Accent
@@ -571,7 +570,7 @@ fun BatchPatcherScreen(
                     item(key = "multiple_sources") {
                         Notice(
                             text = stringResource(R.string.batch_patch_multiple_sources),
-                            icon = Icons.Outlined.Info,
+                            icon = MaterialSymbols.Rounded.Info,
                             tone = SemanticTone.Warning,
                             density = NoticeDensity.Compact,
                             modifier = Modifier.animateItem()
@@ -584,7 +583,7 @@ fun BatchPatcherScreen(
                     item(key = "saved_hint") {
                         Notice(
                             text = stringResource(R.string.batch_patch_saved_hint),
-                            icon = Icons.Outlined.Save,
+                            icon = MaterialSymbols.Rounded.Save,
                             density = NoticeDensity.Compact,
                             modifier = Modifier.animateItem()
                         )
@@ -654,7 +653,7 @@ private fun BatchDialogButtons(
         // Closing keeps the queue for apps added later
         BatchPhase.PREFLIGHT -> AppDialogButtonRow(
             primaryText = stringResource(R.string.batch_patch_start),
-            primaryIcon = Icons.Outlined.PlayArrow,
+            primaryIcon = MaterialSymbols.Rounded.Play_arrow,
             onPrimaryClick = onStart,
             primaryEnabled = state.runnable.isNotEmpty(),
             secondaryText = stringResource(R.string.close),
@@ -664,7 +663,7 @@ private fun BatchDialogButtons(
         BatchPhase.FINISHED -> if (canInstall) {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.batch_patch_install_all),
-                primaryIcon = Icons.Outlined.InstallMobile,
+                primaryIcon = MaterialSymbols.Rounded.Install_mobile,
                 onPrimaryClick = onInstallAll,
                 secondaryText = stringResource(R.string.done),
                 onSecondaryClick = onClose
@@ -761,7 +760,7 @@ private fun BatchPolicyCard(
                     }
                 )
             },
-            icon = Icons.Outlined.InstallMobile,
+            icon = MaterialSymbols.Rounded.Install_mobile,
             title = stringResource(R.string.batch_patch_policy_install),
             subtitle = stringResource(R.string.batch_patch_policy_install_description)
         )
@@ -902,7 +901,7 @@ private fun BatchItemCard(
                         val selectApkLabel = stringResource(R.string.home_select_apk_title)
                         ActionPillButton(
                             onClick = onSelectApk,
-                            icon = Icons.Outlined.FileOpen,
+                            icon = MaterialSymbols.Rounded.File_open,
                             contentDescription = selectApkLabel,
                             tooltip = selectApkLabel
                         )
@@ -911,7 +910,7 @@ private fun BatchItemCard(
                             val editLabel = stringResource(R.string.batch_patch_edit_patches)
                             ActionPillButton(
                                 onClick = onEditPatches,
-                                icon = Icons.Outlined.Tune,
+                                icon = MaterialSymbols.Rounded.Tune,
                                 contentDescription = editLabel,
                                 tooltip = editLabel
                             )
@@ -921,7 +920,7 @@ private fun BatchItemCard(
                             val sourceLabel = stringResource(R.string.home_simple_bundle_select_title)
                             ActionPillButton(
                                 onClick = onPickSource,
-                                icon = Icons.Outlined.Layers,
+                                icon = MaterialSymbols.Rounded.Layers,
                                 contentDescription = sourceLabel,
                                 tooltip = sourceLabel
                             )
@@ -931,7 +930,7 @@ private fun BatchItemCard(
                             val forceLabel = stringResource(R.string.batch_patch_force_version)
                             ActionPillButton(
                                 onClick = onForceVersion,
-                                icon = Icons.Outlined.Warning,
+                                icon = MaterialSymbols.Rounded.Warning,
                                 contentDescription = forceLabel,
                                 tooltip = forceLabel,
                                 colors = ActionPillColors.warning()
@@ -944,7 +943,7 @@ private fun BatchItemCard(
                                 stringResource(R.string.home_dialog_unsupported_version_dialog_proceed)
                             ActionPillButton(
                                 onClick = onAcceptSignature,
-                                icon = Icons.Outlined.GppBad,
+                                icon = MaterialSymbols.Rounded.Gpp_bad,
                                 contentDescription = acceptLabel,
                                 tooltip = acceptLabel,
                                 colors = ActionPillColors.warning()
@@ -956,7 +955,7 @@ private fun BatchItemCard(
                         )
                         ActionPillButton(
                             onClick = onToggleExcluded,
-                            icon = if (excluded) Icons.Outlined.AddCircleOutline else Icons.Outlined.RemoveCircleOutline,
+                            icon = if (excluded) MaterialSymbols.Rounded.Add_circle else MaterialSymbols.Rounded.Do_not_disturb_on,
                             contentDescription = toggleLabel,
                             tooltip = toggleLabel,
                             destructive = !excluded
@@ -978,7 +977,7 @@ private fun BatchItemCard(
                             val errorLabel = stringResource(R.string.error_)
                             ActionPillButton(
                                 onClick = onShowError,
-                                icon = Icons.Outlined.ErrorOutline,
+                                icon = MaterialSymbols.Rounded.Error,
                                 contentDescription = errorLabel,
                                 tooltip = errorLabel,
                                 destructive = true
@@ -989,7 +988,7 @@ private fun BatchItemCard(
                             val installLabel = stringResource(R.string.install)
                             ActionPillButton(
                                 onClick = onInstall,
-                                icon = Icons.Outlined.InstallMobile,
+                                icon = MaterialSymbols.Rounded.Install_mobile,
                                 contentDescription = installLabel,
                                 tooltip = installLabel,
                                 colors = ActionPillColors.primary()
@@ -1000,7 +999,7 @@ private fun BatchItemCard(
                             val exportLabel = stringResource(R.string.export)
                             ActionPillButton(
                                 onClick = onExport,
-                                icon = Icons.Outlined.SaveAlt,
+                                icon = MaterialSymbols.Rounded.Download,
                                 contentDescription = exportLabel,
                                 tooltip = exportLabel
                             )
@@ -1010,7 +1009,7 @@ private fun BatchItemCard(
                             val shareLabel = stringResource(R.string.share)
                             ActionPillButton(
                                 onClick = onShare,
-                                icon = Icons.Outlined.Share,
+                                icon = MaterialSymbols.Rounded.Share,
                                 contentDescription = shareLabel,
                                 tooltip = shareLabel
                             )
@@ -1020,7 +1019,7 @@ private fun BatchItemCard(
                             val openLabel = stringResource(R.string.open)
                             ActionPillButton(
                                 onClick = onOpen,
-                                icon = Icons.AutoMirrored.Outlined.Launch,
+                                icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored,
                                 contentDescription = openLabel,
                                 tooltip = openLabel
                             )

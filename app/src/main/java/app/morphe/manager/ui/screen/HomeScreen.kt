@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Engineering
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
@@ -34,6 +32,7 @@ import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.settings.SettingsPage
+import app.morphe.manager.ui.screen.settings.SettingsNavigation
 import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
@@ -48,6 +47,8 @@ import app.morphe.manager.ui.screen.sources.SourcesPage
 import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.viewmodel.*
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -58,14 +59,12 @@ import kotlin.time.Duration.Companion.milliseconds
  * The main screen: the sources, the apps and the settings as pages side by side, see
  * [MainPagerScaffold], with the dialogs any of them can raise.
  *
- * @param onOpenSettingsSubpage Opens a part of the settings as a page of its own.
- * @param onStartTour Restarts the onboarding tour, when no tour is running.
+ * @param settingsNavigation Where the settings page leads out to.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HomeScreen(
-    onOpenSettingsSubpage: (SettingsSubpage) -> Unit,
-    onStartTour: (() -> Unit)?,
+    settingsNavigation: SettingsNavigation,
     onStartQuickPatch: (Patcher.ViewModelParams) -> Unit,
     onStartBatchPatch: (List<BatchTarget>, Boolean) -> Unit,
     homeViewModel: HomeViewModel = koinViewModel(),
@@ -304,7 +303,8 @@ fun HomeScreen(
         openBundlePicker = { openBundlePicker() },
         patchesItem = patchesSheetItem,
         // The new source's apps come up on the list, so that is where adding one ends
-        onSourceAdded = { openPage(MainPage.APPS) }
+        onSourceAdded = { openPage(MainPage.APPS) },
+        onOpenApkDownloadHelpers = { settingsNavigation.openSubpage(SettingsSubpage.APK_DOWNLOAD_HELPERS) }
     )
 
     InstallerFlowDialogs(installViewModel = installViewModel)
@@ -361,7 +361,7 @@ fun HomeScreen(
         },
         // The tour moves between the pages itself, and a swipe would leave its spotlight behind
         swipeEnabled = onboardingState == null,
-        settingsIcon = if (useExpertMode) Icons.Outlined.Engineering else MainPage.SETTINGS.icon,
+        settingsIcon = if (useExpertMode) MaterialSymbols.Rounded.Engineering else MainPage.SETTINGS.icon,
         settingsDescription = if (useExpertMode) "$settingsLabel, $expertModeLabel" else null,
         onItemPositioned = onboardingState?.let { tour -> { page, bounds -> tour.navigationBounds[page] = bounds } },
         overlay = {
@@ -387,8 +387,7 @@ fun HomeScreen(
 
             MainPage.SETTINGS -> SettingsPage(
                 homeViewModel = homeViewModel,
-                onOpenSubpage = onOpenSettingsSubpage,
-                onStartTour = onStartTour,
+                navigation = settingsNavigation,
                 bottomBarHeight = bottomBarHeight,
                 onboardingState = onboardingState
             )

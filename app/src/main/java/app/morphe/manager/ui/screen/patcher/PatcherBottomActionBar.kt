@@ -12,12 +12,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Article
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.outlined.InstallMobile
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,8 +35,12 @@ import app.morphe.manager.ui.screen.shared.ActionGlassButton
 import app.morphe.manager.ui.screen.shared.BottomActionTone
 import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.GlassButtonDefaults
+import app.morphe.manager.ui.screen.shared.autoMirrored
 import app.morphe.manager.ui.screen.shared.labelsFitSlots
 import app.morphe.manager.ui.screen.shared.rememberAccessibilityEnabled
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
+import com.composables.icons.materialsymbols.roundedfilled.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
@@ -141,7 +139,7 @@ fun PatcherBottomActionBar(
             } else if (showCancelButton) {
                 BarButton(
                     onClick = onCancelClick,
-                    icon = Icons.Default.Close,
+                    icon = MaterialSymbols.RoundedFilled.Close,
                     text = leadingLabel,
                     showLabel = showLabels,
                     animateEntry = animateEntry,
@@ -150,7 +148,7 @@ fun PatcherBottomActionBar(
             } else if (showLogsButton) {
                 BarButton(
                     onClick = onLogsClick,
-                    icon = Icons.AutoMirrored.Outlined.Article,
+                    icon = MaterialSymbols.Rounded.Article.autoMirrored,
                     text = leadingLabel,
                     showLabel = showLabels,
                     animateEntry = animateEntry
@@ -161,7 +159,7 @@ fun PatcherBottomActionBar(
             if (showHomeButton) {
                 BarButton(
                     onClick = onHomeClick,
-                    icon = Icons.Default.Home,
+                    icon = MaterialSymbols.RoundedFilled.Home,
                     text = homeLabel,
                     showLabel = showLabels,
                     animateEntry = animateEntry
@@ -179,7 +177,7 @@ fun PatcherBottomActionBar(
                             copied.value = false
                         }
                     },
-                    icon = Icons.Default.ContentCopy,
+                    icon = MaterialSymbols.RoundedFilled.Content_copy,
                     text = trailingLabel,
                     showLabel = showLabels,
                     animateEntry = animateEntry,
@@ -382,6 +380,6 @@ class ResultButton(
 ) {
     companion object {
         /** For a result screen that has yet to install anything. */
-        val Install = ResultButton(R.string.install, Icons.Outlined.InstallMobile)
+        val Install = ResultButton(R.string.install, MaterialSymbols.Rounded.Install_mobile)
     }
 }

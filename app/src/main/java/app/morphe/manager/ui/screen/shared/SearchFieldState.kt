@@ -6,12 +6,11 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Toggle and query behind the search fields in dialog and sheet lists. Collapsing always
@@ -82,7 +81,7 @@ fun SearchFieldBackHandler(state: SearchFieldState) {
 @Composable
 fun SearchToggleAction(state: SearchFieldState, label: String, enabled: Boolean = true) {
     TitleAction(
-        icon = if (state.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+        icon = if (state.visible) MaterialSymbols.Rounded.Search_off else MaterialSymbols.Rounded.Search,
         contentDescription = label,
         onClick = { state.toggle() },
         style = TitleActionStyle.Toggle,

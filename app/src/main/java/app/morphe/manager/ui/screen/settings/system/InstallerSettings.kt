@@ -8,8 +8,6 @@ package app.morphe.manager.ui.screen.settings.system
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -18,6 +16,8 @@ import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import org.koin.androidx.compose.koinViewModel
 
 /**
@@ -54,7 +54,7 @@ fun InstallerSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
     SettingsColumn {
         SettingsSection(
             title = stringResource(R.string.installer_settings_title),
-            icon = Icons.Outlined.InstallMobile
+            icon = MaterialSymbols.Rounded.Install_mobile
         ) {
             InstallerChoice(
                 options = options,
@@ -68,7 +68,7 @@ fun InstallerSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
 
         SettingsSection(
             title = stringResource(R.string.settings_section_patching),
-            icon = Icons.Outlined.AutoFixHigh
+            icon = MaterialSymbols.Rounded.Auto_fix_high
         ) {
             SettingsGroup {
                 // Offered only where the install can reach the user on its own
@@ -77,7 +77,7 @@ fun InstallerSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
                         SettingsSwitchItem(
                             checked = autoInstallEnabled,
                             onToggle = { settingsViewModel.setAutoInstallAfterPatching(!autoInstallEnabled) },
-                            icon = Icons.Outlined.Bolt,
+                            icon = MaterialSymbols.Rounded.Bolt,
                             title = stringResource(R.string.settings_auto_install_with_shizuku),
                             subtitle = stringResource(R.string.settings_auto_install_with_shizuku_description)
                         )
@@ -92,7 +92,7 @@ fun InstallerSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
                                         pendingAutoUninstallConfirm = true
                                     }
                                 },
-                                icon = Icons.Outlined.Delete,
+                                icon = MaterialSymbols.Rounded.Delete,
                                 title = stringResource(R.string.settings_auto_uninstall_with_shizuku),
                                 subtitle = stringResource(R.string.settings_auto_uninstall_with_shizuku_description)
                             )
@@ -103,7 +103,7 @@ fun InstallerSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
                 SettingsSwitchItem(
                     checked = promptEnabled,
                     onToggle = { settingsViewModel.setPromptInstallerOnInstall(!promptEnabled) },
-                    icon = Icons.Outlined.Android,
+                    icon = MaterialSymbols.Rounded.Android,
                     title = stringResource(R.string.settings_prompt_installer_on_install),
                     subtitle = stringResource(R.string.settings_prompt_installer_on_install_description)
                 )
@@ -113,7 +113,7 @@ fun InstallerSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
                     SettingsSwitchItem(
                         checked = ignoreTargetRulesEnabled,
                         onToggle = { settingsViewModel.setIgnoreInstallTargetRules(!ignoreTargetRulesEnabled) },
-                        icon = Icons.Outlined.LockOpen,
+                        icon = MaterialSymbols.Rounded.Lock_open,
                         title = stringResource(R.string.settings_ignore_install_target_rules),
                         subtitle = stringResource(R.string.settings_ignore_install_target_rules_description)
                     )
@@ -154,7 +154,7 @@ private fun DialogHostScope.AutoUninstallWarningDialog(
             Notice(
                 text = stringResource(R.string.settings_auto_uninstall_warning_risk),
                 tone = SemanticTone.Error,
-                icon = Icons.Outlined.Warning
+                icon = MaterialSymbols.Rounded.Warning
             )
         }
     }

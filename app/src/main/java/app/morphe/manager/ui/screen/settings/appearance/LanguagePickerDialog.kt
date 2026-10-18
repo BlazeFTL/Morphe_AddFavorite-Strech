@@ -7,9 +7,6 @@ package app.morphe.manager.ui.screen.settings.appearance
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Language
-import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -20,6 +17,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Language picker dialog with searchable list.
@@ -55,7 +54,7 @@ fun DialogHostScope.LanguagePickerDialog(
         header = {
             ListDialogHeader(
                 icon = { modifier ->
-                    ListDialogHeaderIcon(icon = Icons.Outlined.Language, color = accent, modifier = modifier)
+                    ListDialogHeaderIcon(icon = MaterialSymbols.Rounded.Language, color = accent, modifier = modifier)
                 },
                 title = stringResource(R.string.settings_appearance_app_language),
                 // The language in effect, so the choice reads before the list is scrolled to it
@@ -83,7 +82,7 @@ fun DialogHostScope.LanguagePickerDialog(
                 item(key = "empty_state") {
                     EmptyState(
                         message = stringResource(R.string.search_no_results),
-                        icon = Icons.Outlined.SearchOff,
+                        icon = MaterialSymbols.Rounded.Search_off,
                         modifier = Modifier.animatedListItem(this)
                     )
                 }

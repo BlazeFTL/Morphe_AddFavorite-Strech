@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.FormatSize
-import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -20,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Dialog for picking the display scale of the interface.
@@ -39,7 +38,7 @@ fun DialogHostScope.UiScaleDialog(
         description = stringResource(R.string.settings_appearance_ui_scale_description),
         titleTrailingContent = {
             TitleAction(
-                icon = Icons.Outlined.Restore,
+                icon = MaterialSymbols.Rounded.History,
                 contentDescription = stringResource(R.string.reset),
                 onClick = { selectedScale = UI_SCALE_DEFAULT }
             )
@@ -75,7 +74,7 @@ fun DialogHostScope.UiScaleDialog(
                     // Snapped here rather than on read, so the handle rests on the stops the scale has
                     onValueChange = { selectedScale = it.coerceToUiScale() },
                     valueRange = UI_SCALE_MIN..UI_SCALE_MAX,
-                    icon = Icons.Outlined.FormatSize
+                    icon = MaterialSymbols.Rounded.Format_size
                 )
 
                 SliderScaleLabels(
@@ -106,7 +105,7 @@ private fun UiScalePreview(relativeScale: Float) {
         SettingsSwitchItem(
             checked = checked,
             onToggle = { checked = !checked },
-            icon = Icons.Outlined.FormatSize,
+            icon = MaterialSymbols.Rounded.Format_size,
             title = stringResource(R.string.settings_appearance_ui_scale_preview_title),
             subtitle = stringResource(R.string.settings_appearance_ui_scale_preview_subtitle),
             showBorder = true

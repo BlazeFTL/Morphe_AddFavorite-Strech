@@ -17,8 +17,6 @@ import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -52,6 +50,8 @@ import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.KnownApps
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.delay
@@ -935,10 +935,10 @@ internal fun MainAppsSection(
                     if (isAllHiddenState) {
                         EmptyState(
                             message = stringResource(R.string.home_all_apps_hidden_title),
-                            icon = Icons.Outlined.VisibilityOff,
+                            icon = MaterialSymbols.Rounded.Visibility_off,
                             subtitle = stringResource(R.string.home_all_apps_hidden_subtitle),
                             action = CardAction(
-                                icon = Icons.Outlined.Visibility,
+                                icon = MaterialSymbols.Rounded.Visibility,
                                 label = pluralStringResource(R.plurals.home_app_show_hidden_count, hiddenAppItems.size, hiddenAppItems.size.toString()),
                                 onClick = { state.showHiddenAppsDialog = true }
                             ),
@@ -947,10 +947,10 @@ internal fun MainAppsSection(
                     } else {
                         EmptyState(
                             message = stringResource(R.string.home_no_apps_title),
-                            icon = Icons.Outlined.Inbox,
+                            icon = MaterialSymbols.Rounded.Inbox,
                             subtitle = stringResource(R.string.home_no_apps_subtitle, stringResource(R.string.sources_management_title)),
                             action = CardAction(
-                                icon = Icons.Outlined.Source,
+                                icon = MaterialSymbols.Rounded.Folder_code,
                                 label = stringResource(R.string.sources_management_title),
                                 onClick = onOpenSources
                             ),
@@ -1181,13 +1181,13 @@ private fun LazyListScope.filterEmptyState(
     item(key = "${keyPrefix}filter_empty") {
         EmptyState(
             message = stringResource(R.string.home_no_apps_filter_title),
-            icon = Icons.Outlined.FilterListOff,
+            icon = MaterialSymbols.Rounded.Filter_list_off,
             subtitle = stringResource(
                 R.string.home_no_apps_filter_subtitle,
                 stringResource(filterMode.labelRes)
             ),
             action = CardAction(
-                icon = Icons.Outlined.FilterList,
+                icon = MaterialSymbols.Rounded.Filter_list,
                 label = stringResource(R.string.clear),
                 onClick = onClearFilter
             ),

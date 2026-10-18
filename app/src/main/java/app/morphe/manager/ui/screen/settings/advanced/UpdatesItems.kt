@@ -5,13 +5,13 @@
 
 package app.morphe.manager.ui.screen.settings.advanced
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Rows of a settings group for updates of the manager and its sources: pre-releases, metered
@@ -66,7 +66,7 @@ fun UpdatesItems(
                 showPrereleaseWarning.value = true
             }
         },
-        icon = Icons.Outlined.Science,
+        icon = MaterialSymbols.Rounded.Science,
         title = stringResource(R.string.settings_advanced_updates_manager_prereleases),
         subtitle = stringResource(R.string.settings_advanced_updates_manager_prereleases_description)
     )
@@ -75,7 +75,7 @@ fun UpdatesItems(
     SettingsSwitchItem(
         checked = allowMeteredUpdates,
         onToggle = { settingsViewModel.toggleAllowMeteredUpdates(allowMeteredUpdates) },
-        icon = Icons.Outlined.SignalCellularAlt,
+        icon = MaterialSymbols.Rounded.Signal_cellular_alt,
         title = stringResource(R.string.settings_advanced_updates_allow_metered),
         subtitle = stringResource(R.string.settings_advanced_updates_allow_metered_description)
     )

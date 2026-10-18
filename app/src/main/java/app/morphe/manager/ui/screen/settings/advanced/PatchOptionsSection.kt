@@ -5,12 +5,8 @@
 
 package app.morphe.manager.ui.screen.settings.advanced
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.PatchOptionKeys
@@ -35,6 +30,8 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.PatchOptionsViewModel
 import app.morphe.manager.util.KnownApps
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Advanced patch options section.
@@ -121,42 +118,31 @@ fun PatchOptionsSection(
                 }
             }
 
-            noPatchesAvailable -> {
-                Notice(
-                    text = stringResource(R.string.settings_advanced_patch_options_waiting_for_source),
-                    tone = SemanticTone.Primary,
-                    icon = Icons.Outlined.Info
-                )
-            }
+            noPatchesAvailable -> EmptyState(
+                message = stringResource(R.string.settings_advanced_patch_options_waiting_for_source),
+                icon = MaterialSymbols.Rounded.Hourglass_empty
+            )
 
-            loadError != null -> {
-                Notice(
-                    text = stringResource(R.string.settings_advanced_patch_options_load_error) +
-                            "\n" + loadError,
-                    tone = SemanticTone.Error,
-                    icon = Icons.Outlined.Error
-                )
-            }
+            loadError != null -> EmptyState(
+                message = stringResource(R.string.settings_advanced_patch_options_load_error),
+                icon = MaterialSymbols.Rounded.Error,
+                subtitle = loadError
+            )
 
             else -> {
-                Notice(
-                    icon = Icons.Outlined.Info,
-                    text = stringResource(R.string.settings_advanced_patch_options_restart_message),
-                    tone = SemanticTone.Primary
-                )
-
                 PatchOptionGroups(
                     youtubePatches.isNotEmpty(),
                     youtubeMusicPatches.isNotEmpty(),
                     patchOptionsPrefs,
                     patchOptionsViewModel
                 )
+                SettingsFooter(text = stringResource(R.string.settings_advanced_patch_options_restart_message))
             }
         }
     }
 }
 
-/** The options of each app the sources patch, as a group under its header. */
+/** The options of each app the sources patch, each app a section of its own. */
 @Composable
 private fun PatchOptionGroups(
     hasYoutube: Boolean,
@@ -164,129 +150,80 @@ private fun PatchOptionGroups(
     patchOptionsPrefs: PatchOptionsPreferencesManager,
     patchOptionsViewModel: PatchOptionsViewModel
 ) {
-    // YouTube
     if (hasYoutube) {
-        AppPatchOptionsCard(
+        AppPatchOptionsSection(
             packageName = KnownApps.YOUTUBE,
-            icon = Icons.Outlined.VideoLibrary,
-            title = KnownApps.getAppName(KnownApps.YOUTUBE),
-            description = stringResource(R.string.settings_advanced_patch_options_youtube_description),
-            patchOptionsViewModel = patchOptionsViewModel,
-            onBrandingClick = { patchOptionsViewModel.openBrandingDialog(KnownApps.YOUTUBE) },
-            onHeaderClick = { patchOptionsViewModel.openHeaderDialog(KnownApps.YOUTUBE) }
-        )
-
-        // Hide Shorts features
-        val hideShortsOptions = patchOptionsViewModel.getHideShortsOptions()
-        val hasHideShorts = hideShortsOptions != null && (
-                patchOptionsViewModel.hasOption(hideShortsOptions, PatchOptionKeys.HIDE_SHORTS_APP_SHORTCUT) ||
-                        patchOptionsViewModel.hasOption(hideShortsOptions, PatchOptionKeys.HIDE_SHORTS_WIDGET)
-                )
-
-        if (hasHideShorts) {
-            HideShortsSection(
-                patchOptionsPrefs = patchOptionsPrefs,
-                viewModel = patchOptionsViewModel
-            )
+            icon = MaterialSymbols.Rounded.Video_library,
+            patchOptionsViewModel = patchOptionsViewModel
+        ) {
+            HideShortsGroup(patchOptionsPrefs = patchOptionsPrefs, viewModel = patchOptionsViewModel)
         }
     }
 
-    // YouTube Music
     if (hasYoutubeMusic) {
-        AppPatchOptionsCard(
+        AppPatchOptionsSection(
             packageName = KnownApps.YOUTUBE_MUSIC,
-            icon = Icons.Outlined.LibraryMusic,
-            title = KnownApps.getAppName(KnownApps.YOUTUBE_MUSIC),
-            description = stringResource(R.string.settings_advanced_patch_options_youtube_description),
-            patchOptionsViewModel = patchOptionsViewModel,
-            onBrandingClick = { patchOptionsViewModel.openBrandingDialog(KnownApps.YOUTUBE_MUSIC) },
-            onHeaderClick = { patchOptionsViewModel.openHeaderDialog(KnownApps.YOUTUBE_MUSIC) }
+            icon = MaterialSymbols.Rounded.Library_music,
+            patchOptionsViewModel = patchOptionsViewModel
         )
     }
 }
 
 /**
- * What a group of patch options is for, heading it as its top segment. Laid out as the rows under
- * it are, so its icon and text share their columns.
+ * The patch options one app offers, as a section headed by the app: its branding and header, then
+ * any [moreGroups] of options only that app has.
  */
 @Composable
-private fun OptionsGroupHeader(icon: ImageVector, title: String, description: String) {
-    SettingsItemCard(onClick = null) {
-        IconTextRow(
-            modifier = Modifier
-                .background(neutralVeil())
-                .padding(horizontal = Defaults.SpaceLarge, vertical = Defaults.SpaceSmall),
-            leadingContent = {
-                Box(modifier = Modifier.size(Defaults.IconSize), contentAlignment = Alignment.Center) {
-                    Icon(imageVector = icon, contentDescription = null, modifier = Modifier.size(Defaults.IconSizeSmall))
-                }
-            },
-            title = title,
-            description = description,
-            titleStyle = MaterialTheme.typography.titleSmall,
-            titleWeight = FontWeight.SemiBold,
-            descriptionStyle = MaterialTheme.typography.bodySmall
-        )
-    }
-}
-
-/** The patch options one app offers, as a group under its header. */
-@Composable
-private fun AppPatchOptionsCard(
+private fun AppPatchOptionsSection(
     packageName: String,
     icon: ImageVector,
-    title: String,
-    description: String,
     patchOptionsViewModel: PatchOptionsViewModel,
-    onBrandingClick: () -> Unit,
-    onHeaderClick: () -> Unit
+    moreGroups: @Composable () -> Unit = {}
 ) {
-    // Get available patches for this app type
     val hasBranding = patchOptionsViewModel.getBrandingOptions(packageName) != null
     val hasHeader = patchOptionsViewModel.getHeaderOptions(packageName) != null
 
-    SettingsGroup {
-        OptionsGroupHeader(icon = icon, title = title, description = description)
-
-        // Custom Branding
-        if (hasBranding) {
-            SettingsItem(
-                icon = Icons.Outlined.Style,
-                title = stringResource(R.string.settings_advanced_patch_options_custom_branding),
-                subtitle = stringResource(R.string.settings_advanced_patch_options_custom_branding_description),
-                onClick = onBrandingClick
-            )
-        }
-
-        // Custom Header
-        if (hasHeader) {
-            SettingsItem(
-                icon = Icons.Outlined.Image,
-                title = stringResource(R.string.settings_advanced_patch_options_custom_header),
-                subtitle = stringResource(R.string.settings_advanced_patch_options_custom_header_description),
-                onClick = onHeaderClick
-            )
-        }
-
-        // Show message if no options available for this app
-        if (!hasBranding && !hasHeader) {
-            SettingsItemCard(onClick = null) {
-                Text(
-                    text = stringResource(R.string.settings_advanced_patch_options_no_available),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(Defaults.SpaceLarge)
+    SettingsSection(title = KnownApps.getAppName(packageName), icon = icon) {
+        SettingsGroup {
+            // Custom Branding
+            if (hasBranding) {
+                SettingsItem(
+                    icon = MaterialSymbols.Rounded.Style,
+                    title = stringResource(R.string.settings_advanced_patch_options_custom_branding),
+                    subtitle = stringResource(R.string.settings_advanced_patch_options_custom_branding_description),
+                    onClick = { patchOptionsViewModel.openBrandingDialog(packageName) }
                 )
             }
+
+            // Custom Header
+            if (hasHeader) {
+                SettingsItem(
+                    icon = MaterialSymbols.Rounded.Image,
+                    title = stringResource(R.string.settings_advanced_patch_options_custom_header),
+                    subtitle = stringResource(R.string.settings_advanced_patch_options_custom_header_description),
+                    onClick = { patchOptionsViewModel.openHeaderDialog(packageName) }
+                )
+            }
+
+            // Show message if no options available for this app
+            if (!hasBranding && !hasHeader) {
+                SettingsItemCard(onClick = null) {
+                    Text(
+                        text = stringResource(R.string.settings_advanced_patch_options_no_available),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(Defaults.SpaceLarge)
+                    )
+                }
+            }
         }
+        moreGroups()
     }
 }
 
-/**
- * Hide Shorts features section (YouTube only).
- */
+/** The Shorts entry points YouTube's patches can hide, a group of their own under its options. */
 @Composable
-private fun HideShortsSection(
+private fun HideShortsGroup(
     patchOptionsPrefs: PatchOptionsPreferencesManager,
     viewModel: PatchOptionsViewModel
 ) {
@@ -302,12 +239,6 @@ private fun HideShortsSection(
     val widgetOption = viewModel.getOption(hideShortsOptions, PatchOptionKeys.HIDE_SHORTS_WIDGET)
 
     SettingsGroup {
-        OptionsGroupHeader(
-            icon = Icons.Outlined.VisibilityOff,
-            title = KnownApps.getAppName(KnownApps.YOUTUBE),
-            description = stringResource(R.string.settings_advanced_patch_options_hide_shorts_features)
-        )
-
         // Hide App Shortcut
         if (hasAppShortcutOption && appShortcutOption != null) {
             val hideShortsAppShortcut by patchOptionsPrefs.hideShortsAppShortcut.getAsState()
@@ -327,7 +258,7 @@ private fun HideShortsSection(
             SettingsSwitchItem(
                 checked = hideShortsAppShortcut,
                 onToggle = { viewModel.toggleHideShortsAppShortcut(patchOptionsPrefs, hideShortsAppShortcut) },
-                icon = Icons.Outlined.AppShortcut,
+                icon = MaterialSymbols.Rounded.App_shortcut,
                 title = title,
                 subtitle = description
             )
@@ -352,7 +283,7 @@ private fun HideShortsSection(
             SettingsSwitchItem(
                 checked = hideShortsWidget,
                 onToggle = { viewModel.toggleHideShortsWidget(patchOptionsPrefs, hideShortsWidget) },
-                icon = Icons.Outlined.Widgets,
+                icon = MaterialSymbols.Rounded.Widgets,
                 title = title,
                 subtitle = description
             )

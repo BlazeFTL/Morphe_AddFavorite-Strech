@@ -8,8 +8,6 @@ package app.morphe.manager.ui.screen.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -24,6 +22,8 @@ import app.morphe.manager.ui.screen.shared.AppDialog
 import app.morphe.manager.ui.screen.shared.AppDialogButtonRow
 import app.morphe.manager.ui.screen.shared.DialogHostScope
 import app.morphe.manager.ui.screen.shared.SelectionCheckRow
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Confirmation for a batch patch run requested by another app.
@@ -48,7 +48,7 @@ fun DialogHostScope.ExternalBatchPatchDialog(
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.continue_),
-                primaryIcon = Icons.Outlined.Check,
+                primaryIcon = MaterialSymbols.Rounded.Check,
                 onPrimaryClick = { onConfirm(trustCaller && callerPackage != null) },
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss

@@ -5,12 +5,8 @@
 
 package app.morphe.manager.ui.screen.settings.system
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Article
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -68,92 +64,92 @@ service marks, or logos.
 """
 
 /**
- * The open-source libraries the manager is built on, with their licenses, on a page of the about
- * dialog that [onBack] leaves for the credits, see [CreditsPage].
+ * The open-source libraries the manager is built on, with their licenses, on a page of their own.
+ * A library's license opens over the list.
+ *
+ * @param onBack Leaves the page for the one it was opened from.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DialogHostScope.LicensesPage(onBack: () -> Unit) {
+fun LicensesPage(onBack: () -> Unit) {
     val libraries by produceLibraries(R.raw.aboutlibraries)
     val count = libraries?.libraries?.size
-    val accent = MaterialTheme.colorScheme.primary
+    val horizontal = rememberWindowSize().contentPadding
+    val navigationBar = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+    val lazyListState = rememberLazyListState()
+    var openDialog by remember { mutableStateOf<Library?>(null) }
+    var openSheet by remember { mutableStateOf<Library?>(null) }
 
-    ListDialog(
-        onDismissRequest = onBack,
+    val chipColors = LibraryDefaults.chipColors(
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary,
+    )
+    val colors = LibraryDefaults.libraryColors(
+        libraryBackgroundColor = MaterialTheme.colorScheme.background,
+        libraryContentColor = MaterialTheme.colorScheme.onSurface,
+        versionChipColors = chipColors,
+        licenseChipColors = chipColors,
+        fundingChipColors = chipColors,
+    )
+
+    PinnedHeaderPage(
         header = {
-            ListDialogHeader(
-                icon = { modifier ->
-                    ListDialogHeaderIcon(icon = Icons.AutoMirrored.Outlined.Article, color = accent, modifier = modifier)
-                },
+            PageHeader(
                 title = stringResource(R.string.opensource_licenses),
-                subtitle = count?.let { pluralStringResource(R.plurals.library_count, it, it.toString()) }.orEmpty(),
-                subtitleLoading = count == null,
-                accentColor = accent
+                subtitle = count?.let { pluralStringResource(R.plurals.library_count, it, it.toString()) },
+                onBack = onBack
             )
         },
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.back),
-                onClick = onBack,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-    ) {
-        val lazyListState = rememberLazyListState()
-        var openDialog by remember { mutableStateOf<Library?>(null) }
-        var openSheet by remember { mutableStateOf<Library?>(null) }
-
-        val chipColors = LibraryDefaults.chipColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary,
-        )
-        val colors = LibraryDefaults.libraryColors(
-            libraryBackgroundColor = MaterialTheme.colorScheme.background,
-            libraryContentColor = dialogTextColor(),
-            versionChipColors = chipColors,
-            licenseChipColors = chipColors,
-            fundingChipColors = chipColors,
-        )
-
-        // The library list is a lazy list of its own, laid out as a dialog's list is
-        Box(modifier = Modifier.weight(1f)) {
-            LibrariesContainer(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScrollFade(lazyListState),
-                libraries = libraries,
-                dialogLibrary = openDialog,
-                sheetLibrary = openSheet,
-                onDialogLibraryChange = { openDialog = it },
-                onSheetLibraryChange = { openSheet = it },
-                lazyListState = lazyListState,
-                contentPadding = LocalDialogBarInsets.current,
-                colors = colors,
-                onActionClick = { library, kind ->
-                    if (kind == LibraryActionKind.License) {
-                        openDialog = library
-                        true
-                    } else false
-                },
-                licenseDialogBody = { library, modifier ->
-                    if (library.uniqueId == NOTICE_UNIQUE_ID) {
-                        AutoLinkText(
-                            text = NOTICE_TEXT,
-                            modifier = modifier,
-                            color = colors.dialogContentColor
-                        )
-                    } else {
-                        ClickableLicenseDialogBody(
-                            library = library,
-                            colors = colors,
-                            modifier = modifier
-                        )
-                    }
+        scrollState = lazyListState
+    ) { headerHeight, _ ->
+        LibrariesContainer(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScrollFade(lazyListState),
+            libraries = libraries,
+            dialogLibrary = openDialog,
+            sheetLibrary = openSheet,
+            onDialogLibraryChange = { openDialog = it },
+            onSheetLibraryChange = { openSheet = it },
+            lazyListState = lazyListState,
+            contentPadding = PaddingValues(
+                start = horizontal,
+                top = headerHeight + Defaults.SpaceMedium,
+                end = horizontal,
+                bottom = navigationBar + Defaults.SpaceLarge
+            ),
+            colors = colors,
+            onActionClick = { library, kind ->
+                if (kind == LibraryActionKind.License) {
+                    openDialog = library
+                    true
+                } else false
+            },
+            licenseDialogBody = { library, modifier ->
+                if (library.uniqueId == NOTICE_UNIQUE_ID) {
+                    AutoLinkText(
+                        text = NOTICE_TEXT,
+                        modifier = modifier,
+                        color = colors.dialogContentColor
+                    )
+                } else {
+                    ClickableLicenseDialogBody(
+                        library = library,
+                        colors = colors,
+                        modifier = modifier
+                    )
                 }
-            )
+            }
+        )
 
-            DialogScrollIndicators(listState = lazyListState)
-        }
+        ListScrollbar(
+            listState = lazyListState,
+            modifier = Modifier.padding(
+                top = headerHeight + Defaults.SpaceMedium,
+                bottom = navigationBar + Defaults.SpaceMedium
+            )
+        )
+        ScrollToTopButton(listState = lazyListState, extraBottomPadding = navigationBar)
     }
 }
 

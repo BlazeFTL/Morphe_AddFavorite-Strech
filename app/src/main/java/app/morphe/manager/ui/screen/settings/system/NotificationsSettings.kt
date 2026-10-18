@@ -19,10 +19,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Launch
-import androidx.compose.material.icons.automirrored.outlined.VolumeUp
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
@@ -45,6 +41,8 @@ import app.morphe.manager.util.displayName
 import app.morphe.manager.util.openAppNotificationSettings
 import app.morphe.manager.util.rememberAdaptiveFilePicker
 import app.morphe.manager.worker.UpdateCheckInterval
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlin.math.roundToInt
 import org.koin.androidx.compose.koinViewModel
 
@@ -171,7 +169,7 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
     SettingsColumn {
         SettingsSection(
             title = stringResource(R.string.settings_section_updates),
-            icon = Icons.Outlined.SystemUpdate
+            icon = MaterialSymbols.Rounded.System_update
         ) {
             SettingsGroup {
                 SettingsSwitchItem(
@@ -185,7 +183,7 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
                             onShowPermissionDialog = { showPermissionDialog = true }
                         )
                     },
-                    icon = Icons.Outlined.NotificationsActive,
+                    icon = MaterialSymbols.Rounded.Notifications_active,
                     title = stringResource(R.string.settings_advanced_updates_background_notifications),
                     subtitle = stringResource(
                         if (settingsViewModel.hasGms)
@@ -201,7 +199,7 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
                         if (!settingsViewModel.hasGms) {
                             SettingsItem(
                                 onClick = { showIntervalDialog = true },
-                                leadingContent = { ThemedIcon(icon = Icons.Outlined.Schedule) },
+                                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Schedule) },
                                 title = stringResource(R.string.settings_advanced_update_interval),
                                 subtitle = stringResource(updateCheckInterval.labelResId)
                             )
@@ -210,9 +208,11 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
                         // Manager and patch updates have channels of their own, tuned where Android keeps them
                         SettingsItem(
                             onClick = { context.openAppNotificationSettings() },
-                            leadingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.Launch) },
+                            leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Category) },
                             title = stringResource(R.string.settings_system_notifications_categories),
-                            subtitle = stringResource(R.string.settings_system_notifications_categories_description)
+                            subtitle = stringResource(R.string.settings_system_notifications_categories_description),
+                            // Leaves for the system settings rather than going on within the manager
+                            trailingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored) }
                         )
                     }
                 }
@@ -221,13 +221,13 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
 
         SettingsSection(
             title = stringResource(R.string.settings_section_patcher),
-            icon = Icons.Outlined.Build
+            icon = MaterialSymbols.Rounded.Build
         ) {
             SettingsGroup {
                 SettingsSwitchItem(
                     checked = completionSound,
                     onToggle = { settingsViewModel.setPatcherCompletionSound(!completionSound) },
-                    icon = Icons.AutoMirrored.Outlined.VolumeUp,
+                    icon = MaterialSymbols.Rounded.Volume_up.autoMirrored,
                     title = stringResource(R.string.settings_system_patcher_completion_sound),
                     subtitle = stringResource(R.string.settings_system_patcher_completion_sound_description)
                 )
@@ -237,14 +237,14 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
                     Column {
                         SoundSelectorItem(
                             title = stringResource(R.string.settings_system_notifications_success_sound),
-                            icon = Icons.Outlined.CheckCircle,
+                            icon = MaterialSymbols.Rounded.Check_circle,
                             currentUri = successSoundUri,
                             defaultLabel = defaultLabel,
                             onClick = { showSourcePickerFor = SoundKind.Success }
                         )
                         SoundSelectorItem(
                             title = stringResource(R.string.settings_system_notifications_error_sound),
-                            icon = Icons.Outlined.ErrorOutline,
+                            icon = MaterialSymbols.Rounded.Error,
                             currentUri = errorSoundUri,
                             defaultLabel = defaultLabel,
                             onClick = { showSourcePickerFor = SoundKind.Error }
@@ -298,18 +298,18 @@ private fun DialogHostScope.SoundSourceDialog(
             SettingsItem(
                 onClick = onPickRingtone,
                 title = stringResource(R.string.settings_system_notifications_sound_pick_ringtone),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.MusicNote) }
+                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Music_note) }
             )
             SettingsItem(
                 onClick = onPickFile,
                 title = stringResource(R.string.settings_system_notifications_sound_pick_file),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.FolderOpen) }
+                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Folder_open) }
             )
             if (canReset) {
                 SettingsItem(
                     onClick = onReset,
                     title = stringResource(R.string.settings_system_notifications_sound_reset),
-                    leadingContent = { ThemedIcon(icon = Icons.Outlined.RestartAlt) }
+                    leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Restart_alt) }
                 )
             }
         }
@@ -393,7 +393,7 @@ private fun DialogHostScope.UpdateCheckIntervalDialog(
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.save),
                 onPrimaryClick = { onIntervalSelected(selectedInterval) },
-                primaryIcon = Icons.Outlined.Check,
+                primaryIcon = MaterialSymbols.Rounded.Check,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
             )
@@ -450,7 +450,7 @@ private fun DialogHostScope.UpdateCheckIntervalDialog(
             Notice(
                 text = stringResource(R.string.settings_advanced_update_interval_battery_warning),
                 tone = SemanticTone.Warning,
-                icon = Icons.Outlined.BatteryAlert,
+                icon = MaterialSymbols.Rounded.Battery_alert,
                 density = NoticeDensity.Compact
             )
         }

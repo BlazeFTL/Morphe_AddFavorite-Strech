@@ -7,9 +7,6 @@ package app.morphe.manager.ui.screen.settings.system
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,6 +21,8 @@ import app.morphe.manager.domain.installer.ShizukuEnvironment
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -113,7 +112,7 @@ private fun InstallerSettingsItem(
                     alpha = if (entry.availability.available) 1f else 0.4f
                 )
             } else {
-                ThemedIcon(icon = Icons.Outlined.Android)
+                ThemedIcon(icon = MaterialSymbols.Rounded.Android)
             }
         },
         title = title,
@@ -223,13 +222,13 @@ internal fun InstallerChoice(
                     // Shizuku's fixes sit in its own card, under what is wrong with it
                     footerActions = listOfNotNull(
                         CardAction(
-                            icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                            icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored,
                             label = openLabel,
                             onClick = { runCatching { onOpenShizuku?.invoke() } },
                             primary = true
                         ).takeIf { showShizukuAction },
                         CardAction(
-                            icon = Icons.Outlined.Info,
+                            icon = MaterialSymbols.Rounded.Info,
                             label = statusLabel,
                             onClick = { showShizukuStatus = true }
                         ).takeIf { showStatusAction }
@@ -239,10 +238,13 @@ internal fun InstallerChoice(
         }
     }
 
-    // Not a match for a search, so it stays out of what one finds
-    ModuleUnmountNotice(
-        visible = selectedToken == InstallerManager.Token.AutoSaved && LocalSettingsSearch.current?.isActive != true
-    )
+    val moduleUnmountRisk = rememberModuleUnmountRisk()
+    FoldingVisibility(visible = selectedToken == InstallerManager.Token.AutoSaved && moduleUnmountRisk) {
+        SettingsFooter(
+            text = stringResource(R.string.root_mount_module_unmount_warning),
+            tone = SemanticTone.Warning
+        )
+    }
 
     val showPlayStoreToggle = selectedToken.supportsPlayStoreMode() &&
             options.any { it.token == selectedToken.withPlayStoreMode(true) }
@@ -257,7 +259,7 @@ internal fun InstallerChoice(
                         pendingPlayStoreModeConfirm = true
                     }
                 },
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.Storefront, size = 28.dp) },
+                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Storefront, size = 28.dp) },
                 title = stringResource(R.string.installer_play_store_mode),
                 subtitle = stringResource(R.string.installer_play_store_mode_description)
             )
@@ -370,19 +372,24 @@ internal fun InstallerManager.Token.isShizukuToken(): Boolean =
     baseInstallerToken() == InstallerManager.Token.Shizuku
 
 /**
- * Warns that a root manager hiding module mounts from an app also hides the patched APK from it.
- * Magisk never does, so the warning stays off there once root is known to come from it.
+ * Whether root comes from a manager that may hide module mounts from an app, which hides the
+ * patched APK from it too. Magisk never does, so this stays false there, and until it is known.
  */
 @Composable
-private fun ModuleUnmountNotice(visible: Boolean = true) {
+private fun rememberModuleUnmountRisk(): Boolean {
     val rootInstaller: RootInstaller = koinInject()
     val isMagisk by produceState<Boolean?>(null) { value = rootInstaller.isMagisk() }
+    return isMagisk == false
+}
 
-    FoldingVisibility(visible = visible && isMagisk == false) {
+/** The warning of [rememberModuleUnmountRisk], under a mount offered in a dialog. */
+@Composable
+private fun ModuleUnmountNotice() {
+    FoldingVisibility(visible = rememberModuleUnmountRisk()) {
         Notice(
             text = stringResource(R.string.root_mount_module_unmount_warning),
             tone = SemanticTone.Warning,
-            icon = Icons.Outlined.Warning
+            icon = MaterialSymbols.Rounded.Warning
         )
     }
 }
@@ -424,7 +431,7 @@ private fun DialogHostScope.ShizukuStatusDialog(
                             DialogAction(
                                 text = stringResource(R.string.installer_shizuku_request_permission),
                                 onClick = { runCatching { onRequestPermission.invoke() } },
-                                icon = Icons.Outlined.Key
+                                icon = MaterialSymbols.Rounded.Key
                             )
                         )
                     }
@@ -434,7 +441,7 @@ private fun DialogHostScope.ShizukuStatusDialog(
                             DialogAction(
                                 text = stringResource(R.string.installer_action_open_shizuku),
                                 onClick = { runCatching { onOpenShizuku.invoke() } },
-                                icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                                icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored,
                                 emphasis = DialogActionEmphasis.Outlined
                             )
                         )
@@ -464,21 +471,21 @@ private fun DialogHostScope.ShizukuStatusDialog(
                         stringResource(R.string.installer_shizuku_status_issue)
                     },
                     tone = if (current.availability.available) SemanticTone.Success else SemanticTone.Warning,
-                    icon = if (current.availability.available) Icons.Outlined.CheckCircle else Icons.Outlined.Warning
+                    icon = if (current.availability.available) MaterialSymbols.Rounded.Check_circle else MaterialSymbols.Rounded.Warning
                 )
 
                 if (issueText != null) {
                     Notice(
                         text = issueText,
                         tone = SemanticTone.Primary,
-                        icon = Icons.Outlined.Info
+                        icon = MaterialSymbols.Rounded.Info
                     )
                 }
 
                 if (current.installed) {
                     InfoPanel {
                         InfoRow(
-                            icon = Icons.Outlined.Tune,
+                            icon = MaterialSymbols.Rounded.Tune,
                             label = stringResource(R.string.installer_shizuku_status_mode),
                             value = when (current.flavor) {
                                 ShizukuEnvironment.Flavor.Shizuku -> stringResource(R.string.home_app_info_install_type_shizuku)
@@ -488,19 +495,19 @@ private fun DialogHostScope.ShizukuStatusDialog(
                         )
                         SettingsDivider()
                         InfoRow(
-                            icon = Icons.Outlined.Verified,
+                            icon = MaterialSymbols.Rounded.Verified,
                             label = stringResource(R.string.installer_shizuku_status_supported),
                             value = statusYesNo(current.supported)
                         )
                         SettingsDivider()
                         InfoRow(
-                            icon = Icons.Outlined.PlayCircle,
+                            icon = MaterialSymbols.Rounded.Play_circle,
                             label = stringResource(R.string.installer_shizuku_status_running),
                             value = statusYesNo(current.running)
                         )
                         SettingsDivider()
                         InfoRow(
-                            icon = Icons.Outlined.Key,
+                            icon = MaterialSymbols.Rounded.Key,
                             label = stringResource(R.string.installer_shizuku_status_permission),
                             value = if (current.permissionGranted) {
                                 stringResource(R.string.installer_shizuku_status_granted)
@@ -511,7 +518,7 @@ private fun DialogHostScope.ShizukuStatusDialog(
                         current.packageName?.let { provider ->
                             SettingsDivider()
                             InfoRow(
-                                icon = Icons.Outlined.Widgets,
+                                icon = MaterialSymbols.Rounded.Widgets,
                                 label = stringResource(R.string.installer_shizuku_status_provider),
                                 value = provider
                             )
@@ -596,7 +603,7 @@ private fun InstallerOptionItem(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                imageVector = Icons.Outlined.Warning,
+                                imageVector = MaterialSymbols.Rounded.Warning,
                                 contentDescription = null,
                                 tint = tint,
                                 modifier = Modifier.size(12.dp)
@@ -633,7 +640,7 @@ fun DialogHostScope.InstallerUnavailableDialog(
     state: InstallViewModel.InstallerUnavailableState,
     onOpenApp: () -> Unit,
     onRetry: () -> Unit,
-    onUseFallback: () -> Unit,
+    onChooseAnother: () -> Unit,
     onDismiss: () -> Unit
 ) {
     val installerName = when (state.installerToken) {
@@ -676,11 +683,11 @@ fun DialogHostScope.InstallerUnavailableDialog(
                         )
                     }
 
-                    // Fallback option
+                    // Any other installer for this install, the standard one among them
                     add(
                         DialogAction(
-                            text = stringResource(R.string.installer_use_standard),
-                            onClick = onUseFallback
+                            text = stringResource(R.string.installer_choose_another),
+                            onClick = onChooseAnother
                         )
                     )
 
@@ -705,7 +712,7 @@ fun DialogHostScope.InstallerUnavailableDialog(
                 Notice(
                     text = reasonText,
                     tone = SemanticTone.Error,
-                    icon = Icons.Outlined.Warning
+                    icon = MaterialSymbols.Rounded.Warning
                 )
             }
 
@@ -761,7 +768,7 @@ fun DialogHostScope.PlayStoreInstallerWarningDialog(
             Notice(
                 text = stringResource(R.string.installer_play_store_warning_risk),
                 tone = SemanticTone.Warning,
-                icon = Icons.Outlined.Warning
+                icon = MaterialSymbols.Rounded.Warning
             )
         }
     }
@@ -806,7 +813,7 @@ fun DialogHostScope.PrePatchInstallerDialog(
             // Root Mount option
             SettingsItem(
                 onClick = onSelectMount,
-                icon = Icons.Outlined.Link,
+                icon = MaterialSymbols.Rounded.Link,
                 title = stringResource(R.string.root_pre_patch_installer_mount_title),
                 subtitle = stringResource(R.string.root_pre_patch_installer_mount_description),
                 showBorder = true
@@ -817,7 +824,7 @@ fun DialogHostScope.PrePatchInstallerDialog(
             // Standard Install option
             SettingsItem(
                 onClick = onSelectStandard,
-                icon = Icons.Outlined.InstallMobile,
+                icon = MaterialSymbols.Rounded.Install_mobile,
                 title = stringResource(R.string.root_pre_patch_installer_standard_title),
                 subtitle = stringResource(R.string.root_pre_patch_installer_standard_description),
                 showBorder = true
@@ -827,7 +834,7 @@ fun DialogHostScope.PrePatchInstallerDialog(
             Notice(
                 text = stringResource(R.string.root_pre_patch_installer_hint),
                 tone = SemanticTone.Primary,
-                icon = Icons.Outlined.Info
+                icon = MaterialSymbols.Rounded.Info
             )
         }
     }

@@ -14,8 +14,6 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -40,6 +38,8 @@ import app.morphe.manager.util.isolateLtr
 import app.morphe.manager.util.releasePageUrl
 import app.morphe.manager.util.rememberSourceAccent
 import app.morphe.manager.util.withVersionPrefix
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 import java.text.NumberFormat
@@ -219,7 +219,7 @@ fun DialogHostScope.ManagerChangelogDialog(
                             isUpdateUnavailable -> {
                                 {
                                     Notice(
-                                        icon = Icons.Outlined.HourglassEmpty,
+                                        icon = MaterialSymbols.Rounded.Hourglass_empty,
                                         text = stringResource(R.string.manager_update_not_ready),
                                         tone = SemanticTone.Warning
                                     )
@@ -288,7 +288,7 @@ private fun UpdateDialogFooter(
                         DialogAction(
                             text = stringResource(R.string.retry),
                             onClick = { updateViewModel.loadChangelog() },
-                            icon = Icons.Outlined.Refresh
+                            icon = MaterialSymbols.Rounded.Refresh
                         )
                     )
                 }
@@ -306,7 +306,7 @@ private fun UpdateDialogFooter(
                 DialogAction(
                     text = stringResource(R.string.download),
                     onClick = { updateViewModel.downloadUpdate() },
-                    icon = Icons.Outlined.Download,
+                    icon = MaterialSymbols.Rounded.Download,
                     // Nothing to download until the check resolves an actual release
                     enabled = releaseInfo != null
                 )
@@ -319,7 +319,7 @@ private fun UpdateDialogFooter(
                     DialogAction(
                         text = stringResource(R.string.retry),
                         onClick = { updateViewModel.retryUpdateCheck() },
-                        icon = Icons.Outlined.Refresh
+                        icon = MaterialSymbols.Rounded.Refresh
                     )
                 )
             }
@@ -337,7 +337,7 @@ private fun UpdateDialogFooter(
             DialogAction(
                 text = stringResource(R.string.install),
                 onClick = { updateViewModel.installUpdate() },
-                icon = Icons.Outlined.InstallMobile
+                icon = MaterialSymbols.Rounded.Install_mobile
             )
         )
 
@@ -353,7 +353,7 @@ private fun UpdateDialogFooter(
             DialogAction(
                 text = stringResource(R.string.install),
                 onClick = { updateViewModel.installUpdate() },
-                icon = Icons.Outlined.InstallMobile
+                icon = MaterialSymbols.Rounded.Install_mobile
             ),
             DialogAction(
                 text = stringResource(android.R.string.cancel),
@@ -478,7 +478,7 @@ private fun InstallFailureContent(message: String) {
     if (message.isEmpty()) return
 
     Notice(
-        icon = Icons.Outlined.ErrorOutline,
+        icon = MaterialSymbols.Rounded.Error,
         text = message,
         tone = SemanticTone.Error
     )
@@ -512,7 +512,7 @@ private fun UpdateCompletedContent(version: String?) {
         ) {
             Box(contentAlignment = Alignment.Center) {
                 ThemedIcon(
-                    icon = Icons.Outlined.CheckCircle,
+                    icon = MaterialSymbols.Rounded.Check_circle,
                     tint = SemanticTone.Success.content,
                     size = SuccessIconSize
                 )

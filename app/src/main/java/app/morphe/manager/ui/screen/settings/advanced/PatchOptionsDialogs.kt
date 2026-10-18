@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.settings.advanced
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +24,8 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.OptionInfo
 import app.morphe.manager.ui.viewmodel.PatchOptionsViewModel
 import app.morphe.manager.util.KnownApps
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * Custom branding dialog: the name and icon the patched app is built with, with the adaptive icon
@@ -273,7 +273,7 @@ private fun DialogHostScope.SettingsOptionsDialog(
             } else {
                 EmptyState(
                     message = stringResource(R.string.settings_advanced_patch_options_no_available),
-                    icon = Icons.Outlined.Tune
+                    icon = MaterialSymbols.Rounded.Tune
                 )
             }
         }

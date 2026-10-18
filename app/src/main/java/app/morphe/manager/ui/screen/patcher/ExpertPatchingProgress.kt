@@ -14,9 +14,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.SportsEsports
-import androidx.compose.material.icons.outlined.Terminal
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -81,6 +78,8 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.theme.MorpheBrandTeal
 import app.morphe.manager.util.formatBytesForReport
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -685,12 +684,12 @@ private fun ExpertLogPanel(
                 options = listOf(
                     SegmentedTab(
                         label = stringResource(R.string.patcher_tab_logs),
-                        icon = Icons.Outlined.Terminal,
+                        icon = MaterialSymbols.Rounded.Terminal,
                         badge = activeTab != LOG_PANEL_TAB_LOGS && totalLogs > seenLogCount
                     ),
                     SegmentedTab(
                         label = stringResource(R.string.patcher_tab_game),
-                        icon = Icons.Outlined.SportsEsports
+                        icon = MaterialSymbols.Rounded.Sports_esports
                     )
                 ),
                 selectedIndex = activeTab,

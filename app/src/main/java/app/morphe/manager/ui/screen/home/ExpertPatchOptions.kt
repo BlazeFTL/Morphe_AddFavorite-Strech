@@ -9,11 +9,6 @@ import android.graphics.drawable.Drawable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -34,6 +29,8 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.colorpicker.ColorPresetGrid
 import app.morphe.manager.ui.screen.shared.colorpicker.ColorPresetSwatch
 import app.morphe.manager.util.*
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.collections.immutable.ImmutableList
 import kotlin.math.roundToInt
 
@@ -239,7 +236,7 @@ internal fun DialogHostScope.PatchOptionsDialog(
                 alwaysShowBand = true
             ) {
                 TitleAction(
-                    icon = Icons.Outlined.Restore,
+                    icon = MaterialSymbols.Rounded.History,
                     contentDescription = stringResource(R.string.reset),
                     onClick = onReset,
                     style = TitleActionStyle.Accent,
@@ -815,7 +812,7 @@ private fun ListStringInputOption(
                 modifier = Modifier.weight(1f)
             )
             TitleAction(
-                icon = Icons.Outlined.Add,
+                icon = MaterialSymbols.Rounded.Add,
                 contentDescription = stringResource(R.string.add),
                 onClick = ::addInput,
                 style = TitleActionStyle.Accent
@@ -857,7 +854,7 @@ private fun FilePickerOption(
         PickerButtonRow(
             label = stringResource(R.string.select_file),
             selectedPath = value,
-            icon = Icons.AutoMirrored.Outlined.InsertDriveFile,
+            icon = MaterialSymbols.Rounded.Draft.autoMirrored,
             onPick = { filePicker() },
             onClear = { onValueChange("") },
         )
@@ -890,7 +887,7 @@ private fun ImageInputOption(
         PickerButtonRow(
             label = stringResource(R.string.adaptive_icon_select_image),
             selectedPath = value,
-            icon = Icons.Outlined.Image,
+            icon = MaterialSymbols.Rounded.Image,
             onPick = { filePicker() },
             onClear = { onValueChange("") },
         )

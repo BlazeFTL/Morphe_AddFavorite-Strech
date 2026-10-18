@@ -9,8 +9,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,6 +24,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.Defaults
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 import kotlin.random.Random
 
 private const val MINE_GRID = 9
@@ -208,7 +208,7 @@ fun MinerGame(state: MinerGameState) {
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(
-                imageVector = Icons.Outlined.Flag,
+                imageVector = MaterialSymbols.Rounded.Flag,
                 contentDescription = null,
                 tint = MineFlag,
                 modifier = Modifier.size(16.dp)
@@ -276,7 +276,7 @@ private fun MineCell(state: MinerGameState, index: Int, size: Dp) {
                 fontSize = with(LocalDensity.current) { (size * 0.52f).toSp() }
             )
             !revealed && flagged -> Icon(
-                imageVector = Icons.Outlined.Flag,
+                imageVector = MaterialSymbols.Rounded.Flag,
                 contentDescription = null,
                 tint = MineFlag,
                 modifier = Modifier.size(size * 0.56f)

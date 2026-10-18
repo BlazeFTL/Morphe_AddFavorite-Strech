@@ -16,12 +16,6 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.NavigateNext
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.outlined.ExpandMore
-import androidx.compose.material.icons.outlined.FolderOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -50,6 +44,9 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.util.readableOn
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
+import com.composables.icons.materialsymbols.roundedfilled.*
 
 /**
  * Fill of a plain card, which cards standing for an app or a source take too, leaving their color to
@@ -297,7 +294,7 @@ fun ToggleSwitch(
         },
         thumbContent = {
             Icon(
-                imageVector = if (checked) Icons.Filled.Check else Icons.Filled.Close,
+                imageVector = if (checked) MaterialSymbols.RoundedFilled.Check else MaterialSymbols.RoundedFilled.Close,
                 contentDescription = null,
                 modifier = Modifier.size(SwitchDefaults.IconSize)
             )
@@ -431,7 +428,7 @@ fun ExpandChevron(
         label = "expand_chevron"
     )
     Icon(
-        imageVector = Icons.Outlined.ExpandMore,
+        imageVector = MaterialSymbols.Rounded.Expand_more,
         contentDescription = if (announced) {
             stringResource(if (expanded) R.string.collapse else R.string.expand)
         } else null,
@@ -449,7 +446,7 @@ fun ForwardChevronIcon(
     tint: Color = MaterialTheme.colorScheme.primary
 ) {
     ThemedIcon(
-        icon = Icons.AutoMirrored.Outlined.NavigateNext,
+        icon = MaterialSymbols.Rounded.Navigate_next.autoMirrored,
         modifier = modifier,
         size = size,
         tint = tint
@@ -556,6 +553,44 @@ fun SectionCard(
         modifier = modifier
     ) {
         if (accentColor == null) content() else ProvideCardAccent(accentColor, fill, content)
+    }
+}
+
+/**
+ * A note closing a [SettingsGroup], the way a settings page ends a group with a footer rather than
+ * a card of its own: an icon in the column of the rows' icons, and its [text] where their titles
+ * start. A [tone] other than neutral marks one that warns about the value picked, its icon and
+ * text taking the role's color.
+ */
+@Composable
+fun SettingsFooter(
+    text: String,
+    modifier: Modifier = Modifier,
+    tone: SemanticTone = SemanticTone.Neutral
+) {
+    // About the page around the settings rather than one of them, so a search leaves it out
+    if (LocalSettingsSearch.current?.isActive == true) return
+    val color = tone.accent
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = Defaults.SpaceLarge),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
+    ) {
+        Box(modifier = Modifier.size(Defaults.IconSize), contentAlignment = Alignment.Center) {
+            Icon(
+                imageVector = if (tone == SemanticTone.Neutral) MaterialSymbols.Rounded.Info else MaterialSymbols.Rounded.Warning,
+                contentDescription = null,
+                tint = color,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium,
+            color = color,
+            modifier = Modifier.weight(1f)
+        )
     }
 }
 
@@ -716,7 +751,7 @@ fun InfoStatBox(
 fun EmptyState(
     message: String,
     modifier: Modifier = Modifier,
-    icon: ImageVector? = Icons.Outlined.FolderOff,
+    icon: ImageVector? = MaterialSymbols.Rounded.Folder_off,
     subtitle: String? = null,
     action: CardAction? = null,
     contentColor: Color = dialogSecondaryTextColor(),

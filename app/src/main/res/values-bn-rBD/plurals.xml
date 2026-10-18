@@ -4,6 +4,11 @@
         <item quantity="one">%s টি প্যাচ</item>
         <item quantity="other">%s টি প্যাচ</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s লাইব্রেরি</item>
+        <item quantity="other">%s লাইব্রেরি</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s টি প্যাচ অপশন</item>
         <item quantity="other">%s টি প্যাচ অপশন</item>
@@ -94,6 +99,14 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s টি সোর্স ইনস্টল রয়েছে</item>
         <item quantity="other">%s টি সোর্স ইনস্টল রয়েছে</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s অ্যাপ্লিকেশন লুকানো</item>
+        <item quantity="other">%s অ্যাপ্লিকেশন লুকানো</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s অ্যাপ্লিকেশন দেখানো</item>
+        <item quantity="other">%s অ্যাপ্লিকেশন দেখানো</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s লুকানো অ্যাপ্লিকেশন</item>

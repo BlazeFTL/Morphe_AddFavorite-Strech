@@ -3,6 +3,10 @@
     <plurals name="patch_count">
         <item quantity="other">%s 개의 패치</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="other">%s 개의 라이브러리</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="other">%s 개의 패치 옵션</item>
     </plurals>
@@ -71,6 +75,12 @@
     </plurals>
     <plurals name="sources_management_subtitle">
         <item quantity="other">%s 개의 소스 설치됨</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="other">%s 개의 앱 숨겨짐</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="other">%s 개의 앱 표시됨</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">%s 개의 숨겨진 앱</item>

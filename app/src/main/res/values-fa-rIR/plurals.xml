@@ -4,6 +4,11 @@
         <item quantity="one">%s وصله</item>
         <item quantity="other">%s پچ</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">کتابخانه %s</item>
+        <item quantity="other">کتابخانه‌های %s</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s گزینهٔ پچ</item>
         <item quantity="other">%s گزینهٔ پچ</item>
@@ -94,6 +99,14 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s منبع نصب شده</item>
         <item quantity="other">%s منبع نصب شده</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s برنامه مخفی است</item>
+        <item quantity="other">%s برنامه مخفی هستند</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s برنامه نمایش داده می‌شود</item>
+        <item quantity="other">%s برنامه نمایش داده می‌شوند</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s برنامهٔ پنهان</item>

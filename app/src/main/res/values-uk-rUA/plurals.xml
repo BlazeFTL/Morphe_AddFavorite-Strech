@@ -6,6 +6,13 @@
         <item quantity="many">%s патчів</item>
         <item quantity="other">%s патчів</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s бібліотека</item>
+        <item quantity="few">%s бібліотеки</item>
+        <item quantity="many">%s бібліотек</item>
+        <item quantity="other">%s бібліотек</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s параметр патча</item>
         <item quantity="few">%s параметри патча</item>
@@ -140,6 +147,18 @@
         <item quantity="few">%s джерела встановлено</item>
         <item quantity="many">%s джерел встановлено</item>
         <item quantity="other">%s джерел встановлено</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">Сховано %s додаток</item>
+        <item quantity="few">Сховано %s додатки</item>
+        <item quantity="many">Сховано %s додатків</item>
+        <item quantity="other">Сховано %s додатків</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">Показано %s додаток</item>
+        <item quantity="few">Показано %s додатки</item>
+        <item quantity="many">Показано %s додатків</item>
+        <item quantity="other">Показано %s додатків</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s прихований застосунок</item>

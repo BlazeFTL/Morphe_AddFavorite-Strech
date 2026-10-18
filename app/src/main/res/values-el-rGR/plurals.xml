@@ -4,6 +4,11 @@
         <item quantity="one">%s τροποποίηση</item>
         <item quantity="other">%s τροποποιήσεις</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s βιβλιοθήκη</item>
+        <item quantity="other">%s βιβλιοθήκες</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s επιλογή τροποποίησης</item>
         <item quantity="other">%s επιλογές τροποποίησης</item>
@@ -94,6 +99,14 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s πηγή εγκαταστάθηκε</item>
         <item quantity="other">%s πηγές εγκαταστάθηκαν</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">Κρύβεται %s εφαρμογή</item>
+        <item quantity="other">Κρύβονται %s εφαρμογές</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">Δείχνεται %s εφαρμογή</item>
+        <item quantity="other">Δείχνονται %s εφαρμογές</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s κρυφή εφαρμογή</item>

@@ -3,6 +3,10 @@
     <plurals name="patch_count">
         <item quantity="other">%s 個修補程式</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="other">%s 個程式庫</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="other">%s 個修補選項</item>
     </plurals>
@@ -71,6 +75,12 @@
     </plurals>
     <plurals name="sources_management_subtitle">
         <item quantity="other">已安裝 %s 個來源</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="other">%s apps hidden</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="other">顯示 %s 個應用程式</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">%s 個隱藏的應用程式</item>

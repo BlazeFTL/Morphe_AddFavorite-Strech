@@ -5,6 +5,12 @@
         <item quantity="few">%s patch-uri</item>
         <item quantity="other">%s de patch-uri</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s bibliotecă</item>
+        <item quantity="few">%s biblioteci</item>
+        <item quantity="other">%s de biblioteci</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s opțiune de patch</item>
         <item quantity="few">%s opțiuni de patch</item>
@@ -117,6 +123,16 @@
         <item quantity="one">%s sursă instalată</item>
         <item quantity="few">%s surse instalate</item>
         <item quantity="other">%s de surse instalate</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s aplicație ascunsă</item>
+        <item quantity="few">%s aplicații ascunse</item>
+        <item quantity="other">%s aplicații ascunse</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s aplicație afișată</item>
+        <item quantity="few">%s aplicații afișate</item>
+        <item quantity="other">%s aplicații afișate</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aplicație ascunsă</item>

@@ -6,6 +6,13 @@
         <item quantity="many">%s pataisa</item>
         <item quantity="other">%s pataisymai</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s biblioteka</item>
+        <item quantity="few">%s bibliotekos</item>
+        <item quantity="many">%s bibliotekų</item>
+        <item quantity="other">%s bibliotekų</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s pataisos nustatymas</item>
         <item quantity="few">%s pataisų nustatymai</item>
@@ -140,6 +147,18 @@
         <item quantity="few">%s šaltiniai įdiegti</item>
         <item quantity="many">%s šaltiniai įdiegti</item>
         <item quantity="other">%s šaltiniai įdiegti</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s programa paslėpta</item>
+        <item quantity="few">%s programos paslėptos</item>
+        <item quantity="many">%s programų paslėpta</item>
+        <item quantity="other">%s programų paslėptų</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s programa parodyta</item>
+        <item quantity="few">%s programos parodytos</item>
+        <item quantity="many">%s programų parodyta</item>
+        <item quantity="other">%s programų parodytų</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s paslėpta programėlė</item>

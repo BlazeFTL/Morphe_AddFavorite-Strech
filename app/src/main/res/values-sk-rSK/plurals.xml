@@ -6,6 +6,13 @@
         <item quantity="many">%s záplat</item>
         <item quantity="other">%s záplat</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">Knižnica (%s)</item>
+        <item quantity="few">Knihy (%s)</item>
+        <item quantity="many">Kníh (%s)</item>
+        <item quantity="other">Kníh (%s)</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s nastavenie záplaty</item>
         <item quantity="few">%s nastavenia záplaty</item>
@@ -140,6 +147,18 @@
         <item quantity="few">%s zdroje nainštalované</item>
         <item quantity="many">%s zdrojov nainštalovaných</item>
         <item quantity="other">%s zdrojov nainštalovaných</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">Aplikácia %s je skrytá</item>
+        <item quantity="few">Aplikácie %s sú skryté</item>
+        <item quantity="many">Aplikácie %s sú skryté</item>
+        <item quantity="other">Aplikácie %s sú skryté</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">Aplikácia %s je zobrazená</item>
+        <item quantity="few">Aplikácie %s sú zobrazené</item>
+        <item quantity="many">Aplikácie %s sú zobrazené</item>
+        <item quantity="other">Aplikácie %s sú zobrazené</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skrytá aplikácia</item>

@@ -227,6 +227,10 @@ class PatchFlow(
     // The patching held back by a guard dialog until the user answers it
     private var pendingPatchAction: (suspend () -> Unit)? = null
 
+    // The step the run is moving on with. The dialog that started it stays up until the next one
+    // takes its place, so it is not answered twice in the meantime
+    private var stepJob: Job? = null
+
     // The redirect being resolved, given up for the next one when the user comes back for another version
     private var downloadRedirectJob: Job? = null
 
@@ -297,7 +301,7 @@ class PatchFlow(
         val versions = compatibleVersions.value[packageName].orEmpty().offered()
         val allIncompatible = versions.isNotEmpty() && versions.none { it.installableOnDevice() }
         if (allIncompatible) {
-            dialogs.open(HomeDialog.NoCompatibleVersions(packageName))
+            dialogs.advanceTo(HomeDialog.NoCompatibleVersions(packageName))
             return
         }
 
@@ -320,7 +324,7 @@ class PatchFlow(
                 .filter { (_, patches) -> patches.isNotEmpty() }
 
             if (candidates.size > 1) {
-                dialogs.open(HomeDialog.SimpleBundleSelect(packageName, candidates))
+                dialogs.advanceTo(HomeDialog.SimpleBundleSelect(packageName, candidates))
                 return
             }
         }
@@ -333,8 +337,7 @@ class PatchFlow(
      * known, the source settles the version to look for and the APK selection goes on with it;
      * after, the held APK is patched from it.
      */
-    fun proceedWithSelectedBundle(dialog: HomeDialog.SimpleBundleSelect, bundleUid: Int, rememberChoice: Boolean = false) {
-        dialogs.close(dialog)
+    fun proceedWithSelectedBundle(dialog: HomeDialog.SimpleBundleSelect, bundleUid: Int, rememberChoice: Boolean = false) = moveOn {
         val packageName = dialog.packageName
 
         // Settles the question for good rather than for this run: the sources turned down here
@@ -349,9 +352,8 @@ class PatchFlow(
         val app = heldApp
         if (app != null) {
             heldApp = null
-            val allowIncompatible = heldAllowsIncompatible
-            scope.launch { startPatchingWithApp(app, allowIncompatible, bundleUid) }
-            return
+            startPatchingWithApp(app, heldAllowsIncompatible, bundleUid)
+            return@moveOn
         }
 
         // Update recommended version to the one the chosen bundle will be used at
@@ -364,9 +366,7 @@ class PatchFlow(
             else current.copy(bundleUid = bundleUid, recommendedVersion = bundleRecommended, selectedVersion = bundleRecommended)
         }
 
-        scope.launch {
-            continueApkSelectionFlow(packageName)
-        }
+        continueApkSelectionFlow(packageName)
     }
 
     /**
@@ -399,7 +399,7 @@ class PatchFlow(
             handleSavedApkSelection()
         } else {
             // Show dialog
-            dialogs.open(HomeDialog.ApkAvailability)
+            dialogs.advanceTo(HomeDialog.ApkAvailability)
         }
     }
 
@@ -441,7 +441,6 @@ class PatchFlow(
         }
 
         scope.launch {
-            leaveApkSource()
             processingApkSelection = true
             try {
                 val selectedApp = withContext(Dispatchers.IO) {
@@ -561,7 +560,7 @@ class PatchFlow(
             val saved = withContext(Dispatchers.IO) { localApkSources.saved(packageName) }
             session = session?.copy(savedApk = saved)
         }
-        dialogs.open(HomeDialog.ApkAvailability)
+        dialogs.advanceTo(HomeDialog.ApkAvailability)
     }
 
     /**
@@ -624,7 +623,6 @@ class PatchFlow(
      * Extracts the APK (or packs splits into an archive) and sends it through the patch flow.
      */
     fun handleInstalledAppPickerSelection(item: InstalledAppPickerItem) {
-        leaveApkSource()
         session = session?.copy(appName = item.label)
         scope.launch {
             processingApkSelection = true
@@ -655,11 +653,11 @@ class PatchFlow(
      * Handle APK file selection.
      */
     fun handleApkSelection(uri: Uri?) {
+        // Nothing picked leaves the run at the dialog the picker was opened from, if any is left
         if (uri == null) {
-            endRun()
+            if (dialogs.entries.all { it is HomeDialog.AppInfo }) endRun()
             return
         }
-
         scope.launch {
             processingApkSelection = true
             try {
@@ -670,6 +668,9 @@ class PatchFlow(
                 when (result) {
                     is ApkLoadResult.Success -> {
                         pickedApkIcon = result.icon?.let { result.app.file to it }
+                        // Picked in place of the one held for a warning, which it takes the run over from
+                        heldApp?.discard()
+                        heldApp = null
                         processSelectedApp(result.app)
                     }
                     is ApkLoadResult.Unreadable -> messages.show(R.string.home_invalid_apk_unreadable)
@@ -697,7 +698,6 @@ class PatchFlow(
         }
 
         scope.launch {
-            leaveApkSource()
             processingApkSelection = true
             try {
                 // Create SelectedApp from saved APK file
@@ -922,21 +922,27 @@ class PatchFlow(
     private fun holdFor(dialog: HomeDialog, app: SelectedApp, allowIncompatible: Boolean = false) {
         heldApp = app
         heldAllowsIncompatible = allowIncompatible
-        leaveApkSource()
-        dialogs.open(dialog)
+        dialogs.advanceTo(dialog)
     }
 
-    /** Goes on with the run of the held APK as [dialog] decided, closing the dialog. */
-    private fun resumeHeld(dialog: HomeDialog, next: suspend (app: SelectedApp, allowIncompatible: Boolean) -> Unit) {
-        val app = heldApp ?: return
+    /** Goes on with the run of the held APK as the dialog on screen decided. */
+    private fun resumeHeld(next: suspend (app: SelectedApp, allowIncompatible: Boolean) -> Unit) = moveOn {
+        val app = heldApp ?: return@moveOn
         heldApp = null
-        dialogs.close(dialog)
-        val allowIncompatible = heldAllowsIncompatible
-        scope.launch { next(app, allowIncompatible) }
+        next(app, heldAllowsIncompatible)
+    }
+
+    /**
+     * Moves the run on with [step] while the dialog that asked for it stays up, for the next one
+     * to take its place or the run to end. Further answers to it are ignored until then.
+     */
+    private fun moveOn(step: suspend () -> Unit) {
+        if (stepJob?.isActive == true) return
+        stepJob = scope.launch { step() }
     }
 
     /** User chose to proceed with patching despite the split APK warning. */
-    fun proceedWithSplitApk() = resumeHeld(HomeDialog.SplitApkWarning) { app, _ ->
+    fun proceedWithSplitApk() = resumeHeld { app, _ ->
         processSelectedApp(app, skipSplitCheck = true)
     }
 
@@ -945,12 +951,12 @@ class PatchFlow(
      * patches that declare other versions, while an experimental one is supported and only
      * flagged as such in the patch bundle.
      */
-    fun proceedDespiteVersion(dialog: HomeDialog) = resumeHeld(dialog) { app, _ ->
+    fun proceedDespiteVersion(dialog: HomeDialog) = resumeHeld { app, _ ->
         startPatchingInPatchMode(app, allowIncompatible = dialog is HomeDialog.UnsupportedVersion)
     }
 
     /** User chose to proceed patching despite the signature mismatch warning. */
-    fun proceedIgnoringSignature(dialog: HomeDialog.InvalidSignature) = resumeHeld(dialog) { app, _ ->
+    fun proceedIgnoringSignature() = resumeHeld { app, _ ->
         processSelectedAppIgnoringSignature(app)
     }
 
@@ -958,24 +964,16 @@ class PatchFlow(
      * Called when the user selects a patch mode from the pre-patching dialog.
      * Sets [usingMountInstall] and starts patching with the correct patch configuration.
      */
-    fun resolvePrePatchInstallerChoice(useMount: Boolean) = resumeHeld(HomeDialog.PrePatchInstaller) { app, allowIncompatible ->
+    fun resolvePrePatchInstallerChoice(useMount: Boolean) = resumeHeld { app, allowIncompatible ->
         usingMountInstall = useMount
         startPatchingWithApp(app, allowIncompatible)
     }
 
-    /** Puts the held APK aside and closes [dialog], for another one to be picked in its place. */
-    fun pickAnotherApk(dialog: HomeDialog) {
-        dialogs.close(dialog)
-        heldApp?.discard()
-        heldApp = null
-    }
-
     /**
-     * Closes [dialog] and gives up the run it was asked for, the APK held for it included. Every
+     * Gives up the run the dialog on screen was asked for, the APK held for it included. Every
      * dialog of the flow that is turned down ends the run this way.
      */
-    fun dismiss(dialog: HomeDialog) {
-        dialogs.close(dialog)
+    fun dismiss() {
         pendingPatchAction = null
         endRun()
     }
@@ -1082,7 +1080,7 @@ class PatchFlow(
                 allowIncompatible = allowIncompatible,
                 target = target
             )
-            dialogs.open(HomeDialog.ExpertMode)
+            dialogs.advanceTo(HomeDialog.ExpertMode)
         }
 
         if (isExpertMode()) {
@@ -1300,8 +1298,8 @@ class PatchFlow(
      * Called when the user confirms the ExpertModeDialog. Persists the final selection
      * and options, then navigates to the patcher.
      */
-    fun proceedExpertMode() {
-        val selectedApp = expertMode.app ?: return
+    fun proceedExpertMode() = moveOn {
+        val selectedApp = expertMode.app ?: return@moveOn
         val bundles = expertMode.bundles
         val finalPatches = expertMode.runSelection
         val finalOptions = expertMode.options
@@ -1311,22 +1309,19 @@ class PatchFlow(
         // rather than receiving a literal empty string.
         val patcherOptions = finalOptions.sanitizeForPatcher()
 
-        scope.launch {
-            // A path that leads nowhere fails the run, and by then this dialog is gone and the
-            // option it belongs to is out of reach. So it is asked about while the selection is
-            // still open and the value can be fixed or dropped on the spot
-            val failures = withContext(Dispatchers.IO) {
-                validateOptionPaths(patcherOptions.restrictTo(finalPatches))
-            }
+        // A path that leads nowhere fails the run, and by then this dialog is gone and the
+        // option it belongs to is out of reach. So it is asked about while the selection is
+        // still open and the value can be fixed or dropped on the spot
+        val failures = withContext(Dispatchers.IO) {
+            validateOptionPaths(patcherOptions.restrictTo(finalPatches))
+        }
 
-            if (failures.isNotEmpty()) {
-                expertMode.reportUnreadablePaths(failures)
-                return@launch
-            }
+        if (failures.isNotEmpty()) {
+            expertMode.reportUnreadablePaths(failures)
+            return@moveOn
+        }
 
-            dialogs.close(HomeDialog.ExpertMode)
-
-            withContext(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
                 // Saved before patching runs so a long selection survives a failed run. It lands
                 // on the install being rebuilt, and follows it from there if patching renames it.
                 // Only the bundles offered by the dialog are covered by this selection, so bundles
@@ -1348,9 +1343,8 @@ class PatchFlow(
                 }
             }
 
-            proceedWithPatching(selectedApp, finalPatches, patcherOptions, allowIncompatible)
-            expertMode.clear()
-        }
+        proceedWithPatching(selectedApp, finalPatches, patcherOptions, allowIncompatible)
+        expertMode.clear()
     }
 
     /**
@@ -1365,7 +1359,7 @@ class PatchFlow(
     /** Closes the expert dialog, giving up the run it was setting up. */
     fun dismissExpertMode() {
         expertMode.clear()
-        dismiss(HomeDialog.ExpertMode)
+        dismiss()
     }
 
     /**
@@ -1387,7 +1381,7 @@ class PatchFlow(
         val freeBytes = StatFs(app.filesDir.absolutePath).availableBytes
         if (freeBytes < LOW_DISK_SPACE_THRESHOLD_BYTES) {
             pendingPatchAction = action
-            dialogs.open(HomeDialog.LowDiskSpace(freeBytes))
+            dialogs.advanceTo(HomeDialog.LowDiskSpace(freeBytes))
             return
         }
         guardMetered(action)
@@ -1397,9 +1391,9 @@ class PatchFlow(
     private fun guardMetered(action: suspend () -> Unit) {
         if (isOnMeteredWithUpdatesDisabled()) {
             pendingPatchAction = action
-            dialogs.open(HomeDialog.MeteredPatching)
+            dialogs.advanceTo(HomeDialog.MeteredPatching)
         } else {
-            scope.launch { action() }
+            moveOn(action)
         }
     }
 
@@ -1410,17 +1404,17 @@ class PatchFlow(
     private fun isOnMeteredWithUpdatesDisabled(): Boolean =
         !prefs.allowMeteredUpdates.getBlocking() && networkInfo.isMetered()
 
-    // Takes the patching a guard dialog held back, closing the dialog that held it
-    private fun takePendingPatchAction(dialog: HomeDialog): (suspend () -> Unit)? {
-        dialogs.close(dialog)
-        return pendingPatchAction.also { pendingPatchAction = null }
-    }
+    // Takes the patching a guard dialog held back, which the dialog stays up for until it moves on
+    private fun takePendingPatchAction(): (suspend () -> Unit)? =
+        pendingPatchAction.also { pendingPatchAction = null }
 
     /**
-     * User chose to update patches first, then automatically continue patching.
+     * User chose to update patches first, then automatically continue patching. The update can
+     * take a while with nothing to show for it, so the dialog does not wait on it.
      */
     fun refreshBundlesAndContinuePatching() {
-        val action = takePendingPatchAction(HomeDialog.MeteredPatching) ?: return
+        val action = takePendingPatchAction() ?: return
+        dialogs.close(HomeDialog.MeteredPatching)
         scope.launch {
             // User explicitly requested update - bypass metered check and wait for completion
             patchBundleRepository.updateCheckAndAwait(allowUnsafeNetwork = true)
@@ -1432,16 +1426,16 @@ class PatchFlow(
      * User chose to patch with the currently cached patches despite being on metered network.
      */
     fun dismissMeteredPatchingDialogAndProceed() {
-        val action = takePendingPatchAction(HomeDialog.MeteredPatching) ?: return
-        scope.launch { action() }
+        val action = takePendingPatchAction() ?: return
+        moveOn(action)
     }
 
     /**
      * User chose to proceed with patching despite low disk space.
      * Continues to the metered network check if applicable, then launches the action.
      */
-    fun dismissLowDiskSpaceDialogAndProceed(dialog: HomeDialog.LowDiskSpace) {
-        val action = takePendingPatchAction(dialog) ?: return
+    fun dismissLowDiskSpaceDialogAndProceed() {
+        val action = takePendingPatchAction() ?: return
         guardMetered(action)
     }
 
@@ -1490,17 +1484,11 @@ class PatchFlow(
         )
     }
 
-    /**
-     * The download dialogs are closed before the APK is taken on, because processing it puts up
-     * an overlay of its own and two of them on screen at once reads as a stuck flow.
-     */
     override fun onHelperApkReceived(uri: Uri) {
-        leaveApkSource()
         handleApkSelection(uri)
     }
 
     override fun onHelperInstalledAppChosen(packageName: String) {
-        leaveApkSource()
         handleHelperInstalledAppSelection(packageName)
     }
 
@@ -1538,22 +1526,18 @@ class PatchFlow(
         if (dialogs.entries.none { it is HomeDialog.ApkSource }) endRun()
     }
 
-    /** Closes the steps of getting the APK, keeping what they learned for the APK they led to. */
-    fun leaveApkSource() {
-        dialogs.closeAll { it is HomeDialog.ApkSource }
-    }
-
-    /** Gives up the run being set up, the APK held for it and the steps of getting one included. */
+    /** Gives up the run being set up, the APK held for it and the dialogs it went through included. */
     private fun endRun() {
         downloadRedirectJob?.cancel()
         heldApp?.discard()
         heldApp = null
         session = null
-        leaveApkSource()
+        dialogs.closeAll { it !is HomeDialog.AppInfo }
     }
 
     /** Closes every dialog of the flow and gives up the run, for the user to start afresh. */
     fun cancel() {
+        stepJob?.cancel()
         expertMode.clear()
         pendingPatchAction = null
         dialogs.closeAll()

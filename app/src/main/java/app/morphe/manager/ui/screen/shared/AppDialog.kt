@@ -9,6 +9,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.rememberTransition
@@ -37,6 +38,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.currentStateAsState
@@ -94,8 +96,8 @@ object FullscreenDialogs {
  * while [visible]. The window brings the dialog in and keeps it until it has animated out, so the
  * dialog never drops out from under the screen at once.
  *
- * The window sits over every screen, so it is put away while another screen is opened over the one
- * it was raised from and brought back once that one is in front again, see [screenInFront].
+ * The window sits over every screen, so the dialog is part of the screen it was raised from: it
+ * leaves as another screen opens over that one and comes back with it, see [ScreenPhase].
  *
  * @param handsOver Whether the next dialog takes over as this one closes. This one then stays as it
  *   stood under the next until that one has come in over it, so nothing behind shows between them.
@@ -107,22 +109,27 @@ fun DialogHost(
     handsOver: Boolean = false,
     content: @Composable DialogHostScope.() -> Unit
 ) {
-    DialogHost(visible = visible, handsOver = handsOver, onGone = null, content = content)
+    DialogHost(visible = visible, handsOver = handsOver, covered = false, onGone = null, content = content)
 }
 
 /**
  * [DialogHost] that calls [onGone] once it is no longer [visible] and has finished leaving, so
  * whatever keeps it composed for its way out can let it go.
+ *
+ * @param covered Whether another dialog stands over this one, which then leaves with the screen at
+ *   once, under that one, rather than with motion of its own showing through it.
  */
 @Composable
 private fun DialogHost(
     visible: Boolean,
     handsOver: Boolean,
+    covered: Boolean,
     onGone: (() -> Unit)?,
     content: @Composable DialogHostScope.() -> Unit
 ) {
-    val inFront = screenInFront()
-    val showing = visible && inFront
+    val phase = screenPhase()
+    val inFront = phase == ScreenPhase.InFront
+    val showing = visible && phase != ScreenPhase.Leaving
     // Put away with its screen, the dialog leaves along with the one it would hand over to
     val handsOverHere = handsOver && inFront
     val handingOver = !showing && handsOverHere
@@ -138,12 +145,20 @@ private fun DialogHost(
     // Runs here rather than in the window, so it settles even once the window is gone
     val transition = rememberTransition(state, label = "dialog")
     val leaving = !shown && (transition.currentState || transition.isRunning)
-    // Settled as the dialog goes: one put away with its screen is part of that screen, so it
-    // leaves the way the screen does, and nothing behind shows between it and the next screen
-    val leavesWithScreen = remember(shown) { !shown && !inFront }
+    // Settled as the dialog comes or goes: one moving with its screen moves the way the screen does,
+    // so nothing behind shows between the two screens. A covered one comes back that way too, in
+    // order under the one over it, whose backdrop has covered it by the time its own content shows,
+    // and leaves at once while that backdrop still stands
+    val motion = remember(shown) {
+        when {
+            inFront -> DialogMotion.Dialog
+            covered && !shown -> DialogMotion.Still
+            else -> DialogMotion.Screen
+        }
+    }
     if (shown || (leaving && !handsOverHere)) {
         val scope = remember(showing) { DialogHostScope(showing, transition) }
-        DialogWindow(transition, leavesWithScreen) { scope.content() }
+        DialogWindow(transition, motion) { scope.content() }
     }
 
     if (onGone != null) {
@@ -171,9 +186,11 @@ fun <T : Any> DialogStack(
     val stacked = order.update(entries)
     stacked.forEachIndexed { index, entry ->
         key(entry) {
+            val covered = stacked.subList(index + 1, stacked.size).any { it in entries }
             DialogHost(
                 visible = entry in entries,
-                handsOver = stacked.subList(index + 1, stacked.size).any { it in entries },
+                handsOver = covered,
+                covered = covered,
                 onGone = { order.markGone(entry) }
             ) {
                 content(entry)
@@ -205,20 +222,57 @@ private class DialogStackOrder<T>(initial: List<T>) {
 }
 
 /**
- * Whether the screen this is composed in is the one in front, settled there rather than still
- * moving in or out. Leaving the app does not count, as the screen stays in front of it for when
- * the user comes back.
+ * Where the screen a dialog is raised from stands. Leaving the app does not count as leaving the
+ * screen, as it stays in front of the app for when the user comes back.
  */
+private enum class ScreenPhase {
+    /** Settled in front. */
+    InFront,
+    /** Moving in, opened or come back to. */
+    ComingIn,
+    /** Making way for another screen opening over it. */
+    Leaving
+}
+
+/** The [ScreenPhase] of the screen this is composed in. */
 @Composable
-private fun screenInFront(): Boolean {
+private fun screenPhase(): ScreenPhase {
     val screen = LocalLifecycleOwner.current.lifecycle
     val app = (LocalActivity.current as? LifecycleOwner)?.lifecycle ?: screen
+    // Which way a screen between started and resumed is moving: one coming in has just started,
+    // one making way has just paused
+    var comingIn by remember(screen) { mutableStateOf(true) }
+    DisposableEffect(screen) {
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_START -> comingIn = true
+                Lifecycle.Event.ON_PAUSE -> comingIn = false
+                else -> Unit
+            }
+        }
+        screen.addObserver(observer)
+        onDispose { screen.removeObserver(observer) }
+    }
     // Observed so a change recomposes, but read as it stands: a screen is left in the same moment
     // its dialogs close for the one opening over it, ahead of the observed state catching up
     screen.currentStateAsState().value
     app.currentStateAsState().value
-    return screen.currentState.isAtLeast(Lifecycle.State.RESUMED) ||
-            !app.currentState.isAtLeast(Lifecycle.State.RESUMED)
+    return when {
+        screen.currentState.isAtLeast(Lifecycle.State.RESUMED) ||
+                !app.currentState.isAtLeast(Lifecycle.State.RESUMED) -> ScreenPhase.InFront
+        comingIn -> ScreenPhase.ComingIn
+        else -> ScreenPhase.Leaving
+    }
+}
+
+/** How a [DialogHost]'s window comes and goes. */
+private enum class DialogMotion {
+    /** Opened or closed on its own, as a dialog. */
+    Dialog,
+    /** Moving with its screen, the way that screen does, see [sharedAxisZEnter]. */
+    Screen,
+    /** Under another dialog, at once, as nothing of it shows. */
+    Still
 }
 
 /**
@@ -267,13 +321,12 @@ private class HeldValue<T>(var value: T)
  * The window of a [DialogHost]: the theme's background, a host for messages, the entrance and exit,
  * and the text colors of what it holds. The dialog in it takes back presses and taps itself.
  *
- * @param leavesWithScreen Whether the dialog is going with the screen it was raised from, which it
- *   then leaves the way that screen does, see [sharedAxisZExit].
+ * @param motion How the window comes and goes, see [DialogMotion].
  */
 @Composable
 private fun DialogWindow(
     transition: Transition<Boolean>,
-    leavesWithScreen: Boolean,
+    motion: DialogMotion,
     content: @Composable () -> Unit
 ) {
     val isDarkTheme = isDarkTheme()
@@ -300,11 +353,16 @@ private fun DialogWindow(
         // A window of its own, so messages raised while it is open are shown in it
         MessageHost(modifier = Modifier.fillMaxSize(), accepting = transition.targetState) {
             // Opaque from the first frame, so nothing behind shows as one dialog hands over to the
-            // next, and faded out with the content as the dialog leaves
+            // next or as it comes back with its screen, and faded out with the content as the dialog
+            // leaves. Leaving with its screen, it gives way to the one opening over that screen
             transition.AnimatedVisibility(
                 visible = { it },
                 enter = EnterTransition.None,
-                exit = if (leavesWithScreen) sharedAxisZFadeOut() else Animations.fadeOut,
+                exit = when (motion) {
+                    DialogMotion.Dialog -> Animations.fadeOut
+                    DialogMotion.Screen -> sharedAxisZBackdropExit()
+                    DialogMotion.Still -> ExitTransition.None
+                },
                 modifier = Modifier.fillMaxSize()
             ) {
                 Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background))
@@ -312,8 +370,17 @@ private fun DialogWindow(
 
             transition.AnimatedVisibility(
                 visible = { it },
-                enter = Animations.dialogEnter,
-                exit = if (leavesWithScreen) sharedAxisZExit(forward = true) else Animations.dialogExit,
+                // A screen comes back to it by going back, and leaves it for one opened over it
+                enter = when (motion) {
+                    DialogMotion.Dialog -> Animations.dialogEnter
+                    DialogMotion.Screen -> sharedAxisZEnter(forward = false)
+                    DialogMotion.Still -> EnterTransition.None
+                },
+                exit = when (motion) {
+                    DialogMotion.Dialog -> Animations.dialogExit
+                    DialogMotion.Screen -> sharedAxisZExit(forward = true)
+                    DialogMotion.Still -> ExitTransition.None
+                },
                 modifier = Modifier.fillMaxSize()
             ) {
                 val textColor = if (isDarkTheme) Color.White else Color.Black
@@ -470,6 +537,9 @@ private fun DialogWindowEffect(isDarkTheme: Boolean) {
             // Remove standard system backgrounds/window shadows
             it.setDimAmount(0f)
             it.setBackgroundDrawableResource(android.R.color.transparent)
+            // The content animates itself. The system's own fade of the window would play over
+            // it, a window closing under another showing through as it fades
+            it.setWindowAnimations(0)
 
             val insets = WindowCompat.getInsetsController(it, it.decorView)
             insets.isAppearanceLightStatusBars = !isDarkTheme

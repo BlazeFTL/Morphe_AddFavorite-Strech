@@ -246,11 +246,7 @@ private fun DialogHostScope.PatchFlowDialog(
 ) {
     // Held so a dialog leaves as it stood, color included, as the run is let go of while it closes
     val session = held(flow.session)
-    val pickAnother: () -> Unit = {
-        flow.pickAnotherApk(dialog)
-        storagePickerLauncher()
-    }
-    val dismiss: () -> Unit = { flow.dismiss(dialog) }
+    val dismiss = flow::dismiss
 
     when (dialog) {
         is HomeDialog.AppInfo -> {
@@ -282,10 +278,7 @@ private fun DialogHostScope.PatchFlowDialog(
             installedApkInfo = session.installedApk,
             installedAppVersion = session.installedVersion,
             onDismiss = flow::backFromApkSource,
-            onHaveApk = {
-                flow.leaveApkSource()
-                storagePickerLauncher()
-            },
+            onHaveApk = storagePickerLauncher,
             onNeedApk = flow::showDownloadInstructions,
             onUseSaved = flow::handleSavedApkSelection,
             onUseInstalled = flow::handleInstalledApkSelection
@@ -327,10 +320,7 @@ private fun DialogHostScope.PatchFlowDialog(
                 isOtherApps = isOtherApps,
                 isLoadingInstalledApps = flow.loadingInstalledApps,
                 onDismiss = flow::backFromApkSource,
-                onOpenFilePicker = {
-                    flow.leaveApkSource()
-                    storagePickerLauncher()
-                },
+                onOpenFilePicker = storagePickerLauncher,
                 onUseInstalledApp = if (isOtherApps) flow::loadInstalledAppsForPicker else null
             )
         }
@@ -386,7 +376,7 @@ private fun DialogHostScope.PatchFlowDialog(
             appName = session?.appName.orEmpty(),
             packageName = session?.packageName,
             onProceed = flow::proceedWithSplitApk,
-            onPickAnother = pickAnother,
+            onPickAnother = storagePickerLauncher,
             onDismiss = dismiss
         )
 
@@ -394,8 +384,8 @@ private fun DialogHostScope.PatchFlowDialog(
         is HomeDialog.InvalidSignature -> InvalidSignatureDialog(
             appName = dialog.state.appName,
             packageName = dialog.state.packageName,
-            onPickAnother = pickAnother,
-            onProceed = { flow.proceedIgnoringSignature(dialog) },
+            onPickAnother = storagePickerLauncher,
+            onProceed = flow::proceedIgnoringSignature,
             onDismiss = dismiss
         )
 
@@ -411,7 +401,7 @@ private fun DialogHostScope.PatchFlowDialog(
             freeBytes = dialog.freeBytes,
             thresholdBytes = LOW_DISK_SPACE_THRESHOLD_BYTES,
             onDismiss = dismiss,
-            onPatchAnyway = { flow.dismissLowDiskSpaceDialogAndProceed(dialog) }
+            onPatchAnyway = flow::dismissLowDiskSpaceDialogAndProceed
         )
 
         // Shown in simple mode when 2+ bundles have patches for the same app

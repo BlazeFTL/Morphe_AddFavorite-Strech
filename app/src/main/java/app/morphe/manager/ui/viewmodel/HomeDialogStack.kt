@@ -60,6 +60,14 @@ class HomeDialogStack {
         entries = entries - dialog + dialog
     }
 
+    /**
+     * Opens [dialog] as the run's next step, in place of the flow's dialogs over the app
+     * information. They stay under it until it has come in, so nothing behind shows between them.
+     */
+    fun advanceTo(dialog: HomeDialog) {
+        entries = entries.filterIsInstance<HomeDialog.AppInfo>() + dialog
+    }
+
     fun close(dialog: HomeDialog) {
         entries = entries - dialog
     }

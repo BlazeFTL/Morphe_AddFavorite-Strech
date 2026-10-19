@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Aucune application masquée</string>
     <string name="home_app_hidden_apps_title">Applications masquées</string>
     <string name="home_app_hidden_apps_hint">Appuyez pour afficher</string>
+    <string name="home_apps_unhide_message">Les applications réaffichées reviennent à l\'écran d\'accueil</string>
     <string name="home_app_patch_sources_description">Les sources laissées décochées ne sont pas proposées lorsque ces applications sont patchées, et leurs patchs ne rejoignent jamais une sélection d\'eux-mêmes. Chaque source reste activée pour toutes les autres applications</string>
     <string name="home_app_patch_sources_mixed">Proposé à %1$s de %2$s</string>
     <string name="home_app_patch_sources_covers">Possède des patchs pour %1$s de %2$s</string>
@@ -458,7 +459,7 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="batch_patch_title">Patching par lots</string>
     <string name="batch_patch_planning">Préparation de la file d\'attente…</string>
     <string name="batch_patch_preparing_next">Préparation de l\'application suivante…</string>
-    <string name="batch_patch_progress_counter">%1$s sur %2$s patchées</string>
+    <string name="batch_patch_progress_counter">Patching %1$s sur %2$s</string>
     <string name="batch_patch_summary">%1$s patchées, %2$s échouées, %3$s passées</string>
     <string name="batch_patch_saved_hint">Les applications patchées sont enregistrées. Installez-les maintenant ou plus tard depuis la liste des APK patchés dans les paramètres</string>
     <string name="batch_patch_multiple_sources">Certaines applications combinent des patchs provenant de plusieurs sources, ce qui peut provoquer des conflits</string>
@@ -657,12 +658,6 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="battery_optimization_dialog_title">Protection du patching en arrière-plan</string>
     <string name="battery_optimization_dialog_description">Certains appareils peuvent arrêter le patcheur lorsque l\'application est minimisée. Autorisez Morphe à fonctionner sans restriction de batterie afin de garantir que le patching s\'effectue correctement</string>
     <string name="battery_optimization_not_now">Pas maintenant</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Mémoire insuffisante</string>
-    <string name="patcher_memory_adjustment_description">Le patcheur a été arrêté par le système alors qu\'il était exécuté avec une limite de mémoire de %1$d Mo. Réduire la limite à %2$d Mo rend le patcheur moins gourmand en mémoire et peut permettre à l\'exécution de se terminer</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Le patcheur a été arrêté par le système alors qu\'il était exécuté avec une limite de mémoire de %1$d Mo, qui est déjà la plus basse disponible. Essayez de patcher avec moins de sources de patchs, ou sélectionnez moins de patchs</string>
-    <string name="patcher_memory_adjustment_description_finished">Le système a arrêté le patcheur à une limite de mémoire de %1$d Mo, et il n\'a terminé qu\'à %2$d Mo. Commencer à %2$d Mo la prochaine fois permet d\'éviter cette tentative perdue</string>
-    <string name="patcher_memory_adjustment_apply">Réduire à %1$d Mo</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patching en cours…</string>
     <string name="patcher_notification_text">Appuyez pour revenir au patcheur</string>
@@ -704,7 +699,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="failed_to_execute_patch">Échec de l\'application de %s</string>
     <string name="patched_app_save_failed_toast">Échec de l\'enregistrement de l\'application patchée</string>
     <string name="plugin_activity_dialog_body">Une interaction de l\'utilisateur est nécessaire pour pouvoir poursuivre avec ce plugin</string>
-    <string name="patcher_process_exit_message">Le processus du patcheur s\'est terminé avec le code %s</string>
+    <string name="patcher_process_killed_message">Le système a arrêté le patcheur avant qu\'il ait terminé, généralement pour libérer de la mémoire. Fermez les autres applications et réessayez</string>
     <string name="patcher_heap_exhausted_message">Le patcheur a manqué de mémoire avec un tas de %1$d Mo. Cette application est trop volumineuse pour les patchs sélectionnés. Essayez de patcher avec moins de sources de patchs, ou sélectionnez moins de patchs.</string>
     <string name="install_app_success">Installé avec succès</string>
     <string name="install_app_fail">Impossible d\'installer l\'application : %s</string>
@@ -992,7 +987,7 @@ Les dimensions des images doivent respecter les valeurs suivantes :
 - drawable-xxxhdpi : 512x192 px"</string>
     <!-- Settings - Advanced Tab - Patch Options Section: Hide Shorts -->
     <string name="settings_advanced_patch_options_hide_shorts_app_shortcut">Masquer le raccourci \'Shorts\' de l\'application</string>
-    <string name="settings_advanced_patch_options_hide_shorts_app_shortcut_description">Supprime \'Shorts\' du menu lors du maintien du lanceur</string>
+    <string name="settings_advanced_patch_options_hide_shorts_app_shortcut_description">Supprime \'Shorts\' du menu lors d\'un appui long sur le lanceur</string>
     <string name="settings_advanced_patch_options_hide_shorts_widget">Masquer le widget Shorts</string>
     <string name="settings_advanced_patch_options_hide_shorts_widget_description">Supprime le bouton \'Shorts\' du widget du lanceur</string>
     <!-- Settings - System Tab - Installer Section -->
@@ -1073,13 +1068,9 @@ Détails : %2$s"</string>
     <string name="settings_system_battery_optimization">Optimisation de la batterie</string>
     <string name="settings_system_battery_optimization_description">Maintient le patcheur en cours d\'exécution lorsque l\'application est minimisée</string>
     <string name="settings_system_process_runtime">Temps d\'exécution du processus</string>
-    <string name="settings_system_process_runtime_description">Exécute le patching dans un processus séparé pour une meilleure stabilité</string>
-    <string name="settings_system_process_runtime_enable">Activer le temps d\'exécution du processus</string>
-    <string name="settings_system_memory_limit_subtitle">Mémoire disponible pour le patching</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Cet appareil a ignoré la limite de mémoire lors de la dernière exécution, donc le patching pourrait revenir à une exécution à l\'intérieur de Morphe</string>
-    <string name="settings_system_memory_limit_warning">Une limite de mémoire faible peut entraîner des échecs lors du patching des applications plus volumineuses</string>
-    <string name="settings_system_memory_limit_high_warning">Une limite de mémoire élevée peut rendre le patching beaucoup plus lent sur certains appareils. Augmentez-la uniquement si le patching continue d\'échouer avec des limites plus faibles</string>
-    <string name="settings_system_process_runtime_description_not_available">Cette fonctionnalité nécessite Android 11 ou une version ultérieure</string>
+    <string name="settings_system_jvm_runtime_enable">Processus de patcheur séparé</string>
+    <string name="settings_system_jvm_runtime_description">Patche dans son propre environnement d\'exécution Java, qui peut utiliser autant de mémoire que l\'appareil peut libérer. Désactivez cette option pour patcher directement dans Morphe</string>
+    <string name="settings_system_jvm_runtime_unavailable">Nécessite un appareil ARM ou x86 64 bits</string>
     <string name="settings_system_patcher_completion_sound">Son de fin</string>
     <string name="settings_system_patcher_completion_sound_description">Joue un son distinct pour indiquer la réussite ou l\'échec lorsque le patching est terminé</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1153,6 +1144,7 @@ Détails : %2$s"</string>
     <string name="settings_system_storage_management_title">Gestion du stockage</string>
     <string name="settings_system_storage_management_description">Affiche l\'espace disque utilisé et supprime les fichiers en cache</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s libre</string>
     <string name="settings_system_storage_saved_apks">APK enregistrés</string>
     <string name="settings_system_storage_caches">Caches</string>
     <string name="settings_system_storage_keystore_title">Keystore de signature</string>

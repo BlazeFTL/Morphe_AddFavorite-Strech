@@ -16,6 +16,7 @@
     <string name="home_app_hidden_apps_title">אפליקציות מוסתרות</string>
     <string name="home_app_hidden_apps_hint">
 הקישו כדי להציג</string>
+    <string name="home_apps_unhide_message">אפליקציות בלתי נגלות חוזרות למסך הבית</string>
     <string name="home_app_patch_sources_description">מקורות שנותרו לא מסומנים אינם מוצעים כשהאפליקציות האלה מתוקנות, והתיקונים שלהם לעולם אינם מצטרפים לבחירה מעצמם. כל מקור נשאר מסומן עבור כל שאר האפליקציות</string>
     <string name="home_app_patch_sources_mixed">מוצע ל-%1$s מתוך %2$s</string>
     <string name="home_app_patch_sources_covers">יש תיקונים עבור %1$s מתוך %2$s</string>
@@ -457,7 +458,6 @@
     <string name="batch_patch_title">תיקון באצווה</string>
     <string name="batch_patch_planning">מכין את התור…</string>
     <string name="batch_patch_preparing_next">מכין את האפליקציה הבאה…</string>
-    <string name="batch_patch_progress_counter">טלאו %1$s מתוך %2$s</string>
     <string name="batch_patch_summary">%1$s טלאים הותקנו, %2$s נכשלו, %3$s דולגו</string>
     <string name="batch_patch_saved_hint">האפליקציות שעברו תיקון נשמרו. התקן אותן עכשיו, או מאוחר יותר מרשימת ה-APK המתוקנים בהגדרות</string>
     <string name="batch_patch_multiple_sources">אפליקציות מסוימות משלבות טלאים ממקורות שונים, מה שעלול לגרום להתנגשויות</string>
@@ -654,12 +654,6 @@
     <string name="battery_optimization_dialog_title">הגנה על תיקון רקע</string>
     <string name="battery_optimization_dialog_description">ייתכן שמכשירים מסוימים יפסיקו את המתקן כאשר האפליקציה מצומצמת. אפשר ל-Morphe לפעול ללא הגבלות סוללה כדי להבטיח שהתיקון יושלם באופן מהימן</string>
     <string name="battery_optimization_not_now">לא עכשיו</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">אין מספיק זיכרון</string>
-    <string name="patcher_memory_adjustment_description">המתקן הופסק על ידי המערכת בזמן שפעל עם מגבלת זיכרון של %1$d MB. הורדת המגבלה ל-%2$d MB הופכת את המתקן למטרה קטנה יותר ויכולה לאפשר להריצה להסתיים.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">המתקן הופסק על ידי המערכת בזמן שפעל עם מגבלת זיכרון של %1$d MB, שהיא כבר הנמוכה ביותר הזמינה. נסה לתקן עם פחות מקורות תיקון, או בחר פחות תיקונים.</string>
-    <string name="patcher_memory_adjustment_description_finished">המערכת עצרה את תהליך התיקון בגבול זיכרון של %1$d MB, והוא סיים רק ב-%2$d MB. בפעם הבאה, התחלה מ-%2$d MB תדלג על הניסיון המבוזבז</string>
-    <string name="patcher_memory_adjustment_apply">הורד ל-%1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">התיקון מתבצע…</string>
     <string name="patcher_notification_text">הקש כדי לחזור למתקן</string>
@@ -701,7 +695,6 @@
     <string name="failed_to_execute_patch">נכשל להחיל %s</string>
     <string name="patched_app_save_failed_toast">נכשל לשמור אפליקציה מתוקנת</string>
     <string name="plugin_activity_dialog_body">נדרש אינטראקציה של המשתמש כדי להמשיך עם תוסף זה</string>
-    <string name="patcher_process_exit_message">פועל הפייסר יצא עם קוד %s</string>
     <string name="patcher_heap_exhausted_message">למתקן נגמר הזיכרון עם ערימת %1$d מגה-בייט. האפליקציה הזו גדולה מדי עבור התיקונים שנבחרו. נסה לתקן עם פחות מקורות תיקון, או בחר פחות תיקונים.</string>
     <string name="install_app_success">הותקן בהצלחה</string>
     <string name="install_app_fail">נכשל להתקין את האפליקציה: %s</string>
@@ -1078,13 +1071,6 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_battery_optimization">מיטוב הסוללה</string>
     <string name="settings_system_battery_optimization_description">שומר את התיקון פעיל כאשר האפליקציה ממוזערת</string>
     <string name="settings_system_process_runtime">זמן ריצה של תהליך</string>
-    <string name="settings_system_process_runtime_description">מריץ תיקון בתהליך נפרד ליציבות טובה יותר</string>
-    <string name="settings_system_process_runtime_enable">הפעלת זמן ריצה של תהליך</string>
-    <string name="settings_system_memory_limit_subtitle">זיכרון זמין לתיקון </string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">המכשיר התעלם ממגבלת הזיכרון בריצה האחרונה, כך שהתיקון עשוי לחזור לרוץ בתוך Morphe</string>
-    <string name="settings_system_memory_limit_warning">מגבלת זיכרון נמוכה עלולה לגרום לכשלים בעת תיקון אפליקציות גדולות יותר</string>
-    <string name="settings_system_memory_limit_high_warning">מגבלת זיכרון גבוהה עלולה להאבט משמעותית את תהליך התיקון בחלק מהמכשירים. הגדל אותה רק אם התיקון ממשיך להיכשל במגבלות נמוכות יותר.</string>
-    <string name="settings_system_process_runtime_description_not_available">תכונה זו דורשת אנדרואיד 11 ומעלה</string>
     <string name="settings_system_patcher_completion_sound">צליל השלמה</string>
     <string name="settings_system_patcher_completion_sound_description">מנגן צליל ייחודי להצלחה או לכישלון כאשר התיקון מסתיים</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1157,6 +1143,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_storage_management_title">ניהול אחסון</string>
     <string name="settings_system_storage_management_description">מציג שימוש בכונן ומנקה קבצים במטמון</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s חינמי</string>
     <string name="settings_system_storage_saved_apks">APKs שמורים</string>
     <string name="settings_system_storage_caches">מטמון</string>
     <string name="settings_system_storage_keystore_title">מאגר מפתחות חתימה</string>

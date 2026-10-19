@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Καμία κρυμμένη εφαρμογή</string>
     <string name="home_app_hidden_apps_title">Κρυφές εφαρμογές</string>
     <string name="home_app_hidden_apps_hint">Πατήστε για επανεμφάνιση</string>
+    <string name="home_apps_unhide_message">Οι κρυμένες εφαρμογές επιστρέφουν στην οθόνη έναρξης</string>
     <string name="home_app_patch_sources_description">Οι πηγές που δεν είναι επιλεγμένες δεν προσφέρονται όταν αυτές οι εφαρμογές διορθώνονται, και οι διορθώσεις αυτών των πηγών δεν συμπεριλαμβάνονται ποτέ από μόνες τους σε μια επιλογή. Κάθε πηγή παραμένει ενεργή για κάθε άλλη εφαρμογή.</string>
     <string name="home_app_patch_sources_mixed">Προσφέρεται σε %1$s από %2$s</string>
     <string name="home_app_patch_sources_covers">Έχει τροποποιήσεις για %1$s από %2$s</string>
@@ -456,7 +457,6 @@
     <string name="batch_patch_title">Μαζική τροποποίηση</string>
     <string name="batch_patch_planning">Προετοιμασία της ουράς…</string>
     <string name="batch_patch_preparing_next">Προετοιμασία της επόμενης εφαρμογής…</string>
-    <string name="batch_patch_progress_counter">Επιδιορθωμένο %1$s του %2$s</string>
     <string name="batch_patch_summary">%1$s επιδιορθώθηκε, %2$s απέτυχε, %3$s παρακάμφθηκαν</string>
     <string name="batch_patch_saved_hint">Οι διορθωμένες εφαρμογές έχουν αποθηκευτεί. Εγκαταστήστε τες τώρα, ή αργότερα από τη λίστα των διορθωμένων APK στις ρυθμίσεις</string>
     <string name="batch_patch_multiple_sources">Ορισμένες εφαρμογές συνδυάζουν διορθώσεις από περισσότερες από μία πηγές, κάτι που μπορεί να προκαλέσει συγκρούσεις</string>
@@ -653,12 +653,6 @@
     <string name="battery_optimization_dialog_title">Προστασία επισκευής παρασκηνίου</string>
     <string name="battery_optimization_dialog_description">Ορισμένες συσκευές ενδέχεται να σταματήσουν το πρόγραμμα επισκευής όταν η εφαρμογή ελαχιστοποιηθεί. Επιτρέψτε στο Morphe να εκτελείται χωρίς περιορισμούς μπαταρίας για να διασφαλίσετε ότι η επισκευή ολοκληρώνεται αξιόπιστα</string>
     <string name="battery_optimization_not_now">Όχι τώρα</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Δεν υπάρχει αρκετή μνήμη</string>
-    <string name="patcher_memory_adjustment_description">Το patcher σταμάτησε από το σύστημα ενώ εκτελούνταν με όριο μνήμης %1$d MB. Η μείωση του ορίου σε %2$d MB καθιστά το patcher μικρότερο στόχο και μπορεί να επιτρέψει την ολοκλήρωση της εκτέλεσης.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Το patcher σταμάτησε από το σύστημα ενώ εκτελούνταν με όριο μνήμης %1$d MB, το οποίο είναι ήδη το χαμηλότερο διαθέσιμο. Δοκιμάστε να επιδιορθώσετε με λιγότερες πηγές επιδιόρθωσης ή επιλέξτε λιγότερες επιδιορθώσεις.</string>
-    <string name="patcher_memory_adjustment_description_finished">Το σύστημα σταμάτησε το εργαλείο επιδιόρθωσης στο όριο μνήμης %1$d MB και ολοκληρώθηκε μόνο στα %2$d MB. Η εκκίνηση από %2$d MB παραλείπει αυτή τη χαμένη προσπάθεια την επόμενη φορά</string>
-    <string name="patcher_memory_adjustment_apply">Μειώστε σε %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Τροποποίηση σε εξέλιξη…</string>
     <string name="patcher_notification_text">Πατήστε για να επιστρέψετε στο πρόγραμμα τροποποίησης</string>
@@ -700,7 +694,6 @@
     <string name="failed_to_execute_patch">Απέτυχε η εφαρμογή του %s</string>
     <string name="patched_app_save_failed_toast">Αποτυχία αποθήκευσης της τροποποιημένης εφαρμογής</string>
     <string name="plugin_activity_dialog_body">Απαιτείται αλληλεπίδραση χρήστη για να συνεχίσετε με αυτό το πρόσθετο.</string>
-    <string name="patcher_process_exit_message">Η διαδικασία του τροποποιητή σταμάτησε με κωδικό %s</string>
     <string name="patcher_heap_exhausted_message">Ο patcher εξάντλησε τη μνήμη με μέγεθος σωρού %1$d MB. Αυτή η εφαρμογή είναι πολύ μεγάλη για τα επιλεγμένα patches. Δοκιμάστε να κάνετε patch με λιγότερες πηγές patch ή επιλέξτε λιγότερα patches.</string>
     <string name="install_app_success">Επιτυχής εγκατάσταση</string>
     <string name="install_app_fail">Απέτυχε η εγκατάσταση της εφαρμογής: %s</string>
@@ -1067,13 +1060,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">Βελτιστοποίηση μπαταρίας</string>
     <string name="settings_system_battery_optimization_description">Διατηρεί τον επεξεργαστή ενεργό όταν η εφαρμογή είναι ελαχιστοποιημένη</string>
     <string name="settings_system_process_runtime">Χρόνος εκτέλεσης διεργασίας</string>
-    <string name="settings_system_process_runtime_description">Εκτελεί την τροποποίηση σε ξεχωριστή διεργασία για καλύτερη σταθερότητα</string>
-    <string name="settings_system_process_runtime_enable">Ενεργοποίηση χρόνου εκτέλεσης διεργασίας</string>
-    <string name="settings_system_memory_limit_subtitle">Διαθέσιμη μνήμη για τροποποίηση</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Αυτή η συσκευή αγνόησε το όριο μνήμης κατά την τελευταία εκτέλεση, οπότε η εφαρμογή διορθώσεων ενδέχεται να χρησιμοποιήσει ως εναλλακτική την εκτέλεση εντός του Morphe.</string>
-    <string name="settings_system_memory_limit_warning">Ένα μικρό όριο μνήμης μπορεί να δημιουργήσει αποτυχία όταν τροποποιούνται μεγαλύτερες εφαρμογές</string>
-    <string name="settings_system_memory_limit_high_warning">Ένα υψηλό όριο μνήμης μπορεί να κάνει την επιδιόρθωση πολύ πιο αργή σε ορισμένες συσκευές. Αυξήστε το μόνο αν η επιδιόρθωση συνεχίζει να αποτυγχάνει σε χαμηλότερα όρια.</string>
-    <string name="settings_system_process_runtime_description_not_available">Αυτή η λειτουργία απαιτεί Android 11 ή νεότερη έκδοση</string>
     <string name="settings_system_patcher_completion_sound">Ήχος ολοκλήρωσης</string>
     <string name="settings_system_patcher_completion_sound_description">Αναπαράγει έναν διακριτό τόνο για επιτυχία ή αποτυχία κατά την ολοκλήρωση της επιδιόρθωσης</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_management_title">Διαχείριση αποθηκευτικού χώρου</string>
     <string name="settings_system_storage_management_description">Εμφανίζει χρήση δίσκου και καθαρίζει αρχεία cache</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">Δωρεάν %1$s</string>
     <string name="settings_system_storage_saved_apks">Αποθηκευμένα αρχεία APK</string>
     <string name="settings_system_storage_caches">Εκκαθάριση</string>
     <string name="settings_system_storage_keystore_title">Αποθηκευτικό στοιχείο υπογραφών</string>

@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Engin falin app</string>
     <string name="home_app_hidden_apps_title">Falin app</string>
     <string name="home_app_hidden_apps_hint">Banka til að fela</string>
+    <string name="home_apps_unhide_message">Falin forrit koma aftur á heimaskjá</string>
     <string name="home_app_patch_sources_description">Óvaldar uppsprettur eru ekki boðnar þegar þessi forrit eru plöstuð, og plástrar þeirra bætast aldrei við val af sjálfu sér. Hver uppspretta er áfram valin fyrir öll önnur forrit.</string>
     <string name="home_app_patch_sources_mixed">Í boði fyrir %1$s af %2$s</string>
     <string name="home_app_patch_sources_covers">Hefur plástra fyrir %1$s af %2$s</string>
@@ -455,7 +456,6 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="batch_patch_title">Batch patching</string>
     <string name="batch_patch_planning">Býr til biðröð…</string>
     <string name="batch_patch_preparing_next">Býr appið næst…</string>
-    <string name="batch_patch_progress_counter">Lagfært %1$s af %2$s</string>
     <string name="batch_patch_summary">%1$s lagfært, %2$s mislukkaðist, %3$s sleppt</string>
     <string name="batch_patch_saved_hint">Pökkunarpakkarnir sem breyttu eru vistaðir. Settu þá upp núna, eða síðar frá listanum yfir breytt APK í stillingum</string>
     <string name="batch_patch_multiple_sources">Sumir appnotkunarpakkarnir sameina breytingar frá fleiri en einni uppruna, sem getur valdið átökum</string>
@@ -652,12 +652,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="battery_optimization_dialog_title">Vernd fyrir bakgrunns breytingar</string>
     <string name="battery_optimization_dialog_description">Sum tæki gætu stöðvað breytingasmáttana þegar appið er lágmarks. Leyfðu Morphe að keyra án rafhlöðubindingar til að tryggja áreiðanlega breytinga</string>
     <string name="battery_optimization_not_now">Ekki núna</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Ekki nóg minni</string>
-    <string name="patcher_memory_adjustment_description">Patcher var stöðvaður af kerfinu á meðan hann keyrði með %1$d MB minnismörk. Lækkun minnismarkanna í %2$d MB gerir hann að minna skotmarki og getur leyft keyrslunni að ljúka.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Patcher var stöðvaður af kerfinu á meðan hann keyrði með %1$d MB minnismörk, sem eru þegar þau lægstu sem í boði eru. Reyndu að plástra með færri uppsprettum, eða veldu færri plástra.</string>
-    <string name="patcher_memory_adjustment_description_finished">Kerfið stöðvaði plástrarann við %1$d MB minnismörk, og það kláraðist aðeins við %2$d MB. Að byrja við %2$d MB sleppir þeirri glötuðu tilraun næst</string>
-    <string name="patcher_memory_adjustment_apply">Lækka í %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Breytistilling í gangi…</string>
     <string name="patcher_notification_text">Tappaðu til að snúa aftur á breytistillinguna</string>
@@ -699,7 +693,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="failed_to_execute_patch">Ekki tókst að á breytistillingu %s</string>
     <string name="patched_app_save_failed_toast">Ekki tókst að vista breytt app</string>
     <string name="plugin_activity_dialog_body">Þú þarft að grípa í gagnvirkt á hugbuginn til að fara áfram</string>
-    <string name="patcher_process_exit_message">Breytingavinnsla endaði með kóða %s</string>
     <string name="patcher_heap_exhausted_message">Plástrarinn kláraði minnið með %1$d MB minnisgeymi. Þetta forrit er of stórt fyrir valda plástra. Reyndu að nota færri plástrauppsprettur, eða veldu færri plástra.</string>
     <string name="install_app_success">Uppsett með góðum árangri</string>
     <string name="install_app_fail">Ekki tókst að setja upp app: %s</string>
@@ -1064,13 +1057,6 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_battery_optimization">Rafhlöðu útvinnslustillingar</string>
     <string name="settings_system_battery_optimization_description">Skoða upprunaleg geymslu</string>
     <string name="settings_system_process_runtime">Vinnslutími</string>
-    <string name="settings_system_process_runtime_description">Skrá verður að hafa .mpp framlengingu</string>
-    <string name="settings_system_process_runtime_enable">Virkja vinnslutíma</string>
-    <string name="settings_system_memory_limit_subtitle">Minni í boði fyrir breytingar</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Þetta tæki hunsaði minnismörkin í síðustu keyrslu, þannig að plástrun gæti endað með því að keyra inni í Morphe.</string>
-    <string name="settings_system_memory_limit_warning">Lítil minnistakmörk geta valdið bilum þegar breytingar eru gerðar á stærri forritum</string>
-    <string name="settings_system_memory_limit_high_warning">Hátt minnismark getur gert plástrun miklu hægari á sumum tækjum. Hækkaðu það aðeins ef plástrun heldur áfram að mistakast við lægri mörk.</string>
-    <string name="settings_system_process_runtime_description_not_available">Þessi staðsetning þarf Android 11 eða meira</string>
     <string name="settings_system_patcher_completion_sound">Ljós hljóð</string>
     <string name="settings_system_patcher_completion_sound_description">Spilar ákveðinn tón fyrir árangur eða misgengi þegar flakkast er lokið</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1143,6 +1129,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_storage_management_title">Stjórnun geymslu</string>
     <string name="settings_system_storage_management_description">Sýnir disknotkun og hreinar skilvirkt skjalasafn</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s ónotað</string>
     <string name="settings_system_storage_saved_apks">Vistaðar APK-skrár</string>
     <string name="settings_system_storage_caches">Geymslur</string>
     <string name="settings_system_storage_keystore_title">Staðfestingarlyklar</string>

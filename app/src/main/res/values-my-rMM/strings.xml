@@ -82,7 +82,6 @@
     <!-- Value of "Libraries": every library was left in the patched APK -->
     <!-- Patcher Screen - Patcher Steps -->
     <!-- Battery optimization pre-flight dialog -->
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <!-- Patcher Screen - Patcher Messages -->
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->

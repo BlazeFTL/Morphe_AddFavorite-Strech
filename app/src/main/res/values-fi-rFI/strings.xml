@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Ei piilotettuja sovelluksia</string>
     <string name="home_app_hidden_apps_title">Piilotetut sovellukset</string>
     <string name="home_app_hidden_apps_hint">Napauta näyttääksesi</string>
+    <string name="home_apps_unhide_message">Piilotetut sovellukset palaavat aloitusnäyttöön</string>
     <string name="home_app_patch_sources_description">Valitsematta jätetyt lähteet eivät ole tarjolla, kun näitä sovelluksia paikataan, eivätkä niiden paikkaukset koskaan liity valintaan itsestään. Jokainen lähde pysyy päällä jokaisessa muussa sovelluksessa</string>
     <string name="home_app_patch_sources_mixed">Tarjottu %1$s:lle %2$s:stä</string>
     <string name="home_app_patch_sources_covers">Sisältää patcheja %1$s:lle %2$s:stä</string>
@@ -457,7 +458,6 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="batch_patch_title">Ryhmäkorjaus</string>
     <string name="batch_patch_planning">Jonon valmistelu…</string>
     <string name="batch_patch_preparing_next">Seuraavan sovelluksen valmistelu…</string>
-    <string name="batch_patch_progress_counter">Korjattu %1$s / %2$s</string>
     <string name="batch_patch_summary">%1$s korjattu, %2$s epäonnistui, %3$s ohitettu</string>
     <string name="batch_patch_saved_hint">Korjatut sovellukset on tallennettu. Asenna ne nyt tai myöhemmin korjattujen APK-tiedostojen luettelosta asetuksista</string>
     <string name="batch_patch_multiple_sources">Jotkut sovellukset yhdistävät korjauksia useista lähteistä, mikä voi aiheuttaa ristiriitoja</string>
@@ -654,12 +654,6 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="battery_optimization_dialog_title">Taustakorjaussuojaus</string>
     <string name="battery_optimization_dialog_description">Jotkin laitteet saattavat pysäyttää korjausohjelman, kun sovellus minimoidaan. Salli Morphen toimia ilman virransäästörajoituksia varmistaaksesi, että korjaus suoritetaan luotettavasti.</string>
     <string name="battery_optimization_not_now">Ei nyt</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Muisti ei riitä</string>
-    <string name="patcher_memory_adjustment_description">Järjestelmä pysäytti patcherin, kun se toimi %1$d Mt:n muistirajalla. Laskemalla rajan arvoon %2$d Mt patcherista tulee pienempi kohde, ja suoritus voi päättyä.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Järjestelmä pysäytti patcherin, kun se toimi %1$d Mt:n muistirajalla, joka on jo alin käytettävissä oleva. Yritä paikkausta vähemmillä patch-lähteillä tai valitse vähemmän patcheja.</string>
-    <string name="patcher_memory_adjustment_description_finished">Järjestelmä pysäytti paikkaajan %1$d MB:n muistirajalla, ja se onnistui vasta %2$d MB:ssä. Aloittaminen %2$d MB:stä ohittaa tuon hukatun yrityksen seuraavalla kerralla</string>
-    <string name="patcher_memory_adjustment_apply">Pienennä arvoon %1$d Mt</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Muokkaus käynnissä…</string>
     <string name="patcher_notification_text">Palaa muokkaukseen napauttamalla</string>
@@ -701,7 +695,6 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="failed_to_execute_patch">Käyttöönotto epäonnistui: %s</string>
     <string name="patched_app_save_failed_toast">Muokatun sovelluksen tallennus epäonnistui</string>
     <string name="plugin_activity_dialog_body">Tämän liitännäisen käyttöönoton jatkamiseksi tarvitaan käyttäjän toimia.</string>
-    <string name="patcher_process_exit_message">Muokkausprosessi päättyi koodilla %s</string>
     <string name="patcher_heap_exhausted_message">Paikkaajalta loppui muisti %1$d MB:n kekomuistilla. Tämä sovellus on liian suuri valituille paikkauksille. Yritä paikata vähemmillä paikkalähteillä tai valitse vähemmän paikkauksia.</string>
     <string name="install_app_success">Asennus onnistui</string>
     <string name="install_app_fail">Sovelluksen asentaminen epäonnistui: %s</string>
@@ -1066,13 +1059,6 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_battery_optimization">Akun käytön optimointi</string>
     <string name="settings_system_battery_optimization_description">Pitää paikkaajan käynnissä, kun sovellus on pienennetty</string>
     <string name="settings_system_process_runtime">Prosessin suoritus</string>
-    <string name="settings_system_process_runtime_description">Suorita muokkaaminen erillisessä prosessissa paremman vakauden vuoksi</string>
-    <string name="settings_system_process_runtime_enable">Ota prosessin suoritus käyttöön</string>
-    <string name="settings_system_memory_limit_subtitle">Muokkaamiseen käytettävissä oleva muisti</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Tämä laite ei noudattanut muistirajaa viimeisellä suorituskerralla, joten paikkaus saattaa pudota takaisin Morphen sisällä suoritettavaksi.</string>
-    <string name="settings_system_memory_limit_warning">Pieni muistirajoitus voi aiheuttaa virheitä suuria sovelluksia muokattaessa</string>
-    <string name="settings_system_memory_limit_high_warning">Suuri muistiraja voi tehdä paikkaamisesta paljon hitaampaa joissakin laitteissa. Nosta rajaa vain, jos paikkaaminen epäonnistuu edelleen pienemmillä rajoilla.</string>
-    <string name="settings_system_process_runtime_description_not_available">Tämä ominaisuus vaatii Android-version 11 tai uudemman </string>
     <string name="settings_system_patcher_completion_sound">Valmistumisen ääni</string>
     <string name="settings_system_patcher_completion_sound_description">Toistaa erillisen äänen onnistumisesta tai epäonnistumisesta paikkauksen valmistuttua</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1145,6 +1131,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_storage_management_title">Tallennustilan hallinta</string>
     <string name="settings_system_storage_management_description">Näyttää levytilankäytön ja tyhjentää välimuistitiedostot</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s vapaata</string>
     <string name="settings_system_storage_saved_apks">Tallennetut APK-tiedostot</string>
     <string name="settings_system_storage_caches">Välimuistit</string>
     <string name="settings_system_storage_keystore_title">Keystore-allekirjoitukset</string>

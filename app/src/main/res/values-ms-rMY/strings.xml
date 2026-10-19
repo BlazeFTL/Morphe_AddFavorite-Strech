@@ -422,7 +422,6 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="batch_patch_title">Tampalan kelompok</string>
     <string name="batch_patch_planning">Menyediakan baris gilir…</string>
     <string name="batch_patch_preparing_next">Menyediakan aplikasi seterusnya…</string>
-    <string name="batch_patch_progress_counter">Ditampal %1$s daripada %2$s</string>
     <string name="batch_patch_summary">%1$s ditampal, %2$s gagal, %3$s dilangkau</string>
     <string name="batch_patch_saved_hint">Aplikasi bertampal disimpan. Pasang sekarang, atau kemudian daripada senarai APK bertampal dalam tetapan</string>
     <string name="batch_patch_multiple_sources">Sesetengah aplikasi menggabungkan tampalan daripada lebih daripada satu sumber, yang boleh menyebabkan konflik</string>
@@ -605,11 +604,6 @@ Nyahpasang akan memadam semua data aplikasi secara kekal"</string>
     <string name="battery_optimization_dialog_title">Perlindungan tampalan latar belakang</string>
     <string name="battery_optimization_dialog_description">Sesetengah peranti mungkin menghentikan penampal apabila aplikasi diminimumkan. Benarkan Morphe berjalan tanpa keterbatasan bateri untuk memastikan tampalan selesai dengan teliti</string>
     <string name="battery_optimization_not_now">Bukan sekarang</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Memori tidak mencukupi</string>
-    <string name="patcher_memory_adjustment_description">Patcher dihentikan oleh sistem semasa berjalan dengan had memori %1$d MB. Menurunkan had kepada %2$d MB menjadikan patcher sasaran yang lebih kecil dan boleh membenarkan proses itu selesai</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Patcher dihentikan oleh sistem semasa berjalan dengan had memori %1$d MB, yang sudah pun paling rendah tersedia. Cuba tampal dengan lebih sedikit sumber tampalan, atau pilih lebih sedikit tampalan</string>
-    <string name="patcher_memory_adjustment_apply">Turunkan kepada %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Tampalan sedang berjalan… </string>
     <string name="patcher_notification_text">Tekan untuk kembali ke penampal</string>
@@ -651,7 +645,6 @@ Nyahpasang akan memadam semua data aplikasi secara kekal"</string>
     <string name="failed_to_execute_patch">Gagal untuk memasang %s</string>
     <string name="patched_app_save_failed_toast">Gagal untuk menyimpan aplikasi yang telah ditampal</string>
     <string name="plugin_activity_dialog_body">Interaksi pengguna diperlukan untuk meneruskan dengan pemalam ini</string>
-    <string name="patcher_process_exit_message">Proses penampalan keluar dengan kod %s</string>
     <string name="patcher_heap_exhausted_message">Patcher kehabisan memori dengan heap %1$d MB. Aplikasi ini terlalu besar untuk tampalan yang dipilih. Cuba tampal dengan lebih sedikit sumber tampalan, atau pilih lebih sedikit tampalan</string>
     <string name="install_app_success">Pemasangan berjaya</string>
     <string name="install_app_fail">Gagal untuk dipasang: %s</string>
@@ -982,13 +975,6 @@ Butiran: %2$s"</string>
     <string name="settings_system_battery_optimization">Optimisasi bateri</string>
     <string name="settings_system_battery_optimization_description">Memastikan patcher terus berjalan apabila aplikasi diminimumkan</string>
     <string name="settings_system_process_runtime">Masa runtime proses</string>
-    <string name="settings_system_process_runtime_description">Menjalankan tampalan dalam proses berasingan untuk kestabilan yang lebih baik</string>
-    <string name="settings_system_process_runtime_enable">Aktifkan masa runtime proses</string>
-    <string name="settings_system_memory_limit_subtitle">Memori tersedia untuk tampalan</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Peranti ini mengabaikan had memori pada jalan terakhir, jadi tampalan mungkin kembali berjalan dalam Morphe</string>
-    <string name="settings_system_memory_limit_warning">Had memori yang rendah mungkin menyebabkan kegagalan semasa menampal aplikasi yang lebih besar</string>
-    <string name="settings_system_memory_limit_high_warning">Had memori yang tinggi boleh menjadikan tampalan jauh lebih perlahan pada sesetengah peranti. Naikkan hanya jika tampalan terus gagal pada had yang lebih rendah</string>
-    <string name="settings_system_process_runtime_description_not_available">Ciri ini memerlukan Android 11 atau lebih tinggi</string>
     <string name="settings_system_patcher_completion_sound">Bunyi selesai</string>
     <string name="settings_system_patcher_completion_sound_description">Memainkan nada berbeza untuk kejayaan atau kegagalan apabila tampalan selesai</string>
     <!-- Settings - System Tab - Notifications Section -->

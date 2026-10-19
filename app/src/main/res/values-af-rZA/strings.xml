@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Geen versteekte program nie</string>
     <string name="home_app_hidden_apps_title">Versteekte programme</string>
     <string name="home_app_hidden_apps_hint">Tik om te wys</string>
+    <string name="home_apps_unhide_message">Nie-verborge programmeer keer terug na die tuisbladskerm</string>
     <string name="home_app_patch_sources_description">Bronne wat nie afgemerk is nie, word nie aangebied wanneer hierdie apps gepatch word nie, en hul patches sluit nooit op hul eie by \'n seleksie aan nie. Elke bron bly aan vir elke ander app.</string>
     <string name="home_app_patch_sources_mixed">Aangebied aan %1$s van %2$s</string>
     <string name="home_app_patch_sources_covers">Het patches vir %1$s van %2$s</string>
@@ -456,7 +457,6 @@ Vir die beste resultate beveel hierdie app aan om 'n &lt;b&gt;volle APK&lt;/b&gt
     <string name="batch_patch_title">Groepbedekking</string>
     <string name="batch_patch_planning">Besig om die tou voor te berei…</string>
     <string name="batch_patch_preparing_next">Besig om die volgende app voor te berei…</string>
-    <string name="batch_patch_progress_counter">Gepatch %1$s van %2$s</string>
     <string name="batch_patch_summary">%1$s gepatch, %2$s gefaal, %3$s oorgeslaan</string>
     <string name="batch_patch_saved_hint">Die gepatchte programme is gestoor. Installeer hulle nou, of later vanaf die lys van gepatchde APK\'s in instellings</string>
     <string name="batch_patch_multiple_sources">Sommige programme kombineer pleisters van meer as een bron, wat konflik kan veroorsaak</string>
@@ -653,12 +653,6 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="battery_optimization_dialog_title">Beskerming teen agtergrondpleister</string>
     <string name="battery_optimization_dialog_description">Sommige toestelle kan die pleister stop wanneer die toepassing geminimaliseer word. Laat Morphe sonder batterybeperkings loop om te verseker dat die pleister betroubaar voltooi word.</string>
     <string name="battery_optimization_not_now">Nie nou nie</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Nie genoeg geheue</string>
-    <string name="patcher_memory_adjustment_description">Die patcher is deur die stelsel gestop terwyl dit met \'n %1$d MB geheueperk loop. Deur die perk na %2$d MB te verlaag, maak die patcher \'n kleiner teiken en kan die loop laat klaarmaak.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Die patcher is deur die stelsel gestop terwyl dit met \'n %1$d MB geheueperk loop, wat reeds die laagste beskikbare is. Probeer om met minder patchbronne te patch, of kies minder patches.</string>
-    <string name="patcher_memory_adjustment_description_finished">Die stelsel het die patcher teen \'n geheueperk van %1$d MB gestop, en dit het eers by %2$d MB klaargekom. Om by %2$d MB te begin, slaan daardie verlore poging volgende keer oor</string>
-    <string name="patcher_memory_adjustment_apply">Verlaag na %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patching aan die gang…</string>
     <string name="patcher_notification_text">Tik om terug te keer na die patcher</string>
@@ -700,7 +694,6 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="failed_to_execute_patch">Kon nie %s toepas nie</string>
     <string name="patched_app_save_failed_toast">Kon nie gepatchte app stoor nie</string>
     <string name="plugin_activity_dialog_body">Gebruikers interaksie is vereis om met hierdie inprop voort te gaan</string>
-    <string name="patcher_process_exit_message">Patcherproses het met kode %s afgehandel</string>
     <string name="patcher_heap_exhausted_message">Die patcher het nie genoeg geheue gehad nie met \'n %1$d MB-heap. Hierdie app is te groot vir die geselekteerde patches. Probeer om met minder patchbronne te patch, of kies minder patches.</string>
     <string name="install_app_success">Suksesvol geïnstalleer</string>
     <string name="install_app_fail">Kon nie app installeer nie: %s</string>
@@ -1067,13 +1060,6 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_battery_optimization">Battery-optimalisering</string>
     <string name="settings_system_battery_optimization_description">Hou die patcher lopend wanneer die toepassing geminimaliseer is</string>
     <string name="settings_system_process_runtime">Proses tydloop</string>
-    <string name="settings_system_process_runtime_description">Voer patching in \'n aparte proses uit vir beter stabiliteit</string>
-    <string name="settings_system_process_runtime_enable">Aktiveer proses tydloop</string>
-    <string name="settings_system_memory_limit_subtitle">Geheue beskikbaar vir patching</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Hierdie toestel het die geheueperk tydens die laaste lopie geïgnoreer, dus kan die toepassing van regstellings terugval om binne Morphe te loop.</string>
-    <string name="settings_system_memory_limit_warning">\'n Lae geheugelimiet kan mislukking veroorsaak wanneer groter apps gepatched word</string>
-    <string name="settings_system_memory_limit_high_warning">\' n Hoë geheue-limiet kan patching op sommige toestelle baie stadiger maak. Verhoog dit net as patching steeds by laer limiete misluk.</string>
-    <string name="settings_system_process_runtime_description_not_available">Hierdie kenmerk vereis Android 11 of later</string>
     <string name="settings_system_patcher_completion_sound">Voltooiingklank</string>
     <string name="settings_system_patcher_completion_sound_description">Speel \'n kenmerkende toon vir sukses of mislukking wanneer die patching voltooi is</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_storage_management_title">Stooringsbestuur</string>
     <string name="settings_system_storage_management_description">Wys skyfgewverbruik en skoon kasgelêre</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s gratis</string>
     <string name="settings_system_storage_saved_apks">Gestoorde APK\'s</string>
     <string name="settings_system_storage_caches">Kashe</string>
     <string name="settings_system_storage_keystore_title">Ondertekeningsleutestoor</string>

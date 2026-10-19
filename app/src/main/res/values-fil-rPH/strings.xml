@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Walang mga nakatagong aplikasyon</string>
     <string name="home_app_hidden_apps_title">Mga nakatagong aplikasyon</string>
     <string name="home_app_hidden_apps_hint">Pindutin para ipakita</string>
+    <string name="home_apps_unhide_message">Ibalik sa home screen ang mga itinatagong app</string>
     <string name="home_app_patch_sources_description">Ang mga source na iniwang hindi naka-check ay hindi inaalok kapag na-patch ang mga app na ito, at ang kanilang mga patch ay hindi kailanman kusang naisasama sa isang seleksyon. Nananatiling naka-on ang bawat source para sa bawat iba pang app. The output is cut off? Need complete json array? I accidentally started with object? Let\'s reassess. I must not send incomplete. I attempted final with </string>
     <string name="home_app_patch_sources_mixed">Inaalok sa %1$s sa %2$s</string>
     <string name="home_app_patch_sources_covers">May mga patch para sa %1$s sa %2$s</string>
@@ -453,7 +454,6 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="batch_patch_title">Batch patching</string>
     <string name="batch_patch_planning">Inihahanda ang pila…</string>
     <string name="batch_patch_preparing_next">Inihahanda ang susunod na app…</string>
-    <string name="batch_patch_progress_counter">Na-patch ang %1$s ng %2$s</string>
     <string name="batch_patch_summary">%1$s na-patch, %2$s nabigo, %3$s nilaktawan</string>
     <string name="batch_patch_saved_hint">Nai-save ang mga na-patch na app. I-install ngayon, o mamaya mula sa listahan ng na-patch na APK sa mga setting</string>
     <string name="batch_patch_multiple_sources">Ang ilang app ay pinagsasama ang mga patch mula sa higit sa isang source, na maaaring magdulot ng mga conflict</string>
@@ -650,12 +650,6 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="battery_optimization_dialog_title">Proteksyon sa pag-patch sa background</string>
     <string name="battery_optimization_dialog_description">Maaaring itigil ng ilang device ang patcher kapag na-minimize ang app. Payagan ang Morphe na tumakbo nang walang mga paghihigpit sa baterya upang matiyak na kumpleto ang pag-patch nang maaasahan</string>
     <string name="battery_optimization_not_now">Hindi na ngayon</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Hindi sapat na memorya</string>
-    <string name="patcher_memory_adjustment_description">Ang patcher ay pinahinto ng sistema habang tumatakbo na may %1$d MB na limitasyon sa memorya. Ang pagbaba ng limitasyon sa %2$d MB ay ginagawang mas maliit na target ang patcher at maaaring payagan ang pagtakbo na matapos.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Ang patcher ay pinahinto ng sistema habang tumatakbo na may %1$d MB na limitasyon sa memorya, na siya nang pinakamababang magagamit. Subukang mag-patch gamit ang mas kaunting mga pinagmumulan ng patch, o pumili ng mas kaunting mga patch.</string>
-    <string name="patcher_memory_adjustment_description_finished">Itinigil ng sistema ang patcher sa limitasyon ng memorya na %1$d MB, at natapos lamang ito sa %2$d MB. Ang pagsisimula sa %2$d MB ay lalaktawan ang nawalang pagtatangka sa susunod na pagkakataon</string>
-    <string name="patcher_memory_adjustment_apply">Ibaba sa %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Pinoproseso ang pagpa-patch…</string>
     <string name="patcher_notification_text">Pindutin upang bumalik sa patcher</string>
@@ -697,7 +691,6 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="failed_to_execute_patch">Nabigong ilapat %s</string>
     <string name="patched_app_save_failed_toast">Nabigong ma-save ang na-patch na aplikasyon</string>
     <string name="plugin_activity_dialog_body">Kinakailangan ng pakikipag-ugnayan sa tagagamit upang magpatuloy sa plugin na ito</string>
-    <string name="patcher_process_exit_message">Lumabas ang proseso ng patcher na may code %s</string>
     <string name="patcher_heap_exhausted_message">Naubos ang memorya ng patcher na may %1$d MB na heap. Masyadong malaki ang app na ito para sa mga napiling patch. Subukang mag-patch na may mas kaunting patch source, o pumili ng mas kaunting patch.</string>
     <string name="install_app_success">Matagumpay na na-install</string>
     <string name="install_app_fail">Nabigong ma-install ang aplikasyon: %s</string>
@@ -1064,13 +1057,6 @@ Mga Detalye: %2$s"</string>
     <string name="settings_system_battery_optimization">Pag-optimize sa baterya</string>
     <string name="settings_system_battery_optimization_description">Pinapanatili ang patcher na tumatakbo kapag ang app ay minimize</string>
     <string name="settings_system_process_runtime">Runtime ng proseso</string>
-    <string name="settings_system_process_runtime_description">Pinapatakbo ang pag-patch sa isang hiwalay na proseso para sa mas mahusay na katatagan</string>
-    <string name="settings_system_process_runtime_enable">Paganahin ang runtime ng proseso</string>
-    <string name="settings_system_memory_limit_subtitle">Magagamit ang memorya para sa pagpa-patch</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Ang device na ito ay hindi pinansin ang limitasyon ng memorya sa huling pagtakbo, kaya ang pag-patch ay maaaring mag-fallback sa pagtakbo sa loob ng Morphe.</string>
-    <string name="settings_system_memory_limit_warning">Ang mababang limitasyon ng memorya ay maaaring magdulot ng mga pagkabigo kapag nag-patch ng mas malalaking aplikasyon</string>
-    <string name="settings_system_memory_limit_high_warning">Ang mataas na limitasyon ng memorya ay maaaring gawing mas mabagal ang pag-patch sa ilang mga device. Itaas lamang ito kung patuloy na nabibigo ang pag-patch sa mas mababang mga limitasyon.</string>
-    <string name="settings_system_process_runtime_description_not_available">Kailangan ng feature na ito ang Android 11 o mas mataas</string>
     <string name="settings_system_patcher_completion_sound">Tunog ng pagkumpleto</string>
     <string name="settings_system_patcher_completion_sound_description">Tumutugtog ng natatanging tono para sa tagumpay o kabiguan kapag natapos ang pag-patch</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1143,6 +1129,7 @@ Mga Detalye: %2$s"</string>
     <string name="settings_system_storage_management_title">Pamamahala ng imbakan</string>
     <string name="settings_system_storage_management_description">Nagpapakita ng paggamit ng disk at naglilinis ng mga cached file</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s libre</string>
     <string name="settings_system_storage_saved_apks">Na-save na mga APK</string>
     <string name="settings_system_storage_caches">Mga cache</string>
     <string name="settings_system_storage_keystore_title">Pag-sign ng keystore</string>

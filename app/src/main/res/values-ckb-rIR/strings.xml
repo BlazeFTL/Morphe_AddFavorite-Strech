@@ -304,7 +304,6 @@
     <string name="battery_optimization_dialog_title">پاراستن لە پینەکردنی پاشخان</string>
     <string name="battery_optimization_dialog_description">هەندێک ئامێر لەوانەیە پینەکەرەکە بوەستێنن کاتێک ئەپەکە بچووک دەکرێتەوە. ڕێگە بە Morphe بدە بە کارکردن بەبێ سنووردارکردنی پاتری بۆ دڵنیابوون لە تەواوبوونی پینەکردن بە شێوەیەکی باوەڕپێکراو</string>
     <string name="battery_optimization_not_now">ئێستا نا</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">پینەکردن بەردەوامە…</string>
     <string name="patcher_notification_text">کرتە بکە بۆ گەڕانەوە بۆ پینەکەرەکە</string>
@@ -343,7 +342,6 @@
     <string name="failed_to_execute_patch">شکستی هێنا لە جێگیرکردنی %s</string>
     <string name="patched_app_save_failed_toast">شکستی هێنا لە پاشەکەوت کردنی ئەپی پینەکراو</string>
     <string name="plugin_activity_dialog_body">کارلێکردنی بەکارهێنەر پێویستە بۆ ئەوەی بەردەوام بیت لەگەڵ ئەم پێوەکراوە</string>
-    <string name="patcher_process_exit_message">پرۆسەی پینەکەر دەرچوو بە کۆدی %s</string>
     <string name="install_app_success">بە سەرکەوتوویی دامەزرا</string>
     <string name="install_app_fail">دامەزراندنی ئەپەکە سەرکەوتوو نەبوو: %s</string>
     <string name="save_apk_success">APK هەڵگیرا</string>

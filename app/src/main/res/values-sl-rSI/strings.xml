@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Ni skritih aplikacij</string>
     <string name="home_app_hidden_apps_title">Skrite aplikacije</string>
     <string name="home_app_hidden_apps_hint">Klikni za prikaz</string>
+    <string name="home_apps_unhide_message">Skrite aplikacije se vrnejo na zaslon za doma</string>
     <string name="home_app_patch_sources_description">Viri, ki ostanejo neoznačeni, niso na voljo, ko so te aplikacije popravljene, njihovi popravki pa se nikoli sami od sebe ne vključijo v izbiro. Vsak vir ostane vklopljen za vse druge aplikacije.</string>
     <string name="home_app_patch_sources_mixed">Na voljo za %1$s od %2$s</string>
     <string name="home_app_patch_sources_covers">Ima popravke za %1$s od %2$s</string>
@@ -456,7 +457,6 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="batch_patch_title">Serijsko popravljanje</string>
     <string name="batch_patch_planning">Pripravljam vrsto…</string>
     <string name="batch_patch_preparing_next">Pripravljam naslednji program…</string>
-    <string name="batch_patch_progress_counter">Popravljeno %1$s od %2$s</string>
     <string name="batch_patch_summary">%1$s popravljenih, %2$s neuspelih, %3$s preskočenih</string>
     <string name="batch_patch_saved_hint">Popravljene aplikacije so shranjene. Namestite jih zdaj ali pozneje iz seznama popravljenih APK-jev v nastavitvah</string>
     <string name="batch_patch_multiple_sources">Nekatere aplikacije združujejo popravke iz več virov, kar lahko povzroči konflikte</string>
@@ -653,12 +653,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="battery_optimization_dialog_title">Zaščita popravljanja v ozadju</string>
     <string name="battery_optimization_dialog_description">Nekatere naprave lahko ustavijo popravek, ko je aplikacija minimizirana. Dovolite programu Morphe, da se izvaja brez omejitev baterije, da zagotovite zanesljivo dokončanje popravljanja.</string>
     <string name="battery_optimization_not_now">Pozneje</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Ni dovolj pomnilnika</string>
-    <string name="patcher_memory_adjustment_description">Sistem je ustavil patcher, ko je ta deloval z omejitvijo pomnilnika %1$d MB. Znižanje omejitve na %2$d MB naredi iz patcherja manjšo tarčo in lahko omogoči, da se izvajanje zaključi.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Sistem je ustavil popravljalnik, ko je ta deloval z omejitvijo pomnilnika %1$d MB, kar je že najnižja razpoložljiva omejitev. Poskusite popraviti z manj viri popravkov ali izberite manj popravkov.</string>
-    <string name="patcher_memory_adjustment_description_finished">Sistem je ustavil popravljalnik pri omejitvi pomnilnika %1$d MB, končal pa je šele pri %2$d MB. Začetek pri %2$d MB naslednjič preskoči tisti neuspešni poskus.</string>
-    <string name="patcher_memory_adjustment_apply">Znižaj na %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Popravljanje v teku …</string>
     <string name="patcher_notification_text">Dotaknite se, da se vrnete k popravilu</string>
@@ -700,7 +694,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="failed_to_execute_patch">Ni uspelo nanesti %s</string>
     <string name="patched_app_save_failed_toast">Ni uspelo shraniti popravljene aplikacije</string>
     <string name="plugin_activity_dialog_body">Za nadaljevanje s tem dodatkom je potrebna uporabniško sodelovanje.</string>
-    <string name="patcher_process_exit_message">Postopek popravljanja se je končal s kodo %s</string>
     <string name="patcher_heap_exhausted_message">Patcherju je zmanjkalo pomnilnika s kopico velikosti %1$d MB. Ta aplikacija je prevelika za izbrane popravke. Poskusite uporabiti manj virov popravkov ali izberite manj popravkov.</string>
     <string name="install_app_success">Namestitev je uspela</string>
     <string name="install_app_fail">Ni uspelo namestiti aplikacije: %s</string>
@@ -1067,13 +1060,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_battery_optimization">Optimizacija baterije</string>
     <string name="settings_system_battery_optimization_description">Ohranja popravek v teku, ko je aplikacija pomanjšana</string>
     <string name="settings_system_process_runtime">Čas izvajanja procesa</string>
-    <string name="settings_system_process_runtime_description">Izvaja popravljanje v ločenem procesu za boljšo stabilnost</string>
-    <string name="settings_system_process_runtime_enable">Omogoči izvajanje procesa</string>
-    <string name="settings_system_memory_limit_subtitle">Razpoložljiv pomnilnik za popravilo</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Ta naprava je pri zadnjem zagonu prezrla omejitev pomnilnika, zato se lahko popravljenje vrne na izvajanje znotraj Morphe</string>
-    <string name="settings_system_memory_limit_warning">Nizka omejitev pomnilnika lahko povzroči napake pri popravilu večjih aplikacij</string>
-    <string name="settings_system_memory_limit_high_warning">Visoka omejitev pomnilnika lahko na nekaterih napravah močno upočasni popravljanje. Zvišajte jo le, če popravljanje pri nižjih omejitvah še vedno ne uspe.</string>
-    <string name="settings_system_process_runtime_description_not_available">Ta funkcija zahteva Android 11 ali višji</string>
     <string name="settings_system_patcher_completion_sound">Zvočni signal ob zaključku</string>
     <string name="settings_system_patcher_completion_sound_description">Predvaja ločen ton za uspeh ali neuspeh ob koncu popravka</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_storage_management_title">Upravljanje s prostorom za shranjevanje</string>
     <string name="settings_system_storage_management_description">Prikaže porabo diska in očisti predpomnjene datoteke</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s prosto</string>
     <string name="settings_system_storage_saved_apks">Shranjeni APK-ji</string>
     <string name="settings_system_storage_caches">Predpomnilniki</string>
     <string name="settings_system_storage_keystore_title">Datoteka ključev podpisovanja</string>

@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Brak ukrytych aplikacji</string>
     <string name="home_app_hidden_apps_title">Ukryte aplikacje</string>
     <string name="home_app_hidden_apps_hint">Dotknij, aby pokazać</string>
+    <string name="home_apps_unhide_message">Odkryte aplikacje wracają na ekran główny</string>
     <string name="home_app_patch_sources_description">Odznaczone źródła nie są proponowane podczas modyfikowania tych aplikacji, a ich modyfikacje nigdy nie są dołączane do wyboru automatycznie. Każde źródło pozostaje włączone dla pozostałych aplikacji</string>
     <string name="home_app_patch_sources_mixed">Proponowane dla %1$s z %2$s</string>
     <string name="home_app_patch_sources_covers">Zawiera modyfikacje dla %1$s z %2$s</string>
@@ -457,7 +458,6 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="batch_patch_title">Modyfikowanie grupowe</string>
     <string name="batch_patch_planning">Przygotowywanie kolejki…</string>
     <string name="batch_patch_preparing_next">Przygotowywanie następnej aplikacji…</string>
-    <string name="batch_patch_progress_counter">Zmodyfikowano %1$s z %2$s</string>
     <string name="batch_patch_summary">%1$s zmodyfikowano, %2$s nie powiodło się, %3$s pominięto</string>
     <string name="batch_patch_saved_hint">Zmodyfikowane aplikacje zostały zapisane. Zainstaluj je teraz lub później z listy zmodyfikowanych plików APK w ustawieniach</string>
     <string name="batch_patch_multiple_sources">Niektóre aplikacje łączą modyfikacje z więcej niż jednego źródła, co może powodować konflikty</string>
@@ -654,12 +654,6 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="battery_optimization_dialog_title">Ochrona modyfikowania w tle</string>
     <string name="battery_optimization_dialog_description">Niektóre urządzenia mogą zatrzymać modyfikator, gdy aplikacja jest zminimalizowana. Zezwól Morphe na działanie bez ograniczeń baterii, aby proces modyfikowania zakończył się pomyślnie</string>
     <string name="battery_optimization_not_now">Nie teraz</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Za mało pamięci</string>
-    <string name="patcher_memory_adjustment_description">System zatrzymał modyfikator podczas działania z limitem pamięci %1$d MB. Obniżenie limitu do %2$d MB sprawia, że modyfikator staje się mniejszym celem dla systemu i może pozwolić na ukończenie procesu</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">System zatrzymał modyfikator podczas działania z limitem pamięci %1$d MB, który jest już najniższym z dostępnych. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
-    <string name="patcher_memory_adjustment_description_finished">System zatrzymał modyfikator przy limicie pamięci %1$d MB, a operacja powiodła się dopiero przy %2$d MB. Rozpoczęcie od %2$d MB pozwoli pominąć tę nieudaną próbę następnym razem</string>
-    <string name="patcher_memory_adjustment_apply">Obniż do %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Modyfikowanie w toku…</string>
     <string name="patcher_notification_text">Dotknij, aby wrócić do modyfikatora</string>
@@ -701,7 +695,6 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="failed_to_execute_patch">Nie udało się zastosować %s</string>
     <string name="patched_app_save_failed_toast">Nie udało się zapisać zmodyfikowanej aplikacji</string>
     <string name="plugin_activity_dialog_body">Wymagana jest interakcja użytkownika, aby kontynuować działanie tej wtyczki</string>
-    <string name="patcher_process_exit_message">Proces modyfikatora zakończył się kodem %s</string>
     <string name="patcher_heap_exhausted_message">Modyfikatorowi zabrakło pamięci przy rozmiarze sterty %1$d MB. Ta aplikacja jest zbyt duża dla wybranych modyfikacji. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
     <string name="install_app_success">Zainstalowano pomyślnie</string>
     <string name="install_app_fail">Nie udało się zainstalować aplikacji: %s</string>
@@ -1068,13 +1061,6 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_battery_optimization">Optymalizacja baterii</string>
     <string name="settings_system_battery_optimization_description">Utrzymuje działanie modyfikatora, gdy aplikacja jest zminimalizowana</string>
     <string name="settings_system_process_runtime">Osobny proces</string>
-    <string name="settings_system_process_runtime_description">Uruchamia modyfikowanie w osobnym procesie dla lepszej stabilności</string>
-    <string name="settings_system_process_runtime_enable">Włącz osobny proces</string>
-    <string name="settings_system_memory_limit_subtitle">Pamięć dostępna dla procesu modyfikowania</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">To urządzenie zignorowało limit pamięci podczas ostatniego uruchomienia, więc modyfikowanie może zostać awaryjnie uruchomione wewnątrz Morphe</string>
-    <string name="settings_system_memory_limit_warning">Niski limit pamięci może powodować błędy podczas modyfikowania większych aplikacji</string>
-    <string name="settings_system_memory_limit_high_warning">Wysoki limit pamięci może znacznie spowolnić modyfikowanie na niektórych urządzeniach. Zwiększ go tylko, jeśli modyfikowanie stale kończy się błędem przy niższych limitach</string>
-    <string name="settings_system_process_runtime_description_not_available">Ta funkcja wymaga systemu Android 11 lub nowszego</string>
     <string name="settings_system_patcher_completion_sound">Dźwięk ukończenia</string>
     <string name="settings_system_patcher_completion_sound_description">Odtwarza wyraźny dźwięk powodzenia lub niepowodzenia po zakończeniu modyfikacji</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1147,6 +1133,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_storage_management_title">Zarządzanie pamięcią</string>
     <string name="settings_system_storage_management_description">Wyświetla użycie pamięci i czyści pliki pamięci podręcznej</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s wolnego miejsca</string>
     <string name="settings_system_storage_saved_apks">Zapisane pliki APK</string>
     <string name="settings_system_storage_caches">Pamięć podręczna</string>
     <string name="settings_system_storage_keystore_title">Magazyn kluczy podpisywania</string>

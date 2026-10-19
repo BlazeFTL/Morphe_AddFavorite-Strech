@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">No hay aplicaciones ocultas</string>
     <string name="home_app_hidden_apps_title">Aplicaciones ocultas</string>
     <string name="home_app_hidden_apps_hint">Pulsa para mostrar</string>
+    <string name="home_apps_unhide_message">Las aplicaciones que se vuelven a mostrar aparecen en la pantalla de inicio</string>
     <string name="home_app_patch_sources_description">Las fuentes que no estén marcadas no se ofrecen cuando estas aplicaciones se parchean, y sus parches nunca se unen a una selección por sí solos. Cada fuente permanece activada para todas las demás aplicaciones</string>
     <string name="home_app_patch_sources_mixed">Ofrecido a %1$s de %2$s</string>
     <string name="home_app_patch_sources_covers">Tiene parches para %1$s de %2$s</string>
@@ -456,7 +457,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="batch_patch_title">Parcheo por lotes</string>
     <string name="batch_patch_planning">Preparando la cola…</string>
     <string name="batch_patch_preparing_next">Preparando la siguiente aplicación…</string>
-    <string name="batch_patch_progress_counter">Parcheado %1$s de %2$s</string>
+    <string name="batch_patch_progress_counter">Parcheando %1$s de %2$s</string>
     <string name="batch_patch_summary">%1$s parcheadas, %2$s fallidas, %3$s omitidas</string>
     <string name="batch_patch_saved_hint">Las aplicaciones parcheadas se han guardado. Instálalas ahora, o más tarde desde la lista de APKs parcheados en la configuración</string>
     <string name="batch_patch_multiple_sources">Algunas aplicaciones combinan parches de más de una fuente, lo que puede causar conflictos</string>
@@ -653,12 +654,6 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="battery_optimization_dialog_title">Protección de parcheo en segundo plano</string>
     <string name="battery_optimization_dialog_description">Algunos dispositivos pueden detener el parcheador cuando la aplicación se minimiza. Permite que Morphe se ejecute sin restricciones de batería para garantizar que el parcheo se complete de manera fiable</string>
     <string name="battery_optimization_not_now">Ahora no</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">No hay suficiente memoria</string>
-    <string name="patcher_memory_adjustment_description">El sistema detuvo el parcheador mientras se ejecutaba con un límite de memoria de %1$d MB. Reducir el límite a %2$d MB hace que el parcheador sea un objetivo más pequeño y puede permitir que la ejecución finalice</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">El sistema detuvo el parcheador mientras se ejecutaba con un límite de memoria de %1$d MB, que ya es el más bajo disponible. Intenta parchear con menos fuentes de parches o selecciona menos parches</string>
-    <string name="patcher_memory_adjustment_description_finished">El sistema detuvo el parcheador en un límite de memoria de %1$d MB y solo se completó con %2$d MB. Al empezar en %2$d MB, se omite ese intento fallido la próxima vez</string>
-    <string name="patcher_memory_adjustment_apply">Reducir a %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Aplicando parches…</string>
     <string name="patcher_notification_text">Pulsa para volver al parcheador</string>
@@ -700,7 +695,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="failed_to_execute_patch">Error al aplicar %s</string>
     <string name="patched_app_save_failed_toast">Error al guardar la aplicación parcheada</string>
     <string name="plugin_activity_dialog_body">Es necesaria la interacción del usuario para continuar con este complemento</string>
-    <string name="patcher_process_exit_message">El proceso del parcheador terminó con el código %s</string>
+    <string name="patcher_process_killed_message">El sistema detuvo el parcheador antes de que terminara, normalmente para liberar memoria. Cierra otras aplicaciones e inténtalo de nuevo</string>
     <string name="patcher_heap_exhausted_message">El parcheador se quedó sin memoria con %1$d MB de memoria asignada. Esta aplicación es demasiado grande para los parches seleccionados. Intenta parchear con menos fuentes de parches o selecciona menos parches</string>
     <string name="install_app_success">Instalado correctamente</string>
     <string name="install_app_fail">Error al instalar la aplicación: %s</string>
@@ -1067,13 +1062,9 @@ Detalles: %2$s"</string>
     <string name="settings_system_battery_optimization">Optimización de batería</string>
     <string name="settings_system_battery_optimization_description">Mantiene el parcheador en funcionamiento cuando la aplicación está minimizada</string>
     <string name="settings_system_process_runtime">Ejecución del proceso</string>
-    <string name="settings_system_process_runtime_description">Ejecuta el parcheo en un proceso separado para mejorar la estabilidad</string>
-    <string name="settings_system_process_runtime_enable">Activar ejecución del proceso</string>
-    <string name="settings_system_memory_limit_subtitle">Memoria disponible para parches</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Este dispositivo ignoró el límite de memoria en la última ejecución, así que el parcheo podría acabar ejecutándose dentro de Morphe</string>
-    <string name="settings_system_memory_limit_warning">Un límite de memoria bajo puede causar errores al parchear aplicaciones más grandes</string>
-    <string name="settings_system_memory_limit_high_warning">Un límite de memoria alto puede ralentizar mucho el parcheo en algunos dispositivos. Auméntalo solo si el parcheo sigue fallando con límites más bajos</string>
-    <string name="settings_system_process_runtime_description_not_available">Esta función requiere Android 11 o superior</string>
+    <string name="settings_system_jvm_runtime_enable">Proceso de parcheo independiente</string>
+    <string name="settings_system_jvm_runtime_description">Parcheo en un tiempo de ejecución Java propio, que puede usar tanta memoria como la que sobre en el dispositivo. Desactiva para aplicar parches dentro de Morphe</string>
+    <string name="settings_system_jvm_runtime_unavailable">Necesita un dispositivo ARM o x86 de 64 bits</string>
     <string name="settings_system_patcher_completion_sound">Sonido de finalización</string>
     <string name="settings_system_patcher_completion_sound_description">Reproduce un tono distintivo para indicar éxito o fallo al finalizar el parcheo</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1137,7 @@ Detalles: %2$s"</string>
     <string name="settings_system_storage_management_title">Administración del almacenamiento</string>
     <string name="settings_system_storage_management_description">Muestra el uso del disco y borra los archivos almacenados en caché</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s libre</string>
     <string name="settings_system_storage_saved_apks">APK guardados</string>
     <string name="settings_system_storage_caches">Cachés</string>
     <string name="settings_system_storage_keystore_title">Almacén de claves de firma</string>

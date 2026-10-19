@@ -418,7 +418,6 @@ Ji bo mezgînî, ev sepan pêşniyar dike ku paketek &lt;b&gt;full APK&lt;/b&gt;
     <string name="batch_patch_title">Girêdayîna porê</string>
     <string name="batch_patch_planning">Lîstikê tê amadekirin…</string>
     <string name="batch_patch_preparing_next">Serlêdanê din tê amadekirin…</string>
-    <string name="batch_patch_progress_counter">%1$s ê %2$s hat serkirin</string>
     <string name="batch_patch_summary">%1$s hat serkirin, %2$s têkçû, %3$s hat derbas kirin</string>
     <string name="batch_patch_saved_hint">Sepandina sepanên patchkirî hatin tomar kirin. Naha wan saz bikin, an paşê ji lîsteya APKyên patchkirî di settingsan de</string>
     <string name="batch_patch_multiple_sources">Hinek sepanan patchên ji çavkaniyên cuda bi hev re hevdîtin, ku dikare pevçûn çê bike</string>
@@ -601,11 +600,6 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="battery_optimization_dialog_title">Parastina parêzgeha paşgirê</string>
     <string name="battery_optimization_dialog_description">Heke sepan biçikînin, hin cîhazan dikarin paşgirê rawestînin. Ji bo ku paşgirê bi pêvehiyê qediya, bihêle Morphe bêyî astengiyên serfkirina batêriyê bixebite.</string>
     <string name="battery_optimization_not_now">Niha ne</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Bîra têra nake</string>
-    <string name="patcher_memory_adjustment_description">Patcher ji aliyê pergalê ve hate rawestandin dema ku bi sînorê bîrê %1$d MB dixebitî. Daxistina sînorî bo %2$d MB patcherê dike hedefeke piçûktir û dikare xebatê biqedîne.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Patcher ji aliyê pergalê ve hate rawestandin dema ku bi sînorê bîrê %1$d MB dixebitî, ku ev jixwe kêmtirîn sînorê berdest e. Hewl bidin ku bi çavkaniyên patchê yên kêmtir patch bikin, an jî patchên kêmtir hilbijêrin.</string>
-    <string name="patcher_memory_adjustment_apply">Daxîne bo %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patch kirin di pêşbaziyê de ye…</string>
     <string name="patcher_notification_text">Hêla bimeşin ser patcher</string>
@@ -647,7 +641,6 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="failed_to_execute_patch">Şeva pek dabeşin %s</string>
     <string name="patched_app_save_failed_toast">Hate parastina sepeya patch kirî</string>
     <string name="plugin_activity_dialog_body">Bixweştana mêz rêk û pê dei bilinge da pêşbaziyê bi zaniye vê plugin you bo lazmî bîye se</string>
-    <string name="patcher_process_exit_message">Prosesa guheztinê bi kodê %s xilas bû.</string>
     <string name="patcher_heap_exhausted_message">Bîra patcherê bi heapê %1$d MB jî têr nekir. Ev sepan ji bo patchên hilbijartî pir mezin e. Hewl bidin ku bi çavkaniyên patchan ên kêmtir patch bikin, an patchên kêmtir hilbijêrin.</string>
     <string name="install_app_success">Bi ser ketin</string>
     <string name="install_app_fail">Serketina kuştina sepanê: %s</string>
@@ -978,13 +971,6 @@ Detay: %2$s"</string>
     <string name="settings_system_battery_optimization">Serûşê bateriyê</string>
     <string name="settings_system_battery_optimization_description">Dema ku app hatî biçikînîn, sazkirîn bidomîne</string>
     <string name="settings_system_process_runtime">Rayedîna pêroje</string>
-    <string name="settings_system_process_runtime_description">Qeyik kirina cuda ji bo aramiya çêtirîn birêve bibe</string>
-    <string name="settings_system_process_runtime_enable">Rayekirina pêroje</string>
-    <string name="settings_system_memory_limit_subtitle">Bira ku ji bo rayekirinê heye</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Ev cîhaz di xebata dawî de sînorê bîrê paşguh kir, lewra patchkirin dibe ku vegerî ser xebitîna di nav Morphe de.</string>
-    <string name="settings_system_memory_limit_warning">Sînorê bîra kêman dibe ku heya rayekirinê meşandariya zagon şûnayê</string>
-    <string name="settings_system_memory_limit_high_warning">Sînorekî bîrê yê bilind dikare li hin cîhazan patchkirinê pir hêdî bike. Wê tenê bilind bike heke patchkirin di sînorên nizmtir de têk biçe.</string>
-    <string name="settings_system_process_runtime_description_not_available">Ev taybetmendî Android 11 yan zêdetir tê hewîn</string>
     <string name="settings_system_patcher_completion_sound">Dengê qedandina</string>
     <string name="settings_system_patcher_completion_sound_description">Dengê taybet lêdanê ji bo serkeftinê an têkçûnê dema qedandina patchkirinê</string>
     <!-- Settings - System Tab - Notifications Section -->

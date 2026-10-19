@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Tidak ada aplikasi tersembunyi</string>
     <string name="home_app_hidden_apps_title">Aplikasi tersembunyi</string>
     <string name="home_app_hidden_apps_hint">Ketuk untuk menampilkan kembali</string>
+    <string name="home_apps_unhide_message">Aplikasi yang tidak disembunyikan kembali ke layar utama</string>
     <string name="home_app_patch_sources_description">Sumber yang tidak dicentang tidak akan disediakan saat aplikasi ini ditambal, dan tambalan dari sumber tersebut tidak akan otomatis masuk ke daftar pilihan. Setiap sumber akan tetap aktif untuk aplikasi lainnya</string>
     <string name="home_app_patch_sources_mixed">Disediakan untuk %1$s dari %2$s</string>
     <string name="home_app_patch_sources_covers">Memiliki tambalan untuk %1$s dari %2$s</string>
@@ -457,7 +458,6 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="batch_patch_title">Penambalan massal</string>
     <string name="batch_patch_planning">Menyiapkan antrean…</string>
     <string name="batch_patch_preparing_next">Mempersiapkan aplikasi selanjutnya…</string>
-    <string name="batch_patch_progress_counter">Menambal %1$s dari %2$s</string>
     <string name="batch_patch_summary">%1$s ditambal, %2$s gagal, %3$s dilewati</string>
     <string name="batch_patch_saved_hint">Aplikasi yang telah ditambal telah tersimpan. Pasang sekarang, atau nanti dari daftar APK yang telah ditambal di setelan.</string>
     <string name="batch_patch_multiple_sources">Beberapa aplikasi menggabungkan tambalan dari lebih dari satu sumber, yang dapat menyebabkan konflik</string>
@@ -654,12 +654,6 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="battery_optimization_dialog_title">Perlindungan penambalan latar belakang</string>
     <string name="battery_optimization_dialog_description">Beberapa perangkat mungkin menghentikan proses penambal ketika aplikasi diminimalkan. Izinkan Morphe berjalan tanpa batasan penggunaan baterai agar proses penambalan dapat diselesaikan dengan lancar</string>
     <string name="battery_optimization_not_now">Nanti saja</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Memori tidak cukup</string>
-    <string name="patcher_memory_adjustment_description">Penambal dihentikan oleh sistem saat berjalan dengan batas memori %1$d MB. Menurunkan batas menjadi %2$d MB membuat penambal menjadi target yang lebih kecil dan dapat membuat prosesnya selesai</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Penambal dihentikan oleh sistem saat berjalan dengan batas memori %1$d MB, yang merupakan batas terendah yang tersedia. Coba lakukan penambalan dengan lebih sedikit sumber tambalan, atau pilih lebih sedikit tambalan</string>
-    <string name="patcher_memory_adjustment_description_finished">Sistem menghentikan patcher pada batas memori %1$d MB, dan baru selesai pada %2$d MB. Memulai dari %2$d MB akan melewati upaya yang gagal itu lain kali</string>
-    <string name="patcher_memory_adjustment_apply">Turunkan ke %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Penyematan sedang berlangsung…</string>
     <string name="patcher_notification_text">Ketuk untuk kembali ke penambal</string>
@@ -701,7 +695,6 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="failed_to_execute_patch">Gagal menerapkan %s</string>
     <string name="patched_app_save_failed_toast">Gagal menyimpan aplikasi yang ditambal</string>
     <string name="plugin_activity_dialog_body">Interaksi pengguna diperlukan untuk melanjutkan plugin ini</string>
-    <string name="patcher_process_exit_message">Proses Penambal dihentikan dengan kode %s</string>
     <string name="patcher_heap_exhausted_message">Penambal kehabisan memori dengan heap %1$d MB. Aplikasi ini terlalu besar untuk tambalan yang dipilih. Coba menambal dengan lebih sedikit sumber tambalan, atau pilih lebih sedikit tambalan</string>
     <string name="install_app_success">Berhasil dipasang</string>
     <string name="install_app_fail">Gagal memasang aplikasi: %s</string>
@@ -1068,13 +1061,6 @@ Rincian: %2$s"</string>
     <string name="settings_system_battery_optimization">Optimisasi baterai</string>
     <string name="settings_system_battery_optimization_description">Menjaga penambal tetap berjalan saat aplikasi diminimalkan</string>
     <string name="settings_system_process_runtime">Proses runtime</string>
-    <string name="settings_system_process_runtime_description">Menjalankan penambalan di proses terpisah untuk stabilitas yang lebih baik</string>
-    <string name="settings_system_process_runtime_enable">Aktifkan proses runtime</string>
-    <string name="settings_system_memory_limit_subtitle">Memori tersedia untuk penambalan</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Perangkat ini mengabaikan batas memori pada proses terakhir, sehingga penambalan mungkin akan kembali berjalan di dalam Morphe</string>
-    <string name="settings_system_memory_limit_warning">Batas memori yang rendah mungkin menyebabkan kegagalan saat menambal aplikasi yang lebih besar</string>
-    <string name="settings_system_memory_limit_high_warning">Batas memori yang tinggi dapat membuat proses patching jauh lebih lambat di beberapa perangkat. Naikkan hanya jika proses patching terus gagal pada batas yang lebih rendah.</string>
-    <string name="settings_system_process_runtime_description_not_available">Fitur ini memerlukan Android 11 atau versi yang lebih baru</string>
     <string name="settings_system_patcher_completion_sound">Suara penyelesaian</string>
     <string name="settings_system_patcher_completion_sound_description">Memainkan nada berbeda untuk keberhasilan atau kegagalan saat penambalan selesai</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1147,6 +1133,7 @@ Rincian: %2$s"</string>
     <string name="settings_system_storage_management_title">Pengelola penyimpanan</string>
     <string name="settings_system_storage_management_description">Menampilkan penggunaan disk dan membersihkan berkas ter-cache</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s gratis</string>
     <string name="settings_system_storage_saved_apks">APK yang disimpan</string>
     <string name="settings_system_storage_caches">Cache</string>
     <string name="settings_system_storage_keystore_title">Keystore penandatanganan</string>

@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Žádné skryté aplikace</string>
     <string name="home_app_hidden_apps_title">Skryté aplikace</string>
     <string name="home_app_hidden_apps_hint">Klepněte pro odkrytí</string>
+    <string name="home_apps_unhide_message">Skryté aplikace se vrátí na hlavní obrazovku</string>
     <string name="home_app_patch_sources_description">Zdroje, které zůstanou nezaškrtnuté, se při patchování těchto aplikací nenabízejí a jejich patche se nikdy samy do výběru nepřidají. Každý zdroj zůstává zapnutý pro každou jinou aplikaci.</string>
     <string name="home_app_patch_sources_mixed">Nabízeno pro %1$s z %2$s</string>
     <string name="home_app_patch_sources_covers">Má záplaty pro %1$s z %2$s</string>
@@ -456,7 +457,6 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="batch_patch_title">Hromadné záplatování</string>
     <string name="batch_patch_planning">Připravuje se fronta…</string>
     <string name="batch_patch_preparing_next">Připravuje se další aplikace…</string>
-    <string name="batch_patch_progress_counter">Záplatováno %1$s z %2$s</string>
     <string name="batch_patch_summary">%1$s záplatováno, %2$s selhalo, %3$s přeskočeno</string>
     <string name="batch_patch_saved_hint">Aplikace po záplatování jsou uloženy. Nainstalujte je nyní nebo později ze seznamu záplatovaných APK v nastavení</string>
     <string name="batch_patch_multiple_sources">Některé aplikace kombinují záplaty z více zdrojů, což může způsobit konflikty</string>
@@ -653,12 +653,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="battery_optimization_dialog_title">Ochrana záplat na pozadí</string>
     <string name="battery_optimization_dialog_description">Na některých zařízeních se může záplata zastavit, když je aplikace minimalizována. Povolte aplikaci Morphe, aby běžela bez omezení spotřeby energie, a zajistěte tak spolehlivé dokončení záplatování.</string>
     <string name="battery_optimization_not_now">Ne teď</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Nedostatek paměti</string>
-    <string name="patcher_memory_adjustment_description">Proces patchování byl zastaven systémem při běhu s limitem paměti %1$d MB. Snížení limitu na %2$d MB zmenší jeho cíl a může umožnit dokončení běhu.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Proces patchování byl zastaven systémem při běhu s limitem paměti %1$d MB, což je již nejnižší dostupný limit. Zkuste patchovat s méně zdroji patchů nebo vyberte méně patchů.</string>
-    <string name="patcher_memory_adjustment_description_finished">Systém zastavil patchera při limitu paměti %1$d MB a ten se dokončil teprve při %2$d MB. Při spuštění s %2$d MB se tento ztracený pokus příště přeskočí</string>
-    <string name="patcher_memory_adjustment_apply">Snížit na %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Záplatování probíhá…</string>
     <string name="patcher_notification_text">Klepněte pro návrat k patcheru</string>
@@ -700,7 +694,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="failed_to_execute_patch">Selhalo aplikování %s</string>
     <string name="patched_app_save_failed_toast">Chyba při ukládání zastaralé aplikace</string>
     <string name="plugin_activity_dialog_body">Provedení je vyžadováno pro pokračování v tomto rozšíření</string>
-    <string name="patcher_process_exit_message">Proces opravy skončil s kódem %s</string>
     <string name="patcher_heap_exhausted_message">Patcheru došla paměť při velikosti haldy %1$d MB. Tato aplikace je pro vybrané patche příliš velká. Zkuste patchovat s menším počtem zdrojů patchů nebo vyberte méně patchů.</string>
     <string name="install_app_success">Úspěšně nainstalováno</string>
     <string name="install_app_fail">Selhání instalace aplikace: %s</string>
@@ -1067,13 +1060,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_battery_optimization">Optimalizace baterie</string>
     <string name="settings_system_battery_optimization_description">Udrží program záplatování spuštěný i při minimalizaci aplikace</string>
     <string name="settings_system_process_runtime">Doba běhu procesů</string>
-    <string name="settings_system_process_runtime_description">Spustí záplatování v odděleném procesu pro lepší stabilitu</string>
-    <string name="settings_system_process_runtime_enable">Povolit běhové prostředí procesů</string>
-    <string name="settings_system_memory_limit_subtitle">Paměť k dispozici pro záplatování</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Toto zařízení při posledním spuštění ignorovalo limit paměti, takže se patchování může vrátit k běhu uvnitř Morphe.</string>
-    <string name="settings_system_memory_limit_warning">Nízký limit paměti může způsobit selhání při záplatování větších aplikací</string>
-    <string name="settings_system_memory_limit_high_warning">Vysoký limit paměti může na některých zařízeních výrazně zpomalit patchování. Zvyšte jej pouze v případě, že patchování při nižších limitech stále selhává.</string>
-    <string name="settings_system_process_runtime_description_not_available">Tato funkce vyžaduje Android 11 nebo vyšší</string>
     <string name="settings_system_patcher_completion_sound">Zvuk dokončení</string>
     <string name="settings_system_patcher_completion_sound_description">Přehrává odlišný tón pro úspěch nebo neúspěch po dokončení záplatování</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_storage_management_title">Správa úložiště</string>
     <string name="settings_system_storage_management_description">Zobrazuje využití disku a maže soubory v mezipaměti</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s volné</string>
     <string name="settings_system_storage_saved_apks">Uložené APK soubory</string>
     <string name="settings_system_storage_caches">Mezipaměti</string>
     <string name="settings_system_storage_keystore_title">Keystore pro podepisování</string>

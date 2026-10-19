@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Nincs rejtett alkalmazás</string>
     <string name="home_app_hidden_apps_title">Rejtett alkalmazások</string>
     <string name="home_app_hidden_apps_hint">Koppints a megjelenítéshez</string>
+    <string name="home_apps_unhide_message">A nem rejtett alkalmazások visszatérnek a kezdőképernyőre</string>
     <string name="home_app_patch_sources_description">A bejelöletlenül hagyott források nincsenek felajánlva, amikor ezeket az alkalmazásokat javítják, és a javításaik soha nem kerülnek be maguktól egy kiválasztásba. Minden másik alkalmazásnál minden forrás bekapcsolva marad.</string>
     <string name="home_app_patch_sources_mixed">Felajánlva: %1$s a %2$s közül</string>
     <string name="home_app_patch_sources_covers">A(z) %2$s forrás közül %1$s rendelkezik javításokkal. MAX_LENGTH_32256: MUST BE EMPTY, TERMS: EMPTY</string>
@@ -456,7 +457,6 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="batch_patch_title">Batch patching</string>
     <string name="batch_patch_planning">A sor előkészítése…</string>
     <string name="batch_patch_preparing_next">A következő alkalmazás előkészítése…</string>
-    <string name="batch_patch_progress_counter">Javított %1$s a(z) %2$s-ből</string>
     <string name="batch_patch_summary">%1$s javítva, %2$s sikertelen, %3$s kihagyva</string>
     <string name="batch_patch_saved_hint">A javított alkalmazások elmentve. Telepítse őket most, vagy később a javított APK listából a beállításokban</string>
     <string name="batch_patch_multiple_sources">Néhány alkalmazás több forrásból származó javításokat kombinál, ami konfliktusokat okozhat</string>
@@ -653,12 +653,6 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="battery_optimization_dialog_title">Háttérjavítási védelem</string>
     <string name="battery_optimization_dialog_description">Bizonyos eszközök leállíthatják a javítót, ha az alkalmazás minimalizálva van. Engedélyezze a Morphe akadálytalan futását akkumulátor-korlátozások nélkül, hogy a javítás megbízhatóan befejeződjön.</string>
     <string name="battery_optimization_not_now">Most nem</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Nincs elég memória</string>
-    <string name="patcher_memory_adjustment_description">A rendszer leállította a patchert, miközben %1$d MB memóriakorláttal futott. A korlát %2$d MB-ra csökkentése kisebb célponttá teszi a patchert, és lehetővé teheti a futás befejezését.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">A rendszer leállította a patchert, miközben %1$d MB memóriakorláttal futott; ez a korlát már a legalacsonyabb elérhető. Próbáljon meg kevesebb patchforrással patchelni, vagy válasszon kevesebb patch-et.</string>
-    <string name="patcher_memory_adjustment_description_finished">A rendszer a javítóprogramot %1$d MB memóriakorlátnál állította le, és az csak %2$d MB-nál fejeződött be. A %2$d MB-nál történő indítás legközelebb kihagyja az elveszett próbálkozást</string>
-    <string name="patcher_memory_adjustment_apply">Csökkentés %1$d MB-ra</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Módosítás folyamatban…</string>
     <string name="patcher_notification_text">Koppints a módosítóhoz való visszatéréshez</string>
@@ -700,7 +694,6 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="failed_to_execute_patch">Nem sikerült alkalmazni: %s</string>
     <string name="patched_app_save_failed_toast">A módosított alkalmazás mentése sikertelen</string>
     <string name="plugin_activity_dialog_body">A bővítmény használatához felhasználói beavatkozásra van szükség</string>
-    <string name="patcher_process_exit_message">A módosítási folyamat %s kóddal kilépett</string>
     <string name="patcher_heap_exhausted_message">A javítóprogram kifutott a memóriából egy %1$d MB méretű heap-pel. Ez az alkalmazás túl nagy a kiválasztott javításokhoz. Próbáljon kevesebb javítási forrással javítani, vagy válasszon kevesebb javítást.</string>
     <string name="install_app_success">Sikeresen telepítve</string>
     <string name="install_app_fail">Nem sikerült telepíteni az alkalmazást: %s</string>
@@ -1067,13 +1060,6 @@ Részletek: %2$s"</string>
     <string name="settings_system_battery_optimization">Akkuoptimalizálás</string>
     <string name="settings_system_battery_optimization_description">A javító folyamat futtatása a háttérben, amikor az alkalmazás minimalizálva van.</string>
     <string name="settings_system_process_runtime">Folyamat futási ideje</string>
-    <string name="settings_system_process_runtime_description">A javítás külön folyamatban történő futtatása a jobb stabilitás érdekében.</string>
-    <string name="settings_system_process_runtime_enable">Folyamatfutási környezet engedélyezése</string>
-    <string name="settings_system_memory_limit_subtitle">Módosításhoz rendelkezésre álló memória</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Ez az eszköz az utolsó futtatáskor figyelmen kívül hagyta a memóriakorlátot, ezért a javítás visszaeshet a Morphe-ban való futásra.</string>
-    <string name="settings_system_memory_limit_warning">Alacsony memóriakorlát esetén a nagyobb alkalmazások módosításakor hiba léphet fel</string>
-    <string name="settings_system_memory_limit_high_warning">Egy magas memóriakorlát egyes eszközökön sokkal lassabbá teheti a javítást. Csak akkor emeld meg, ha a javítás alacsonyabb korlátoknál is folyamatosan meghiúsul.</string>
-    <string name="settings_system_process_runtime_description_not_available">Ez a funkció Android 11 vagy újabb verziót igényel</string>
     <string name="settings_system_patcher_completion_sound">Befejezés hangja</string>
     <string name="settings_system_patcher_completion_sound_description">Jellegzetes hangot játszik le a sikeres vagy sikertelen javítás befejezésekor</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ Részletek: %2$s"</string>
     <string name="settings_system_storage_management_title">Tárhelykezelés</string>
     <string name="settings_system_storage_management_description">Lemezhányadék megjelenítése és gyorsítótárazott fájlok tisztítása</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s szabad</string>
     <string name="settings_system_storage_saved_apks">Mentett APK-k</string>
     <string name="settings_system_storage_caches">Gyakorlatok</string>
     <string name="settings_system_storage_keystore_title">Aláíró kulcstár</string>

@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">কোনো গোপন অ্যাপ নেই</string>
     <string name="home_app_hidden_apps_title">গোপন অ্যাপস</string>
     <string name="home_app_hidden_apps_hint">\"লুকানো অ্যাপ দেখতে ট্যাপ করুন\"</string>
+    <string name="home_apps_unhide_message">অদৃশ্য করা অ্যাপগুলো হোম স্ক্রিনে ফিরে আসবে</string>
     <string name="home_app_patch_sources_description">যে উৎসগুলো টিক না দেওয়া থাকে, সেগুলো এই অ্যাপগুলো প্যাচ করা হলে অফার করা হয় না, এবং তাদের প্যাচগুলো নিজে থেকে কোনো নির্বাচনে যোগ দেয় না। প্রতিটি উৎস অন্য প্রতিটি অ্যাপের জন্য চালু থাকে।</string>
     <string name="home_app_patch_sources_mixed">%2$s-এর মধ্যে %1$s-কে অফার করা হয়েছে</string>
     <string name="home_app_patch_sources_covers">%2$s-এর মধ্যে %1$s-এর জন্য প্যাচ রয়েছে</string>
@@ -456,7 +457,6 @@
     <string name="batch_patch_title">ব্যাচ প্যাচিং</string>
     <string name="batch_patch_planning">ক queue প্রস্তুত করা হচ্ছে…</string>
     <string name="batch_patch_preparing_next">পরবর্তী অ্যাপ প্রস্তুত করা হচ্ছে…</string>
-    <string name="batch_patch_progress_counter">%2$s-এর %1$s প্যাচ করা হয়েছে</string>
     <string name="batch_patch_summary">%1$s টি প্যাচ করা হয়েছে, %2$s টি ব্যর্থ হয়েছে, %3$s টি বাদ দেওয়া হয়েছে</string>
     <string name="batch_patch_saved_hint">প্যাচ করা অ্যাপগুলি সেভ করা হয়েছে। সেগুলি এখন ইনস্টল করুন, অথবা সেটিংসের প্যাচ করা APK তালিকা থেকে পরে ইনস্টল করুন</string>
     <string name="batch_patch_multiple_sources">কিছু অ্যাপ একাধিক উৎস থেকে প্যাচ একত্রিত করে, যা বিরোধ তৈরি করতে পারে</string>
@@ -653,12 +653,6 @@
     <string name="battery_optimization_dialog_title">ব্যাকগ্রাউন্ড প্যাচিং সুরক্ষা</string>
     <string name="battery_optimization_dialog_description">কিছু ডিভাইস অ্যাপটি মিনিমাইজ করা হলে প্যাচার বন্ধ করতে পারে। প্যাচিং নির্ভরযোগ্যভাবে সম্পন্ন করার জন্য Morphe-কে ব্যাটারি সীমাবদ্ধতা ছাড়াই চলতে দেওয়ার অনুমতি দিন</string>
     <string name="battery_optimization_not_now">এখন নয়</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">পর্যাপ্ত মেমোরি নেই</string>
-    <string name="patcher_memory_adjustment_description">প্যাচারটি %1$d MB মেমোরি সীমা নিয়ে চলার সময় সিস্টেম এটি বন্ধ করে দিয়েছিল। সীমাটি %2$d MB-এ কমালে প্যাচারটি ছোট লক্ষ্য হয়ে যায় এবং রানটি শেষ হতে পারে।</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">প্যাচারটি %1$d MB মেমোরি সীমা নিয়ে চলার সময় সিস্টেম এটি বন্ধ করে দিয়েছিল, যা ইতিমধ্যে সর্বনিম্ন উপলব্ধ। কম প্যাচ উৎস দিয়ে প্যাচিং করার চেষ্টা করুন, অথবা কম প্যাচ নির্বাচন করুন।</string>
-    <string name="patcher_memory_adjustment_description_finished">সিস্টেমটি %1$d MB মেমরি সীমাতে প্যাচারটি বন্ধ করে দিয়েছে, এবং এটি কেবল %2$d MB-তে শেষ হয়েছে। পরের বার %2$d MB থেকে শুরু করলে সেই ব্যর্থ প্রচেষ্টাটি এড়িয়ে যাবে</string>
-    <string name="patcher_memory_adjustment_apply">%1$d MB-এ নামান</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">প্যাচিং চলছে…</string>
     <string name="patcher_notification_text">প্যাচার-এ ফিরে যেতে ট্যাপ করুন</string>
@@ -700,7 +694,6 @@
     <string name="failed_to_execute_patch">%s প্রয়োগ করতে ব্যর্থ</string>
     <string name="patched_app_save_failed_toast">প্যাচ করা অ্যাপ সংরক্ষণ করতে ব্যর্থ</string>
     <string name="plugin_activity_dialog_body">এই প্লাগইন চালিয়ে যেতে জন্য ব্যবহারকারীর ইন্টারেকশন প্রয়োজন</string>
-    <string name="patcher_process_exit_message">প্যাচার প্রক্রিয়া %s কোড দিয়ে সম্পন্ন হয়েছে</string>
     <string name="patcher_heap_exhausted_message">প্যাচারটি %1$d MB হিপ মেমরি শেষ করে ফেলেছে। নির্বাচিত প্যাচগুলির জন্য এই অ্যাপটি খুব বড়। কম প্যাচ উৎস দিয়ে প্যাচ করার চেষ্টা করুন, অথবা কম প্যাচ নির্বাচন করুন।</string>
     <string name="install_app_success">সাফল্য়ের সাথে ইনস্টল করা হয়েছে</string>
     <string name="install_app_fail">অ্যাপ ইনস্টল করতে ব্যর্থ: %s</string>
@@ -1057,13 +1050,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_battery_optimization">ব্যাটারি অপটিমাইজেশন</string>
     <string name="settings_system_battery_optimization_description">অ্যাপটি মিনিমাইজ করা হলে প্যাচার চালু রাখে।</string>
     <string name="settings_system_process_runtime">প্রক্রিয় রান্টাইম</string>
-    <string name="settings_system_process_runtime_description">আরও ভালো স্থিতিশীলতার জন্য একটি পৃথক প্রক্রিয়ায় প্যাচিং চালায়।</string>
-    <string name="settings_system_process_runtime_enable">প্রক্রিয় রান্টাইম সক্রিয় করুন</string>
-    <string name="settings_system_memory_limit_subtitle">মেমরি সীমিত</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">এই ডিভাইসটি শেষবার চালানোর সময় মেমরির সীমা উপেক্ষা করেছে, তাই প্যাচিং Morphe-এর ভিতরে চালানোর বিকল্পে ফিরে যেতে পারে</string>
-    <string name="settings_system_memory_limit_warning">পুরাতন মেমরি সীমিত উচ্চ মেমরি সীমিতগুলি পুরাতন ডিভাইসের জন্য অকার্যকার হতে পারে</string>
-    <string name="settings_system_memory_limit_high_warning">উচ্চ মেমরি সীমা কিছু ডিভাইসে প্যাচিং অনেক ধীর করে দিতে পারে। কম সীমায় প্যাচিং ব্যর্থ হতে থাকলেই কেবল এটি বাড়ান।</string>
-    <string name="settings_system_process_runtime_description_not_available">এই বৈশিষ্ট্যটি অ্যান্ড্রয়েড 11 বা তার চেয়ে বেশি সংস্করণের প্রয়োজন।</string>
     <string name="settings_system_patcher_completion_sound">সম্পূর্ণ হওয়ার শব্দ</string>
     <string name="settings_system_patcher_completion_sound_description">প্যাচিং শেষ হলে সাফল্য বা ব্যর্থতার জন্য একটি স্বতন্ত্র সুর বাজায়</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1138,6 +1124,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_storage_management_title">স্টোরেজ ব্যবস্থাপনা</string>
     <string name="settings_system_storage_management_description">ডিস্ক ব্যবহার দেখায় এবং ক্যাশed ফাইলস মুছে ফেলে</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s বিনামূল্যে</string>
     <string name="settings_system_storage_saved_apks">সংরক্ষিত APK সমূহ</string>
     <string name="settings_system_storage_caches">কেশ</string>
     <string name="settings_system_storage_keystore_title">সাইন করার কীস্টোর</string>

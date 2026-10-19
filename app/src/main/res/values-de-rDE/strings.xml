@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Keine ausgeblendeten Apps</string>
     <string name="home_app_hidden_apps_title">Ausgeblendete Apps</string>
     <string name="home_app_hidden_apps_hint">Zum Einblenden antippen</string>
+    <string name="home_apps_unhide_message">Ausgeblendete Apps werden zum Startbildschirm zurückgebracht</string>
     <string name="home_app_patch_sources_description">Nicht ausgewählte Quellen werden beim Patchen dieser Apps nicht angeboten, und ihre Patches werden nie von selbst in eine Auswahl aufgenommen. Jede Quelle bleibt für jede andere App aktiviert.</string>
     <string name="home_app_patch_sources_mixed">Angeboten für %1$s von %2$s</string>
     <string name="home_app_patch_sources_covers">Hat Patches für %1$s von %2$s</string>
@@ -456,7 +457,6 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="batch_patch_title">Patches im Batch anwenden</string>
     <string name="batch_patch_planning">Warteschlange wird vorbereitet…</string>
     <string name="batch_patch_preparing_next">Nächste App wird vorbereitet…</string>
-    <string name="batch_patch_progress_counter">Gepatchter %1$s von %2$s</string>
     <string name="batch_patch_summary">%1$s gepatcht, %2$s fehlgeschlagen, %3$s übersprungen</string>
     <string name="batch_patch_saved_hint">Die gepatchten Apps sind gespeichert. Installiere sie jetzt oder später aus der Liste der gepatchten APKs in den Einstellungen</string>
     <string name="batch_patch_multiple_sources">Einige Apps kombinieren Patches aus mehr als einer Quelle, was zu Konflikten führen kann</string>
@@ -654,12 +654,6 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="battery_optimization_dialog_title">Schutz vor Hintergrund-Patching</string>
     <string name="battery_optimization_dialog_description">Auf einigen Geräten wird das Patchen unterbrochen, sobald die App minimiert wird. Erlaube Morphe, ohne Akkuoptimierung im Hintergrund zu laufen, um sicherzustellen, dass der Vorgang zuverlässig abgeschlossen wird</string>
     <string name="battery_optimization_not_now">Nicht jetzt</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Nicht genügend Speicher</string>
-    <string name="patcher_memory_adjustment_description">Der Patcher wurde vom System beendet, während er mit einem Speicherlimit von %1$d MB ausgeführt wurde. Das Senken des Limits auf %2$d MB macht den Patcher zu einem kleineren Ziel und kann dafür sorgen, dass der Lauf abgeschlossen wird.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Der Patcher wurde vom System beendet, während er mit einem Speicherlimit von %1$d MB ausgeführt wurde, was bereits das niedrigste verfügbare Limit ist. Versuche, mit weniger Patchquellen zu patchen, oder wähle weniger Patches aus.</string>
-    <string name="patcher_memory_adjustment_description_finished">Das System stoppte den Patcher bei einem Speicherlimit von %1$d MB, und er wurde erst bei %2$d MB fertig. Ein Start bei %2$d MB überspringt diesen verlorenen Versuch beim nächsten Mal</string>
-    <string name="patcher_memory_adjustment_apply">Auf %1$d MB senken</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patch-Vorgang läuft…</string>
     <string name="patcher_notification_text">Zum Patcher zurückkehren</string>
@@ -701,7 +695,6 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="failed_to_execute_patch">%s konnte nicht angewendet werden</string>
     <string name="patched_app_save_failed_toast">Speichern der gepatchten App fehlgeschlagen</string>
     <string name="plugin_activity_dialog_body">Benutzerinteraktion ist erforderlich, um dieses Plugin fortzusetzen</string>
-    <string name="patcher_process_exit_message">Patcher-Prozess wurde mit Code %s beendet</string>
     <string name="patcher_heap_exhausted_message">Dem Patcher ging bei einem Heap von %1$d MB der Speicher aus. Diese App ist zu groß für die ausgewählten Patches. Versuche, mit weniger Patch-Quellen zu patchen, oder wähle weniger Patches.</string>
     <string name="install_app_success">Erfolgreich installiert</string>
     <string name="install_app_fail">Installation der App fehlgeschlagen: %s</string>
@@ -1068,13 +1061,6 @@ Details: %2$s"</string>
     <string name="settings_system_battery_optimization">Hintergrundoptimierung</string>
     <string name="settings_system_battery_optimization_description">Behält den Patcher im Betrieb, wenn die App minimiert wird</string>
     <string name="settings_system_process_runtime">Prozesslaufzeit</string>
-    <string name="settings_system_process_runtime_description">Führt das Patchen in einem separaten Prozess für bessere Stabilität aus</string>
-    <string name="settings_system_process_runtime_enable">Prozesslaufzeit aktivieren</string>
-    <string name="settings_system_memory_limit_subtitle">Verfügbarer Speicher für das Patchen</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Dieses Gerät hat das Speicherlimit beim letzten Lauf ignoriert, daher kann das Patchen möglicherweise auf die Ausführung innerhalb von Morphe zurückgreifen.</string>
-    <string name="settings_system_memory_limit_warning">Ein niedrigeres Speicherlimit kann zu Fehlern beim Patchen größerer Apps führen</string>
-    <string name="settings_system_memory_limit_high_warning">Ein hohes Speicherlimit kann das Patchen auf einigen Geräten viel langsamer machen. Erhöhen Sie es nur, wenn das Patchen bei niedrigeren Limits weiterhin fehlschlägt.</string>
-    <string name="settings_system_process_runtime_description_not_available">Diese Funktion erfordert Android 11 oder höher</string>
     <string name="settings_system_patcher_completion_sound">Erfolgsmeldung</string>
     <string name="settings_system_patcher_completion_sound_description">Spielt einen bestimmten Ton bei Erfolg oder Misserfolg ab, wenn das Patchen abgeschlossen ist</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1147,6 +1133,7 @@ Details: %2$s"</string>
     <string name="settings_system_storage_management_title">Speicherverwaltung</string>
     <string name="settings_system_storage_management_description">Zeigt die Datennutzung an und löscht zwischengespeicherte Dateien</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s frei</string>
     <string name="settings_system_storage_saved_apks">Gespeicherte APK-Dateien</string>
     <string name="settings_system_storage_caches">Zwischenspeicher</string>
     <string name="settings_system_storage_keystore_title">Signierschlüsselbund</string>

@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">沒有隱藏的應用程式</string>
     <string name="home_app_hidden_apps_title">隱藏的應用程式</string>
     <string name="home_app_hidden_apps_hint">輕觸以取消隱藏</string>
+    <string name="home_apps_unhide_message">未隱藏的應用程式返回主畫面</string>
     <string name="home_app_patch_sources_description">當這些應用程式被修補時，未勾選的來源不會被提供，而且它們的修補程式永遠不會自行加入選取項目。每個來源在其他每個應用程式中都會保持啟用。</string>
     <string name="home_app_patch_sources_mixed">已提供給 %2$s 個中的 %1$s 個</string>
     <string name="home_app_patch_sources_covers">為 %2$s 個中的 %1$s 個提供修補程式</string>
@@ -456,7 +457,6 @@
     <string name="batch_patch_title">批次修補</string>
     <string name="batch_patch_planning">正在準備佇列…</string>
     <string name="batch_patch_preparing_next">正在準備下一個應用程式…</string>
-    <string name="batch_patch_progress_counter">修補 %1$s 的 %2$s</string>
     <string name="batch_patch_summary">%1$s 個已修補，%2$s 個失敗，%3$s 個已略過</string>
     <string name="batch_patch_saved_hint">已儲存已修補的應用程式。立即安裝或稍後從設定中的已修補 APK 清單安裝</string>
     <string name="batch_patch_multiple_sources">某些應用程式合併來自多個來源的修補程式，這可能會導致衝突</string>
@@ -653,12 +653,6 @@
     <string name="battery_optimization_dialog_title">背景修補保護</string>
     <string name="battery_optimization_dialog_description">部份裝置可能在應用程式縮小時停止修補程式。允許 Morphe 在沒有電池限制的情況下執行，以確保修補程式可靠完成。</string>
     <string name="battery_optimization_not_now">稍後再說</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">記憶體不足</string>
-    <string name="patcher_memory_adjustment_description">修補程式在以 %1$d MB 記憶體限制執行時被系統停止。將限制降低至 %2$d MB 可讓修補程式成為較小的目標，並可能讓執行完成。</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">修補程式在以 %1$d MB 記憶體限制執行時被系統停止，而該限制已是最低可用值。請嘗試使用較少的修補來源，或選擇較少的修補項目。</string>
-    <string name="patcher_memory_adjustment_description_finished">系統在 %1$d MB 的記憶體限制下停止了修補程式，而它到 %2$d MB 才完成。下次從 %2$d MB 開始即可略過那次失敗的嘗試</string>
-    <string name="patcher_memory_adjustment_apply">降至 %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">修補進行中…</string>
     <string name="patcher_notification_text">輕觸以返回修補程式畫面</string>
@@ -700,7 +694,6 @@
     <string name="failed_to_execute_patch">無法套用 %s</string>
     <string name="patched_app_save_failed_toast">無法儲存修補後的應用程式</string>
     <string name="plugin_activity_dialog_body">需要使用者互動才能繼續使用此外掛程式</string>
-    <string name="patcher_process_exit_message">修補程序已結束，代碼為 %s</string>
     <string name="patcher_heap_exhausted_message">修補程式在堆積大小為 %1$d MB 時記憶體不足。此應用程式對所選的修補程式而言過大。請嘗試使用較少的修補程式來源進行修補，或選擇較少的修補程式。</string>
     <string name="install_app_success">安裝成功</string>
     <string name="install_app_fail">無法安裝應用程式：%s</string>
@@ -1065,13 +1058,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">電池最佳化</string>
     <string name="settings_system_battery_optimization_description">即使應用程式被最小化，也會保持修補程式的執行</string>
     <string name="settings_system_process_runtime">執行階段程序</string>
-    <string name="settings_system_process_runtime_description">在獨立的程序中執行修補以獲得更好的穩定性</string>
-    <string name="settings_system_process_runtime_enable">啟用程序執行階段</string>
-    <string name="settings_system_memory_limit_subtitle">可用於修補的記憶體</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">此裝置在上次執行時忽略了記憶體限制，因此修補可能會改為在 Morphe 內執行。</string>
-    <string name="settings_system_memory_limit_warning">記憶體限制過低可能會導致修補較大型應用程式時失敗</string>
-    <string name="settings_system_memory_limit_high_warning">記憶體限制設得過高，可能會使某些裝置上的修補作業變慢許多。只有在較低限制下修補持續失敗時，才應調高限制。</string>
-    <string name="settings_system_process_runtime_description_not_available">此功能需要 Android 11 或以上版本</string>
     <string name="settings_system_patcher_completion_sound">完成音效</string>
     <string name="settings_system_patcher_completion_sound_description">修補完成時，成功或失敗會播放不同的提示音</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1144,6 +1130,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_management_title">儲存空間管理</string>
     <string name="settings_system_storage_management_description">顯示磁碟用量並清除快取檔案</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">剩餘%1$s可用</string>
     <string name="settings_system_storage_saved_apks">已儲存的 APK 檔案</string>
     <string name="settings_system_storage_caches">快取</string>
     <string name="settings_system_storage_keystore_title">簽署金鑰庫</string>

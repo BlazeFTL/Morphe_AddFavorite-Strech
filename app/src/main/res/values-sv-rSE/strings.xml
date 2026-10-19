@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Inga dolda appar</string>
     <string name="home_app_hidden_apps_title">Dolda appar</string>
     <string name="home_app_hidden_apps_hint">Tryck för att visa</string>
+    <string name="home_apps_unhide_message">Appar som visas återvänder till startskärmen</string>
     <string name="home_app_patch_sources_description">Källor som du lämnar omarkerade erbjuds inte när de här apparna modifieras, och deras tillägg läggs aldrig till i något urval på egen hand. Varje källa förblir aktiverad för alla andra appar</string>
     <string name="home_app_patch_sources_mixed">Erbjuds till %1$s av %2$s</string>
     <string name="home_app_patch_sources_covers">Har tillägg för %1$s av %2$s</string>
@@ -27,7 +28,7 @@
     <!-- Shown under the app a link was opened for -->
     <string name="deep_link_add_source_only_app">Endast den här appen har lagts till. Du kan lägga till andra appar från källans applista</string>
     <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
-    <string name="deep_link_add_source_only_universal">Endast de universella patcharna har lagts till. Du kan lägga till appar från källans applista</string>
+    <string name="deep_link_add_source_only_universal">Endast de universella tilläggen har lagts till. Du kan lägga till appar från källans applista</string>
     <!-- Asked when the link names an app of a source that is already added -->
     <string name="deep_link_add_source_app_back">Den här källan har redan lagts till. Vill du lägga till den här appen från den befintliga källan?</string>
     <!-- Home Screen - Update Notifications -->
@@ -456,7 +457,6 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="batch_patch_title">Gruppmodifiering</string>
     <string name="batch_patch_planning">Förbereder kön …</string>
     <string name="batch_patch_preparing_next">Förbereder nästa app …</string>
-    <string name="batch_patch_progress_counter">Modifierat %1$s av %2$s</string>
     <string name="batch_patch_summary">%1$s modifierades, %2$s misslyckades, %3$s hoppades över</string>
     <string name="batch_patch_saved_hint">De modifierade apparna har sparats. Installera dem nu eller senare från listan över modifierade APK-filer i inställningarna</string>
     <string name="batch_patch_multiple_sources">Vissa appar kombinerar tillägg från fler än en källa, vilket kan orsaka konflikter</string>
@@ -478,7 +478,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Starta</string>
     <string name="batch_patch_stop_title">Stoppa gruppmodifiering?</string>
-    <string name="batch_patch_stop_description">Appen som patchas just nu och allt som fortfarande står i kön kommer att avbrytas</string>
+    <string name="batch_patch_stop_description">Den app som modifieras just nu och allt som fortfarande står i kön avbryts</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Installera alla</string>
     <string name="batch_patch_install_failed">Installationen misslyckades</string>
@@ -550,7 +550,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="root_pre_patch_installer_description">Din enhet har rotåtkomst. Välj om den här appen ska modifieras för rotmontering eller standardinstallation</string>
     <string name="root_pre_patch_installer_mount_title">Rotmonteringsläge</string>
     <string name="root_pre_patch_installer_mount_description">Modifierar för rotmontering och monterar sedan APK-filen över den matchande ursprungliga appen. Inget stöd för GmsCore behövs</string>
-    <string name="root_mount_module_unmount_warning">Om KernelSU har \"Montera bort moduler som standard\" aktiverat, öppna KernelSU &gt; Superuser &gt; appen du monterade &gt; Profile &gt; Custom och inaktivera \"Montera bort moduler\". Annars kanske den monterade patchade APK:n inte träder i kraft, även om Morphe visar att den är monterad</string>
+    <string name="root_mount_module_unmount_warning">Om KernelSU har \"Unmount modules by default\" aktiverat öppnar du KernelSU &gt; Superuser &gt; appen som du har monterat &gt; Profile &gt; Custom och inaktivera \"Unmount modules\". Annars kan det hända att den modifierade APK-filen som har monterats inte träder i kraft, även om Morphe visar att den är monterad</string>
     <string name="root_pre_patch_installer_standard_title">Standardinstallationsläge</string>
     <string name="root_pre_patch_installer_standard_description">Modifierar som en vanlig APK-fil med stöd för GmsCore. Din installerarinställning används efter modifieringen</string>
     <string name="root_pre_patch_installer_hint">Frågas om Inställningar &gt; Modifiering &gt; Installation &gt; Uppmaning om val av installerare har aktiverats. Modifieringsläget går inte att ändra efter modifiering</string>
@@ -635,7 +635,7 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <string name="patcher_storage_badge_missing">Hittades inte</string>
     <string name="batch_patch_option_paths_skipped">Filer för tilläggsalternativ saknas och hoppas över: %1$s</string>
     <string name="patcher_missing_patches_title">Vissa tillägg är borta</string>
-    <string name="patcher_missing_patches_description">Det sparade urvalet för denna app anger patchar som ingen aktiverad källa längre erbjuder. Om du fortsätter patchas appen utan dem</string>
+    <string name="patcher_missing_patches_description">Det sparade urvalet för den här appen anger tillägg som ingen aktiverad källa längre erbjuder. Om du fortsätter modifieras appen utan dem</string>
     <string name="patcher_missing_patches_label">Erbjuds inte längre</string>
     <string name="patcher_option_paths_gone_title">Filer för tilläggsalternativ saknas</string>
     <string name="patcher_option_paths_gone_description">Ett eller flera tilläggsalternativ pekar på filer som inte längre finns kvar. Ta bort sökvägarna för att modifiera utan dem, eller lägg tillbaka filerna och försök igen</string>
@@ -653,12 +653,6 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <string name="battery_optimization_dialog_title">Skydd för modifiering i bakgrunden</string>
     <string name="battery_optimization_dialog_description">Vissa enheter kan stoppa modifieringsverktyget när appen minimeras. Tillåt att Morphe körs utan batteribegränsningar för att säkerställa att modifieringen slutförs tillförlitligt</string>
     <string name="battery_optimization_not_now">Inte nu</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Inte tillräckligt med minne</string>
-    <string name="patcher_memory_adjustment_description">Modifieringsverktyget stoppades av systemet medan den kördes med en minnesgräns på %1$d MB. Om du sänker gränsen till %2$d MB blir modifieringsverktyget ett mindre mål, vilket kan låta körningen slutföras</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Modifieringsverktyget stoppades av systemet medan det kördes med en minnesgräns på %1$d MB, vilket redan är den lägsta tillgängliga. Försök att modifiera med färre tilläggskällor, eller välj färre tillägg</string>
-    <string name="patcher_memory_adjustment_description_finished">Systemet stoppade modifieringsverktyget vid en minnesgräns på %1$d MB, och det slutfördes först vid %2$d MB. Om du startar vid %2$d MB hoppar du över det misslyckade försöket nästa gång</string>
-    <string name="patcher_memory_adjustment_apply">Sänk till %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Modifiering pågår …</string>
     <string name="patcher_notification_text">Tryck för att återgå till modifieringen</string>
@@ -700,7 +694,6 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <string name="failed_to_execute_patch">Det gick inte att tillämpa %s</string>
     <string name="patched_app_save_failed_toast">Det gick inte att spara den modifierade appen</string>
     <string name="plugin_activity_dialog_body">Användarinteraktion krävs för att fortsätta med den här insticksmodulen</string>
-    <string name="patcher_process_exit_message">Modifieringsprocessen avslutades med koden %s</string>
     <string name="patcher_heap_exhausted_message">Modifieraren fick slut på minne med en %1$d MB heap. Den här appen är för stor för de valda tilläggen. Försök att modifiera med färre tilläggskällor, eller välj färre tillägg.</string>
     <string name="install_app_success">Installationen lyckades</string>
     <string name="install_app_fail">Det gick inte att installera appen: %s</string>
@@ -791,7 +784,7 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language">Appspråk</string>
     <string name="settings_appearance_app_language_current">Aktuellt språk</string>
-    <string name="settings_appearance_translate">Hjälp med att översätta Morphe</string>
+    <string name="settings_appearance_translate">Hjälp till att översätta Morphe</string>
     <string name="settings_appearance_translations_info_title">Översättningar till vissa språk kan saknas eller vara ofullständiga</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">Gränssnittsskala</string>
@@ -862,11 +855,11 @@ Tillägg påverkas inte: aktivera förhandsversioner av tillägg för varje käl
     <string name="settings_advanced_updates_background_notifications_description_fcm">Pushmeddelanden om nya versioner, även när appen är stängd</string>
     <string name="settings_system_notifications_categories">Aviseringskategorier</string>
     <string name="settings_system_notifications_categories_description">Välj i systeminställningarna vilka uppdateringar som du meddelas om</string>
-    <string name="settings_advanced_update_interval">Sökningsfrekvens</string>
+    <string name="settings_advanced_update_interval">Kontrollfrekvens</string>
     <string name="settings_advanced_update_interval_hourly">Varje timme</string>
     <string name="settings_advanced_update_interval_daily">Varje dag</string>
-    <string name="settings_advanced_update_interval_weekly">Veckovis</string>
-    <string name="settings_advanced_update_interval_monthly">Månadsvis</string>
+    <string name="settings_advanced_update_interval_weekly">Varje vecka</string>
+    <string name="settings_advanced_update_interval_monthly">Varje månad</string>
     <string name="settings_advanced_update_interval_battery_warning">Kontroller i bakgrunden kanske inte fungerar tillförlitligt på vissa enheter. Tillverkare som Xiaomi, Huawei, Samsung och OnePlus begränsar ofta bakgrundsprocesser aggressivt för att spara batteri</string>
     <string name="settings_advanced_external_batch_patch">Tillåt externa utlösare</string>
     <string name="settings_advanced_external_batch_patch_description">Låter automatiseringsappar starta gruppmodifiering</string>
@@ -898,16 +891,16 @@ Tillägg påverkas inte: aktivera förhandsversioner av tillägg för varje käl
     <string name="settings_advanced_strip_unused_libs">Optimera för enhetsarkitektur</string>
     <string name="settings_advanced_strip_unused_libs_description">Tar bort plattformsspecifika bibliotek och delade APK-moduler som inte används</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <string name="settings_advanced_github_pat_summary">Låser upp källor för pull requests och privata arkiv</string>
-    <string name="settings_advanced_github_pat_description">För pull request-källor, privata arkiv och en högre hastighetsgräns på GitHub</string>
+    <string name="settings_advanced_github_pat_summary">Låser upp pull-begäranden som källor och privata lagringsplatser</string>
+    <string name="settings_advanced_github_pat_description">För pull-begäranden som källor, privata lagringsplatser och en högre frekvensgräns för GitHub</string>
     <string name="settings_advanced_github_pat_configured">Token konfigurerades</string>
     <string name="settings_advanced_github_pat_create">Skapa en token på GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
-    <string name="settings_advanced_github_pat_create_description">Öppnar GitHub med skopet %s redan valt</string>
-    <string name="settings_advanced_github_pat_checking">Kontrollerar med GitHub…</string>
+    <string name="settings_advanced_github_pat_create_description">Öppnar GitHub med omfånget %s redan valt</string>
+    <string name="settings_advanced_github_pat_checking">Kontrollerar med GitHub …</string>
     <!-- "%s" is the GitHub account name -->
     <string name="settings_advanced_github_pat_account">Inloggad på GitHub som %s</string>
-    <string name="settings_advanced_github_pat_rejected">GitHub har nekat denna token. Den kan ha löpt ut eller återkallats</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub har nekat denna token. Den kan ha gått ut eller återkallats</string>
     <string name="settings_advanced_github_pat_unreachable">Det gick inte att nå GitHub för att kontrollera denna token</string>
     <string name="settings_advanced_github_pat_export_include_label">Inkludera i inställningsexport</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
@@ -1067,13 +1060,6 @@ Information: %2$s"</string>
     <string name="settings_system_battery_optimization">Batterioptimering</string>
     <string name="settings_system_battery_optimization_description">Låter modifieringsverktyget fortsätta köras när appen minimeras</string>
     <string name="settings_system_process_runtime">Processkörning</string>
-    <string name="settings_system_process_runtime_description">Kör modifieringen i en separat process för bättre stabilitet</string>
-    <string name="settings_system_process_runtime_enable">Aktivera processkörning</string>
-    <string name="settings_system_memory_limit_subtitle">Tillgängligt minne för modifieringen</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Den här enheten ignorerade minnesgränsen under den senaste körningen, så modifiering kan återgå till att köras inuti Morphe</string>
-    <string name="settings_system_memory_limit_warning">En låg minnesgräns kan leda till fel när du modifierar större appar</string>
-    <string name="settings_system_memory_limit_high_warning">En hög minnesgräns kan göra modifieringen mycket långsammare på vissa enheter. Höj den bara om modifieringen fortsätter att misslyckas vid lägre gränser</string>
-    <string name="settings_system_process_runtime_description_not_available">Den här funktionen kräver Android 11 eller senare</string>
     <string name="settings_system_patcher_completion_sound">Ljud för slutförande</string>
     <string name="settings_system_patcher_completion_sound_description">Spelar upp en distinkt ton för att indikera om modifieringen har lyckats eller misslyckats när den är klar</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ Information: %2$s"</string>
     <string name="settings_system_storage_management_title">Lagringshantering</string>
     <string name="settings_system_storage_management_description">Visar diskanvändning och rensar cachelagrade filer</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s ledigt</string>
     <string name="settings_system_storage_saved_apks">Sparade APK-filer</string>
     <string name="settings_system_storage_caches">Cacheminnen</string>
     <string name="settings_system_storage_keystore_title">Nyckellager för signering</string>

@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Ingen skjulte apps</string>
     <string name="home_app_hidden_apps_title">Skjulte apps</string>
     <string name="home_app_hidden_apps_hint">Tryk for at vise</string>
+    <string name="home_apps_unhide_message">Skjulte apps vender tilbage til hjemmeskærmen</string>
     <string name="home_app_patch_sources_description">Kilder, der ikke er afkrydsede, tilbydes ikke, når disse apps bliver patchet, og deres patches kommer aldrig af sig selv med i en markering. Hver kilde forbliver slået til for alle andre apps.</string>
     <string name="home_app_patch_sources_mixed">Tilbydes til %1$s af %2$s</string>
     <string name="home_app_patch_sources_covers">Har patches til %1$s ud af %2$s</string>
@@ -456,7 +457,6 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="batch_patch_title">Batch patching</string>
     <string name="batch_patch_planning">Preparing the queue…</string>
     <string name="batch_patch_preparing_next">Preparing the next app…</string>
-    <string name="batch_patch_progress_counter">Patchet %1$s af %2$s</string>
     <string name="batch_patch_summary">%1$s patchet, %2$s mislykkedes, %3$s sprunget over</string>
     <string name="batch_patch_saved_hint">De rettede apps er gemt. Installer dem nu, eller senere fra listen over rettede APK\'er i indstillingerne</string>
     <string name="batch_patch_multiple_sources">Nogle apps kombinerer patches fra mere end én kilde, hvilket kan forårsage konflikter</string>
@@ -653,12 +653,6 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="battery_optimization_dialog_title">Beskyttelse mod baggrundspatching</string>
     <string name="battery_optimization_dialog_description">Nogle enheder kan stoppe patcheren, når appen minimeres. Tillad Morphe at køre uden batterirestriktioner for at sikre, at patching fuldføres pålideligt</string>
     <string name="battery_optimization_not_now">Ikke nu</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Ikke nok hukommelse</string>
-    <string name="patcher_memory_adjustment_description">Patcheren blev stoppet af systemet, mens den kørte med en hukommelsesgrænse på %1$d MB. En sænkning af grænsen til %2$d MB gør patcheren til et mindre mål og kan lade kørslen fuldføre.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Patcheren blev stoppet af systemet, mens den kørte med en hukommelsesgrænse på %1$d MB, hvilket allerede er den laveste tilgængelige. Prøv at patche med færre patchkilder, eller vælg færre patches.</string>
-    <string name="patcher_memory_adjustment_description_finished">Systemet stoppede patcheren ved en hukommelsesgrænse på %1$d MB, og den blev først færdig ved %2$d MB. Hvis du starter ved %2$d MB, springer du over det tabte forsøg næste gang</string>
-    <string name="patcher_memory_adjustment_apply">Sænk til %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patching i gang…</string>
     <string name="patcher_notification_text">Tryk for at vende tilbage til patcheren</string>
@@ -700,7 +694,6 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="failed_to_execute_patch">Kunne ikke anvende %s</string>
     <string name="patched_app_save_failed_toast">Kunne ikke gemme patchet app</string>
     <string name="plugin_activity_dialog_body">Brugerinteraktion er nødvendig for at fortsætte med dette plugin</string>
-    <string name="patcher_process_exit_message">Patcher-processen lukkede med koden %s</string>
     <string name="patcher_heap_exhausted_message">Patcheren løb tør for hukommelse med en heap på %1$d MB. Denne app er for stor til de valgte patches. Prøv at patche med færre patchkilder, eller vælg færre patches.</string>
     <string name="install_app_success">Installeret</string>
     <string name="install_app_fail">Kunne ikke installere app: %s</string>
@@ -1067,13 +1060,6 @@ Detaljer: %2$s"</string>
     <string name="settings_system_battery_optimization">Batterioptimering</string>
     <string name="settings_system_battery_optimization_description">Holder patcheren kørende, når appen er minimeret</string>
     <string name="settings_system_process_runtime">Proces runtime</string>
-    <string name="settings_system_process_runtime_description">Kør patching i separat proces for bedre stabilitet</string>
-    <string name="settings_system_process_runtime_enable">Aktiver proces runtime</string>
-    <string name="settings_system_memory_limit_subtitle">Hukommelse tilgængelig til patching</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Denne enhed ignorerede hukommelsesgrænsen ved sidste kørsel, så patching kan falde tilbage til at køre inde i Morphe</string>
-    <string name="settings_system_memory_limit_warning">En lav hukommelsesbegrænsning kan medføre at patching af store apps fejler</string>
-    <string name="settings_system_memory_limit_high_warning">En høj hukommelsesgrænse kan gøre patching meget langsommere på nogle enheder. Hæv den kun, hvis patching fortsat fejler ved lavere grænser.</string>
-    <string name="settings_system_process_runtime_description_not_available">Denne funktion kræver Android 11 eller nyere</string>
     <string name="settings_system_patcher_completion_sound">Fuldførelseslyd</string>
     <string name="settings_system_patcher_completion_sound_description">Afspiller en særlig tone ved succes eller fiasko, når patching er færdigt</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ Detaljer: %2$s"</string>
     <string name="settings_system_storage_management_title">Administration af lager</string>
     <string name="settings_system_storage_management_description">Viser diskpladsforbrug og rydder cakedfiler</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s ledig</string>
     <string name="settings_system_storage_saved_apks">Gemte APK\'er</string>
     <string name="settings_system_storage_caches">Cachelagring</string>
     <string name="settings_system_storage_keystore_title">Signerings nøglelager</string>

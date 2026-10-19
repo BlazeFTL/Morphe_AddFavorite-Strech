@@ -331,7 +331,6 @@
     <string name="battery_optimization_dialog_title">Заштита од закрпување во позадина</string>
     <string name="battery_optimization_dialog_description">Некои уреди може да го запре закрпувачот кога апликацијата е минимизирана. Дозволете на Morphe да работи без ограничувања на батеријата за да се осигури закрпувањето целосно</string>
     <string name="battery_optimization_not_now">Не сега</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Поправување во тек…</string>
     <string name="patcher_notification_text">Допрете за да се вратите на поправувачот</string>
@@ -370,7 +369,6 @@
     <string name="failed_to_execute_patch">Не успеа да се примени %s</string>
     <string name="patched_app_save_failed_toast">Не успеа да се зачува поправената апликација</string>
     <string name="plugin_activity_dialog_body">За да продолжите со овој приклучок, потребна е корисничка интеракција.</string>
-    <string name="patcher_process_exit_message">Процесот на закрпување заврши со код %s</string>
     <string name="install_app_success">Успешно инсталирано</string>
     <string name="install_app_fail">Не успеа да се инсталира апликацијата: %s</string>
     <string name="save_apk_success">APK е зачуван</string>
@@ -575,11 +573,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">Оптимизација на батеријата</string>
     <string name="settings_system_battery_optimization_description">Слободно место на дискот</string>
     <string name="settings_system_process_runtime">Време на извршување на процесот</string>
-    <string name="settings_system_process_runtime_description">Преземањето може да биде затворено</string>
-    <string name="settings_system_process_runtime_enable">Овозможи време на извршување на процесот</string>
-    <string name="settings_system_memory_limit_subtitle">Меморија достапна за закрпување</string>
-    <string name="settings_system_memory_limit_warning">Нисзок лимит на меморија може да предизвика неуспеси при закрпување на поголеми апликации</string>
-    <string name="settings_system_process_runtime_description_not_available">Оваа функција бара Android 11 или подоцна</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications_sound_default">Стандардно</string>
     <!-- Settings - System Tab - Import and Export Section -->

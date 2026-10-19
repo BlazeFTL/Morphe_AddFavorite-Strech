@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Gan aon aipeanna i bhfolach</string>
     <string name="home_app_hidden_apps_title">Aipeanna i bhfolach</string>
     <string name="home_app_hidden_apps_hint">Tapáil chun é a nochtadh</string>
+    <string name="home_apps_unhide_message">Filleann aipeanna a bhfuil a bhfolach bainte díobh ar an scáileán baile</string>
     <string name="home_app_patch_sources_description">Ní thairgtear foinsí nach bhfuil marcáilte nuair a chuirtear paistí i bhfeidhm ar na haipeanna seo, agus ní chuirtear a gcuid paistí féin leis an roghnú ina n-aonar riamh. Fanann gach foinse gníomhach do gach aip eile.</string>
     <string name="home_app_patch_sources_mixed">Á thairiscint do %1$s de %2$s</string>
     <string name="home_app_patch_sources_covers">Tá paistí ann do %1$s de %2$s</string>
@@ -456,7 +457,6 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="batch_patch_title">Paisteáil bhaisc</string>
     <string name="batch_patch_planning">Ag ullmhú na scuaine…</string>
     <string name="batch_patch_preparing_next">Ag ullmhú an chéad aip eile…</string>
-    <string name="batch_patch_progress_counter">Paisteáladh %1$s de %2$s</string>
     <string name="batch_patch_summary">%1$s paisteáilte, theip ar %2$s, scipeáil %3$s</string>
     <string name="batch_patch_saved_hint">Tá na haipeanna paisteáilte sábháilte. Suiteáil iad anois, nó níos déanaí ón liosta APK paisteáilte sna socruithe.</string>
     <string name="batch_patch_multiple_sources">Comhcheanglaíonn roinnt aipeanna paistí ó níos mó ná foinse amháin, rud a d’fhéadfadh coimhlintí a chruthú</string>
@@ -653,12 +653,6 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="battery_optimization_dialog_title">Cosaint paisteála cúlra</string>
     <string name="battery_optimization_dialog_description">D\'fhéadfadh roinnt feistí an paiste a stopadh nuair a íoslaghdaítear an aip. Lig do Morphe rith gan srianta ceallraí chun a chinntiú go gcríochnaítear an paiste go hiontaofa</string>
     <string name="battery_optimization_not_now">Ní anois</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Gan dóthain cuimhne</string>
-    <string name="patcher_memory_adjustment_description">Stopadh an paisteálaí ag an gcóras agus é ag rith le teorainn chuimhne %1$d MB. Má íslítear an teorainn go %2$d MB, is sprioc níos lú é an paisteálaí agus féadann sé ligean don rith críochnú.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Stopadh an paisteálaí ag an gcóras agus é ag rith le teorainn chuimhne %1$d MB, arb í an teorainn is ísle atá ar fáil cheana féin. Bain triail as paisteáil le níos lú foinsí paiste, nó roghnaigh níos lú paistí.</string>
-    <string name="patcher_memory_adjustment_description_finished">Chuir an córas stop leis an gclár paisteála ag teorainn cuimhne %1$d MB, agus níor chríochnaigh sé ach ag %2$d MB. Má thosaítear ag %2$d MB, seachnófar an iarracht sin a chuaigh amú an chéad uair eile.</string>
-    <string name="patcher_memory_adjustment_apply">Ísligh go %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Paisteáil ar siúl…</string>
     <string name="patcher_notification_text">Tapáil chun filleadh ar an paisteálaí</string>
@@ -700,7 +694,6 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="failed_to_execute_patch">Theip ar %s a chur i bhfeidhm</string>
     <string name="patched_app_save_failed_toast">Theip ar aip chomhfhiosach a shábháil</string>
     <string name="plugin_activity_dialog_body">Tá idirghníomhaíocht úsáideora ag teastáil chun dul ar aghaidh leis an mbreiseán seo</string>
-    <string name="patcher_process_exit_message">Próiseas paisteála scoirthe leis an gcód %s</string>
     <string name="patcher_heap_exhausted_message">Bhí an paisteálaí as cuimhne le carn %1$d MB. Tá an aip seo ró-mhór do na paistí roghnaithe. Bain triail as paisteáil le níos lú foinsí paiste, nó roghnaigh níos lú paistí</string>
     <string name="install_app_success">Suiteáilte go rathúil</string>
     <string name="install_app_fail">Theip ar aip a shuiteáil: %s</string>
@@ -1065,13 +1058,6 @@ Sonraí: %2$s"</string>
     <string name="settings_system_battery_optimization">Uasmhéadú ceallraí</string>
     <string name="settings_system_battery_optimization_description">Coinníonn an paisteálaí ag rith nuair a bhíonn an aip íoslaghdaithe</string>
     <string name="settings_system_process_runtime">Am rith an phróisis</string>
-    <string name="settings_system_process_runtime_description">Ritheann sé paisteáil i bpróiseas ar leithligh le haghaidh cobhsaíochta níos fearr.</string>
-    <string name="settings_system_process_runtime_enable">Cumasaigh am rith an phróisis</string>
-    <string name="settings_system_memory_limit_subtitle">Cuimhne ar fáil le haghaidh paisteála</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Thug an gléas seo neamhaird ar an teorainn cuimhne le linn an rith dheireanaigh, mar sin d’fhéadfadh sé go mbeadh ar an bpróiseas paisteála filleadh ar rith laistigh de Morphe.</string>
-    <string name="settings_system_memory_limit_warning">D’fhéadfadh teorainn íseal chuimhne teipeanna a chur faoi deara agus aipeanna níos mó á bpaisteáil</string>
-    <string name="settings_system_memory_limit_high_warning">Is féidir le teorainn ard chuimhne paistí a dhéanamh i bhfad níos moille ar roinnt gléasanna. Ní ardaítear í ach amháin má leanann paistí ag teip ag teorainneacha níos ísle.</string>
-    <string name="settings_system_process_runtime_description_not_available">Éilíonn an ghné seo Android 11 nó níos déanaí</string>
     <string name="settings_system_patcher_completion_sound">Fuaim críochnaithe</string>
     <string name="settings_system_patcher_completion_sound_description">Seinneann ton ar leith le haghaidh rath nó teip nuair a chríochnaíonn an paisteáil</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1144,6 +1130,7 @@ Sonraí: %2$s"</string>
     <string name="settings_system_storage_management_title">Bainistíocht stórála</string>
     <string name="settings_system_storage_management_description">Taispeánann sé úsáid diosca agus glanann sé comhaid taisce</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s saor in aisce</string>
     <string name="settings_system_storage_saved_apks">APKanna sábháilte</string>
     <string name="settings_system_storage_caches">Taiscanna</string>
     <string name="settings_system_storage_keystore_title">Stór eochrach sínithe</string>

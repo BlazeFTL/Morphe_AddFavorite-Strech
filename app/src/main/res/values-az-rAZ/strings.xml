@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Gizlədilən tətbiqlər yoxdur</string>
     <string name="home_app_hidden_apps_title">Gizlədilən tətbiqlər</string>
     <string name="home_app_hidden_apps_hint">Göstərmək üçün toxun</string>
+    <string name="home_apps_unhide_message">Gizlədilməmiş tətbiqlər əsas ekrana qayıdır</string>
     <string name="home_app_patch_sources_description">İşarələnməmiş mənbələr bu tətbiqlər yamaqlanarkən təklif olunmur və onların yamaqları heç vaxt öz-özünə seçilənlərə qoşulmur. Hər bir mənbə digər bütün tətbiqlər üçün aktiv qalır</string>
     <string name="home_app_patch_sources_mixed">%2$s-dən %1$s-ə təklif olunur</string>
     <string name="home_app_patch_sources_covers">%2$s-dən %1$s üçün yamaqlar var</string>
@@ -456,7 +457,6 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="batch_patch_title">Toplu yamaqlama</string>
     <string name="batch_patch_planning">Növbə hazırlanır...</string>
     <string name="batch_patch_preparing_next">Növbəti tətbiq hazırlanır...</string>
-    <string name="batch_patch_progress_counter">%2$s tətbiqdən %1$s-i yamaqlandı</string>
     <string name="batch_patch_summary">%1$s yamaqlandı, %2$s uğursuz oldu, %3$s ötürüldü</string>
     <string name="batch_patch_saved_hint">Yamaqlanmış tətbiqlər saxlanılır. Onları indi və ya daha sonra tənzimləmələrdəki yamaqlanmış APK siyahısından quraşdır</string>
     <string name="batch_patch_multiple_sources">Bəzi tətbiqlər birdən çox mənbədən yamaqları birləşdirir ki, bu da toqquşmalara səbəb ola bilər</string>
@@ -653,12 +653,6 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="battery_optimization_dialog_title">Fon yamaqlanma müdafiəsi</string>
     <string name="battery_optimization_dialog_description">Bəzi cihazlar tətbiqi qısanda yamaqlayıcını dayandıra bilər. Etibarlı tamamlanan yamaqlanmaya əmin olmaq üçün Morphe-ni batareya məhdudiyyətləri olmadan işlətməyə icazə ver</string>
     <string name="battery_optimization_not_now">İndi deyil</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Kifayət qədər yaddaş yoxdur</string>
-    <string name="patcher_memory_adjustment_description">Yamaqlayıcı %1$d MB yaddaş həddi ilə işləyərkən sistem tərəfindən dayandırıldı. Həddin %2$d MB-a endirilməsi yamaqlayıcını daha kiçik hədəfə çevirir və icranı tamamlamağa imkan verə bilər</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Yamaqlayıcı %1$d MB yaddaş həddi ilə işləyərkən sistem tərəfindən dayandırıldı ki, bu da artıq mövcud olan ən aşağı limitdir. Daha az yamaq mənbəyi ilə yamaqlamağa çalışın və ya daha az yamaq seç</string>
-    <string name="patcher_memory_adjustment_description_finished">Sistem yamaqlayıcını %1$d MB yaddaş həddində dayandırdı və o yalnız %2$d MB-da bitdi. %2$d MB-dan başlayaraq növbəti dəfə uğursuz cəhdi ötürür</string>
-    <string name="patcher_memory_adjustment_apply">%1$d MB-a endir</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Yamaqlanma irəliləyişdədir...</string>
     <string name="patcher_notification_text">Yamaqlayıcıya qayıtmaq üçün toxun</string>
@@ -700,7 +694,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="failed_to_execute_patch">%s tətbiq etmək uğursuz oldu</string>
     <string name="patched_app_save_failed_toast">Yamaqlanan tətbiqi saxlamaq olmadı</string>
     <string name="plugin_activity_dialog_body">Bu qoşmayla davam etmək üçün istifadəçi reaksiyası tələb olunur</string>
-    <string name="patcher_process_exit_message">Yamaqlayıcı emalı %s şifrəsi ilə tamamlandı</string>
+    <string name="patcher_process_killed_message">Sistem yamaqlayıcını işini bitirmədən dayandırdı, bu adətən yaddaşı boşaltmaq üçün olur. Digər tətbiqləri bağla və təkrar cəhd et</string>
     <string name="patcher_heap_exhausted_message">Yamaqlayıcının %1$d MB-lıq yaddaş yığını tükəndi. Bu tətbiq seçilmiş yamaqlar üçün çox böyükdür. Daha az yamaq mənbəyi ilə yamaqlamağa çalış və ya daha az yamaq seç</string>
     <string name="install_app_success">Uğurla quraşdırıldı</string>
     <string name="install_app_fail">Tətbiqi quraşdırmaq olmadı: %s</string>
@@ -1066,13 +1060,9 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_battery_optimization">Batareya yaxşılaşdırma</string>
     <string name="settings_system_battery_optimization_description">Tətbiq qısılanda yamaqlayıcını işlək saxlayır</string>
     <string name="settings_system_process_runtime">Emal icra olunması müddəti</string>
-    <string name="settings_system_process_runtime_description">Daha yaxşı sabitlik üçün yamaqlanmanı ayrıca emalda icra edir</string>
-    <string name="settings_system_process_runtime_enable">Emal icra olunma müddətin aktivləşdir</string>
-    <string name="settings_system_memory_limit_subtitle">Yamaqlanma üçün əlçatan yaddaş</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Bu cihaz sonuncu icra zamanı yaddaş məhdudiyyətinə məhəl qoymadı, buna görə də yamaqlama Morphe daxilində icraya keçə bilər</string>
-    <string name="settings_system_memory_limit_warning">Daha həcmli tətbiqlər yamaqlananda aşağı yaddaş həddi, uğursuzluqlara səbəb ola bilər</string>
-    <string name="settings_system_memory_limit_high_warning">Yüksək yaddaş həddi bəzi cihazlarda yamaqlamanı xeyli ləngidə bilər. Limiti yalnız daha aşağı hədlərdə yamaqlama uğursuz olduqda artır</string>
-    <string name="settings_system_process_runtime_description_not_available">Bu xüsusiyyət Android 11 yaxud daha böyük istəyir</string>
+    <string name="settings_system_jvm_runtime_enable">Ayrı yamaqlayıcı prosesi</string>
+    <string name="settings_system_jvm_runtime_description">Cihazın ayırdığı qədər yaddaş istifadə edə bilən müstəqil Java icra vaxtında yamaqlayır. Morphe daxilində yamaqlamaq üçün qapat</string>
+    <string name="settings_system_jvm_runtime_unavailable">ARM və ya 64 bitlik x86 cihazı tələb olunur</string>
     <string name="settings_system_patcher_completion_sound">Tamamlanma səsi</string>
     <string name="settings_system_patcher_completion_sound_description">Yamaqlama bitdikdə uğur və ya uğursuzluq üçün fərqli ton səsləndirir</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1145,6 +1135,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_storage_management_title">Saxlanc idarəçiliyi</string>
     <string name="settings_system_storage_management_description">Disk istifadəsini göstərir və keşlənmiş faylları təmizləyir</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s boş</string>
     <string name="settings_system_storage_saved_apks">Saxlanılan APK-lar</string>
     <string name="settings_system_storage_caches">Keşlər</string>
     <string name="settings_system_storage_keystore_title">İmzalama açar deposu</string>
@@ -1375,6 +1366,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="hide">Gizlət</string>
     <string name="hidden">Gizlədildi</string>
     <string name="unhide">Göstər</string>
+    <string name="show_all">Hamısını göstər</string>
     <string name="ignore">Məhəl qoyma</string>
     <string name="stop_ignoring">Məhəl qoymamağı dayandır</string>
     <string name="logs">Jurnallar</string>

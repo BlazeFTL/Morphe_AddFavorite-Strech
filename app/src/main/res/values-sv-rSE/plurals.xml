@@ -33,8 +33,8 @@
         <item quantity="other">Tilläggskällor för %s appar</item>
     </plurals>
     <plurals name="home_apk_availability_hidden_sources">
-        <item quantity="one">Källkoden för %s är dold för denna app. Välj appen påfliken Appar och öppna Ändra källkod för att återställa den</item>
-        <item quantity="other">Källkoden för %s är dold för denna app. Välj appen påfliken Appar och öppna Ändra källkod för att återställa dem</item>
+        <item quantity="one">%s källa har dolts för den här appen. Välj appen i fliken Appar och öppna Tilläggskällor om du vill återställa den</item>
+        <item quantity="other">%s källor har dolts för den här appen. Välj appen i fliken Appar och öppna Tilläggskällor om du vill återställa dem</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s källa har dolts. Tryck för att visa</item>
@@ -113,8 +113,8 @@
         <item quantity="other">%s appar visas</item>
     </plurals>
     <plurals name="home_apps_unhide_title">
-        <item quantity="one">Visa upp %s app?</item>
-        <item quantity="other">Visa upp %s appar?</item>
+        <item quantity="one">Visa %s app?</item>
+        <item quantity="other">Visa %s appar?</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s dold app</item>

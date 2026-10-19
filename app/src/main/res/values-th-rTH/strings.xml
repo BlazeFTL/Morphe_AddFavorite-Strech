@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">ไม่มีแอปที่ซ่อนอยู่</string>
     <string name="home_app_hidden_apps_title">แอปที่ซ่อนอยู่</string>
     <string name="home_app_hidden_apps_hint">แตะเพื่อแสดง</string>
+    <string name="home_apps_unhide_message">แอปที่เปิดเผยแล้วจะกลับสู่หน้าแรก</string>
     <string name="home_app_patch_sources_description">แหล่งที่มาที่ไม่ได้เลือกไว้จะไม่ถูกเสนอเมื่อแอปเหล่านี้ถูกแพตช์ และแพตช์ของแหล่งที่มาเหล่านั้นจะไม่เข้าร่วมการเลือกด้วยตัวเอง แต่ละแหล่งที่มาจะยังคงเปิดใช้สำหรับแอปอื่นทุกแอป</string>
     <string name="home_app_patch_sources_mixed">เสนอให้ %1$s จากทั้งหมด %2$s</string>
     <string name="home_app_patch_sources_covers">มีแพตช์สำหรับ %1$s จากทั้งหมด %2$s</string>
@@ -456,7 +457,6 @@
     <string name="batch_patch_title">การแพตช์เป็นชุด</string>
     <string name="batch_patch_planning">กำลังเตรียมคิว…</string>
     <string name="batch_patch_preparing_next">กำลังเตรียมแอปถัดไป…</string>
-    <string name="batch_patch_progress_counter">แพตช์แล้ว %1$s จาก %2$s</string>
     <string name="batch_patch_summary">%1$s ถูกแพตช์, %2$s ล้มเหลว, %3$s ถูกข้าม</string>
     <string name="batch_patch_saved_hint">แอปที่แพตช์แล้วถูกบันทึกไว้ ติดตั้งเลย หรือภายหลังได้จากรายการ APK ที่แพตช์แล้วในตั้งค่า</string>
     <string name="batch_patch_multiple_sources">แอปบางตัวรวมแพตช์จากหลายแหล่ง ซึ่งอาจทำให้เกิดข้อขัดแย้ง</string>
@@ -653,12 +653,6 @@
     <string name="battery_optimization_dialog_title">การป้องกันการปรับแก้เบื้องหลัง</string>
     <string name="battery_optimization_dialog_description">อุปกรณ์บางเครื่องอาจหยุดโปรแกรมปรับแก้เมื่อแอปพลิเคชันถูกลดขนาด อนุญาตให้ Morphe ทำงานโดยไม่มีข้อจำกัดด้านแบตเตอรี่เพื่อให้แน่ใจว่าการปรับแก้เสร็จสมบูรณ์ได้อย่างน่าเชื่อถือ</string>
     <string name="battery_optimization_not_now">ไม่ใช่ตอนนี้</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">หน่วยความจำไม่เพียงพอ</string>
-    <string name="patcher_memory_adjustment_description">ตัวแพตช์ถูกหยุดโดยระบบขณะทำงานด้วยขีดจำกัดหน่วยความจำ %1$d MB การลดขีดจำกัดลงเป็น %2$d MB จะทำให้ตัวแพตช์เป็นเป้าหมายที่เล็กลงและอาจทำให้การทำงานเสร็จสมบูรณ์</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">ตัวแพตช์ถูกหยุดโดยระบบขณะทำงานด้วยขีดจำกัดหน่วยความจำ %1$d MB ซึ่งเป็นค่าต่ำสุดที่มีอยู่แล้ว ลองแพตช์โดยใช้แหล่งแพตช์น้อยลง หรือเลือกแพตช์น้อยลง</string>
-    <string name="patcher_memory_adjustment_description_finished">ระบบหยุดตัวแพตช์ที่ขีดจำกัดหน่วยความจำ %1$d MB และเสร็จสิ้นที่ %2$d MB เท่านั้น การเริ่มต้นที่ %2$d MB จะข้ามความพยายามที่สูญเสียนั้นในครั้งถัดไป</string>
-    <string name="patcher_memory_adjustment_apply">ลดเป็น %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">กำลังดำเนินการแพตช์…</string>
     <string name="patcher_notification_text">แตะเพื่อกลับไปยังตัวแพตช์</string>
@@ -700,7 +694,6 @@
     <string name="failed_to_execute_patch">ไม่สามารถใช้ %s ได้</string>
     <string name="patched_app_save_failed_toast">ไม่สามารถบันทึกแอปที่แพตช์แล้วได้</string>
     <string name="plugin_activity_dialog_body">ต้องมีการติดต่อผู้ใช้เพื่อดำเนินการต่อไปนี้</string>
-    <string name="patcher_process_exit_message">กระบวนการแพตช์เสร็จสิ้นด้วยรหัส %s</string>
     <string name="patcher_heap_exhausted_message">แพตเชอร์ใช้หน่วยความจำไม่เพียงพอสำหรับฮีปขนาด %1$d MB แอปนี้ใหญ่เกินไปสำหรับแพตช์ที่เลือกไว้ ลองแพตช์โดยใช้แหล่งแพตช์น้อยลง หรือเลือกแพตช์ให้น้อยลง</string>
     <string name="install_app_success">ติดตั้งสำเร็จแล้ว</string>
     <string name="install_app_fail">ไม่สามารถติดตั้งแอปได้: %s</string>
@@ -1067,13 +1060,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">การเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <string name="settings_system_battery_optimization_description">ทำให้ตัวแพตช์ทำงานต่อไปเมื่อแอปพลิเคชันถูกลดขนาด</string>
     <string name="settings_system_process_runtime">การทำงานของโปรเซส</string>
-    <string name="settings_system_process_runtime_description">เรียกใช้การแพตช์ในกระบวนการแยกต่างหากเพื่อเพิ่มความเสถียร</string>
-    <string name="settings_system_process_runtime_enable">เปิดใช้การทำงานของโปรเซส</string>
-    <string name="settings_system_memory_limit_subtitle">หน่วยความจำที่ว่างสำหรับการแพตช์</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">อุปกรณ์นี้เพิกเฉยต่อขีดจำกัดหน่วยความจำในการรันครั้งล่าสุด ดังนั้นการแพตช์อาจย้อนกลับไปทำงานภายใน Morphe</string>
-    <string name="settings_system_memory_limit_warning">ขีดจำกัดหน่วยความจำต่ำอาจทำให้เกิดความล้มเหลวเมื่อทำการแพตช์แอปขนาดใหญ่</string>
-    <string name="settings_system_memory_limit_high_warning">ขีดจำกัดหน่วยความจำที่สูงอาจทำให้การแพตช์ช้าลงมากบนอุปกรณ์บางเครื่อง ให้เพิ่มเฉพาะเมื่อการแพตช์ล้มเหลวที่ขีดจำกัดต่ำกว่า</string>
-    <string name="settings_system_process_runtime_description_not_available">คุณสมบัติขั้นตอนนี้ต้องการ Android 11 หรือเวอร์ชันที่สูงกว่า</string>
     <string name="settings_system_patcher_completion_sound">เสียงเมื่อเสร็จสิ้น</string>
     <string name="settings_system_patcher_completion_sound_description">เล่นเสียงที่แตกต่างเมื่อการแพตช์เสร็จสมบูรณ์ ไม่ว่าจะเป็นความสำเร็จหรือความล้มเหลว</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_management_title">การจัดการพื้นที่เก็บข้อมูล</string>
     <string name="settings_system_storage_management_description">แสดงการใช้งานดิสก์และล้างไฟล์แคช</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">พื้นที่ว่าง %1$s</string>
     <string name="settings_system_storage_saved_apks">APK ที่บันทึกไว้</string>
     <string name="settings_system_storage_caches">แคช</string>
     <string name="settings_system_storage_keystore_title">คีย์สโตร์การลงชื่อ</string>

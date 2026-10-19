@@ -418,7 +418,6 @@
     <string name="batch_patch_title">बॅच पॅचिंग</string>
     <string name="batch_patch_planning">queue तयार करत आहे…</string>
     <string name="batch_patch_preparing_next">पुढील ॲप तयार करत आहे…</string>
-    <string name="batch_patch_progress_counter">%2$s चे %1$s पॅच केले</string>
     <string name="batch_patch_summary">%1$s पॅच केले, %2$s अयशस्वी, %3$s वगळले</string>
     <string name="batch_patch_saved_hint">पॅच केलेले ॲप्स सेव्ह झाले आहेत. ते आता इंस्टॉल करा किंवा सेटिंग्जमधील पॅच केलेल्या APK सूचीमधून नंतर इंस्टॉल करा.</string>
     <string name="batch_patch_multiple_sources">काही ॲप्स एकापेक्षा जास्त स्रोतांकडून पॅच एकत्र करतात, ज्यामुळे संघर्ष होऊ शकतात.</string>
@@ -601,11 +600,6 @@
     <string name="battery_optimization_dialog_title">पार्श्वभूमी पॅचिंग संरक्षण</string>
     <string name="battery_optimization_dialog_description">ॲप मिनिमाइज केल्यावर काही उपकरणे पॅचर थांबवू शकतात. पॅचिंग নির্ভরযোগ্যपणे पूर्ण होण्यासाठी मोर्फेला बॅटरी निर्बंधांशिवाय चालण्याची परवानगी द्या.</string>
     <string name="battery_optimization_not_now">आता नाही</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">पुरेशी मेमरी नाही</string>
-    <string name="patcher_memory_adjustment_description">पॅचर %1$d MB मेमरी मर्यादेसह चालू असताना सिस्टमने तो थांबवला. मर्यादा %2$d MB पर्यंत कमी केल्याने पॅचर लहान लक्ष्य बनतो आणि रन पूर्ण होऊ शकतो.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">पॅचर %1$d MB मेमरी मर्यादेसह चालू असताना सिस्टमने तो थांबवला, जी आधीच उपलब्ध सर्वात कमी मर्यादा आहे. कमी पॅच स्रोतांसह पॅचिंग करून पहा किंवा कमी पॅच निवडा.</string>
-    <string name="patcher_memory_adjustment_apply">%1$d MB पर्यंत कमी करा</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">पॅचिंग सुरू आहे…</string>
     <string name="patcher_notification_text">पॅचरवर परत जाण्यासाठी टॅप करा</string>
@@ -647,7 +641,6 @@
     <string name="failed_to_execute_patch">%s लागू करण्यात अयशस्वी</string>
     <string name="patched_app_save_failed_toast">पॅच केलेले ॲप जतन करण्यात अयशस्वी</string>
     <string name="plugin_activity_dialog_body">या प्लगइनसह पुढे जाण्यासाठी वापरकर्त्याच्या इंटरॅक्शनची आवश्यकता आहे</string>
-    <string name="patcher_process_exit_message">पॅचर प्रक्रिया कोड %s सह बाहेर पडली</string>
     <string name="patcher_heap_exhausted_message">पॅचरला %1$d MB हीपसह मेमरी संपली. हे अॅप निवडलेल्या पॅचेससाठी खूप मोठे आहे. कमी पॅच स्रोतांसह पॅचिंग करून पहा, किंवा कमी पॅच निवडा.</string>
     <string name="install_app_success">इंस्टॉल यशस्वी झाले</string>
     <string name="install_app_fail">ॲप इंस्टॉल करण्यात अयशस्वी: %s</string>
@@ -978,13 +971,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">बॅटरी ऑप्टिमायझेशन</string>
     <string name="settings_system_battery_optimization_description">ॲप मिनिमाइज केले असताना पॅचर चालू ठेवतो</string>
     <string name="settings_system_process_runtime">प्रक्रिया रनटाइम</string>
-    <string name="settings_system_process_runtime_description">उत्तम स्थिरतेसाठी पॅचिंग वेगळ्या प्रक्रियेत चालवतो</string>
-    <string name="settings_system_process_runtime_enable">प्रक्रिया रनटाइम सक्षम करा</string>
-    <string name="settings_system_memory_limit_subtitle">पॅचिंगसाठी उपलब्ध मेमरी</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">या डिव्हाइसने शेवटच्या वेळी मेमरी मर्यादेकडे दुर्लक्ष केले, त्यामुळे पॅचिंग Morphe मध्ये चालवण्याकडे परत जाऊ शकते</string>
-    <string name="settings_system_memory_limit_warning">कमी मेमरी मर्यादा मोठ्या ॲप्सला पॅच करताना अपयश आणू शकते</string>
-    <string name="settings_system_memory_limit_high_warning">उच्च मेमरी मर्यादा काही डिव्हाइसेसवर पॅचिंग खूप मंद करू शकते. कमी मर्यादांवर पॅचिंग सतत अपयशी ठरत असेल तरच ती वाढवा</string>
-    <string name="settings_system_process_runtime_description_not_available">या वैशिष्ट्यासाठी Android 11 किंवा त्यापेक्षा नवीन आवश्यक आहे</string>
     <string name="settings_system_patcher_completion_sound">पूर्णत्वाचा आवाज</string>
     <string name="settings_system_patcher_completion_sound_description">पॅचिंग पूर्ण झाल्यावर यश किंवा अपयश दर्शवण्यासाठी विशिष्ट टोन प्ले करा</string>
     <!-- Settings - System Tab - Notifications Section -->

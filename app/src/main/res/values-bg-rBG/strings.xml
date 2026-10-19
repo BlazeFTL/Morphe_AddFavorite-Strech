@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Няма скрити приложения</string>
     <string name="home_app_hidden_apps_title">Скрити приложения</string>
     <string name="home_app_hidden_apps_hint">̅̅Натиснете, за да покажете</string>
+    <string name="home_apps_unhide_message">Нескритите приложения се връщат на началния екран</string>
     <string name="home_app_patch_sources_description">Източниците, останали без отметка, не се предлагат, когато тези приложения се кърпят, и кръпките им никога не се включват сами в селекция. Всеки източник остава включен за всяко друго приложение.</string>
     <string name="home_app_patch_sources_mixed">Предлага се на %1$s от %2$s</string>
     <string name="home_app_patch_sources_covers">Има кръпки за %1$s от %2$s</string>
@@ -456,7 +457,6 @@
     <string name="batch_patch_title">Пакетно прилагане на корекции</string>
     <string name="batch_patch_planning">Подготвя се опашката…</string>
     <string name="batch_patch_preparing_next">Подготвя се следващото приложение…</string>
-    <string name="batch_patch_progress_counter">Коригирана %1$s от %2$s</string>
     <string name="batch_patch_summary">%1$s коригирани, %2$s неуспешни, %3$s пропуснати</string>
     <string name="batch_patch_saved_hint">Пачните приложения са запазени. Инсталирайте ги сега или по-късно от списъка с пачните APK в настройките</string>
     <string name="batch_patch_multiple_sources">Някои приложения комбинират пачове от повече от един източник, което може да причини конфликти</string>
@@ -653,12 +653,6 @@
     <string name="battery_optimization_dialog_title">Защита от корекции във фонов режим</string>
     <string name="battery_optimization_dialog_description">Някои устройства може да спрат коректора, когато приложението е минимизирано. Разрешете на Morphe да работи без ограничения на батерията, за да сте сигурни, че корекциите ще бъдат завършени надеждно.</string>
     <string name="battery_optimization_not_now">Не сега</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Недостатъчно памет</string>
-    <string name="patcher_memory_adjustment_description">Патчерът беше спрян от системата, докато работеше с лимит на паметта от %1$d MB. Намаляването на лимита до %2$d MB прави патчера по-малка цел и може да позволи на изпълнението да завърши.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Патчерът беше спрян от системата, докато работеше с лимит на паметта от %1$d MB, който вече е най-ниският наличен. Опитайте се да патчвате с по-малко източници на пачове или изберете по-малко пачове.</string>
-    <string name="patcher_memory_adjustment_description_finished">Системата спря патчера при лимит на паметта от %1$d MB и той успя да завърши едва при %2$d MB. Стартирането от %2$d MB пропуска този неуспешен опит следващия път</string>
-    <string name="patcher_memory_adjustment_apply">Намали до %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Morphe</string>
     <string name="patcher_notification_text">Toast</string>
@@ -700,7 +694,6 @@
     <string name="failed_to_execute_patch">Неуспешно прилагане на %s</string>
     <string name="patched_app_save_failed_toast">Import</string>
     <string name="plugin_activity_dialog_body">Потребителски интеракция е нужна, за да продължите с този плагин.</string>
-    <string name="patcher_process_exit_message">Процесът на патчването излязъл с код %s</string>
     <string name="patcher_heap_exhausted_message">Пачърът изчерпа паметта при heap от %1$d MB. Това приложение е твърде голямо за избраните пачове. Опитайте се да пачвате с по-малко източници на пачове или изберете по-малко пачове.</string>
     <string name="install_app_success">Инсталирано успешно</string>
     <string name="install_app_fail">Неуспешно инсталиране на приложението: %s</string>
@@ -1067,13 +1060,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">Оптимизация на батерията</string>
     <string name="settings_system_battery_optimization_description">Поддържа работещ патчър, когато приложението е минимизирано</string>
     <string name="settings_system_process_runtime">Време на изпълнение</string>
-    <string name="settings_system_process_runtime_description">Изпълнява прилагането на пачове в отделен процес за по-добра стабилност.</string>
-    <string name="settings_system_process_runtime_enable">Включване на изпълнение на различни процеси</string>
-    <string name="settings_system_memory_limit_subtitle">Памет, достъпен за заместителния процес</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Това устройство пренебрегна ограничението на паметта при последното стартиране, така че прилагането на кръпки може да се върне към изпълнение в Morphe.</string>
-    <string name="settings_system_memory_limit_warning">Нисък памет може да доведе до неуспехи при заместителния на по-големи приложения</string>
-    <string name="settings_system_memory_limit_high_warning">Високата граница на паметта може да направи кърпенето много по-бавно на някои устройства. Увеличете я само ако кърпенето продължава да се проваля при по-ниски граници.</string>
-    <string name="settings_system_process_runtime_description_not_available">Това функционално възможност изисква Android 11 или по-нова версия.</string>
     <string name="settings_system_patcher_completion_sound">Звук за завършване</string>
     <string name="settings_system_patcher_completion_sound_description">Възпроизвежда отделен тон при успех или неуспех, когато завърши прилагането на корекциите</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_management_title">Управление на хранилището</string>
     <string name="settings_system_storage_management_description">Показва използването на диска и изчиства кешираните файлове</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s свободно</string>
     <string name="settings_system_storage_saved_apks">Запазени APK файлове</string>
     <string name="settings_system_storage_caches">Кешове</string>
     <string name="settings_system_storage_keystore_title">Хранилище за подписи</string>

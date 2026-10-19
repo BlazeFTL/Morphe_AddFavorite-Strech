@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">숨겨진 앱이 없습니다</string>
     <string name="home_app_hidden_apps_title">숨겨진 앱</string>
     <string name="home_app_hidden_apps_hint">숨기기를 해제하려면 탭하세요</string>
+    <string name="home_apps_unhide_message">숨겨진 앱이 홈 화면으로 돌아갑니다</string>
     <string name="home_app_patch_sources_description">체크하지 않은 소스는 해당 앱을 패치할 때 선택 항목으로 제공되지 않으며, 해당 소스의 패치는 자동으로 선택 목록에 포함되지 않습니다. 각 소스의 설정은 다른 모든 앱에서도 그대로 유지됩니다</string>
     <string name="home_app_patch_sources_mixed">%2$s 개 중 %1$s 개에 제공됨</string>
     <string name="home_app_patch_sources_covers">%2$s 개 중 %1$s 개에 대한 패치가 있습니다</string>
@@ -456,7 +457,6 @@
     <string name="batch_patch_title">일괄 패치</string>
     <string name="batch_patch_planning">패치 목록을 준비하는 중…</string>
     <string name="batch_patch_preparing_next">다음 앱을 준비하는 중…</string>
-    <string name="batch_patch_progress_counter">%2$s 개 중 %1$s 개 패치 완료</string>
     <string name="batch_patch_summary">%1$s 개 패치됨, %2$s 개 실패, %3$s 개 건너뜀</string>
     <string name="batch_patch_saved_hint">패치된 앱을 저장하였습니다. 지금 설치하거나 나중에 설정의 패치된 APK 목록에서 설치할 수 있습니다</string>
     <string name="batch_patch_multiple_sources">일부 앱은 여러 소스의 패치가 선택되어 있으므로 충돌이 발생할 수 있습니다</string>
@@ -653,12 +653,6 @@
     <string name="battery_optimization_dialog_title">백그라운드 패치 보호</string>
     <string name="battery_optimization_dialog_description">일부 기기에서는 앱이 최소화되면 패처가 중지될 수 있습니다. 패치가 안정적으로 완료되도록 Morphe가 배터리 제한 없이 실행되도록 허용하세요</string>
     <string name="battery_optimization_not_now">나중에</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">메모리가 부족합니다</string>
-    <string name="patcher_memory_adjustment_description">패처가 %1$d MB 메모리 제한으로 실행되는 동안 시스템에 의해 중지되었습니다. 제한을 %2$d MB로 낮추면 패처가 사용하는 메모리가 줄어들어 작업이 완료될 수 있습니다</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">패처가 %1$d MB 메모리 제한으로 실행되는 동안 시스템에 의해 중지되었습니다. 이 제한은 이미 설정 가능한 가장 낮은 값입니다. 패치 소스를 더 적게 사용하거나 패치를 더 적게 선택한 후 다시 패치해 보세요</string>
-    <string name="patcher_memory_adjustment_description_finished">시스템이 패처를 %1$d MB 메모리 제한에서 중단했지만, 실제로는 %2$d MB까지 사용해야 작업이 완료되었습니다. 다음번에는 %2$d MB부터 시작하면 이전에 메모리 부족으로 실패했던 시도를 건너뛸 수 있습니다</string>
-    <string name="patcher_memory_adjustment_apply">%1$d MB로 낮추기</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">패치를 진행하는 중…</string>
     <string name="patcher_notification_text">패처로 돌아가려면 여기를 탭하세요</string>
@@ -700,7 +694,7 @@
     <string name="failed_to_execute_patch">\'%s\'을 적용할 수 없습니다</string>
     <string name="patched_app_save_failed_toast">패치된 앱을 저장할 수 없습니다</string>
     <string name="plugin_activity_dialog_body">이 플러그인을 사용하려면 사용자 상호작용이 필요합니다</string>
-    <string name="patcher_process_exit_message">패처 프로세스를 코드 \'%s\'로 종료하였습니다</string>
+    <string name="patcher_process_killed_message">시스템이 메모리를 확보하기 위해 패처가 작업을 완료하기 전에 중단하였습니다. 다른 앱을 종료한 후 다시 시도하세요</string>
     <string name="patcher_heap_exhausted_message">패처가 %1$d MB 힙 메모리를 사용하는 동안 메모리가 부족해졌습니다. 이 앱은 선택한 패치를 적용하기에는 너무 큽니다. 패치 소스를 더 적게 사용하거나 패치를 더 적게 선택한 후 다시 패치해 보세요</string>
     <string name="install_app_success">성공적으로 설치하였습니다</string>
     <string name="install_app_fail">앱을 설치할 수 없습니다: %s</string>
@@ -791,7 +785,7 @@
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language">앱 언어</string>
     <string name="settings_appearance_app_language_current">현재 언어</string>
-    <string name="settings_appearance_translate">Morphe 번역 지원</string>
+    <string name="settings_appearance_translate">Morphe 번역 도움주기</string>
     <string name="settings_appearance_translations_info_title">일부 언어의 번역이 누락되거나 불완전할 수 있습니다</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">인터페이스 배율</string>
@@ -899,16 +893,16 @@
     <string name="settings_advanced_strip_unused_libs_description">사용하지 않는 네이티브 라이브러리와 APK 분할 파일을 제거합니다</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat_summary">풀 리퀘스트 소스와 비공개 저장소를 잠금 해제합니다</string>
-    <string name="settings_advanced_github_pat_description">풀 리퀘스트 소스, 비공개 저장소 및 더 높은 GitHubレート 제한을 위해</string>
+    <string name="settings_advanced_github_pat_description">Pull Request 소스, 비공개 리포지토리 지원 및 더 높은 GitHub API 요청 한도</string>
     <string name="settings_advanced_github_pat_configured">토큰을 설정하였습니다</string>
     <string name="settings_advanced_github_pat_create">GitHub에서 토큰 생성</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
-    <string name="settings_advanced_github_pat_create_description">%s 범위가 이미 선택된 상태로 GitHub 열기</string>
+    <string name="settings_advanced_github_pat_create_description">%s 범위가 미리 선택된 상태로 GitHub를 엽니다</string>
     <string name="settings_advanced_github_pat_checking">GitHub 확인 중...</string>
     <!-- "%s" is the GitHub account name -->
-    <string name="settings_advanced_github_pat_account">%s(으)로 GitHub에 로그인됨</string>
-    <string name="settings_advanced_github_pat_rejected">GitHub가 이 토큰을 거부했습니다. 만료되었거나 무효화되었을 수 있습니다</string>
-    <string name="settings_advanced_github_pat_unreachable">GitHub에 접속하지 못하여 토큰을 확인할 수 없습니다</string>
+    <string name="settings_advanced_github_pat_account">%s로 GitHub에 로그인됨</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub가 이 토큰을 거부하였습니다. 만료되었거나 무효화되었을 수 있습니다</string>
+    <string name="settings_advanced_github_pat_unreachable">이 토큰을 확인하기 위해 GitHub에 연결할 수 없습니다</string>
     <string name="settings_advanced_github_pat_export_include_label">설정 내보내기에 포함</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">내보낼 Morphe 설정에 이 개인 액세스 토큰을 추가합니다</string>
@@ -1031,7 +1025,7 @@ morphe_header_custom_dark.png
     <string name="installer_play_store_mode">Play 스토어로 설치</string>
     <string name="installer_play_store_mode_description">Google Play 스토어를 설치 출처로 지정합니다</string>
     <string name="settings_prompt_installer_on_install">설치 프로그램 선택 프롬프트</string>
-    <string name="settings_prompt_installer_on_install_description">각 앱의 설치 방법을 묻습니다: 루트 권한으로 패칭 전 또는 그 후에 설치</string>
+    <string name="settings_prompt_installer_on_install_description">모든 앱의 설치 방법을 묻습니다: 패치 전에 루트 권한이 있어야 하고, 그렇지 않으면 패치 후에 설치합니다</string>
     <string name="settings_auto_install_with_shizuku">패치 후 자동 설치</string>
     <string name="settings_auto_install_with_shizuku_description">패치가 완료되면 즉시 패치된 APK를 설치하거나 마운트합니다</string>
     <string name="settings_auto_uninstall_with_shizuku">충돌 시 자동 제거</string>
@@ -1067,18 +1061,14 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">배터리 최적화</string>
     <string name="settings_system_battery_optimization_description">앱이 최소화되어도 패처가 계속 실행되도록 유지합니다</string>
     <string name="settings_system_process_runtime">프로세스 런타임</string>
-    <string name="settings_system_process_runtime_description">안정성 향상을 위해 별도의 프로세스에서 패치를 실행합니다</string>
-    <string name="settings_system_process_runtime_enable">프로세스 런타임 활성화</string>
-    <string name="settings_system_memory_limit_subtitle">패치에 사용 가능한 메모리</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">이 기기는 지난 실행에서 메모리 제한을 무시했으므로 패치 작업이 Morphe 내부에서 실행되는 방식으로 대체될 수 있습니다</string>
-    <string name="settings_system_memory_limit_warning">메모리 제한이 낮으면 대용랑 앱을 패치할 경우에 오류가 발생할 수 있습니다</string>
-    <string name="settings_system_memory_limit_high_warning">메모리 제한이 높으면 일부 기기에서 패치 속도가 훨씬 느려질 수 있습니다. 더 낮은 제한에서 패치가 계속 실패하는 경우에만 메모리 제한을 높이세요</string>
-    <string name="settings_system_process_runtime_description_not_available">이 기능은 Android 11 이상이 필요합니다</string>
+    <string name="settings_system_jvm_runtime_enable">패처 프로세스 분리</string>
+    <string name="settings_system_jvm_runtime_description">패치를 별도의 Java 런타임 환경에서 실행합니다. 이 환경은 기기에서 사용 가능한 메모리를 최대한 활용할 수 있습니다. 이 기능을 비활성화하면 Morphe 앱 내부에서 패치를 실행합니다</string>
+    <string name="settings_system_jvm_runtime_unavailable">ARM 또는 64비트 x86 기기가 필요합니다</string>
     <string name="settings_system_patcher_completion_sound">완료 알림음</string>
     <string name="settings_system_patcher_completion_sound_description">패치가 완료되면 성공 또는 실패 여부에 따라 서로 다른 알림음을 재생합니다</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">알림</string>
-    <string name="settings_system_notifications_description">Morphe가 사용자에게 정보를 제공하는 방법</string>
+    <string name="settings_system_notifications_description">Morphe 알림 설정</string>
     <string name="settings_system_notifications_success_sound">성공 알림음</string>
     <string name="settings_system_notifications_error_sound">실패 알림음</string>
     <string name="settings_system_notifications_sound_default">기본값</string>
@@ -1146,6 +1136,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_management_title">저장소 관리</string>
     <string name="settings_system_storage_management_description">디스크 사용량을 표시하고 캐시된 파일을 삭제합니다</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s 여유 공간</string>
     <string name="settings_system_storage_saved_apks">저장된 APK</string>
     <string name="settings_system_storage_caches">캐시</string>
     <string name="settings_system_storage_keystore_title">서명 키스토어</string>
@@ -1266,10 +1257,10 @@ morphe_header_custom_dark.png
     <string name="settings_section_patcher">패처</string>
     <string name="settings_section_updates">업데이트</string>
     <string name="settings_section_patching">패치</string>
-    <string name="settings_section_appearance_summary">Morphe 표시 방식</string>
+    <string name="settings_section_appearance_summary">Morphe 앱 디자인 설정</string>
     <string name="settings_section_patch_options_summary">심플 모드가 앱을 패치하는 방식</string>
     <string name="settings_section_general">일반</string>
-    <string name="settings_section_patcher_summary">이 기기에서 앱이 패치되는 방법</string>
+    <string name="settings_section_patcher_summary">이 기기의 앱 패치 방식 설정</string>
     <string name="settings_section_help_info">도움말 및 정보</string>
     <string name="settings_section_about_summary">Morphe 자세히 알아보기 및 도움 받기</string>
     <string name="settings_section_local_files">파일</string>

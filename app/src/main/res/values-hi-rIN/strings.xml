@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">कोई छिपा ऐप नहीं</string>
     <string name="home_app_hidden_apps_title">छिपे हुए ऐप्स</string>
     <string name="home_app_hidden_apps_hint">वापस दिखाने के लिए टैप करें</string>
+    <string name="home_apps_unhide_message">अदृश्य एप्प होम स्क्रीन पर वापस आते हैं</string>
     <string name="home_app_patch_sources_description">जिन स्रोतों को चुना नहीं गया है, वे इन ऐप्स को पैच करते समय उपलब्ध नहीं होंगे और उनके पैच अपने आप किसी चयन में शामिल नहीं होंगे। हर स्रोत बाकी सभी ऐप्स के लिए चालू रहेगा।</string>
     <string name="home_app_patch_sources_mixed">%2$s में से %1$s को पेश किया गया</string>
     <string name="home_app_patch_sources_covers">%2$s में से %1$s के लिए पैच हैं</string>
@@ -456,7 +457,6 @@
     <string name="batch_patch_title">बैच पैचिंग</string>
     <string name="batch_patch_planning">कतार तैयार की जा रही है…</string>
     <string name="batch_patch_preparing_next">अगला ऐप तैयार किया जा रहा है…</string>
-    <string name="batch_patch_progress_counter">%2$s का पैच %1$s</string>
     <string name="batch_patch_summary">%1$s पैच किए गए, %2$s विफल रहे, %3$s को छोड़ दिया गया</string>
     <string name="batch_patch_saved_hint">पैच किए गए ऐप्स सहेजे गए हैं। उन्हें अभी इंस्टॉल करें, या सेटिंग्स में पैच किए गए APK सूची से बाद में इंस्टॉल करें</string>
     <string name="batch_patch_multiple_sources">कुछ ऐप एक से अधिक स्रोत से पैच को जोड़ते हैं, जिससे टकराव हो सकता है</string>
@@ -653,12 +653,6 @@
     <string name="battery_optimization_dialog_title">पृष्ठभूमि पैचिंग सुरक्षा</string>
     <string name="battery_optimization_dialog_description">कुछ डिवाइस ऐप को मिनिमाइज किए जाने पर पैचर को रोक सकते हैं। पैचिंग को विश्वसनीय रूप से पूरा करने के लिए मोर्फ़ को बैटरी प्रतिबंधों के बिना चलाने की अनुमति दें।</string>
     <string name="battery_optimization_not_now">अभी नहीं</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">पर्याप्त मेमोरी नहीं है</string>
-    <string name="patcher_memory_adjustment_description">पैचर को %1$d MB मेमोरी सीमा के साथ चलाते समय सिस्टम ने रोक दिया। सीमा को घटाकर %2$d MB करने से पैचर छोटा लक्ष्य बन जाता है और प्रक्रिया पूरी हो सकती है।</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">पैचर को %1$d MB मेमोरी सीमा के साथ चलाते समय सिस्टम ने रोक दिया, जो पहले से ही उपलब्ध सबसे कम सीमा है। कम पैच स्रोतों के साथ पैच करने का प्रयास करें, या कम पैच चुनें।</string>
-    <string name="patcher_memory_adjustment_description_finished">सिस्टम ने पैचर को %1$d MB मेमोरी सीमा पर रोक दिया, और यह केवल %2$d MB पर पूरा हुआ। अगली बार %2$d MB से शुरू करने से वह विफल प्रयास छूट जाता है</string>
-    <string name="patcher_memory_adjustment_apply">%1$d MB तक कम करें</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patching in progress…</string>
     <string name="patcher_notification_text">Tap to return to the patcher</string>
@@ -700,7 +694,6 @@
     <string name="failed_to_execute_patch">Failed to execute %s</string>
     <string name="patched_app_save_failed_toast">Failed to save patched app</string>
     <string name="plugin_activity_dialog_body">इस प्लगइन के लिए आगे बढ़ने के लिए उपयोगकर्ता इंटरैक्शन आवश्यक है।</string>
-    <string name="patcher_process_exit_message">पैचर प्रक्रिया कोड %s के साथ समाप्त हो गई।</string>
     <string name="patcher_heap_exhausted_message">पैचर %1$d MB हीप के साथ मेमोरी से बाहर हो गया। यह ऐप चयनित पैच के लिए बहुत बड़ा है। कम पैच स्रोतों के साथ पैच करने का प्रयास करें, या कम पैच चुनें।</string>
     <string name="install_app_success">सफलतापूर्वक इंस्टॉल हो गया</string>
     <string name="install_app_fail">अप्लिकेशन को तैयार करना असफल रहा: %s</string>
@@ -1067,13 +1060,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">बैटरी अनुकूलन</string>
     <string name="settings_system_battery_optimization_description">जब ऐप छोटा किया जाता है, तो पैचर को चालू रखता है।</string>
     <string name="settings_system_process_runtime">प्रोसेस रनटाइम</string>
-    <string name="settings_system_process_runtime_description">बेहतर स्थिरता के लिए एक अलग प्रक्रिया में पैचिंग करता है।</string>
-    <string name="settings_system_process_runtime_enable">प्रोसेस रनटाइम सक्षम करें</string>
-    <string name="settings_system_memory_limit_subtitle">पैचिंग के लिए उपलब्ध मेमोरी</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">इस डिवाइस ने पिछली बार मेमोरी सीमा को अनदेखा किया, इसलिए पैचिंग Morphe के अंदर चलने पर वापस आ सकती है।</string>
-    <string name="settings_system_memory_limit_warning">बड़े एप्लिकेशन के पैचिंग के लिए निम्न मेमोरी लिमिट फेल हो सकती है</string>
-    <string name="settings_system_memory_limit_high_warning">उच्च मेमोरी सीमा कुछ डिवाइसों पर पैचिंग को बहुत धीमा कर सकती है। इसे केवल तभी बढ़ाएं जब कम सीमाओं पर पैचिंग लगातार विफल हो रही हो।</string>
-    <string name="settings_system_process_runtime_description_not_available">यह सुविधा Android 11 या उसके बाद के संस्करण की आवश्यकता है</string>
     <string name="settings_system_patcher_completion_sound">पूर्ण होने की ध्वनि</string>
     <string name="settings_system_patcher_completion_sound_description">पैचिंग समाप्त होने पर सफलता या विफलता के लिए एक विशिष्ट टोन चलाता है</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_management_title">भंडारण प्रबंधन</string>
     <string name="settings_system_storage_management_description">डिस्क उपयोग दिखाता है और कैशे फ़ाइल्स साफ़ करता है</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s मुफ़्त</string>
     <string name="settings_system_storage_saved_apks">सहेजे गए APK</string>
     <string name="settings_system_storage_caches">कैश</string>
     <string name="settings_system_storage_keystore_title">साइनिंग कीस्टोर</string>

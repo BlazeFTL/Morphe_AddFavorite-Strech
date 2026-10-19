@@ -457,7 +457,7 @@
     <string name="batch_patch_title">Пакетний патчинг</string>
     <string name="batch_patch_planning">Підготовка черги…</string>
     <string name="batch_patch_preparing_next">Підготовка наступного застосунку…</string>
-    <string name="batch_patch_progress_counter">Пропатчено %1$s з %2$s</string>
+    <string name="batch_patch_progress_counter">Патчинг %1$s із %2$s</string>
     <string name="batch_patch_summary">%1$s пропатчено, %2$s невдало, %3$s пропущено</string>
     <string name="batch_patch_saved_hint">Пропатчені застосунки збережено. Встановіть їх зараз, або пізніше зі списку пропатчених APK у налаштуваннях</string>
     <string name="batch_patch_multiple_sources">Деякі застосунки поєднують патчі з кількох джерел, що може спричинити конфлікти</string>
@@ -654,12 +654,6 @@
     <string name="battery_optimization_dialog_title">Захист патчингу у фоні</string>
     <string name="battery_optimization_dialog_description">Деякі пристрої можуть зупиняти патчер, коли застосунок згорнуто. Дозвольте Morphe працювати без обмежень батареї, щоб патчинг завершувався стабільно</string>
     <string name="battery_optimization_not_now">Не зараз</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Недостатньо пам\'яті</string>
-    <string name="patcher_memory_adjustment_description">Патчер було зупинено системою під час виконання з обмеженням пам\'яті %1$d МБ. Зниження ліміту до %2$d МБ зменшує розмір цілі патчера та може дозволити завершити виконання</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Патчер було зупинено системою під час виконання з обмеженням пам\'яті %1$d МБ, яке вже є мінімально можливим. Спробуйте патчити з меншою кількістю джерел патчів або оберіть менше патчів</string>
-    <string name="patcher_memory_adjustment_description_finished">Систему зупинила патчер на ліміті пам\'яті %1$d МБ, а завершив він роботу лише на %2$d МБ. Початок із %2$d МБ дозволить наступного разу пропустити цю невдалу спробу</string>
-    <string name="patcher_memory_adjustment_apply">Знизити до %1$d МБ</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Триває патчинг…</string>
     <string name="patcher_notification_text">Натисніть, щоб повернутися до патчера</string>
@@ -701,7 +695,7 @@
     <string name="failed_to_execute_patch">Не вдалося застосувати %s</string>
     <string name="patched_app_save_failed_toast">Не вдалося зберегти патчений застосунок</string>
     <string name="plugin_activity_dialog_body">Для продовження потрібна взаємодія користувача з цим плагіном</string>
-    <string name="patcher_process_exit_message">Процес патчера завершився з кодом %s</string>
+    <string name="patcher_process_killed_message">Система зупинила патчер до завершення, зазвичай щоб звільнити пам\'ять. Закрийте інші застосунки та спробуйте знову</string>
     <string name="patcher_heap_exhausted_message">Патчеру не вистачило пам\'яті з heap розміром %1$d МБ. Цей застосунок занадто великий для вибраних патчів. Спробуйте патчити з меншою кількістю джерел патчів або оберіть менше патчів</string>
     <string name="install_app_success">Встановлено успішно</string>
     <string name="install_app_fail">Неможливо встановити застосунок: %s</string>
@@ -1068,13 +1062,9 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">Оптимізація батареї</string>
     <string name="settings_system_battery_optimization_description">Утримує патчер активним під час згортання застосунку</string>
     <string name="settings_system_process_runtime">Процес патчингу</string>
-    <string name="settings_system_process_runtime_description">Запускає патчинг в окремому процесі для кращої стабільності</string>
-    <string name="settings_system_process_runtime_enable">Увімкнути процес патчингу</string>
-    <string name="settings_system_memory_limit_subtitle">Доступна пам\'ять для патчингу</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Цей пристрій проігнорував обмеження пам\'яті під час останнього запуску, тому патчинг може повернутися до виконання всередині Morphe</string>
-    <string name="settings_system_memory_limit_warning">Низький ліміт пам’яті може спричинити збій при патчингу великих застосунків</string>
-    <string name="settings_system_memory_limit_high_warning">Високий ліміт пам\'яті може значно уповільнити патчинг на деяких пристроях. Підвищуйте його лише якщо патчинг постійно не вдається при нижчих лімітах</string>
-    <string name="settings_system_process_runtime_description_not_available">Для цієї функції потрібна версія Android 11 або новіша</string>
+    <string name="settings_system_jvm_runtime_enable">Окремий процес патчера</string>
+    <string name="settings_system_jvm_runtime_description">Патчить у власному середовищі виконання Java, яке може використовувати стільки пам\'яті, скільки лишає пристрій. Вимкніть, щоб патчити всередині Morphe</string>
+    <string name="settings_system_jvm_runtime_unavailable">Потрібен пристрій ARM або 64-бітний x86</string>
     <string name="settings_system_patcher_completion_sound">Звук завершення</string>
     <string name="settings_system_patcher_completion_sound_description">Відтворює окремий сигнал для успіху або невдачі після завершення патчингу</string>
     <!-- Settings - System Tab - Notifications Section -->

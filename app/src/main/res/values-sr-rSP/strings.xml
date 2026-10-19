@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Nema skrivених aplikacija</string>
     <string name="home_app_hidden_apps_title">Skrivene aplikacije</string>
     <string name="home_app_hidden_apps_hint">Dотраните за приказивање</string>
+    <string name="home_apps_unhide_message">Сакривене апликације се враћају на почетни екран</string>
     <string name="home_app_patch_sources_description">Извори који су остали неозначени не нуде се када се ове апликације закрпе, а њихове закрпе се никада саме не придружују избору. Сваки извор остаје укључен за све остале апликације</string>
     <string name="home_app_patch_sources_mixed">Понуђено за %1$s од %2$s</string>
     <string name="home_app_patch_sources_covers">Има закрпе за %1$s од %2$s</string>
@@ -456,7 +457,6 @@
     <string name="batch_patch_title">Групно закрпљивање</string>
     <string name="batch_patch_planning">Припрема се редова…</string>
     <string name="batch_patch_preparing_next">Припрема се следећа апликација…</string>
-    <string name="batch_patch_progress_counter">Закрпљено %1$s од %2$s</string>
     <string name="batch_patch_summary">%1$s закрпљено, %2$s неуспешно, %3$s прескочено</string>
     <string name="batch_patch_saved_hint">Печене апликације су сачуване. Инсталирајте их сада или касније из листе печених APK-ова у подешавањима</string>
     <string name="batch_patch_multiple_sources">Неке апликације комбинују печеве из више извора, што може изазвати сукобе</string>
@@ -653,12 +653,6 @@
     <string name="battery_optimization_dialog_title">Заштита од позадинског подешавања</string>
     <string name="battery_optimization_dialog_description">На неким уређајима, подешавач може бити заустављен када је апликација минимизована. Дозволите Morphe-у да ради без ограничења батерије како бисте осигурали поуздано подешавање.</string>
     <string name="battery_optimization_not_now">Касније</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Нема довољно меморије</string>
-    <string name="patcher_memory_adjustment_description">Систем је зауставио патчера док је радио са меморијским ограничењем од %1$d MB. Смањење ограничења на %2$d MB чини патчера мањом метом и може омогућити да се извршавање заврши.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Систем је зауставио патчера док је радио са меморијским ограничењем од %1$d MB, што је већ најниже доступно. Покушајте да покренете патчовање са мање извора патчева, или изаберите мање патчева.</string>
-    <string name="patcher_memory_adjustment_description_finished">Систем је зауставио пачер при меморијском ограничењу од %1$d MB, а завршио је тек при %2$d MB. Покретање од %2$d MB следећи пут прескаче тај изгубљени покушај</string>
-    <string name="patcher_memory_adjustment_apply">Смањи на %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Закрпљавање је у току…</string>
     <string name="patcher_notification_text">Додирните да бисте се вратили на поправку</string>
@@ -700,7 +694,6 @@
     <string name="failed_to_execute_patch">Није успело да се примени %s</string>
     <string name="patched_app_save_failed_toast">Није успело чување крпељом потписане апликације</string>
     <string name="plugin_activity_dialog_body">Неопходна је корисничка интеракција да бисте наставили са овом додатком.</string>
-    <string name="patcher_process_exit_message">Процес закрпе је завршен са кодом %s</string>
     <string name="patcher_heap_exhausted_message">Патчеру је понестало меморије са хеапом од %1$d MB. Ова апликација је превише велика за изабране патчеве. Покушајте да патчирате са мање извора патчева, или изаберите мање патчева.</string>
     <string name="install_app_success">Успешно инсталирано</string>
     <string name="install_app_fail">Није успело инсталирање апликације: %s</string>
@@ -1067,13 +1060,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">Оптимизација батерије</string>
     <string name="settings_system_battery_optimization_description">Држи закрпљивач активним када је апликација минимизирана</string>
     <string name="settings_system_process_runtime">Трајање времена</string>
-    <string name="settings_system_process_runtime_description">Покреће закрпљивање у засебном процесу за већу стабилност</string>
-    <string name="settings_system_process_runtime_enable">Омогући меморије</string>
-    <string name="settings_system_memory_limit_subtitle">Кликните да конфигуришете</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Овај уређај је игнорисао ограничење меморије при последњем покретању, па ће се примена закрпа можда вратити на покретање унутар Morphe-а.</string>
-    <string name="settings_system_memory_limit_warning">Mala ograniÄena memorija može uzrokovati greške pri nadogradnji veÄih aplikacija</string>
-    <string name="settings_system_memory_limit_high_warning">Високо ограничење меморије може учинити закрпање много споријим на неким уређајима. Подигните га само ако закрпање стално не успева при нижим ограничењима.</string>
-    <string name="settings_system_process_runtime_description_not_available">Ова карактеристика захтева Android 11 или новији</string>
     <string name="settings_system_patcher_completion_sound">Звук завршетка</string>
     <string name="settings_system_patcher_completion_sound_description">Пушта посебан тон за успех или неуспех када се заврши закачивање</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_management_title">Управљање складиштем</string>
     <string name="settings_system_storage_management_description">Приказује употребу диска и брише кеширане датотеке</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s бесплатно</string>
     <string name="settings_system_storage_saved_apks">Сачувани APK фајлови</string>
     <string name="settings_system_storage_caches">Keш меморија</string>
     <string name="settings_system_storage_keystore_title">Складиште потписа</string>

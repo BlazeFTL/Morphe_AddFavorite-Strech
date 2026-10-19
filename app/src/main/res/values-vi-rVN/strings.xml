@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Không có ứng dụng nào đang ẩn</string>
     <string name="home_app_hidden_apps_title">Ứng dụng đã ẩn</string>
     <string name="home_app_hidden_apps_hint">Bấm để hiện lại</string>
+    <string name="home_apps_unhide_message">Các ứng dụng không ẩn đã quay trở lại màn hình chính</string>
     <string name="home_app_patch_sources_description">Các nguồn không được chọn sẽ không được cung cấp khi các ứng dụng này được vá và các bản vá của chúng không bao giờ tự động tham gia vào lựa chọn. Mỗi nguồn vẫn bật cho mọi ứng dụng khác.</string>
     <string name="home_app_patch_sources_mixed">Được cung cấp cho %1$s trong số %2$s</string>
     <string name="home_app_patch_sources_covers">Có bản vá cho %1$s trong số %2$s</string>
@@ -456,7 +457,6 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="batch_patch_title">Đang vá hàng loạt</string>
     <string name="batch_patch_planning">Đang chuẩn bị hàng chờ…</string>
     <string name="batch_patch_preparing_next">Đang chuẩn bị ứng dụng tiếp theo…</string>
-    <string name="batch_patch_progress_counter">Đã vá %1$s/%2$s</string>
     <string name="batch_patch_summary">%1$s đã vá, %2$s thất bại, %3$s bị bỏ qua</string>
     <string name="batch_patch_saved_hint">Đã lưu các ứng dụng đã vá. Bạn có thể cài đặt ngay hoặc cài đặt khi khác từ danh sách APK đã vá trong phần Cài đặt</string>
     <string name="batch_patch_multiple_sources">Một số ứng dụng sử dụng bản vá từ nhiều nguồn khác nhau, điều này có thể dẫn đến xung đột</string>
@@ -653,12 +653,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="battery_optimization_dialog_title">Bảo vệ khi vá nền</string>
     <string name="battery_optimization_dialog_description">Một số thiết bị có thể tắt trình vá khi ứng dụng bị thu nhỏ. Cho phép Morphe chạy không giới hạn pin để quá trình vá hoàn thành ổn định</string>
     <string name="battery_optimization_not_now">Từ từ</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Không đủ bộ nhớ</string>
-    <string name="patcher_memory_adjustment_description">Trình vá đã bị hệ thống dừng khi đang chạy với giới hạn bộ nhớ %1$d MB. Hãy thử giảm giới hạn xuống %2$d MB để có thể làm giảm khả năng trình vá bị hệ thống dừng và giúp quá trình vá hoàn tất</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Trình vá đã bị hệ thống dừng khi đang chạy với giới hạn bộ nhớ %1$d MB, vốn đã là mức thấp nhất hiện có. Hãy thử vá với ít nguồn vá hơn hoặc chọn ít bản vá hơn</string>
-    <string name="patcher_memory_adjustment_description_finished">Hệ thống đã dừng trình vá ở giới hạn bộ nhớ %1$d MB và chỉ hoàn thành ở %2$d MB. Bắt đầu ở %2$d MB sẽ bỏ qua lần thử thất bại đó vào lần tới</string>
-    <string name="patcher_memory_adjustment_apply">Giảm xuống %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Đang vá…</string>
     <string name="patcher_notification_text">Bấm để quay trở lại trình vá</string>
@@ -700,7 +694,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="failed_to_execute_patch">Không thể áp dụng %s</string>
     <string name="patched_app_save_failed_toast">Không thể lưu ứng dụng đã vá</string>
     <string name="plugin_activity_dialog_body">Bạn vẫn cần tự thao tác để tải ứng dụng</string>
-    <string name="patcher_process_exit_message">Đã dừng tiến trình vá với mã lỗi %s</string>
     <string name="patcher_heap_exhausted_message">Trình vá đã hết bộ nhớ với heap %1$d MB. Ứng dụng này quá lớn so với các bản vá đã chọn. Hãy thử vá với ít nguồn vá hơn hoặc chọn ít bản vá hơn</string>
     <string name="install_app_success">Đã cài đặt thành công</string>
     <string name="install_app_fail">Không thể cài đặt ứng dụng: %s</string>
@@ -1070,13 +1063,6 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_battery_optimization">Tối ưu hóa pin</string>
     <string name="settings_system_battery_optimization_description">Duy trì trình vá tiếp tục chạy kể cả khi ứng dụng bị thu nhỏ</string>
     <string name="settings_system_process_runtime">Tiến trình riêng</string>
-    <string name="settings_system_process_runtime_description">Chạy quá trình vá trong tiến trình riêng biệt để cải thiện độ ổn định</string>
-    <string name="settings_system_process_runtime_enable">Bật tiến trình riêng</string>
-    <string name="settings_system_memory_limit_subtitle">Bộ nhớ cho quá trình vá</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Thiết bị này đã bỏ qua giới hạn bộ nhớ trong lần chạy trước, vì vậy việc vá có thể sẽ chuyển sang chạy bên trong Morphe</string>
-    <string name="settings_system_memory_limit_warning">Nếu bộ nhớ quá thấp có thể khiến bạn gặp lỗi trong quá trình vá ứng dụng lớn</string>
-    <string name="settings_system_memory_limit_high_warning">Giới hạn bộ nhớ cao có thể khiến việc vá chậm hơn nhiều trên một số thiết bị. Chỉ tăng giới hạn này nếu việc vá liên tục thất bại ở các mức giới hạn thấp hơn.</string>
-    <string name="settings_system_process_runtime_description_not_available">Tính năng này yêu cầu Android 11 trở lên</string>
     <string name="settings_system_patcher_completion_sound">Âm báo hoàn tất</string>
     <string name="settings_system_patcher_completion_sound_description">Phát ra âm thanh để báo hiệu kết quả vá thành công hoặc thất bại</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1149,6 +1135,7 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_storage_management_title">Quản lý bộ nhớ</string>
     <string name="settings_system_storage_management_description">Hiển thị mức sử dụng đĩa và xóa tệp đã lưu trữ trong bộ nhớ cache</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s miễn phí</string>
     <string name="settings_system_storage_saved_apks">APK đã lưu</string>
     <string name="settings_system_storage_caches">Bộ đệm</string>
     <string name="settings_system_storage_keystore_title">Kho khóa ký</string>

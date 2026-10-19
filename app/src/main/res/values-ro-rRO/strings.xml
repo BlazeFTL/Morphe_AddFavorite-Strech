@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Nicio aplicație ascunsă</string>
     <string name="home_app_hidden_apps_title">Aplicații ascunse</string>
     <string name="home_app_hidden_apps_hint">Apasă pentru a afișa</string>
+    <string name="home_apps_unhide_message">Aplicațiile neascunse revin pe ecranul de start</string>
     <string name="home_app_patch_sources_description">Sursele rămase nebifate nu sunt oferite atunci când aceste aplicații sunt patch-uite, iar patch-urile lor nu se alătură niciodată singure unei selecții. Fiecare sursă rămâne activă pentru toate celelalte aplicații.</string>
     <string name="home_app_patch_sources_mixed">Oferit pentru %1$s din %2$s</string>
     <string name="home_app_patch_sources_covers">Are patch-uri pentru %1$s din %2$s</string>
@@ -456,7 +457,6 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="batch_patch_title">Patch-uri în lot</string>
     <string name="batch_patch_planning">Se pregătește coada…</string>
     <string name="batch_patch_preparing_next">Se pregătește următoarea aplicație…</string>
-    <string name="batch_patch_progress_counter">Patch %1$s din %2$s</string>
     <string name="batch_patch_summary">%1$s patch-uit, %2$s eșuat, %3$s omis</string>
     <string name="batch_patch_saved_hint">Aplicațiile modificate au fost salvate. Instalați-le acum sau mai târziu din lista de aplicații modificate din setări</string>
     <string name="batch_patch_multiple_sources">Unele aplicații combină patch-uri din mai multe surse, ceea ce poate cauza conflicte</string>
@@ -653,12 +653,6 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="battery_optimization_dialog_title">Protecție la patch-uri în fundal</string>
     <string name="battery_optimization_dialog_description">Unele dispozitive pot opri patcher-ul când aplicația este minimizată. Permiteți aplicației Morphe să ruleze fără restricții de baterie pentru a asigura finalizarea fiabilă a patch-urilor</string>
     <string name="battery_optimization_not_now">Nu acum</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Memorie insuficientă</string>
-    <string name="patcher_memory_adjustment_description">Patcher-ul a fost oprit de sistem în timp ce rula cu o limită de memorie de %1$d MB. Scăderea limitei la %2$d MB face din patcher o țintă mai mică și poate permite finalizarea rulării.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Patcher-ul a fost oprit de sistem în timp ce rula cu o limită de memorie de %1$d MB, care este deja cea mai mică disponibilă. Încearcă să aplici patch-uri cu mai puține surse de patch-uri sau selectează mai puține patch-uri.</string>
-    <string name="patcher_memory_adjustment_description_finished">Sistemul a oprit patcher-ul la o limită de memorie de %1$d MB, iar acesta a terminat doar la %2$d MB. Pornirea de la %2$d MB omite acea încercare eșuată data viitoare</string>
-    <string name="patcher_memory_adjustment_apply">Scade la %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Se aplică modificările…</string>
     <string name="patcher_notification_text">Atinge pentru a reveni la patcher</string>
@@ -700,7 +694,6 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="failed_to_execute_patch">Nu s-a putut aplica %s</string>
     <string name="patched_app_save_failed_toast">Eroare la salvarea aplicației modificate</string>
     <string name="plugin_activity_dialog_body">Este necesară interacțiunea utilizatorului pentru a continua cu acest plugin</string>
-    <string name="patcher_process_exit_message">Procesul patcher-ului s-a încheiat cu codul %s</string>
     <string name="patcher_heap_exhausted_message">Patcher-ul a rămas fără memorie cu un heap de %1$d MB. Această aplicație este prea mare pentru patch-urile selectate. Încearcă să aplici patch-uri cu mai puține surse de patch-uri sau selectează mai puține patch-uri.</string>
     <string name="install_app_success">Instalat cu succes</string>
     <string name="install_app_fail">Nu s-a putut instala aplicația: %s</string>
@@ -1067,13 +1060,6 @@ Detalii: %2$s"</string>
     <string name="settings_system_battery_optimization">Optimizarea bateriei</string>
     <string name="settings_system_battery_optimization_description">Menține patcherul în funcțiune când aplicația este minimizată</string>
     <string name="settings_system_process_runtime">Runtime proces</string>
-    <string name="settings_system_process_runtime_description">Rulează patch-uirea într-un proces separat pentru o stabilitate mai bună</string>
-    <string name="settings_system_process_runtime_enable">Activează proces runtime</string>
-    <string name="settings_system_memory_limit_subtitle">Memorie disponibilă pentru patachizare</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Acest dispozitiv a ignorat limita de memorie la ultima rulare, așa că patch-urile ar putea recurge la rularea în interiorul Morphe.</string>
-    <string name="settings_system_memory_limit_warning">O limită memorie joasă poate cauza eșecuri când patachizați aplicații mai mari</string>
-    <string name="settings_system_memory_limit_high_warning">O limită mare de memorie poate face aplicarea de patch-uri mult mai lentă pe unele dispozitive. Măriți-o doar dacă aplicarea de patch-uri continuă să eșueze la limite mici.</string>
-    <string name="settings_system_process_runtime_description_not_available">Această funcție necesită Android 11 sau o versiune mai recentă</string>
     <string name="settings_system_patcher_completion_sound">Sunet de finalizare</string>
     <string name="settings_system_patcher_completion_sound_description">Redă un ton distinct pentru succes sau eșec la finalizarea aplicării patch-ului</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ Detalii: %2$s"</string>
     <string name="settings_system_storage_management_title">Gestionare spațiu de stocare</string>
     <string name="settings_system_storage_management_description">Afișează utilizarea discului și șterge fișierele din cache</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s liber</string>
     <string name="settings_system_storage_saved_apks">APK-uri salvate</string>
     <string name="settings_system_storage_caches">Cache-uri</string>
     <string name="settings_system_storage_keystore_title">Magazie de chei de semnare</string>

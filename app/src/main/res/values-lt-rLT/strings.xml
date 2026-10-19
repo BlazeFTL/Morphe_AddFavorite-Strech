@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Nėra slaptų programų</string>
     <string name="home_app_hidden_apps_title">Paslėptos programos</string>
     <string name="home_app_hidden_apps_hint">Palieskite, kad parodytumėte</string>
+    <string name="home_apps_unhide_message">Slėpti programos grįžta į pradinį ekraną</string>
     <string name="home_app_patch_sources_description">Neužpažymėti šaltiniai nesiūlomi, kai šios programos yra pataisomos, ir jų pataisos niekada pačios nepatenka į pasirinkimą. Kiekvienas šaltinis lieka įjungtas visoms kitoms programoms</string>
     <string name="home_app_patch_sources_mixed">Siūloma %1$s iš %2$s</string>
     <string name="home_app_patch_sources_covers">Turi pataisų %1$s iš %2$s</string>
@@ -456,7 +457,6 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="batch_patch_title">Paketinis pataisymas</string>
     <string name="batch_patch_planning">Ruošiama eilė…</string>
     <string name="batch_patch_preparing_next">Ruošiama kita programa…</string>
-    <string name="batch_patch_progress_counter">Pataisyta %1$s iš %2$s</string>
     <string name="batch_patch_summary">%1$s pataisyta, %2$s nepavyko, %3$s praleista</string>
     <string name="batch_patch_saved_hint">Pataisytos programos išsaugotos. Įdiekite jas dabar arba vėliau iš pataisytų APK sąrašo nustatymuose</string>
     <string name="batch_patch_multiple_sources">Kai kurios programos sujungia pataisas iš daugiau nei vieno šaltinio, o tai gali sukelti konfliktų</string>
@@ -653,12 +653,6 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="battery_optimization_dialog_title">Foninio taisymo apsauga</string>
     <string name="battery_optimization_dialog_description">Kai kurie prietaisai gali sustabdyti taisytoją kai programa yra sumažinama. Leiskite Morphe veikti be baterijos apribojimų, kad pataisymas būtų įvykdytas patikimai</string>
     <string name="battery_optimization_not_now">Ne dabar</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Nepakanka atminties</string>
-    <string name="patcher_memory_adjustment_description">Sistema sustabdė pataisymo procesą, kai jis veikė su %1$d MB atminties limitu. Sumažinus limitą iki %2$d MB, pataisymo procesas tampa mažesniu taikiniu ir gali leisti užbaigti darbą</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Sistema sustabdė pataisymo procesą, kai jis veikė su %1$d MB atminties limitu, kuris jau yra mažiausias galimas. Pabandykite pataisyti su mažiau pataisų šaltinių arba pasirinkite mažiau pataisų</string>
-    <string name="patcher_memory_adjustment_description_finished">Sistema sustabdė pataisos įrankį ties %1$d MB atminties riba, o jis baigė darbą tik ties %2$d MB. Kitą kartą pradėjus nuo %2$d MB, tas prarastas bandymas bus praleistas</string>
-    <string name="patcher_memory_adjustment_apply">Sumažinti iki %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Vyksta taisymas…</string>
     <string name="patcher_notification_text">Paspauskite, kad grįžtumėte į taisytoją</string>
@@ -700,7 +694,6 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="failed_to_execute_patch">Nepavyko pritaikyti %s</string>
     <string name="patched_app_save_failed_toast">Nepavyko išsaugoti pataisytos programos</string>
     <string name="plugin_activity_dialog_body">Reikia vartotojo sąveikos, kad tęsti su šiuo įskiepiu</string>
-    <string name="patcher_process_exit_message">Pataisymo procesas baigėsi kodu %s</string>
     <string name="patcher_heap_exhausted_message">Pataisymo procesui pritrūko atminties, kai buvo %1$d MB krūva. Ši programa per didelė pasirinktoms pataisoms. Pabandykite pataisyti su mažiau pataisų šaltinių arba pasirinkite mažiau pataisų</string>
     <string name="install_app_success">Sėkmingai įdiegta</string>
     <string name="install_app_fail">Nepavyko įdiegti programos: %s</string>
@@ -1067,13 +1060,6 @@ Išsami informacija: %2$s"</string>
     <string name="settings_system_battery_optimization">Baterijos optimizavimas</string>
     <string name="settings_system_battery_optimization_description">Palieka pataisymo procesą veikiantį, kai programa sumažinama</string>
     <string name="settings_system_process_runtime">Proceso vykdymo laikas</string>
-    <string name="settings_system_process_runtime_description">Pataisymą vykdo atskirame procese, kad būtų didesnis stabilumas</string>
-    <string name="settings_system_process_runtime_enable">Įjungti proceso vykdymo laiką</string>
-    <string name="settings_system_memory_limit_subtitle">Atmintis, skirta pataisymui</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Šis įrenginys nepaisė atminties limito paskutinio paleidimo metu, todėl pataisymas gali grįžti prie vykdymo „Morphe“ viduje</string>
-    <string name="settings_system_memory_limit_warning">Per mažas atminties limitas gali sukelti klaidas pataisant didesnes programas</string>
-    <string name="settings_system_memory_limit_high_warning">Didelis atminties limitas kai kuriuose įrenginiuose gali labai sulėtinti pataisymą. Padidinkite jį tik tuo atveju, jei pataisymas nuolat nepavyksta su mažesniais limitais</string>
-    <string name="settings_system_process_runtime_description_not_available">Ši funkcija reikalauja „Android 11“ ar naujesnės versijos</string>
     <string name="settings_system_patcher_completion_sound">Užbaigimo garsas</string>
     <string name="settings_system_patcher_completion_sound_description">Kai pataisymas baigiasi, groja skirtingą toną sėkmės arba nesėkmės atveju</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1146,6 +1132,7 @@ Išsami informacija: %2$s"</string>
     <string name="settings_system_storage_management_title">Saugyklos valdymas</string>
     <string name="settings_system_storage_management_description">Rodo disko naudojimą ir išvalo kaupinėtus failus</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s laisva</string>
     <string name="settings_system_storage_saved_apks">Išsaugoti APK failai</string>
     <string name="settings_system_storage_caches">Talpyklos</string>
     <string name="settings_system_storage_keystore_title">Pasirašymo rakto saugykla</string>

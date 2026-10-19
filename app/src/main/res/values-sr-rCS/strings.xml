@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Nema sakrivenih aplikacija</string>
     <string name="home_app_hidden_apps_title">Sakrivene aplikacije</string>
     <string name="home_app_hidden_apps_hint">Dodirnite da otkrijete</string>
+    <string name="home_apps_unhide_message">Ne skrivene aplikacije se vraćaju na početni ekran</string>
     <string name="home_app_patch_sources_description">Izvori koji ostanu neoznačeni ne nude se kada se ove aplikacije krpe, a njihove zakrpe nikada same ne ulaze u izbor. Svaki izvor ostaje uključen za sve ostale aplikacije. still</string>
     <string name="home_app_patch_sources_mixed">Ponuđeno za %1$s od %2$s</string>
     <string name="home_app_patch_sources_covers">Ima zakrpe za %1$s od %2$s</string>
@@ -455,7 +456,6 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="batch_patch_title">Masovno zakrpljivanje</string>
     <string name="batch_patch_planning">Priprema reda…</string>
     <string name="batch_patch_preparing_next">Priprema sledeće aplikacije…</string>
-    <string name="batch_patch_progress_counter">Popravljeno %1$s od %2$s</string>
     <string name="batch_patch_summary">%1$s popravljeno, %2$s neuspešno, %3$s preskočeno</string>
     <string name="batch_patch_saved_hint">Zakrpljene aplikacije su sačuvane. Instalirajte ih sada ili kasnije sa liste zakrpljenih APK-ova u podešavanjima</string>
     <string name="batch_patch_multiple_sources">Neke aplikacije kombinuju zakrpe iz više izvora, što može uzrokovati sukobe</string>
@@ -652,12 +652,6 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="battery_optimization_dialog_title">Zaštita od zakrpljivanja u pozadini</string>
     <string name="battery_optimization_dialog_description">Neki uređaji mogu zaustaviti program za zakrpljivanje kada je aplikacija minimizovana. Dopustite programu Morphe da radi bez ograničenja potrošnje baterije kako biste osigurali pouzdano završavanje zakrpljivanja.</string>
     <string name="battery_optimization_not_now">Ne sada</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Nema dovoljno memorije</string>
-    <string name="patcher_memory_adjustment_description">Sistem je zaustavio patcher dok je radio sa ograničenjem memorije od %1$d MB. Smanjenje ograničenja na %2$d MB čini patcher manjom metom i može omogućiti da se proces završi.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Sistem je zaustavio patcher dok je radio sa ograničenjem memorije od %1$d MB, što je već najniže dostupno. Pokušajte sa manje izvora zakrpa ili izaberite manje zakrpa.</string>
-    <string name="patcher_memory_adjustment_description_finished">Sistem je zaustavio patcher na ograničenju memorije od %1$d MB, a završio je tek na %2$d MB. Počinjanje od %2$d MB preskače taj izgubljeni pokušaj sledeći put</string>
-    <string name="patcher_memory_adjustment_apply">Smanji na %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Zakrpljivanje je u toku…</string>
     <string name="patcher_notification_text">Dodirnite za povratak na zakrpu</string>
@@ -699,7 +693,6 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="failed_to_execute_patch">Došlo je do greške pri primeni %s</string>
     <string name="patched_app_save_failed_toast">Došlo je do greške pri čuvanju zakrpljene aplikacije</string>
     <string name="plugin_activity_dialog_body">Potrebna je interakcija korisnika da bi se nastavilo sa ovim dodatkom</string>
-    <string name="patcher_process_exit_message">Proces zakrpivanja je završen sa kodom %s</string>
     <string name="patcher_heap_exhausted_message">Patcher je ostao bez memorije sa %1$d MB heap-om. Ova aplikacija je prevelika za izabrane zakrpe. Pokušajte da zakrpate uz manje izvora zakrpa ili izaberite manje zakrpa.</string>
     <string name="install_app_success">Uspešno instalirano</string>
     <string name="install_app_fail">Nije uspelo instaliranje aplikacije: %s</string>
@@ -1050,13 +1043,6 @@ Detalji: %2$s"</string>
     <string name="settings_system_battery_optimization">Optimizacija baterije</string>
     <string name="settings_system_battery_optimization_description">Drži patcher pokrenutim kada je aplikacija minimizovana</string>
     <string name="settings_system_process_runtime">Pokrenite proces izvođenja za bolju stabilnost</string>
-    <string name="settings_system_process_runtime_description">Pokreće patchovanje u zasebnom procesu za bolju stabilnost</string>
-    <string name="settings_system_process_runtime_enable">Memorija dostupna za patchiranje</string>
-    <string name="settings_system_memory_limit_subtitle">Upozorenje: Niska memorija ograničenja može dovesti neuspeh u patchiranju većih aplikacija</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Ovaj uređaj je ignorisao ograničenje memorije pri poslednjem pokretanju, pa zakrpljivanje može da se vrati na izvršavanje unutar Morphe-a.</string>
-    <string name="settings_system_memory_limit_warning">%d MB ograničenje</string>
-    <string name="settings_system_memory_limit_high_warning">Veliko ograničenje memorije može znatno usporiti primenu zakrpa na nekim uređajima. Povećajte ga samo ako primena zakrpa stalno ne uspeva pri nižim ograničenjima.</string>
-    <string name="settings_system_process_runtime_description_not_available">Ova funkcionalnost zahteva Android 11 ili noviji</string>
     <string name="settings_system_patcher_completion_sound">Zvuk završetka</string>
     <string name="settings_system_patcher_completion_sound_description">Reprodukuje poseban ton za uspeh ili neuspeh kada se patchovanje završi</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1129,6 +1115,7 @@ Detalji: %2$s"</string>
     <string name="settings_system_storage_management_title">Upravljanje skladištem</string>
     <string name="settings_system_storage_management_description">Prikazuje upotrebu diska i čišći keširane fajlove</string>
     <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s slobodno</string>
     <string name="settings_system_storage_saved_apks">Sačuvani APK-ovi</string>
     <string name="settings_system_storage_caches">Keš memorije</string>
     <string name="settings_system_storage_keystore_title">Keš ključeva za potpisivanje</string>

@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Gizli uygulama yok</string>
     <string name="home_app_hidden_apps_title">Gizli uygulamalar</string>
     <string name="home_app_hidden_apps_hint">Göstermek için dokunun</string>
+    <string name="home_apps_unhide_message">Gizlemesi kaldırılan uygulamalar ana ekrana geri döner</string>
     <string name="home_app_patch_sources_description">İşaretlenmemiş bırakılan kaynaklar, bu uygulamalara yama uygulanırken sunulmaz ve yamaları asla kendi başına bir seçime dahil edilmez. Her kaynak, diğer tüm uygulamalar için seçili kalır.</string>
     <string name="home_app_patch_sources_mixed">%2$s uygulamanın %1$s tanesine sunuluyor</string>
     <string name="home_app_patch_sources_covers">%2$s uygulamanın %1$s tanesi için yamaları var</string>
@@ -159,13 +160,13 @@
     <string name="sources_management_title">Yama kaynakları</string>
     <string name="sources_search">Kaynakları ve yamaları ara</string>
     <!-- Which sources the sources page lists, each with what it keeps -->
-    <string name="sources_filter_all_description">Her kaynak</string>
-    <string name="sources_filter_enabled_description">Kaynak yamaları şuralardan alınır</string>
-    <string name="sources_filter_disabled_description">Kaynaklar kapalı</string>
+    <string name="sources_filter_all_description">Tüm kaynaklar</string>
+    <string name="sources_filter_enabled_description">Yamaların alınacağı kaynaklar</string>
+    <string name="sources_filter_disabled_description">Kapatılan kaynaklar</string>
     <string name="sources_filter_updates">Güncellemeler</string>
-    <string name="sources_filter_updates_description">Güncelleme alacak daha yeni sürümü olan kaynaklar</string>
+    <string name="sources_filter_updates_description">Daha yeni bir sürümü olan kaynaklar</string>
     <string name="sources_filter_issues">Dikkat gerektirenler</string>
-    <string name="sources_filter_issues_description">Engellenen, yüklemesi başarısız olan veya daha yeni Morphe gereken kaynaklar</string>
+    <string name="sources_filter_issues_description">Engellenen, yüklemesi başarısız olan veya daha yeni bir Morphe gerektiren kaynaklar</string>
     <string name="sources_sort_manual">Manuel sıra</string>
     <string name="sources_sort_manual_hint">Yeniden sıralamak için bir kaynağa uzun basın</string>
     <string name="sources_sort_last_updated">Son güncelleme</string>
@@ -456,7 +457,6 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="batch_patch_title">Toplu yama</string>
     <string name="batch_patch_planning">Sıra hazırlanıyor…</string>
     <string name="batch_patch_preparing_next">Bir sonraki uygulama hazırlanıyor…</string>
-    <string name="batch_patch_progress_counter">%2$s için yama %1$s</string>
     <string name="batch_patch_summary">%1$s yamalandı, %2$s başarısız oldu, %3$s atlandı</string>
     <string name="batch_patch_saved_hint">Yamalanan uygulamalar kaydedildi. Şimdi kurun veya ayarlar bölümündeki yamalı APK listesinden daha sonra kurun</string>
     <string name="batch_patch_multiple_sources">Bazı uygulamalar yamaları birden fazla kaynaktan birleştirir, bu da çakışmalara neden olabilir</string>
@@ -653,12 +653,6 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="battery_optimization_dialog_title">Arka plan yama koruması</string>
     <string name="battery_optimization_dialog_description">Bazı cihazlar, uygulama küçültüldüğünde patcher\'ı durdurabilir. Yamalamanın güvenilir bir şekilde tamamlanmasını sağlamak için Morphe\'nin pil kısıtlamaları olmadan çalışmasına izin verin</string>
     <string name="battery_optimization_not_now">Şimdi değil</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Yetersiz bellek</string>
-    <string name="patcher_memory_adjustment_description">Yamalayıcı, %1$d MB bellek sınırıyla çalışırken sistem tarafından durduruldu. Sınırı %2$d MB değerine düşürmek yamalayıcıyı daha küçük bir hedef haline getirir ve çalıştırmanın tamamlanmasını sağlayabilir.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Yamalayıcı, zaten mevcut en düşük değer olan %1$d MB bellek sınırıyla çalışırken sistem tarafından durduruldu. Daha az yama kaynağıyla yamalamayı deneyin veya daha az yama seçin.</string>
-    <string name="patcher_memory_adjustment_description_finished">Sistem, yamalayıcıyı %1$d MB bellek sınırında durdurdu ve ancak %2$d MB\'de tamamlandı. Bir dahaki sefere %2$d MB\'den başlamak, bu kaybedilen denemeyi atlar</string>
-    <string name="patcher_memory_adjustment_apply">Sınırı %1$d MB değerine düşür</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Yamalama devam ediyor…</string>
     <string name="patcher_notification_text">Patcher\'a dönmek için dokunun</string>
@@ -700,7 +694,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="failed_to_execute_patch">%s uygulanamadı</string>
     <string name="patched_app_save_failed_toast">Yamalanmış uygulama kaydedilemedi</string>
     <string name="plugin_activity_dialog_body">Bu eklentinin çalışmaya devam edebilmesi için kullanıcı etkileşimi gereklidir</string>
-    <string name="patcher_process_exit_message">Patcher işlemi %s kodu ile sonlandı</string>
+    <string name="patcher_process_killed_message">Sistem, genellikle bellek açmak için, yama işlemini tamamlanmadan durdurdu. Diğer uygulamaları kapatın ve tekrar deneyin</string>
     <string name="patcher_heap_exhausted_message">Yama uygulayıcının belleği, %1$d MB\'lik bir yığın ile tükendi. Bu uygulama seçilen yamalar için çok büyük. Daha az yama kaynağıyla yama uygulamayı deneyin veya daha az yama seçin.</string>
     <string name="install_app_success">Başarıyla yüklendi</string>
     <string name="install_app_fail">Uygulama yüklenemedi: %s</string>
@@ -770,7 +764,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_seasonal_background_notice">Mevsimsel temalar açıkken %1$s arka planı %2$s tarihine kadar açık kalır</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_display">Ekran</string>
-    <string name="settings_appearance_effects">Etkiler</string>
+    <string name="settings_appearance_effects">Efektler</string>
     <string name="settings_appearance_theme">Tema</string>
     <string name="settings_appearance_theme_mode">Tema modu</string>
     <string name="settings_appearance_system">Sistem</string>
@@ -1067,13 +1061,9 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_battery_optimization">Pil optimizasyonu</string>
     <string name="settings_system_battery_optimization_description">Uygulama küçültüldüğünde patcher\'ı çalışır durumda tutar</string>
     <string name="settings_system_process_runtime">Çalışma süreci</string>
-    <string name="settings_system_process_runtime_description">Daha iyi istikrar için yamalamayı ayrı bir süreçte gerçekleştirir</string>
-    <string name="settings_system_process_runtime_enable">Çalışma sürecini etkinleştir</string>
-    <string name="settings_system_memory_limit_subtitle">Yamalama için kullanılabilir bellek</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Bu cihaz son çalıştırmada bellek sınırını yok saydı, bu nedenle yamalama işlemi Morphe içinde çalışmaya geri dönebilir.</string>
-    <string name="settings_system_memory_limit_warning">Düşük bellek limiti, daha büyük uygulamaları yamalarken hatalara neden olabilir</string>
-    <string name="settings_system_memory_limit_high_warning">Yüksek bir bellek sınırı, bazı cihazlarda yamalamayı çok daha yavaşlatabilir. Yalnızca düşük sınırlarda yamalama başarısız olmaya devam ediyorsa bu sınırı yükseltin.</string>
-    <string name="settings_system_process_runtime_description_not_available">Bu özellik Android 11 veya daha yüksek bir sürüm gerektirir</string>
+    <string name="settings_system_jvm_runtime_enable">Ayrı yamalayıcı süreci</string>
+    <string name="settings_system_jvm_runtime_description">Cihazın ayırabildiği kadar bellek kullanabilen, kendine has bir Java çalışma ortamı içinde yamalar. Morphe içinde yamalamak için kapatın</string>
+    <string name="settings_system_jvm_runtime_unavailable">ARM veya 64-bit x86 cihaz gerektirir</string>
     <string name="settings_system_patcher_completion_sound">Tamamlama Sesi</string>
     <string name="settings_system_patcher_completion_sound_description">Yamalama işlemi bittiğinde başarı veya başarısızlık için farklı bir ton çalınır</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1266,9 +1256,9 @@ Ayrıntılar: %2$s"</string>
     <!-- Sections the settings page lists, each opening a page of its own. A summary names what the section holds -->
     <string name="settings_section_patcher">Yamalayıcı</string>
     <string name="settings_section_updates">Güncellemeler</string>
-    <string name="settings_section_patching">Yamalanıyor</string>
+    <string name="settings_section_patching">Yamalama</string>
     <string name="settings_section_appearance_summary">Morphe\'nin görünümü</string>
-    <string name="settings_section_patch_options_summary">Uygulamaları yamalamak için kullanılan basit mod</string>
+    <string name="settings_section_patch_options_summary">Basit modun uygulamaları neyle yamalayacağı</string>
     <string name="settings_section_general">Genel</string>
     <string name="settings_section_patcher_summary">Cihazda uygulamaların nasıl yamalandığı</string>
     <string name="settings_section_help_info">Yardım &amp; bilgi</string>

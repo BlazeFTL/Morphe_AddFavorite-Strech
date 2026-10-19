@@ -419,7 +419,6 @@ Eng yaxshi natijalar uchun ushbu ilova to‘liq &lt;b&gt;APK&lt;/b&gt;ni patchla
     <string name="batch_patch_title">Rasmlarni ommaviy qo\'llash</string>
     <string name="batch_patch_planning">Navbat tayyorlanmoqda…</string>
     <string name="batch_patch_preparing_next">Keyingi ilova tayyorlanmoqda…</string>
-    <string name="batch_patch_progress_counter">%2$s ning %1$s ga tuzatish</string>
     <string name="batch_patch_summary">%1$s ta tuzatildi, %2$s ta muvaffaqiyatsiz, %3$s ta o‘tkazib yuborildi</string>
     <string name="batch_patch_saved_hint">Ta’mirlangan ilovalar saqlanadi. Ularni hozir yoki sozlamalardagi ta’mirlangan APK ro‘yxatidan keyinroq o‘rnating</string>
     <string name="batch_patch_multiple_sources">Ba’zi ilovalar bir nechta manbalardan patchlarni birlashtiradi, bu ziddiyatlarga olib kelishi mumkin</string>
@@ -601,11 +600,6 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="battery_optimization_dialog_title">Patchlashni himoya qilish</string>
     <string name="battery_optimization_dialog_description">Ba\'zi moslamalar ilovani minimallashtirganda patcherni to‘xtatishi mumkin. Patchlash ishonchli bajarilishini ta\'minlash uchun Morphe batareyani cheklashsiz ishlay olishiga ruxsat bering</string>
     <string name="battery_optimization_not_now">Hozir emas</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Xotira yetarli emas</string>
-    <string name="patcher_memory_adjustment_description">Patcher %1$d MB xotira chegarasi bilan ishlayotganda tizim tomonidan to\'xtatildi. Chegarani %2$d MB ga tushirish patcherni kichikroq nishonga aylantiradi va ishni yakunlashga imkon berishi mumkin.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Patcher %1$d MB xotira chegarasi bilan ishlayotganda tizim tomonidan to\'xtatildi, bu allaqachon mavjud bo\'lgan eng past chegaradir. Kamroq yamoq manbalari bilan yamoqlashni sinab ko\'ring yoki kamroq yamoqlarni tanlang.</string>
-    <string name="patcher_memory_adjustment_apply">%1$d MB ga tushirish</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patchlash jarayonida…</string>
     <string name="patcher_notification_text">Patcherni ko‘rish uchun bosish</string>
@@ -647,7 +641,6 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="failed_to_execute_patch">%s ni qo‘llashda xatolik</string>
     <string name="patched_app_save_failed_toast">Patchlangan ilovni saqlashda xatolik</string>
     <string name="plugin_activity_dialog_body">Ushbu plagin bilan davom etish uchun foydalanuvchi aralashuvi kerak</string>
-    <string name="patcher_process_exit_message">Patcher jarayoni %s kodi bilan chiqdi</string>
     <string name="patcher_heap_exhausted_message">Patcherda %1$d MB hajmli xotira tugadi. Bu ilova tanlangan patchlar uchun juda katta. Kamroq patch manbalari bilan patchlashni urinib ko‘ring yoki kamroq patchlarni tanlang.</string>
     <string name="install_app_success">O‘rnatish muvaffaqiyatli yakunlandi</string>
     <string name="install_app_fail">Ilovni o‘rnatishda xatolik: %s</string>
@@ -978,13 +971,6 @@ Ma’lumotlar: %2$s"</string>
     <string name="settings_system_battery_optimization">Batareyani optimallashtirish</string>
     <string name="settings_system_battery_optimization_description">Patchlashi tugagandan keyin patcherni ishlayotgan holatda ushlab turish</string>
     <string name="settings_system_process_runtime">Jarayon ishlayotgan vaqti</string>
-    <string name="settings_system_process_runtime_description">Patchlash jarayonini barqarorligi oshirish uchun alohida jarayonda ishlatish</string>
-    <string name="settings_system_process_runtime_enable">Jarayon ishlayotgan vaqtini yoqish</string>
-    <string name="settings_system_memory_limit_subtitle">Patchlash uchun mavjud xotira</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Bu qurilma oxirgi ishga tushirishda xotira chegarasini e’tiborsiz qoldirdi, shuning uchun yamash Morphe ichida ishlashga qaytishi mumkin</string>
-    <string name="settings_system_memory_limit_warning">Xotira limiti kam bo\'lsa, katta ilovalarni patchlashda xatoliklar yuzaga kelishi mumkin</string>
-    <string name="settings_system_memory_limit_high_warning">Yuqori xotira chegarasi ba’zi qurilmalarda yamashni ancha sekinlashtirishi mumkin. Uni faqat past chegaralarda yamash muvaffaqiyatsiz tugab qolsa, oshiring</string>
-    <string name="settings_system_process_runtime_description_not_available">Bu funksiya Android 11 yoki undan yuqori versiyasini talab qiladi</string>
     <string name="settings_system_patcher_completion_sound">Yakunlanish tovushi</string>
     <string name="settings_system_patcher_completion_sound_description">Qo\'shish tugagach muvaffaqiyat yoki muvaffaqiyatsizlik uchun alohida ohang ijro etiladi</string>
     <!-- Settings - System Tab - Notifications Section -->

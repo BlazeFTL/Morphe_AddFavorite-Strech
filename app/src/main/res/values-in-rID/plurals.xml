@@ -88,9 +88,6 @@
     <plurals name="home_apps_unhide_title">
         <item quantity="other">Tampilkan %s aplikasi?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="other">Aplikasi ini akan kembali ke layar utama</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">%s aplikasi disembunyikan</item>
     </plurals>

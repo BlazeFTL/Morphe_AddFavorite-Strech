@@ -693,8 +693,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">एप्लिकेशन को पैच करना</string>
     <string name="memory_usage">मेमोरी का उपयोग</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%2$s MB में से %1$s</string>
     <string name="cpu_usage">CPU उपयोग</string>
     <string name="storage_io_usage">स्टोरेज I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">भंडारण प्रबंधन</string>
     <string name="settings_system_storage_management_description">डिस्क उपयोग दिखाता है और कैशे फ़ाइल्स साफ़ करता है</string>
-    <string name="settings_system_storage_used_free">इस डिवाइस पर Morphe / मुफ्त में उपयोग किया जाता है</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">सहेजे गए APK</string>
     <string name="settings_system_storage_caches">कैश</string>
     <string name="settings_system_storage_keystore_title">साइनिंग कीस्टोर</string>

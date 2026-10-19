@@ -693,8 +693,6 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Se patch-uiește aplicația</string>
     <string name="memory_usage">Utilizare memorie</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s din %2$s MB</string>
     <string name="cpu_usage">Utilizare CPU</string>
     <string name="storage_io_usage">I/O stocare</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,7 @@ Detalii: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Gestionare spațiu de stocare</string>
     <string name="settings_system_storage_management_description">Afișează utilizarea discului și șterge fișierele din cache</string>
-    <string name="settings_system_storage_used_free">Utilizat de Morphe / gratuit pe acest dispozitiv</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">APK-uri salvate</string>
     <string name="settings_system_storage_caches">Cache-uri</string>
     <string name="settings_system_storage_keystore_title">Magazie de chei de semnare</string>

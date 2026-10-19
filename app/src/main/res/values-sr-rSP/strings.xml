@@ -693,8 +693,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">Пешање апликације</string>
     <string name="memory_usage">Коришћење меморије</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s од %2$s MB</string>
     <string name="cpu_usage">Искоришћење процесора</string>
     <string name="storage_io_usage">I/O складишта</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Управљање складиштем</string>
     <string name="settings_system_storage_management_description">Приказује употребу диска и брише кеширане датотеке</string>
-    <string name="settings_system_storage_used_free">Користи Морфе / бесплатно на овом уређају</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">Сачувани APK фајлови</string>
     <string name="settings_system_storage_caches">Keш меморија</string>
     <string name="settings_system_storage_keystore_title">Складиште потписа</string>

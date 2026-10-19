@@ -553,7 +553,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="root_mount_module_unmount_warning">KernelSU\'da \"Varsayılan olarak modülleri kaldır\" açılıysa, KernelSU\'ya gidin &gt; Süper Kullanıcı &gt; yüklediğiniz uygulama &gt; Profil &gt; Özel ve \"Modülleri kaldır\" seçeneğini kapatın. Aksi takdirde, Morphe onu yüklü olarak gösterse bile, yüklenmiş yamalı APK çalışmayabilir</string>
     <string name="root_pre_patch_installer_standard_title">Standart yükleme modu</string>
     <string name="root_pre_patch_installer_standard_description">GmsCore desteğiyle normal bir APK olarak yamalar. Yükleme ayarınız yamalamadan sonra kullanılır</string>
-    <string name="root_pre_patch_installer_hint">Ayarlar <b>&amp;gt;</b> Yamalama <b>&amp;gt;</b> Kurulum <b>&amp;gt;</b> Kurucu seçimi istemi açıkken soruldu. Yamalama tamamlandıktan sonra yamalama modu değiştirilemez</string>
+    <string name="root_pre_patch_installer_hint">Ayarlar &gt; Yamalama &gt; Yükleme &gt; Yükleyici seçim istemi açıkken sorulur. Yamalandıktan sonra yama modu değiştirilemez.</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Hata panoya kopyalandı</string>
     <string name="patcher_error_log">Hata günlüğü</string>
@@ -635,7 +635,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="patcher_storage_badge_missing">Bulunamadı</string>
     <string name="batch_patch_option_paths_skipped">Yama seçenek dosyaları eksik ve atlanacak: %1$s</string>
     <string name="patcher_missing_patches_title">Bazı yamalar eksik</string>
-    <string name="patcher_missing_patches_description">Bu uygulama için kaydedilen seçim, artık hiçbir etkin kaynağın sunmadığı yamaları içeriyor. Devam edersek uygulama bu yamalar olmadan yamalanacak</string>
+    <string name="patcher_missing_patches_description">Bu uygulama için kaydedilen seçim, artık hiçbir etkin kaynağın sunmadığı yamaları içeriyor. Devam etmek, uygulamayı bu yamalar olmadan yamalar</string>
     <string name="patcher_missing_patches_label">Artık sunulmuyor</string>
     <string name="patcher_option_paths_gone_title">Yama seçenek dosyaları eksik</string>
     <string name="patcher_option_paths_gone_description">Bir veya daha fazla yama seçeneği, artık bulunmayan dosyalara işaret ediyor. Bu dosyalar olmadan yamalamak için dosya yollarını kaldırın veya dosyaları geri koyup tekrar deneyin</string>
@@ -693,8 +693,6 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Uygulama yamalanıyor</string>
     <string name="memory_usage"> Bellek kullanımı</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%2$s MB (%1$s)</string>
     <string name="cpu_usage">CPU kullanımı</string>
     <string name="storage_io_usage">Depolama G/Ç</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -789,7 +787,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_outlines">Anahatlar</string>
     <string name="settings_appearance_outlines_description">Kartlar, paneller ve düğmelerin çevresine ince bir kenar çizer</string>
     <string name="settings_appearance_blur">Bulanıklık</string>
-    <string name="settings_appearance_blur_description">Başlıklar, çubuklar ve paneller altındaki kaydırma alanını bulanıklaştırır</string>
+    <string name="settings_appearance_blur_description">Başlıklar, çubuklar ve paneller altında kaydırılanları bulanıklaştırır</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language">Uygulama dili</string>
     <string name="settings_appearance_app_language_current">Mevcut dil</string>
@@ -900,17 +898,17 @@ Yamalar etkilenmez: yamalama kaynakları listesindeki her kaynak için ön sür�
     <string name="settings_advanced_strip_unused_libs">Cihaz mimarisi için optimize et</string>
     <string name="settings_advanced_strip_unused_libs_description">Kullanılmayan yerel (native) kütüphaneleri ve APK parçalarını kaldırır.</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <string name="settings_advanced_github_pat_summary">Çekme istekleri kaynaklarını ve özel depoları kilidini açar</string>
+    <string name="settings_advanced_github_pat_summary">Çekme istekleri kaynakları ve özel depoların kilidini açar</string>
     <string name="settings_advanced_github_pat_description">Çekme istekleri kaynakları, özel depolar ve daha yüksek GitHub hız limiti için</string>
     <string name="settings_advanced_github_pat_configured">Anahtar yapılandırıldı</string>
-    <string name="settings_advanced_github_pat_create">GitHub\'da bir jeton oluşturun</string>
+    <string name="settings_advanced_github_pat_create">GitHub\'da bir anahtar oluşturun</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
-    <string name="settings_advanced_github_pat_create_description">Zaten %s kapsamıyla seçilmiş olarak GitHub\'ı açar</string>
+    <string name="settings_advanced_github_pat_create_description">Halihazırda %s kapsamı seçilmiş olarak GitHub\'u açar</string>
     <string name="settings_advanced_github_pat_checking">GitHub ile doğrulanıyor…</string>
     <!-- "%s" is the GitHub account name -->
     <string name="settings_advanced_github_pat_account">GitHub\'a %s olarak giriş yapıldı</string>
-    <string name="settings_advanced_github_pat_rejected">GitHub bu jetonu reddetti. Süresi dolmuş veya iptal edilmiş olabilir</string>
-    <string name="settings_advanced_github_pat_unreachable">Bu jetonu kontrol etmek için GitHub\'a ulaşılamadı</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub bu anahtarı reddetti. Süresi dolmuş veya iptal edilmiş olabilir</string>
+    <string name="settings_advanced_github_pat_unreachable">Bu anahtarı kontrol etmek için GitHub\'a ulaşılamadı</string>
     <string name="settings_advanced_github_pat_export_include_label">Ayarları dışa aktarırken dahil et</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Bu PAT\'i dışa aktarılan Morphe ayarlarına ekler</string>
@@ -1147,7 +1145,8 @@ Ayrıntılar: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Depolama yönetimi</string>
     <string name="settings_system_storage_management_description">Disk kullanımını gösterir ve önbelleğe alınmış dosyaları temizler.</string>
-    <string name="settings_system_storage_used_free">Cihazda Morphe tarafından kullanılıyor / ücretsiz</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s boş</string>
     <string name="settings_system_storage_saved_apks">Kaydedilen APK\'ler</string>
     <string name="settings_system_storage_caches">Önbellekler</string>
     <string name="settings_system_storage_keystore_title">İmzalama anahtar deposu</string>
@@ -1238,7 +1237,7 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_about">Hakkında</string>
     <string name="settings_system_manager_description">Popüler Android uygulamalarının modern ve verimli şekilde yamalanmasını sağlayan, topluluk geri bildirimleri ve katkılarıyla geliştirilen açık kaynaklı bir proje</string>
     <string name="credits">Takdir</string>
-    <string name="credits_description">Morphe\'in arkasındaki insanlar</string>
+    <string name="credits_description">Morphe\'nin arkasındaki insanlar</string>
     <string name="settings_about_section_project">Proje</string>
     <string name="settings_about_section_help">Yardım</string>
     <string name="credits_current_development">Mevcut geliştirme</string>
@@ -1273,7 +1272,7 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_section_general">Genel</string>
     <string name="settings_section_patcher_summary">Cihazda uygulamaların nasıl yamalandığı</string>
     <string name="settings_section_help_info">Yardım &amp; bilgi</string>
-    <string name="settings_section_about_summary">Morphe ve yardım alma hakkında daha fazla bilgi</string>
+    <string name="settings_section_about_summary">Morphe hakkında daha fazla bilgi ve yardım alma</string>
     <string name="settings_section_local_files">Dosyalar</string>
     <string name="settings_section_backup">Yedekleme</string>
     <string name="settings_search">Ayarları ara</string>
@@ -1289,7 +1288,7 @@ Ayrıntılar: %2$s"</string>
     <string name="warning">Uyarı</string>
     <string name="error_">Hata</string>
     <string name="failed">Dışlandı</string>
-    <string name="canceled">İptal</string>
+    <string name="canceled">İptal edildi</string>
     <string name="ready">Uygulama seç</string>
     <string name="retry">Tekrar deneyin</string>
     <string name="refresh">Yenile</string>
@@ -1378,7 +1377,7 @@ Ayrıntılar: %2$s"</string>
     <string name="hide">Gizle</string>
     <string name="hidden">Gizlendi</string>
     <string name="unhide">Gizliliği kaldır</string>
-    <string name="show_all">Tümünü Göster</string>
+    <string name="show_all">Tümünü göster</string>
     <string name="ignore">Yoksay</string>
     <string name="stop_ignoring">Yok saymayı bırak</string>
     <string name="logs">Günlükler</string>

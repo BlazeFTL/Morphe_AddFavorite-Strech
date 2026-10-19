@@ -693,8 +693,6 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Alkalmazás módosítása</string>
     <string name="memory_usage">Memóriahasználat</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%2$s MB %1$s-a</string>
     <string name="cpu_usage">CPU-használat</string>
     <string name="storage_io_usage">Tárhely I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,7 @@ Részletek: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Tárhelykezelés</string>
     <string name="settings_system_storage_management_description">Lemezhányadék megjelenítése és gyorsítótárazott fájlok tisztítása</string>
-    <string name="settings_system_storage_used_free">Használja a Morphe / ingyenes ezen az eszközön</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">Mentett APK-k</string>
     <string name="settings_system_storage_caches">Gyakorlatok</string>
     <string name="settings_system_storage_keystore_title">Aláíró kulcstár</string>

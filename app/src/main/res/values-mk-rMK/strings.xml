@@ -365,7 +365,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">Закрпување на апликацијата</string>
     <string name="memory_usage">Користење на меморија</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Применување поправки</string>
     <string name="failed_to_execute_patch">Не успеа да се примени %s</string>
@@ -609,6 +608,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Files & Storage Section -->
     <string name="settings_system_apks_size">Вкупна големина: %s</string>
     <!-- Settings - System Tab - Storage Management screen -->
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <string name="settings_system_patched_apks_title">Исправени APK-а</string>
     <string name="settings_system_patched_apks_empty">Сè уште нема зачувани закрпени APK-а</string>

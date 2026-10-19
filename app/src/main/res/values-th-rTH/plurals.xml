@@ -88,9 +88,6 @@
     <plurals name="home_apps_unhide_title">
         <item quantity="other">แสดง %s แอป?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="other">แอปนี้จะกลับมาแสดงบนหน้าจอหลักอีกครั้ง</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">แอปที่ซ่อนอยู่ %s แอป</item>
     </plurals>

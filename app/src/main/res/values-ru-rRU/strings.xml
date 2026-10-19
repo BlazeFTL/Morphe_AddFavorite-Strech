@@ -693,8 +693,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">Патчинг приложения</string>
     <string name="memory_usage">Использование памяти</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s из %2$s МБ</string>
     <string name="cpu_usage">Использование ЦП</string>
     <string name="storage_io_usage">Ввод-вывод хранилища</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,8 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Управление хранилищем</string>
     <string name="settings_system_storage_management_description">Показывает использование хранилища и очищает файлы кэша</string>
-    <string name="settings_system_storage_used_free">Используется Morphe / бесплатно на этом устройстве</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s Свободно</string>
     <string name="settings_system_storage_saved_apks">Сохраненные APK-файлы</string>
     <string name="settings_system_storage_caches">Кэш</string>
     <string name="settings_system_storage_keystore_title">Хранилище ключей подписи</string>

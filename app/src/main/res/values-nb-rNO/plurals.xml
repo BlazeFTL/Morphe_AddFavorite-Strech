@@ -116,10 +116,6 @@
         <item quantity="one">Skjul ikke %s app?</item>
         <item quantity="other">Skjul ikke %s apper?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Denne appen vil komme tilbake til startsiden</item>
-        <item quantity="other">Disse appene vil komme tilbake til startsiden</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skjult app</item>
         <item quantity="other">%s skjulte apper</item>

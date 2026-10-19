@@ -167,16 +167,10 @@
         <item quantity="other">Wyświetlono %s aplikacji</item>
     </plurals>
     <plurals name="home_apps_unhide_title">
-        <item quantity="one">Odstronić ukrycie aplikacji %s?</item>
-        <item quantity="few">Odstronić ukrycie aplikacji %s?</item>
-        <item quantity="many">Odstronić ukrycie aplikacji %s?</item>
-        <item quantity="other">Odstronić ukrycie aplikacji %s?</item>
-    </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Ta aplikacja pojawi się ponownie na ekranie głównym</item>
-        <item quantity="few">Te aplikacje pojawią się ponownie na ekranie głównym</item>
-        <item quantity="many">Te aplikacje pojawią się ponownie na ekranie głównym</item>
-        <item quantity="other">Te aplikacje pojawią się ponownie na ekranie głównym</item>
+        <item quantity="one">Odkryć %s aplikację?</item>
+        <item quantity="few">Odkryć %s aplikacje?</item>
+        <item quantity="many">Odkryć %s aplikacji?</item>
+        <item quantity="other">Odkryć %s aplikacji?</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s ukryta aplikacja</item>

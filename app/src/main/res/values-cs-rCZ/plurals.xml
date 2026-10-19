@@ -172,12 +172,6 @@
         <item quantity="many">Zobrazit aplikací %s?</item>
         <item quantity="other">Zobrazit aplikací %s?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Tato aplikace se vrátí na domovskou obrazovku</item>
-        <item quantity="few">Tyto aplikace se vrátí na domovskou obrazovku</item>
-        <item quantity="many">Tyto aplikace se vrátí na domovskou obrazovku</item>
-        <item quantity="other">Tyto aplikace se vrátí na domovskou obrazovku</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skrytá aplikace</item>
         <item quantity="few">%s skryté aplikace</item>

@@ -144,11 +144,6 @@
         <item quantity="two">להציג מחדש %s אפליקציות?</item>
         <item quantity="other">להציג מחדש %s אפליקציות?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">אפליקציה זו תחזור למסך הבית</item>
-        <item quantity="two">אפליקציות אלו יחזרו למסך הבית</item>
-        <item quantity="other">אפליקציות אלו יחזרו למסך הבית</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s אפליקציה מוסתרת</item>
         <item quantity="two">%s אפליקציות מוסתרות</item>

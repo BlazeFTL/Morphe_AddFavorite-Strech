@@ -693,8 +693,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">در حال پچ‌کردن برنامه</string>
     <string name="memory_usage">مصرف حافظه</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s از %2$s مگابایت</string>
     <string name="cpu_usage">مصرف CPU</string>
     <string name="storage_io_usage">ورودی/خروجی ذخیره‌سازی</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">مدیریت ذخیره‌سازی</string>
     <string name="settings_system_storage_management_description">نمایش مصرف دیسک و پاک کردن فایل‌های کش‌شده</string>
-    <string name="settings_system_storage_used_free">استفاده شده توسط مورفه / رایگان در این دستگاه</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">APKهای ذخیره‌شده</string>
     <string name="settings_system_storage_caches">حافظه پنهان</string>
     <string name="settings_system_storage_keystore_title">مخزن کلید امضا</string>

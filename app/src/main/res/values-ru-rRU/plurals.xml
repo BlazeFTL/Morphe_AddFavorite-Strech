@@ -172,12 +172,6 @@
         <item quantity="many">Показать %s приложений?</item>
         <item quantity="other">Показать %s приложений?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Это приложение появится на главном экране</item>
-        <item quantity="few">Эти приложения появятся на главном экране</item>
-        <item quantity="many">Этих приложений появится на главном экране</item>
-        <item quantity="other">Эти приложения появятся на главном экране</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s скрытое приложение</item>
         <item quantity="few">%s скрытые приложения</item>

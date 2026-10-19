@@ -644,8 +644,6 @@ Nyahpasang akan memadam semua data aplikasi secara kekal"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Menampal aplikasi</string>
     <string name="memory_usage">Penggunaan memori</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s daripada %2$s MB</string>
     <string name="cpu_usage">Penggunaan CPU</string>
     <string name="storage_io_usage">I/O storan</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1059,6 +1057,7 @@ Butiran: %2$s"</string>
     <string name="settings_system_apks_export_zip_failed">Gagal mengeksport APK terpilih</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Pengurusan storan</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_keystore_title">Stor kunci penandatanganan</string>
     <string name="settings_system_storage_app_data_title">Data aplikasi</string>
     <string name="settings_system_storage_patch_bundles_title">Bundle tampalan</string>

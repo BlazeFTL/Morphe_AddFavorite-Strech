@@ -172,12 +172,6 @@
         <item quantity="few">Želite razkriti aplikacije %s?</item>
         <item quantity="other">Želite razkriti aplikacij %s?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Ta aplikacija se bo vrnila na začetni zaslon</item>
-        <item quantity="two">Ti aplikaciji se bosta vrnili na začetni zaslon</item>
-        <item quantity="few">Te aplikacije se bodo vrnile na začetni zaslon</item>
-        <item quantity="other">Te aplikacije se bodo vrnile na začetni zaslon</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skrita aplikacija</item>
         <item quantity="two">%s skriti aplikaciji</item>

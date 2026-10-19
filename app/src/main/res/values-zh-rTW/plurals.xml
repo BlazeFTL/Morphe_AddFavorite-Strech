@@ -88,9 +88,6 @@
     <plurals name="home_apps_unhide_title">
         <item quantity="other">是否取消隱藏 %s 個應用程式？</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="other">這些應用程式將重新顯示在主畫面上</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">%s 個隱藏的應用程式</item>
     </plurals>

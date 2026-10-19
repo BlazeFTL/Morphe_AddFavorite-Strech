@@ -116,10 +116,6 @@
         <item quantity="one">Onsig maak %s program?</item>
         <item quantity="other">Onsig maak %s programme?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Die program sal weer op die tuisskerm wees</item>
-        <item quantity="other">Hierdie programme sal weer op die tuisskerm wees</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s versteek program</item>
         <item quantity="other">%s versteek programme</item>

@@ -116,10 +116,6 @@
         <item quantity="one">¿Mostrar la app %s?</item>
         <item quantity="other">¿Mostrar las apps %s?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Esta app volverá a aparecer en la pantalla de inicio</item>
-        <item quantity="other">Estas apps volverán a aparecer en la pantalla de inicio</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aplicación oculta</item>
         <item quantity="other">%s aplicaciones ocultas</item>

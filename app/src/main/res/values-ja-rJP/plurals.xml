@@ -25,6 +25,9 @@
     <plurals name="home_app_patch_sources_title">
         <item quantity="other">%s 個のアプリのパッチソース</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="other">このアプリでは %s 個のソースが非表示になっています。再表示するには、「アプリ」タブで対象のアプリを選び、「パッチソース」を開いてください</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="other">%s 件のソースは非表示になっています。タップして表示してください</item>
     </plurals>
@@ -77,10 +80,13 @@
         <item quantity="other">%s 件のインストール済みのソース</item>
     </plurals>
     <plurals name="home_apps_hidden_count">
-        <item quantity="other">%s件のアプリが非表示</item>
+        <item quantity="other">%s 個のアプリを非表示中</item>
     </plurals>
     <plurals name="home_apps_shown_count">
-        <item quantity="other">%s件のアプリが表示されています</item>
+        <item quantity="other">%s 個のアプリを表示中</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="other">%s 個のアプリを再表示しますか？</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">%s 個のアプリが非表示</item>

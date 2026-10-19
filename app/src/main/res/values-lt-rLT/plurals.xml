@@ -172,12 +172,6 @@
         <item quantity="many">Ar norite parodyti programas „%s”?</item>
         <item quantity="other">Ar norite parodyti programas „%s”?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Ši programa vėl atsiras pagrindiniame ekrane</item>
-        <item quantity="few">Šios programos vėl atsiras pagrindiniame ekrane</item>
-        <item quantity="many">Šios programos vėl atsiras pagrindiniame ekrane</item>
-        <item quantity="other">Šios programos vėl bus rodomos pagrindiniame ekrane</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s paslėpta programėlė</item>
         <item quantity="few">%s paslėptos programos</item>

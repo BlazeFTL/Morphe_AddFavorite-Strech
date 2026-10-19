@@ -27,7 +27,7 @@
     <!-- Shown under the app a link was opened for -->
     <string name="deep_link_add_source_only_app">このアプリのみ追加されました。他のアプリは、ソースのアプリ一覧から追加できます</string>
     <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
-    <string name="deep_link_add_source_only_universal">ユニバーサルパッチのみが追加されました。ソースのアプリリストからアプリを追加できます</string>
+    <string name="deep_link_add_source_only_universal">ユニバーサルパッチのみが追加されました。他のアプリは、ソースのアプリ一覧から追加できます</string>
     <!-- Asked when the link names an app of a source that is already added -->
     <string name="deep_link_add_source_app_back">このソースは既に追加されています。既存のソースからこのアプリを追加しますか？</string>
     <!-- Home Screen - Update Notifications -->
@@ -478,7 +478,7 @@
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">開始</string>
     <string name="batch_patch_stop_title">一括パッチを停止しますか？</string>
-    <string name="batch_patch_stop_description">現在パッチ適用中のアプリとキューに残っているすべての処理がキャンセルされます</string>
+    <string name="batch_patch_stop_description">現在パッチ適用中のアプリと、処理待ちのすべてのアプリのパッチ適用がキャンセルされます</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">すべてインストールする</string>
     <string name="batch_patch_install_failed">インストールに失敗しました</string>
@@ -550,7 +550,7 @@
     <string name="root_pre_patch_installer_description">このデバイスには root 権限があります。このアプリを root 権限マウント用にパッチするか、通常インストール用にパッチするかを選択してください</string>
     <string name="root_pre_patch_installer_mount_title">root 権限マウントモード</string>
     <string name="root_pre_patch_installer_mount_description">root マウント用にパッチを適用し、対応する純正アプリに APK を上書きマウントします。GmsCore は不要です</string>
-    <string name="root_mount_module_unmount_warning">KernelSU で「デフォルトでモジュールをアンマウント」が有効になっている場合、KernelSU &gt; スーパーユーザー &gt; マウントしたアプリ &gt; プロファイル &gt; カスタムを開き、「モジュールをアンマウント」を無効にしてください。そうしないと、Morphe がマウント済みと表示していても、マウントされたパッチ適用済みの APK が反映されない場合があります</string>
+    <string name="root_mount_module_unmount_warning">KernelSU で「モジュールをアンマウント」がデフォルトで有効になっている場合は、KernelSU &gt; スーパーユーザー &gt; マウントしたアプリ &gt; プロファイル &gt; カスタムから「モジュールをアンマウント」を無効にしてください。無効にしないと、Morphe でマウント済みと表示されても、パッチ適用済み APK が反映されない場合があります</string>
     <string name="root_pre_patch_installer_standard_title">標準インストールモード</string>
     <string name="root_pre_patch_installer_standard_description">GmsCore 対応の通常の APK としてパッチを適用します。パッチ適用後は、設定したインストーラーが使用されます</string>
     <string name="root_pre_patch_installer_hint">設定 &gt; パッチ &gt; インストール &gt; インストーラーの選択 が有効な場合に表示されます。パッチ適用後は、パッチモードを変更できません</string>
@@ -635,7 +635,7 @@
     <string name="patcher_storage_badge_missing">見つかりません</string>
     <string name="batch_patch_option_paths_skipped">パッチ設定ファイルが見つからないため、スキップします: %1$s</string>
     <string name="patcher_missing_patches_title">一部のパッチが利用できなくなりました</string>
-    <string name="patcher_missing_patches_description">このアプリに保存されたセレクションは、有効なソースがもう提供していないパッチを指定しています。続行すると、それらのパッチなしでアプリにパッチが適用されます</string>
+    <string name="patcher_missing_patches_description">このアプリに保存されたパッチ セレクションには、現在有効なソースから提供されていないパッチが含まれています。このまま続行すると、それらのパッチなしでアプリにパッチを適用します</string>
     <string name="patcher_missing_patches_label">利用できなくなりました</string>
     <string name="patcher_option_paths_gone_title">パッチ設定ファイルが見つかりません</string>
     <string name="patcher_option_paths_gone_description">存在しないファイルを参照しているパッチ設定があります。パッチ処理を続けるにはパスを削除するか、ファイルを元に戻して再度お試しください</string>
@@ -693,8 +693,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">アプリにパッチを適用中</string>
     <string name="memory_usage">メモリ使用量</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%2$s MB 中 %1$s</string>
     <string name="cpu_usage">CPU 使用率</string>
     <string name="storage_io_usage">ストレージ I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -794,7 +792,7 @@
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language">アプリの言語</string>
     <string name="settings_appearance_app_language_current">現在の言語</string>
-    <string name="settings_appearance_translate">Morpheの翻訳を支援</string>
+    <string name="settings_appearance_translate">Morphe の翻訳に協力する</string>
     <string name="settings_appearance_translations_info_title">一部の言語では、翻訳が存在しない、または不完全である可能性があります</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">インターフェースのスケール</string>
@@ -866,7 +864,7 @@
     <string name="settings_system_notifications_categories">通知カテゴリ</string>
     <string name="settings_system_notifications_categories_description">システム設定で通知する内容を選択できます</string>
     <string name="settings_advanced_update_interval">確認頻度</string>
-    <string name="settings_advanced_update_interval_hourly">時間単位</string>
+    <string name="settings_advanced_update_interval_hourly">1時間ごと</string>
     <string name="settings_advanced_update_interval_daily">毎日</string>
     <string name="settings_advanced_update_interval_weekly">毎週</string>
     <string name="settings_advanced_update_interval_monthly">毎月</string>
@@ -901,17 +899,17 @@
     <string name="settings_advanced_strip_unused_libs">デバイスのアーキテクチャに最適化</string>
     <string name="settings_advanced_strip_unused_libs_description">使用していないネイティブ ライブラリと分割 APK ファイルを削除します</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <string name="settings_advanced_github_pat_summary">プルリクエストのソースおよびプライベートリポジトリへのアクセスを有効化</string>
-    <string name="settings_advanced_github_pat_description">プルリクエストのソース、プライベートリポジトリ、およびGitHubのレート制限緩和のため</string>
+    <string name="settings_advanced_github_pat_summary">プルリクエストのソースやプライベート リポジトリを利用できるようにします</string>
+    <string name="settings_advanced_github_pat_description">プルリクエストのソースやプライベート リポジトリを利用し、GitHub の API 利用制限を緩和するために使用します</string>
     <string name="settings_advanced_github_pat_configured">PAT が設定されました</string>
-    <string name="settings_advanced_github_pat_create">GitHubでトークンを作成</string>
+    <string name="settings_advanced_github_pat_create">GitHub でトークンを作成</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
-    <string name="settings_advanced_github_pat_create_description">指定された%sスコープを選択した状態でGitHubを開きます</string>
-    <string name="settings_advanced_github_pat_checking">GitHubで確認中…</string>
+    <string name="settings_advanced_github_pat_create_description">「%s」のスコープを選択した状態で GitHub を開きます</string>
+    <string name="settings_advanced_github_pat_checking">GitHub で確認中…</string>
     <!-- "%s" is the GitHub account name -->
-    <string name="settings_advanced_github_pat_account">%sとしてGitHubにサインイン済み</string>
-    <string name="settings_advanced_github_pat_rejected">GitHubによりこのトークンは拒否されました。期限切れまたは取り消されている可能性があります</string>
-    <string name="settings_advanced_github_pat_unreachable">このトークンの確認のためにGitHubに接続できませんでした</string>
+    <string name="settings_advanced_github_pat_account">%s として GitHub にサインイン済み</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub でこのトークンが拒否されました。有効期限が切れたか、取り消された可能性があります</string>
+    <string name="settings_advanced_github_pat_unreachable">GitHub に接続できず、このトークンを確認できませんでした</string>
     <string name="settings_advanced_github_pat_export_include_label">設定のエクスポートに含める</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">この PAT をエクスポートした Morphe の設定に追加します</string>
@@ -1118,7 +1116,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_show_password_field">パスワードを表示</string>
     <string name="settings_system_hide_password_field">パスワードを非表示</string>
     <string name="settings_system_morphe_settings">Morphe の設定</string>
-    <string name="settings_system_import_manager_settings_description">Morphe の設定をバックアップおよび復元します</string>
+    <string name="settings_system_import_manager_settings_description">Morphe の設定をバックアップ・復元します</string>
     <string name="settings_system_import_manager_settings_fail">Morphe の設定のインポートに失敗しました: %s</string>
     <string name="settings_system_import_manager_settings_success">Morphe の設定をインポートしました</string>
     <string name="settings_system_import_manager_settings_mode_title">Morphe の設定をインポート</string>
@@ -1148,7 +1146,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">ストレージの管理</string>
     <string name="settings_system_storage_management_description">ディスクの使用状況を表示し、キャッシュされたファイルを削除します</string>
-    <string name="settings_system_storage_used_free">Morphe で使用中 / このデバイスでは未使用</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">保存済みの APK</string>
     <string name="settings_system_storage_caches">キャッシュ</string>
     <string name="settings_system_storage_keystore_title">署名キーストア</string>
@@ -1269,10 +1267,10 @@ morphe_header_custom_dark.png
     <string name="settings_section_patcher">パッチャー</string>
     <string name="settings_section_updates">アップデート</string>
     <string name="settings_section_patching">パッチ処理</string>
-    <string name="settings_section_appearance_summary">Morphe の外観</string>
-    <string name="settings_section_patch_options_summary">シンプルモードでアプリに適用するパッチ</string>
+    <string name="settings_section_appearance_summary">Morphe の外観について</string>
+    <string name="settings_section_patch_options_summary">シンプルモードでアプリに適用するパッチです</string>
     <string name="settings_section_general">全般</string>
-    <string name="settings_section_patcher_summary">このデバイスでのアプリのパッチ適用方法</string>
+    <string name="settings_section_patcher_summary">このデバイスでのアプリのパッチ適用方法について</string>
     <string name="settings_section_help_info">ヘルプ &amp; 情報</string>
     <string name="settings_section_about_summary">Morphe について・ヘルプを利用する</string>
     <string name="settings_section_local_files">ファイル</string>

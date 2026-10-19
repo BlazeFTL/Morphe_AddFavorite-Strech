@@ -693,8 +693,6 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Modifierar appen</string>
     <string name="memory_usage">Minnesanvändning</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s av %2$s MB</string>
     <string name="cpu_usage">CPU-användning</string>
     <string name="storage_io_usage">Lagrings-I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,7 @@ Information: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Lagringshantering</string>
     <string name="settings_system_storage_management_description">Visar diskanvändning och rensar cachelagrade filer</string>
-    <string name="settings_system_storage_used_free">Används av Morphe / ledigt på den här enheten</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">Sparade APK-filer</string>
     <string name="settings_system_storage_caches">Cacheminnen</string>
     <string name="settings_system_storage_keystore_title">Nyckellager för signering</string>

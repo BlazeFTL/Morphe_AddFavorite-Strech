@@ -693,8 +693,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">앱 패치</string>
     <string name="memory_usage">메모리 사용량</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s / %2$s MB</string>
     <string name="cpu_usage">CPU 사용량</string>
     <string name="storage_io_usage">저장소 I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">저장소 관리</string>
     <string name="settings_system_storage_management_description">디스크 사용량을 표시하고 캐시된 파일을 삭제합니다</string>
-    <string name="settings_system_storage_used_free">Morphe 사용 공간 / 기기 여유 공간</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">저장된 APK</string>
     <string name="settings_system_storage_caches">캐시</string>
     <string name="settings_system_storage_keystore_title">서명 키스토어</string>

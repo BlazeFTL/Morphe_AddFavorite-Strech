@@ -116,10 +116,6 @@
         <item quantity="one">Покажи пак %s приложение?</item>
         <item quantity="other">Покажи пак %s приложения?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Това приложение ще се върне на началния екран</item>
-        <item quantity="other">Тези приложения ще се върнат на началния екран</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s скрито приложение</item>
         <item quantity="other">%s скрити приложения</item>

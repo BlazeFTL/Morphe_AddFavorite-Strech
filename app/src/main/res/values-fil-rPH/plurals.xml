@@ -116,10 +116,6 @@
         <item quantity="one">Ipakita muli ang %s na app?</item>
         <item quantity="other">Ipakita muli ang mga %s na app?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Ibalik ang app sa home screen</item>
-        <item quantity="other">Mabalik sa home screen ang mga app na ito</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s nakatagong app</item>
         <item quantity="other">%s nakatagong apps</item>

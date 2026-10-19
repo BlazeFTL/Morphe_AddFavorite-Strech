@@ -116,10 +116,6 @@
         <item quantity="one">Piilota sovellus %s esiin?</item>
         <item quantity="other">Piilota sovellukset %s esiin?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Tämä sovellus tulee takaisin aloitusnäytölle</item>
-        <item quantity="other">Nämä sovellukset tulevat takaisin aloitusnäytölle</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s piilotettu sovellus</item>
         <item quantity="other">%s piilotettua sovellusta</item>

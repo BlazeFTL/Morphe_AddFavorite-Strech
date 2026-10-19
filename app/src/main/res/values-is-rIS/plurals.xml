@@ -116,10 +116,6 @@
         <item quantity="one">Fela ekki %s app?</item>
         <item quantity="other">Fela ekki %s apps?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Þetta app mun koma aftur á heimaskjá</item>
-        <item quantity="other">Þessi apps munu koma aftur á heimaskjá</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s falinn app</item>
         <item quantity="other">%s falin app</item>

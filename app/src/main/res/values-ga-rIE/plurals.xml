@@ -200,13 +200,6 @@
         <item quantity="many">Foláithigh aipeanna %s?</item>
         <item quantity="other">Foláithigh aipeanna %s?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Fillfidh an aip seo ar an scáileán baile</item>
-        <item quantity="two">Fillfidh na haipeanna seo ar an scáileán baile</item>
-        <item quantity="few">Fillfidh na haipeanna seo ar an scáileán baile</item>
-        <item quantity="many">Fillfidh na haipeanna seo ar an scáileán baile</item>
-        <item quantity="other">Fillfidh na haipeanna seo ar an scáileán baile</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aip i bhfolach</item>
         <item quantity="two">%s aipeanna i bhfolach</item>

@@ -695,8 +695,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">تعديل التطبيق</string>
     <string name="memory_usage">استخدام الذاكرة</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s من %2$s م.ب</string>
     <string name="cpu_usage">استخدام المعالج</string>
     <string name="storage_io_usage">قراءة/كتابة التخزين</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1152,7 +1150,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">إدارة التخزين</string>
     <string name="settings_system_storage_management_description">يعرض استخدام مساحة التخزين ويُتيح لك مسح الملفات المؤقتة</string>
-    <string name="settings_system_storage_used_free">يتم استخدامها بواسطة Morphe / متاحة على هذا الجهاز</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">ملفات APK المحفوظة</string>
     <string name="settings_system_storage_caches">وحدات ذاكرة التخزين المؤقت</string>
     <string name="settings_system_storage_keystore_title">Keystore الموقّع</string>

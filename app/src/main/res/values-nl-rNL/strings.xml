@@ -693,8 +693,6 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">App aanpassen</string>
     <string name="memory_usage">Geheugengebruik</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s van %2$s MB</string>
     <string name="cpu_usage">CPU-gebruik</string>
     <string name="storage_io_usage">Opslag-I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,7 @@ Details: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Opslagbeheer</string>
     <string name="settings_system_storage_management_description">Toont schijfgebruik en verwijdert gecachete bestanden</string>
-    <string name="settings_system_storage_used_free">Gebruikt door Morphe / gratis op dit apparaat</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">Opgeslagen APK\'s</string>
     <string name="settings_system_storage_caches">Caches</string>
     <string name="settings_system_storage_keystore_title">Ondertekeningssleutelopslag</string>

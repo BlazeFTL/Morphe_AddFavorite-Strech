@@ -693,8 +693,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">กำลังแพตช์แอป</string>
     <string name="memory_usage">การใช้พื้นที่ความจำ</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s จาก %2$s MB</string>
     <string name="cpu_usage">การใช้งาน CPU</string>
     <string name="storage_io_usage">I/O ของพื้นที่เก็บข้อมูล</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1145,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">การจัดการพื้นที่เก็บข้อมูล</string>
     <string name="settings_system_storage_management_description">แสดงการใช้งานดิสก์และล้างไฟล์แคช</string>
-    <string name="settings_system_storage_used_free">ใช้โดย Morphe / ฟรีในอุปกรณ์นี้</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">APK ที่บันทึกไว้</string>
     <string name="settings_system_storage_caches">แคช</string>
     <string name="settings_system_storage_keystore_title">คีย์สโตร์การลงชื่อ</string>

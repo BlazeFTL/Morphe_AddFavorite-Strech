@@ -144,11 +144,6 @@
         <item quantity="few">Afișați aplicațiile %s?</item>
         <item quantity="other">Afișați aplicațiile %s?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Această aplicație va apărea din nou pe ecranul principal</item>
-        <item quantity="few">Aceste aplicații vor apărea din nou pe ecranul principal</item>
-        <item quantity="other">Aceste aplicații vor apărea din nou pe ecranul principal</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aplicație ascunsă</item>
         <item quantity="few">%s aplicații ascunse</item>

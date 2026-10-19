@@ -116,10 +116,6 @@
         <item quantity="one">نمایش %s برنامه؟</item>
         <item quantity="other">نمایش %s برنامه؟</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">این برنامه به صفحهٔ اصلی بازخواهد گشت</item>
-        <item quantity="other">این برنامه‌ها به صفحهٔ اصلی بازخواهند گشت</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s برنامهٔ پنهان</item>
         <item quantity="other">%s برنامهٔ پنهان</item>

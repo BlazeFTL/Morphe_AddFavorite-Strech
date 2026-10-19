@@ -692,8 +692,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Pakkning app</string>
     <string name="memory_usage">Minniskot</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s af %2$s MB</string>
     <string name="cpu_usage">CPU notkun</string>
     <string name="storage_io_usage">Geymslu I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1144,7 +1142,7 @@ Nánari upplýsingar: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Stjórnun geymslu</string>
     <string name="settings_system_storage_management_description">Sýnir disknotkun og hreinar skilvirkt skjalasafn</string>
-    <string name="settings_system_storage_used_free">Notuð af Morphe / ókeypis á þessu tæki</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">Vistaðar APK-skrár</string>
     <string name="settings_system_storage_caches">Geymslur</string>
     <string name="settings_system_storage_keystore_title">Staðfestingarlyklar</string>

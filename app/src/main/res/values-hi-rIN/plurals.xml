@@ -116,10 +116,6 @@
         <item quantity="one">अनुपदर्शित करें %s ऐप?</item>
         <item quantity="other">अनुपदर्शित करें %s ऐप्स?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">यह ऐप होम स्क्रीन पर वापस आ जाएगा</item>
-        <item quantity="other">ये ऐप्स होम स्क्रीन पर वापस आ जाएंगे</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s छिपा हुआ ऐप</item>
         <item quantity="other">%s छिपे हुए ऐप्स</item>

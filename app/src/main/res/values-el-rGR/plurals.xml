@@ -116,10 +116,6 @@
         <item quantity="one">Απόκρυψη εφαρμογής %s;</item>
         <item quantity="other">Απόκρυψη εφαρμογών %s;</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Η εφαρμογή αυτή θα εμφανιστεί ξανά στην αρχική οθόνη</item>
-        <item quantity="other">Οι εφαρμογές αυτές θα εμφανιστούν ξανά στην αρχική οθόνη</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s κρυφή εφαρμογή</item>
         <item quantity="other">%s κρυφές εφαρμογές</item>

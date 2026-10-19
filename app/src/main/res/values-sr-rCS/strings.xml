@@ -692,8 +692,6 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Uređivanje aplikacija</string>
     <string name="memory_usage">Upotreba memorije</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s od %2$s MB</string>
     <string name="cpu_usage">Iskorišćenost CPU-a</string>
     <string name="storage_io_usage">I/O skladišta</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1130,7 +1128,7 @@ Detalji: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Upravljanje skladištem</string>
     <string name="settings_system_storage_management_description">Prikazuje upotrebu diska i čišći keširane fajlove</string>
-    <string name="settings_system_storage_used_free">Koristi Morphe / besplatno na ovom uređaju</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">Sačuvani APK-ovi</string>
     <string name="settings_system_storage_caches">Keš memorije</string>
     <string name="settings_system_storage_keystore_title">Keš ključeva za potpisivanje</string>

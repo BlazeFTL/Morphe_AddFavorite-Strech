@@ -694,8 +694,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">מילוי אפליקציה</string>
     <string name="memory_usage">שימוש בזיכרון</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s מתוך %2$s MB</string>
     <string name="cpu_usage">שימוש במעבד</string>
     <string name="storage_io_usage">קלט/פלט של אחסון</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1158,7 +1156,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">ניהול אחסון</string>
     <string name="settings_system_storage_management_description">מציג שימוש בכונן ומנקה קבצים במטמון</string>
-    <string name="settings_system_storage_used_free">משומשת על ידי Morphe / חינם במכשיר זה</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">APKs שמורים</string>
     <string name="settings_system_storage_caches">מטמון</string>
     <string name="settings_system_storage_keystore_title">מאגר מפתחות חתימה</string>

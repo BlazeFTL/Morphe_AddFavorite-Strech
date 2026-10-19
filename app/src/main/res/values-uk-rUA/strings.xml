@@ -15,6 +15,7 @@
     <string name="home_app_no_hidden">Немає прихованих застосунків</string>
     <string name="home_app_hidden_apps_title">Приховані застосунки</string>
     <string name="home_app_hidden_apps_hint">Натисніть, щоб показати</string>
+    <string name="home_apps_unhide_message">Застосунки, які більше не приховано, повертаються на головний екран</string>
     <string name="home_app_patch_sources_description">Невибрані джерела не пропонуються при патчингу цих застосунків, а їхні патчі ніколи не приєднуються до вибору автоматично. Кожне джерело залишається увімкненим для всіх інших застосунків</string>
     <string name="home_app_patch_sources_mixed">Пропоновано для %1$s з %2$s</string>
     <string name="home_app_patch_sources_covers">Має патчі для %1$s з %2$s</string>
@@ -693,8 +694,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">Патчинг застосунку</string>
     <string name="memory_usage">Використання пам\'яті</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s з %2$s MБ</string>
     <string name="cpu_usage">Використання ЦП</string>
     <string name="storage_io_usage">Введення-виведення сховища</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1147,7 +1146,8 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Керування сховищем</string>
     <string name="settings_system_storage_management_description">Показує використання диска та очищає кешовані файли</string>
-    <string name="settings_system_storage_used_free">Використовується Morphe / вільно на цьому пристрої</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">Вільно: %1$s</string>
     <string name="settings_system_storage_saved_apks">Збережені APK-файли</string>
     <string name="settings_system_storage_caches">Кеші</string>
     <string name="settings_system_storage_keystore_title">Сховище ключів</string>

@@ -338,7 +338,6 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">پینەکردنی ئەپ</string>
     <string name="memory_usage">بەکارهێنانی بیرگە</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">جێگیرکردنی پینەکان</string>
     <string name="failed_to_execute_patch">شکستی هێنا لە جێگیرکردنی %s</string>
@@ -472,6 +471,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Import and Export Section -->
     <!-- Settings - System Tab - Files & Storage Section -->
     <!-- Settings - System Tab - Storage Management screen -->
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->

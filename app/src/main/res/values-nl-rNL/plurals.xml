@@ -116,10 +116,6 @@
         <item quantity="one">App \'%s\' weer zichtbaar maken?</item>
         <item quantity="other">Apps \'%s\' weer zichtbaar maken?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Deze app verschijnt weer op het startscherm</item>
-        <item quantity="other">Deze apps verschijnen weer op het startscherm</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s verborgen app</item>
         <item quantity="other">%s verborgen apps</item>

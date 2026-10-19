@@ -694,8 +694,6 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Modyfikowanie aplikacji</string>
     <string name="memory_usage">Zużycie pamięci</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s z %2$s MB</string>
     <string name="cpu_usage">Zużycie procesora</string>
     <string name="storage_io_usage">Zapis/odczyt danych</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1148,7 +1146,7 @@ Wymagane są następujące wymiary obrazów:
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Zarządzanie pamięcią</string>
     <string name="settings_system_storage_management_description">Wyświetla użycie pamięci i czyści pliki pamięci podręcznej</string>
-    <string name="settings_system_storage_used_free">Używane przez Morphe / wolne na tym urządzeniu</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">Zapisane pliki APK</string>
     <string name="settings_system_storage_caches">Pamięć podręczna</string>
     <string name="settings_system_storage_keystore_title">Magazyn kluczy podpisywania</string>
@@ -1379,7 +1377,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="hide">Ukryj</string>
     <string name="hidden">Ukryte</string>
     <string name="unhide">Pokaż</string>
-    <string name="show_all">Pokaż wszystkie</string>
+    <string name="show_all">Pokaż wszystko</string>
     <string name="ignore">Ignoruj</string>
     <string name="stop_ignoring">Przestań ignorować</string>
     <string name="logs">Logi</string>

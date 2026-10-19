@@ -116,10 +116,6 @@
         <item quantity="one">Unhide-App %s anzeigen?</item>
         <item quantity="other">Apps %s unhide?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Diese App erscheint wieder auf dem Startbildschirm</item>
-        <item quantity="other">Diese Apps erscheinen wieder auf dem Startbildschirm</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s ausgeblendete App</item>
         <item quantity="other">%s ausgeblendete Apps</item>

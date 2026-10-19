@@ -116,10 +116,6 @@
         <item quantity="one">Visualizza di nuovo l\'app %s?</item>
         <item quantity="other">Visualizzare di nuovo %s app?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Questa app tornerà nella schermata principale</item>
-        <item quantity="other">Queste app torneranno nella schermata principale</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s applicazione nascosta</item>
         <item quantity="other">%s app nascoste</item>

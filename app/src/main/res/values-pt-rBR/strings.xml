@@ -694,8 +694,6 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <!-- Expert patcher Screen -->
     <string name="patching_app">Patcheando aplicativo</string>
     <string name="memory_usage">Uso de memória</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s de %2$s MB</string>
     <string name="cpu_usage">Uso da CPU</string>
     <string name="storage_io_usage">E/S de armazenamento</string>
     <!-- Patcher Screen - Other hidden strings -->
@@ -1148,7 +1146,7 @@ Detalhes: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Gerenciamento de armazenamento</string>
     <string name="settings_system_storage_management_description">Mostra o uso do disco e limpa os arquivos em cache</string>
-    <string name="settings_system_storage_used_free">Usado por Morphe / gratuito neste dispositivo</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <string name="settings_system_storage_saved_apks">APKs salvos</string>
     <string name="settings_system_storage_caches">Memórias cache</string>
     <string name="settings_system_storage_keystore_title">Armazenamento de chaves de assinatura</string>

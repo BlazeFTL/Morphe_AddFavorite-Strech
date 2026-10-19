@@ -172,12 +172,6 @@
         <item quantity="many">Показати %s застосунків?</item>
         <item quantity="other">Показати %s застосунків?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Цей застосунок повернеться на головний екран</item>
-        <item quantity="few">Ці застосунки повернуться на головний екран</item>
-        <item quantity="many">Ці застосунки повернуться на головний екран</item>
-        <item quantity="other">Ці застосунки повернуться на головний екран</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s прихований застосунок</item>
         <item quantity="few">%s приховані застосунки</item>

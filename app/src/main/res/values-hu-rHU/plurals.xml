@@ -116,10 +116,6 @@
         <item quantity="one">%s alkalmazás megjelenítése?</item>
         <item quantity="other">%s alkalmazások megjelenítése?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">Ez az alkalmazás visszakerül a kezdőképernyőre</item>
-        <item quantity="other">Ezek az alkalmazások visszakerülnek a kezdőképernyőre</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s rejtett alkalmazás</item>
         <item quantity="other">%s rejtett alkalmazás</item>

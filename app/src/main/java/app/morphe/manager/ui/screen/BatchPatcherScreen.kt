@@ -677,14 +677,14 @@ private fun BatchRunHeader(state: BatchRunState) {
         verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
     ) {
         AnimatedContent(
-            targetState = state.processed to state.total,
+            targetState = state.position to state.total,
             transitionSpec = Animations.counterTransitionSpec,
             label = "batch_run_counter"
-        ) { (processed, total) ->
+        ) { (position, total) ->
             Text(
                 text = stringResource(
                     R.string.batch_patch_progress_counter,
-                    processed.toString(),
+                    position.toString(),
                     total.toString()
                 ),
                 style = MaterialTheme.typography.labelMedium,

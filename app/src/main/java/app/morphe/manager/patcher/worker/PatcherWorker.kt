@@ -111,7 +111,7 @@ class PatcherWorker(
          * tone and notification are suppressed per item.
          */
         val announceCompletion: Boolean = true,
-        /** Apps already done and the queue total, null for a single run. */
+        /** Place of this app in the queue and the queue total, null for a single run. */
         val queuePosition: Pair<Int, Int>? = null,
         /** Whether the build is mounted over the stock app rather than installed. */
         val useMount: Boolean = false
@@ -279,10 +279,10 @@ class PatcherWorker(
         var patchingSucceeded = false
         val result = try {
             args = workerRepository.claimInput(this)
-            queueLabel = args.queuePosition?.let { (done, total) ->
+            queueLabel = args.queuePosition?.let { (position, total) ->
                 applicationContext.getString(
                     R.string.batch_patch_progress_counter,
-                    done.toString(),
+                    position.toString(),
                     total.toString()
                 )
             }

@@ -243,11 +243,17 @@ data class BatchRunState(
     val failed get() = items.count { it.state == BatchItemState.FAILED }
     val skipped get() = items.count { it.state.needsAttention || it.state == BatchItemState.EXCLUDED }
 
-    /** Number of items already processed by the queue, used for the "3 / 7" counter. */
+    /** Number of items already processed by the queue, which is how far along its progress is. */
     val processed get() = items.count { it.state.isTerminal }
 
     /** Total number of items the queue will process in this run. */
     val total get() = items.count { it.state.isRunnable || it.state.isTerminal || it.state == BatchItemState.RUNNING }
+
+    /**
+     * Place of the app being patched, or of the next one between apps, counted from one for the
+     * "Patching 3 of 7" counter. Shown beside that app, a count of the finished ones reads as its place.
+     */
+    val position get() = (processed + 1).coerceAtMost(total)
 
     val isActive get() = phase == BatchPhase.RUNNING
 

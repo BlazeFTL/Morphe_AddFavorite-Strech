@@ -605,7 +605,7 @@ class BatchPatchCoordinator(
             onProgress = runProgress::onProgress,
             patchSources = patchSources,
             announceCompletion = false,
-            queuePosition = _state.value?.let { it.processed to it.total }
+            queuePosition = _state.value?.let { it.position to it.total }
         )
 
         val workId = workerRepository.launchExpedited<PatcherWorker, PatcherWorker.Args>(args)

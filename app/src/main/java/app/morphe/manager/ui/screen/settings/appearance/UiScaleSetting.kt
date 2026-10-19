@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.settings.appearance
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.*
@@ -94,12 +92,7 @@ private fun UiScalePreview(relativeScale: Float, modifier: Modifier = Modifier) 
     val previewDensity = remember(density, relativeScale) { density.scaledBy(relativeScale) }
     val app = rememberPreviewApp()
 
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .consumesPointerInput()
-            .clearAndSetSemantics {}
-    ) {
+    DisplayOnly(modifier = modifier.fillMaxWidth()) {
         CompositionLocalProvider(
             LocalDensity provides previewDensity,
             // The sample row is not a setting of this page, so a search must not count or hide it

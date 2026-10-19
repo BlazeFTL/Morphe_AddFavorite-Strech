@@ -24,7 +24,6 @@ import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.StorageManagementViewModel
 import app.morphe.manager.util.formatBytes
-import app.morphe.manager.util.formatUsedFree
 import app.morphe.manager.util.openAppDetailsSettings
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
@@ -120,13 +119,16 @@ private fun StorageOverview(
                         .padding(Defaults.SpaceLarge),
                     verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
                 ) {
-                    // How much Morphe holds against what is left free, heading the breakdown of it
+                    // How much Morphe holds against what is left free, heading the breakdown of it.
+                    // The free space is left out where the device does not report it
+                    val free = when {
+                        loading -> "…"
+                        stats.deviceFreeBytes > 0L -> context.formatBytes(stats.deviceFreeBytes)
+                        else -> null
+                    }
                     InfoStatBox(
-                        value = if (loading) "…" else context.formatUsedFree(
-                            used = stats.appUsedBytes,
-                            free = stats.deviceFreeBytes
-                        ),
-                        subtitle = stringResource(R.string.settings_system_storage_used_free),
+                        value = if (loading) "…" else context.formatBytes(stats.appUsedBytes),
+                        subtitle = free?.let { stringResource(R.string.settings_system_storage_free, it) },
                         containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
                     )
                     StorageHistogram(segments = stats.toSegments(), loading = loading)

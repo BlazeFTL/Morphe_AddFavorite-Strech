@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -78,6 +79,7 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.theme.MorpheBrandTeal
 import app.morphe.manager.util.formatBytesForReport
+import app.morphe.manager.util.formatKibibytesPerSecond
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
@@ -132,7 +134,7 @@ sealed interface LogItem {
         val processHeapAverageMb: String?,
         val processHeapMaxMb: String?,
         // null on devices that expose no I/O counters to sample
-        val ioPeakRate: String?,
+        val ioPeakKbPerSec: Int?,
     ) : LogItem
 
     /** Standard single-line log entry. */
@@ -352,7 +354,7 @@ internal class LogItemAccumulator(
         elapsedSec = successElapsedSec ?: "?",
         processHeapAverageMb = processHeapAverageMb,
         processHeapMaxMb = processHeapMaxMb,
-        ioPeakRate = ioPeakKbPerSec?.let(::formatRate),
+        ioPeakKbPerSec = ioPeakKbPerSec,
     )
 }
 
@@ -1027,11 +1029,11 @@ private fun SuccessSummaryCard(item: LogItem.SuccessSummary) {
             }
         }
 
-        if (item.ioPeakRate != null) {
+        if (item.ioPeakKbPerSec != null) {
             BannerFieldRow {
                 BannerFieldCell(
                     label = stringResource(R.string.patcher_field_io_peak),
-                    value = item.ioPeakRate,
+                    value = LocalContext.current.formatKibibytesPerSecond(item.ioPeakKbPerSec),
                     modifier = Modifier.weight(1f))
             }
         }

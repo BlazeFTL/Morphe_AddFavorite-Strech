@@ -1,3 +1,17 @@
+# [2.0.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.8...v2.0.0-dev.9) (2026-10-19)
+
+
+### Bug Fixes
+
+* Animated background resumes as soon as a dialog starts closing ([4d27b04](https://github.com/MorpheApp/morphe-manager/commit/4d27b04d4a591983b649159e554027bd6cd33851))
+* Back from an app info page returns to the info ([276032a](https://github.com/MorpheApp/morphe-manager/commit/276032a1ea003f5ebdd8ed7bf51f2da86b2cf152))
+* Localize memory and storage figures and keep them from clipping ([0a0505b](https://github.com/MorpheApp/morphe-manager/commit/0a0505b11bdf63fabe0e527341e4dd59c570c9d1))
+
+
+### Features
+
+* Show all hidden apps at once ([fc23753](https://github.com/MorpheApp/morphe-manager/commit/fc23753bc3b3d04a0916de8de1061d1f2b346c89))
+
 # [2.0.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.7...v2.0.0-dev.8) (2026-10-18)
 
 

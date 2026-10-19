@@ -111,6 +111,11 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
     }
     val unlistedInstalledVersion = installedAppVersion?.takeIf { it !in listedVersions }
 
+    // When saved and installed APKs share the same version, prefer the saved copy.
+    // Hide the installed button in that case to avoid showing two equivalent sources
+    val preferSavedOverInstalled = savedApkInfo != null &&
+        savedApkInfo.version == installedApkInfo?.version
+
     // Versions whose minSdk exceeds the current device - shown greyed-out and non-selectable
     val incompatibleSdkVersions: Set<String> = remember(offeredVersions) {
         offeredVersions
@@ -137,11 +142,6 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                     layout = DialogButtonLayout.Vertical
                 )
 
-                // When saved and installed APKs share the same version, prefer the saved copy.
-                // Hide the installed button in that case to avoid showing two equivalent sources
-                val preferSavedOverInstalled = savedApkInfo != null &&
-                    savedApkInfo.version == installedApkInfo?.version
-
                 // Saved APK button - always shown when a saved APK exists
                 if (savedApkInfo != null) {
                     AppDialogOutlinedButton(
@@ -155,15 +155,6 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                         icon = MaterialSymbols.Rounded.History,
                         modifier = Modifier.fillMaxWidth()
                     )
-
-                    // Taking it leads to the unsupported-version dialog, which is a wasted tap
-                    // unless the user is told here what is wrong with the copy they kept
-                    if (!savedApkMatchesTargets) {
-                        Footnote(
-                            text = stringResource(R.string.home_apk_use_saved_unsupported),
-                            tone = SemanticTone.Warning
-                        )
-                    }
                 }
 
                 // Installed APK button - hidden when saved mono-APK covers the same split version
@@ -177,14 +168,6 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                         icon = MaterialSymbols.Rounded.Phone_android,
                         modifier = Modifier.fillMaxWidth()
                     )
-
-                    // The certificate check could not run, so the installed app may already be patched
-                    if (installedApkInfo.patchStateUnknown) {
-                        Footnote(
-                            text = stringResource(R.string.home_apk_use_installed_unverified),
-                            tone = SemanticTone.Warning
-                        )
-                    }
                 }
             }
         }
@@ -291,6 +274,24 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
             if (usingMountInstall && !stockAppInstalled) {
                 Footnote(
                     text = stringResource(R.string.root_install_apk_required),
+                    tone = SemanticTone.Warning
+                )
+            }
+
+            // Taking the saved copy leads to the unsupported-version dialog, which is a wasted tap
+            // unless the user is told here what is wrong with the copy they kept
+            if (savedApkInfo != null && !savedApkMatchesTargets) {
+                Footnote(
+                    text = stringResource(R.string.home_apk_use_saved_unsupported),
+                    tone = SemanticTone.Warning
+                )
+            }
+
+            // The certificate check could not run, so the installed app may already be patched.
+            // Its button is left out when the saved copy stands in for it, and so is this note
+            if (installedApkInfo != null && !preferSavedOverInstalled && installedApkInfo.patchStateUnknown) {
+                Footnote(
+                    text = stringResource(R.string.home_apk_use_installed_unverified),
                     tone = SemanticTone.Warning
                 )
             }

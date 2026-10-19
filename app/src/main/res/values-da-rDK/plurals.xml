@@ -32,6 +32,10 @@
         <item quantity="one">Patchkilder til %s app</item>
         <item quantity="other">Patchkilder til %s apps</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s kilde er skjult for denne app. Vælg appen på fanen Apps, og åbn Patch sources for at få den tilbage</item>
+        <item quantity="other">%s kilder er skjult for denne app. Vælg appen på fanen Apps, og åbn Patch sources for at få dem tilbage</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s skjult kilde. Tryk for at vise</item>
         <item quantity="other">%s skjulte kilder. Tryk for at vise</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s app vist</item>
         <item quantity="other">%s apps viste</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Vis %s app?</item>
+        <item quantity="other">Vis %s apps?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Denne app vil komme tilbage til startsiden</item>
+        <item quantity="other">Disse apps vil komme tilbage til startsiden</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skjult app</item>

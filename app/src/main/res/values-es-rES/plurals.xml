@@ -32,6 +32,10 @@
         <item quantity="one">Fuentes de parches para %s aplicación</item>
         <item quantity="other">Fuentes de parches para %s aplicaciones</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s fuente está oculta para esta aplicación. Seleccione la aplicación en la pestaña Aplicaciones y abra Fuentes de parches para recuperarla</item>
+        <item quantity="other">%s fuentes están ocultas para esta aplicación. Seleccione la aplicación en la pestaña Aplicaciones y abra Fuentes de parches para recuperarlas</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s fuente oculta. Pulsa para mostrar</item>
         <item quantity="other">%s fuentes ocultas. Pulsa para mostrar</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s aplicación mostrada</item>
         <item quantity="other">%s aplicaciones mostradas</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">¿Mostrar la app %s?</item>
+        <item quantity="other">¿Mostrar las apps %s?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Esta app volverá a aparecer en la pantalla de inicio</item>
+        <item quantity="other">Estas apps volverán a aparecer en la pantalla de inicio</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aplicación oculta</item>

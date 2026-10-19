@@ -46,6 +46,12 @@
         <item quantity="many">Pataisos šaltiniai, skirti %s programų</item>
         <item quantity="other">Pataisos šaltiniai, skirti %s programų</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s šaltinis yra paslėptas šiai programai. Pasirinkite programą skirtuke „Programos\" ir atidarykite „Koreguoti šaltinius\", kad jį būtų galima atkurti</item>
+        <item quantity="few">%s šaltiniai yra paslėpti šiai programai. Pasirinkite programą skirtuke „Programos\" ir atidarykite „Koreguoti šaltinius“, kad juos būtų galima atkurti</item>
+        <item quantity="many">%s šaltinių yra paslėpta šiai programai. Pasirinkite programą skirtuke „Programos\" ir atidarykite „Koreguoti šaltinius“, kad juos būtų galima atkurti</item>
+        <item quantity="other">%s šaltiniai yra paslėpti šiai programai. Pasirinkite programą skirtuke „Programos\" ir atidarykite „Koreguoti šaltinius“, kad juos būtų galima atkurti</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s šaltinis paslėptas. Bakstelėkite, kad parodytumėte</item>
         <item quantity="few">%s šaltiniai paslėpti. Bakstelėkite, kad parodytumėte</item>
@@ -159,6 +165,18 @@
         <item quantity="few">%s programos parodytos</item>
         <item quantity="many">%s programų parodyta</item>
         <item quantity="other">%s programų parodytų</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Ar norite parodyti programą „%s”?</item>
+        <item quantity="few">Ar norite parodyti programas „%s”?</item>
+        <item quantity="many">Ar norite parodyti programas „%s”?</item>
+        <item quantity="other">Ar norite parodyti programas „%s”?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Ši programa vėl atsiras pagrindiniame ekrane</item>
+        <item quantity="few">Šios programos vėl atsiras pagrindiniame ekrane</item>
+        <item quantity="many">Šios programos vėl atsiras pagrindiniame ekrane</item>
+        <item quantity="other">Šios programos vėl bus rodomos pagrindiniame ekrane</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s paslėpta programėlė</item>

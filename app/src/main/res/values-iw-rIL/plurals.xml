@@ -39,6 +39,11 @@
         <item quantity="two">מקורות תיקון עבור %s אפליקציות</item>
         <item quantity="other">מקורות תיקון עבור %s אפליקציות</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s המקור מוסתר עבור יישום זה. בחר את היישום בכרטיסייה \'יישומונים\' ופתח \'תיקון מקורות\' כדי להחזיר אותו</item>
+        <item quantity="two">%s מקורות מוסתרים עבור יישום זה. בחר את היישום בכרטיסייה \'יישומונים\' ופתח \'תיקון מקורות\' כדי להחזיר אותם</item>
+        <item quantity="other">%s מקורות מוסתרים עבור יישום זה. בחר את היישום בכרטיסייה \'יישומונים\' ופתח \'תיקון מקורות\' כדי להחזיר אותם</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s מקור מוסתר. הקש כדי להציג</item>
         <item quantity="two">%s מקורות מוסתרים. הקש כדי להציג</item>
@@ -133,6 +138,16 @@
         <item quantity="one">%s אפליקציה מוצגת</item>
         <item quantity="two">%s אפליקציות מוצגות</item>
         <item quantity="other">%s אפליקציות מוצגות</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">לחשוף את האפליקציה %s?</item>
+        <item quantity="two">להציג מחדש %s אפליקציות?</item>
+        <item quantity="other">להציג מחדש %s אפליקציות?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">אפליקציה זו תחזור למסך הבית</item>
+        <item quantity="two">אפליקציות אלו יחזרו למסך הבית</item>
+        <item quantity="other">אפליקציות אלו יחזרו למסך הבית</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s אפליקציה מוסתרת</item>

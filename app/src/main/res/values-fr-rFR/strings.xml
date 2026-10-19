@@ -27,7 +27,7 @@
     <!-- Shown under the app a link was opened for -->
     <string name="deep_link_add_source_only_app">Seule cette application est ajoutée. Vous pouvez ajouter d\'autres applications depuis la liste des applications de la source</string>
     <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
-    <string name="deep_link_add_source_only_universal">Seuls les correctifs universels sont ajoutés. Vous pouvez ajouter des applications depuis la liste des applications de la source</string>
+    <string name="deep_link_add_source_only_universal">Seuls les patchs universels sont ajoutés. Vous pouvez ajouter des applications à partir de la liste des applications de la source</string>
     <!-- Asked when the link names an app of a source that is already added -->
     <string name="deep_link_add_source_app_back">Cette source est déjà ajoutée. Ajouter cette application à partir de la source existante ?</string>
     <!-- Home Screen - Update Notifications -->
@@ -62,7 +62,7 @@
     <string name="home_app_filter_uninstalled_description">Applications patchées avec Morphe qui ne sont plus sur cet appareil</string>
     <string name="home_app_filter_clones">Clones</string>
     <string name="home_app_filter_clones_description">Des applications créées sous leur propre nom de paquet, installées à côté de l\'original</string>
-    <string name="home_app_grouping_none">Aucune</string>
+    <string name="home_app_grouping_none">Aucun</string>
     <string name="home_app_grouping_all_apps_description">Une seule liste avec toutes les applications</string>
     <string name="home_app_grouping_sources_description">Les applications provenant de la source de patchs qui les fournit</string>
     <string name="home_app_grouping_custom_description">Les applications dans les catégories que vous créez</string>
@@ -480,7 +480,7 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Commencer</string>
     <string name="batch_patch_stop_title">Arrêter le patching par lots ?</string>
-    <string name="batch_patch_stop_description">L\'application en cours de correction ainsi que tout ce qui est encore en file d\'attente sera annulé</string>
+    <string name="batch_patch_stop_description">L\'application en cours de patch et toutes celles encore en attente seront annulées</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Tout installer</string>
     <string name="batch_patch_install_failed">Échec de l\'installation</string>
@@ -554,7 +554,7 @@ Restaurer remet la version patchée. Désactive les mises à jour automatiques p
     <string name="root_pre_patch_installer_description">Votre appareil dispose d\'un accès root. Choisissez si cette application doit être patchée pour le montage root ou pour une installation standard</string>
     <string name="root_pre_patch_installer_mount_title">Mode de montage root</string>
     <string name="root_pre_patch_installer_mount_description">Patche pour le montage root, puis monte l\'APK par-dessus l\'application d\'origine correspondante. GmsCore n\'est pas nécessaire</string>
-    <string name="root_mount_module_unmount_warning">Si KernelSU a l\'option \"Démonter les modules par défaut\" activée, ouvrez KernelSU &gt; Super-utilisateur &gt; l\'application que vous avez montée &gt; Profil &gt; Personnalisé et désactivez \"Démonter les modules\". Sinon, l\'APK corrigé monté peut ne pas prendre effet, même si Morphe l\'affiche comme étant monté</string>
+    <string name="root_mount_module_unmount_warning">Si KernelSU a l\'option \'Démontez les modules par défaut\' activée, ouvrez KernelSU &gt; Super-utilisateur &gt; l\'application que vous avez montée &gt; Profile &gt; Personnalisé et désactivez \'Démontez les modules\'. Sinon, l\'APK patché monté peut ne pas prendre effet, même si Morphe l\'affiche comme étant monté</string>
     <string name="root_pre_patch_installer_standard_title">Mode d\'installation standard</string>
     <string name="root_pre_patch_installer_standard_description">Patche en tant qu\'APK normal avec prise en charge de GmsCore. Votre paramètre d\'installateur est utilisé après le patching</string>
     <string name="root_pre_patch_installer_hint">Demandé lorsque Paramètres &gt; Patching &gt; Installation &gt; Invite de sélection de l\'installateur est activé. Le mode de patch ne peut plus être modifié après le patching</string>
@@ -639,7 +639,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="patcher_storage_badge_missing">Introuvable</string>
     <string name="batch_patch_option_paths_skipped">Les fichiers d\'options de patch sont manquants et seront ignorés : %1$s</string>
     <string name="patcher_missing_patches_title">Certains patchs ont disparu</string>
-    <string name="patcher_missing_patches_description">La sélection enregistrée pour cette application nomme des correctifs qu\'aucune source activée n\'offre plus. Continuer corrige l\'application sans eux</string>
+    <string name="patcher_missing_patches_description">La sélection enregistrée pour cette application contient des patchs qu\'aucune source activée ne propose plus. Continuer appliquera les patchs à l\'application sans eux</string>
     <string name="patcher_missing_patches_label">Plus proposé</string>
     <string name="patcher_option_paths_gone_title">Les fichiers d\'options de patch sont manquants</string>
     <string name="patcher_option_paths_gone_description">Une ou plusieurs options de patch pointent vers des fichiers qui ne sont plus présents. Supprimez les chemins pour patcher sans ces fichiers, ou remettez les fichiers en place et réessayez</string>
@@ -871,6 +871,8 @@ Les patchs ne sont pas affectés : activez les patchs en préversion pour chaque
     <string name="settings_advanced_update_interval">Fréquence de vérification</string>
     <string name="settings_advanced_update_interval_hourly">Toutes les heures</string>
     <string name="settings_advanced_update_interval_daily">Quotidiennement</string>
+    <string name="settings_advanced_update_interval_weekly">Hebdomadairement</string>
+    <string name="settings_advanced_update_interval_monthly">Mensuellement</string>
     <string name="settings_advanced_update_interval_battery_warning">Les vérifications en arrière-plan peuvent ne pas fonctionner fiablement sur certains appareils. Des fabricants tels que Xiaomi, Huawei, Samsung et OnePlus restreignent souvent de manière agressive les processus en arrière-plan pour économiser la batterie</string>
     <string name="settings_advanced_external_batch_patch">Autoriser les déclencheurs externes</string>
     <string name="settings_advanced_external_batch_patch_description">Permet aux applications d\'automatisation de lancer le patching par lots</string>
@@ -902,9 +904,17 @@ Les patchs ne sont pas affectés : activez les patchs en préversion pour chaque
     <string name="settings_advanced_strip_unused_libs">Optimiser pour l\'architecture de l\'appareil</string>
     <string name="settings_advanced_strip_unused_libs_description">Supprime les bibliothèques natives et les APK fractionnés inutilisés</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Déverrouille les sources de pull request et les dépôts privés</string>
+    <string name="settings_advanced_github_pat_description">Pour les sources de pull request, les dépôts privés et une limite de requêtes GitHub plus élevée</string>
     <string name="settings_advanced_github_pat_configured">Jeton configuré</string>
+    <string name="settings_advanced_github_pat_create">Créer un jeton sur GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Ouvre GitHub avec le champ %s déjà sélectionné</string>
+    <string name="settings_advanced_github_pat_checking">Vérification auprès de GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Connecté à GitHub en tant que %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub a refusé ce jeton. Il a peut-être expiré ou été révoqué</string>
+    <string name="settings_advanced_github_pat_unreachable">Impossible de contacter GitHub pour vérifier ce jeton</string>
     <string name="settings_advanced_github_pat_export_include_label">Inclure dans l\'export des paramètres</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Ajoute ce PAT aux paramètres exportés de Morphe</string>
@@ -1095,7 +1105,7 @@ Détails : %2$s"</string>
     <string name="settings_system_backup_appearance_description">Thème, couleurs et langue</string>
     <string name="settings_system_backup_home_description">Groupes, applications masquées, tri et basculement</string>
     <string name="settings_system_backup_patching">Patching et installation</string>
-    <string name="settings_system_backup_patching_description">Installer, patcheur et APK sauvegardés</string>
+    <string name="settings_system_backup_patching_description">Installateur, patcheur et APK sauvegardés</string>
     <string name="settings_system_backup_updates_description">Préversions et vérifications des mises à jour</string>
     <string name="settings_system_backup_sources_description">Sources personnalisées et jeton GitHub</string>
     <string name="settings_system_backup_patch_selections_description">Patchs choisis pour chaque application</string>
@@ -1316,10 +1326,10 @@ Détails : %2$s"</string>
     <string name="search_no_results">Pas de résultat trouvé</string>
     <string name="sort">Trier</string>
     <string name="any_version">N\'importe laquelle</string>
-    <string name="enabled">Activé</string>
-    <string name="disabled">Désactivé</string>
+    <string name="enabled">Activée</string>
+    <string name="disabled">Désactivée</string>
     <string name="state_selected">Sélectionné</string>
-    <string name="state_not_selected">Non sélectionnée</string>
+    <string name="state_not_selected">Non sélectionné</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="deselect_all">Tout désélectionner</string>
     <string name="reorder_list">Réorganiser la liste</string>
@@ -1375,6 +1385,7 @@ Détails : %2$s"</string>
     <string name="hide">Masquer</string>
     <string name="hidden">Masquée</string>
     <string name="unhide">Afficher</string>
+    <string name="show_all">Tout afficher</string>
     <string name="ignore">Ignorer</string>
     <string name="stop_ignoring">Ne plus ignorer</string>
     <string name="logs">Journaux</string>

@@ -27,6 +27,7 @@
     <!-- Shown under the app a link was opened for -->
     <string name="deep_link_add_source_only_app">Yalnız bu tətbiq əlavə olunub. Mənbənin tətbiq siyahısından digər tətbiqləri də əlavə edə bilərsiniz</string>
     <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
+    <string name="deep_link_add_source_only_universal">Yalnız ümumi yamaqlar əlavə edilib. Mənbənin tətbiq siyahısından tətbiqləri əlavə edə bilərsiniz</string>
     <!-- Asked when the link names an app of a source that is already added -->
     <string name="deep_link_add_source_app_back">Bu mənbə artıq əlavə edilib. Bu tətbiq mövcud mənbədən əlavə edilsin?</string>
     <!-- Home Screen - Update Notifications -->
@@ -477,6 +478,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Başlat</string>
     <string name="batch_patch_stop_title">Toplu yamaqlama dayandırılsın?</string>
+    <string name="batch_patch_stop_description">Hal-hazırda yamaqlanan tətbiq və növbədə olan hər şey ləğv ediləcək</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Hamısını quraşdır</string>
     <string name="batch_patch_install_failed">Quraşdırma uğursuz oldu</string>
@@ -548,6 +550,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="root_pre_patch_installer_description">Cihazınızın root girişi var. Bu tətbiqin root montajı yoxsa standart quraşdırma məqsədilə yamaqlanmalı olub-olmadığını seçin</string>
     <string name="root_pre_patch_installer_mount_title">Root montajı rejimi</string>
     <string name="root_pre_patch_installer_mount_description">Root montajı üçün yamaqlayır, sonra APK-nı uyğun əsas tətbiqin üzərinə montaj edir. GmsCore tələb olunmur</string>
+    <string name="root_mount_module_unmount_warning">KernelSU-nun \"Modulları ilkin olaraq ayırmağı\" aktivdirsə, KernelSU &gt; Superuser &gt; montaj etdiyiniz tətbiq &gt; Profil &gt; Fərdi bölməsini açın və \"modulların ayrılmasını\" qapadın. Əks halda, Morphe onu montajlanmış kimi göstərsə belə, montajlanmış yamaqlı APK işləməyə bilər</string>
     <string name="root_pre_patch_installer_standard_title">Standart quraşdırma rejimi</string>
     <string name="root_pre_patch_installer_standard_description">GmsCore dəstəyi ilə adi APK kimi yamaqlayır. Quraşdırıcı tənzimləməniz yamaqlanmadan sonra istifadə olunur</string>
     <string name="root_pre_patch_installer_hint">Tənzimləmələr &gt; Yamaqlama &gt; Quraşdırma &gt; Quraşdırıcı seçimi sorğusu açıq olduqda soruşulur. Yamaq rejimi yamaqlamadan sonra dəyişdirilə bilmir</string>
@@ -632,6 +635,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="patcher_storage_badge_missing">Tapılmadı</string>
     <string name="batch_patch_option_paths_skipped">Yamaq seçimi faylları yoxdur və ötürüləcək: %1$s</string>
     <string name="patcher_missing_patches_title">Bəzi yamaqlar silinib</string>
+    <string name="patcher_missing_patches_description">Bu tətbiq üçün saxlanılmış seçimdə artıq heç bir aktiv mənbə tərəfindən təklif olunmayan yamaqlar var. Davam etmək tətbiqi onlar olmadan yamaqlayır</string>
     <string name="patcher_missing_patches_label">Artıq təklif olunmur</string>
     <string name="patcher_option_paths_gone_title">Yamaq seçim faylları çatışmır</string>
     <string name="patcher_option_paths_gone_description">Bir və ya bir neçə yamaq seçimi artıq yerində olmayan fayllara istinad edir. Onlar olmadan yamaqlamaq üçün keçidləri sil və ya faylları geri qaytarıb təkrar cəhd et</string>
@@ -789,6 +793,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language">Tətbiq dili</string>
     <string name="settings_appearance_app_language_current">Hazırkı dil</string>
+    <string name="settings_appearance_translate">Morphe-ni tərcümə etməyə kömək edin</string>
     <string name="settings_appearance_translations_info_title">Bəzi dillər üçün tərcümələr əskik və ya nöqsanlı ola bilər.</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">İnterfeys miqyası</string>
@@ -860,7 +865,10 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_system_notifications_categories">Bildiriş kateqoriyaları</string>
     <string name="settings_system_notifications_categories_description">Hansı yenilənmələrin sizə bildiriş göndərəcəyini sistem tənzimləmələrində seçin</string>
     <string name="settings_advanced_update_interval">Yoxlanılma tezliyi</string>
+    <string name="settings_advanced_update_interval_hourly">Saatlıq</string>
     <string name="settings_advanced_update_interval_daily">Gündəlik</string>
+    <string name="settings_advanced_update_interval_weekly">Həftəlik</string>
+    <string name="settings_advanced_update_interval_monthly">Aylıq</string>
     <string name="settings_advanced_update_interval_battery_warning">Fon yoxlamaları bəzi cihazlarda davamlı işləməyə bilər. Xiaomi, Huawei, Samsung və OnePlus kimi istehsalçılar batareyanı qorumaq üçün dəfələrlə fon proseslərini ciddi şəkildə məhdudlaşdırırlar</string>
     <string name="settings_advanced_external_batch_patch">Xarici tətikləyicilərə icazə ver</string>
     <string name="settings_advanced_external_batch_patch_description">Avtomatlaşdırma tətbiqlərinə toplu yamaqlamağa başlamağa icazə verir</string>
@@ -892,9 +900,17 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_advanced_strip_unused_libs">Cihaz quruluşu üçün optimallaşdır</string>
     <string name="settings_advanced_strip_unused_libs_description">İstifadə olunmayan yerli kitabxanaları və APK parçalarını silir</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Pull request mənbələrini və şəxsi depoları kiliddən açır</string>
+    <string name="settings_advanced_github_pat_description">Pull request mənbələri, şəxsi depolar və daha yüksək GitHub sürət limiti üçün</string>
     <string name="settings_advanced_github_pat_configured">Token quruldu</string>
+    <string name="settings_advanced_github_pat_create">GitHub-da token yarat</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">​%s əhatə dairəsi artıq seçilmiş halda GitHub-ı açır</string>
+    <string name="settings_advanced_github_pat_checking">GitHub ilə yoxlanılır…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">GitHub-a %s olaraq daxil olunub</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub bu tokeni rədd etdi. Onun vaxtı bitmiş və ya ləğv edilmiş ola bilər</string>
+    <string name="settings_advanced_github_pat_unreachable">Bu tokeni yoxlamaq üçün GitHub-a qoşulmaq olmadı</string>
     <string name="settings_advanced_github_pat_export_include_label">Tənzimləmələr ixracında yerləşdir</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Bu PAT-ı ixrac edilən Morphe tənzimləmələrinə əlavə edir</string>
@@ -1272,6 +1288,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="warning">Xəbərdarlıq</string>
     <string name="error_">Xəta</string>
     <string name="failed">Uğursuz oldu</string>
+    <string name="canceled">Ləğv olundu</string>
     <string name="ready">Hazır</string>
     <string name="retry">Təkrar sına</string>
     <string name="refresh">Təzələ</string>

@@ -867,6 +867,8 @@
     <string name="settings_advanced_update_interval">دفعات بررسی</string>
     <string name="settings_advanced_update_interval_hourly">ساعتی</string>
     <string name="settings_advanced_update_interval_daily">روزانه</string>
+    <string name="settings_advanced_update_interval_weekly">هفتگی</string>
+    <string name="settings_advanced_update_interval_monthly">ماهانه</string>
     <string name="settings_advanced_update_interval_battery_warning">بررسی‌های پس‌زمینه ممکن است در بعضی دستگاه‌ها قابل اعتماد نباشند. سازندگانی مانند Xiaomi، Huawei، Samsung و OnePlus معمولاً برای صرفه‌جویی در باتری، فرایندهای پس‌زمینه را به‌شدت محدود می‌کنند</string>
     <string name="settings_advanced_external_batch_patch">اجازهٔ محرک‌های خارجی</string>
     <string name="settings_advanced_external_batch_patch_description">اجازه به برنامه‌های اتوماسیون برای شروع پچ دسته‌ای</string>
@@ -898,9 +900,17 @@
     <string name="settings_advanced_strip_unused_libs">بهینه‌سازی برای معماری دستگاه</string>
     <string name="settings_advanced_strip_unused_libs_description">حذف کتابخانه‌های نیتی استفاده نشده و تقسیم‌بندی‌های APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">منابع درخواست‌های کشیدن و مخازن خصوصی را غیرفعال می‌کند</string>
+    <string name="settings_advanced_github_pat_description">برای منابع درخواست‌های کشیدن، مخازن خصوصی و محدودیت نرخ بالاتر GitHub</string>
     <string name="settings_advanced_github_pat_configured">توکن پیکربندی شد</string>
+    <string name="settings_advanced_github_pat_create">یک توکن در GitHub ایجاد کنید</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">باز کردن GitHub با محدوده‌ی %s از پیش انتخاب شده</string>
+    <string name="settings_advanced_github_pat_checking">در حال بررسی با GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">ورود به عنوان %s در GitHub</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub این توکن را رد کرد. ممکن است منقضی یا لغو شده باشد</string>
+    <string name="settings_advanced_github_pat_unreachable">نمی‌توان به GitHub دسترسی داشت تا این توکن را بررسی کند</string>
     <string name="settings_advanced_github_pat_export_include_label">گنجاندن در خروجی تنظیمات</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">این PAT را به تنظیمات خروجی Morphe اضافه می‌کند</string>
@@ -1368,6 +1378,7 @@ morphe_header_custom_dark.png
     <string name="hide">پنهان‌کردن</string>
     <string name="hidden">پنهان‌شده</string>
     <string name="unhide">نمایش‌دادن</string>
+    <string name="show_all">نمایش همه</string>
     <string name="ignore">نادیده‌گرفتن</string>
     <string name="stop_ignoring">نادیده گرفتن را متوقف کن</string>
     <string name="logs">گزارش‌ها</string>

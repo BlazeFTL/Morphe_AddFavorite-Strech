@@ -32,6 +32,10 @@
         <item quantity="one">Plástrauppsprettur fyrir %s app</item>
         <item quantity="other">Plástrauppsprettur fyrir %s öpp</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s uppspretta er falin fyrir þetta forrit. Veldu forritið í flipanum Forrit og opnaðu Laga uppsprettur til að færa hana aftur</item>
+        <item quantity="other">%s uppsprettur eru falnar fyrir þetta forrit. Veldu forritið í flipanum Forrit og opnaðu Laga uppsprettur til að færa þær aftur</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s uppspretta falin. Ýttu til að sýna</item>
         <item quantity="other">%s uppsprettur faldar. Ýttu til að sýna</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s forrit sýnilegt</item>
         <item quantity="other">%s forrit sýnileg</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Fela ekki %s app?</item>
+        <item quantity="other">Fela ekki %s apps?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Þetta app mun koma aftur á heimaskjá</item>
+        <item quantity="other">Þessi apps munu koma aftur á heimaskjá</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s falinn app</item>

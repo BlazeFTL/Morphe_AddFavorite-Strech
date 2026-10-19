@@ -32,6 +32,10 @@
         <item quantity="one">Sources de patchs pour %s application</item>
         <item quantity="other">Sources de patchs pour %s applications</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">La source %s est masquée pour cette application. Sélectionnez l\'application dans l\'onglet \'Applications\', puis ouvrez \'Sources de patchs\' pour la réafficher</item>
+        <item quantity="other">Les sources %s sont masquées pour cette application. Sélectionnez l\'application dans l\'onglet \'Applications\', puis ouvrez \'Sources de patchs\' pour les réafficher</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s source masquée. Appuyez pour l\'afficher</item>
         <item quantity="other">%s sources masquées. Appuyez pour les afficher</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s application affichée</item>
         <item quantity="other">%s applications affichées</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Réafficher %s application ?</item>
+        <item quantity="other">Réafficher %s applications ?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Cette application sera de nouveau visible sur l\'écran d\'accueil</item>
+        <item quantity="other">Ces applications seront de nouveau visibles sur l\'écran d\'accueil</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s application masquée</item>

@@ -867,6 +867,8 @@ Tillägg påverkas inte: aktivera förhandsversioner av tillägg för varje käl
     <string name="settings_advanced_update_interval">Sökningsfrekvens</string>
     <string name="settings_advanced_update_interval_hourly">Varje timme</string>
     <string name="settings_advanced_update_interval_daily">Varje dag</string>
+    <string name="settings_advanced_update_interval_weekly">Veckovis</string>
+    <string name="settings_advanced_update_interval_monthly">Månadsvis</string>
     <string name="settings_advanced_update_interval_battery_warning">Kontroller i bakgrunden kanske inte fungerar tillförlitligt på vissa enheter. Tillverkare som Xiaomi, Huawei, Samsung och OnePlus begränsar ofta bakgrundsprocesser aggressivt för att spara batteri</string>
     <string name="settings_advanced_external_batch_patch">Tillåt externa utlösare</string>
     <string name="settings_advanced_external_batch_patch_description">Låter automatiseringsappar starta gruppmodifiering</string>
@@ -898,9 +900,17 @@ Tillägg påverkas inte: aktivera förhandsversioner av tillägg för varje käl
     <string name="settings_advanced_strip_unused_libs">Optimera för enhetsarkitektur</string>
     <string name="settings_advanced_strip_unused_libs_description">Tar bort plattformsspecifika bibliotek och delade APK-moduler som inte används</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Låser upp källor för pull requests och privata arkiv</string>
+    <string name="settings_advanced_github_pat_description">För pull request-källor, privata arkiv och en högre hastighetsgräns på GitHub</string>
     <string name="settings_advanced_github_pat_configured">Token konfigurerades</string>
+    <string name="settings_advanced_github_pat_create">Skapa en token på GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Öppnar GitHub med skopet %s redan valt</string>
+    <string name="settings_advanced_github_pat_checking">Kontrollerar med GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Inloggad på GitHub som %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub har nekat denna token. Den kan ha löpt ut eller återkallats</string>
+    <string name="settings_advanced_github_pat_unreachable">Det gick inte att nå GitHub för att kontrollera denna token</string>
     <string name="settings_advanced_github_pat_export_include_label">Inkludera i inställningsexport</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Lägger till denna PAT i exporterade Morphe-inställningar</string>
@@ -1368,6 +1378,7 @@ Information: %2$s"</string>
     <string name="hide">Dölj</string>
     <string name="hidden">Dolt</string>
     <string name="unhide">Visa</string>
+    <string name="show_all">Visa alla</string>
     <string name="ignore">Ignorera</string>
     <string name="stop_ignoring">Sluta ignorera</string>
     <string name="logs">Loggar</string>

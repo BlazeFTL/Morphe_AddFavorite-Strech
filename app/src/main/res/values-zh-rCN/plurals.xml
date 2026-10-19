@@ -25,6 +25,9 @@
     <plurals name="home_app_patch_sources_title">
         <item quantity="other">适用于 %s 个应用的补丁源</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="other">%s个来源对此应用已隐藏。在“应用”选项卡上选择该应用并打开“修补来源”以将其恢复</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="other">已隐藏 %s 个来源。点按以显示</item>
     </plurals>
@@ -81,6 +84,12 @@
     </plurals>
     <plurals name="home_apps_shown_count">
         <item quantity="other">%s apps shown</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="other">是否取消隐藏 %s 个应用？</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="other">这些应用将返回主屏幕</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">%s 个隐藏的应用</item>

@@ -46,6 +46,12 @@
         <item quantity="many">Źródła modyfikacji dla %s aplikacji</item>
         <item quantity="other">Źródła modyfikacji dla %s aplikacji</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s źródło jest ukryte dla tej aplikacji. Wybierz aplikację w zakładce Aplikacje i otwórz Źródła modyfikacji, aby je przywrócić</item>
+        <item quantity="few">%s źródła są ukryte dla tej aplikacji. Wybierz aplikację w zakładce Aplikacje i otwórz Źródła modyfikacji, aby je przywrócić</item>
+        <item quantity="many">%s źródeł jest ukrytych dla tej aplikacji. Wybierz aplikację w zakładce Aplikacje i otwórz Źródła modyfikacji, aby je przywrócić</item>
+        <item quantity="other">%s źródeł jest ukrytych dla tej aplikacji. Wybierz aplikację w zakładce Aplikacje i otwórz Źródła modyfikacji, aby je przywrócić</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">Ukryto %s źródło. Dotknij, aby pokazać</item>
         <item quantity="few">Ukryto %s źródła. Dotknij, aby pokazać</item>
@@ -159,6 +165,18 @@
         <item quantity="few">Wyświetlono %s aplikacje</item>
         <item quantity="many">Wyświetlono %s aplikacji</item>
         <item quantity="other">Wyświetlono %s aplikacji</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Odstronić ukrycie aplikacji %s?</item>
+        <item quantity="few">Odstronić ukrycie aplikacji %s?</item>
+        <item quantity="many">Odstronić ukrycie aplikacji %s?</item>
+        <item quantity="other">Odstronić ukrycie aplikacji %s?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Ta aplikacja pojawi się ponownie na ekranie głównym</item>
+        <item quantity="few">Te aplikacje pojawią się ponownie na ekranie głównym</item>
+        <item quantity="many">Te aplikacje pojawią się ponownie na ekranie głównym</item>
+        <item quantity="other">Te aplikacje pojawią się ponownie na ekranie głównym</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s ukryta aplikacja</item>

@@ -5,7 +5,7 @@
     </plurals>
     <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
     <plurals name="library_count">
-        <item quantity="other">ไลบรารี %s</item>
+        <item quantity="other">%s ไลบรารี</item>
     </plurals>
     <plurals name="option_count">
         <item quantity="other">%s ตัวเลือกแพตซ์</item>
@@ -24,6 +24,9 @@
     </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="other">แหล่งที่มาของแพตช์สำหรับ %s แอป</item>
+    </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="other">แหล่งที่มา %s ถูกซ่อนไว้สำหรับแอปนี้ เลือกแอปในแท็บแอปและเปิดแหล่งที่มาแพตช์เพื่อนำกลับคืนมา</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="other">ซ่อนแหล่งที่มาไว้ %s รายการ แตะเพื่อแสดง</item>
@@ -58,6 +61,9 @@
     <plurals name="batch_patch_ready_count">
         <item quantity="other">%s แอปพร้อมสำหรับการแพตช์</item>
     </plurals>
+    <plurals name="batch_queue_pending_count">
+        <item quantity="other">%s แอปอยู่ในคิวรอการแพตช์</item>
+    </plurals>
     <plurals name="home_alerts_snoozed_count">
         <item quantity="other">การแจ้งเตือนที่ซ่อนอยู่ %s รายการ แตะเพื่อแสดง</item>
     </plurals>
@@ -78,6 +84,12 @@
     </plurals>
     <plurals name="home_apps_shown_count">
         <item quantity="other">%s แอปแสดง</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="other">แสดง %s แอป?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="other">แอปนี้จะกลับมาแสดงบนหน้าจอหลักอีกครั้ง</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">แอปที่ซ่อนอยู่ %s แอป</item>

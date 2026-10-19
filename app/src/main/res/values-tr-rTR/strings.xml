@@ -29,7 +29,7 @@
     <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
     <string name="deep_link_add_source_only_universal">Yalnızca evrensel yamalar eklendi. Kaynağın uygulama listesinden uygulamalar ekleyebilirsiniz</string>
     <!-- Asked when the link names an app of a source that is already added -->
-    <string name="deep_link_add_source_app_back">Bu kaynak zaten eklenmiş. Bu uygulamayı mevcut kaynağa ekle?</string>
+    <string name="deep_link_add_source_app_back">Bu kaynak zaten eklenmiş. Uygulama mevcut kaynaktan eklensin mi?</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe güncellemesi mevcut</string>
     <string name="home_update_available_subtitle">Yeni sürüm yüklenmeye hazır</string>
@@ -38,7 +38,7 @@
     <string name="home_metadata_errors_title">Bazı yama kaynakları kullanılamıyor</string>
     <string name="home_metadata_errors_subtitle">Kaynakları incelemek için dokunun</string>
     <string name="home_outdated_manager_title">Morphe güncel değil</string>
-    <string name="home_outdated_manager_subtitle">Bazı yama kaynaklarının daha yeni bir sürümü gerekiyor</string>
+    <string name="home_outdated_manager_subtitle">Bazı yama kaynakları daha yeni bir sürüm gerektiriyor</string>
     <string name="home_held_back_title">Bir yama kaynağı Morphe\'nin çökmesine neden oldu</string>
     <string name="home_held_back_subtitle">Uygulamanın başlatılabilmesi için atlandı. İncelemek için dokunun</string>
     <string name="home_metered_skipped_title">Mobil veride güncellemeler duraklatıldı</string>
@@ -452,7 +452,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="header_creator_guide_positioning_title">Konumlandırma ve ölçeklendirme</string>
     <string name="header_creator_guide_positioning_body">Görüntüyü düzenleyicide sürükleyerek taşıyın, kıstırarak yeniden boyutlandırın veya kaydırıcıyla boyutunu ayarlayın. Kesikli kutu, varsayılan logonun bulunduğu yeri işaretler ve görüntü onunla hizalandığında kılavuz çizgiler görünür.</string>
     <!-- Batch patching -->
-    <string name="batch_patch_action">Yama seçildi</string>
+    <string name="batch_patch_action">Seçilenleri yamala</string>
     <string name="batch_patch_title">Toplu yama</string>
     <string name="batch_patch_planning">Sıra hazırlanıyor…</string>
     <string name="batch_patch_preparing_next">Bir sonraki uygulama hazırlanıyor…</string>
@@ -867,6 +867,8 @@ Yamalar etkilenmez: yamalama kaynakları listesindeki her kaynak için ön sür�
     <string name="settings_advanced_update_interval">Güncelleme sıklığı</string>
     <string name="settings_advanced_update_interval_hourly">Saatlik</string>
     <string name="settings_advanced_update_interval_daily">Günlük</string>
+    <string name="settings_advanced_update_interval_weekly">Haftalık</string>
+    <string name="settings_advanced_update_interval_monthly">Aylık</string>
     <string name="settings_advanced_update_interval_battery_warning">Bazı cihazlarda arka plan kontrolleri güvenilir şekilde çalışmayabilir. Xiaomi, Huawei, Samsung ve OnePlus gibi üreticiler, pil ömrünü uzatmak için arka plan işlemlerini genellikle agresif şekilde kısıtlarlar</string>
     <string name="settings_advanced_external_batch_patch">Harici tetikleyicilere izin ver</string>
     <string name="settings_advanced_external_batch_patch_description">Otomasyon uygulamalarının toplu yama işlemlerini başlatmasını sağlar.</string>
@@ -898,9 +900,17 @@ Yamalar etkilenmez: yamalama kaynakları listesindeki her kaynak için ön sür�
     <string name="settings_advanced_strip_unused_libs">Cihaz mimarisi için optimize et</string>
     <string name="settings_advanced_strip_unused_libs_description">Kullanılmayan yerel (native) kütüphaneleri ve APK parçalarını kaldırır.</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Çekme istekleri kaynaklarını ve özel depoları kilidini açar</string>
+    <string name="settings_advanced_github_pat_description">Çekme istekleri kaynakları, özel depolar ve daha yüksek GitHub hız limiti için</string>
     <string name="settings_advanced_github_pat_configured">Anahtar yapılandırıldı</string>
+    <string name="settings_advanced_github_pat_create">GitHub\'da bir jeton oluşturun</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Zaten %s kapsamıyla seçilmiş olarak GitHub\'ı açar</string>
+    <string name="settings_advanced_github_pat_checking">GitHub ile doğrulanıyor…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">GitHub\'a %s olarak giriş yapıldı</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub bu jetonu reddetti. Süresi dolmuş veya iptal edilmiş olabilir</string>
+    <string name="settings_advanced_github_pat_unreachable">Bu jetonu kontrol etmek için GitHub\'a ulaşılamadı</string>
     <string name="settings_advanced_github_pat_export_include_label">Ayarları dışa aktarırken dahil et</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Bu PAT\'i dışa aktarılan Morphe ayarlarına ekler</string>
@@ -1368,6 +1378,7 @@ Ayrıntılar: %2$s"</string>
     <string name="hide">Gizle</string>
     <string name="hidden">Gizlendi</string>
     <string name="unhide">Gizliliği kaldır</string>
+    <string name="show_all">Tümünü Göster</string>
     <string name="ignore">Yoksay</string>
     <string name="stop_ignoring">Yok saymayı bırak</string>
     <string name="logs">Günlükler</string>

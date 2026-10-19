@@ -32,6 +32,10 @@
         <item quantity="one">Paikkauslähteet %s sovellukselle</item>
         <item quantity="other">Paikkauslähteet %s sovellukselle</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s-lähdekoodi on piilotettu tälle sovellukselle. Valitse sovellus Sovellukset-välilehdeltä ja avaa Korjaa lähteet palauttaaksesi sen</item>
+        <item quantity="other">%s-lähteet on piilotettu tälle sovellukselle. Valitse sovellus Sovellukset-välilehdeltä ja avaa Korjaa lähteet palauttaaksesi ne</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s lähde piilotettu. Napauta näyttääksesi</item>
         <item quantity="other">%s lähdettä piilotettu. Napauta näyttääksesi</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s sovellus näkyvillä</item>
         <item quantity="other">%s sovellusta näkyvillä</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Piilota sovellus %s esiin?</item>
+        <item quantity="other">Piilota sovellukset %s esiin?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Tämä sovellus tulee takaisin aloitusnäytölle</item>
+        <item quantity="other">Nämä sovellukset tulevat takaisin aloitusnäytölle</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s piilotettu sovellus</item>

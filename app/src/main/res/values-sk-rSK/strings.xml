@@ -867,6 +867,8 @@ Záplaty tým nie sú ovplyvnené: povoľte predbežné záplaty pre každý zdr
     <string name="settings_advanced_update_interval">Frekvencia kontroly</string>
     <string name="settings_advanced_update_interval_hourly">Každú hodinu</string>
     <string name="settings_advanced_update_interval_daily">Denne</string>
+    <string name="settings_advanced_update_interval_weekly">Týždenne</string>
+    <string name="settings_advanced_update_interval_monthly">Mesačne</string>
     <string name="settings_advanced_update_interval_battery_warning">Kontroly na pozadí nemusia na niektorých zariadeniach fungovať spoľahlivo. Výrobcovia, ako napr. Xiaomi, Huawei, Samsung a OnePlus, často agresívne obmedzujú procesy na pozadí, aby šetrili batériu</string>
     <string name="settings_advanced_external_batch_patch">Povoliť externé spúšťače</string>
     <string name="settings_advanced_external_batch_patch_description">Povoľuje aplikáciám automatizácie spustiť hromadnú opravu</string>
@@ -898,9 +900,17 @@ Záplaty tým nie sú ovplyvnené: povoľte predbežné záplaty pre každý zdr
     <string name="settings_advanced_strip_unused_libs">Optimalizovať pre architektúru zariadenia</string>
     <string name="settings_advanced_strip_unused_libs_description">Odstráni nepoužívané natívne knižnice a APK splity</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Odomie zdrojové kódy žiadostí o spriahnutie a súkromné úložiská</string>
+    <string name="settings_advanced_github_pat_description">Pre žiadosti o spriahnutie, súkromné úložiská a vyšší limit rýchlosti GitHubu</string>
     <string name="settings_advanced_github_pat_configured">Token nastavený</string>
+    <string name="settings_advanced_github_pat_create">Vytvoriť token na GitHube</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Otvorí GitHub s už vybraným rozsahom %s</string>
+    <string name="settings_advanced_github_pat_checking">Kontroluje sa na GitHub...</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Prihlásený na GitHub ako %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub odmietol tento token. Mohol byť neplatný alebo zrušený</string>
+    <string name="settings_advanced_github_pat_unreachable">Nepodarilo sa pripojiť na GitHub kvôli kontrole tohto tokenu</string>
     <string name="settings_advanced_github_pat_export_include_label">Zahrnúť do exportu nastavení</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Pridá PAT do exportu nastavení Morphe</string>
@@ -1368,6 +1378,7 @@ Podrobnosti: %2$s"</string>
     <string name="hide">Skryť</string>
     <string name="hidden">Skrytý</string>
     <string name="unhide">Zobraziť</string>
+    <string name="show_all">Zobraziť všetko</string>
     <string name="ignore">Ignorovať</string>
     <string name="stop_ignoring">Prestať ignorovať</string>
     <string name="logs">Záznamy</string>

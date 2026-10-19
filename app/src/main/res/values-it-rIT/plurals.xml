@@ -32,6 +32,10 @@
         <item quantity="one">Fonti delle modifiche per %s applicazione</item>
         <item quantity="other">Sorgenti patch per %s app</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s sorgente è nascosta per questa app. Seleziona l\'app nella scheda App e apri Patch sources per ripristinarla</item>
+        <item quantity="other">%s sorgenti sono nascoste per questa app. Seleziona l\'app nella scheda App e apri Patch sources per ripristinarle</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s sorgente nascosta. Tocca per mostrare</item>
         <item quantity="other">%s sorgenti nascoste. Tocca per mostrare</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s app visibile</item>
         <item quantity="other">%s app visibili</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Visualizza di nuovo l\'app %s?</item>
+        <item quantity="other">Visualizzare di nuovo %s app?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Questa app tornerà nella schermata principale</item>
+        <item quantity="other">Queste app torneranno nella schermata principale</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s applicazione nascosta</item>

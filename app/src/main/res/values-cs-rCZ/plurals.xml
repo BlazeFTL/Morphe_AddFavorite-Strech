@@ -46,6 +46,12 @@
         <item quantity="many">Zdroje záplat pro %s aplikací</item>
         <item quantity="other">Zdroje záplat pro %s aplikací</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">Zdroj %s je pro tuto aplikaci skrytý. Vyberte aplikaci na kartě Aplikace a otevřete Opravit zdroje, abyste ho znovu viděli</item>
+        <item quantity="few">Zdroje %s jsou pro tuto aplikaci skryté. Vyberte aplikaci na kartě Aplikace a otevřete Opravit zdroje, abyste je znovu viděli</item>
+        <item quantity="many">Zdroje %s jsou pro tuto aplikaci skryté. Vyberte aplikaci na kartě Aplikace a otevřete Opravit zdroje, abyste je znovu viděli</item>
+        <item quantity="other">Zdroje %s jsou pro tuto aplikaci skryté. Vyberte aplikaci na kartě Aplikace a otevřete Opravit zdroje, abyste je znovu viděli</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s skrytý zdroj. Klepnutím zobrazíte</item>
         <item quantity="few">%s skryté zdroje. Klepnutím zobrazíte</item>
@@ -159,6 +165,18 @@
         <item quantity="few">%s aplikace zobrazeny</item>
         <item quantity="many">%s aplikací zobrazeno</item>
         <item quantity="other">%s aplikací zobrazeno</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Zobrazit aplikaci %s?</item>
+        <item quantity="few">Zobrazit aplikace %s?</item>
+        <item quantity="many">Zobrazit aplikací %s?</item>
+        <item quantity="other">Zobrazit aplikací %s?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Tato aplikace se vrátí na domovskou obrazovku</item>
+        <item quantity="few">Tyto aplikace se vrátí na domovskou obrazovku</item>
+        <item quantity="many">Tyto aplikace se vrátí na domovskou obrazovku</item>
+        <item quantity="other">Tyto aplikace se vrátí na domovskou obrazovku</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skrytá aplikace</item>

@@ -32,6 +32,10 @@
         <item quantity="one">Mga pinagmumulan ng patch para sa %s app</item>
         <item quantity="other">Mga pinagmumulan ng patch para sa %s na app</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s source ay nakatago para sa app na ito. Piliin ang app sa Apps tab at buksan Patch sources upang mabalik ito</item>
+        <item quantity="other">%s sources ay nakatago para sa app na ito. Piliin ang app sa Apps tab at buksan Patch sources upang mabalik sila</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">Nakatago ang %s na pinagmumulan. I-tap upang ipakita</item>
         <item quantity="other">Nakatago ang %s na pinagmumulan. I-tap upang ipakita</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">Ipinakita na app %s</item>
         <item quantity="other">Mga ipinakitang app %s</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Ipakita muli ang %s na app?</item>
+        <item quantity="other">Ipakita muli ang mga %s na app?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Ibalik ang app sa home screen</item>
+        <item quantity="other">Mabalik sa home screen ang mga app na ito</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s nakatagong app</item>

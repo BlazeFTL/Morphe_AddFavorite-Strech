@@ -866,6 +866,8 @@ Plástrar verða ekki fyrir áhrifum: virkjaðu forútgáfuplástra fyrir hverja
     <string name="settings_advanced_update_interval">Lítill tímatali</string>
     <string name="settings_advanced_update_interval_hourly">Hver klukkustund</string>
     <string name="settings_advanced_update_interval_daily">Daglega</string>
+    <string name="settings_advanced_update_interval_weekly">Vikulega</string>
+    <string name="settings_advanced_update_interval_monthly">Mánaðarlega</string>
     <string name="settings_advanced_update_interval_battery_warning">Bakgrunnur prótanir mega ekki virka á ákveðnum tækjum. Framleiðendur eins og Xiaomi, Huawei, Samsung og OnePlus takast oft á við bakgrunns prótanir til að spara rafmagn</string>
     <string name="settings_advanced_external_batch_patch">Leyfa ytri kveikja</string>
     <string name="settings_advanced_external_batch_patch_description">Leyfir sjálfvirkni fyrir forrit til að hefja hópafbrigði</string>
@@ -897,9 +899,17 @@ Plástrar verða ekki fyrir áhrifum: virkjaðu forútgáfuplástra fyrir hverja
     <string name="settings_advanced_strip_unused_libs">Optimera fyrir tækja arkitektúr</string>
     <string name="settings_advanced_strip_unused_libs_description">Fjarlægir ónotaðar náttúrubæklinga og APK sundurlausnir</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Læsir aðgang að pull request upprunum og einkavélföngum</string>
+    <string name="settings_advanced_github_pat_description">Fyrir pull request uppruna, einkaréttindi og hærriGitHub takmörkunarlögun</string>
     <string name="settings_advanced_github_pat_configured">Tákni stillt</string>
+    <string name="settings_advanced_github_pat_create">Búðu til lykil á GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Opna GitHub með %s sviði þegar valið er</string>
+    <string name="settings_advanced_github_pat_checking">Athugar með GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Innskráð sem %s á GitHub</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub hafnaði þessum lykli. Gæti verið að hann hafi rennið út eða verið afturkallaður</string>
+    <string name="settings_advanced_github_pat_unreachable">Gat ekki náð í GitHub til að athuga þennan lykil</string>
     <string name="settings_advanced_github_pat_export_include_label">Taktu með í útflutningi stillingar</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Bæta þennan PAT til fluttra Morphe stillinga</string>
@@ -1365,6 +1375,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="hide">Húð</string>
     <string name="hidden">Falinn</string>
     <string name="unhide">Afhylja</string>
+    <string name="show_all">Sýna allt</string>
     <string name="ignore">Hunsa</string>
     <string name="stop_ignoring">Hættu að hunsa</string>
     <string name="logs">Logs</string>

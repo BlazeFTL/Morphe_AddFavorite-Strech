@@ -551,7 +551,7 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="root_pre_patch_installer_description">Twoje urządzenie ma dostęp do roota. Wybierz, czy ta aplikacja ma zostać zmodyfikowana pod montowanie z rootem, czy standardową instalację</string>
     <string name="root_pre_patch_installer_mount_title">Tryb montowania z rootem</string>
     <string name="root_pre_patch_installer_mount_description">Modyfikuje pod kątem montowania z rootem, a następnie montuje plik APK w miejscu oryginalnej aplikacji. Nie wymaga GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Jeśli KernelSU ma włączoną opcję „Odmontuj moduły domyślnie”, otwórz KernelSU &gt; Superuser &gt; zamontowana aplikacja &gt; Profil &gt; Własny i wyłącz „Odmontuj moduły”. W przeciwnym razie zamontowany zmodyfikowany APK może nie działać, nawet jeśli Morphe pokazuje go jako zamontowanego</string>
+    <string name="root_mount_module_unmount_warning">Jeśli w KernelSU włączona jest opcja \"Domyślnie odmontowuj moduły\", otwórz KernelSU &gt; Superużytkownik &gt; zamontowana aplikacja &gt; Profil &gt; Niestandardowy i wyłącz \"Odmontowuj moduły\". W przeciwnym razie zamontowany zmodyfikowany plik APK może nie działać, nawet jeśli Morphe pokazuje go jako zamontowany</string>
     <string name="root_pre_patch_installer_standard_title">Standardowy tryb instalacji</string>
     <string name="root_pre_patch_installer_standard_description">Modyfikuje jako zwykły plik APK z obsługą GmsCore. Po zakończeniu modyfikacji zostanie użyte twoje ustawienie instalatora</string>
     <string name="root_pre_patch_installer_hint">Pytanie pojawia się, gdy włączona jest opcja Ustawienia &gt; Modyfikowanie &gt; Instalacja &gt; Monit o wybór instalatora. Trybu modyfikacji nie można zmienić po zakończeniu modyfikowania</string>
@@ -636,7 +636,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patcher_storage_badge_missing">Nie znaleziono</string>
     <string name="batch_patch_option_paths_skipped">Brakuje plików opcji modyfikacji i zostaną one pominięte: %1$s</string>
     <string name="patcher_missing_patches_title">Brak niektórych modyfikacji</string>
-    <string name="patcher_missing_patches_description">Zapisany wybór dla tej aplikacji obejmuje łatki, które żadne aktywne źródło już nie oferuje. Kontynuowanie spowoduje zmodyfikowanie aplikacji bez nich</string>
+    <string name="patcher_missing_patches_description">Zapisany wybór dla tej aplikacji obejmuje modyfikacje, których nie proponuje już żadne włączone źródło. Kontynuacja spowoduje zmodyfikowanie aplikacji bez nich</string>
     <string name="patcher_missing_patches_label">Już nieproponowane</string>
     <string name="patcher_option_paths_gone_title">Brakuje plików opcji modyfikacji</string>
     <string name="patcher_option_paths_gone_description">Przynajmniej jedna opcja modyfikacji wskazuje na pliki, których już nie ma. Usuń ścieżki, aby modyfikować bez nich, albo przywróć pliki i spróbuj ponownie</string>
@@ -868,6 +868,8 @@ Modyfikacje nie są tym objęte: włącz przedpremierowe modyfikacje dla każdeg
     <string name="settings_advanced_update_interval">Częstotliwość sprawdzania</string>
     <string name="settings_advanced_update_interval_hourly">Co godzinę</string>
     <string name="settings_advanced_update_interval_daily">Codziennie</string>
+    <string name="settings_advanced_update_interval_weekly">Co tydzień</string>
+    <string name="settings_advanced_update_interval_monthly">Co miesiąc</string>
     <string name="settings_advanced_update_interval_battery_warning">Sprawdzanie w tle może nie działać stabilnie na niektórych urządzeniach. Producenci tacy jak Xiaomi, Huawei, Samsung czy OnePlus często agresywnie ograniczają procesy w tle, aby oszczędzać baterię</string>
     <string name="settings_advanced_external_batch_patch">Zezwalaj na zewnętrzne wyzwalacze</string>
     <string name="settings_advanced_external_batch_patch_description">Pozwala aplikacjom do automatyzacji uruchamiać zbiorcze modyfikowanie</string>
@@ -899,9 +901,17 @@ Modyfikacje nie są tym objęte: włącz przedpremierowe modyfikacje dla każdeg
     <string name="settings_advanced_strip_unused_libs">Optymalizuj pod kątem architektury urządzenia</string>
     <string name="settings_advanced_strip_unused_libs_description">Usuwa nieużywane biblioteki natywne i podzielone pliki APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Odblokowuje źródła z pull requestów i prywatne repozytoria</string>
+    <string name="settings_advanced_github_pat_description">Obsługa źródeł z pull requestów, prywatnych repozytoriów oraz wyższy limit zapytań GitHub</string>
     <string name="settings_advanced_github_pat_configured">Token skonfigurowany</string>
+    <string name="settings_advanced_github_pat_create">Utwórz token na GitHubie</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Otwiera GitHuba z zaznaczonym zakresem uprawnień %s</string>
+    <string name="settings_advanced_github_pat_checking">Weryfikowanie na GitHubie…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Zalogowano na GitHubie jako %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub odrzucił ten token. Mógł wygasnąć lub zostać unieważniony</string>
+    <string name="settings_advanced_github_pat_unreachable">Nie udało się połączyć z GitHubem, aby zweryfikować ten token</string>
     <string name="settings_advanced_github_pat_export_include_label">Uwzględnij w eksporcie ustawień</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Dodaje ten token do eksportu ustawień Morphe</string>
@@ -1312,7 +1322,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="any_version">Dowolna</string>
     <string name="enabled">Włączone</string>
     <string name="disabled">Wyłączone</string>
-    <string name="state_selected">Wybrane</string>
+    <string name="state_selected">Wybrano</string>
     <string name="state_not_selected">Nie wybrano</string>
     <string name="select_all">Zaznacz wszystko</string>
     <string name="deselect_all">Odznacz wszystko</string>
@@ -1369,6 +1379,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="hide">Ukryj</string>
     <string name="hidden">Ukryte</string>
     <string name="unhide">Pokaż</string>
+    <string name="show_all">Pokaż wszystkie</string>
     <string name="ignore">Ignoruj</string>
     <string name="stop_ignoring">Przestań ignorować</string>
     <string name="logs">Logi</string>

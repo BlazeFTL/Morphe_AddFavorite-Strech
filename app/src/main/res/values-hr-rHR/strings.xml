@@ -1383,6 +1383,7 @@ Datoteka s koje je dodan izvor zakrpa, kao oznaka polja</string>
     <string name="hide">Sakrij</string>
     <string name="hidden">Skriveno</string>
     <string name="unhide">Otkrij</string>
+    <string name="show_all">Prikaži sve</string>
     <string name="ignore">Zanemari</string>
     <string name="stop_ignoring">Prestani ignorirati</string>
     <string name="logs">Zapisnici</string>

@@ -39,6 +39,11 @@
         <item quantity="few">Izvori zakrpa za %s aplikacije</item>
         <item quantity="other">Izvori zakrpa za %s aplikacija</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">Izvor %s je sakriven za ovu aplikaciju. Izaberite aplikaciju na kartici Aplikacije i otvorite Korekcija izvora da bi se ponovo prikazao</item>
+        <item quantity="few">Izvori %s su sakriveni za ovu aplikaciju. Izaberite aplikaciju na kartici Aplikacije i otvorite Korekcija izvora da bi se ponovo prikazali</item>
+        <item quantity="other">Izvori %s su sakriveni za ovu aplikaciju. Izaberite aplikaciju na kartici Aplikacije i otvorite Korekcija izvora da bi se ponovo prikazali</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">Sakriven je %s izvor. Dodirnite da prikažete</item>
         <item quantity="few">Sakrivena su %s izvora. Dodirnite da prikažete</item>
@@ -133,6 +138,16 @@
         <item quantity="one">%s app prikazan</item>
         <item quantity="few">%s appa prikazana</item>
         <item quantity="other">%s appi prikazeno</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Otkrij %s aplikaciju?</item>
+        <item quantity="few">Otkrij %s aplikacije?</item>
+        <item quantity="other">Otkrij %s aplikacija?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Ova aplikacija će se ponovo pojaviti na početnom ekranu</item>
+        <item quantity="few">Ove aplikacije će se ponovo pojaviti na početnom ekranu</item>
+        <item quantity="other">Ove aplikacije će se ponovo pojaviti na početnom ekranu</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s sakrivena aplikacija</item>

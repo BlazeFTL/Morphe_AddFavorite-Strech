@@ -1378,6 +1378,7 @@ Besonderhede: %2$s"</string>
     <string name="hide">Verberg</string>
     <string name="hidden">Versteek</string>
     <string name="unhide">Herstel</string>
+    <string name="show_all">Wys almal</string>
     <string name="ignore">Ignoreer</string>
     <string name="stop_ignoring">Hou op om te ignoreer</string>
     <string name="logs">Logboeke</string>

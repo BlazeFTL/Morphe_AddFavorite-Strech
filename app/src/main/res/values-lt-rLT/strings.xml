@@ -867,6 +867,8 @@ Pataisoms tai įtakos neturi: įjunkite išankstines pataisas kiekvienam šaltin
     <string name="settings_advanced_update_interval">Tikrinimų dažnumas</string>
     <string name="settings_advanced_update_interval_hourly">Kiekvieną valandą</string>
     <string name="settings_advanced_update_interval_daily">Kasdien</string>
+    <string name="settings_advanced_update_interval_weekly">Savaitė</string>
+    <string name="settings_advanced_update_interval_monthly">Mėnuo</string>
     <string name="settings_advanced_update_interval_battery_warning">Fono patikros kai kuriuose įrenginiuose gali veikti nepatikimai. Gamintojai, tokie kaip „Xiaomi“, „Huawei“, „Samsung“ ir „OnePlus“, dažnai agresyviai riboja fono procesus, kad taupytų bateriją</string>
     <string name="settings_advanced_external_batch_patch">Leisti išorinius paleidimus</string>
     <string name="settings_advanced_external_batch_patch_description">Leidžia automatizavimo programėlėms pradėti grupinį patvarkymą</string>
@@ -898,9 +900,17 @@ Pataisoms tai įtakos neturi: įjunkite išankstines pataisas kiekvienam šaltin
     <string name="settings_advanced_strip_unused_libs">Optimizuoti pagal įrenginio architektūrą</string>
     <string name="settings_advanced_strip_unused_libs_description">Šalina nenaudojamas natūralias bibliotekas ir APK skilimus</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Atrakina PR šaltinius ir privačias saugyklas</string>
+    <string name="settings_advanced_github_pat_description">PR šaltiniams, privačioms saugykloms ir didesniam GitHub apribojimui</string>
     <string name="settings_advanced_github_pat_configured">Žetonas sukonfigūruotas</string>
+    <string name="settings_advanced_github_pat_create">Sukurkite žetoną GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Atidaroma GitHub su jau pasirinktu %s tikslu</string>
+    <string name="settings_advanced_github_pat_checking">Tikrinama su GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Prisijungta prie GitHub kaip %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub atmetė šį žetoną. Jis galbūt pasibaigęs arba atšauktas</string>
+    <string name="settings_advanced_github_pat_unreachable">Nepavyko susisiekti su GitHub, kad patikrintų šį žetoną</string>
     <string name="settings_advanced_github_pat_export_include_label">Įtraukti į nustatymų eksportą</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Prideda šį PAT prie eksportuotų „Morphe“ nustatymų</string>
@@ -1368,6 +1378,7 @@ Išsami informacija: %2$s"</string>
     <string name="hide">Slėpti</string>
     <string name="hidden">Paslėpta</string>
     <string name="unhide">Vėl rodyti</string>
+    <string name="show_all">Rodyti visus</string>
     <string name="ignore">Nepaisyti</string>
     <string name="stop_ignoring">Nustoti nepaisyti</string>
     <string name="logs">Žurnalai</string>

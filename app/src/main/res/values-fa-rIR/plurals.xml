@@ -32,6 +32,10 @@
         <item quantity="one">منابع پچ برای %s برنامه</item>
         <item quantity="other">منابع پچ برای %s برنامه</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">منبع %s برای این برنامه مخفی شده است. برنامه را در تب برنامه‌ها انتخاب و Patch sources را باز کنید تا برگردد</item>
+        <item quantity="other">منابع %s برای این برنامه مخفی شده است. برنامه را در تب برنامه‌ها انتخاب و Patch sources را باز کنید تا برگردند</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s منبع مخفی است. برای نمایش ضربه بزنید</item>
         <item quantity="other">%s منبع مخفی هستند. برای نمایش ضربه بزنید</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s برنامه نمایش داده می‌شود</item>
         <item quantity="other">%s برنامه نمایش داده می‌شوند</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">نمایش %s برنامه؟</item>
+        <item quantity="other">نمایش %s برنامه؟</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">این برنامه به صفحهٔ اصلی بازخواهد گشت</item>
+        <item quantity="other">این برنامه‌ها به صفحهٔ اصلی بازخواهند گشت</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s برنامهٔ پنهان</item>

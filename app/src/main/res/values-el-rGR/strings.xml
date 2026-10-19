@@ -867,6 +867,8 @@
     <string name="settings_advanced_update_interval">Συχνότητα ελέγχου</string>
     <string name="settings_advanced_update_interval_hourly">Ανά ώρα</string>
     <string name="settings_advanced_update_interval_daily">Ημερησίως</string>
+    <string name="settings_advanced_update_interval_weekly">Εβδομαδιαία</string>
+    <string name="settings_advanced_update_interval_monthly">Μηνιαία</string>
     <string name="settings_advanced_update_interval_battery_warning">Οι έλεγχοι στο παρασκήνιο μπορεί να μη λειτουργούν σωστά σε ορισμένες συσκευές. Κατασκευαστές όπως Xiaomi, Huawei, Samsung και OnePlus συχνά περιορίζουν σφοδρά τις διαδικασίες παρασκηνίου για να εξοικονομήσουν μπαταρία</string>
     <string name="settings_advanced_external_batch_patch">Επιτρέψτε εξωτερικούς ενεργοποιητές</string>
     <string name="settings_advanced_external_batch_patch_description">Επιτρέπει σε αυτοματοποιημένες εφαρμογές να ξεκινούν μαζική διόρθωση</string>
@@ -898,9 +900,17 @@
     <string name="settings_advanced_strip_unused_libs">Βελτιστοποίηση για αρχιτεκτονική συσκευής</string>
     <string name="settings_advanced_strip_unused_libs_description">Αφαιρεί μη χρησιμοποιούμενες εγγενείς βιβλιοθήκες και τμήματα APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Ξεκλειδώνει τις πηγές αιτήσεων ενσωμάτωσης και τους ιδιωτικούς αποθήκες</string>
+    <string name="settings_advanced_github_pat_description">Για αιτήσεις ενσωμάτωσης, ιδιωτικούς αποθήκες και μεγαλύτερο όριο ρυθμού GitHub</string>
     <string name="settings_advanced_github_pat_configured">Διαμορφωμένο κλειδί</string>
+    <string name="settings_advanced_github_pat_create">Δημιουργήστε ένα διακριτικό στο GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Ανοίγει το GitHub με το περιθώριο %s ήδη επιλεγμένο</string>
+    <string name="settings_advanced_github_pat_checking">Έλεγχος με GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Συνδεδεμένο στο GitHub ως %s</string>
+    <string name="settings_advanced_github_pat_rejected">Το GitHub απέρριψε αυτό το διακριτικό. Μπορεί να έχει λήξει ή να έχει ανακληθεί</string>
+    <string name="settings_advanced_github_pat_unreachable">Αδυναμία επικοινωνίας με GitHub για έλεγχο αυτού του διακριτικού</string>
     <string name="settings_advanced_github_pat_export_include_label">Συμπερίληψη στις ρυθμίσεις εξαγωγής</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Προσθέτει αυτό το PAT στις εξαγόμενες ρυθμίσεις του Morphe</string>
@@ -1368,6 +1378,7 @@ morphe_header_custom_dark.png
     <string name="hide">Απόκρυψη</string>
     <string name="hidden">Κρυφό</string>
     <string name="unhide">Εμφάνιση</string>
+    <string name="show_all">Εμφάνιση όλων</string>
     <string name="ignore">Αγνόηση</string>
     <string name="stop_ignoring">Σταματήστε να αγνοείτε</string>
     <string name="logs">Εγγραφές</string>

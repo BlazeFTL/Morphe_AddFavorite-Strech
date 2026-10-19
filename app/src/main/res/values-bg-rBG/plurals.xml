@@ -32,6 +32,10 @@
         <item quantity="one">Източници на кръпки за %s приложение</item>
         <item quantity="other">Източници на кръпки за %s приложения</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">Източникът %s е скрит за това приложение. Изберете приложението на раздела \"Приложения\" и отворете \"Поправяне на източници\", за да го върнете</item>
+        <item quantity="other">Източниците %s са скрити за това приложение. Изберете приложението на раздела \"Приложения\" и отворете \"Поправяне на източници\", за да ги върнете</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s източник е скрит. Докоснете, за да се покаже</item>
         <item quantity="other">%s източника са скрити. Докоснете, за да се покажат</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s скриен</item>
         <item quantity="other">%s скриени</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Покажи пак %s приложение?</item>
+        <item quantity="other">Покажи пак %s приложения?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Това приложение ще се върне на началния екран</item>
+        <item quantity="other">Тези приложения ще се върнат на началния екран</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s скрито приложение</item>

@@ -46,6 +46,12 @@
         <item quantity="many">Источники патчей для %s приложений</item>
         <item quantity="other">Источники патчей для %s приложений</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">Источник %s скрыт для этого приложения. Выберите приложение на вкладке \"Приложения\" и откройте \"Скрыть источники\", чтобы вернуть его</item>
+        <item quantity="few">Источники %s скрыты для этого приложения. Выберите приложение на вкладке \"Приложения\" и откройте \"Скрыть источники\", чтобы вернуть их</item>
+        <item quantity="many">Источники %s скрыты для этого приложения. Выберите приложение на вкладке \"Приложения\" и откройте \"Скрыть источники\", чтобы вернуть их</item>
+        <item quantity="other">Источники %s скрыты для этого приложения. Выберите приложение на вкладке \"Приложения\" и откройте \"Скрыть источники\", чтобы вернуть их</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s источник скрыт. Нажмите, чтобы показать</item>
         <item quantity="few">%s источника скрыты. Нажмите, чтобы показать</item>
@@ -159,6 +165,18 @@
         <item quantity="few">Показано приложений: %s</item>
         <item quantity="many">Показано приложений: %s</item>
         <item quantity="other">Показано приложений: %s</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Показать %s приложение?</item>
+        <item quantity="few">Показать %s приложения?</item>
+        <item quantity="many">Показать %s приложений?</item>
+        <item quantity="other">Показать %s приложений?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Это приложение появится на главном экране</item>
+        <item quantity="few">Эти приложения появятся на главном экране</item>
+        <item quantity="many">Этих приложений появится на главном экране</item>
+        <item quantity="other">Эти приложения появятся на главном экране</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s скрытое приложение</item>

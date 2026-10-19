@@ -866,6 +866,8 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_advanced_update_interval">Tarkistustiheys</string>
     <string name="settings_advanced_update_interval_hourly">Tunnittainen</string>
     <string name="settings_advanced_update_interval_daily">Päivittäinen</string>
+    <string name="settings_advanced_update_interval_weekly">Viikoittain</string>
+    <string name="settings_advanced_update_interval_monthly">Kuukausittain</string>
     <string name="settings_advanced_update_interval_battery_warning">Taustatarkistukset eivät välttämättä toimi luotettavasti kaikilla laitteilla. Valmistajat, kuten Xiaomi, Huawei, Samsung ja OnePlus, rajoittavat usein aggressiivisesti taustaprosesseja säästääkseen akkua</string>
     <string name="settings_advanced_external_batch_patch">Salli ulkoiset käynnistimet</string>
     <string name="settings_advanced_external_batch_patch_description">Sallii automatisointisovellusten käynnistää joukkopatchauksen</string>
@@ -897,9 +899,17 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_advanced_strip_unused_libs">Optimoi laitearkkitehtuurille</string>
     <string name="settings_advanced_strip_unused_libs_description">Poistaa käyttämättömät natiivikirjastot ja APK-jako-osat</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Avaa pull request -lähteet ja yksityiset repositories</string>
+    <string name="settings_advanced_github_pat_description">Pull request -lähdeille, yksityisille repositoriereille ja korkeammalle GitHub-nopeusrajoitukselle</string>
     <string name="settings_advanced_github_pat_configured">Tunnus asetettu</string>
+    <string name="settings_advanced_github_pat_create">Luo token GitHubissa</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Avaa GitHubin valmiiksi valitulla %s-kaavalla</string>
+    <string name="settings_advanced_github_pat_checking">Tarkistetaan GitHubista…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Kirjautunut GitHubiin nimellä %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub hylkäsi tämän tokenin. Se saattaa olla vanhentunut tai kumottu</string>
+    <string name="settings_advanced_github_pat_unreachable">GitHubiin ei pääty tarkistamaan tätä tokenia</string>
     <string name="settings_advanced_github_pat_export_include_label">Sisällytä asetuksien viedossa</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Lisää tämä henkilökohtainen käyttöoikeustunnus vientiin vietäviin Morphen asetuksiin</string>
@@ -1367,6 +1377,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="hide">Piilota</string>
     <string name="hidden">Piilotettu</string>
     <string name="unhide">Näytä</string>
+    <string name="show_all">Näytä kaikki</string>
     <string name="ignore">Ohita</string>
     <string name="stop_ignoring">Lopeta huomiotta jättäminen</string>
     <string name="logs">Lokit</string>

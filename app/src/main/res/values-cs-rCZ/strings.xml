@@ -1378,6 +1378,7 @@ Podrobnosti: %2$s"</string>
     <string name="hide">Skrýt</string>
     <string name="hidden">Skrytý</string>
     <string name="unhide">Zobrazit</string>
+    <string name="show_all">Zobrazit vše</string>
     <string name="ignore">Ignorovat</string>
     <string name="stop_ignoring">Přestat ignorovat</string>
     <string name="logs">Protokoly</string>

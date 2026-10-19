@@ -32,6 +32,10 @@
         <item quantity="one">Patch-bronne vir %s toep</item>
         <item quantity="other">Patch-bronne vir %s toeps</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s bron is vir hierdie app verberg. Seleer die app op die Apps-tab en open Bronne flikker om dit weer te kry</item>
+        <item quantity="other">%s bronne is vir hierdie app verberg. Seleer die app op die Apps-tab en open Bronne flikker om hulle weer te kry</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s bron is versteek. Tik om te wys</item>
         <item quantity="other">%s bronne is versteek. Tik om te wys</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s app gewys</item>
         <item quantity="other">%s apps gewys</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Onsig maak %s program?</item>
+        <item quantity="other">Onsig maak %s programme?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Die program sal weer op die tuisskerm wees</item>
+        <item quantity="other">Hierdie programme sal weer op die tuisskerm wees</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s versteek program</item>

@@ -867,6 +867,8 @@ Patcher er ikke påvirket: aktivér præ-release-patcher for hver kilde i patch-
     <string name="settings_advanced_update_interval">Opdateringsfrekvens</string>
     <string name="settings_advanced_update_interval_hourly">Timevis</string>
     <string name="settings_advanced_update_interval_daily">Daglig</string>
+    <string name="settings_advanced_update_interval_weekly">Ugentligt</string>
+    <string name="settings_advanced_update_interval_monthly">Månedligt</string>
     <string name="settings_advanced_update_interval_battery_warning">Baggrundsopdateringer fungerer muligvis ikke på visse enheder. Mærker som Xiaomi, Huawei, Samsung og OnePlus begrænser ofte baggrundsprocesser aggressivt for at spare batteri</string>
     <string name="settings_advanced_external_batch_patch">Tillad eksterne triggere</string>
     <string name="settings_advanced_external_batch_patch_description">Lader automatiseringsapps starte batchpatchning</string>
@@ -898,9 +900,17 @@ Patcher er ikke påvirket: aktivér præ-release-patcher for hver kilde i patch-
     <string name="settings_advanced_strip_unused_libs">Optimer for enhedens arkitektur</string>
     <string name="settings_advanced_strip_unused_libs_description">Fjerner ubrugte native biblioteker og APK-opdelinger</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Låser op for pull request-kilder og private repositories</string>
+    <string name="settings_advanced_github_pat_description">For pull request-kilder, private repositories og en højere GitHub-rategrænse</string>
     <string name="settings_advanced_github_pat_configured">Token konfigureret</string>
+    <string name="settings_advanced_github_pat_create">Opret et token på GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Åbner GitHub med \'%s\'-omfanget allerede valgt</string>
+    <string name="settings_advanced_github_pat_checking">Tjekker med GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Logget ind på GitHub som %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub afviste dette token. Det kan være udløbet eller blevet tilbagekaldt</string>
+    <string name="settings_advanced_github_pat_unreachable">Kunne ikke nå GitHub for at tjekke dette token</string>
     <string name="settings_advanced_github_pat_export_include_label">Inkluder i eksport af indstillinger</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Tilføjer denne PAT til eksporterede Morphe-indstillinger</string>
@@ -1368,6 +1378,7 @@ Detaljer: %2$s"</string>
     <string name="hide">Skjul</string>
     <string name="hidden">Skjult</string>
     <string name="unhide">Vis</string>
+    <string name="show_all">Vis alle</string>
     <string name="ignore">Ignorer</string>
     <string name="stop_ignoring">Stop med at ignorere</string>
     <string name="logs">Logge</string>

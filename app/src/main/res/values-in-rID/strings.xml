@@ -868,6 +868,8 @@ Tambalan tidak terpengaruh: aktifkan tambalan pra-rilis untuk setiap sumber dala
     <string name="settings_advanced_update_interval">Interval pemeriksaan</string>
     <string name="settings_advanced_update_interval_hourly">Per jam</string>
     <string name="settings_advanced_update_interval_daily">Harian</string>
+    <string name="settings_advanced_update_interval_weekly">Mingguan</string>
+    <string name="settings_advanced_update_interval_monthly">Bulanan</string>
     <string name="settings_advanced_update_interval_battery_warning">Periksa latar belakang mungkin tidak bekerja dengan baik pada beberapa perangkat. Produsen seperti Xiaomi, Huawei, Samsung, dan OnePlus sering membatasi proses latar belakang untuk menghemat baterai</string>
     <string name="settings_advanced_external_batch_patch">Izinkan pemicu eksternal</string>
     <string name="settings_advanced_external_batch_patch_description">Memungkinkan aplikasi otomatisasi memulai penambalan batch</string>
@@ -899,9 +901,17 @@ Tambalan tidak terpengaruh: aktifkan tambalan pra-rilis untuk setiap sumber dala
     <string name="settings_advanced_strip_unused_libs">Optimalkan untuk arsitektur perangkat</string>
     <string name="settings_advanced_strip_unused_libs_description">Menghapus pustaka native dan bagian APK yang tidak digunakan</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Membuka sumber permintaan tarik dan repositori pribadi</string>
+    <string name="settings_advanced_github_pat_description">Untuk sumber permintaan tarik, repositori pribadi, dan batas tingkat GitHub yang lebih tinggi</string>
     <string name="settings_advanced_github_pat_configured">Token dikonfigurasi</string>
+    <string name="settings_advanced_github_pat_create">Buat token di GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Membuka GitHub dengan cakupan %s yang sudah dipilih</string>
+    <string name="settings_advanced_github_pat_checking">Memeriksa ke GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Masuk ke GitHub sebagai %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub menolak token ini. Token mungkin telah kedaluwarsa atau dicabut</string>
+    <string name="settings_advanced_github_pat_unreachable">Tidak dapat mencapai GitHub untuk memeriksa token ini</string>
     <string name="settings_advanced_github_pat_export_include_label">Sertakan dalam ekspor setelan</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Menambahkan PAT ini ke setelan Morphe yang diekspor</string>
@@ -1369,6 +1379,7 @@ Rincian: %2$s"</string>
     <string name="hide">Sembunyikan</string>
     <string name="hidden">Disembunyikan</string>
     <string name="unhide">Tampilkan</string>
+    <string name="show_all">Tampilkan semua</string>
     <string name="ignore">Abaikan</string>
     <string name="stop_ignoring">Berhenti mengabaikan</string>
     <string name="logs">Catatan</string>

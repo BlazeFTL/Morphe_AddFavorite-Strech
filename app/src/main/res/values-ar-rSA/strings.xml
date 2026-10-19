@@ -869,7 +869,7 @@
     <string name="settings_system_notifications_categories">فئات الإشعارات</string>
     <string name="settings_system_notifications_categories_description">اختر في إعدادات النظام التحديثات التي ترغب في تلقي الإشعارات عنها</string>
     <string name="settings_advanced_update_interval">تكرار التحقق</string>
-    <string name="settings_advanced_update_interval_hourly">ساعة</string>
+    <string name="settings_advanced_update_interval_hourly">كل ساعة</string>
     <string name="settings_advanced_update_interval_daily">يوميًا</string>
     <string name="settings_advanced_update_interval_weekly">أسبوعيًا</string>
     <string name="settings_advanced_update_interval_monthly">شهريًا</string>
@@ -912,7 +912,7 @@
     <string name="settings_advanced_github_pat_create_description">يفتح GitHub مع نطاق <b>%s</b> مُحددًا بالفعل</string>
     <string name="settings_advanced_github_pat_checking">جارٍ التحقق مع GitHub…</string>
     <!-- "%s" is the GitHub account name -->
-    <string name="settings_advanced_github_pat_account">تسجيل الدخول إلى GitHub باسم %s</string>
+    <string name="settings_advanced_github_pat_account">تم تسجيل الدخول إلى GitHub باسم %s</string>
     <string name="settings_advanced_github_pat_rejected">رفض GitHub هذا الرمز. قد يكون منتهي الصلاحية أو ملغى</string>
     <string name="settings_advanced_github_pat_unreachable">تعذر الاتصال بـGitHub للتحقق من هذا الرمز</string>
     <string name="settings_advanced_github_pat_export_include_label">تضمين في تصدير الإعدادات</string>
@@ -1383,6 +1383,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="hide">إخفاء</string>
     <string name="hidden">مخفي</string>
     <string name="unhide">إظهار</string>
+    <string name="show_all">عرض الكل</string>
     <string name="ignore">تجاهل</string>
     <string name="stop_ignoring">توقف عن التجاهل</string>
     <string name="logs">السجلات</string>

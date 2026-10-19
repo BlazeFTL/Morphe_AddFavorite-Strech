@@ -868,6 +868,8 @@
     <string name="settings_advanced_update_interval">確認頻度</string>
     <string name="settings_advanced_update_interval_hourly">時間単位</string>
     <string name="settings_advanced_update_interval_daily">毎日</string>
+    <string name="settings_advanced_update_interval_weekly">毎週</string>
+    <string name="settings_advanced_update_interval_monthly">毎月</string>
     <string name="settings_advanced_update_interval_battery_warning">一部のデバイスでは、バックグラウンドでの確認が正常に動作しない場合があります。Xiaomi、Huawei、Samsung、OnePlus などのメーカーは、バッテリーを節約するためにバックグラウンド プロセスを厳しく制限することがよくあります。</string>
     <string name="settings_advanced_external_batch_patch">外部トリガーを許可</string>
     <string name="settings_advanced_external_batch_patch_description">自動化アプリから一括パッチ処理を実行できるようにします</string>
@@ -899,9 +901,17 @@
     <string name="settings_advanced_strip_unused_libs">デバイスのアーキテクチャに最適化</string>
     <string name="settings_advanced_strip_unused_libs_description">使用していないネイティブ ライブラリと分割 APK ファイルを削除します</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">プルリクエストのソースおよびプライベートリポジトリへのアクセスを有効化</string>
+    <string name="settings_advanced_github_pat_description">プルリクエストのソース、プライベートリポジトリ、およびGitHubのレート制限緩和のため</string>
     <string name="settings_advanced_github_pat_configured">PAT が設定されました</string>
+    <string name="settings_advanced_github_pat_create">GitHubでトークンを作成</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">指定された%sスコープを選択した状態でGitHubを開きます</string>
+    <string name="settings_advanced_github_pat_checking">GitHubで確認中…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">%sとしてGitHubにサインイン済み</string>
+    <string name="settings_advanced_github_pat_rejected">GitHubによりこのトークンは拒否されました。期限切れまたは取り消されている可能性があります</string>
+    <string name="settings_advanced_github_pat_unreachable">このトークンの確認のためにGitHubに接続できませんでした</string>
     <string name="settings_advanced_github_pat_export_include_label">設定のエクスポートに含める</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">この PAT をエクスポートした Morphe の設定に追加します</string>
@@ -1369,6 +1379,7 @@ morphe_header_custom_dark.png
     <string name="hide">非表示にする</string>
     <string name="hidden">非表示</string>
     <string name="unhide">再表示</string>
+    <string name="show_all">すべて表示</string>
     <string name="ignore">無視</string>
     <string name="stop_ignoring">無視を解除</string>
     <string name="logs">ログ</string>

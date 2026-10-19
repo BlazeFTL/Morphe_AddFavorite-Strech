@@ -39,6 +39,11 @@
         <item quantity="few">Surse de patch pentru %s aplicații</item>
         <item quantity="other">Surse de patch pentru %s de aplicații</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s sursa este ascunsă pentru această aplicație. Selectați aplicația din fila Aplicații și deschideți Sursa patch-ului pentru a o aduce înapoi</item>
+        <item quantity="few">%sursele sunt ascunse pentru această aplicație. Selectați aplicația din fila Aplicații și deschideți Surse patch-ului pentru a le aduce înapoi</item>
+        <item quantity="other">%s surse sunt ascunse pentru această aplicație. Selectați aplicația din fila Aplicații și deschideți Surse patch-ului pentru a le aduce înapoi</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s sursă ascunsă. Atingeți pentru a afișa</item>
         <item quantity="few">%s surse ascunse. Atingeți pentru a afișa</item>
@@ -133,6 +138,16 @@
         <item quantity="one">%s aplicație afișată</item>
         <item quantity="few">%s aplicații afișate</item>
         <item quantity="other">%s aplicații afișate</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Afișați aplicația %s?</item>
+        <item quantity="few">Afișați aplicațiile %s?</item>
+        <item quantity="other">Afișați aplicațiile %s?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Această aplicație va apărea din nou pe ecranul principal</item>
+        <item quantity="few">Aceste aplicații vor apărea din nou pe ecranul principal</item>
+        <item quantity="other">Aceste aplicații vor apărea din nou pe ecranul principal</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aplicație ascunsă</item>

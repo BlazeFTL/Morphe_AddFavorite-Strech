@@ -27,7 +27,7 @@
     <!-- Shown under the app a link was opened for -->
     <string name="deep_link_add_source_only_app">เพิ่มเฉพาะแอปนี้แล้ว คุณสามารถเพิ่มแอปอื่นจากบัญชีรายชื่อแอปของแหล่งข้อมูลได้</string>
     <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
-    <string name="deep_link_add_source_only_universal">เพิ่มเฉพาะแพตช์แบบสากลเท่านั้น คุณสามารถเพิ่มแอปจากบัญชีรายชื่อแอปของแหล่งที่มา</string>
+    <string name="deep_link_add_source_only_universal">เพิ่มเฉพาะแพตช์แบบสากลเท่านั้น คุณสามารถเพิ่มแอปจากรายชื่อแอปของแหล่งที่มา</string>
     <!-- Asked when the link names an app of a source that is already added -->
     <string name="deep_link_add_source_app_back">แหล่งข้อมูลนี้ได้ถูกเพิ่มไว้แล้ว ต้องการเพิ่มแอปนี้จากแหล่งข้อมูลที่มีอยู่หรือไม่?</string>
     <!-- Home Screen - Update Notifications -->
@@ -478,7 +478,7 @@
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">เริ่มต้น</string>
     <string name="batch_patch_stop_title">หยุดแพตช์กลุ่ม?</string>
-    <string name="batch_patch_stop_description">กระบวนการปรับแต่งแอปปัจจุบันและสิ่งที่ค้างอยู่ในคิวทั้งหมดจะถูกยกเลิก</string>
+    <string name="batch_patch_stop_description">แอปที่กำลังได้รับการแพตช์อยู่ตอนนี้และทุกอย่างที่ยังอยู่ในคิวจะถูกยกเลิก</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">ติดตั้งทั้งหมด</string>
     <string name="batch_patch_install_failed">ติดตั้งล้มเหลว</string>
@@ -550,10 +550,10 @@
     <string name="root_pre_patch_installer_description">อุปกรณ์ของคุณมีการเข้าถึงสิทธิ์รูท โปรดเลือกแอปนี้ควรแพตช์สำหรับการติดตั้งแบบรูทหรือแบบมาตรฐาน</string>
     <string name="root_pre_patch_installer_mount_title">โหมดการติดตั้งแบบรูท</string>
     <string name="root_pre_patch_installer_mount_description">แพตช์สำหรับการติดตั้งแบบรูท จากนั้นจึงติดตั้ง APK ทับแอปเดิมที่ตรงกัน ไม่จำเป็นต้องใช้ GmsCore</string>
-    <string name="root_mount_module_unmount_warning">หาก KernelSU มีการเปิดใช้ \"Unmount modules by default\" เปิด KernelSU &gt; Superuser &gt; แอปที่คุณติดตั้ง &gt; Profile &gt; Custom และปิด \"Unmount modules\" มิเช่นนั้น APK ที่แพตช์แล้วที่ติดตั้งอาจไม่มีผล แม้Mor phe จะแสดงว่าติดตั้งแล้วก็ตาม</string>
+    <string name="root_mount_module_unmount_warning">หาก KernelSU มีการเปิดใช้ \"Unmount modules by default\" เปิด KernelSU &gt; Superuser &gt; แอปที่คุณติดตั้ง &gt; โปรไฟล์ &gt; กำหนดเอง และปิด \"Unmount modules\" มิเช่นนั้น APK ที่แพตช์แล้วที่ติดตั้งอาจไม่มีผล แม้ Morphe จะแสดงว่าติดตั้งแล้วก็ตาม</string>
     <string name="root_pre_patch_installer_standard_title">โหมดการติดตั้งแบบมาตรฐาน</string>
     <string name="root_pre_patch_installer_standard_description">แพตช์เป็น APK ปกติพร้อมการรองรับ GmsCore การตั้งค่าตัวติดตั้งของคุณจะถูกใช้หลังจากการแพตช์</string>
-    <string name="root_pre_patch_installer_hint">ถามในขณะ การตั้งค่า &gt; แปะ &gt; ติดตั้ง &gt; เจาะจงตัวเลือกผู้ติดตั้งอยู่ โหมดการปะไม่สามารถเปลี่ยนได้หลังการปะ</string>
+    <string name="root_pre_patch_installer_hint">จะถามในขณะที่ การตั้งค่า &gt; การแพตช์ &gt; การติดตั้ง &gt; แจ้งเตือนการเลือกตัวติดตั้ง ถูกเปิดใช้งาน ไม่สามารถเปลี่ยนโหมดการแพตช์ได้หลังจากแพตช์เสร็จสิ้นแล้ว</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">คัดลอกข้อผิดพลาดไปยังคลิปบอร์ดแล้ว</string>
     <string name="patcher_error_log">บันทึกข้อผิดพลาด</string>
@@ -867,6 +867,8 @@
     <string name="settings_advanced_update_interval">ความถี่การตรวจสอบ</string>
     <string name="settings_advanced_update_interval_hourly">รายชั่วโมง</string>
     <string name="settings_advanced_update_interval_daily">รายวัน</string>
+    <string name="settings_advanced_update_interval_weekly">รายสัปดาห์</string>
+    <string name="settings_advanced_update_interval_monthly">รายเดือน</string>
     <string name="settings_advanced_update_interval_battery_warning">การตรวจสอบพื้นหลังอาจไม่ทำงานได้อย่างมั่นคงบนบางอุปกรณ์. ผู้ผลิตเช่น Xiaomi, Huawei, Samsung, และ OnePlus บ่อยครั้งจำกัดขั้นตอนการทำงานพื้นหลังอย่างเข้มงวดเพื่อประหยัดแบตเตอรี่</string>
     <string name="settings_advanced_external_batch_patch">อนุญาตให้ทริกเกอร์ภายนอก</string>
     <string name="settings_advanced_external_batch_patch_description">อนุญาตให้แอปอัตโนมัติเริ่มการแพทช์แบบกลุ่ม</string>
@@ -898,9 +900,17 @@
     <string name="settings_advanced_strip_unused_libs">ปรับประสิทธิภาพสำหรับสถาปัตยกรรมของอุปกรณ์</string>
     <string name="settings_advanced_strip_unused_libs_description">ลบไลบรารีเนทีฟที่ไม่ได้ใช้และการแยก APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">ปลดล็อกแหล่งที่มาของ pull request และ repository ส่วนตัว</string>
+    <string name="settings_advanced_github_pat_description">สำหรับแหล่งที่มาของ pull request, repository ส่วนตัว และขีดจำกัดอัตราส่วน GitHub ที่สูงขึ้น</string>
     <string name="settings_advanced_github_pat_configured">โทเค็นถูกกำหนดค่าแล้ว</string>
+    <string name="settings_advanced_github_pat_create">สร้างโทเค็นบน GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">เปิด GitHub ด้วย scope %s ที่เลือกไว้แล้ว</string>
+    <string name="settings_advanced_github_pat_checking">กำลังตรวจสอบกับ GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">ลงชื่อเข้าใช้ GitHub ในฐานะ %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub ปฏิเสธโทเค็นนี้ อาจเพราะหมดอายุหรือถูกเพิกถอน</string>
+    <string name="settings_advanced_github_pat_unreachable">ไม่สามารถเข้าถึง GitHub เพื่อตรวจสอบโทเค็นนี้</string>
     <string name="settings_advanced_github_pat_export_include_label">รวมในการส่งออกของการตั้งค่า</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">เพิ่ม PAT นี้ในการตั้งค่า Morphe ที่ส่งออก</string>
@@ -1023,13 +1033,13 @@ morphe_header_custom_dark.png
     <string name="installer_play_store_mode">ติดตั้งเป็น Play Store</string>
     <string name="installer_play_store_mode_description">กำหนด Google Play Store เป็นแหล่งติดตั้ง</string>
     <string name="settings_prompt_installer_on_install">แจ้งเตือนการเลือกตัวติดตั้ง</string>
-    <string name="settings_prompt_installer_on_install_description">ถามวิธีการติดตั้งทุกแอป: ด้วยรทก่อนปะ มิฉะนั้นหลังมัน</string>
+    <string name="settings_prompt_installer_on_install_description">ถามวิธีการติดตั้งแอปทุกแอป: ต้องมีสิทธิ์รูทก่อนแพตช์ หรือหลังจากแพตช์เสร็จแล้ว</string>
     <string name="settings_auto_install_with_shizuku">ติดตั้งอัตโนมัติหลังจากการแพตช์</string>
-    <string name="settings_auto_install_with_shizuku_description">ติดตั้งหรือmount APK ที่ปะทันทีเมื่อปะเสร็จ</string>
+    <string name="settings_auto_install_with_shizuku_description">ติดตั้งหรือเมานต์ APK ที่ถูกแพตช์ทันทีเมื่อการแพตช์เสร็จสิ้น</string>
     <string name="settings_auto_uninstall_with_shizuku">ถอนการติดตั้งอัตโนมัติเมื่อเกิดข้อขัดแย้ง</string>
     <string name="settings_auto_uninstall_with_shizuku_description">ลบการติดตั้งแอปที่มีอยู่เมื่อมีการขัดแย้งของลายเซ็น สิ่งนี้อาจลบข้อมูลแอป</string>
     <string name="settings_ignore_install_target_rules">ละเลยข้อกำหนดเป้าหมายการติดตั้ง</string>
-    <string name="settings_ignore_install_target_rules_description">เปิดใช้งานกฎที่จะละเลยข้อจำกัดของเป้าหมายการติดตั้ง และปิดการใช้งานกฎที่กำหนดไว้ให้ละเว้น กฎที่แก้ไขนี้อาจทำให้แอปไม่ทำงาน</string>
+    <string name="settings_ignore_install_target_rules_description">ให้แพตช์ที่เป้าหมายการติดตั้งต้องการถูกปิด และเปิดแพตช์ที่มันตัดออกไปได้ แอปที่ได้รับการแพตช์แล้วอาจใช้งานไม่ได้</string>
     <string name="settings_auto_uninstall_warning_title">เปิดใช้งานการถอนการติดตั้งอัตโนมัติหรือไม่</string>
     <string name="settings_auto_uninstall_warning_message">หาก Android รายงานข้อขัดแย้งของลายเซ็นระหว่างการติดตั้งอัตโนมัติของ Shizuku, Morphe จะถอนการติดตั้งแอปที่มีอยู่ก่อนที่จะติดตั้ง APK ที่แพตช์แล้ว</string>
     <string name="settings_auto_uninstall_warning_risk">ซึ่งอาจลบข้อมูลแอปได้ หาก APK ที่แพตช์แล้วไม่สามารถติดตั้งได้หลังจากถอนการติดตั้ง แอปก่อนหน้านี้อาจหายไปแล้ว</string>
@@ -1368,6 +1378,7 @@ morphe_header_custom_dark.png
     <string name="hide">ซ่อน</string>
     <string name="hidden">ซ่อนแล้ว</string>
     <string name="unhide">แสดง</string>
+    <string name="show_all">แสดงทั้งหมด</string>
     <string name="ignore">ไม่สนใจ</string>
     <string name="stop_ignoring">หยุดเพิกเฉย</string>
     <string name="logs">บันทึก</string>

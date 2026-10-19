@@ -867,6 +867,8 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_update_interval">Frecvența de verificare</string>
     <string name="settings_advanced_update_interval_hourly">Orar</string>
     <string name="settings_advanced_update_interval_daily">Zilnic</string>
+    <string name="settings_advanced_update_interval_weekly">Săptămânal</string>
+    <string name="settings_advanced_update_interval_monthly">Lunar</string>
     <string name="settings_advanced_update_interval_battery_warning">Verificările în fundal pot nu funcționa reliable pe unele dispozitive. Fabricanții precum Xiaomi, Huawei, Samsung și OnePlus adesea restrictă procesul în fundal pentru a economisi baterie</string>
     <string name="settings_advanced_external_batch_patch">Permite declanșatori externi</string>
     <string name="settings_advanced_external_batch_patch_description">Permite aplicațiilor automate să înceapă patch-uirea în lot</string>
@@ -898,9 +900,17 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_strip_unused_libs">Optimize pentru arhitectura dispozitivului</string>
     <string name="settings_advanced_strip_unused_libs_description">Elimină bibliotecile native nefolosite și fragmentele APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Deblochează sursele pull request-urilor și depozitele private</string>
+    <string name="settings_advanced_github_pat_description">Pentru sursele pull request-urilor, depozitele private și o rată limită GitHub mai ridicată</string>
     <string name="settings_advanced_github_pat_configured">Jeton configurat</string>
+    <string name="settings_advanced_github_pat_create">Creează un token pe GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Deschide GitHub cu permisiunea %s deja selectată</string>
+    <string name="settings_advanced_github_pat_checking">Verificare cu GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Autentificat în GitHub ca %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub a respins acest token. S-ar putea să fie expirat sau revocat</string>
+    <string name="settings_advanced_github_pat_unreachable">Nu s-a putut ajunge la GitHub pentru a verifica acest token</string>
     <string name="settings_advanced_github_pat_export_include_label">Include în exportul setărilor</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Adaugă acest PAT la setările Morphe exportate</string>
@@ -1368,6 +1378,7 @@ Detalii: %2$s"</string>
     <string name="hide">Ascunde</string>
     <string name="hidden">Ascuns</string>
     <string name="unhide">Dezascunde</string>
+    <string name="show_all">Arată toate</string>
     <string name="ignore">Ignoră</string>
     <string name="stop_ignoring">Nu mai ignora</string>
     <string name="logs">Jurnale</string>

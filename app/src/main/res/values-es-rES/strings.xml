@@ -1378,6 +1378,7 @@ Detalles: %2$s"</string>
     <string name="hide">Ocultar</string>
     <string name="hidden">Oculto</string>
     <string name="unhide">Mostrar</string>
+    <string name="show_all">Mostrar todo</string>
     <string name="ignore">Ignorar</string>
     <string name="stop_ignoring">Dejar de ignorar</string>
     <string name="logs">Registros</string>

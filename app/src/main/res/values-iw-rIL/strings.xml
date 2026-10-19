@@ -868,6 +868,8 @@
     <string name="settings_advanced_update_interval">תדירות בדיקה</string>
     <string name="settings_advanced_update_interval_hourly">שעתית</string>
     <string name="settings_advanced_update_interval_daily">יומית</string>
+    <string name="settings_advanced_update_interval_weekly">שבועי</string>
+    <string name="settings_advanced_update_interval_monthly">חודשי</string>
     <string name="settings_advanced_update_interval_battery_warning">בדיקות ברקע עשויות שלא לעבוד באופן אמין על חלק מהמכשירים. יצרנים כמו Xiaomi, Huawei, Samsung ו-OnePlus לעיתים קרובות מוגבלים את תהליכי הרקע כדי לשמר סוללה</string>
     <string name="settings_advanced_external_batch_patch">אפשר טריגרים חיצוניים</string>
     <string name="settings_advanced_external_batch_patch_description">מתיר אפליקציות אוטומציה להתחיל תיקון batch</string>
@@ -899,9 +901,17 @@
     <string name="settings_advanced_strip_unused_libs">לייעל עבור ארכיטקטורת ההתקן</string>
     <string name="settings_advanced_strip_unused_libs_description">מסיר ספריות טבעיות לא בשימוש ופיצולי APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">משחרר מקורות של בקשות משיכה ו repos פרטיים</string>
+    <string name="settings_advanced_github_pat_description">למקורות בקשות משיכה, repos פרטיים וגבול קצב גבוה יותר ב-GitHub</string>
     <string name="settings_advanced_github_pat_configured">טוקן תצוגה</string>
+    <string name="settings_advanced_github_pat_create">צור אסימון ב-GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">פותח את GitHub עם ההיקף %s כבר נבחר</string>
+    <string name="settings_advanced_github_pat_checking">בודק עם GitHub...</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">מחובר ל-GitHub כ-%s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub דחה את האסימון הזה. ייתכן שהפך לפג תוקף או שהוסר</string>
+    <string name="settings_advanced_github_pat_unreachable">לא ניתן היה להגיע ל-GitHub כדי לבדוק את האסימון הזה</string>
     <string name="settings_advanced_github_pat_export_include_label">כלול בהגדרות ייצוא</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">מוסיף את PAT זה להגדרות Morphe המיוצאות</string>
@@ -1379,6 +1389,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="hide">הסתר</string>
     <string name="hidden">מוסתר</string>
     <string name="unhide">הסתר</string>
+    <string name="show_all">הצג את כולם</string>
     <string name="ignore">התעלם</string>
     <string name="stop_ignoring">הפסק להתעלם</string>
     <string name="logs">יומן</string>

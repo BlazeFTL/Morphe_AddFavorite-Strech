@@ -866,6 +866,8 @@ Zakrpe nisu pogođene: omogućite prerelease zakrpe za svaki izvor na listi izvo
     <string name="settings_advanced_update_interval">Pronalaženje frekvencije</string>
     <string name="settings_advanced_update_interval_hourly">Svakog sata</string>
     <string name="settings_advanced_update_interval_daily">Dnevno</string>
+    <string name="settings_advanced_update_interval_weekly">Sedmično</string>
+    <string name="settings_advanced_update_interval_monthly">Mesečno</string>
     <string name="settings_advanced_update_interval_battery_warning">Pronalaženje u pozadini možda neće funkcionisati pouzdano na nekim uređajima. Proizvođači poput Xiaomi, Huawei, Samsunga i OnePlus često agresivno ograničavaju processe u pozadini da bi sačuvali bateriju</string>
     <string name="settings_advanced_external_batch_patch">Dozvoli eksterne okidače</string>
     <string name="settings_advanced_external_batch_patch_description">Omogućava automatizovanim aplikacijama da pokreću grupno zakompliciranje</string>
@@ -897,9 +899,17 @@ Zakrpe nisu pogođene: omogućite prerelease zakrpe za svaki izvor na listi izvo
     <string name="settings_advanced_strip_unused_libs">Optimizujte za arhitekturu uređaja</string>
     <string name="settings_advanced_strip_unused_libs_description">Uklanja neupotrebljene nativne biblioteke i APK deobe</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Otključava izvore pull zahteva i privatne repozitorijume</string>
+    <string name="settings_advanced_github_pat_description">Za izvore pull zahteva, privatne repozitorijume i viši limit GitHub stope poziva</string>
     <string name="settings_advanced_github_pat_configured">Token je konfigurisan</string>
+    <string name="settings_advanced_github_pat_create">Kreirajte token na GitHubu</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Otvara GitHub sa već odabranim opsegom %s</string>
+    <string name="settings_advanced_github_pat_checking">Provera sa GitHub-om…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Prijavljeni ste na GitHub kao %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub je odbio ovaj token. Možda je istekao ili poništen</string>
+    <string name="settings_advanced_github_pat_unreachable">Nije moguće povezati se sa GitHub-om radi provere ovog tokena</string>
     <string name="settings_advanced_github_pat_export_include_label">Uključeno u postavke izvoza</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Додаје овај PAT у извозене подешавања Morphe-а</string>
@@ -1350,6 +1360,7 @@ Detalji: %2$s"</string>
     <string name="hide">Sakrij</string>
     <string name="hidden">Skriven</string>
     <string name="unhide">Pokaži</string>
+    <string name="show_all">Prikaži sve</string>
     <string name="ignore">Ignoriši</string>
     <string name="stop_ignoring">Prestani da ignorišeš</string>
     <string name="logs">Dnevnici</string>

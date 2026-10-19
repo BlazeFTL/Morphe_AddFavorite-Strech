@@ -60,6 +60,14 @@
         <item quantity="many">مصدر تعديل لـ %s تطبيق</item>
         <item quantity="other">مصدر تعديل لـ %s تطبيق</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="zero">%s مصدر مخفي لهذا التطبيق. اختر التطبيق على تبويب التطبيقات وافتح مصادر التعديل لإعادته</item>
+        <item quantity="one">%s مصدر مخفي لهذا التطبيق. اختر التطبيق على تبويب التطبيقات وافتح مصادر التعديل لإعادته</item>
+        <item quantity="two">%s مصدران مخفيان لهذا التطبيق. اختر التطبيق على تبويب التطبيقات وافتح مصادر التعديل لإعادتها</item>
+        <item quantity="few">%s مصادر مخفية لهذا التطبيق. اختر التطبيق على تبويب التطبيقات وافتح مصادر التعديل لإعادتها</item>
+        <item quantity="many">%s مصدر مخفي لهذا التطبيق. اختر التطبيق على تبويب التطبيقات وافتح مصادر التعديل لإعادتها</item>
+        <item quantity="other">%s مصدر مخفي لهذا التطبيق. اختر التطبيق على تبويب التطبيقات وافتح مصادر التعديل لإعادتها</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="zero">%s مصدر مخفي. انقر لإظهاره</item>
         <item quantity="one">%s مصدر مخفي. انقر لإظهاره</item>
@@ -211,6 +219,22 @@
         <item quantity="few">%s تطبيقات معروضة</item>
         <item quantity="many">%s تطبيقًا معروضًا</item>
         <item quantity="other">%s تطبيقات معروضة</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="zero">إلغاء إخفاء %s تطبيق؟</item>
+        <item quantity="one">إلغاء إخفاء %s تطبيق؟</item>
+        <item quantity="two">إلغاء إخفاء %s تطبيقين؟</item>
+        <item quantity="few">إلغاء إخفاء %s تطبيق؟</item>
+        <item quantity="many">إلغاء إخفاء %s تطبيق؟</item>
+        <item quantity="other">إلغاء إخفاء %s تطبيق؟</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="zero">سيعود هذا التطبيق إلى الشاشة الرئيسية</item>
+        <item quantity="one">سيظهر هذا التطبيق مرة أخرى على الشاشة الرئيسية</item>
+        <item quantity="two">سيظهر هذان التطبيقان مرة أخرى على الشاشة الرئيسية</item>
+        <item quantity="few">ستعود هذه التطبيقات إلى الشاشة الرئيسية</item>
+        <item quantity="many">ستعود هذه التطبيقات إلى الشاشة الرئيسية</item>
+        <item quantity="other">سيظهر هذا التطبيق مرة أخرى على الشاشة الرئيسية</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="zero">%s تطبيق مخفي</item>

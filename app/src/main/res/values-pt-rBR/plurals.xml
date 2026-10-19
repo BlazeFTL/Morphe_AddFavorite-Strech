@@ -32,6 +32,10 @@
         <item quantity="one">Fontes de patches para %s aplicativo</item>
         <item quantity="other">Fontes de patches para %s aplicativos</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">A fonte %s está oculta para este aplicativo. Selecione o aplicativo na guia Aplicativos e abra Patch sources para trazê-la de volta</item>
+        <item quantity="other">As fontes %s estão ocultas para este aplicativo. Selecione o aplicativo na guia Aplicativos e abra Patch sources para trazê-las de volta</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s fonte oculta. Toque para exibir</item>
         <item quantity="other">%s fontes ocultas. Toque para exibir</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s aplicativo visível</item>
         <item quantity="other">%s aplicativos visíveis</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Reexibir o aplicativo %s?</item>
+        <item quantity="other">Reexibir os aplicativos %s?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Este aplicativo retornará à tela inicial</item>
+        <item quantity="other">Esses aplicativos retornarão à tela inicial</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aplicativo oculto</item>

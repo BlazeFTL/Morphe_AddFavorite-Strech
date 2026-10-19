@@ -354,6 +354,7 @@ Elixe outro APK</string>
     <string name="patching">Parcheando</string>
     <string name="patched">Parcheado</string>
     <string name="allow">Permitir</string>
+    <string name="show_all">Amosar todo</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
     <string name="changelog_section_new">Novo</string>

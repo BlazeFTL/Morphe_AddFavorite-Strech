@@ -867,6 +867,8 @@ Patches worden niet beïnvloed: schakel pre-release-patches in voor elke bron in
     <string name="settings_advanced_update_interval">Controle frequentie</string>
     <string name="settings_advanced_update_interval_hourly">Per uur</string>
     <string name="settings_advanced_update_interval_daily">Dagelijks</string>
+    <string name="settings_advanced_update_interval_weekly">Wekelijks</string>
+    <string name="settings_advanced_update_interval_monthly">Maandelijks</string>
     <string name="settings_advanced_update_interval_battery_warning">Achtergrondcontroles werken mogelijk niet betrouwbaar op sommige apparaten. Fabrikanten zoals Xiaomi, Huawei, Samsung en OnePlus beperken achtergrondprocessen vaak sterk om de batterij te sparen</string>
     <string name="settings_advanced_external_batch_patch">Externe triggers toestaan</string>
     <string name="settings_advanced_external_batch_patch_description">Stelt automatiseringsapps in staat batch-patching te starten</string>
@@ -898,9 +900,17 @@ Patches worden niet beïnvloed: schakel pre-release-patches in voor elke bron in
     <string name="settings_advanced_strip_unused_libs">Optimaliseer voor apparaatarchitectuur</string>
     <string name="settings_advanced_strip_unused_libs_description">Verwijdert ongebruikte native bibliotheken en APK-splitsingen</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Ontgrendelt pull request-bronnen en privérepositories</string>
+    <string name="settings_advanced_github_pat_description">Voor pull request-bronnen, privérepositories en een hogere GitHub-limiet</string>
     <string name="settings_advanced_github_pat_configured">Token geconfigureerd</string>
+    <string name="settings_advanced_github_pat_create">Maak een token aan op GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Opens GitHub with the %s scope already picked</string>
+    <string name="settings_advanced_github_pat_checking">Controleren met GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Signed in to GitHub as %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub heeft dit token afgewezen. Het kan verlopen of ingetrokken zijn</string>
+    <string name="settings_advanced_github_pat_unreachable">Kon geen verbinding maken met GitHub om dit token te controleren</string>
     <string name="settings_advanced_github_pat_export_include_label">Opnemen in instellingen exporteren</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Voegt deze PAT toe aan de geëxporteerde Morphe-instellingen</string>
@@ -1368,6 +1378,7 @@ Details: %2$s"</string>
     <string name="hide">Verbergen</string>
     <string name="hidden">Verborgen</string>
     <string name="unhide">Toon</string>
+    <string name="show_all">Toon alles</string>
     <string name="ignore">Negeren</string>
     <string name="stop_ignoring">Stop met negeren</string>
     <string name="logs">Logboeken</string>

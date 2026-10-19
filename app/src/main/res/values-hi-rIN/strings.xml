@@ -867,6 +867,8 @@
     <string name="settings_advanced_update_interval">अपडेट दर देखें</string>
     <string name="settings_advanced_update_interval_hourly">प्रति घंटा</string>
     <string name="settings_advanced_update_interval_daily">दैनिक</string>
+    <string name="settings_advanced_update_interval_weekly">साप्ताहिक</string>
+    <string name="settings_advanced_update_interval_monthly">मासिक</string>
     <string name="settings_advanced_update_interval_battery_warning">कुछ डिवाइसों पर बैकग्राउंड चेकز कोष्ठक में काम नहीं करना चाहिए। बटरी बचाने के लिए मैन्युफैक्चरर जैसे कि एक्सियाومی, ह्वाईवे, सैमसंग, और वनप्लस बैकग्राउंड प्रोसेसेज को अग्रेषित रूप से प्रतिबंधित करते हैं</string>
     <string name="settings_advanced_external_batch_patch">बाहरी ट्रिगर की अनुमति दें</string>
     <string name="settings_advanced_external_batch_patch_description">स्वचालन ऐप्स को बैच पैचिंग शुरू करने देता है</string>
@@ -898,9 +900,17 @@
     <string name="settings_advanced_strip_unused_libs">डिवाइस आर्किटेक्चर के लिए अनुकूलित करें</string>
     <string name="settings_advanced_strip_unused_libs_description">अप्रयुक्त नेटिव लाइब्रेरी और APK स्प्लिट्स हटाता है</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">पुल अनुरोध स्रोतों और निजी रिपाजिटरीज़ को अनलॉक करता है</string>
+    <string name="settings_advanced_github_pat_description">पुल अनुरोध स्रोतों, निजी रिपाजिटरीज़ और उच्च GitHub दर सीमा के लिए</string>
     <string name="settings_advanced_github_pat_configured">टोकन विन्यासित</string>
+    <string name="settings_advanced_github_pat_create">GitHub पर टोकन बनाएँ</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">GitHub खोलता है जहां %s स्कोप पहले से ही चुना गया है</string>
+    <string name="settings_advanced_github_pat_checking">GitHub के साथ जांच रहे हैं…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">%s के रूप में GitHub पर साइन इन किया गया है</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub ने इस टोकन को अस्वीकार कर दिया। यह समाप्त या रद्द हो सकता है</string>
+    <string name="settings_advanced_github_pat_unreachable">इस टोकन की जांच करने के लिए GitHub तक पहुंच नहीं पाई</string>
     <string name="settings_advanced_github_pat_export_include_label">सेटिंगز एक्सपोर्ट में शामिल करें</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">निर्यातित मोर्फ़ सेटिंग्स में यह PAT जोड़ता है</string>
@@ -1368,6 +1378,7 @@ morphe_header_custom_dark.png
     <string name="hide">छुपायें</string>
     <string name="hidden">छिपा हुआ</string>
     <string name="unhide">अनहाइड करें</string>
+    <string name="show_all">सभी दिखाएँ</string>
     <string name="ignore">अनदेखा करें</string>
     <string name="stop_ignoring">अनदेखा करना बंद करें</string>
     <string name="logs">लॉग्स</string>

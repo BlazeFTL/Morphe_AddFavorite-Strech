@@ -1378,6 +1378,7 @@ morphe_header_custom_dark.png
     <string name="hide">隐藏</string>
     <string name="hidden">隐藏</string>
     <string name="unhide">显示</string>
+    <string name="show_all">显示全部</string>
     <string name="ignore">忽略</string>
     <string name="stop_ignoring">停止忽略</string>
     <string name="logs">日志</string>

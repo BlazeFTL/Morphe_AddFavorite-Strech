@@ -1378,6 +1378,7 @@ morphe_header_custom_dark.png
     <string name="hide">Скриване</string>
     <string name="hidden">Скрито</string>
     <string name="unhide">Покажи</string>
+    <string name="show_all">Покажи всички</string>
     <string name="ignore">Игнорирай</string>
     <string name="stop_ignoring">Спри да игнорираш</string>
     <string name="logs">Дневници</string>

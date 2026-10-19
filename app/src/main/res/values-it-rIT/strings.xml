@@ -867,6 +867,8 @@ Le patch non sono interessate: abilita le patch pre-release per ciascuna fonte n
     <string name="settings_advanced_update_interval">Frequenza dei controlli</string>
     <string name="settings_advanced_update_interval_hourly">Orario</string>
     <string name="settings_advanced_update_interval_daily">Quotidiano</string>
+    <string name="settings_advanced_update_interval_weekly">Settimanale</string>
+    <string name="settings_advanced_update_interval_monthly">Mensile</string>
     <string name="settings_advanced_update_interval_battery_warning">I controlli in background potrebbero non funzionare in maniera affidabile su alcuni dispositivi. I produttori come Xiaomi, Huawei, Samsung e OnePlus spesso limitano in modo aggressivo i processi in background per risparmiare batteria</string>
     <string name="settings_advanced_external_batch_patch">Consenti trigger esterni</string>
     <string name="settings_advanced_external_batch_patch_description">Permette alle app di automazione di avviare il patch in batch</string>
@@ -898,9 +900,17 @@ Le patch non sono interessate: abilita le patch pre-release per ciascuna fonte n
     <string name="settings_advanced_strip_unused_libs">Ottimizza per l\'architettura del dispositivo</string>
     <string name="settings_advanced_strip_unused_libs_description">Rimuove le librerie native non utilizzate e le suddivisioni APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Sblocca le origini delle pull request e i repository privati</string>
+    <string name="settings_advanced_github_pat_description">Per le origini delle pull request, i repository privati e un limite di tasso GitHub più elevato</string>
     <string name="settings_advanced_github_pat_configured">Token configurato</string>
+    <string name="settings_advanced_github_pat_create">Crea un token su GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Apri GitHub con l\'ambito %s già selezionato</string>
+    <string name="settings_advanced_github_pat_checking">Verifica in corso con GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Accesso a GitHub come %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub ha rifiutato questo token. Potrebbe essere scaduto o essere stato revocato</string>
+    <string name="settings_advanced_github_pat_unreachable">Impossibile raggiungere GitHub per verificare questo token</string>
     <string name="settings_advanced_github_pat_export_include_label">Includi nelle impostazioni di esportazione</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Aggiunge questa PAT alle impostazioni di Morphe esportate</string>
@@ -1368,6 +1378,7 @@ Dettagli: %2$s"</string>
     <string name="hide">Nascondi</string>
     <string name="hidden">Nascosto</string>
     <string name="unhide">Mostra</string>
+    <string name="show_all">Mostra tutto</string>
     <string name="ignore">Ignora</string>
     <string name="stop_ignoring">Smetti di ignorare</string>
     <string name="logs">Tracciati</string>

@@ -867,6 +867,8 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_update_interval">Ellenőrzés gyakorisága</string>
     <string name="settings_advanced_update_interval_hourly">Óránként</string>
     <string name="settings_advanced_update_interval_daily">Napi</string>
+    <string name="settings_advanced_update_interval_weekly">Heti</string>
+    <string name="settings_advanced_update_interval_monthly">Havi</string>
     <string name="settings_advanced_update_interval_battery_warning">A háttérellenőrzések egyes eszközökön nem működnek megbízhatóan. Az olyan gyártók, mint a Xiaomi, a Huawei, a Samsung és a OnePlus gyakran agresszíven korlátozzák a háttérfolyamatokat az akkumulátor kímélése érdekében</string>
     <string name="settings_advanced_external_batch_patch">Külső események engedélyezése</string>
     <string name="settings_advanced_external_batch_patch_description">Automatizációs alkalmazások számára lehetővé teszi a kötegelt patchelést</string>
@@ -898,9 +900,17 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_strip_unused_libs">Optimalizálás a készülék architektúrájához</string>
     <string name="settings_advanced_strip_unused_libs_description">Nem használt natív könyvtárak és APK split fájlok eltávolítása</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Feloldja a pull request forrásait és a privát adattárolókat</string>
+    <string name="settings_advanced_github_pat_description">Pull request forrásokhoz, privát adattárolókhoz és magasabb GitHub-korlátért</string>
     <string name="settings_advanced_github_pat_configured">Token beállítva</string>
+    <string name="settings_advanced_github_pat_create">Token létrehozása a GitHubon</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Megnyitja a GitHubot %s hatókörrel már kiválasztva</string>
+    <string name="settings_advanced_github_pat_checking">Ellenőrzés a GitHubon…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Bejelentkezve a GitHubra %s néven</string>
+    <string name="settings_advanced_github_pat_rejected">A GitHub elutasította ezt a tokent. Lehet, hogy lejárt vagy érvénytelenítették</string>
+    <string name="settings_advanced_github_pat_unreachable">Nem lehetett elérni a GitHubot a token ellenőrzéséhez</string>
     <string name="settings_advanced_github_pat_export_include_label">Felvétel az exportált beállítások közé</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Hozzáadja a PAT-ot a Morphe exportált beállításaihoz</string>
@@ -1368,6 +1378,7 @@ Részletek: %2$s"</string>
     <string name="hide">Elrejtés</string>
     <string name="hidden">Elrejtve</string>
     <string name="unhide">Feloldás</string>
+    <string name="show_all">Összes megjelenítése</string>
     <string name="ignore">Figyelmen kívül hagyás</string>
     <string name="stop_ignoring">Hagyd abba az ignorálást</string>
     <string name="logs">Naplók</string>

@@ -1376,6 +1376,7 @@ morphe_header_custom_dark.png
     <string name="hide">隱藏</string>
     <string name="hidden">已隱藏</string>
     <string name="unhide">取消隱藏</string>
+    <string name="show_all">查看全部</string>
     <string name="ignore">忽略</string>
     <string name="stop_ignoring">停止忽略</string>
     <string name="logs">記錄</string>

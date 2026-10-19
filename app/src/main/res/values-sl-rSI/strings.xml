@@ -867,6 +867,8 @@ Ta nastavitev ne vpliva na popravke: omogočite predizdajne popravke za vsak vir
     <string name="settings_advanced_update_interval">Preverjanje pogostosti</string>
     <string name="settings_advanced_update_interval_hourly">Ure</string>
     <string name="settings_advanced_update_interval_daily">Dnevi</string>
+    <string name="settings_advanced_update_interval_weekly">Tedensko</string>
+    <string name="settings_advanced_update_interval_monthly">Mesečno</string>
     <string name="settings_advanced_update_interval_battery_warning">Preverjanje v ozadju morda ne deluje zanesljivo na nekaterih napravah. Proizvajalci kot so Xiaomi, Huawei, Samsung in OnePlus pogosto agresivno omejujejo procese v ozadju, da varčujejo z baterijo</string>
     <string name="settings_advanced_external_batch_patch">Dovolite zunanje sprožilce</string>
     <string name="settings_advanced_external_batch_patch_description">Omogoči avtomatiziranim aplikacijam začetek skupinskega popravljanja</string>
@@ -898,9 +900,17 @@ Ta nastavitev ne vpliva na popravke: omogočite predizdajne popravke za vsak vir
     <string name="settings_advanced_strip_unused_libs">Optimiziraj za arhitekturo naprave</string>
     <string name="settings_advanced_strip_unused_libs_description">Odstrani neuporabljene knjižnice native in ločke APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Odklene vire povpraševanj za združevanje in zasebnih skladišč</string>
+    <string name="settings_advanced_github_pat_description">Za vire povpraševanj za združevanje, zasebna skladišča in višjo omejitev hitrosti GitHub</string>
     <string name="settings_advanced_github_pat_configured">Ključ je konfiguriran</string>
+    <string name="settings_advanced_github_pat_create">Ustvarite žeton na GitHubu</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Odprie GitHub z že izbranim obsegom %s</string>
+    <string name="settings_advanced_github_pat_checking">Preverjanje z GitHubom…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Prijavljeni ste v GitHub kot %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub je zavrgel ta žeton. Morda je potekel ali bil preklican</string>
+    <string name="settings_advanced_github_pat_unreachable">Ni se bilo mogoče povezati z GitHubom zaradi preverjanja tega žetona</string>
     <string name="settings_advanced_github_pat_export_include_label">Vključite v izvoz nastavitev</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Doda ta PAT v izvožene nastavitve Morphe</string>
@@ -1368,6 +1378,7 @@ Podrobnosti: %2$s"</string>
     <string name="hide">Skrij</string>
     <string name="hidden">Skrito</string>
     <string name="unhide">Pokaži</string>
+    <string name="show_all">Prikaži vse</string>
     <string name="ignore">Prezri</string>
     <string name="stop_ignoring">Prenehaj ignorirati</string>
     <string name="logs">Dnevnik</string>

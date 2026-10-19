@@ -864,6 +864,8 @@ Hindi maaapektuhan ang mga patch: paganahin ang mga patch na pre-release para sa
     <string name="settings_advanced_update_interval">Suriin ang prikwensiya</string>
     <string name="settings_advanced_update_interval_hourly">Oras-oras</string>
     <string name="settings_advanced_update_interval_daily">Araw-araw</string>
+    <string name="settings_advanced_update_interval_weekly">Buwan</string>
+    <string name="settings_advanced_update_interval_monthly">Bilangbulan</string>
     <string name="settings_advanced_update_interval_battery_warning">Maaaring hindi gumana nang mapagkakatiwalaan ang mga pagsusuri sa background sa ilang device. Ang mga tagagawa tulad ng Xiaomi, Huawei, Samsung, at OnePlus ay madalas na agresibong naghihigpit sa mga proseso sa background upang makatipid ng baterya</string>
     <string name="settings_advanced_external_batch_patch">Payagan ang mga panlabas na trigger</string>
     <string name="settings_advanced_external_batch_patch_description">Pinahihintulutan ng automation apps ang pagsisimula ng batch patching</string>
@@ -895,9 +897,17 @@ Hindi maaapektuhan ang mga patch: paganahin ang mga patch na pre-release para sa
     <string name="settings_advanced_strip_unused_libs">I-optimize para sa arkitektura ng device</string>
     <string name="settings_advanced_strip_unused_libs_description">Kinakailangan ang hindi nagagamit na mga native library at APK splits</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Binubuksan ang mga pinagmulan ng pull request at pribadong repositoryo</string>
+    <string name="settings_advanced_github_pat_description">Para sa mga pinagmulan ng pull request, pribadong repositoryo, at mas mataas na limitasyon ng GitHub</string>
     <string name="settings_advanced_github_pat_configured">Nakompigura ang token</string>
+    <string name="settings_advanced_github_pat_create">Lumikha ng token sa GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Bubuksan ang GitHub kung saan napili na ang %s scope</string>
+    <string name="settings_advanced_github_pat_checking">Sinisuri ka sa GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Naka-sign in sa GitHub bilang %s</string>
+    <string name="settings_advanced_github_pat_rejected">Ibinalik ng GitHub ang token na ito. Maaaring mag-expire o mabawi na ito</string>
+    <string name="settings_advanced_github_pat_unreachable">Hindi maabot ang GitHub para suriin ang token na ito</string>
     <string name="settings_advanced_github_pat_export_include_label">Isama sa settings export</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Idinaragdag ang PAT na ito sa mga na-export na setting ng Morphe</string>
@@ -1364,6 +1374,7 @@ Mga Detalye: %2$s"</string>
     <string name="hide">Itago</string>
     <string name="hidden">Nakatago</string>
     <string name="unhide">Ipakita</string>
+    <string name="show_all">Ipakita lahat</string>
     <string name="ignore">Huwag pansinin</string>
     <string name="stop_ignoring">Itigil ang pagwawalang-bahala</string>
     <string name="logs">Mga log</string>

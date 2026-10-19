@@ -867,6 +867,8 @@ Các bản vá không bị ảnh hưởng: bật các bản vá trước khi ph�
     <string name="settings_advanced_update_interval">Tần suất kiểm tra</string>
     <string name="settings_advanced_update_interval_hourly">Mỗi giờ</string>
     <string name="settings_advanced_update_interval_daily">Hàng ngày</string>
+    <string name="settings_advanced_update_interval_weekly">Hàng tuần</string>
+    <string name="settings_advanced_update_interval_monthly">Hàng tháng</string>
     <string name="settings_advanced_update_interval_battery_warning">Tính năng này có thể không hoạt động trên một số thiết bị như Xiaomi, Huawei, Samsung và OnePlus, vì chúng thường giới hạn ứng dụng chạy nền để tiết kiệm pin</string>
     <string name="settings_advanced_external_batch_patch">Cho phép kích hoạt từ bên ngoài</string>
     <string name="settings_advanced_external_batch_patch_description">Cho phép các ứng dụng tự động hóa bắt đầu vá hàng loạt</string>
@@ -898,9 +900,17 @@ Các bản vá không bị ảnh hưởng: bật các bản vá trước khi ph�
     <string name="settings_advanced_strip_unused_libs">Tối ưu theo kiến trúc thiết bị</string>
     <string name="settings_advanced_strip_unused_libs_description">Xóa các thư viện native không sử dụng và phân mảnh APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Mở khóa nguồn yêu cầu kéo và kho lưu trữ riêng tư</string>
+    <string name="settings_advanced_github_pat_description">Dành cho nguồn yêu cầu kéo, kho lưu trữ riêng tư và giới hạn tốc độ GitHub cao hơn</string>
     <string name="settings_advanced_github_pat_configured">Đã cấu hình token</string>
+    <string name="settings_advanced_github_pat_create">Tạo mã thông báo trên GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Mở GitHub với %s phạm vi đã được chọn sẵn</string>
+    <string name="settings_advanced_github_pat_checking">Đang kiểm tra với GitHub…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Đã đăng nhập vào GitHub dưới dạng %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub từ chối mã thông báo này. Có thể nó đã hết hạn hoặc bị thu hồi</string>
+    <string name="settings_advanced_github_pat_unreachable">Không thể kết nối với GitHub để kiểm tra mã thông báo này</string>
     <string name="settings_advanced_github_pat_export_include_label">Thêm vào khi xuất cài đặt</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Thêm PAT vào khi xuất cài đặt Morphe</string>
@@ -1371,6 +1381,7 @@ Chi tiết: %2$s"</string>
     <string name="hide">Ẩn</string>
     <string name="hidden">Ẩn</string>
     <string name="unhide">Hiện</string>
+    <string name="show_all">Xem tất cả</string>
     <string name="ignore">Bỏ qua</string>
     <string name="stop_ignoring">Dừng bỏ qua</string>
     <string name="logs">Nhật ký</string>

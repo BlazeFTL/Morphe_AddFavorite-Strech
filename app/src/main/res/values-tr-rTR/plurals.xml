@@ -32,6 +32,10 @@
         <item quantity="one">%s uygulama için yama kaynakları</item>
         <item quantity="other">%s uygulama için yama kaynakları</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s kaynağı bu uygulama için gizlenmiş. Geri getirmek için Uygulamalar sekmesindeki uygulamayı seçin ve Kaynakları Düzelt\'i açın</item>
+        <item quantity="other">%s kaynağı bu uygulama için gizlenmiş. Geri getirmek için Uygulamalar sekmesindeki uygulamayı seçin ve Kaynakları Düzelt\'i açın</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s kaynak gizlendi. Göstermek için dokunun</item>
         <item quantity="other">%s kaynak gizlendi. Göstermek için dokunun</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s uygulama gösterildi</item>
         <item quantity="other">%s uygulama gösterildi</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">%s uygulamasını gizlemesini kaldır?</item>
+        <item quantity="other">%s uygulamayı gizlemesini kaldır?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Bu uygulama ana ekranda görünecek</item>
+        <item quantity="other">Bu uygulamalar ana ekranda görünecek</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s gizli uygulama</item>

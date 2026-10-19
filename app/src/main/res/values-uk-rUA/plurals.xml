@@ -46,6 +46,12 @@
         <item quantity="many">Джерела патчів для %s застосунків</item>
         <item quantity="other">Джерела патчів для %s застосунків</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s джерело приховано для цього застосунку. Виберіть застосунок на вкладці \"Застосунки\" та відкрийте \"Джерела патчів\", щоб повернути його</item>
+        <item quantity="few">%s джерела приховано для цього застосунку. Виберіть застосунок на вкладці \"Застосунки\" та відкрийте \"Джерела патчів\", щоб повернути їх</item>
+        <item quantity="many">%s джерел приховано для цього застосунку. Виберіть застосунок на вкладці \"Застосунки\" та відкрийте \"Джерела патчів\", щоб повернути їх</item>
+        <item quantity="other">%s джерел приховано для цього застосунку. Виберіть застосунок на вкладці \"Застосунки\" та відкрийте \"Джерела патчів\", щоб повернути їх</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s джерело приховано. Натисніть, щоб показати</item>
         <item quantity="few">%s джерела приховано. Натисніть, щоб показати</item>
@@ -149,16 +155,28 @@
         <item quantity="other">%s джерел встановлено</item>
     </plurals>
     <plurals name="home_apps_hidden_count">
-        <item quantity="one">Сховано %s додаток</item>
-        <item quantity="few">Сховано %s додатки</item>
-        <item quantity="many">Сховано %s додатків</item>
-        <item quantity="other">Сховано %s додатків</item>
+        <item quantity="one">%s застосунок приховано</item>
+        <item quantity="few">%s застосунки приховано</item>
+        <item quantity="many">%s застосунків приховано</item>
+        <item quantity="other">%s застосунків приховано</item>
     </plurals>
     <plurals name="home_apps_shown_count">
-        <item quantity="one">Показано %s додаток</item>
-        <item quantity="few">Показано %s додатки</item>
-        <item quantity="many">Показано %s додатків</item>
-        <item quantity="other">Показано %s додатків</item>
+        <item quantity="one">%s застосунок показано</item>
+        <item quantity="few">%s застосунки показано</item>
+        <item quantity="many">%s застосунків показано</item>
+        <item quantity="other">%s застосунків показано</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Показати %s застосунок?</item>
+        <item quantity="few">Показати %s застосунки?</item>
+        <item quantity="many">Показати %s застосунків?</item>
+        <item quantity="other">Показати %s застосунків?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Цей застосунок повернеться на головний екран</item>
+        <item quantity="few">Ці застосунки повернуться на головний екран</item>
+        <item quantity="many">Ці застосунки повернуться на головний екран</item>
+        <item quantity="other">Ці застосунки повернуться на головний екран</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s прихований застосунок</item>

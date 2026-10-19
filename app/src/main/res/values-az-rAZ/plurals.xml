@@ -32,6 +32,10 @@
         <item quantity="one">%s tətbiq üçün yamaq mənbələri</item>
         <item quantity="other">%s tətbiq üçün yamaq mənbələri</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">​%s mənbə bu tətbiq üçün gizlədilib. Onu geri qaytarmaq üçün Tətbiqlər səhifəsində tətbiqi seçin və Yamaq mənbələrini açın</item>
+        <item quantity="other">​%s mənbə bu tətbiq üçün gizlədilib. Onu geri qaytarmaq üçün Tətbiqlər səhifəsində tətbiqi seçin və Yamaq mənbələrini açın</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s mənbə gizlidir. Göstərmək üçün toxun</item>
         <item quantity="other">%s mənbə gizlidir. Göstərmək üçün toxun</item>

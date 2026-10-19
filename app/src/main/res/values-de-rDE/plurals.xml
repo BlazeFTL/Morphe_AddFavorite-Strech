@@ -32,6 +32,10 @@
         <item quantity="one">Patch-Quellen für %s App</item>
         <item quantity="other">Patch-Quellen für %s Apps</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s Quelle ist für diese App versteckt. Wählen Sie die App auf der Registerkarte Apps und öffnen Sie Patch-Quellen, um sie wiederherzustellen</item>
+        <item quantity="other">%s Quellen sind für diese App versteckt. Wählen Sie die App auf der Registerkarte Apps und öffnen Sie Patch-Quellen, um sie wiederherzustellen</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s Quelle ausgeblendet. Zum Anzeigen tippen</item>
         <item quantity="other">%s Quellen ausgeblendet. Zum Anzeigen tippen</item>
@@ -108,6 +112,14 @@
         <item quantity="one">%s App angezeigt</item>
         <item quantity="other">%s Apps angezeigt</item>
     </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Unhide-App %s anzeigen?</item>
+        <item quantity="other">Apps %s unhide?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Diese App erscheint wieder auf dem Startbildschirm</item>
+        <item quantity="other">Diese Apps erscheinen wieder auf dem Startbildschirm</item>
+    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s ausgeblendete App</item>
         <item quantity="other">%s ausgeblendete Apps</item>
@@ -147,7 +159,7 @@
     <!-- Value of the Apps row on a source card when apps were left out on arrival, for example "3/232 · 2 new". %1$s is the app count, %2$d the new apps -->
     <plurals name="sources_apps_count_with_new">
         <item quantity="one">%1$s · %2$d neu</item>
-        <item quantity="other">%1$s · %2$d neue</item>
+        <item quantity="other">%1$s · %2$d neu</item>
     </plurals>
     <plurals name="changelog_new_releases">
         <item quantity="one">%s neues Release</item>

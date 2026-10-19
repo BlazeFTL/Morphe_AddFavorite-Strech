@@ -867,6 +867,8 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_update_interval">Фреквенција провере</string>
     <string name="settings_advanced_update_interval_hourly">Сваког часа</string>
     <string name="settings_advanced_update_interval_daily">Сваког дана</string>
+    <string name="settings_advanced_update_interval_weekly">Недељно</string>
+    <string name="settings_advanced_update_interval_monthly">Месечно</string>
     <string name="settings_advanced_update_interval_battery_warning">Позадинске провере могу не радити на неким уређајима. Производитељи попут Xiaomi, Huawei, Samsung и OnePlus често агресивно ограничавају позадинске процесе да би сачували батерију</string>
     <string name="settings_advanced_external_batch_patch">Дозволи екстерне окидаче</string>
     <string name="settings_advanced_external_batch_patch_description">Омогућава аутоматизацијским апликацијама да покрену групно означавање</string>
@@ -898,9 +900,17 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_strip_unused_libs">Optimizujte za arhitekturu uređaja</string>
     <string name="settings_advanced_strip_unused_libs_description">Уклања неискоришћене библиотеке APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <string name="settings_advanced_github_pat_summary">Откључava изворе pull захтева и приватне репозиторијуме</string>
+    <string name="settings_advanced_github_pat_description">За изворе pull захтева, приватне репозиторијуме и виши лимит учесталости GitHub захтева</string>
     <string name="settings_advanced_github_pat_configured">Токен конфигурисан</string>
+    <string name="settings_advanced_github_pat_create">Креирајте токен на GitHub-у</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Отвара GitHub са већ одабраним %s опсегом</string>
+    <string name="settings_advanced_github_pat_checking">Провера се врши са GitHub-ом…</string>
     <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Пријављени сте на GitHub као %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub је одбио овај токен. Можда је истекао или повучен</string>
+    <string name="settings_advanced_github_pat_unreachable">Није могуће доћи до GitHub-а да се провери овај токен</string>
     <string name="settings_advanced_github_pat_export_include_label">Uključite u postavke izvoza</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Додаје овај PAT у извозене подешавања Morphe-а</string>
@@ -1368,6 +1378,7 @@ morphe_header_custom_dark.png
     <string name="hide">Sakrij</string>
     <string name="hidden">Сакривено</string>
     <string name="unhide">Покажи</string>
+    <string name="show_all">Прикажи све</string>
     <string name="ignore">Игноришите</string>
     <string name="stop_ignoring">Престани да игноришеш</string>
     <string name="logs">Дневници</string>

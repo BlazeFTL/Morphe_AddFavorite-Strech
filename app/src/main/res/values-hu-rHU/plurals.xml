@@ -32,6 +32,10 @@
         <item quantity="one">Patch-források %s alkalmazáshoz</item>
         <item quantity="other">Patch-források %s alkalmazáshoz</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">A(z) %s forrása rejtve van ehhez az alkalmazáshoz. Válassza ki az alkalmazást az Alkalmazások lapon, és nyissa meg a Források javítása menüpontot a visszaállításhoz</item>
+        <item quantity="other">A(z) %s forrásai rejtve vannak ehhez az alkalmazáshoz. Válassza ki az alkalmazást az Alkalmazások lapon, és nyissa meg a Források javítása menüpontot a visszaállításhoz</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s forrás elrejtve. Koppintson a megjelenítéshez</item>
         <item quantity="other">%s forrás elrejtve. Koppintson a megjelenítéshez</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s app látható</item>
         <item quantity="other">%s app látható</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">%s alkalmazás megjelenítése?</item>
+        <item quantity="other">%s alkalmazások megjelenítése?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Ez az alkalmazás visszakerül a kezdőképernyőre</item>
+        <item quantity="other">Ezek az alkalmazások visszakerülnek a kezdőképernyőre</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s rejtett alkalmazás</item>

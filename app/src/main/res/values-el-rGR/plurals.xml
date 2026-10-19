@@ -32,6 +32,10 @@
         <item quantity="one">Πηγές ενημερώσεων για %s εφαρμογή</item>
         <item quantity="other">Πηγές ενημερώσεων για %s εφαρμογές</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s πηγή κρύβεται για αυτή την εφαρμογή. Επιλέξτε την εφαρμογή στην καρτέλα Εφαρμογές και ανοίξτε τις Τροποποιημένες πηγές για να την επαναφέρετε</item>
+        <item quantity="other">%s πηγές κρύβονται για αυτή την εφαρμογή. Επιλέξτε την εφαρμογή στην καρτέλα Εφαρμογές και ανοίξτε τις Τροποποιημένες πηγές για να τις επαναφέρετε</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s κρυφή πηγή. Πατήστε για εμφάνιση</item>
         <item quantity="other">%s κρυφές πηγές. Πατήστε για εμφάνιση</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">Δείχνεται %s εφαρμογή</item>
         <item quantity="other">Δείχνονται %s εφαρμογές</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Απόκρυψη εφαρμογής %s;</item>
+        <item quantity="other">Απόκρυψη εφαρμογών %s;</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">Η εφαρμογή αυτή θα εμφανιστεί ξανά στην αρχική οθόνη</item>
+        <item quantity="other">Οι εφαρμογές αυτές θα εμφανιστούν ξανά στην αρχική οθόνη</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s κρυφή εφαρμογή</item>

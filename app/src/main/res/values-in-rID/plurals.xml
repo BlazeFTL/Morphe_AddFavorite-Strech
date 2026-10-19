@@ -25,6 +25,9 @@
     <plurals name="home_app_patch_sources_title">
         <item quantity="other">Sumber tambalan untuk %s aplikasi</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="other">Sumber %s disembunyikan untuk aplikasi ini. Pilih aplikasi pada tab Apps dan buka Patch sources untuk mengembalikan mereka</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="other">%s sumber disembunyikan. Ketuk untuk menampilkan</item>
     </plurals>
@@ -81,6 +84,12 @@
     </plurals>
     <plurals name="home_apps_shown_count">
         <item quantity="other">%s ditampilkan</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="other">Tampilkan %s aplikasi?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="other">Aplikasi ini akan kembali ke layar utama</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="other">%s aplikasi disembunyikan</item>

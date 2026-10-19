@@ -32,6 +32,10 @@
         <item quantity="one">%sটি অ্যাপের জন্য প্যাচ সোর্স</item>
         <item quantity="other">%sটি অ্যাপের জন্য প্যাচ সোর্স</item>
     </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s সোর্স এই অ্যাপের জন্য গোপন করা হয়েছে। এটি ফিরিয়ে আনতে Apps ট্যাবে অ্যাপটি নির্বাচন করুন এবং Patch sources ওপেন করুন</item>
+        <item quantity="other">%s সোর্সগুলো এই অ্যাপের জন্য গোপন করা হয়েছে। এগুলো ফিরিয়ে আনতে Apps ট্যাবে অ্যাপটি নির্বাচন করুন এবং Patch sources ওপেন করুন</item>
+    </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%sটি সোর্স লুকানো। দেখানোর জন্য আলতো চাপুন</item>
         <item quantity="other">%sটি সোর্স লুকানো। দেখানোর জন্য আলতো চাপুন</item>
@@ -107,6 +111,14 @@
     <plurals name="home_apps_shown_count">
         <item quantity="one">%s অ্যাপ্লিকেশন দেখানো</item>
         <item quantity="other">%s অ্যাপ্লিকেশন দেখানো</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">%s অ্যাপটি অনাদ্যাকৃত করা হবে?</item>
+        <item quantity="other">%s অ্যাপগুলি অনাদ্যাকৃত করা হবে?</item>
+    </plurals>
+    <plurals name="home_apps_unhide_message">
+        <item quantity="one">এই অ্যাপটি আবার হোম স্ক্রিনে ফিরে আসবে</item>
+        <item quantity="other">এই অ্যাপগুলি আবার হোম স্ক্রিনে ফিরে আসবে</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s লুকানো অ্যাপ্লিকেশন</item>

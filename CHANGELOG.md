@@ -1,3 +1,21 @@
+# [2.0.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.9...v2.0.0-dev.10) (2026-10-19)
+
+
+### Bug Fixes
+
+* Count the app being patched in the queue counter ([6220ec4](https://github.com/MorpheApp/morphe-manager/commit/6220ec4a0ce5027105ce3e79534e7f1051a14aba))
+* Keep APK notes out of the dialog footer ([7347e6c](https://github.com/MorpheApp/morphe-manager/commit/7347e6c2e72f6fd0a33f2eece418e64ed94500d2))
+* Let appearance previews scroll the page ([dbda618](https://github.com/MorpheApp/morphe-manager/commit/dbda6186af78aa11af3780726123cfa95cb494c8))
+* Let docked panels follow the finger all the way down ([2ecff15](https://github.com/MorpheApp/morphe-manager/commit/2ecff153ef62df25e472bc3ebc9ffdc6a5376aa7))
+* Open the patch selection on the source that names the APK's version ([05e03e4](https://github.com/MorpheApp/morphe-manager/commit/05e03e459688ea9e0faac8bffadf85869d9f6373))
+* Retry a range download that ends before its range is complete ([#1205](https://github.com/MorpheApp/morphe-manager/issues/1205)) ([7195a5e](https://github.com/MorpheApp/morphe-manager/commit/7195a5e3d6d6e93162c1a76afb8ad339190ed8b8))
+
+
+### Features
+
+* Patch in an embedded JVM ([#1202](https://github.com/MorpheApp/morphe-manager/issues/1202)) ([8937583](https://github.com/MorpheApp/morphe-manager/commit/893758396213ef53226508fcb216a4420642c765))
+* Select several sources to update, switch, reorder or delete at once ([558258a](https://github.com/MorpheApp/morphe-manager/commit/558258ab3402f775ebebbcdedeb626d3aafc8a0b))
+
 # [2.0.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.8...v2.0.0-dev.9) (2026-10-19)
 
 

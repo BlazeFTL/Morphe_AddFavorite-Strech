@@ -176,7 +176,7 @@ private fun DialogHostScope.UnhideAppsDialog(
 ) {
     ConfirmDialog(
         title = pluralStringResource(R.plurals.home_apps_unhide_title, apps.size, apps.size.toString()),
-        message = pluralStringResource(R.plurals.home_apps_unhide_message, apps.size),
+        message = stringResource(R.string.home_apps_unhide_message),
         primaryText = stringResource(R.string.unhide),
         isPrimaryDestructive = false,
         onConfirm = onConfirm,

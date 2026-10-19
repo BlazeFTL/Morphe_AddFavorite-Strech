@@ -116,10 +116,6 @@
         <item quantity="one">Unhide %s app?</item>
         <item quantity="other">Unhide %s apps?</item>
     </plurals>
-    <plurals name="home_apps_unhide_message">
-        <item quantity="one">This app will be back on the home screen</item>
-        <item quantity="other">These apps will be back on the home screen</item>
-    </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s hidden app</item>
         <item quantity="other">%s hidden apps</item>

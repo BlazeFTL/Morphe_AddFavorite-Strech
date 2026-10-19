@@ -71,9 +71,9 @@ fun dialogSecondaryTextColor(): Color =
 val LocalDialogHorizontalInset = compositionLocalOf { 0.dp }
 
 /**
- * Counts the windows of [DialogHost]s currently on screen. Each one paints an opaque full-screen
- * background, so whatever the activity draws behind it is invisible and free to stand still until
- * it closes.
+ * Counts the windows of [DialogHost]s currently on screen and not yet leaving. Each one paints an
+ * opaque full-screen background, so whatever the activity draws behind it is invisible and free to
+ * stand still until it starts to close.
  */
 object FullscreenDialogs {
     private val openCount = mutableIntStateOf(0)
@@ -357,11 +357,15 @@ private fun DialogWindow(
 ) {
     val isDarkTheme = isDarkTheme()
 
-    DisposableEffect(Unit) {
-        FullscreenDialogs.onOpened()
+    // Counted only while it holds its place: once it starts leaving, its backdrop fades out and
+    // what stands behind shows through
+    if (transition.targetState) {
+        DisposableEffect(Unit) {
+            FullscreenDialogs.onOpened()
 
-        onDispose {
-            FullscreenDialogs.onClosed()
+            onDispose {
+                FullscreenDialogs.onClosed()
+            }
         }
     }
 

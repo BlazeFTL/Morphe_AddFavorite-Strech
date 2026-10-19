@@ -628,9 +628,6 @@ fun DialogHostScope.InstalledAppInfoDialog(
         }
     }
 
-    // Back leaves a page for the information rather than closing the dialog
-    BackHandler(enabled = subpage != null) { page = InfoPage.Main }
-
     // Main Dialog
     ListDialog(
         onDismissRequest = onDismiss,
@@ -676,6 +673,10 @@ fun DialogHostScope.InstalledAppInfoDialog(
             { infoPages { actionItems(loadedApp) } }
         } else null
     ) {
+        // Back leaves a page for the information rather than closing the dialog. Registered within
+        // the dialog, after its own handler, since the last one registered is the first one asked
+        BackHandler(enabled = subpage != null) { page = InfoPage.Main }
+
         AnimatedContent(
             targetState = loadedApp,
             contentKey = { it == null },

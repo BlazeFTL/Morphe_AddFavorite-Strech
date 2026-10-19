@@ -8,6 +8,7 @@ package app.morphe.manager.ui.screen.home
 import android.view.HapticFeedbackConstants
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
@@ -24,7 +25,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
@@ -139,6 +139,7 @@ internal fun DialogHostScope.HideAppDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(item.packageName),
         title = stringResource(R.string.home_app_hide_title),
+        description = stringResource(R.string.home_app_hide_message),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.hide),
@@ -149,34 +150,39 @@ internal fun DialogHostScope.HideAppDialog(
             )
         },
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+        // Original app card preview
+        AppCardLayout(
+            gradientColors = item.gradientColors,
+            onClick = {},
+            modifier = Modifier.fillMaxWidth()
         ) {
-            // Original app card preview
-            AppCardLayout(
+            AppCardContent(
+                packageName = item.id,
+                packageInfo = item.packageInfo,
+                displayName = item.displayName,
+                subtitle = stringResource(R.string.home_app_will_be_hidden),
                 gradientColors = item.gradientColors,
-                onClick = {},
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                AppCardContent(
-                    packageName = item.id,
-                    packageInfo = item.packageInfo,
-                    displayName = item.displayName,
-                    subtitle = stringResource(R.string.home_app_will_be_hidden),
-                    gradientColors = item.gradientColors,
-                )
-            }
-
-            // Explanation text
-            Text(
-                text = stringResource(R.string.home_app_hide_message),
-                style = MaterialTheme.typography.bodyLarge,
-                color = dialogSecondaryTextColor(),
-                textAlign = TextAlign.Center
             )
         }
     }
+}
+
+/** Asks before [apps] go back to the home screen together, naming each of them. */
+@Composable
+private fun DialogHostScope.UnhideAppsDialog(
+    apps: List<HomeAppItem>,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    ConfirmDialog(
+        title = pluralStringResource(R.plurals.home_apps_unhide_title, apps.size, apps.size.toString()),
+        message = pluralStringResource(R.plurals.home_apps_unhide_message, apps.size),
+        primaryText = stringResource(R.string.unhide),
+        isPrimaryDestructive = false,
+        onConfirm = onConfirm,
+        onDismiss = onDismiss,
+        items = apps.map { ConfirmItem(MaterialSymbols.Rounded.Visibility, it.displayName) }
+    )
 }
 
 /**
@@ -214,6 +220,22 @@ internal fun DialogHostScope.HiddenAppsDialog(
 
     val startConfig = rememberUnhideSwipeAction()
 
+    // The apps a bulk unhide waits to be confirmed for
+    val pendingUnhide = remember { mutableStateOf<List<HomeAppItem>?>(null) }
+
+    DialogHost(target = pendingUnhide.value) { apps ->
+        UnhideAppsDialog(
+            apps = apps,
+            onConfirm = messages.confirming(appsShownMessage(apps)) {
+                pendingUnhide.value = null
+                onUnhideMultiple(apps.mapTo(mutableSetOf()) { it.id })
+                isMultiSelectMode.value = false
+                selectedPackages.clear()
+            },
+            onDismiss = { pendingUnhide.value = null }
+        )
+    }
+
     val accent = MaterialTheme.colorScheme.primary
     ListDialog(
         onDismissRequest = onDismiss,
@@ -229,7 +251,22 @@ internal fun DialogHostScope.HiddenAppsDialog(
                     hiddenAppItems.size,
                     hiddenAppItems.size.toString()
                 ),
-                accentColor = accent
+                accentColor = accent,
+                actions = {
+                    // Gives way to the selection bar, which unhides whatever part of the list is picked
+                    AnimatedVisibility(
+                        visible = hiddenAppItems.isNotEmpty() && !isMultiSelectMode.value,
+                        enter = Animations.headerActionEnter,
+                        exit = Animations.headerActionExit
+                    ) {
+                        TitleAction(
+                            icon = MaterialSymbols.Rounded.Visibility,
+                            contentDescription = stringResource(R.string.show_all),
+                            onClick = { pendingUnhide.value = hiddenAppItems },
+                            style = TitleActionStyle.Neutral
+                        )
+                    }
+                }
             )
         },
         footer = {
@@ -259,12 +296,8 @@ internal fun DialogHostScope.HiddenAppsDialog(
                             SelectionAction(
                                 icon = MaterialSymbols.Rounded.Visibility,
                                 label = stringResource(R.string.unhide),
-                                onClick = messages.confirming(
-                                    appsShownMessage(hiddenAppItems.filter { selectedPackages.contains(it.id) })
-                                ) {
-                                    onUnhideMultiple(selectedPackages.keys.toSet())
-                                    isMultiSelectMode.value = false
-                                    selectedPackages.clear()
+                                onClick = {
+                                    pendingUnhide.value = hiddenAppItems.filter { selectedPackages.contains(it.id) }
                                 },
                                 tone = ActionTone.Tertiary
                             )

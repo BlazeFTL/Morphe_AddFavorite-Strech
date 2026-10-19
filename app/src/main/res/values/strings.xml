@@ -1467,6 +1467,7 @@ Details: %2$s"</string>
     <string name="hide">Hide</string>
     <string name="hidden">Hidden</string>
     <string name="unhide">Unhide</string>
+    <string name="show_all">Show all</string>
     <string name="ignore">Ignore</string>
     <string name="stop_ignoring">Stop ignoring</string>
     <string name="logs">Logs</string>

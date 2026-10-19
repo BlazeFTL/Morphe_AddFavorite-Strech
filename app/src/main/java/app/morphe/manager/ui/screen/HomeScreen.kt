@@ -17,7 +17,6 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -45,6 +44,7 @@ import app.morphe.manager.ui.screen.shared.MainPagerScaffold
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberInstallQueue
 import app.morphe.manager.ui.screen.sources.SourcesPage
+import app.morphe.manager.ui.screen.sources.rememberSourcesPageState
 import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.viewmodel.*
 import app.morphe.manager.util.*
@@ -171,8 +171,8 @@ fun HomeScreen(
         hasContent = homeAppItems.isNotEmpty() || hiddenAppItems.isNotEmpty()
     )
 
-    // Held here for the same reason, the sources' options docking over their page's lower edge
-    var sourcesListOptionsOpen by rememberSaveable { mutableStateOf(false) }
+    // Held here for the same reason, the sources' panels docking over their page's lower edge
+    val sourcesPageState = rememberSourcesPageState()
 
     // Gesture hint: shown once per bundle addition, in-memory
     val showGestureHint by homeViewModel.apps.showSwipeGestureHint.collectAsStateWithLifecycle()
@@ -349,7 +349,7 @@ fun HomeScreen(
         // By whatever the page on screen docks over its lower edge
         navigationCovered = when (MainPage.entries[pagerState.currentPage]) {
             MainPage.APPS -> sectionState.isFooterBarVisible
-            MainPage.SOURCES -> sourcesListOptionsOpen
+            MainPage.SOURCES -> sourcesPageState.isFooterBarVisible
             MainPage.SETTINGS -> false
         },
         // The tour moves between the pages itself, and a swipe would leave its spotlight behind
@@ -378,8 +378,7 @@ fun HomeScreen(
             MainPage.SOURCES -> SourcesPage(
                 homeViewModel = homeViewModel,
                 bottomBarHeight = bottomBarHeight,
-                listOptionsOpen = sourcesListOptionsOpen,
-                onListOptionsOpenChange = { sourcesListOptionsOpen = it },
+                state = sourcesPageState,
                 onboardingState = onboardingState,
                 onHeaderHeightChange = { pageHeaderHeights[MainPage.SOURCES] = it }
             )

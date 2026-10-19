@@ -1408,6 +1408,7 @@ Details: %2$s"</string>
     <string name="reset_order">Reset order</string>
     <string name="reset_order_done">Order reset</string>
     <string name="accessibility_select_app">Select app</string>
+    <string name="accessibility_select_source">Select source</string>
     <string name="accessibility_move_up">Move up</string>
     <string name="accessibility_move_down">Move down</string>
     <string name="accessibility_app_moved_announcement">%1$s moved to position %2$s of %3$s</string>

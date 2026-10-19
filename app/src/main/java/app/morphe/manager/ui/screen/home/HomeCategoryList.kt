@@ -377,23 +377,3 @@ private fun SourceCategoryIcon(
         }
     }
 }
-
-/**
- * Drag-handle affordance for [HomeCategoryHeader]. Passed as the slot content so the caller
- * can attach a `draggableHandle` from the reorderable library without leaking that state
- * into the header.
- */
-@Composable
-internal fun CategoryHeaderDragHandle(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.size(32.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Icon(
-            imageVector = MaterialSymbols.Rounded.Drag_handle,
-            contentDescription = stringResource(R.string.reorder_list),
-            modifier = Modifier.size(24.dp),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-    }
-}

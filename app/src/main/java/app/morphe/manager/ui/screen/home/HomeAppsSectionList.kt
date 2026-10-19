@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.zIndex
 import app.morphe.manager.domain.manager.HomeAppCategoryViewMode
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.screen.shared.DragHandle
 import app.morphe.manager.ui.screen.shared.UserMessages
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.ReorderableLazyListState
@@ -150,7 +151,7 @@ internal fun LazyListScope.groupedAppCards(
             if (canReorderHeader && state.isCategoryReorderMode) {
                 ReorderableItem(categoryReorderableState, key = headerKey) { _ ->
                     headerContent {
-                        CategoryHeaderDragHandle(
+                        DragHandle(
                             modifier = Modifier.draggableHandle(
                                 onDragStarted = {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)

@@ -15,6 +15,7 @@ import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
+import app.morphe.manager.util.PatchSelectionUtils.listedWith
 import app.morphe.manager.util.PatchSelectionUtils.mergeBundleOptions
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
@@ -134,20 +135,12 @@ class ExpertModeSelection(
     }
 
     /**
-     * All patches per bundle with their enabled state, sorted for display.
-     * Each bundle entry contains (PatchInfo, isEnabled) pairs sorted alphabetically -
-     * the final per-section ordering (new patches first) is applied in the UI layer.
+     * All patches per bundle with their enabled state, in the order the dialog lists them, see
+     * [PatchSelectionUtils.listedWith]. The final per-section ordering (new patches first) is
+     * applied in the UI layer.
      */
     val allPatchesInfo: List<Pair<PatchBundleInfo.Scoped, List<Pair<PatchInfo, Boolean>>>>
-        get() = bundles.map { bundle ->
-            val selected = patches[bundle.uid] ?: emptySet()
-            val patches = bundle.patchSequence(true)
-                .map { patch -> patch to (patch.name in selected) }
-                .sortedBy { (patch, _) -> patch.name }
-                .toList()
-            bundle to patches
-        }.filter { it.second.isNotEmpty() }
-            .sortedByDescending { (bundle, _) -> bundle.compatible.size }
+        get() = bundles.listedWith(patches)
 
     /**
      * The selection as the run would use it: what the dialog shows, minus what it holds back.

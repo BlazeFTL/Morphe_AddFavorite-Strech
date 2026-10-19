@@ -44,6 +44,7 @@ import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
+import app.morphe.manager.util.PatchSelectionUtils.listedWith
 import app.morphe.manager.util.PatchSelectionUtils.mergeBundleOptions
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
@@ -94,15 +95,7 @@ class BatchPatchEdit(
     private var universalArmedFor by mutableStateOf<Pair<Int, Set<String>>?>(null)
 
     val allPatchesInfo: List<Pair<PatchBundleInfo.Scoped, List<Pair<PatchInfo, Boolean>>>>
-        get() = bundles.map { bundle ->
-            val selected = selection[bundle.uid].orEmpty()
-            val patches = bundle.patchSequence(true)
-                .map { patch -> patch to (patch.name in selected) }
-                .sortedBy { (patch, _) -> patch.name }
-                .toList()
-            bundle to patches
-        }.filter { it.second.isNotEmpty() }
-            .sortedByDescending { (bundle, _) -> bundle.compatible.size }
+        get() = bundles.listedWith(selection)
 
     val totalSelectedCount get() = selection.values.sumOf { it.size }
 

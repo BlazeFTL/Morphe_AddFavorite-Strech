@@ -168,6 +168,13 @@ data class PatchInfo(
     }
 
     /**
+     * Returns true if [versionName] is among the versions this patch names for [packageName],
+     * rather than one it takes because it names none.
+     */
+    fun targetsVersion(packageName: String, versionName: String?): Boolean =
+        versionName != null && pkgFor(packageName)?.versions?.contains(versionName) == true
+
+    /**
      * Returns true if [versionName] is an experimental target for [packageName].
      */
     fun isExperimental(packageName: String, versionName: String?): Boolean =

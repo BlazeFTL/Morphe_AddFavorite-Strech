@@ -150,7 +150,10 @@ class PatchRunProgress(
         private set
 
     /** Share of the progress bar left for executing patches after the fixed steps. */
-    private var patchesPercentage = max(0.0, 1.0 - steps.sumOf { it.progressPercentage })
+    private var patchesPercentage = patchesShare()
+
+    // Follows the steps, so the split step coming or going mid-run still adds up to the full bar
+    private fun patchesShare() = max(0.0, 1.0 - steps.sumOf { it.progressPercentage })
 
     private var currentStepIndex = steps.indexOfFirst { it.state == State.RUNNING }.coerceAtLeast(0)
 
@@ -226,7 +229,7 @@ class PatchRunProgress(
             currentStepIndex = 0
             steps.clear()
             steps.addAll(generatePatchSteps(appContext, requiresSplitPreparation))
-            patchesPercentage = max(0.0, 1.0 - steps.sumOf { it.progressPercentage })
+            patchesPercentage = patchesShare()
             // A fallback to the app's process reports the app's heap as its own limit
             heapLimitMb = 0
             heapSamples.clear()
@@ -387,6 +390,7 @@ class PatchRunProgress(
         val state = if (insertIndex <= currentStepIndex) State.COMPLETED else State.WAITING
 
         steps.add(insertIndex, buildSplitStep(appContext, state = state))
+        patchesPercentage = patchesShare()
 
         if (insertIndex <= currentStepIndex) {
             currentStepIndex++
@@ -399,6 +403,7 @@ class PatchRunProgress(
 
         val removingCurrent = index == currentStepIndex
         steps.removeAt(index)
+        patchesPercentage = patchesShare()
 
         when {
             currentStepIndex > index -> currentStepIndex--

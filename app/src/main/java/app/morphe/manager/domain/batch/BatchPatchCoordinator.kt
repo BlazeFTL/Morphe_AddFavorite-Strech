@@ -610,8 +610,9 @@ class BatchPatchCoordinator(
             onPatchCompleted = { runProgress.onPatchCompleted() },
             onPatchFailed = runProgress::onPatchFailed,
             onPatchingRestarted = { runProgress.onRestart() },
+            // Called on the worker's thread, while the steps are only ever changed on the main one
             setInputFile = { file, needsSplit, merged ->
-                runProgress.updateSplitRequirement(file, needsSplit, merged)
+                withContext(Dispatchers.Main) { runProgress.updateSplitRequirement(file, needsSplit, merged) }
             },
             onProgress = runProgress::onProgress,
             patchSources = patchSources,

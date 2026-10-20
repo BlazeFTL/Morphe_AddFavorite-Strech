@@ -96,7 +96,7 @@ class LogItemAccumulatorTest {
         val initialSummary = assertIs<LogItem.SuccessSummary>(accumulator.items[0])
         assertEquals("8s", initialSummary.elapsedSec)
         assertEquals(null, initialSummary.processHeapAverageMb)
-        assertEquals(null, initialSummary.ioPeakRate)
+        assertEquals(null, initialSummary.ioPeakKbPerSec)
 
         // Heap and I/O metrics arrive after the success line
         accumulator.append(LogLevel.INFO, "Heap after patching: average=120MB max=195MB")
@@ -105,17 +105,16 @@ class LogItemAccumulatorTest {
         val updatedSummary = assertIs<LogItem.SuccessSummary>(accumulator.items[0])
         assertEquals("120MB", updatedSummary.processHeapAverageMb)
         assertEquals("195MB", updatedSummary.processHeapMaxMb)
-        assertEquals(formatRate(4096), updatedSummary.ioPeakRate)
+        assertEquals(4096, updatedSummary.ioPeakKbPerSec)
     }
 
     @Test
     fun `auxiliary lines are consumed without emitting log entries`() {
         val accumulator = LogItemAccumulator()
 
-        accumulator.append(LogLevel.INFO, "Process heap memory limit: 512MB")
-        accumulator.append(LogLevel.INFO, "App memory limit: 512MB")
+        accumulator.append(LogLevel.INFO, "Heap limit: 512MB")
         accumulator.append(LogLevel.INFO, "Build: manager=1.0 patcher=1.0")
-        accumulator.append(LogLevel.INFO, "Runtime: memoryLimit=256")
+        accumulator.append(LogLevel.INFO, "Runtime: jvm memoryLimit=256")
         accumulator.append(LogLevel.INFO, "Device: android=14")
 
         assertTrue(accumulator.items.isEmpty())

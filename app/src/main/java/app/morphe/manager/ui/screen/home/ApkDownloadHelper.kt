@@ -174,7 +174,7 @@ private fun DialogHostScope.ApkDownloadHelperDialog(
                 }
             }
 
-            Notice(
+            Footnote(
                 text = stringResource(
                     if (signatureCheckAvailable) {
                         R.string.home_apk_helper_warning
@@ -182,8 +182,7 @@ private fun DialogHostScope.ApkDownloadHelperDialog(
                         R.string.home_apk_helper_warning_unverified
                     }
                 ),
-                tone = SemanticTone.Warning,
-                icon = MaterialSymbols.Rounded.Warning
+                tone = SemanticTone.Warning
             )
         }
     }

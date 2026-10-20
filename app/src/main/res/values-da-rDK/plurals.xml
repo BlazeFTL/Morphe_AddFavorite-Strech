@@ -4,6 +4,11 @@
         <item quantity="one">%s patch</item>
         <item quantity="other">%s patches</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s bibliotek</item>
+        <item quantity="other">%s biblioteker</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s patch valgmulighed</item>
         <item quantity="other">%s patch valgmuligheder</item>
@@ -26,6 +31,10 @@
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Patchkilder til %s app</item>
         <item quantity="other">Patchkilder til %s apps</item>
+    </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s kilde er skjult for denne app. Vælg appen på fanen Apps, og åbn Patch sources for at få den tilbage</item>
+        <item quantity="other">%s kilder er skjult for denne app. Vælg appen på fanen Apps, og åbn Patch sources for at få dem tilbage</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s skjult kilde. Tryk for at vise</item>
@@ -94,6 +103,18 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s kilde installeret</item>
         <item quantity="other">%s kilder installeret</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s app skjult</item>
+        <item quantity="other">%s apps skjulte</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s app vist</item>
+        <item quantity="other">%s apps viste</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Vis %s app?</item>
+        <item quantity="other">Vis %s apps?</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skjult app</item>

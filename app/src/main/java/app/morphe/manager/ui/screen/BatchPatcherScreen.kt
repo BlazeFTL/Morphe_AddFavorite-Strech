@@ -307,6 +307,7 @@ fun BatchPatcherScreen(
             savedApkInfo = choice.saved,
             installedApkInfo = choice.installed,
             installedAppVersion = choice.installedVersion,
+            hiddenSourceCount = choice.hiddenSources,
             onDismiss = viewModel::cancelApkChoice,
             onHaveApk = {
                 viewModel.cancelApkChoice()
@@ -356,25 +357,16 @@ fun BatchPatcherScreen(
         )
     }
 
-    // The same source question simple mode answers before a single-app patch
-    DialogHost(target = viewModel.sourcePick) { item ->
-        // Offered from the full plan, not the narrowed selection, so switching sources works
-        val offered = item.resolvedSelection ?: item.selection
+    // The same source question simple mode answers before a single-app patch, asked on the way
+    // to the APK since the source settles which versions are worth looking for
+    DialogHost(target = viewModel.sourcePick) { pick ->
         SimpleBundleSelectDialog(
-            packageName = item.packageName,
-            candidates = item.bundles
-                .filter { it.uid in offered.keys }
-                .map { bundle ->
-                    SimpleBundleCandidate(
-                        uid = bundle.uid,
-                        displayTitle = bundle.name,
-                        patchCount = offered[bundle.uid]?.size ?: 0
-                    )
-                },
-            // The queue picks a source for the one item it is resolving; what an app is
-            // patched from for good is settled where that question is asked of the app itself
-            onSelect = { uid, _ -> viewModel.pickSource(uid) },
-            onDismiss = viewModel::cancelSourcePick
+            packageName = pick.item.packageName,
+            choices = pick.choices,
+            versions = pick.versions,
+            onSelect = viewModel::pickSource,
+            onDismiss = viewModel::cancelSourcePick,
+            initiallySelected = pick.item.chosenBundleUid
         )
     }
 
@@ -581,10 +573,9 @@ fun BatchPatcherScreen(
                 // Nothing was installed yet, so say where the APKs went
                 if (current.phase == BatchPhase.FINISHED && current.patchedItems.isNotEmpty()) {
                     item(key = "saved_hint") {
-                        Notice(
+                        Footnote(
                             text = stringResource(R.string.batch_patch_saved_hint),
                             icon = MaterialSymbols.Rounded.Save,
-                            density = NoticeDensity.Compact,
                             modifier = Modifier.animateItem()
                         )
                     }
@@ -614,14 +605,6 @@ fun BatchPatcherScreen(
                         onEditPatches = item.source
                             ?.takeIf { useExpertMode }
                             ?.let { { viewModel.beginEdit(item) } },
-                        // Simple mode gets the source question it knows from single-app
-                        // patching instead of the patch list it never sees
-                        onPickSource = item
-                            .takeIf {
-                                !useExpertMode &&
-                                    (it.resolvedSelection ?: it.selection).keys.size > 1
-                            }
-                            ?.let { { viewModel.beginSourcePick(item) } },
                         onInstall = request?.let { { startInstallQueue(listOf(it)) } },
                         onExport = item.patchedFile?.let { file -> { exporter.export(file, item.exportFileName()) } },
                         onShare = item.patchedFile?.let { { share(listOf(item)) } },
@@ -694,14 +677,14 @@ private fun BatchRunHeader(state: BatchRunState) {
         verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
     ) {
         AnimatedContent(
-            targetState = state.processed to state.total,
+            targetState = state.position to state.total,
             transitionSpec = Animations.counterTransitionSpec,
             label = "batch_run_counter"
-        ) { (processed, total) ->
+        ) { (position, total) ->
             Text(
                 text = stringResource(
                     R.string.batch_patch_progress_counter,
-                    processed.toString(),
+                    position.toString(),
                     total.toString()
                 ),
                 style = MaterialTheme.typography.labelMedium,
@@ -776,7 +759,6 @@ private fun BatchItemCard(
     onForceVersion: () -> Unit,
     onAcceptSignature: () -> Unit,
     onEditPatches: (() -> Unit)? = null,
-    onPickSource: (() -> Unit)? = null,
     onInstall: (() -> Unit)? = null,
     onExport: (() -> Unit)? = null,
     onShare: (() -> Unit)? = null,
@@ -913,16 +895,6 @@ private fun BatchItemCard(
                                 icon = MaterialSymbols.Rounded.Tune,
                                 contentDescription = editLabel,
                                 tooltip = editLabel
-                            )
-                        }
-
-                        if (onPickSource != null) {
-                            val sourceLabel = stringResource(R.string.home_simple_bundle_select_title)
-                            ActionPillButton(
-                                onClick = onPickSource,
-                                icon = MaterialSymbols.Rounded.Layers,
-                                contentDescription = sourceLabel,
-                                tooltip = sourceLabel
                             )
                         }
 
@@ -1076,8 +1048,8 @@ private fun itemDetails(item: BatchPatchItem): String = when (item.state) {
             item.patchCount,
             item.patchCount.toString()
         )
-        // Only the sources actually contributing patches, so narrowing an app to one source
-        // is reflected here instead of still listing everything the plan looked at
+        // Only the sources actually contributing patches, so a source the user took nothing
+        // from is not listed as one the app is patched from
         val bundles = item.bundles
             .filter { item.selection.isEmpty() || it.uid in item.selection.keys }
             .joinToString(", ") { it.name }
@@ -1094,7 +1066,7 @@ private fun BatchStateBadge(state: BatchItemState) {
         BatchItemState.RUNNING -> R.string.patching to SemanticTone.Primary
         BatchItemState.SUCCEEDED -> R.string.done to SemanticTone.Success
         BatchItemState.FAILED -> R.string.failed to SemanticTone.Error
-        BatchItemState.CANCELLED -> R.string.cancelled to SemanticTone.Neutral
+        BatchItemState.CANCELLED -> R.string.canceled to SemanticTone.Neutral
         BatchItemState.EXCLUDED -> R.string.excluded to SemanticTone.Neutral
         BatchItemState.NEEDS_APK -> R.string.batch_patch_state_no_apk to SemanticTone.Error
         BatchItemState.VERSION_MISMATCH -> R.string.version to SemanticTone.Warning

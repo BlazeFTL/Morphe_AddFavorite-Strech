@@ -14,6 +14,7 @@
     <string name="home_app_no_hidden">No hidden apps</string>
     <string name="home_app_hidden_apps_title">Hidden apps</string>
     <string name="home_app_hidden_apps_hint">Tap to unhide</string>
+    <string name="home_apps_unhide_message">Unhidden apps return to the home screen</string>
     <string name="home_app_patch_sources_description">Sources left unticked are not offered when these apps are patched, and their patches never join a selection on their own. Each source stays on for every other app</string>
     <string name="home_app_patch_sources_mixed">Offered to %1$s of %2$s</string>
     <string name="home_app_patch_sources_covers">Has patches for %1$s of %2$s</string>
@@ -26,6 +27,8 @@
     <string name="deep_link_add_source_warning">Only add sources you trust</string>
     <!-- Shown under the app a link was opened for -->
     <string name="deep_link_add_source_only_app">Only this app is added. You can add other apps from the source\'s app list</string>
+    <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
+    <string name="deep_link_add_source_only_universal">Only the universal patches are added. You can add apps from the source\'s app list</string>
     <!-- Asked when the link names an app of a source that is already added -->
     <string name="deep_link_add_source_app_back">This source is already added. Add this app from the existing source?</string>
 
@@ -469,7 +472,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="batch_patch_title">Batch patching</string>
     <string name="batch_patch_planning">Preparing the queue…</string>
     <string name="batch_patch_preparing_next">Preparing the next app…</string>
-    <string name="batch_patch_progress_counter">Patched %1$s of %2$s</string>
+    <string name="batch_patch_progress_counter">Patching %1$s of %2$s</string>
     <string name="batch_patch_summary">%1$s patched, %2$s failed, %3$s skipped</string>
     <string name="batch_patch_saved_hint">The patched apps are saved. Install them now, or later from the patched APK list in settings</string>
     <string name="batch_patch_multiple_sources">Some apps combine patches from more than one source, which can cause conflicts</string>
@@ -491,7 +494,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Stop batch patching?</string>
-    <string name="batch_patch_stop_description">The app being patched right now and everything still queued will be cancelled</string>
+    <string name="batch_patch_stop_description">The app being patched right now and everything still queued will be canceled</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Install all</string>
     <string name="batch_patch_install_failed">Install failed</string>
@@ -566,7 +569,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="root_pre_patch_installer_description">Your device has root access. Choose whether this app should be patched for root mount or standard install</string>
     <string name="root_pre_patch_installer_mount_title">Root mount mode</string>
     <string name="root_pre_patch_installer_mount_description">Patches for root mount, then mounts the APK over the matching stock app. No GmsCore needed</string>
-    <string name="root_mount_module_unmount_warning">If KernelSU has Unmount modules by default enabled, open KernelSU > Superuser > the app you mounted > Profile > Custom and disable Unmount modules. Otherwise the mounted patched APK may not take effect, even if Morphe shows it as mounted</string>
+    <string name="root_mount_module_unmount_warning">If KernelSU has \"Unmount modules by default\" turned on, open KernelSU > Superuser > the app you mounted > Profile > Custom and turn off \"Unmount modules\". Otherwise, the mounted patched APK may not take effect, even if Morphe shows it as mounted</string>
     <string name="root_pre_patch_installer_standard_title">Standard install mode</string>
     <string name="root_pre_patch_installer_standard_description">Patches as a normal APK with GmsCore support. Your installer setting is used after patching</string>
     <string name="root_pre_patch_installer_hint">Asked while Settings > Patching > Installation > Installer selection prompt is on. The patch mode cannot be changed after patching</string>
@@ -654,7 +657,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="patcher_storage_badge_missing">Not found</string>
     <string name="batch_patch_option_paths_skipped">Patch option files are missing and will be skipped: %1$s</string>
     <string name="patcher_missing_patches_title">Some patches are gone</string>
-    <string name="patcher_missing_patches_description">The saved selection for this app names patches that no enabled source offers any more. Continuing patches the app without them</string>
+    <string name="patcher_missing_patches_description">The saved selection for this app names patches that no enabled source offers anymore. Continuing patches the app without them</string>
     <string name="patcher_missing_patches_label">No longer offered</string>
     <string name="patcher_option_paths_gone_title">Patch option files are missing</string>
     <string name="patcher_option_paths_gone_description">One or more patch options point to files that are no longer there. Remove the paths to patch without them, or put the files back and try again</string>
@@ -674,13 +677,6 @@ Uninstalling will permanently erase all app data"</string>
     <string name="battery_optimization_dialog_title">Background patching protection</string>
     <string name="battery_optimization_dialog_description">Some devices may stop the patcher when the app is minimized. Allow Morphe to run without battery restrictions to ensure patching completes reliably</string>
     <string name="battery_optimization_not_now">Not now</string>
-
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
-    <string name="patcher_memory_adjustment_title">Not enough memory</string>
-    <string name="patcher_memory_adjustment_description">The patcher was stopped by the system while running with a %1$d MB memory limit. Lowering the limit to %2$d MB makes the patcher a smaller target and can let the run finish</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">The patcher was stopped by the system while running with a %1$d MB memory limit, which is already the lowest available. Try patching with fewer patch sources, or select fewer patches</string>
-    <string name="patcher_memory_adjustment_description_finished">The system stopped the patcher at a %1$d MB memory limit, and it only finished at %2$d MB. Starting at %2$d MB skips that lost attempt next time</string>
-    <string name="patcher_memory_adjustment_apply">Lower to %1$d MB</string>
 
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patching in progress…</string>
@@ -718,8 +714,6 @@ Uninstalling will permanently erase all app data"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Patching app</string>
     <string name="memory_usage">Memory usage</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
-    <string name="memory_usage_detail">%1$s of %2$s MB</string>
     <string name="cpu_usage">CPU usage</string>
     <string name="storage_io_usage">Storage I/O</string>
 
@@ -728,7 +722,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="failed_to_execute_patch">Failed to apply %s</string>
     <string name="patched_app_save_failed_toast">Failed to save patched app</string>
     <string name="plugin_activity_dialog_body">User interaction is required in order to proceed with this plugin</string>
-    <string name="patcher_process_exit_message">Patcher process exited with code %s</string>
+    <string name="patcher_process_killed_message">The system stopped the patcher before it finished, usually to free memory. Close other apps and try again</string>
     <string name="patcher_heap_exhausted_message">The patcher ran out of memory with a %1$d MB heap. This app is too large for the selected patches. Try patching with fewer patch sources, or select fewer patches</string>
 
     <string name="install_app_success">Installed successfully</string>
@@ -846,10 +840,8 @@ Uninstalling will permanently erase all app data"</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language">App language</string>
     <string name="settings_appearance_app_language_current">Current language</string>
+    <string name="settings_appearance_translate">Help translate Morphe</string>
     <string name="settings_appearance_translations_info_title">Translations for some languages may be missing or incomplete</string>
-    <string name="settings_appearance_translations_info_text">"To translate new languages or improve the existing translations, visit
-%s"</string>
-    <string name="settings_appearance_translations_info_url" translatable="false">morphe.software/translate</string>
 
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">Interface scale</string>
@@ -925,12 +917,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_system_notifications_categories">Notification categories</string>
     <string name="settings_system_notifications_categories_description">Choose in system settings which updates notify you</string>
     <string name="settings_advanced_update_interval">Check frequency</string>
-    <string name="settings_advanced_update_interval_dialog_title">Check for updates</string>
-    <string name="settings_advanced_update_interval_hourly">Once an hour</string>
-    <string name="settings_advanced_update_interval_daily">Once a day</string>
-    <string name="settings_advanced_update_interval_weekly">Once a week</string>
-    <string name="settings_advanced_update_interval_monthly">Once a month</string>
-    <string name="settings_advanced_update_interval_chip_subtitle">Background check frequency</string>
+    <string name="settings_advanced_update_interval_hourly">Hourly</string>
+    <string name="settings_advanced_update_interval_daily">Daily</string>
+    <string name="settings_advanced_update_interval_weekly">Weekly</string>
+    <string name="settings_advanced_update_interval_monthly">Monthly</string>
     <string name="settings_advanced_update_interval_battery_warning">Background checks may not work reliably on some devices. Manufacturers like Xiaomi, Huawei, Samsung, and OnePlus often aggressively restrict background processes to save battery</string>
 
     <string name="settings_advanced_external_batch_patch">Allow external triggers</string>
@@ -967,14 +957,17 @@ Patches are not affected: enable pre-release patches for each source in the patc
 
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat" translatable="false">GitHub PAT</string>
-    <string name="settings_advanced_github_pat_description">Required for pull request sources</string>
+    <string name="settings_advanced_github_pat_summary">Unlocks pull request sources and private repositories</string>
+    <string name="settings_advanced_github_pat_description">For pull request sources, private repositories and a higher GitHub rate limit</string>
     <string name="settings_advanced_github_pat_configured">Token configured</string>
-    <string name="settings_advanced_github_pat_how_to_get">How to get a token</string>
-    <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
-    <string name="settings_advanced_github_pat_dialog_title">Set %s</string>
-    <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
-    <string name="settings_advanced_github_pat_dialog_description">"Set a %3$s in order to be able to add pull requests as external sources. Create a PAT with scope %2$s on
-%1$s"</string>
+    <string name="settings_advanced_github_pat_create">Create a token on GitHub</string>
+    <!-- "%s" is the GitHub scope name, keep it as is -->
+    <string name="settings_advanced_github_pat_create_description">Opens GitHub with the %s scope already picked</string>
+    <string name="settings_advanced_github_pat_checking">Checking with GitHub…</string>
+    <!-- "%s" is the GitHub account name -->
+    <string name="settings_advanced_github_pat_account">Signed in to GitHub as %s</string>
+    <string name="settings_advanced_github_pat_rejected">GitHub turned this token down. It may have expired or been revoked</string>
+    <string name="settings_advanced_github_pat_unreachable">Couldn\'t reach GitHub to check this token</string>
     <string name="settings_advanced_github_pat_export_include_label">Include in settings export</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Adds this PAT to exported Morphe settings</string>
@@ -1138,13 +1131,9 @@ Details: %2$s"</string>
     <string name="settings_system_battery_optimization">Battery optimization</string>
     <string name="settings_system_battery_optimization_description">Keeps the patcher running when the app is minimized</string>
     <string name="settings_system_process_runtime">Process runtime</string>
-    <string name="settings_system_process_runtime_description">Runs patching in a separate process for better stability</string>
-    <string name="settings_system_process_runtime_enable">Enable process runtime</string>
-    <string name="settings_system_memory_limit_subtitle">Memory available for patching</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">This device ignored the memory limit on the last run, so patching may fall back to running inside Morphe</string>
-    <string name="settings_system_memory_limit_warning">A low memory limit may cause failures when patching larger apps</string>
-    <string name="settings_system_memory_limit_high_warning">A high memory limit can make patching much slower on some devices. Raise it only if patching keeps failing at lower limits</string>
-    <string name="settings_system_process_runtime_description_not_available">This feature requires Android 11 or greater</string>
+    <string name="settings_system_jvm_runtime_enable">Separate patcher process</string>
+    <string name="settings_system_jvm_runtime_description">Patches in a Java runtime of its own, which can use as much memory as the device spares. Turn off to patch inside Morphe</string>
+    <string name="settings_system_jvm_runtime_unavailable">Needs an ARM or 64-bit x86 device</string>
     <string name="settings_system_patcher_completion_sound">Completion sound</string>
     <string name="settings_system_patcher_completion_sound_description">Plays a distinct tone for success or failure when patching finishes</string>
 
@@ -1221,7 +1210,8 @@ Details: %2$s"</string>
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Storage management</string>
     <string name="settings_system_storage_management_description">Shows disk usage and clears cached files</string>
-    <string name="settings_system_storage_used_free">Used by Morphe / free on this device</string>
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
+    <string name="settings_system_storage_free">%1$s free</string>
     <string name="settings_system_storage_saved_apks">Saved APKs</string>
     <string name="settings_system_storage_caches">Caches</string>
     <string name="settings_system_storage_keystore_title">Signing keystore</string>
@@ -1376,7 +1366,7 @@ Details: %2$s"</string>
     <string name="warning">Warning</string>
     <string name="error_">Error</string>
     <string name="failed">Failed</string>
-    <string name="cancelled">Cancelled</string>
+    <string name="canceled">Canceled</string>
     <string name="ready">Ready</string>
     <string name="retry">Retry</string>
     <string name="refresh">Refresh</string>
@@ -1408,8 +1398,8 @@ Details: %2$s"</string>
     <string name="any_version">Any</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
-    <string name="selected">Selected</string>
-    <string name="not_selected">Not selected</string>
+    <string name="state_selected">Selected</string>
+    <string name="state_not_selected">Not selected</string>
     <string name="select_all">Select all</string>
     <string name="deselect_all">Deselect all</string>
     <string name="reorder_list">Reorder list</string>
@@ -1418,6 +1408,7 @@ Details: %2$s"</string>
     <string name="reset_order">Reset order</string>
     <string name="reset_order_done">Order reset</string>
     <string name="accessibility_select_app">Select app</string>
+    <string name="accessibility_select_source">Select source</string>
     <string name="accessibility_move_up">Move up</string>
     <string name="accessibility_move_down">Move down</string>
     <string name="accessibility_app_moved_announcement">%1$s moved to position %2$s of %3$s</string>
@@ -1466,6 +1457,7 @@ Details: %2$s"</string>
     <string name="hide">Hide</string>
     <string name="hidden">Hidden</string>
     <string name="unhide">Unhide</string>
+    <string name="show_all">Show all</string>
     <string name="ignore">Ignore</string>
     <string name="stop_ignoring">Stop ignoring</string>
     <string name="logs">Logs</string>

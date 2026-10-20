@@ -4,6 +4,11 @@
         <item quantity="one">%s وصله</item>
         <item quantity="other">%s پچ</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">کتابخانه %s</item>
+        <item quantity="other">کتابخانه‌های %s</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s گزینهٔ پچ</item>
         <item quantity="other">%s گزینهٔ پچ</item>
@@ -26,6 +31,10 @@
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">منابع پچ برای %s برنامه</item>
         <item quantity="other">منابع پچ برای %s برنامه</item>
+    </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">منبع %s برای این برنامه مخفی شده است. برنامه را در تب برنامه‌ها انتخاب و Patch sources را باز کنید تا برگردد</item>
+        <item quantity="other">منابع %s برای این برنامه مخفی شده است. برنامه را در تب برنامه‌ها انتخاب و Patch sources را باز کنید تا برگردند</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s منبع مخفی است. برای نمایش ضربه بزنید</item>
@@ -94,6 +103,18 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s منبع نصب شده</item>
         <item quantity="other">%s منبع نصب شده</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s برنامه مخفی است</item>
+        <item quantity="other">%s برنامه مخفی هستند</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s برنامه نمایش داده می‌شود</item>
+        <item quantity="other">%s برنامه نمایش داده می‌شوند</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">نمایش %s برنامه؟</item>
+        <item quantity="other">نمایش %s برنامه؟</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s برنامهٔ پنهان</item>

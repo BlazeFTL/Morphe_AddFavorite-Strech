@@ -18,20 +18,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Slider
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberSliderState
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.core.net.toUri
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
@@ -43,7 +34,6 @@ import app.morphe.manager.util.rememberAdaptiveFilePicker
 import app.morphe.manager.worker.UpdateCheckInterval
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
-import kotlin.math.roundToInt
 import org.koin.androidx.compose.koinViewModel
 
 /**
@@ -67,7 +57,6 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
     val ringtoneTitle = stringResource(R.string.settings_system_notifications_ringtone_picker_title)
 
     var showPermissionDialog by remember { mutableStateOf(false) }
-    var showIntervalDialog by remember { mutableStateOf(false) }
     var showSourcePickerFor by remember { mutableStateOf<SoundKind?>(null) }
     var pendingRingtoneFor by remember { mutableStateOf<SoundKind?>(null) }
     var pendingFileFor by remember { mutableStateOf<SoundKind?>(null) }
@@ -125,17 +114,6 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
                 )
                 showPermissionDialog = false
             }
-        )
-    }
-
-    DialogHost(visible = showIntervalDialog) {
-        UpdateCheckIntervalDialog(
-            currentInterval = updateCheckInterval,
-            onIntervalSelected = {
-                settingsViewModel.selectUpdateInterval(it)
-                showIntervalDialog = false
-            },
-            onDismiss = { showIntervalDialog = false }
         )
     }
 
@@ -197,11 +175,9 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
                     Column {
                         // FCM pushes updates as they land, so the polling interval only matters without GMS
                         if (!settingsViewModel.hasGms) {
-                            SettingsItem(
-                                onClick = { showIntervalDialog = true },
-                                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Schedule) },
-                                title = stringResource(R.string.settings_advanced_update_interval),
-                                subtitle = stringResource(updateCheckInterval.labelResId)
+                            UpdateIntervalSetting(
+                                selected = updateCheckInterval,
+                                onSelect = settingsViewModel::selectUpdateInterval
                             )
                         }
 
@@ -216,6 +192,14 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
                         )
                     }
                 }
+            }
+
+            // Polling is what a vendor's battery saver cuts short, which pushed updates are spared
+            FoldingVisibility(visible = backgroundUpdateNotifications && !settingsViewModel.hasGms) {
+                SettingsFooter(
+                    text = stringResource(R.string.settings_advanced_update_interval_battery_warning),
+                    tone = SemanticTone.Warning
+                )
             }
         }
 
@@ -287,12 +271,14 @@ private fun DialogHostScope.SoundSourceDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_system_notifications_sound_picker_title),
+        // Each source is picked from the list itself, so all that is left here is to leave
         footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(android.R.string.cancel),
-                onPrimaryClick = onDismiss
+            AppDialogOutlinedButton(
+                text = stringResource(android.R.string.cancel),
+                onClick = onDismiss,
+                modifier = Modifier.fillMaxWidth()
             )
-        },
+        }
     ) {
         SettingsGroup {
             SettingsItem(
@@ -369,90 +355,42 @@ fun DialogHostScope.NotificationPermissionDialog(
     )
 }
 
-/** Discrete-slider dialog to pick how often the background update check runs. */
+/** How often the background update check runs, picked in place among the few there are. */
 @Composable
-private fun DialogHostScope.UpdateCheckIntervalDialog(
-    currentInterval: UpdateCheckInterval,
-    onIntervalSelected: (UpdateCheckInterval) -> Unit,
-    onDismiss: () -> Unit
+private fun UpdateIntervalSetting(
+    selected: UpdateCheckInterval,
+    onSelect: (UpdateCheckInterval) -> Unit
 ) {
-    val title = stringResource(R.string.settings_advanced_update_interval_dialog_title)
-    val chipSubtitle = stringResource(R.string.settings_advanced_update_interval_chip_subtitle)
-    val entries = UpdateCheckInterval.entries
-    val sliderState = rememberSliderState(
-        value = entries.indexOf(currentInterval).toFloat(),
-        steps = entries.size - 2, // n entries → n-2 internal steps
-        trackRange = 0f..(entries.size - 1).toFloat()
-    )
-    val selectedInterval = entries[sliderState.value.roundToInt().coerceIn(entries.indices)]
-
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = title,
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.save),
-                onPrimaryClick = { onIntervalSelected(selectedInterval) },
-                primaryIcon = MaterialSymbols.Rounded.Check,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
-        }
-    ) {
+    val title = stringResource(R.string.settings_advanced_update_interval)
+    SearchableSetting(listOf(title)) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = Defaults.SpaceLarge),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
+            modifier = Modifier.padding(Defaults.SpaceLarge),
+            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
         ) {
-            // Current value chip
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(Defaults.CornerMedium),
-                color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-                border = CardBorder.tinted(MaterialTheme.colorScheme.primary)
-            ) {
-                Column(
-                    modifier = Modifier.padding(Defaults.SpaceLarge),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceExtraSmall)
-                ) {
-                    Text(
-                        text = stringResource(selectedInterval.labelResId),
-                        style = MaterialTheme.typography.headlineSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = dialogTextColor()
-                    )
-                    Text(
-                        text = chipSubtitle,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = dialogSecondaryTextColor(),
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-
-            // Slider
-            Column(verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall)) {
-                Slider(
-                    state = sliderState,
-                    onValueChange = { sliderState.value = it },
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                SliderScaleLabels(
-                    start = stringResource(entries.first().labelResId),
-                    end = stringResource(entries.last().labelResId)
-                )
-            }
-
-            // Battery optimization warning
-            Notice(
-                text = stringResource(R.string.settings_advanced_update_interval_battery_warning),
-                tone = SemanticTone.Warning,
-                icon = MaterialSymbols.Rounded.Battery_alert,
-                density = NoticeDensity.Compact
+            IconTextRow(
+                leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Schedule) },
+                title = title
             )
+            OptionGroup(items = UpdateCheckInterval.entries) { interval, shape, source, itemModifier ->
+                ModernIconOptionCard(
+                    selected = interval == selected,
+                    onClick = { onSelect(interval) },
+                    icon = interval.icon,
+                    label = stringResource(interval.labelResId),
+                    modifier = itemModifier,
+                    compact = true,
+                    shape = shape,
+                    interactionSource = source
+                )
+            }
         }
     }
 }
+
+private val UpdateCheckInterval.icon: ImageVector
+    get() = when (this) {
+        UpdateCheckInterval.HOURLY -> MaterialSymbols.Rounded.Timer
+        UpdateCheckInterval.DAILY -> MaterialSymbols.Rounded.Today
+        UpdateCheckInterval.WEEKLY -> MaterialSymbols.Rounded.Date_range
+        UpdateCheckInterval.MONTHLY -> MaterialSymbols.Rounded.Calendar_month
+    }

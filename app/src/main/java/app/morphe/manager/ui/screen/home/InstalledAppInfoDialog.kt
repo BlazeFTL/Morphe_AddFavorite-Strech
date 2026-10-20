@@ -164,8 +164,10 @@ fun DialogHostScope.InstalledAppInfoDialog(
     // from under, which is the record the unpatched banner is already about
     val versionAhead = installedVersionStatus?.takeIf { !it.isBehind && !viewModel.isAppDeleted }
     // Both reasons to rebuild are answered by one banner, which then carries the patch button
-    // the actions below would otherwise repeat
     val showsRebuildBanner = patchUpdatePending || versionBehind != null
+    // Every banner about the install itself, a deleted or unpatched app as much as one to rebuild,
+    // carries the patch button the actions below would otherwise repeat
+    val bannerOffersPatch = showsRebuildBanner || viewModel.isAppDeleted || viewModel.isInstallStateNotPatched
     // Spent on what the banner names, the app version it offers or else the patch release, so the
     // banner comes back for whatever the sources bring next
     val onIgnoreVersion = versionBehind?.let { status ->
@@ -427,12 +429,8 @@ fun DialogHostScope.InstalledAppInfoDialog(
         }
     }
 
-    // Patch flow always starts with onTriggerPatchFlow → showPatchDialog → ApkAvailabilityDialog,
-    // where the user picks the APK source. Expert mode dialog opens after APK selection.
-    // We do NOT call onDismiss() here. InstalledAppInfoDialog stays open (hidden behind
-    // ApkAvailabilityDialog) and is dismissed in HomeViewModel.proceedWithPatching() right
-    // before navigating to PatcherScreen. This eliminates the flash of background that would
-    // appear between closing this dialog and opening the next one
+    // The flow opens over this dialog rather than in its place, so backing out of it lands here,
+    // and patching closes the two together as the patcher opens
     fun handlePatchClick() {
         val app = viewModel.installedApp ?: return
         onTriggerPatchFlow(app.originalPackageName, app.trackingKey)
@@ -462,13 +460,181 @@ fun DialogHostScope.InstalledAppInfoDialog(
         }
     }
 
+    val loadedApp = installedApp?.takeUnless { isLoading }
+    // A window with the room sets the actions, or the page opened in their place, beside the
+    // information rather than under it
+    val split = hasRoomForPanes()
+
+    // Writes the module again from the saved builds and mounts it, reinstalling the matching
+    // original first when another version replaced it
+    fun reinstallSavedMount(app: InstalledApp) {
+        viewModel.savedApkFile()?.let { savedFile ->
+            installViewModel.installSavedMount(
+                outputFile = savedFile,
+                packageName = app.currentPackageName,
+                onPersistApp = { _, _ ->
+                    viewModel.updateInstallType(
+                        packageName = app.currentPackageName,
+                        newInstallType = InstallType.MOUNT
+                    )
+                    true
+                }
+            )
+        }
+    }
+
+    // Installs the saved patched build. A Mount build is always mounted, while any other one warns
+    // first when the primary installer is Mount
+    fun installSavedCopy(app: InstalledApp) {
+        viewModel.savedApkFile()?.let { savedFile ->
+            val installAction = {
+                if (app.reinstallsByMount(viewModel.primaryInstallerIsMount)) {
+                    reinstallSavedMount(app)
+                } else {
+                    // The install result handler records the install type once it lands
+                    installViewModel.install(
+                        outputFile = savedFile,
+                        originalPackageName = app.originalPackageName,
+                        onPersistApp = { _, _ -> true }
+                    )
+                }
+            }
+            if (viewModel.primaryInstallerIsMount && app.installType != InstallType.MOUNT) {
+                pendingMountWarningAction.value = installAction
+                showMountWarningDialog.value = true
+            } else {
+                installAction()
+            }
+        }
+    }
+
+    // Offered only once another version, usually a store update, replaced the mount. An unmounted
+    // app still at its patched version is mounted again instead
+    val installedVersion = appInfo?.versionName
+    val mountRestore = if (
+        loadedApp != null &&
+        viewModel.isInstallStateNotPatched &&
+        loadedApp.installType == InstallType.MOUNT &&
+        viewModel.hasSavedCopy && viewModel.hasOriginalApk &&
+        installedVersion != null && installedVersion != loadedApp.version
+    ) {
+        MountRestore(
+            versions = installedVersion.withVersionPrefix() to loadedApp.version.withVersionPrefix(),
+            label = mountStageLabel,
+            isRunning = isInstalling,
+            onRestore = { reinstallSavedMount(loadedApp) },
+            onOpenPlayStore = if (viewModel.isReplacedByPlayStore) {
+                { context.openPlayStorePage(loadedApp.currentPackageName) }
+            } else null
+        )
+    } else null
+
+    // Stagger index counter: hero header is index 0, the banners always 1, so later indices hold
+    // whatever banners show. They share the info's row, since an empty row of their own counts as
+    // scrolled past and fades the list's top while it rests there
+    val infoItems: LazyListScope.(InstalledApp) -> Unit = { app ->
+        item(key = "info") {
+            Column {
+                InstalledAppBanners(
+                    viewModel = viewModel,
+                    showsRebuildBanner = showsRebuildBanner,
+                    versionBehind = versionBehind,
+                    versionAhead = versionAhead,
+                    entered = entered.value,
+                    staggerIndex = 1,
+                    accentColor = infoAccentColor,
+                    mountRestore = mountRestore,
+                    onPatch = { onTriggerPatchFlow(app.originalPackageName, app.trackingKey) },
+                    onShowUpdateChangelog = onShowUpdateChangelog,
+                    onIgnoreVersion = onIgnoreVersion,
+                    onOpenAppLinks = { page = InfoPage.AppLinks }
+                )
+                StaggeredItem(entered = entered.value, index = 2) {
+                    InfoSection(
+                        installedApp = app,
+                        supportedVersion = supportedVersion?.version,
+                        onStopIgnoringVersion = onStopIgnoringVersion,
+                        onStopIgnoringPatchUpdate = onStopIgnoringPatchUpdate,
+                        appliedPatches = appliedPatches,
+                        bundlesUsedSummary = bundlesUsedSummary,
+                        appLinksStatus = viewModel.appLinksStatus,
+                        installedApkSize = viewModel.installedApkSize,
+                        installedApkAbis = viewModel.installedApkAbis,
+                        onShowPatches = { page = InfoPage.AppliedPatches },
+                        onOpenAppLinks = { page = InfoPage.AppLinks },
+                        accentColor = infoAccentColor
+                    )
+                }
+            }
+        }
+    }
+    // A step below the information under it, while heading a pane of their own they start level with it
+    val actionsTop = if (split) 0.dp else Defaults.SpaceMedium
+    val actionItems: LazyListScope.(InstalledApp) -> Unit = { app ->
+        item(key = "actions") {
+            StaggeredItem(entered = entered.value, index = 3) {
+                ActionsSection(
+                    // Left out where a banner above already carries it
+                    primary = ActionItem(
+                        text = stringResource(R.string.patch),
+                        icon = MaterialSymbols.Rounded.Auto_fix_high,
+                        onClick = ::handlePatchClick,
+                        enabled = availablePatches > 0
+                    ).takeIf { !bannerOffersPatch },
+                    groups = installedAppActionGroups(
+                        viewModel = viewModel,
+                        installViewModel = installViewModel,
+                        installedApp = app,
+                        restoreOfferedAbove = mountRestore != null,
+                        onInstallSavedCopy = { installSavedCopy(app) },
+                        onExport = { viewModel.savedApkFile()?.let { exporter.export(it, exportFileName) } },
+                        onShare = shareSaved,
+                        onUninstall = { showUninstallConfirm.value = true },
+                        onDelete = { showDeleteDialog.value = true }
+                    ),
+                    modifier = Modifier.padding(top = actionsTop)
+                )
+            }
+        }
+
+        if (!viewModel.hasOriginalApk) {
+            item(key = "no_saved_apk") {
+                StaggeredItem(entered = entered.value, index = 4) {
+                    Footnote(
+                        text = stringResource(R.string.home_app_info_no_saved_apk),
+                        tone = SemanticTone.Warning,
+                        icon = MaterialSymbols.Rounded.Info,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = Defaults.SpaceMedium)
+                    )
+                }
+            }
+        }
+    }
+
+    // The first page holds the items it is handed, and the applied patches or web links open in its place
+    val infoPages = @Composable { items: LazyListScope.() -> Unit ->
+        DialogPages(
+            page = subpage,
+            key = { it?.page ?: InfoPage.Main },
+            modifier = Modifier.fillMaxSize()
+        ) { shown ->
+            if (shown != null) {
+                DetailsBody(modifier = Modifier.fillMaxSize(), content = shown.content)
+            } else {
+                DialogLazyList(modifier = Modifier.fillMaxSize(), content = items)
+            }
+        }
+    }
+
     // Main Dialog
     ListDialog(
         onDismissRequest = onDismiss,
         dismissOnClickOutside = true,
         accentColor = infoAccentColor,
         // Only once the app is known, so a slow load does not head an empty dialog
-        header = installedApp?.takeIf { !isLoading }?.let { app ->
+        header = loadedApp?.let { app ->
             {
                 InstalledAppHeader(
                     installedApp = app,
@@ -502,23 +668,30 @@ fun DialogHostScope.InstalledAppInfoDialog(
                     )
                 }
             }
-        }
+        },
+        sidePane = if (split && loadedApp != null) {
+            { infoPages { actionItems(loadedApp) } }
+        } else null
     ) {
+        // Back leaves a page for the information rather than closing the dialog. Registered within
+        // the dialog, after its own handler, since the last one registered is the first one asked
+        BackHandler(enabled = subpage != null) { page = InfoPage.Main }
+
         AnimatedContent(
-            targetState = isLoading || installedApp == null,
+            targetState = loadedApp,
+            contentKey = { it == null },
             // Content brings its own entrance through the header and the staggered items, so a
             // fade here would only stack on theirs and hold it back
             transitionSpec = {
-                val enter = if (targetState) Animations.fadeIn else EnterTransition.None
+                val enter = if (targetState == null) Animations.fadeIn else EnterTransition.None
                 enter togetherWith Animations.fadeOut
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
             label = "installedAppInfo"
-        ) { loading ->
-            // installedApp is re-checked here so the body below keeps its non-null smart cast
-            if (loading || installedApp == null) {
+        ) { app ->
+            if (app == null) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -533,171 +706,12 @@ fun DialogHostScope.InstalledAppInfoDialog(
             // animate, so a slow load does not skip the cascade
             LaunchedEffect(Unit) { entered.value = true }
 
-            // Writes the module again from the saved builds and mounts it, reinstalling the
-            // matching original first when another version replaced it
-            val reinstallSavedMount: () -> Unit = {
-                viewModel.savedApkFile()?.let { savedFile ->
-                    installViewModel.installSavedMount(
-                        outputFile = savedFile,
-                        packageName = installedApp.currentPackageName,
-                        onPersistApp = { _, _ ->
-                            viewModel.updateInstallType(
-                                packageName = installedApp.currentPackageName,
-                                newInstallType = InstallType.MOUNT
-                            )
-                            true
-                        }
-                    )
-                }
-            }
-            // Installs the saved patched build. A Mount build is always mounted, while any other
-            // one warns first when the primary installer is Mount
-            val installSavedCopy: () -> Unit = {
-                viewModel.savedApkFile()?.let { savedFile ->
-                    val installAction = {
-                        if (installedApp.reinstallsByMount(viewModel.primaryInstallerIsMount)) {
-                            reinstallSavedMount()
-                        } else {
-                            // The install result handler records the install type once it lands
-                            installViewModel.install(
-                                outputFile = savedFile,
-                                originalPackageName = installedApp.originalPackageName,
-                                onPersistApp = { _, _ -> true }
-                            )
-                        }
-                    }
-                    if (viewModel.primaryInstallerIsMount && installedApp.installType != InstallType.MOUNT) {
-                        pendingMountWarningAction.value = installAction
-                        showMountWarningDialog.value = true
-                    } else {
-                        installAction()
-                    }
-                }
-            }
-            // Offered only once another version, usually a store update, replaced the mount. An
-            // unmounted app still at its patched version is mounted again instead
-            val installedVersion = appInfo?.versionName
-            val mountRestore = if (
-                viewModel.isInstallStateNotPatched &&
-                installedApp.installType == InstallType.MOUNT &&
-                viewModel.hasSavedCopy && viewModel.hasOriginalApk &&
-                installedVersion != null && installedVersion != installedApp.version
-            ) {
-                MountRestore(
-                    versions = installedVersion.withVersionPrefix() to installedApp.version.withVersionPrefix(),
-                    label = mountStageLabel,
-                    isRunning = isInstalling,
-                    onRestore = reinstallSavedMount,
-                    onOpenPlayStore = if (viewModel.isReplacedByPlayStore) {
-                        { context.openPlayStorePage(installedApp.currentPackageName) }
-                    } else null
-                )
-            } else null
-
-            val actions = @Composable { modifier: Modifier ->
-                ActionsSection(
-                    // Left out where a banner above already carries it
-                    primary = ActionItem(
-                        text = stringResource(R.string.patch),
-                        icon = MaterialSymbols.Rounded.Auto_fix_high,
-                        onClick = ::handlePatchClick,
-                        enabled = availablePatches > 0
-                    ).takeIf { !showsRebuildBanner && !viewModel.isAppDeleted },
-                    groups = installedAppActionGroups(
-                        viewModel = viewModel,
-                        installViewModel = installViewModel,
-                        installedApp = installedApp,
-                        restoreOfferedAbove = mountRestore != null,
-                        onInstallSavedCopy = installSavedCopy,
-                        onExport = { viewModel.savedApkFile()?.let { exporter.export(it, exportFileName) } },
-                        onShare = shareSaved,
-                        onUninstall = { showUninstallConfirm.value = true },
-                        onDelete = { showDeleteDialog.value = true }
-                    ),
-                    modifier = modifier
-                )
-            }
-            val noSavedApkNotice = @Composable { modifier: Modifier ->
-                Notice(
-                    text = stringResource(R.string.home_app_info_no_saved_apk),
-                    tone = SemanticTone.Warning,
-                    icon = MaterialSymbols.Rounded.Info,
-                    modifier = modifier
-                )
-            }
-            // Stagger index counter: hero header is index 0, the banners always 1, so later indices
-            // hold whatever banners show. They share the info's row, since an empty row of their
-            // own counts as scrolled past and fades the list's top while it rests there
-            val infoItems: LazyListScope.() -> Unit = {
-                item(key = "info") {
-                    Column {
-                        InstalledAppBanners(
-                            viewModel = viewModel,
-                            showsRebuildBanner = showsRebuildBanner,
-                            versionBehind = versionBehind,
-                            versionAhead = versionAhead,
-                            entered = entered.value,
-                            staggerIndex = 1,
-                            accentColor = infoAccentColor,
-                            mountRestore = mountRestore,
-                            onPatch = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
-                            onShowUpdateChangelog = onShowUpdateChangelog,
-                            onIgnoreVersion = onIgnoreVersion,
-                            onOpenAppLinks = { page = InfoPage.AppLinks }
-                        )
-                        StaggeredItem(entered = entered.value, index = 2) {
-                            InfoSection(
-                                installedApp = installedApp,
-                                supportedVersion = supportedVersion?.version,
-                                onStopIgnoringVersion = onStopIgnoringVersion,
-                                onStopIgnoringPatchUpdate = onStopIgnoringPatchUpdate,
-                                appliedPatches = appliedPatches,
-                                bundlesUsedSummary = bundlesUsedSummary,
-                                appLinksStatus = viewModel.appLinksStatus,
-                                installedApkSize = viewModel.installedApkSize,
-                                installedApkAbis = viewModel.installedApkAbis,
-                                onShowPatches = { page = InfoPage.AppliedPatches },
-                                onOpenAppLinks = { page = InfoPage.AppLinks },
-                                accentColor = infoAccentColor
-                            )
-                        }
-                    }
-                }
-            }
-
-            // Back leaves a page for the information rather than closing the dialog
-            BackHandler(enabled = subpage != null) { page = InfoPage.Main }
-
-            DialogPages(
-                page = subpage,
-                key = { it?.page ?: InfoPage.Main },
-                modifier = Modifier.fillMaxSize()
-            ) { shown ->
-                if (shown != null) {
-                    DetailsBody(modifier = Modifier.fillMaxSize(), content = shown.content)
-                    return@DialogPages
-                }
-
-                DialogLazyList(modifier = Modifier.fillMaxSize()) {
-                    infoItems()
-
-                    item(key = "actions") {
-                        StaggeredItem(entered = entered.value, index = 3) {
-                            actions(Modifier.padding(top = Defaults.SpaceMedium))
-                        }
-                    }
-
-                    if (!viewModel.hasOriginalApk) {
-                        item(key = "no_saved_apk") {
-                            StaggeredItem(entered = entered.value, index = 4) {
-                                noSavedApkNotice(
-                                    Modifier
-                                        .fillMaxWidth()
-                                        .padding(top = Defaults.SpaceMedium)
-                                )
-                            }
-                        }
-                    }
+            if (split) {
+                DialogLazyList(modifier = Modifier.fillMaxSize()) { infoItems(app) }
+            } else {
+                infoPages {
+                    infoItems(app)
+                    actionItems(app)
                 }
             }
         }
@@ -706,8 +720,8 @@ fun DialogHostScope.InstalledAppInfoDialog(
 
 /**
  * The head of an installed app's information: its icon, name and version over chips saying what
- * the install is and when it was made, beside the name instead on a screen wide enough for both.
- * A page opened in place of the information names itself by [pageSubtitle] instead.
+ * the install is and when it was made. A page opened in place of the information names itself by
+ * [pageSubtitle] instead.
  */
 @Composable
 private fun InstalledAppHeader(
@@ -734,8 +748,6 @@ private fun InstalledAppHeader(
             AppAccentBadge(text = label, accentColor = accentColor, icon = icon)
         }
     }
-    val compactHeader = isLandscape() && rememberWindowSize().widthSizeClass == WindowWidthSizeClass.Expanded
-    val onPage = pageSubtitle != null
 
     ListDialogHeader(
         icon = { iconModifier ->
@@ -754,19 +766,8 @@ private fun InstalledAppHeader(
         subtitle = pageSubtitle ?: (appInfo?.versionName ?: installedApp.version).withVersionPrefix(),
         accentColor = accentColor,
         // Wraps rather than clips: a clone carries a chip more than other installs do
-        badges = if (compactHeader || onPage) null else { { badges() } },
-        alwaysShowBand = true,
-        // A wide screen sets the chips in a column beside the name
-        actions = if (compactHeader && !onPage) {
-            {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(Defaults.SpaceSmall),
-                    horizontalAlignment = Alignment.End
-                ) {
-                    badges()
-                }
-            }
-        } else null
+        badges = if (pageSubtitle != null) null else { { badges() } },
+        alwaysShowBand = true
     )
 }
 

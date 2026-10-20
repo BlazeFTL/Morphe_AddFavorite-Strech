@@ -4,6 +4,11 @@
         <item quantity="one">%s parche</item>
         <item quantity="other">%s parches</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s biblioteca</item>
+        <item quantity="other">%s bibliotecas</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s opción de parche</item>
         <item quantity="other">%s opciones de parche</item>
@@ -26,6 +31,10 @@
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Fuentes de parches para %s aplicación</item>
         <item quantity="other">Fuentes de parches para %s aplicaciones</item>
+    </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s fuente está oculta para esta aplicación. Seleccione la aplicación en la pestaña Aplicaciones y abra Fuentes de parches para recuperarla</item>
+        <item quantity="other">%s fuentes están ocultas para esta aplicación. Seleccione la aplicación en la pestaña Aplicaciones y abra Fuentes de parches para recuperarlas</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s fuente oculta. Pulsa para mostrar</item>
@@ -94,6 +103,18 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s fuente instalada</item>
         <item quantity="other">%s fuentes instaladas</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s aplicación oculta</item>
+        <item quantity="other">%s aplicaciones ocultas</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s aplicación mostrada</item>
+        <item quantity="other">%s aplicaciones mostradas</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">¿Mostrar la app %s?</item>
+        <item quantity="other">¿Mostrar las apps %s?</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aplicación oculta</item>

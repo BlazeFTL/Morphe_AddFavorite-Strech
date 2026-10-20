@@ -4,6 +4,11 @@
         <item quantity="one">%s modifica</item>
         <item quantity="other">%s modifiche</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">Libreria %s</item>
+        <item quantity="other">Librerie %s</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s opzione modifica</item>
         <item quantity="other">%s opzioni modifiche</item>
@@ -26,6 +31,10 @@
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Fonti delle modifiche per %s applicazione</item>
         <item quantity="other">Sorgenti patch per %s app</item>
+    </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s sorgente è nascosta per questa app. Seleziona l\'app nella scheda App e apri Patch sources per ripristinarla</item>
+        <item quantity="other">%s sorgenti sono nascoste per questa app. Seleziona l\'app nella scheda App e apri Patch sources per ripristinarle</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s sorgente nascosta. Tocca per mostrare</item>
@@ -94,6 +103,18 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s fonte installata</item>
         <item quantity="other">%s fonti installate</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s app nascosta</item>
+        <item quantity="other">%s app nascoste</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s app visibile</item>
+        <item quantity="other">%s app visibili</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Visualizza di nuovo l\'app %s?</item>
+        <item quantity="other">Visualizzare di nuovo %s app?</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s applicazione nascosta</item>

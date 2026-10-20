@@ -17,7 +17,6 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -36,9 +35,8 @@ import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.settings.SettingsPage
 import app.morphe.manager.ui.screen.settings.SettingsNavigation
-import app.morphe.manager.ui.screen.settings.SettingsSubpage
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
-import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
+import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.DialogHost
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
 import app.morphe.manager.ui.screen.shared.MainPage
@@ -46,6 +44,7 @@ import app.morphe.manager.ui.screen.shared.MainPagerScaffold
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberInstallQueue
 import app.morphe.manager.ui.screen.sources.SourcesPage
+import app.morphe.manager.ui.screen.sources.rememberSourcesPageState
 import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.viewmodel.*
 import app.morphe.manager.util.*
@@ -172,20 +171,20 @@ fun HomeScreen(
         hasContent = homeAppItems.isNotEmpty() || hiddenAppItems.isNotEmpty()
     )
 
-    // Held here for the same reason, the sources' options docking over their page's lower edge
-    var sourcesListOptionsOpen by rememberSaveable { mutableStateOf(false) }
+    // Held here for the same reason, the sources' panels docking over their page's lower edge
+    val sourcesPageState = rememberSourcesPageState()
 
     // Gesture hint: shown once per bundle addition, in-memory
     val showGestureHint by homeViewModel.apps.showSwipeGestureHint.collectAsStateWithLifecycle()
 
     // Set up HomeViewModel
     LaunchedEffect(Unit) {
-        homeViewModel.onStartQuickPatch = onStartQuickPatch
+        homeViewModel.patchFlow.onStartQuickPatch = onStartQuickPatch
     }
 
     val openApkPicker = rememberAdaptiveFilePicker(
         mimeTypes = APK_FILE_MIME_TYPES,
-        onResult = { uri -> uri?.let { homeViewModel.handleApkSelection(it) } }
+        onResult = homeViewModel.patchFlow::handleApkSelection
     )
 
     val openBundlePicker = rememberAdaptiveMultiFilePicker(
@@ -260,7 +259,7 @@ fun HomeScreen(
     // Handle patch trigger from dialog
     LaunchedEffect(patchTriggerPackage) {
         patchTriggerPackage?.let { packageName ->
-            homeViewModel.showPatchDialog(packageName)
+            homeViewModel.patchFlow.showPatchDialog(packageName)
             onPatchTriggerHandled()
         }
     }
@@ -306,22 +305,10 @@ fun HomeScreen(
         patchesItem = patchesSheetItem,
         // The new source's apps come up on the list, so that is where adding one ends
         onSourceAdded = { openPage(MainPage.APPS) },
-        onOpenApkDownloadHelpers = { settingsNavigation.openSubpage(SettingsSubpage.APK_DOWNLOAD_HELPERS) }
+        settingsNavigation = settingsNavigation
     )
 
     InstallerFlowDialogs(installViewModel = installViewModel)
-
-    // Pre-patching mode selection dialog for root-capable devices.
-    // This dialog must appear before patching starts because the patch mode determines
-    // which patches are applied.
-    DialogHost(visible = homeViewModel.showPrePatchInstallerDialog) {
-        PrePatchInstallerDialog(
-            packageName = homeViewModel.pendingPackageName,
-            onSelectMount = { homeViewModel.resolvePrePatchInstallerChoice(useMount = true) },
-            onSelectStandard = { homeViewModel.resolvePrePatchInstallerChoice(useMount = false) },
-            onDismiss = homeViewModel::dismissPrePatchInstallerDialog
-        )
-    }
 
     val notifications = HomeNotificationsUi(
         managerUpdate = AlertState(hasManagerUpdate) { showUpdateDetailsDialog.value = true },
@@ -362,7 +349,7 @@ fun HomeScreen(
         // By whatever the page on screen docks over its lower edge
         navigationCovered = when (MainPage.entries[pagerState.currentPage]) {
             MainPage.APPS -> sectionState.isFooterBarVisible
-            MainPage.SOURCES -> sourcesListOptionsOpen
+            MainPage.SOURCES -> sourcesPageState.isFooterBarVisible
             MainPage.SETTINGS -> false
         },
         // The tour moves between the pages itself, and a swipe would leave its spotlight behind
@@ -380,7 +367,7 @@ fun HomeScreen(
                     // Only an update under way follows to the other pages
                     showAlerts = pagerState.currentPage == MainPage.APPS.ordinal,
                     modifier = Modifier
-                        .widthIn(max = homeCardMaxWidth())
+                        .widthIn(max = Defaults.ContentMaxWidth)
                         .align(Alignment.TopCenter)
                         .padding(top = alertsTop)
                 )
@@ -391,8 +378,7 @@ fun HomeScreen(
             MainPage.SOURCES -> SourcesPage(
                 homeViewModel = homeViewModel,
                 bottomBarHeight = bottomBarHeight,
-                listOptionsOpen = sourcesListOptionsOpen,
-                onListOptionsOpenChange = { sourcesListOptionsOpen = it },
+                state = sourcesPageState,
                 onboardingState = onboardingState,
                 onHeaderHeightChange = { pageHeaderHeights[MainPage.SOURCES] = it }
             )
@@ -444,7 +430,7 @@ fun HomeScreen(
                                 installedApp = item.installedApp
                             )
                             item.installedApp?.let {
-                                homeViewModel.openInstalledAppInfo(it.currentPackageName)
+                                homeViewModel.patchFlow.openInstalledAppInfo(it.currentPackageName)
                             }
                         },
                         onHideApp = { packageName -> homeViewModel.apps.hideApp(packageName) },
@@ -500,10 +486,7 @@ fun HomeScreen(
                             if (availablePatches <= 0) {
                                 messages.show(sourcesLoadingText)
                             } else {
-                                homeViewModel.pendingPackageName = null
-                                homeViewModel.pendingAppName = otherAppsText
-                                homeViewModel.pendingRecommendedVersion = null
-                                homeViewModel.showFilePickerPromptDialog = true
+                                homeViewModel.patchFlow.startOtherAppsFlow(otherAppsText)
                             }
                         },
                         onOpenSources = { openPage(MainPage.SOURCES) },

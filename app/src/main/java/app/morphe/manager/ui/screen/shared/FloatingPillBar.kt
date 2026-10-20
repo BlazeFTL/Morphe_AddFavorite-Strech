@@ -83,8 +83,7 @@ fun FloatingPillBar(
     ) {
         Row(
             modifier = Modifier
-                .widthIn(max = Defaults.ContentMaxWidth)
-                .fillMaxWidth()
+                .contentColumn()
                 .padding(horizontal = horizontalPadding)
                 .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Bottom))
                 .padding(bottom = Defaults.SpaceMedium),

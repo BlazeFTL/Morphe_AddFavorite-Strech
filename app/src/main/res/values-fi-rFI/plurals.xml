@@ -4,6 +4,11 @@
         <item quantity="one">%s lisäosa</item>
         <item quantity="other">%s lisäosaa</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s kirjasto</item>
+        <item quantity="other">%s kirjastoa</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s lisäosa-asetus</item>
         <item quantity="other">%s lisäosa-asetusta</item>
@@ -26,6 +31,10 @@
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Paikkauslähteet %s sovellukselle</item>
         <item quantity="other">Paikkauslähteet %s sovellukselle</item>
+    </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s-lähdekoodi on piilotettu tälle sovellukselle. Valitse sovellus Sovellukset-välilehdeltä ja avaa Korjaa lähteet palauttaaksesi sen</item>
+        <item quantity="other">%s-lähteet on piilotettu tälle sovellukselle. Valitse sovellus Sovellukset-välilehdeltä ja avaa Korjaa lähteet palauttaaksesi ne</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s lähde piilotettu. Napauta näyttääksesi</item>
@@ -94,6 +103,18 @@
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s asennettu lähde</item>
         <item quantity="other">%s asennettua lähdettä</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s sovellus piilotettu</item>
+        <item quantity="other">%s sovellusta piilotettu</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s sovellus näkyvillä</item>
+        <item quantity="other">%s sovellusta näkyvillä</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Piilota sovellus %s esiin?</item>
+        <item quantity="other">Piilota sovellukset %s esiin?</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s piilotettu sovellus</item>

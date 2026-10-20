@@ -5,11 +5,8 @@
 
 package app.morphe.manager.ui.screen.settings.system
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.domain.installer.InstallerManager
@@ -42,7 +39,11 @@ fun InstallerSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
     var pendingAutoUninstallConfirm by remember { mutableStateOf(false) }
 
     DialogHost(visible = pendingAutoUninstallConfirm) {
-        AutoUninstallWarningDialog(
+        ConfirmDialog(
+            title = stringResource(R.string.settings_auto_uninstall_warning_title),
+            message = stringResource(R.string.settings_auto_uninstall_warning_message),
+            primaryText = stringResource(R.string.installer_play_store_warning_continue),
+            notice = stringResource(R.string.settings_auto_uninstall_warning_risk),
             onConfirm = {
                 pendingAutoUninstallConfirm = false
                 settingsViewModel.setAutoUninstallWithShizuku(true)
@@ -119,43 +120,6 @@ fun InstallerSettings(settingsViewModel: SettingsViewModel = koinViewModel()) {
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun DialogHostScope.AutoUninstallWarningDialog(
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.settings_auto_uninstall_warning_title),
-        description = stringResource(R.string.settings_auto_uninstall_warning_message),
-        footer = {
-            AppDialogActions(
-                actions = listOf(
-                    DialogAction(
-                        text = stringResource(R.string.installer_play_store_warning_continue),
-                        onClick = onConfirm
-                    ),
-                    DialogAction(
-                        text = stringResource(android.R.string.cancel),
-                        onClick = onDismiss
-                    )
-                )
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
-        ) {
-            Notice(
-                text = stringResource(R.string.settings_auto_uninstall_warning_risk),
-                tone = SemanticTone.Error,
-                icon = MaterialSymbols.Rounded.Warning
-            )
         }
     }
 }

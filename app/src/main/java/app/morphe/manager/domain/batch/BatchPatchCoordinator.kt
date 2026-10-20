@@ -59,6 +59,7 @@ class BatchPatchCoordinator(
     private val patchOptionsRepository: PatchOptionsRepository,
     private val installedAppRepository: InstalledAppRepository,
     private val originalApkRepository: OriginalApkRepository,
+    private val sourceMuteRepository: SourceMuteRepository,
     private val notificationManager: UpdateNotificationManager,
     private val installerManager: InstallerManager,
     private val sessionInstaller: SessionInstaller,
@@ -97,6 +98,19 @@ class BatchPatchCoordinator(
                 .distinctUntilChanged()
                 .dropWhile { it == null }
                 .collect { queue -> prefs.batchQueue.update(queue?.let { json.encodeToString(it) }.orEmpty()) }
+        }
+
+        // The plan offers each app the sources it is not kept from, so a change to that, made
+        // from the queue or anywhere else, is answered by planning the affected apps again
+        scope.launch {
+            var previous: Map<String, Set<Int>>? = null
+            sourceMuteRepository.mutedSources.collect { muted ->
+                val last = previous
+                previous = muted
+                if (last == null) return@collect
+                val changed = (last.keys + muted.keys).filterTo(mutableSetOf()) { last[it] != muted[it] }
+                if (changed.isNotEmpty()) refreshApps(changed)
+            }
         }
     }
 
@@ -179,6 +193,32 @@ class BatchPatchCoordinator(
             .onFailure { Log.w(TAG, "Failed to decode the saved batch queue", it) }
             .getOrNull()
             ?.takeIf { it.targets.isNotEmpty() }
+    }
+
+    /**
+     * Plans the queued apps among [packageNames] again while the queue is being prepared. An app
+     * whose patches were edited by hand keeps them, since planning it again would drop the edit.
+     */
+    private suspend fun refreshApps(packageNames: Set<String>) {
+        val current = _state.value ?: return
+        if (current.phase != BatchPhase.PREFLIGHT) return
+        val stale = current.items.filter { it.packageName in packageNames && !it.selectionEdited }
+        if (stale.isEmpty()) return
+
+        val refreshed = coroutineScope {
+            stale.map { async { replan(it, current.useMount) } }.awaitAll()
+        }.associateBy { it.id }
+
+        _state.update { state ->
+            if (state.phase != BatchPhase.PREFLIGHT) return@update state
+            state.copy(items = state.items.map { refreshed[it.id] ?: it })
+        }
+    }
+
+    /** Plans [item] again, still left out of the run if the user left it out. */
+    private suspend fun replan(item: BatchPatchItem, useMount: Boolean): BatchPatchItem {
+        val resolved = resolver.refresh(item, useMount)
+        return if (item.state == BatchItemState.EXCLUDED) resolved.excluded() else resolved
     }
 
     /** Re-resolves a single item against a manually attached APK. */
@@ -282,6 +322,7 @@ class BatchPatchCoordinator(
                     item.copy(
                         selection = selection,
                         options = options,
+                        selectionEdited = true,
                         state = when {
                             empty -> BatchItemState.NO_PATCHES
                             item.state == BatchItemState.NO_PATCHES -> BatchItemState.READY
@@ -294,26 +335,27 @@ class BatchPatchCoordinator(
     }
 
     /**
-     * Restricts one queued app to a single patch source, the question simple mode answers
-     * before a single-app patch. The full plan is kept so another source can still be picked.
+     * Patches one queued app from a single source, the question simple mode answers before a
+     * single-app patch. The app is planned again from it, so its version warnings and patches
+     * are that source's own.
      *
-     * Options are left alone: they are keyed by source, and the patcher ignores those it has
-     * no selected patch for.
+     * The choice is written before planning starts, so the refresh that remembering it sets off
+     * reads it as well.
      */
-    fun narrowToSource(itemId: String, bundleUid: Int) {
-        _state.update { state ->
-            if (state.phase != BatchPhase.PREFLIGHT) return@update state
-            state.copy(
-                items = state.items.map { item ->
-                    if (item.id != itemId) return@map item
+    fun chooseSource(itemId: String, bundleUid: Int) {
+        val current = _state.value ?: return
+        if (current.phase != BatchPhase.PREFLIGHT) return
+        val item = current.items.firstOrNull { it.id == itemId }
+            ?.copy(chosenBundleUid = bundleUid)
+            ?: return
+        _state.update { state -> state.copy(items = state.items.map { if (it.id == itemId) item else it }) }
 
-                    val resolved = item.resolvedSelection ?: item.selection
-                    item.copy(
-                        resolvedSelection = resolved,
-                        selection = resolved.filterKeys { it == bundleUid }
-                    )
-                }
-            )
+        scope.launch {
+            val resolved = replan(item, current.useMount)
+            _state.update { state ->
+                if (state.phase != BatchPhase.PREFLIGHT) return@update state
+                state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
+            }
         }
     }
 
@@ -542,8 +584,8 @@ class BatchPatchCoordinator(
         // Named after the item rather than the app, so two clones of it never share a path
         val outputFile = workspace.resolve("${item.id}.apk")
 
-        // Only the sources actually contributing patches, so narrowing an app to one source
-        // is reflected in the log as well as on the card
+        // Only the sources actually contributing patches, so a source the user took nothing
+        // from is left out of the log as well as off the card
         val patchSources = item.bundles
             .filter { it.uid in item.selection.keys }
             .map { PatchSourceRef(it.name, it.version) }
@@ -563,7 +605,7 @@ class BatchPatchCoordinator(
             onProgress = runProgress::onProgress,
             patchSources = patchSources,
             announceCompletion = false,
-            queuePosition = _state.value?.let { it.processed to it.total }
+            queuePosition = _state.value?.let { it.position to it.total }
         )
 
         val workId = workerRepository.launchExpedited<PatcherWorker, PatcherWorker.Args>(args)
@@ -700,8 +742,13 @@ class BatchPatchCoordinator(
             configurationKey,
             item.selection,
             // Scoped to every source the plan considered, so a source the user ended up taking
-            // nothing from has its stale selection cleared rather than left behind
-            scope = item.bundles.mapTo(mutableSetOf()) { it.uid }.ifEmpty { item.selection.keys }
+            // nothing from has its stale selection cleared rather than left behind. A chosen
+            // source turned every other one down, which the next plan would otherwise merge back
+            scope = if (item.chosenBundleUid != null) {
+                patchBundleRepository.enabledBundlesInfoFlow.first().keys
+            } else {
+                item.bundles.mapTo(mutableSetOf()) { it.uid }.ifEmpty { item.selection.keys }
+            }
         )
         // Without this the next plan cannot tell a patch the user deselected from one that was
         // added since, and would keep re-enabling every deselected default

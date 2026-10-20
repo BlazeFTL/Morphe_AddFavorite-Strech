@@ -91,7 +91,9 @@ fun AppCardColorSelector(
                 color = MaterialTheme.colorScheme.onSurface
             )
 
-            PreviewAppCard(app = previewApp, appColors = previewAppColors)
+            DisplayOnly {
+                PreviewAppCard(app = previewApp, appColors = previewAppColors)
+            }
 
             OptionGroup(items = MODE_OPTIONS) { (optionMode, icon), shape, source, itemModifier ->
                 ModernIconOptionCard(

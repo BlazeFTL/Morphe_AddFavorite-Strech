@@ -283,7 +283,7 @@ private fun PatchSelectionsContent(
     onShowResetSelectedConfirmation: () -> Unit
 ) {
     val selections = data.selections
-    val horizontal = rememberWindowSize().contentPadding
+    val gutter = rememberWindowSize().contentPadding
     val listState = rememberLazyListState()
     val openImportAllSelectionsPicker = rememberAdaptiveFilePicker(
         mimeTypes = arrayOf(JSON_MIMETYPE, TEXT_MIMETYPE),
@@ -352,9 +352,8 @@ private fun PatchSelectionsContent(
                 !WindowInsets.isImeVisible -> Box(
                     modifier = Modifier
                         .navigationBarsPadding()
-                        .widthIn(max = Defaults.ContentMaxWidth)
                         .fillMaxWidth()
-                        .padding(start = horizontal, end = horizontal, bottom = Defaults.SpaceLarge)
+                        .padding(start = gutter, end = gutter, bottom = Defaults.SpaceLarge)
                 ) {
                     ImportExportFooter(
                         onImport = { openImportAllSelectionsPicker() },
@@ -369,15 +368,15 @@ private fun PatchSelectionsContent(
                 }
             }
         }
-    ) { headerHeight, bottomBarHeight ->
+    ) { insets ->
         val apps = data.apps
         if (selections.isEmpty()) {
             EmptyState(
                 message = stringResource(R.string.settings_system_no_patches_or_options),
                 modifier = Modifier.padding(
-                    start = horizontal,
-                    top = headerHeight + Defaults.SpaceMedium,
-                    end = horizontal
+                    start = insets.horizontal,
+                    top = insets.top + Defaults.SpaceMedium,
+                    end = insets.horizontal
                 )
             )
         } else if (apps != null) {
@@ -389,10 +388,10 @@ private fun PatchSelectionsContent(
                 search = search,
                 listState = listState,
                 contentPadding = PaddingValues(
-                    start = horizontal,
-                    top = headerHeight + Defaults.SpaceMedium,
-                    end = horizontal,
-                    bottom = bottomBarHeight + Defaults.SpaceLarge
+                    start = insets.horizontal,
+                    top = insets.top + Defaults.SpaceMedium,
+                    end = insets.horizontal,
+                    bottom = insets.bottom + Defaults.SpaceLarge
                 ),
                 onSetResetTarget = onSetResetTarget,
                 onShowPatchDetails = onShowPatchDetails,
@@ -404,11 +403,11 @@ private fun PatchSelectionsContent(
         ListScrollbar(
             listState = listState,
             modifier = Modifier.padding(
-                top = headerHeight + Defaults.SpaceMedium,
-                bottom = bottomBarHeight + Defaults.SpaceMedium
+                top = insets.top + Defaults.SpaceMedium,
+                bottom = insets.bottom + Defaults.SpaceMedium
             )
         )
-        ScrollToTopButton(listState = listState, extraBottomPadding = bottomBarHeight)
+        ScrollToTopButton(listState = listState, extraBottomPadding = insets.bottom)
     }
 }
 

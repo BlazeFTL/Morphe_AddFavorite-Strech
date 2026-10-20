@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -43,8 +44,7 @@ import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_MEMORY_FIELD_MAX
 import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_MEMORY_PREFIX_DONE
 import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_USAGE_FIELD_IO_PEAK
 import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_USAGE_PREFIX_DONE
-import app.morphe.manager.patcher.runtime.process.PatcherProcess.Companion.LOG_PROCESS_PREFIX_PROCESS_HEAP
-import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_PROCESS_PREFIX_COROUTINE_HEAP
+import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_HEAP_LIMIT_PREFIX
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_FIELD_ANDROID
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_FIELD_API
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_FIELD_DEVICE
@@ -78,6 +78,7 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.theme.MorpheBrandTeal
 import app.morphe.manager.util.formatBytesForReport
+import app.morphe.manager.util.formatKibibytesPerSecond
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 import kotlinx.coroutines.delay
@@ -132,7 +133,7 @@ sealed interface LogItem {
         val processHeapAverageMb: String?,
         val processHeapMaxMb: String?,
         // null on devices that expose no I/O counters to sample
-        val ioPeakRate: String?,
+        val ioPeakKbPerSec: Int?,
     ) : LogItem
 
     /** Standard single-line log entry. */
@@ -232,8 +233,7 @@ internal class LogItemAccumulator(
                 ioPeakKbPerSec = message.logField(LOG_USAGE_FIELD_IO_PEAK)?.toIntOrNull()
                 updateSuccessSummary()
             }
-            message.startsWith(LOG_PROCESS_PREFIX_PROCESS_HEAP) ||
-                message.startsWith(LOG_PROCESS_PREFIX_COROUTINE_HEAP) -> {
+            message.startsWith(LOG_HEAP_LIMIT_PREFIX) -> {
                 // Auxiliary lines consumed without emitting a LogItem
             }
             message.startsWith(LOG_WORKER_PREFIX_STARTED) -> {
@@ -352,7 +352,7 @@ internal class LogItemAccumulator(
         elapsedSec = successElapsedSec ?: "?",
         processHeapAverageMb = processHeapAverageMb,
         processHeapMaxMb = processHeapMaxMb,
-        ioPeakRate = ioPeakKbPerSec?.let(::formatRate),
+        ioPeakKbPerSec = ioPeakKbPerSec,
     )
 }
 
@@ -468,11 +468,12 @@ fun ExpertPatchingInProgress(
     ) {
         // Content area
         if (landscape) {
-            // Landscape: header + action bar left, log right
+            // Landscape: header + action bar left, log right, together as wide as a dialog's two panes
             Row(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .contentColumn(Defaults.SplitContentMaxWidth)
                     .padding(horizontal = windowSize.contentPadding),
                 horizontalArrangement = Arrangement.spacedBy(windowSize.contentPadding),
                 verticalAlignment = Alignment.Top
@@ -1026,11 +1027,11 @@ private fun SuccessSummaryCard(item: LogItem.SuccessSummary) {
             }
         }
 
-        if (item.ioPeakRate != null) {
+        if (item.ioPeakKbPerSec != null) {
             BannerFieldRow {
                 BannerFieldCell(
                     label = stringResource(R.string.patcher_field_io_peak),
-                    value = item.ioPeakRate,
+                    value = LocalContext.current.formatKibibytesPerSecond(item.ioPeakKbPerSec),
                     modifier = Modifier.weight(1f))
             }
         }

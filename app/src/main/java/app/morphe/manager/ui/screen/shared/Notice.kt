@@ -7,14 +7,17 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,6 +36,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.composables.icons.materialsymbols.MaterialSymbols
+import com.composables.icons.materialsymbols.rounded.*
 
 /**
  * How much room a notice takes. [Comfortable] is the standalone warning a dialog is built
@@ -65,6 +70,61 @@ private val CompactMetrics = NoticeMetrics(
     itemSpacing = 8.dp
 )
 
+/**
+ * A remark following what it is about, a hint, a caveat or what a choice leads to, set as a line
+ * of text rather than on a surface of its own as a [Notice] is: an icon in the column of the icons
+ * of the cards and rows above, and its [text] where their titles start. A [tone] other than neutral
+ * marks one that warns, its icon and text taking the role's color, and an [icon] of its own one
+ * that says more than that.
+ */
+@Composable
+fun Footnote(
+    text: String,
+    modifier: Modifier = Modifier,
+    tone: SemanticTone = SemanticTone.Neutral,
+    icon: ImageVector = footnoteIcon(tone)
+) {
+    val color = tone.accent
+    val textStyle = MaterialTheme.typography.bodyMedium
+    // The icon and the first line are centered on each other, whichever is taller
+    val lineHeight = with(LocalDensity.current) { textStyle.lineHeight.toDp() }
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = Defaults.SpaceLarge),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium)
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(top = ((lineHeight - Defaults.IconSize) / 2).coerceAtLeast(0.dp))
+                .size(Defaults.IconSize),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = color,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+        Text(
+            text = text,
+            style = textStyle,
+            color = color,
+            modifier = Modifier
+                .weight(1f)
+                .padding(top = ((Defaults.IconSize - lineHeight) / 2).coerceAtLeast(0.dp))
+        )
+    }
+}
+
+/** Icon a [Footnote] in [tone] takes unless it brings its own. */
+internal fun footnoteIcon(tone: SemanticTone): ImageVector = when (tone) {
+    SemanticTone.Neutral, SemanticTone.Primary -> MaterialSymbols.Rounded.Info
+    SemanticTone.Error -> MaterialSymbols.Rounded.Error
+    else -> MaterialSymbols.Rounded.Warning
+}
+
 /** Link under a [Notice], to where its message can be read in full or acted on. */
 class NoticeAction(
     val text: String,
@@ -72,7 +132,9 @@ class NoticeAction(
 )
 
 /**
- * Full-width tinted block carrying a warning, a hint or a status line.
+ * Full-width tinted block carrying what stands on its own: a dialog's warning, the state of what it
+ * is about, a banner heading a list or a message with an action. A remark following what it is
+ * about is a [Footnote] instead.
  *
  * @param text The message
  * @param title Optional headline set above the message, not counted against [maxLines]
@@ -118,9 +180,10 @@ fun Notice(
     var cutShort by remember(breakableText, maxLines) { mutableStateOf(false) }
 
     // The icon heads the first line rather than the middle of the block, which a long message or a
-    // large font would leave out of view. Centered on that line, whatever height the font gives it
+    // large font would leave out of view. The two are centered on each other, whichever is taller
     val firstLineHeight = with(LocalDensity.current) { textStyle.lineHeight.toDp() }
     val iconTopInset = ((firstLineHeight - metrics.iconSize) / 2).coerceAtLeast(0.dp)
+    val textTopInset = ((metrics.iconSize - firstLineHeight) / 2).coerceAtLeast(0.dp)
 
     Surface(
         modifier = if (isCentered) modifier.wrapContentWidth() else modifier.fillMaxWidth(),
@@ -149,7 +212,10 @@ fun Notice(
                         modifier = Modifier.padding(top = iconTopInset)
                     )
                 }
-                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                    modifier = Modifier.padding(top = if (icon != null) textTopInset else 0.dp)
+                ) {
                     title?.let {
                         Text(
                             text = it,

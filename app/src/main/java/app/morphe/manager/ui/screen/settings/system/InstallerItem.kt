@@ -174,8 +174,8 @@ internal fun InstallerChoice(
     var showShizukuStatus by remember { mutableStateOf(false) }
 
     // Localized strings for accessibility
-    val selectedState = stringResource(R.string.selected)
-    val notSelectedState = stringResource(R.string.not_selected)
+    val selectedState = stringResource(R.string.state_selected)
+    val notSelectedState = stringResource(R.string.state_not_selected)
     val disabledState = stringResource(R.string.disabled)
 
     SettingsGroup {
@@ -267,7 +267,13 @@ internal fun InstallerChoice(
     }
 
     DialogHost(visible = pendingPlayStoreModeConfirm) {
-        PlayStoreInstallerWarningDialog(
+        ConfirmDialog(
+            title = stringResource(R.string.installer_play_store_warning_title),
+            message = stringResource(R.string.installer_play_store_warning_message),
+            primaryText = stringResource(R.string.installer_play_store_warning_continue),
+            isPrimaryDestructive = false,
+            // A risk the user can avoid by turning off updates, not a failure
+            notice = stringResource(R.string.installer_play_store_warning_risk),
             onConfirm = {
                 pendingPlayStoreModeConfirm = false
                 onSelect(selectedToken.withPlayStoreMode(true))
@@ -386,10 +392,9 @@ private fun rememberModuleUnmountRisk(): Boolean {
 @Composable
 private fun ModuleUnmountNotice() {
     FoldingVisibility(visible = rememberModuleUnmountRisk()) {
-        Notice(
+        Footnote(
             text = stringResource(R.string.root_mount_module_unmount_warning),
-            tone = SemanticTone.Warning,
-            icon = MaterialSymbols.Rounded.Warning
+            tone = SemanticTone.Warning
         )
     }
 }
@@ -475,10 +480,9 @@ private fun DialogHostScope.ShizukuStatusDialog(
                 )
 
                 if (issueText != null) {
-                    Notice(
+                    Footnote(
                         text = issueText,
-                        tone = SemanticTone.Primary,
-                        icon = MaterialSymbols.Rounded.Info
+                        tone = SemanticTone.Primary
                     )
                 }
 
@@ -721,55 +725,11 @@ fun DialogHostScope.InstallerUnavailableDialog(
                 (state.installerToken == InstallerManager.Token.Shizuku ||
                         state.installerToken == InstallerManager.Token.ShizukuPlayStore)
             ) {
-                Notice(
+                Footnote(
                     text = stringResource(R.string.installer_unavailable_shizuku_hint),
                     tone = SemanticTone.Primary
                 )
             }
-        }
-    }
-}
-
-/**
- * Warning shown when the user enables Play Store install-source mode.
- *
- * Recording Google Play Store as the installation source lets Play Store offer updates for the patched
- * app - accepting the update overwrites the patched APK with the stock one and loses the patches.
- */
-@Composable
-fun DialogHostScope.PlayStoreInstallerWarningDialog(
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.installer_play_store_warning_title),
-        description = stringResource(R.string.installer_play_store_warning_message),
-        footer = {
-            AppDialogActions(
-                actions = listOf(
-                    DialogAction(
-                        text = stringResource(R.string.installer_play_store_warning_continue),
-                        onClick = onConfirm
-                    ),
-                    DialogAction(
-                        text = stringResource(android.R.string.cancel),
-                        onClick = onDismiss
-                    )
-                )
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge)
-        ) {
-            // A risk the user can avoid by turning off updates, not a failure
-            Notice(
-                text = stringResource(R.string.installer_play_store_warning_risk),
-                tone = SemanticTone.Warning,
-                icon = MaterialSymbols.Rounded.Warning
-            )
         }
     }
 }
@@ -831,10 +791,9 @@ fun DialogHostScope.PrePatchInstallerDialog(
             )
 
             // Info hint
-            Notice(
+            Footnote(
                 text = stringResource(R.string.root_pre_patch_installer_hint),
-                tone = SemanticTone.Primary,
-                icon = MaterialSymbols.Rounded.Info
+                tone = SemanticTone.Primary
             )
         }
     }

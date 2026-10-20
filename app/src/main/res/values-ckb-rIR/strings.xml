@@ -16,6 +16,7 @@
     <string name="deep_link_add_source_message">دەتەوێت ئەم سەرچاوەی پاچە زیاد بکەیت بۆ Morphe؟</string>
     <string name="deep_link_add_source_warning">تەنها ئەو سەرچاوانە زیاد بکە کە متمانەت پێیانە</string>
     <!-- Shown under the app a link was opened for -->
+    <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
     <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe نوێکردنەوە بەردەستە</string>
@@ -28,6 +29,7 @@
     <string name="home_update_success_subtitle">سەرچاوەکانت نوێن</string>
     <string name="home_sources_are_loading">سەرچاوەکان باردەکرێن، تکایە چاوەڕوان بە...</string>
     <string name="home_search_apps">گەڕانی ئەپەکان</string>
+    <string name="home_app_grouping_none">هیچ</string>
     <string name="home_no_apps_title">هیچ ئەپێک بەردەست نیە</string>
     <string name="home_no_apps_subtitle">سەرچاوەی پاچ زیاد بکە یان سەرچاوەیەکی هەبوو لە %s چالاک بکە</string>
     <string name="home_no_apps_search_subtitle">هیچ ئەپێک ناگونجێ لەگەڵ \"%s\"</string>
@@ -69,6 +71,8 @@
     <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">سەرچاوەکانی پینە</string>
+    <!-- Which sources the sources page lists, each with what it keeps -->
+    <string name="sources_filter_updates">نوێکردنەوەکان</string>
     <string name="sources_management_open_in_browser">کردنەوە لە وێبگەڕ</string>
     <string name="sources_management_failed_to_open_url">شکستی هێنا لەکردنەوەی بەستەر</string>
     <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
@@ -300,7 +304,6 @@
     <string name="battery_optimization_dialog_title">پاراستن لە پینەکردنی پاشخان</string>
     <string name="battery_optimization_dialog_description">هەندێک ئامێر لەوانەیە پینەکەرەکە بوەستێنن کاتێک ئەپەکە بچووک دەکرێتەوە. ڕێگە بە Morphe بدە بە کارکردن بەبێ سنووردارکردنی پاتری بۆ دڵنیابوون لە تەواوبوونی پینەکردن بە شێوەیەکی باوەڕپێکراو</string>
     <string name="battery_optimization_not_now">ئێستا نا</string>
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">پینەکردن بەردەوامە…</string>
     <string name="patcher_notification_text">کرتە بکە بۆ گەڕانەوە بۆ پینەکەرەکە</string>
@@ -334,13 +337,11 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">پینەکردنی ئەپ</string>
     <string name="memory_usage">بەکارهێنانی بیرگە</string>
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">جێگیرکردنی پینەکان</string>
     <string name="failed_to_execute_patch">شکستی هێنا لە جێگیرکردنی %s</string>
     <string name="patched_app_save_failed_toast">شکستی هێنا لە پاشەکەوت کردنی ئەپی پینەکراو</string>
     <string name="plugin_activity_dialog_body">کارلێکردنی بەکارهێنەر پێویستە بۆ ئەوەی بەردەوام بیت لەگەڵ ئەم پێوەکراوە</string>
-    <string name="patcher_process_exit_message">پرۆسەی پینەکەر دەرچوو بە کۆدی %s</string>
     <string name="install_app_success">بە سەرکەوتوویی دامەزرا</string>
     <string name="install_app_fail">دامەزراندنی ئەپەکە سەرکەوتوو نەبوو: %s</string>
     <string name="save_apk_success">APK هەڵگیرا</string>
@@ -354,7 +355,6 @@
     <string name="mini_game_resume">بەردەوامبوون</string>
     <!-- Settings -->
     <string name="appearance">دەرکەوتن</string>
-    <string name="advanced">پێشکەوتوو</string>
     <string name="system">سیستەم</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">ئەنیمەیشتی پاشخان</string>
@@ -410,12 +410,7 @@
     <string name="settings_advanced_updates_background_notifications">ئاگانامەکانی نوێکردنەوەی پاشخان</string>
     <string name="settings_advanced_updates_background_notifications_description">بە خوولی پشکنین بۆ نوێکردنەوەکان لە باکگراوند و ئاگادارکردنەوە بکە کاتێک بەردەست بوو</string>
     <string name="settings_advanced_update_interval">پشکنینی فریکوێنس</string>
-    <string name="settings_advanced_update_interval_dialog_title">بپشکنە بۆ نوێکردنەوەکان</string>
-    <string name="settings_advanced_update_interval_hourly">کاتژمێرێک جارێک</string>
-    <string name="settings_advanced_update_interval_daily">ڕۆژی جارێک</string>
-    <string name="settings_advanced_update_interval_weekly">هەفتەی جارێک</string>
-    <string name="settings_advanced_update_interval_monthly">مانگی جارێک</string>
-    <string name="settings_advanced_update_interval_chip_subtitle">فریکوێنسی پشکنینی پاشخان</string>
+    <string name="settings_advanced_update_interval_daily">ڕۆژانە</string>
     <string name="settings_advanced_update_interval_battery_warning">لەوانەیە پشکنینی پاشبنەما بە شێوەیەکی باوەڕپێکراو کار نەکات لەسەر هەندێک ئامێر. بەرهەمهێنەرانی وەک شیاومی، هواوی، سامسۆنگ و وەن پڵەس زۆرجار پرۆسەکانی پاشخان سنووردار دەکەن بۆ پاشەکەوت کردنی پاتری.</string>
     <!-- Notification content -->
     <string name="notification_bundle_update_title">پینەی نوێ بەردەستە</string>
@@ -423,8 +418,8 @@
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert_mode">مۆدی شارەزا</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
-    <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <!-- "%s" is the GitHub scope name, keep it as is -->
+    <!-- "%s" is the GitHub account name -->
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <!-- Settings - Advanced Tab - Patch Options Section -->
@@ -474,6 +469,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Import and Export Section -->
     <!-- Settings - System Tab - Files & Storage Section -->
     <!-- Settings - System Tab - Storage Management screen -->
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
@@ -489,6 +485,10 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="patches">پینەکان</string>
     <string name="settings">ڕێکخستنەکان</string>
+    <!-- Sections the settings page lists, each opening a page of its own. A summary names what the section holds -->
+    <string name="settings_section_updates">نوێکردنەوەکان</string>
+    <string name="settings_section_patching">پینەکردن</string>
+    <string name="settings_section_general">گشتی</string>
     <string name="skip">لەوەشدا بجە</string>
     <string name="remove">سڕینەوە</string>
     <string name="disable">خۆراکە</string>

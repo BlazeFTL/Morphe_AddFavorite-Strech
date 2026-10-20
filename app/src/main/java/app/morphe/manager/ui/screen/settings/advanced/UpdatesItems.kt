@@ -28,8 +28,6 @@ fun UpdatesItems(
     val useManagerPrereleases by prefs.useManagerPrereleases.getAsState()
     val usePatchesPrereleases by prefs.bundlePrereleasesEnabled.getAsState()
     val useExpertMode by prefs.useExpertMode.getAsState()
-    val gitHubPat by prefs.gitHubPat.getAsState()
-    val includeGitHubPatInExports by prefs.includeGitHubPatInExports.getAsState()
     val showPrereleaseWarning = remember { mutableStateOf(false) }
 
     fun applyManagerPrereleases() {
@@ -81,10 +79,6 @@ fun UpdatesItems(
     )
 
     if (useExpertMode) {
-        GitHubPatSettingsItem(
-            currentPat = gitHubPat,
-            currentIncludeInExport = includeGitHubPatInExports,
-            onSave = { pat, include -> settingsViewModel.setGitHubPat(pat, include) }
-        )
+        GitHubPatSettingsItem(settingsViewModel)
     }
 }

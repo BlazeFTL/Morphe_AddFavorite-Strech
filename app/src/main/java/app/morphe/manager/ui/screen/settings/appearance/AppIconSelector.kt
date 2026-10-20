@@ -107,8 +107,13 @@ fun AppIconSettingsItem() {
 
     // Confirmation dialog
     DialogHost(target = showConfirmDialog.value) { selectedIcon ->
-        AppIconChangeDialog(
-            icon = selectedIcon,
+        ConfirmDialog(
+            title = stringResource(R.string.settings_appearance_app_icon_change_dialog_title),
+            message = htmlAnnotatedString(
+                stringResource(R.string.settings_appearance_app_icon_change_dialog_message, appIconName(selectedIcon))
+            ),
+            primaryText = stringResource(R.string.settings_appearance_app_icon_change_dialog_confirm),
+            isPrimaryDestructive = false,
             onConfirm = {
                 scope.launch {
                     iconManager.setIcon(selectedIcon)
@@ -368,7 +373,7 @@ private fun AppIconCard(
         onClick = onClick,
         enabled = enabled,
         stateDescription = stringResource(
-            if (isSelected) R.string.selected else R.string.not_selected
+            if (isSelected) R.string.state_selected else R.string.state_not_selected
         ),
         modifier = modifier.heightIn(min = cardHeight),
         shape = shape,
@@ -404,31 +409,4 @@ private fun AppIconCard(
             )
         }
     }
-}
-
-/**
- * Confirmation dialog for icon change.
- */
-@Composable
-private fun DialogHostScope.AppIconChangeDialog(
-    icon: AppIcon,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.settings_appearance_app_icon_change_dialog_title),
-        description = htmlAnnotatedString(stringResource(
-            R.string.settings_appearance_app_icon_change_dialog_message,
-            appIconName(icon)
-        )),
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.settings_appearance_app_icon_change_dialog_confirm),
-                onPrimaryClick = onConfirm,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
-        }
-    )
 }

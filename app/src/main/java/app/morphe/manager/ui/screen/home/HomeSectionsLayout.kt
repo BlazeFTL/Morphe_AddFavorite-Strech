@@ -52,13 +52,6 @@ import org.koin.compose.koinInject
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import kotlin.time.Duration.Companion.milliseconds
 
-/** Cards get more room in landscape, where the list has a pane of its own beside the navigation. */
-private val LandscapeMaxCardWidth = 700.dp
-
-/** Widest the apps page draws its cards, which the notifications over the pages keep to as well. */
-@Composable
-internal fun homeCardMaxWidth(): Dp = if (isLandscape()) LandscapeMaxCardWidth else Defaults.ContentMaxWidth
-
 internal fun HomeCategoryGroup.selectionKey(): String =
     sourceUid?.let { "source_$it" } ?: id?.let { "category_$it" } ?: "uncategorized"
 
@@ -138,7 +131,6 @@ internal fun SectionsLayout(
     onHeaderHeightChange: (Dp) -> Unit = {}
 ) {
     val windowSize = rememberWindowSize()
-    val maxCardWidth = homeCardMaxWidth()
     val search = rememberSearchFieldState()
     // Registered before the footer bars' own back handling, so an open bar takes priority
     SearchFieldBackHandler(search)
@@ -171,13 +163,11 @@ internal fun SectionsLayout(
         bottomBar = {
             HomeFooterBarDock(
                 host = footerBar,
-                modifier = Modifier
-                    .widthIn(max = maxCardWidth)
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             )
         },
         onHeaderHeightChange = onHeaderHeightChange
-    ) { headerHeight, footerBarHeight ->
+    ) { insets ->
         MainAppsSection(
             apps = apps,
             appActions = appActions,
@@ -185,16 +175,15 @@ internal fun SectionsLayout(
             search = search,
             onOpenSources = chromeActions.onOpenSources,
             footerBar = footerBar,
-            footerBarHeight = footerBarHeight,
+            footerBarHeight = insets.bottom,
             bottomBarHeight = bottomBarHeight,
             itemSpacing = windowSize.itemSpacing,
             // The gutters keep the scrollbar at the list's edge clear of the cards
-            horizontalPadding = windowSize.contentPadding,
-            maxCardWidth = maxCardWidth,
+            horizontalPadding = insets.horizontal,
             onboardingState = onboardingState,
             showFadeOverlay = !isLandscape(),
             header = greeting,
-            topPadding = headerHeight + Defaults.SpaceMedium
+            topPadding = insets.top + Defaults.SpaceMedium
         )
     }
 }
@@ -252,7 +241,6 @@ internal fun MainAppsSection(
     bottomBarHeight: Dp = 0.dp,
     itemSpacing: Dp = 16.dp,
     horizontalPadding: Dp = 0.dp,
-    maxCardWidth: Dp = 500.dp,
     onboardingState: OnboardingState? = null,
     showFadeOverlay: Boolean = true,
     // Opens the list and scrolls away with it, such as the greeting
@@ -783,11 +771,7 @@ internal fun MainAppsSection(
                     }
                 }
             } else {
-                Box(
-                    modifier = Modifier
-                        .widthIn(max = maxCardWidth)
-                        .fillMaxSize()
-                ) {
+                Box(modifier = Modifier.fillMaxSize()) {
                     // Vertical fade overlay drawn on top of LazyColumn.
                     // The overlay is pointer-transparent so swipe gestures pass through
                     Box(modifier = Modifier.fillMaxSize()) {

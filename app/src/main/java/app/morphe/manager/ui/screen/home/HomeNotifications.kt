@@ -478,7 +478,7 @@ private fun homeAlerts(notifications: HomeNotificationsUi): List<HomeAlert> {
             title = stringResource(R.string.batch_patch_title),
             subtitle = stringResource(
                 R.string.batch_patch_progress_counter,
-                (batchRun?.processed ?: 0).toString(),
+                (batchRun?.position ?: 0).toString(),
                 (batchRun?.total ?: 0).toString()
             ),
             onClick = notifications.batchQueue.onShow,

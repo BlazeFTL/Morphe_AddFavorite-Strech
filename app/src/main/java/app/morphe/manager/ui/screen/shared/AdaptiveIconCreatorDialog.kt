@@ -301,10 +301,9 @@ fun DialogHostScope.AdaptiveIconCreatorDialog(
 
             // Transparency warning shown when the selected image has no transparent pixels
             FoldingVisibility(visible = foreground.value?.isOpaque == true) {
-                Notice(
+                Footnote(
                     text = stringResource(R.string.adaptive_icon_no_transparency_warning),
-                    tone = SemanticTone.Warning,
-                    density = NoticeDensity.Compact
+                    tone = SemanticTone.Warning
                 )
             }
         }

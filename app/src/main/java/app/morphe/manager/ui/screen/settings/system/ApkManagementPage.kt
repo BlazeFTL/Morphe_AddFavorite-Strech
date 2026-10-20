@@ -949,7 +949,7 @@ private fun ApkItemCard(
         modifier = Modifier.fillMaxWidth(),
         isSelected = selected,
         isSelectionMode = selectionMode,
-        checkmarkContentDescription = stringResource(R.string.selected)
+        checkmarkContentDescription = stringResource(R.string.state_selected)
     ) {
         // Worn the way the home screen wears it, so the app reads as itself here too
         SectionCard(accentColor = rememberAppColor(data.originalPackageName)) {

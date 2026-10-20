@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -55,6 +56,9 @@ import com.composables.icons.materialsymbols.rounded.*
  * download target. [selectedDownloadVersion] reflects the current selection (defaults to
  * [recommendedVersion]); [onVersionSelect] propagates the change to the ViewModel.
  * In simple mode there is only one version and no selection UI is shown.
+ *
+ * [hiddenSourceCount] names the sources the app is kept from, whose versions are missing from
+ * the list, so the user is told where that choice is undone.
  */
 @Composable
 internal fun DialogHostScope.ApkAvailabilityDialog(
@@ -70,6 +74,7 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
     savedApkInfo: SavedApkInfo?,
     installedApkInfo: InstalledApkInfo?,
     installedAppVersion: String?,
+    hiddenSourceCount: Int,
     onDismiss: () -> Unit,
     onHaveApk: () -> Unit,
     onNeedApk: () -> Unit,
@@ -106,6 +111,11 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
     }
     val unlistedInstalledVersion = installedAppVersion?.takeIf { it !in listedVersions }
 
+    // When saved and installed APKs share the same version, prefer the saved copy.
+    // Hide the installed button in that case to avoid showing two equivalent sources
+    val preferSavedOverInstalled = savedApkInfo != null &&
+        savedApkInfo.version == installedApkInfo?.version
+
     // Versions whose minSdk exceeds the current device - shown greyed-out and non-selectable
     val incompatibleSdkVersions: Set<String> = remember(offeredVersions) {
         offeredVersions
@@ -132,11 +142,6 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                     layout = DialogButtonLayout.Vertical
                 )
 
-                // When saved and installed APKs share the same version, prefer the saved copy.
-                // Hide the installed button in that case to avoid showing two equivalent sources
-                val preferSavedOverInstalled = savedApkInfo != null &&
-                    savedApkInfo.version == installedApkInfo?.version
-
                 // Saved APK button - always shown when a saved APK exists
                 if (savedApkInfo != null) {
                     AppDialogOutlinedButton(
@@ -150,17 +155,6 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                         icon = MaterialSymbols.Rounded.History,
                         modifier = Modifier.fillMaxWidth()
                     )
-
-                    // Taking it leads to the unsupported-version dialog, which is a wasted tap
-                    // unless the user is told here what is wrong with the copy they kept
-                    if (!savedApkMatchesTargets) {
-                        Notice(
-                            text = stringResource(R.string.home_apk_use_saved_unsupported),
-                            tone = SemanticTone.Warning,
-                            icon = MaterialSymbols.Rounded.Warning,
-                            density = NoticeDensity.Compact
-                        )
-                    }
                 }
 
                 // Installed APK button - hidden when saved mono-APK covers the same split version
@@ -174,16 +168,6 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
                         icon = MaterialSymbols.Rounded.Phone_android,
                         modifier = Modifier.fillMaxWidth()
                     )
-
-                    // The certificate check could not run, so the installed app may already be patched
-                    if (installedApkInfo.patchStateUnknown) {
-                        Notice(
-                            text = stringResource(R.string.home_apk_use_installed_unverified),
-                            tone = SemanticTone.Warning,
-                            icon = MaterialSymbols.Rounded.Warning,
-                            density = NoticeDensity.Compact
-                        )
-                    }
                 }
             }
         }
@@ -264,23 +248,51 @@ internal fun DialogHostScope.ApkAvailabilityDialog(
 
             // For reference only, so neutral rather than a warning
             unlistedInstalledVersion?.let {
-                Notice(
+                Footnote(
                     text = stringResource(
                         R.string.home_apk_availability_installed_version,
                         it.withVersionPrefix()
                     ),
                     tone = SemanticTone.Neutral,
-                    icon = MaterialSymbols.Rounded.Install_mobile,
-                    density = NoticeDensity.Compact
+                    icon = MaterialSymbols.Rounded.Install_mobile
+                )
+            }
+
+            // A remembered source choice is otherwise never seen again, nor where it is undone
+            if (hiddenSourceCount > 0) {
+                Footnote(
+                    text = pluralStringResource(
+                        R.plurals.home_apk_availability_hidden_sources,
+                        hiddenSourceCount,
+                        hiddenSourceCount.toString()
+                    ),
+                    icon = MaterialSymbols.Rounded.Visibility_off
                 )
             }
 
             // Root mode warning - only when there is no app on the device to mount over
             if (usingMountInstall && !stockAppInstalled) {
-                Notice(
+                Footnote(
                     text = stringResource(R.string.root_install_apk_required),
-                    tone = SemanticTone.Warning,
-                    icon = MaterialSymbols.Rounded.Warning
+                    tone = SemanticTone.Warning
+                )
+            }
+
+            // Taking the saved copy leads to the unsupported-version dialog, which is a wasted tap
+            // unless the user is told here what is wrong with the copy they kept
+            if (savedApkInfo != null && !savedApkMatchesTargets) {
+                Footnote(
+                    text = stringResource(R.string.home_apk_use_saved_unsupported),
+                    tone = SemanticTone.Warning
+                )
+            }
+
+            // The certificate check could not run, so the installed app may already be patched.
+            // Its button is left out when the saved copy stands in for it, and so is this note
+            if (installedApkInfo != null && !preferSavedOverInstalled && installedApkInfo.patchStateUnknown) {
+                Footnote(
+                    text = stringResource(R.string.home_apk_use_installed_unverified),
+                    tone = SemanticTone.Warning
                 )
             }
         }

@@ -13,7 +13,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -79,14 +82,24 @@ fun PageHeader(
 }
 
 /**
+ * Room a [PinnedHeaderPage]'s content leaves for what stands around it: [top] for the header,
+ * [bottom] for the bottom bar, and [horizontal] each side, which centers the page's content column
+ * on a screen wider than it.
+ */
+@Immutable
+data class PageInsets(val top: Dp, val bottom: Dp, val horizontal: Dp)
+
+/**
  * A page whose [header] stays in place while [content] scrolls on under it, blurred on a band the
- * header lays down only once the content runs under it, as a list dialog's header does. [content]
- * is handed the header's height to start below it, and the height of the [bottomBar] to end above it.
+ * header lays down only once the content runs under it, as a list dialog's header does. The header,
+ * the content and the [bottomBar] keep to one centered content column, see [contentColumn], while
+ * the header's band and the content's scroll reach the screen's edges.
  *
  * @param scrollState The page's scroll, which lays the header's band down once it moves off the start.
  * @param bottomBar Docked over the bottom of the page, such as a [DockedPanel], blurring the content
  *   under it as the header does.
  * @param onHeaderHeightChange Told the header's height, for what floats over the page below it.
+ * @param content Handed the room to leave around it, see [PageInsets].
  */
 @Composable
 fun PinnedHeaderPage(
@@ -95,29 +108,40 @@ fun PinnedHeaderPage(
     modifier: Modifier = Modifier,
     bottomBar: @Composable () -> Unit = {},
     onHeaderHeightChange: (Dp) -> Unit = {},
-    content: @Composable BoxScope.(headerHeight: Dp, bottomBarHeight: Dp) -> Unit
+    content: @Composable BoxScope.(insets: PageInsets) -> Unit
 ) {
     val haze = rememberHazeState()
-    val horizontal = rememberWindowSize().contentPadding
+    val gutter = rememberWindowSize().contentPadding
     FloatingBarsLayout(
         modifier = modifier.fillMaxSize(),
-        bottomBar = { CompositionLocalProvider(LocalBackdropHaze provides haze, content = bottomBar) },
+        bottomBar = {
+            CompositionLocalProvider(LocalBackdropHaze provides haze) {
+                Box(modifier = Modifier.contentColumn()) { bottomBar() }
+            }
+        },
         topBar = {
             Box(modifier = Modifier.fillMaxWidth()) {
                 // Bare at rest, the band laid down once the page scrolls on under the header
                 HeaderBand(appAccentFill(null), HeaderBandShape, scrolledUnder = { scrollState.canScrollBackward }, haze = haze)
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
                         .statusBarsPadding()
-                        .padding(start = horizontal, top = Defaults.SpaceLarge, end = horizontal, bottom = Defaults.SpaceMedium),
+                        .contentColumn()
+                        .padding(start = gutter, top = Defaults.SpaceLarge, end = gutter, bottom = Defaults.SpaceMedium),
                     content = header
                 )
             }
         }
     ) { headerHeight, bottomBarHeight ->
         SideEffect { onHeaderHeightChange(headerHeight) }
-        Box(modifier = Modifier.fillMaxSize().hazeSource(haze)) { content(headerHeight, bottomBarHeight) }
+        BoxWithConstraints(modifier = Modifier.fillMaxSize().hazeSource(haze)) {
+            val horizontal = centeredGutter(maxWidth, gutter)
+            val insets = remember(headerHeight, bottomBarHeight, horizontal) {
+                PageInsets(top = headerHeight, bottom = bottomBarHeight, horizontal = horizontal)
+            }
+            content(insets)
+        }
     }
 }
 
@@ -133,23 +157,22 @@ fun SubpageScaffold(
     content: @Composable ColumnScope.() -> Unit
 ) {
     val scrollState = rememberScrollState()
-    val horizontal = rememberWindowSize().contentPadding
     val navigationBar = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
     PinnedHeaderPage(
         header = { PageHeader(title = title, onBack = onBack) },
         scrollState = scrollState,
         modifier = modifier
-    ) { headerHeight, _ ->
+    ) { insets ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScrollFade(scrollState)
                 .verticalScroll(scrollState)
                 .padding(
-                    start = horizontal,
-                    top = headerHeight + Defaults.SpaceMedium,
-                    end = horizontal,
+                    start = insets.horizontal,
+                    top = insets.top + Defaults.SpaceMedium,
+                    end = insets.horizontal,
                     bottom = navigationBar + Defaults.SpaceLarge
                 ),
             verticalArrangement = Arrangement.spacedBy(Defaults.SpaceLarge),
@@ -159,7 +182,7 @@ fun SubpageScaffold(
         ListScrollbar(
             scrollState = scrollState,
             modifier = Modifier.padding(
-                top = headerHeight + Defaults.SpaceMedium,
+                top = insets.top + Defaults.SpaceMedium,
                 bottom = navigationBar + Defaults.SpaceMedium
             )
         )

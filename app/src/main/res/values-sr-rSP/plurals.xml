@@ -5,6 +5,12 @@
         <item quantity="few">%s исправка</item>
         <item quantity="other">%s патича</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s библиотека</item>
+        <item quantity="few">%s библиотеке</item>
+        <item quantity="other">%s библиотеки</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s опција патича</item>
         <item quantity="few">%s опција поправке</item>
@@ -32,6 +38,11 @@
         <item quantity="one">Извори закрпа за %s апликацијy</item>
         <item quantity="few">Извори закрпа за %s апликацијe</item>
         <item quantity="other">Извори закрпа за %s апликацијa</item>
+    </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">%s извор је скривен за ову апликацију. Изаберите апликацију на картици Апликације и отворите Исправка извора да га вратите назад</item>
+        <item quantity="few">%s извора су скривена за ову апликацију. Изаберите апликацију на картици Апликације и отворите Исправка извора да их вратите назад</item>
+        <item quantity="other">%s извора је скривено за ову апликацију. Изаберите апликацију на картици Апликације и отворите Исправка извора да их вратите назад</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s извор сакривен. Додирните да бисте приказали</item>
@@ -112,6 +123,21 @@
         <item quantity="one">%s извор инсталиран</item>
         <item quantity="few">%s извора инсталирано</item>
         <item quantity="other">%s извора инсталирано</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">%s скршена апликација</item>
+        <item quantity="few">%s скршене апликације</item>
+        <item quantity="other">%s скршених апликација</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">%s приказана апликација</item>
+        <item quantity="few">%s приказане апликације</item>
+        <item quantity="other">%s приказаних апликација</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Прикажите апликацију %s?</item>
+        <item quantity="few">Прикажите апликације %s?</item>
+        <item quantity="other">Прикажите апликације %s?</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s скривена апликација</item>

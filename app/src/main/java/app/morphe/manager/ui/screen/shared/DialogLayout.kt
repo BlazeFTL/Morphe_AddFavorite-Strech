@@ -24,6 +24,8 @@ import dev.chrisbanes.haze.rememberHazeState
  *   Without one the content still starts clear of the status bar.
  * @param bottomBar Stands in for the [footer] while there is one, such as a [DockedPanel].
  * @param footerFolded Folds the [footer] away, such as while the keyboard is up.
+ * @param split Lays the dialog out over the wider column of two panes side by side, with the
+ *   [footer] or [bottomBar] under the second, see [ListDialog].
  * @param wrapContentHeight Takes the height of the content, centered on the screen, rather than all
  *   of it, for a dialog that is one block until it runs out of room and scrolls.
  * @param contentModifier Applied to what holds the content, such as a header following its scroll.
@@ -36,6 +38,7 @@ internal fun DialogLayout(
     modifier: Modifier = Modifier,
     bottomBar: (@Composable () -> Unit)? = null,
     footerFolded: Boolean = false,
+    split: Boolean = false,
     wrapContentHeight: Boolean = false,
     contentModifier: Modifier = Modifier,
     content: @Composable BoxScope.(headerHeight: Dp, bottomHeight: Dp) -> Unit
@@ -64,16 +67,12 @@ internal fun DialogLayout(
                 // Blurs the content as the header does, the footer's buttons included
                 CompositionLocalProvider(LocalBackdropHaze provides haze) {
                     when {
-                        bottomBar != null -> Box(
-                            modifier = Modifier
-                                .widthIn(max = Defaults.ContentMaxWidth)
-                                .fillMaxWidth()
-                        ) {
+                        bottomBar != null -> Box(modifier = Modifier.dialogBarColumn(split)) {
                             bottomBar()
                         }
 
                         footer != null -> FoldingVisibility(visible = !footerFolded) {
-                            DialogFooter(footer)
+                            DialogFooter(footer, split)
                         }
 
                         // Nothing floats over the content, which still ends clear of the navigation bar
@@ -103,7 +102,7 @@ internal fun DialogLayout(
 
 /** A dialog's buttons, clear of the navigation bar, which the keyboard covers while it is up. */
 @Composable
-private fun DialogFooter(footer: @Composable () -> Unit) {
+private fun DialogFooter(footer: @Composable () -> Unit, split: Boolean) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,11 +116,23 @@ private fun DialogFooter(footer: @Composable () -> Unit) {
     ) {
         Box(
             modifier = Modifier
-                .widthIn(max = Defaults.ContentMaxWidth)
-                .fillMaxWidth()
+                .dialogBarColumn(split)
                 .padding(horizontal = DialogInset)
         ) {
             footer()
         }
     }
 }
+
+/**
+ * Holds a dialog's bar to its column, or to the second pane of a [split] one, which is where its
+ * buttons act.
+ */
+private fun Modifier.dialogBarColumn(split: Boolean): Modifier =
+    if (split) {
+        contentColumn(Defaults.SplitContentMaxWidth)
+            .wrapContentWidth(Alignment.End)
+            .fillMaxWidth(0.5f)
+    } else {
+        contentColumn()
+    }

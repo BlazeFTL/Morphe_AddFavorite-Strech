@@ -8,7 +8,7 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.animation.core.animate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -23,7 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -34,7 +36,6 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
-import kotlinx.coroutines.launch
 
 /**
  * Slide-up surface docked over the bottom of a list: a selection panel, a reorder bar, or the
@@ -56,8 +57,16 @@ fun DockedPanel(
     content: @Composable () -> Unit
 ) {
     val backProgress = remember { Animatable(0f) }
+    // How far the finger has drawn the panel down, kept apart from the back gesture, which only
+    // previews the closing over a short way
+    val dragOffset = remember { mutableFloatStateOf(0f) }
     // A gesture that closed the panel leaves it drawn down, which the next opening must not inherit
-    LaunchedEffect(visible) { if (visible) backProgress.snapTo(0f) }
+    LaunchedEffect(visible) {
+        if (visible) {
+            backProgress.snapTo(0f)
+            dragOffset.floatValue = 0f
+        }
+    }
     PredictiveBackSlideHandler(backProgress, enabled = visible, onBack = onBack)
 
     AnimatedVisibility(
@@ -71,6 +80,7 @@ fun DockedPanel(
             modifier = Modifier
                 .fillMaxWidth()
                 .predictiveBackSlide(backProgress)
+                .graphicsLayer { translationY = dragOffset.floatValue }
                 // A surface of its own with an edge of its own, blurring what scrolls under it
                 .glassFill(surface, SheetShape)
                 .sheetBorder(CardBorder.neutral, SheetShape),
@@ -80,7 +90,7 @@ fun DockedPanel(
         ) {
             Column(
                 modifier = Modifier
-                    .drawnDownBy(backProgress, onDismiss = onBack)
+                    .drawnDownBy(dragOffset, onDismiss = onBack)
                     .navigationBarsPadding()
                     .padding(bottom = Defaults.SpaceExtraSmall)
             ) {
@@ -95,26 +105,33 @@ fun DockedPanel(
 val SheetShape: Shape = RoundedCornerShape(topStart = Defaults.CornerExtraLarge, topEnd = Defaults.CornerExtraLarge)
 
 /**
- * Lets a [DockedPanel] be drawn down anywhere a list in it does not take the drag, through the same
- * [progress] a back gesture moves it by, so letting go past halfway or with a flick closes it as
- * letting go of the gesture does.
+ * Lets a [DockedPanel] be drawn down by [offset] wherever no list in it takes the drag, all the way
+ * with the finger, closing past half its height or on a flick and settling back otherwise.
  */
 @Composable
-private fun Modifier.drawnDownBy(progress: Animatable<Float, AnimationVector1D>, onDismiss: () -> Unit): Modifier {
-    val scope = rememberCoroutineScope()
-    val density = LocalDensity.current
-    val travel = with(density) { PredictiveBackSlide.toPx() }
-    val flick = with(density) { DismissVelocity.toPx() }
+private fun Modifier.drawnDownBy(offset: MutableFloatState, onDismiss: () -> Unit): Modifier {
+    val flick = with(LocalDensity.current) { DismissVelocity.toPx() }
+    var height by remember { mutableIntStateOf(0) }
+    // Moved in step with the finger rather than from a coroutine per step, which would land late
+    // and cut short the settling that began when the finger let go
     val dragState = rememberDraggableState { delta ->
-        scope.launch { progress.snapTo((progress.value + delta / travel).coerceIn(0f, 1f)) }
+        offset.floatValue = (offset.floatValue + delta).coerceIn(0f, height.toFloat())
     }
-    return draggable(
-        state = dragState,
-        orientation = Orientation.Vertical,
-        onDragStopped = { velocity ->
-            if (progress.value > 0.5f || velocity > flick) onDismiss() else progress.animateTo(0f)
-        }
-    )
+    return onSizeChanged { height = it.height }
+        .draggable(
+            state = dragState,
+            orientation = Orientation.Vertical,
+            onDragStopped = { velocity ->
+                if (offset.floatValue > height / 2f || velocity > flick) {
+                    onDismiss()
+                } else {
+                    // Settled as a drag of its own, which a new touch takes over from cleanly
+                    dragState.drag {
+                        animate(offset.floatValue, 0f) { value, _ -> dragBy(value - offset.floatValue) }
+                    }
+                }
+            }
+        )
 }
 
 /**
@@ -251,7 +268,7 @@ fun SelectionActionBar(
     val selectAllLabel = stringResource(R.string.select_all)
     val deselectAllLabel = stringResource(R.string.deselect_all)
     val cancelLabel = stringResource(android.R.string.cancel)
-    val selectedLabel = stringResource(R.string.selected).lowercase()
+    val selectedLabel = stringResource(R.string.state_selected).lowercase()
     val allSelected = totalCount in 1..selectedCount
     val canToggleToDeselect = allSelected && onDeselectAll != null
     val selectionToggleLabel = if (canToggleToDeselect) deselectAllLabel else selectAllLabel

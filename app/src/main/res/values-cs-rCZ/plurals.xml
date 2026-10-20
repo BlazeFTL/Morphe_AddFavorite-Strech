@@ -6,6 +6,13 @@
         <item quantity="many">%s záplat</item>
         <item quantity="other">%s záplat</item>
     </plurals>
+    <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
+    <plurals name="library_count">
+        <item quantity="one">%s knihovna</item>
+        <item quantity="few">%s knihovny</item>
+        <item quantity="many">%s knihoven</item>
+        <item quantity="other">%s knihoven</item>
+    </plurals>
     <plurals name="option_count">
         <item quantity="one">%s možnost záplaty</item>
         <item quantity="few">%s možnosti záplaty</item>
@@ -38,6 +45,12 @@
         <item quantity="few">Zdroje záplat pro %s aplikace</item>
         <item quantity="many">Zdroje záplat pro %s aplikací</item>
         <item quantity="other">Zdroje záplat pro %s aplikací</item>
+    </plurals>
+    <plurals name="home_apk_availability_hidden_sources">
+        <item quantity="one">Zdroj %s je pro tuto aplikaci skrytý. Vyberte aplikaci na kartě Aplikace a otevřete Opravit zdroje, abyste ho znovu viděli</item>
+        <item quantity="few">Zdroje %s jsou pro tuto aplikaci skryté. Vyberte aplikaci na kartě Aplikace a otevřete Opravit zdroje, abyste je znovu viděli</item>
+        <item quantity="many">Zdroje %s jsou pro tuto aplikaci skryté. Vyberte aplikaci na kartě Aplikace a otevřete Opravit zdroje, abyste je znovu viděli</item>
+        <item quantity="other">Zdroje %s jsou pro tuto aplikaci skryté. Vyberte aplikaci na kartě Aplikace a otevřete Opravit zdroje, abyste je znovu viděli</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s skrytý zdroj. Klepnutím zobrazíte</item>
@@ -140,6 +153,24 @@
         <item quantity="few">%s zdroje nainstalovány</item>
         <item quantity="many">%s zdrojů nainstalováno</item>
         <item quantity="other">%s zdrojů nainstalováno</item>
+    </plurals>
+    <plurals name="home_apps_hidden_count">
+        <item quantity="one">Aplikace %s skryté</item>
+        <item quantity="few">%s aplikace skryty</item>
+        <item quantity="many">%s aplikací skryto</item>
+        <item quantity="other">%s aplikací skryto</item>
+    </plurals>
+    <plurals name="home_apps_shown_count">
+        <item quantity="one">Aplikace %s zobrazena</item>
+        <item quantity="few">%s aplikace zobrazeny</item>
+        <item quantity="many">%s aplikací zobrazeno</item>
+        <item quantity="other">%s aplikací zobrazeno</item>
+    </plurals>
+    <plurals name="home_apps_unhide_title">
+        <item quantity="one">Zobrazit aplikaci %s?</item>
+        <item quantity="few">Zobrazit aplikace %s?</item>
+        <item quantity="many">Zobrazit aplikací %s?</item>
+        <item quantity="other">Zobrazit aplikací %s?</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s skrytá aplikace</item>

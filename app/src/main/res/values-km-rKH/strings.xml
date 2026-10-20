@@ -5,6 +5,7 @@
     <string name="home_not_patched_yet">មិនទាន់បានបំណេះនៅឡើយទេ</string>
     <string name="home_app_hide_message">កម្មវិធីនេះនឹងត្រូវបានលាក់មិនបង្ហាញលើអេក្រង់មុខ។ អ្នកអាចបង្ហាញវាឡើងវិញដោយចុចប៊ូតុងនៅខាងក្រោមបំផុតនៃបញ្ជី</string>
     <!-- Shown under the app a link was opened for -->
+    <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
     <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available_subtitle">កំណែថ្មីត្រៀមជាស្រេច ដើម្បីដំឡើង</string>
@@ -13,6 +14,7 @@
     <string name="home_update_success">អាប់ដេតប្រភពបានបញ្ចប់</string>
     <string name="home_update_success_subtitle">ប្រភពរបស់អ្នកទាន់សម័យហើយ</string>
     <string name="home_sources_are_loading">ប្រភពកំពុងផ្ទុក សូមរង់ចាំ…</string>
+    <string name="home_app_grouping_none">ឥតមាន</string>
     <string name="home_category_custom">ផ្ទាល់ខ្លួន</string>
     <!-- Home Screen - Home Greetings -->
     <string name="home_greeting_1">តើកម្មវិធីណាមួយដែលអ្នកចង់ធ្វើបំណេះ?</string>
@@ -40,6 +42,7 @@
     <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">ប្រភពបំណះ</string>
+    <!-- Which sources the sources page lists, each with what it keeps -->
     <string name="sources_management_open_in_browser">បើកក្នុងកម្មវិធីច្បោល</string>
     <string name="sources_management_failed_to_open_url">បរាជ័យក្នុងការបើក URL</string>
     <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
@@ -91,7 +94,6 @@
     <!-- Value of "Libraries": every library was left in the patched APK -->
     <!-- Patcher Screen - Patcher Steps -->
     <!-- Battery optimization pre-flight dialog -->
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <!-- Patcher Screen - Patcher Messages -->
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
@@ -100,7 +102,6 @@
     <!-- Quantum physics (box emoji is a reference to Schrödinger's cat). -->
     <!-- Throw away reference to a Saturday Night Live sketch. "fever" means sickness or the flu. "prescription" means medical treatment or can be translated from "cure" -->
     <!-- Expert patcher Screen -->
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
     <!-- Patcher Screen - Other hidden strings -->
     <!-- Patcher Screen - Mini-games -->
     <!-- Settings -->
@@ -122,8 +123,8 @@
     <!-- Notification content -->
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
-    <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <!-- "%s" is the GitHub scope name, keep it as is -->
+    <!-- "%s" is the GitHub account name -->
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <!-- Settings - Advanced Tab - Patch Options Section -->
@@ -139,6 +140,7 @@
     <!-- Settings - System Tab - Import and Export Section -->
     <!-- Settings - System Tab - Files & Storage Section -->
     <!-- Settings - System Tab - Storage Management screen -->
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
@@ -152,6 +154,9 @@
     <!-- Shared strings -->
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home">ទំព័រដើម</string>
+    <!-- Sections the settings page lists, each opening a page of its own. A summary names what the section holds -->
+    <string name="settings_section_general">ជាទូទៅ</string>
+    <string name="settings_search">ស្វែងរកការកំណត់</string>
     <string name="remove">ដកចេញ</string>
     <string name="enabled">បានបើក</string>
     <string name="disabled">បានផ្ដាច់</string>

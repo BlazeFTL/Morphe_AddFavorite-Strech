@@ -251,14 +251,9 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
     // comes back through the same picker an opened one leads to
     val copyLink = { onContinue { url -> copyToClipboard(url); true } }
 
-    // Never falls back to unresolved once the destination is known, so the instructions stay
-    // put while the dialog animates out and the pending download data is already cleared
-    var source by remember { mutableStateOf<ApkDownloadSource>(ApkDownloadSource.Unresolved) }
-    LaunchedEffect(downloadUrl) {
-        ApkDownloadSource.from(downloadUrl)
-            .takeIf { it != ApkDownloadSource.Unresolved }
-            ?.let { source = it }
-    }
+    // Read off the link the caller holds rather than kept here, so a dialog the screen brings back
+    // shows the steps already found instead of finding them all over again
+    val source = remember(downloadUrl) { ApkDownloadSource.from(downloadUrl) }
 
     // Nothing can be said about the download until the redirect lands, and the link on hand
     // until then is the unfollowed one, which is exactly what must not be opened
@@ -372,11 +367,9 @@ internal fun DialogHostScope.DownloadInstructionsDialog(
                                 }
 
                                 step.note?.let { note ->
-                                    Notice(
+                                    Footnote(
                                         text = note,
-                                        tone = SemanticTone.Warning,
-                                        icon = MaterialSymbols.Rounded.Warning,
-                                        density = NoticeDensity.Compact
+                                        tone = SemanticTone.Warning
                                     )
                                 }
                             }

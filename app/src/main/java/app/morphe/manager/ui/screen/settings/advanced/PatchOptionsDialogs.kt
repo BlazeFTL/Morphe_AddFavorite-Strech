@@ -113,10 +113,9 @@ fun DialogHostScope.CustomBrandingDialog(
                 )
 
                 if (missingCustomIcon) {
-                    Notice(
+                    Footnote(
                         text = stringResource(R.string.settings_advanced_patch_options_custom_branding_app_icon_needs_folder),
-                        tone = SemanticTone.Error,
-                        density = NoticeDensity.Compact
+                        tone = SemanticTone.Error
                     )
                 }
             }

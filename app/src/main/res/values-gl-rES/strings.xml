@@ -16,6 +16,7 @@
     <string name="deep_link_add_source_message">Desexa engadir esta fonte de parches a Morphe?</string>
     <string name="deep_link_add_source_warning">Engado tan só aquelas fontes nas que confíes </string>
     <!-- Shown under the app a link was opened for -->
+    <!-- Shown when the link was opened for the universal patches of a source, which no app is added with -->
     <!-- Asked when the link names an app of a source that is already added -->
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Actualización de Morphe dispoñible</string>
@@ -28,6 +29,7 @@
     <string name="home_update_success_subtitle">As súas fontes están ao día</string>
     <string name="home_sources_are_loading">As fontes están a cargar, por favor agarde...</string>
     <string name="home_search_apps">Buscar apps</string>
+    <string name="home_app_grouping_none">Ningún</string>
     <string name="home_no_apps_title">Non hai apps dispoñibles</string>
     <string name="home_no_apps_subtitle">Engade unha fonte de parche ou activa unha existente en %s</string>
     <string name="home_no_apps_search_subtitle">Non existen aplicacións que coincidan con \"%s\".</string>
@@ -69,6 +71,7 @@
     <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fonte de parches</string>
+    <!-- Which sources the sources page lists, each with what it keeps -->
     <string name="sources_management_open_in_browser">Abrir no navegador</string>
     <string name="sources_management_failed_to_open_url">Erro ao abrir o URL</string>
     <!-- Under an app left out of a source that keeps its home screen card because the user has patched it -->
@@ -259,7 +262,6 @@ Elixe outro APK</string>
     <string name="patcher_step_load_patches">Cargando parches</string>
     <string name="patcher_step_group_saving">Gardando</string>
     <!-- Battery optimization pre-flight dialog -->
-    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Parcheado en progreso...</string>
     <string name="patcher_notification_text">Toque para volver ao parcheador</string>
@@ -277,7 +279,6 @@ Elixe outro APK</string>
     <!-- Quantum physics (box emoji is a reference to Schrödinger's cat). -->
     <!-- Throw away reference to a Saturday Night Live sketch. "fever" means sickness or the flu. "prescription" means medical treatment or can be translated from "cure" -->
     <!-- Expert patcher Screen -->
-    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
     <!-- Patcher Screen - Other hidden strings -->
     <!-- Patcher Screen - Mini-games -->
     <string name="mini_game_resume">Continuar</string>
@@ -301,8 +302,8 @@ Elixe outro APK</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert_mode">Modo Experto</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
-    <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <!-- "%s" is the GitHub scope name, keep it as is -->
+    <!-- "%s" is the GitHub account name -->
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <!-- Settings - Advanced Tab - Patch Options Section -->
@@ -320,6 +321,7 @@ Elixe outro APK</string>
     <string name="settings_system_export_debug_logs_export_failed">Fallo ao exportar rexistros</string>
     <!-- Settings - System Tab - Files & Storage Section -->
     <!-- Settings - System Tab - Storage Management screen -->
+    <!-- Shown under how much Morphe takes up. "%1$s" is the space still available on the device, already formatted with its unit. "Free" as in unused, not as in free of charge. -->
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
@@ -335,6 +337,10 @@ Elixe outro APK</string>
     <!-- Easter egg offered after seven taps on the version in the About dialog -->
     <!-- Shared strings -->
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Sections the settings page lists, each opening a page of its own. A summary names what the section holds -->
+    <string name="settings_section_patching">Parcheando</string>
+    <string name="settings_section_general">Xeneral</string>
+    <string name="settings_search">Buscar axustes</string>
     <string name="remove">Eliminar</string>
     <string name="search">Busca</string>
     <string name="enabled">Activado</string>
@@ -347,6 +353,7 @@ Elixe outro APK</string>
     <string name="patching">Parcheando</string>
     <string name="patched">Parcheado</string>
     <string name="allow">Permitir</string>
+    <string name="show_all">Amosar todo</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
     <string name="changelog_section_new">Novo</string>

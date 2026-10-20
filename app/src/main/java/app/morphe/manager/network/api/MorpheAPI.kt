@@ -24,6 +24,9 @@ import io.ktor.client.request.url
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -38,6 +41,17 @@ private const val GITHUB_RAW_HOST = "raw.githubusercontent.com"
 internal fun isRawGitHubUrl(url: String): Boolean = runCatching {
     java.net.URI(url).host.equals(GITHUB_RAW_HOST, ignoreCase = true)
 }.getOrDefault(false)
+
+/** What GitHub says of a token, see [MorpheAPI.checkGitHubPat]. */
+sealed interface GitHubPatCheck {
+    data class Valid(val login: String) : GitHubPatCheck
+
+    /** Expired, revoked or never valid. */
+    data object Rejected : GitHubPatCheck
+
+    /** GitHub could not be asked, so the token may be fine. */
+    data object Unreachable : GitHubPatCheck
+}
 
 /** Coordinates of a single asset inside a GitHub release download link. */
 internal data class ReleaseAssetRef(
@@ -109,6 +123,8 @@ class MorpheAPI(
             "https://raw.githubusercontent.com/$owner/$name/$branch/$path"
     }
 
+    private val rejected = MutableStateFlow<String?>(null)
+
     /**
      * Token GitHub has already turned down, kept so it is not sent again.
      *
@@ -116,9 +132,7 @@ class MorpheAPI(
      * which would be a worse outcome than simply falling back to the anonymous rate limit. Holding
      * the token itself rather than a flag means a newly entered one is tried again.
      */
-    @Volatile
-    @PublishedApi
-    internal var rejectedPat: String? = null
+    val rejectedPat: StateFlow<String?> = rejected.asStateFlow()
 
     // Lazy so URL parsing doesn't happen on construction — only when first needed
     private val managerConfig: RepoConfig by lazy { parseRepoUrl(MANAGER_REPO_URL) }
@@ -184,22 +198,44 @@ class MorpheAPI(
         path: String
     ): APIResponse<T> {
         val url = "${config.apiBase}/${path.trimStart('/')}"
-        val pat = prefs.gitHubPat.get().takeIf { it.isNotBlank() && it != rejectedPat }
+        val pat = prefs.gitHubPat.get().takeIf { it.isNotBlank() && it != rejected.value }
             ?: return client.request { url(url) }
 
         val response: APIResponse<T> = client.request {
             header("Authorization", "Bearer $pat")
             url(url)
         }
+        if (!response.isUnauthorized()) return response
 
-        val rejected = response is APIResponse.Error &&
-                response.error.statusCode == HttpStatusCode.Unauthorized
-        if (!rejected) return response
-
-        rejectedPat = pat
+        rejected.value = pat
         Log.w(tag, "GitHub rejected the configured PAT, retrying $path anonymously")
         return client.request { url(url) }
     }
+
+    /**
+     * Asks GitHub whose [pat] is. A token it turns down is held back from later requests as one
+     * found out along the way is, and one it accepts is sent again even if it was turned down before.
+     */
+    suspend fun checkGitHubPat(pat: String): GitHubPatCheck {
+        val response = client.request<GitHubUser>(retryOn429 = false) {
+            header(HttpHeaders.Authorization, "Bearer $pat")
+            url("https://api.github.com/user")
+        }
+        return when {
+            response is APIResponse.Success -> {
+                rejected.compareAndSet(pat, null)
+                GitHubPatCheck.Valid(response.data.login)
+            }
+            response.isUnauthorized() -> {
+                rejected.value = pat
+                GitHubPatCheck.Rejected
+            }
+            else -> GitHubPatCheck.Unreachable
+        }
+    }
+
+    private fun APIResponse<*>.isUnauthorized() =
+        this is APIResponse.Error && error.statusCode == HttpStatusCode.Unauthorized
 
     /**
      * Fetches a source's file, retrying a raw.githubusercontent.com 404 with the user's PAT. GitHub
@@ -219,7 +255,7 @@ class MorpheAPI(
     internal suspend fun patForMissingRawFile(url: String, response: APIResponse<*>): String? {
         val missing = response is APIResponse.Error && response.error.statusCode == HttpStatusCode.NotFound
         if (!missing || !isRawGitHubUrl(url)) return null
-        return prefs.gitHubPat.get().takeIf { it.isNotBlank() && it != rejectedPat }
+        return prefs.gitHubPat.get().takeIf { it.isNotBlank() && it != rejected.value }
     }
 
     /**

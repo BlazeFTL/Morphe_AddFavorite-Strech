@@ -71,7 +71,7 @@ interface PatchProgressSource {
 class PatchRunProgress(
     context: Context,
     private val scope: CoroutineScope,
-    private val totalPatches: Int,
+    totalPatches: Int,
     splitStepActive: Boolean = false,
     restoredSteps: List<Step>? = null,
     restoredCompletedPatches: Int = 0,
@@ -138,6 +138,9 @@ class PatchRunProgress(
 
     /** Storage throughput samples (KB/s) collected while patching. */
     override val ioSamples = mutableStateListOf<IoSample>()
+
+    /** Patches the run applies, fewer than picked when some left their source before it started. */
+    var totalPatches by mutableIntStateOf(totalPatches)
 
     var completedPatches by mutableIntStateOf(restoredCompletedPatches)
         private set

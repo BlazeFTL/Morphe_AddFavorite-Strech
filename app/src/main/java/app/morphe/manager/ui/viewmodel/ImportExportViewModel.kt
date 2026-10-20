@@ -37,6 +37,7 @@ import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import com.github.pgreze.process.Redirect
 import com.github.pgreze.process.process
+import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
@@ -236,7 +237,9 @@ class ImportExportViewModel(
             val imported = keystoreManager.import(alias, pass, keystorePw, bksBytes.inputStream())
             if (imported) {
                 messages.show(R.string.settings_system_import_keystore_success)
-                cancelKeystoreImport()
+                // The copy holds the private key, and an automatic import never recorded its path
+                withContext(Dispatchers.IO) { Files.deleteIfExists(path) }
+                keystoreImportPath = null
                 refreshSigningKey()
             }
             imported
@@ -624,10 +627,8 @@ class ImportExportViewModel(
         }
 
         writer.write("\n--- Environment ---\n")
-        val hasRoot = runCatching {
-            Runtime.getRuntime().exec(arrayOf("su", "-c", "id")).waitFor() == 0
-        }.getOrDefault(false)
-        writer.write("Root access: $hasRoot\n")
+        // Read without asking, as su would raise the root prompt and wait for it unanswered
+        writer.write("Root access: ${Shell.isAppGrantedRoot() ?: "not checked"}\n")
 
         writer.write("\n=== Logcat ===\n\n")
 

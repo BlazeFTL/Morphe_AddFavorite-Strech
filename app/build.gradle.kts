@@ -1,5 +1,7 @@
 import com.mikepenz.aboutlibraries.plugin.DuplicateMode
 import com.mikepenz.aboutlibraries.plugin.DuplicateRule
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import kotlin.random.Random
 
@@ -410,6 +412,14 @@ tasks {
     whenTaskAdded {
         if (name.startsWith("lintVital")) {
             enabled = false
+        }
+    }
+
+    // CI logs are all anyone reads of a failed run, so a failure prints its whole message there
+    withType<Test>().configureEach {
+        testLogging {
+            events(TestLogEvent.FAILED)
+            exceptionFormat = TestExceptionFormat.FULL
         }
     }
 }

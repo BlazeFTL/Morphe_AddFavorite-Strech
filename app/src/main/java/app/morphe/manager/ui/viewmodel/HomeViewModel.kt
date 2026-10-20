@@ -200,7 +200,7 @@ class HomeViewModel(
     /** Adds files to the add source dialog and reads what importing each would do. */
     fun pickBundles(uris: List<Uri>) {
         val fresh = uris.distinct().filter { uri -> pickedBundles.none { it.uri == uri } }.map { uri ->
-            val name = uri.displayName(contentResolver) ?: uri.lastPathSegment ?: uri.toString()
+            val name = uri.displayName(contentResolver) ?: uri.toString()
             val isBundle = name.endsWith(".mpp", ignoreCase = true)
             PickedBundle(uri, name, bundleName = null, check = if (isBundle) null else LocalFileCheck.NotBundle)
         }

@@ -195,7 +195,7 @@ private fun ResolvedAppLabel(
  * The label worth showing for this package, cleaned as [app.morphe.manager.util.PM] cleans one, or its
  * non-localized label when the launcher one is no more than the package name.
  */
-private fun PackageInfo.readableLabel(packageManager: PackageManager): String? =
+internal fun PackageInfo.readableLabel(packageManager: PackageManager): String? =
     applicationInfo?.loadLabel(packageManager)?.toString()
         ?.let { cleanPackageLabel(it, packageName) }
         ?.takeIf { it.isNotBlank() && it != packageName }

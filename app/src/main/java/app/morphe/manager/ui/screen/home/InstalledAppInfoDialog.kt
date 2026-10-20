@@ -231,20 +231,21 @@ fun DialogHostScope.InstalledAppInfoDialog(
 
     // Same order the home card resolves its name in, so a record reads the same in both places
     val allBundleAppMetadata by homeViewModel.allBundleAppMetadataFlow.collectAsStateWithLifecycle()
-    val appLabel = remember(appInfo, installedApp, bundleAppMetadata, allBundleAppMetadata, packageName) {
+    val deviceLabel = remember(appInfo) { appInfo?.readableLabel(context.packageManager) }
+    val appLabel = remember(deviceLabel, installedApp, bundleAppMetadata, allBundleAppMetadata, packageName) {
         val original = installedApp?.originalPackageName ?: packageName
-        appInfo?.applicationInfo?.loadLabel(context.packageManager)?.toString()
+        installedApp?.appLabel
+            ?: deviceLabel
             ?: bundleAppMetadata[original]?.displayName
             ?: allBundleAppMetadata[original]?.displayName
-            ?: installedApp?.appLabel
             ?: KnownApps.getAppName(packageName)
     }
 
     // Export file name
-    val exportFileName = remember(installedApp?.currentPackageName, appInfo?.versionName, appliedBundles) {
+    val exportFileName = remember(installedApp?.currentPackageName, appInfo?.versionName, appliedBundles, appLabel) {
         val app = installedApp ?: return@remember "morphe_export.apk"
         ExportNameFormatter.format(null, PatchedAppExportData(
-            appName = appInfo?.applicationInfo?.loadLabel(context.packageManager)?.toString(),
+            appName = appLabel,
             packageName = app.currentPackageName,
             appVersion = appInfo?.versionName ?: app.version,
             patchBundleVersions = appliedBundles.mapNotNull { it.version?.takeIf(String::isNotBlank) },

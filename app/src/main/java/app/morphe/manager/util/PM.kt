@@ -82,13 +82,16 @@ class PM(
             null
         }
 
-    fun getPackageInfo(file: File): PackageInfo? {
+    /** [file] read as a package, its label and icon loadable. [flags] narrows what is parsed. */
+    fun getPackageInfo(
+        file: File,
+        flags: Int = PackageManager.GET_META_DATA or PackageManager.GET_ACTIVITIES
+    ): PackageInfo? {
         val path = file.absolutePath
-        val flags = PackageManager.GET_META_DATA or PackageManager.GET_ACTIVITIES
         val pkgInfo = app.packageManager.getPackageArchiveInfo(path, flags) ?: return null
 
         // This is needed in order to load label and icon.
-        pkgInfo.applicationInfo!!.apply {
+        pkgInfo.applicationInfo?.apply {
             sourceDir = path
             publicSourceDir = path
         }

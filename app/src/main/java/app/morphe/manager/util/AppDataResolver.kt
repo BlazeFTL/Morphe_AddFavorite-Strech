@@ -362,16 +362,9 @@ class AppDataResolver(
         version: String?,
         source: AppDataSource
     ): ResolvedAppData? {
-        val packageInfo = packageManager.getPackageArchiveInfo(
-            file.absolutePath,
-            PackageManager.GET_META_DATA
-        ) ?: return null
-
-        // Set source paths so we can load icon
-        val appInfo = packageInfo.applicationInfo?.apply {
-            sourceDir = file.absolutePath
-            publicSourceDir = file.absolutePath
-        }
+        // Activities are not parsed, as nothing here reads them
+        val packageInfo = pm.getPackageInfo(file, PackageManager.GET_META_DATA) ?: return null
+        val appInfo = packageInfo.applicationInfo
 
         return ResolvedAppData(
             packageName = packageName,

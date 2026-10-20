@@ -432,31 +432,24 @@ class HomeViewModel(
         }
     }
 
-    private suspend fun <T> withImportMessage(block: suspend () -> T): T {
-        val importing = messages.showUntilDismissed(R.string.importing_ellipsis)
-        try {
-            val result = block()
-            messages.show(R.string.imported_successfully)
-            return result
-        } finally {
-            importing.dismiss()
-        }
-    }
-
     /**
      * Imports each file, as a new local source or into the one its uid names, one after another
      * under one import message. With [chooseApps] the app list of each new source opens once its
      * patches have loaded.
      */
     private fun importLocalSources(imports: List<Pair<Uri, Int?>>, chooseApps: Boolean) = viewModelScope.launch {
-        val added = withContext(NonCancellable) {
-            withImportMessage {
-                imports.mapNotNull { (uri, replacingUid) ->
-                    importLocalFile(uri, replacingUid).takeIf { replacingUid == null }
-                }
+        val imported = withContext(NonCancellable) {
+            val importing = messages.showUntilDismissed(R.string.importing_ellipsis)
+            try {
+                imports.map { (uri, replacingUid) -> replacingUid to importLocalFile(uri, replacingUid) }
+            } finally {
+                importing.dismiss()
             }
         }
+        // A file that failed has already said why
+        if (imported.any { (_, uid) -> uid != null }) messages.show(R.string.imported_successfully)
         // Two files carrying the same bundle land on the same source
+        val added = imported.mapNotNull { (replacingUid, uid) -> uid.takeIf { replacingUid == null } }
         onSourcesAdded(added.distinct(), chooseApps)
     }
 
@@ -526,21 +519,24 @@ class HomeViewModel(
     private suspend fun importLocalFile(patchBundle: Uri, replacingUid: Int?): Int? {
         val permissionFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         var persistedPermission = false
-        val size = runCatching {
-            contentResolver.openFileDescriptor(patchBundle, "r")
-                ?.use { it.statSize.takeIf { sz -> sz > 0 } }
-                ?: contentResolver.query(
-                    patchBundle,
-                    arrayOf(OpenableColumns.SIZE),
-                    null,
-                    null,
-                    null
-                )
-                    ?.use { cursor ->
-                        val index = cursor.getColumnIndex(OpenableColumns.SIZE)
-                        if (index != -1 && cursor.moveToFirst()) cursor.getLong(index) else null
-                    }
-        }.getOrNull()?.takeIf { it > 0L }
+        // A cloud provider may fetch the whole file to answer this
+        val size = withContext(Dispatchers.IO) {
+            runCatching {
+                contentResolver.openFileDescriptor(patchBundle, "r")
+                    ?.use { it.statSize.takeIf { sz -> sz > 0 } }
+                    ?: contentResolver.query(
+                        patchBundle,
+                        arrayOf(OpenableColumns.SIZE),
+                        null,
+                        null,
+                        null
+                    )
+                        ?.use { cursor ->
+                            val index = cursor.getColumnIndex(OpenableColumns.SIZE)
+                            if (index != -1 && cursor.moveToFirst()) cursor.getLong(index) else null
+                        }
+            }.getOrNull()
+        }?.takeIf { it > 0L }
         try {
             contentResolver.takePersistableUriPermission(patchBundle, permissionFlags)
             persistedPermission = true

@@ -1100,6 +1100,11 @@ class PatchBundleRepository(
         var copyRead = 0L
         var displayName: String? = null
         var importedUid: Int? = null
+        fun reportFailure(e: Exception) {
+            if (e is CancellationException) throw e
+            Log.e(tag, "Got exception while importing bundle", e)
+            messages.showIfInForeground(R.string.home_app_info_patches_replace_fail, e.simpleMessage())
+        }
         enqueueLocalImport()
         localImportMutex.withLock {
             val baseProcessed = localImportBaseSteps()
@@ -1117,38 +1122,44 @@ class PatchBundleRepository(
                     File.createTempFile("local_bundle", ".jar", app.cacheDir)
                 }
                 try {
-                    val precomputedDigest = withContext(Dispatchers.IO) {
-                        tempFile.outputStream().use { output ->
-                            createStream().use { input ->
-                                if (copyTotal == null) {
-                                    copyTotal = when (input) {
-                                        is FileInputStream -> runCatching { input.channel.size() }.getOrNull()
-                                        else -> runCatching { input.available().takeIf { it > 0 }?.toLong() }.getOrNull()
+                    // A provider that went away or a read cut short ends the import, not the app
+                    val precomputedDigest = try {
+                        withContext(Dispatchers.IO) {
+                            tempFile.outputStream().use { output ->
+                                createStream().use { input ->
+                                    if (copyTotal == null) {
+                                        copyTotal = when (input) {
+                                            is FileInputStream -> runCatching { input.channel.size() }.getOrNull()
+                                            else -> runCatching { input.available().takeIf { it > 0 }?.toLong() }.getOrNull()
+                                        }
                                     }
-                                }
-                                setLocalImportProgress(
-                                    baseProcessed = baseProcessed,
-                                    offset = 0,
-                                    displayName = displayName,
-                                    phase = BundleImportPhase.Downloading,
-                                    bytesRead = 0L,
-                                    bytesTotal = copyTotal,
-                                )
-
-                                sha256Of(input) { buffer, read ->
-                                    output.write(buffer, 0, read)
-                                    copyRead += read
                                     setLocalImportProgress(
                                         baseProcessed = baseProcessed,
                                         offset = 0,
                                         displayName = displayName,
                                         phase = BundleImportPhase.Downloading,
-                                        bytesRead = copyRead,
+                                        bytesRead = 0L,
                                         bytesTotal = copyTotal,
                                     )
+
+                                    sha256Of(input) { buffer, read ->
+                                        output.write(buffer, 0, read)
+                                        copyRead += read
+                                        setLocalImportProgress(
+                                            baseProcessed = baseProcessed,
+                                            offset = 0,
+                                            displayName = displayName,
+                                            phase = BundleImportPhase.Downloading,
+                                            bytesRead = copyRead,
+                                            bytesTotal = copyTotal,
+                                        )
+                                    }
                                 }
                             }
                         }
+                    } catch (e: Exception) {
+                        reportFailure(e)
+                        return null
                     }
                     if (copyTotal == null && copyRead > 0L) {
                         copyTotal = copyRead
@@ -1217,9 +1228,7 @@ class PatchBundleRepository(
                         }
                         importedUid = uid
                     } catch (e: Exception) {
-                        if (e is CancellationException) throw e
-                        Log.e(tag, "Got exception while importing bundle", e)
-                        messages.showIfInForeground(R.string.home_app_info_patches_replace_fail, e.simpleMessage())
+                        reportFailure(e)
 
                         // Both writes swap the file in one step, so a replaced bundle is still intact
                         if (existingProps == null) withContext(Dispatchers.IO) {

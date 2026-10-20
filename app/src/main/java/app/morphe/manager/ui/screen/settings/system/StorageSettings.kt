@@ -68,6 +68,16 @@ private fun StorageOverview(
     val lifecycleOwner = LocalLifecycleOwner.current
     val messages = koinInject<UserMessages>()
     var showClearAllConfirm by remember { mutableStateOf(false) }
+    val patchInProgress by viewModel.patchInProgress.collectAsStateWithLifecycle()
+    // A clear that would pull a running patch's files from under it, held until the user confirms
+    var guardedClear by remember { mutableStateOf<Pair<String, () -> Unit>?>(null) }
+    fun clearGuarded(title: String, clear: () -> Unit) {
+        if (patchInProgress) guardedClear = title to clear else clear()
+    }
+    val patchRunningWarning = stringResource(R.string.settings_system_storage_patch_running_warning)
+    val clearAnywayText = stringResource(R.string.settings_system_storage_clear_anyway)
+    val patcherWorkspaceTitle = stringResource(R.string.settings_system_storage_patcher_workspace_title)
+    val temporaryTitle = stringResource(R.string.settings_system_storage_temporary_title)
 
     val nothingToClearText = stringResource(R.string.settings_system_storage_nothing_to_clear)
     val clearedTemplate = stringResource(R.string.settings_system_storage_cleared)
@@ -85,11 +95,25 @@ private fun StorageOverview(
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) { viewModel.refresh() }
     }
 
+    DialogHost(target = guardedClear) { (title, clear) ->
+        ConfirmDialog(
+            title = title,
+            message = patchRunningWarning,
+            primaryText = clearAnywayText,
+            onConfirm = {
+                guardedClear = null
+                clear()
+            },
+            onDismiss = { guardedClear = null }
+        )
+    }
+
     DialogHost(visible = showClearAllConfirm) {
         ConfirmDialog(
             title = stringResource(R.string.settings_system_storage_clear_all),
             message = stringResource(R.string.settings_system_storage_clear_all_confirm),
-            primaryText = stringResource(R.string.clear),
+            primaryText = if (patchInProgress) clearAnywayText else stringResource(R.string.clear),
+            notice = patchRunningWarning.takeIf { patchInProgress },
             onConfirm = {
                 showClearAllConfirm = false
                 viewModel.clearAllCaches(onCleared)
@@ -162,18 +186,18 @@ private fun StorageOverview(
                 CacheActionRow(
                     icon = MaterialSymbols.Rounded.Build,
                     accentColor = StorageColors.PatcherWorkspace,
-                    title = stringResource(R.string.settings_system_storage_patcher_workspace_title),
+                    title = patcherWorkspaceTitle,
                     description = stringResource(R.string.settings_system_storage_patcher_workspace_description),
                     bytes = stats.patcherWorkspaceBytes,
-                    onClear = { viewModel.clearPatcherWorkspace(onCleared) }
+                    onClear = { clearGuarded(patcherWorkspaceTitle) { viewModel.clearPatcherWorkspace(onCleared) } }
                 )
                 CacheActionRow(
                     icon = MaterialSymbols.Rounded.Hourglass_empty,
                     accentColor = StorageColors.Temporary,
-                    title = stringResource(R.string.settings_system_storage_temporary_title),
+                    title = temporaryTitle,
                     description = stringResource(R.string.settings_system_storage_temporary_description),
                     bytes = stats.temporaryBytes,
-                    onClear = { viewModel.clearTemporary(onCleared) }
+                    onClear = { clearGuarded(temporaryTitle) { viewModel.clearTemporary(onCleared) } }
                 )
             }
             // Apart from the caches it sums up, so it does not read as one more of them

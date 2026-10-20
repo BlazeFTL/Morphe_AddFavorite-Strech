@@ -1226,6 +1226,8 @@ Details: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Frees all reclaimable cache space at once</string>
     <string name="settings_system_storage_clear_all_confirm">This clears cached network responses, staged installer copies, and temporary files. Original and patched APKs are kept</string>
     <string name="settings_system_storage_cleared">Freed %s</string>
+    <string name="settings_system_storage_patch_running_warning">A patch is running and uses these files. Clearing them now makes it fail</string>
+    <string name="settings_system_storage_clear_anyway">Clear anyway</string>
     <string name="settings_system_storage_nothing_to_clear">Nothing to clear</string>
     <string name="settings_system_storage_open_app_info_title">Open Android app storage</string>
     <string name="settings_system_storage_open_app_info_description">Manage or clear all Morphe data through system settings</string>

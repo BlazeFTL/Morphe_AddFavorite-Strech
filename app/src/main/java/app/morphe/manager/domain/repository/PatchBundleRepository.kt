@@ -1221,13 +1221,10 @@ class PatchBundleRepository(
                         Log.e(tag, "Got exception while importing bundle", e)
                         messages.showIfInForeground(R.string.home_app_info_patches_replace_fail, e.simpleMessage())
 
-                        withContext(Dispatchers.IO) {
-                            runCatching {
-                                localBundle.patchesJarFile.setWritable(true, true)
-                            }
-                            runCatching {
-                                localBundle.patchesJarFile.delete()
-                            }
+                        // Both writes swap the file in one step, so a replaced bundle is still intact
+                        if (existingProps == null) withContext(Dispatchers.IO) {
+                            dao.remove(uid)
+                            directoryOf(uid).deleteRecursively()
                         }
                     }
                 } finally {
@@ -1762,9 +1759,11 @@ class PatchBundleRepository(
         if (!allowMeteredUpdates && networkInfo.isMetered()) return null
 
         return try {
+            // Only sources an update can reach, or the notification points at one that never comes
             val remoteBundles = (store.state.value as? BundleState.Ready)?.sources?.values
                 .orEmpty()
                 .filterIsInstance<RemotePatchBundle>()
+                .filter { it.enabled && !isSourceBlocked(it) }
 
             if (remoteBundles.isEmpty()) return null
 
@@ -1774,14 +1773,11 @@ class PatchBundleRepository(
                     .map { bundle ->
                         async {
                             try {
-                                val info = bundle.fetchLatestReleaseInfo()
-                                val latestSignature = info.version
-                                    .removePrefix("v")
-                                    .takeUnless { it.isBlank() }
-                                val installedSignature = bundle.installedVersionSignature
-                                // Report the bundle when signatures differ (or installed is null)
-                                if (latestSignature != null && installedSignature != latestSignature)
-                                    AvailableBundleUpdate(bundle.uid, latestSignature)
+                                val latest = bundle.fetchLatestReleaseInfo().version.normalizeVersion()
+                                // The installed signature keeps the tag's prefix, so both sides are normalized
+                                val installed = bundle.installedVersionSignature?.normalizeVersion()
+                                if (latest.isNotEmpty() && installed != latest)
+                                    AvailableBundleUpdate(bundle.uid, latest)
                                 else
                                     null
                             } catch (e: Exception) {
@@ -2348,7 +2344,8 @@ class PatchBundleRepository(
             val keptCustoms = customRemotes.filter {
                 mode == ImportMode.Merge || it.endpoint.lowercase(Locale.US) in incomingEndpoints
             }
-            val keptEndpoints = keptCustoms.map { it.endpoint.lowercase(Locale.US) }.toSet()
+            // Grows as sources are added, so a backup listing one twice adds it once
+            val knownEndpoints = keptCustoms.mapTo(mutableSetOf()) { it.endpoint.lowercase(Locale.US) }
 
             // Replace mode also reconciles the enabled toggle; Merge preserves the local state.
             if (mode == ImportMode.Replace) {
@@ -2380,7 +2377,8 @@ class PatchBundleRepository(
                     normalizeRemoteBundleUrl(snapshot.source)
                 }.getOrNull() ?: return@forEach
 
-                if (normalizedUrl.lowercase(Locale.US) in keptEndpoints) return@forEach
+                if (!knownEndpoints.add(normalizedUrl.lowercase(Locale.US))) return@forEach
+                if (toBlocklistKey(normalizedUrl)?.let(blocklistRepository::isBlocked) == true) return@forEach
 
                 val created = createEntity(
                     name = snapshot.name,

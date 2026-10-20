@@ -61,6 +61,7 @@ import app.morphe.manager.ui.screen.shared.colorpicker.THEME_PRESET_COLORS
 import app.morphe.manager.util.*
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -711,7 +712,7 @@ private suspend fun createAdaptiveIcons(
 
         // Generate adaptive icon PNGs (foreground + background) for all densities
         AdaptiveIconConfig.DENSITY_CONFIGS.forEach { densityConfig ->
-            val mipmapDocDir = iconsDocDir.getOrCreateDir(densityConfig.folderName) ?: return@forEach
+            val mipmapDocDir = iconsDocDir.requireDir(densityConfig.folderName)
             val size = densityConfig.size
 
             val backgroundBitmap = createBitmap(size, size).apply { eraseColor(backgroundColor) }
@@ -732,7 +733,7 @@ private suspend fun createAdaptiveIcons(
                 colorFilter = PorterDuffColorFilter(android.graphics.Color.WHITE, PorterDuff.Mode.SRC_IN)
             }
             AdaptiveIconConfig.NOTIFICATION_DENSITY_CONFIGS.forEach { densityConfig ->
-                val drawableDocDir = iconsDocDir.getOrCreateDir(densityConfig.folderName) ?: return@forEach
+                val drawableDocDir = iconsDocDir.requireDir(densityConfig.folderName)
                 val size = densityConfig.size
                 val bounds = notificationBounds(size.toFloat(), picture.size, picture.content, notificationScale)
                 val notificationBitmap = renderPicture(picture.bitmap, size, size, bounds, whitePaint)
@@ -768,6 +769,8 @@ private suspend fun createAdaptiveIcons(
 
         // Convert back to a real path so the patcher can reference it as a patch option value
         iconsDocDir.uri.toFilePath()
+    } catch (e: CancellationException) {
+        throw e
     } catch (e: Exception) {
         Log.e(tag, "Failed to create adaptive icons", e)
         null

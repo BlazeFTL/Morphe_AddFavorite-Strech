@@ -38,7 +38,10 @@ object ExportNameFormatter {
             .trim()
             .ifEmpty { DEFAULT_TEMPLATE }
             .let { if (it.endsWith(".apk", ignoreCase = true)) it else "$it.apk" }
-        return FilenameUtils.sanitize(resolved)
+        // An app name made only of symbols would leave nothing before the extension
+        return FilenameUtils.sanitize(resolved, keepScripts = true)
+            .takeUnless { it.substringBeforeLast('.').isBlank() }
+            ?: "${FilenameUtils.sanitize(data.packageName)}.apk"
     }
 
     private fun replaceVariables(template: String, data: PatchedAppExportData): String {

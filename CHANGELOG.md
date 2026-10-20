@@ -1,3 +1,10 @@
+# [2.0.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.11...v2.0.0-dev.12) (2026-10-20)
+
+
+### Performance Improvements
+
+* Ship the embedded JVM's image once and shrink the patcher host ([#1215](https://github.com/MorpheApp/morphe-manager/issues/1215)) ([189423f](https://github.com/MorpheApp/morphe-manager/commit/189423f152544a5051c2cd21ad7bba40519e38ed))
+
 # [2.0.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.10...v2.0.0-dev.11) (2026-10-20)
 
 

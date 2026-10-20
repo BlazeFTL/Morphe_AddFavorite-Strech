@@ -1,3 +1,10 @@
+# [2.0.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.10...v2.0.0-dev.11) (2026-10-20)
+
+
+### Performance Improvements
+
+* Update to embedded JDK 25, unpack VM on first app start ([#1212](https://github.com/MorpheApp/morphe-manager/issues/1212)) ([f34c0d5](https://github.com/MorpheApp/morphe-manager/commit/f34c0d581b00c32c81451afb608b837f95054dae))
+
 # [2.0.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.9...v2.0.0-dev.10) (2026-10-19)
 
 

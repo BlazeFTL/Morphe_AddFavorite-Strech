@@ -308,9 +308,6 @@ class HomeApps(
         }.collectLatest { inputs ->
             val appsByPackage = inputs.apps.associateBy { it.currentPackageName }
             activeTrackedApps = appsByPackage
-            trackedPackageNames = inputs.apps.flatMapTo(mutableSetOf()) {
-                listOf(it.currentPackageName, it.originalPackageName)
-            }
 
             val changedEvidence = buildSet {
                 previousOriginalEvidence?.let {

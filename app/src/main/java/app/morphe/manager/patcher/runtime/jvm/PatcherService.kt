@@ -12,6 +12,7 @@ import android.os.Process
 import android.util.Log
 import app.morphe.manager.util.tag
 import kotlin.concurrent.thread
+import kotlin.system.exitProcess
 
 /**
  * Hosts the JVM that patches, in a process of its own declared for it. The system accounts for
@@ -40,9 +41,11 @@ class PatcherService : Service() {
                 val code = commandsSource.use {
                     EmbeddedJvm.run(launch, listOf("/proc/self/fd/${commandsSource.fd}") + bundles)
                 }
-                // The host ends the process once the run is over, so getting here means it never ran
+                // The host ends the process once the run is over, so getting here means it never ran.
+                // Exits with the code, which the app reads from the exit record, -1 (255) for a JVM
+                // that could not be created, such as for an option it does not know
                 Log.e(tag, "Patcher JVM returned $code")
-                Process.killProcess(Process.myPid())
+                exitProcess(code)
             }
 
             return Process.myPid()

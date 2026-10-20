@@ -13,6 +13,7 @@ import android.content.ServiceConnection
 import android.os.DeadObjectException
 import android.os.IBinder
 import android.os.ParcelFileDescriptor
+import android.os.Process
 import android.util.Log
 import app.morphe.manager.BuildConfig
 import app.morphe.manager.data.platform.Filesystem
@@ -145,11 +146,13 @@ class PatcherJvms(
             "-XX:-UsePerfData",
             // C1 only. A run is too short for C2 to pay off, and its compiles take cores the run needs
             "-XX:TieredStopAtLevel=1",
-            // 8 byte object headers instead of 12. A run keeps millions of small objects alive, and
-            // smaller ones leave the collector and the caches less to do
-            "-XX:+UseCompactObjectHeaders",
             // The working directory of an app is not writable, which is where the report would go
             "-XX:ErrorFile=$errorFile"
+        ) + listOfNotNull(
+            // 8 byte object headers instead of 12. A run keeps millions of small objects alive, and
+            // smaller ones leave the collector and the caches less to do. A 32-bit JVM does not
+            // know the flag and will not start with it.
+            "-XX:+UseCompactObjectHeaders".takeIf { Process.is64Bit() }
         ) + debugOptions, // Last, so a flag given again there wins
         mainClass = HOST_MAIN_CLASS
     )

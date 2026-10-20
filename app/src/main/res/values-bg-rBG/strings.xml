@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">Винаги използвайте този източник за това приложение</string>
     <!-- Color picker -->
     <string name="custom_color">Навикнат цвят</string>
-    <string name="hex_color">Хекс цвят</string>
     <string name="color_picker_shade">Наситеност и яркост</string>
     <string name="color_picker_hue">Нюанс</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Промяна на икона</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Актуализации</string>
-    <string name="settings_advanced_patcher">Патчер</string>
     <string name="settings_advanced_updates_manager_prereleases">Актуализации преди официалното пускане</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Ранен достъп до нови версии на Morphe</string>
@@ -1150,6 +1147,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">Освобождава цялото кеширано пространство наведнъж</string>
     <string name="settings_system_storage_clear_all_confirm">Това изчиства кешираните мрежови отговори, подготвените копия на инсталатора и временните файлове. Оригиналните и приложените APK файлове се запазват</string>
     <string name="settings_system_storage_cleared">Освободени %s</string>
+    <string name="settings_system_storage_patch_running_warning">Пачът е в процес на изпълнение и използва тези файлове. Изтриването им сега ще доведе до неуспех</string>
+    <string name="settings_system_storage_clear_anyway">Изтрий въпреки това</string>
     <string name="settings_system_storage_nothing_to_clear">Няма какво да се изчиства</string>
     <string name="settings_system_storage_open_app_info_title">Отваряне на хранилището на Android приложението</string>
     <string name="settings_system_storage_open_app_info_description">Управление или изчистване на всички данни на Morphe чрез системните настройки</string>

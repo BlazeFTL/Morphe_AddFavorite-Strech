@@ -210,7 +210,6 @@
     <string name="home_simple_bundle_select_title">Изберете извор на закрпи</string>
     <!-- Color picker -->
     <string name="custom_color">Прилагодена боја</string>
-    <string name="hex_color">Хексадецимална боја</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Инструкции</string>
     <string name="patch_option_enter_value">Внесете вредност</string>
@@ -266,7 +265,6 @@
     <string name="home_app_info_patches_name_default">Поправки</string>
     <string name="home_app_info_patches_name_fallback">Без име</string>
     <string name="home_app_info_patches_replace_fail">Не успеа да се увезуваат поправки: %s</string>
-    <string name="home_app_info_repatch_no_original_apk">Неуспешно избришување на извор \"%s\". Ова не може да се врати</string>
     <string name="home_app_info_original_package_name">Оригинално име на пакет</string>
     <string name="home_app_info_applied_patches">Применети поправки</string>
     <string name="home_app_info_patch_source_used">Извор на закрпување што се користи</string>
@@ -442,7 +440,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Потврди го промените</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Напредните подесувања</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <string name="settings_advanced_updates_allow_metered">Завршува закрпувањето во посебен процес за поголема стабилност</string>

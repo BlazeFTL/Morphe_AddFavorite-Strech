@@ -363,7 +363,6 @@
     <string name="home_simple_bundle_select_remember">या अॅपसाठी हा स्रोत नेहमी वापरा</string>
     <!-- Color picker -->
     <string name="custom_color">कस्टम रंग</string>
-    <string name="hex_color">हेक्स रंग</string>
     <string name="color_picker_shade">संपृक्तता आणि चमक</string>
     <string name="color_picker_hue">रंगछटा</string>
     <!-- Patch Options -->
@@ -726,7 +725,6 @@
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language">वर्तमान भाषा</string>
     <string name="settings_appearance_app_language_current">काही भाषांसाठी भाषांतर गहाळ किंवा अपूर्ण असू शकतात</string>
-    <string name="settings_appearance_translations_info_title">नवीन भाषांचे भाषांतर करण्यासाठी किंवा विद्यमान भाषांतरे सुधारण्यासाठी, येथे भेट द्या %s</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">इंटरफेस स्केल</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
@@ -777,8 +775,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">आयकॉन बदला</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">अपडेट</string>
-    <string name="settings_advanced_patcher">पॅचर</string>
     <string name="settings_advanced_updates_manager_prereleases">प्री-रिलीज अद्यतने</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">नवीन Morphe आवृत्त्यांसाठी लवकर प्रवेश</string>

@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">Завжди використовувати це джерело для цього застосунку</string>
     <!-- Color picker -->
     <string name="custom_color">Власний колір</string>
-    <string name="hex_color">Шістнадцятковий колір</string>
     <string name="color_picker_shade">Насиченість та яскравість</string>
     <string name="color_picker_hue">Відтінок</string>
     <!-- Patch Options -->
@@ -840,8 +839,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Змінити іконку</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Оновлення</string>
-    <string name="settings_advanced_patcher">Патчер</string>
     <string name="settings_advanced_updates_manager_prereleases">Передрелізні оновлення</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Ранній доступ до нових версій Morphe</string>
@@ -1321,6 +1318,7 @@ morphe_header_custom_dark.png
     <string name="reset_order">Скинути порядок</string>
     <string name="reset_order_done">Порядок скинуто</string>
     <string name="accessibility_select_app">Вибрати застосунок</string>
+    <string name="accessibility_select_source">Виберіть джерело</string>
     <string name="accessibility_move_up">Перемістити вгору</string>
     <string name="accessibility_move_down">Перемістити вниз</string>
     <string name="accessibility_app_moved_announcement">%1$s переміщено на позицію %2$s з %3$s</string>

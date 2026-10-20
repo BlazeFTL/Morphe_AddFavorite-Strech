@@ -389,7 +389,6 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="home_simple_bundle_select_remember">Uvek koristi ovaj izvor za ovu aplikaciju.</string>
     <!-- Color picker -->
     <string name="custom_color">Prilagođena boja</string>
-    <string name="hex_color">Boja u heksadecimalnom formatu</string>
     <string name="color_picker_shade">Zasićenje i osvetljenost</string>
     <string name="color_picker_hue">Nijansa</string>
     <!-- Patch Options -->
@@ -837,8 +836,6 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Promeni ikonu</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Ažuriranja</string>
-    <string name="settings_advanced_patcher">Patchovanje</string>
     <string name="settings_advanced_updates_manager_prereleases">Prerelease ažuriranja</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Rani pristup novim Morphe verzijama</string>
@@ -1150,7 +1147,6 @@ Detalji: %2$s"</string>
     <string name="settings_system_original_apks_title">Originalni APK(s)</string>
     <string name="settings_system_original_apks_empty">Nema sačuvanih originalnih APK fajlova</string>
     <string name="settings_system_original_apks_deleted">Da li zaista želite da obrišete ovaj originalni APK?</string>
-    <string name="settings_system_original_apks_delete_title">Da li zaista želite da obrišete originalni APK za %s? Nećete moći repatchirati bez pružnog novog APK fajla.</string>
     <string name="settings_system_original_apks_delete_notice">Nećete moći ponovo da zakrpate bez obezbeđivanja novog APK-a</string>
     <string name="settings_system_original_apks_delete_all_title">Brisati sve originalne APK-ove?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->

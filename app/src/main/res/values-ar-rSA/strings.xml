@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">استخدم هذا المصدر دائمًا لهذا التطبيق</string>
     <!-- Color picker -->
     <string name="custom_color">اللون المخصص</string>
-    <string name="hex_color">صيغة اللون</string>
     <string name="color_picker_shade">التشبع والسطوع</string>
     <string name="color_picker_hue">تدرج اللون</string>
     <!-- Patch Options -->
@@ -457,6 +456,7 @@
     <string name="batch_patch_title">تعديل عدة تطبيقات على دفعات</string>
     <string name="batch_patch_planning">جارٍ إعداد قائمة الانتظار...</string>
     <string name="batch_patch_preparing_next">جارٍ إعداد التطبيق التالي...</string>
+    <string name="batch_patch_progress_counter">جارٍ تعديل %1$s من %2$s</string>
     <string name="batch_patch_summary">تم تعديل %1$s، فشل %2$s، تم تخطي %3$s</string>
     <string name="batch_patch_saved_hint">تم حفظ التطبيقات التي تم تعديلها. قم بتثبيتها الآن، أو لاحقًا من قائمة ملفات APK التي تم تعديلها في الإعدادات</string>
     <string name="batch_patch_multiple_sources">تدمج بعض التطبيقات تعديلات من أكثر من مصدر، ما قد يؤدي إلى تعارضات</string>
@@ -842,8 +842,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">تغيير الأيقونة</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">التحديثات</string>
-    <string name="settings_advanced_patcher">أداة التعديل</string>
     <string name="settings_advanced_updates_manager_prereleases">تحديثات ما قبل الإطلاق</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">الوصول المبكر لإصدارات Morphe الجديدة</string>
@@ -1158,6 +1156,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_storage_clear_all_description">يحرر كل مساحة التخزين المؤقت القابلة للاسترداد دفعة واحدة</string>
     <string name="settings_system_storage_clear_all_confirm">يؤدي هذا إلى مسح استجابات الشبكة المخزنة مؤقتًا، نُسخ أداة التثبيت المؤقتة، والملفات المؤقتة. يتم الاحتفاظ بملفات APK الأصلية والمعدلة</string>
     <string name="settings_system_storage_cleared">تم تحرير %s</string>
+    <string name="settings_system_storage_patch_running_warning">هناك رقع تعمل وتستخدم هذه الملفات. مسحها الآن سيؤدي إلى الفشل</string>
+    <string name="settings_system_storage_clear_anyway">مسح على أي حال</string>
     <string name="settings_system_storage_nothing_to_clear">لا يوجد ما يمكن مسحه</string>
     <string name="settings_system_storage_open_app_info_title">فتح مساحة تخزين تطبيق Android</string>
     <string name="settings_system_storage_open_app_info_description">إدارة أو مسح جميع بيانات Morphe من خلال إعدادات النظام</string>
@@ -1324,6 +1324,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="reset_order">إعادة تعيين الترتيب</string>
     <string name="reset_order_done">تم إعادة تعيين الترتيب</string>
     <string name="accessibility_select_app">اختر تطبيق</string>
+    <string name="accessibility_select_source">تحديد المصدر</string>
     <string name="accessibility_move_up">حرّك لأعلى</string>
     <string name="accessibility_move_down">حرّك لأسفل</string>
     <string name="accessibility_app_moved_announcement">%1$s حُرِّك إلى الموضع %2$s من %3$s</string>

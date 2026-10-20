@@ -391,7 +391,6 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="home_simple_bundle_select_remember">Selalu gunakan sumber ini untuk aplikasi ini</string>
     <!-- Color picker -->
     <string name="custom_color">Warna kustom</string>
-    <string name="hex_color">Warna hex</string>
     <string name="color_picker_shade">Saturasi dan kecerahan</string>
     <string name="color_picker_hue">Rona</string>
     <!-- Patch Options -->
@@ -839,8 +838,6 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Ubah ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Pembaruan</string>
-    <string name="settings_advanced_patcher">Penambal</string>
     <string name="settings_advanced_updates_manager_prereleases">Pembaruan pra-rilis</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Akses awal ke versi Morphe baru</string>

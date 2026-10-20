@@ -390,7 +390,6 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_simple_bundle_select_remember">Für diese App immer diese Quelle verwenden</string>
     <!-- Color picker -->
     <string name="custom_color">Benutzerdefinierte Farbe</string>
-    <string name="hex_color">Hex-Farbcode</string>
     <string name="color_picker_shade">Sättigung und Helligkeit</string>
     <string name="color_picker_hue">Farbton</string>
     <!-- Patch Options -->
@@ -839,8 +838,6 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Icon ändern</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Updates</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Updates für Vorabversionen</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Früher Zugang zu neuen Morphe-Versionen</string>
@@ -1151,6 +1148,8 @@ Details: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Gibt den gesamten wiederherstellbaren Cache-Speicher auf einmal frei</string>
     <string name="settings_system_storage_clear_all_confirm">Dadurch werden zwischengespeicherte Netzwerkantworten, gestufte Installer-Kopien und temporäre Dateien gelöscht. Originale und gepatchte APKs werden beibehalten</string>
     <string name="settings_system_storage_cleared">Freigegeben: %s</string>
+    <string name="settings_system_storage_patch_running_warning">Ein Patch wird ausgeführt und verwendet diese Dateien. Sie jetzt zu löschen, führt zu einem Fehler</string>
+    <string name="settings_system_storage_clear_anyway">Trotzdem löschen</string>
     <string name="settings_system_storage_nothing_to_clear">Nichts zu löschen</string>
     <string name="settings_system_storage_open_app_info_title">Android-App-Speicher öffnen</string>
     <string name="settings_system_storage_open_app_info_description">Verwalten oder löschen Sie alle Morphe-Daten über die Systemeinstellungen</string>

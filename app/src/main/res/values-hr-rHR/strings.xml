@@ -393,7 +393,6 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <string name="home_simple_bundle_select_remember">Uvijek koristi ovaj izvor za ovu aplikaciju</string>
     <!-- Color picker -->
     <string name="custom_color">Prilagođena boja</string>
-    <string name="hex_color">Hex boja</string>
     <string name="color_picker_shade">Zasićenje i svjetlina</string>
     <string name="color_picker_hue">Nijansa</string>
     <!-- Patch Options -->
@@ -842,8 +841,6 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Promijeni ikonu</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Ažuriranja</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Pre-release ažuriranja</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Rani pristup novim verzijama aplikacije Morphe</string>
@@ -1154,6 +1151,8 @@ Detalji: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Oslobađa sav prostor predmemorije koji se može osloboditi odjednom</string>
     <string name="settings_system_storage_clear_all_confirm">Ovim se brišu predmemorirani mrežni odgovori, kopije instalacijskog programa i privremene datoteke. Originalne i patchane APK datoteke se čuvaju.</string>
     <string name="settings_system_storage_cleared">Oslobođeno %s</string>
+    <string name="settings_system_storage_patch_running_warning">Zaput se izvršava i koristi ove datoteke. Odmah im ih brisanje dovodit će do neuspjeha</string>
+    <string name="settings_system_storage_clear_anyway">Ipak očisti</string>
     <string name="settings_system_storage_nothing_to_clear">Nema ništa za čišćenje</string>
     <string name="settings_system_storage_open_app_info_title">Otvorite pohranu aplikacija Androida</string>
     <string name="settings_system_storage_open_app_info_description">Upravljajte ili obrišite sve Morphe podatke putem postavki sustava</string>

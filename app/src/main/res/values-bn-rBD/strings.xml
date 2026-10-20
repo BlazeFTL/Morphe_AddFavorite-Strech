@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">এই অ্যাপের জন্য সবসময় এই সোর্সটি ব্যবহার করুন</string>
     <!-- Color picker -->
     <string name="custom_color">కస్టమ్‌ క్రోమ్‌</string>
-    <string name="hex_color">డిస్‌క్‌వర్‌ కోడ్ రంగు</string>
     <string name="color_picker_shade">স্যাচুরেশন এবং উজ্জ্বলতা</string>
     <string name="color_picker_hue">হিউ</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">আইকন পরিবর্তন করুন</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">আপডেটগুলি</string>
-    <string name="settings_advanced_patcher">প্যাচার</string>
     <string name="settings_advanced_updates_manager_prereleases">প্রাক-রিলিজ আপডেট</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">নতুন Morphe সংস্করণগুলোতে প্রাথমিক অ্যাক্সেস</string>
@@ -1142,6 +1139,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_storage_clear_all_description">একবারে সমস্ত পুনরুদ্ধারযোগ্য ক্যাশে স্থান খালি করে</string>
     <string name="settings_system_storage_clear_all_confirm">এটি ক্যাশে করা নেটওয়ার্ক প্রতিক্রিয়া, স্টেজড ইনস্টলার অনুলিপি এবং অস্থায়ী ফাইলগুলি পরিষ্কার করে। আসল এবং প্যাচ করা APKগুলি সংরক্ষণ করা হবে</string>
     <string name="settings_system_storage_cleared">ফ্রি করা হয়েছে %s</string>
+    <string name="settings_system_storage_patch_running_warning">একটি প্যাচ চলছে এবং এটি এই ফাইলগুলি ব্যবহার করছে। এখন সেগুলি পরিষ্কার করলে ব্যর্থ হবে</string>
+    <string name="settings_system_storage_clear_anyway">যাইহোক পরিষ্কার করুন</string>
     <string name="settings_system_storage_nothing_to_clear">পরিষ্কার করার জন্য কিছু নেই</string>
     <string name="settings_system_storage_open_app_info_title">Android অ্যাপ স্টোরেজ খুলুন</string>
     <string name="settings_system_storage_open_app_info_description">সিস্টেম সেটিংসের মাধ্যমে সমস্ত Morphe ডেটা পরিচালনা বা পরিষ্কার করুন</string>

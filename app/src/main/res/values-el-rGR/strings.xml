@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">Να χρησιμοποιείται πάντα αυτή η πηγή για αυτήν την εφαρμογή.</string>
     <!-- Color picker -->
     <string name="custom_color">Προσαρμοσμένο χρώμα</string>
-    <string name="hex_color">Δεκαεξαδικό χρώμα</string>
     <string name="color_picker_shade">Κορεσμός και φωτεινότητα</string>
     <string name="color_picker_hue">Απόχρωση</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Αλλαγή εικονιδίου</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Ενημερώσεις</string>
-    <string name="settings_advanced_patcher">Εφαρμογέας</string>
     <string name="settings_advanced_updates_manager_prereleases">Ενημερώσεις προ-έκδοσης</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Πρόωρη πρόσβαση σε νέες εκδόσεις του Morphe</string>
@@ -1150,6 +1147,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">Απελευθερώνει όλο τον χώρο κρυφής μνήμης που μπορεί να ανακτηθεί ταυτόχρονα</string>
     <string name="settings_system_storage_clear_all_confirm">Αυτό θα διαγράψει τις αποθηκευμένες στην κρυφή μνήμη απαντήσεις δικτύου, τα αντίγραφα εγκαταστάτη που έχουν τοποθετηθεί σε προσωρινή αποθήκευση και τα προσωρινά αρχεία. Τα αρχικά και τα επιδιορθωμένα APK θα διατηρηθούν</string>
     <string name="settings_system_storage_cleared">Απελευθερώθηκαν %s</string>
+    <string name="settings_system_storage_patch_running_warning">Ένα patch εκτελείται και χρησιμοποιεί αυτά τα αρχεία. Η διαγραφή τους τώρα θα προκαλέσει σφάλμα</string>
+    <string name="settings_system_storage_clear_anyway">Καθαρισμός παρόλα αυτά</string>
     <string name="settings_system_storage_nothing_to_clear">Δεν υπάρχουν στοιχεία για διαγραφή</string>
     <string name="settings_system_storage_open_app_info_title">Άνοιγμα αποθήκευσης εφαρμογής Android</string>
     <string name="settings_system_storage_open_app_info_description">Διαχείριση ή εκκαθάριση όλων των δεδομένων του Morphe μέσω των ρυθμίσεων του συστήματος</string>

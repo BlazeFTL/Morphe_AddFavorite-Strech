@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">Always use this source for this app</string>
     <!-- Color picker -->
     <string name="custom_color">自定义颜色</string>
-    <string name="hex_color">十六进制颜色</string>
     <string name="color_picker_shade">饱和度和亮度</string>
     <string name="color_picker_hue">色调</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">更改图标</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">更新</string>
-    <string name="settings_advanced_patcher">修补程序</string>
     <string name="settings_advanced_updates_manager_prereleases">预发布更新</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">抢先体验新的 Morphe 版本</string>
@@ -1150,6 +1147,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">一次性释放所有可回收的缓存空间</string>
     <string name="settings_system_storage_clear_all_confirm">这将清除缓存的网络响应、已暂存的安装程序副本和临时文件。原始 APK 和已修补的 APK 将被保留</string>
     <string name="settings_system_storage_cleared">已释放 %s</string>
+    <string name="settings_system_storage_patch_running_warning">正在运行补丁并使用这些文件。现在清除它们将导致失败</string>
+    <string name="settings_system_storage_clear_anyway">无论如何都要清除</string>
     <string name="settings_system_storage_nothing_to_clear">无需清除</string>
     <string name="settings_system_storage_open_app_info_title">打开 Android 应用存储空间</string>
     <string name="settings_system_storage_open_app_info_description">通过系统设置管理或清除所有 Morphe 数据</string>
@@ -1316,6 +1315,7 @@ morphe_header_custom_dark.png
     <string name="reset_order">重置排序</string>
     <string name="reset_order_done">订单已重置</string>
     <string name="accessibility_select_app">选择应用</string>
+    <string name="accessibility_select_source">选择来源</string>
     <string name="accessibility_move_up">上移</string>
     <string name="accessibility_move_down">下移</string>
     <string name="accessibility_app_moved_announcement">已将 %1$s 移动到第 %2$s 位，共 %3$s 位</string>

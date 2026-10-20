@@ -386,11 +386,9 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <!-- "%1$s" is the free storage and "%2$s" the amount patching needs, both in gigabytes. -->
     <string name="home_low_disk_space_dialog_message">Kun %1$s GB ledig lagringsplass. Patching krever minst %2$s GB ledig plass for å fungere korrekt.</string>
     <string name="home_low_disk_space_dialog_warning">Fortsetter du, kan det føre til en «fil ikke funnet»-feil eller en korrupt APK-fil</string>
-    <string name="home_simple_bundle_select_title">%s bekreftet ikke installasjonen. Sjekk den andre appen og prøv igjen</string>
     <string name="home_simple_bundle_select_remember">Bruk alltid denne kilden for denne appen.</string>
     <!-- Color picker -->
     <string name="custom_color">Egendefinert farge</string>
-    <string name="hex_color">Hex-farge</string>
     <string name="color_picker_shade">Metning og lysstyrke</string>
     <string name="color_picker_hue">Fargetone</string>
     <!-- Patch Options -->
@@ -838,8 +836,6 @@ Avinstallering vil permanent slette alle appdata"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Endre ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Deaktiver</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Pre-release-oppdateringer</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Tidlig tilgang til nye Morphe-versjoner</string>

@@ -390,7 +390,6 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="home_simple_bundle_select_remember">Luôn sử dụng nguồn này cho ứng dụng này</string>
     <!-- Color picker -->
     <string name="custom_color">Tùy chỉnh màu</string>
-    <string name="hex_color">Mã hex</string>
     <string name="color_picker_shade">Độ bão hòa và độ sáng</string>
     <string name="color_picker_hue">Sắc thái</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Chốt</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Cập nhật</string>
-    <string name="settings_advanced_patcher">Trình vá</string>
     <string name="settings_advanced_updates_manager_prereleases">Bản cập nhật trước</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Truy cập sớm các phiên bản Morphe mới</string>
@@ -1319,6 +1316,7 @@ Chi tiết: %2$s"</string>
     <string name="reset_order">Đặt lại thứ tự</string>
     <string name="reset_order_done">Đặt lại thứ tự</string>
     <string name="accessibility_select_app">Chọn ứng dụng</string>
+    <string name="accessibility_select_source">Chọn nguồn</string>
     <string name="accessibility_move_up">Lên trên</string>
     <string name="accessibility_move_down">Xuống dưới</string>
     <string name="accessibility_app_moved_announcement">Đã chuyển %1$s đến vị trí %2$s/%3$s</string>

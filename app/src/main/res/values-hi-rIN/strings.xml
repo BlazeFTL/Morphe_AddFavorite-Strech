@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">इस ऐप के लिए हमेशा इस स्रोत का उपयोग करें</string>
     <!-- Color picker -->
     <string name="custom_color">कस्टम रंग</string>
-    <string name="hex_color">हेक्स रंग</string>
     <string name="color_picker_shade">संतृप्ति और चमक</string>
     <string name="color_picker_hue">रंग</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">आइकॉन बदलें</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">अपडेट</string>
-    <string name="settings_advanced_patcher">पैचर</string>
     <string name="settings_advanced_updates_manager_prereleases">प्री-रिलीज़ अपडेट</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">नए Morphe संस्करणों तक प्रारंभिक पहुँच</string>
@@ -1150,6 +1147,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">एक साथ सभी पुनर्प्राप्त करने योग्य कैश स्थान को मुक्त करता है</string>
     <string name="settings_system_storage_clear_all_confirm">यह कैश की गई नेटवर्क प्रतिक्रियाओं, स्टेज्ड इंस्टॉलर प्रतियों और अस्थायी फ़ाइलों को साफ़ करता है। मूल और पैच किए गए APK को रखा जाएगा।</string>
     <string name="settings_system_storage_cleared">मुक्त किया गया %s</string>
+    <string name="settings_system_storage_patch_running_warning">एक पैच चल रहा है और इन फ़ाइलों का उपयोग कर रहा है। अब उन्हें साफ़ करने से यह विफल हो जाएगा</string>
+    <string name="settings_system_storage_clear_anyway">फिर भी हटाएं</string>
     <string name="settings_system_storage_nothing_to_clear">साफ़ करने के लिए कुछ नहीं</string>
     <string name="settings_system_storage_open_app_info_title">एंड्रॉइड ऐप स्टोरेज खोलें</string>
     <string name="settings_system_storage_open_app_info_description">सिस्टम सेटिंग के माध्यम से सभी मोर्फ़ डेटा प्रबंधित या साफ़ करें।</string>
@@ -1161,12 +1160,10 @@ morphe_header_custom_dark.png
     <string name="settings_system_patched_apks_title">पैच किए गए एपीके</string>
     <string name="settings_system_patched_apks_empty">अभी तक कोई सहेजा गया पैच किया गया एपीके नहीं है</string>
     <string name="settings_system_patched_apks_delete_title">सहेजे गए पैच किए गए एपीके को हटाएं?</string>
-    <string name="settings_system_patched_apks_deleted">%s के लिए सहेजे गए पैच किए गए एपीके सफलतापूर्वक हटाए गए</string>
     <string name="settings_system_patched_apks_delete_all_title">क्या आप सभी पैच किए गए APK हटाना चाहते हैं?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <string name="settings_system_original_apks_title">अरिजनल एपीके</string>
     <string name="settings_system_original_apks_empty">कोई सहेजा गया अरिजनल एपीके नहीं है</string>
-    <string name="settings_system_original_apks_deleted">%s के लिए अरिजनल एपीके सफलतापूर्वक हटाए गए</string>
     <string name="settings_system_original_apks_delete_title">अरिजनल एपीके को हटाएं?</string>
     <string name="settings_system_original_apks_delete_notice">नया APK दिए बिना आप दोबारा पैच नहीं कर पाएंगे</string>
     <string name="settings_system_original_apks_delete_all_title">क्या आप सभी मूल APK हटाना चाहते हैं?</string>

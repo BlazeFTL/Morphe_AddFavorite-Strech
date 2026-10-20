@@ -390,7 +390,6 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="home_simple_bundle_select_remember">Bu uygulama için her zaman bu kaynağı kullan</string>
     <!-- Color picker -->
     <string name="custom_color">Özel renk</string>
-    <string name="hex_color">Hex rengi</string>
     <string name="color_picker_shade">Doygunluk ve parlaklık</string>
     <string name="color_picker_hue">Ton</string>
     <!-- Patch Options -->
@@ -457,6 +456,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="batch_patch_title">Toplu yama</string>
     <string name="batch_patch_planning">Sıra hazırlanıyor…</string>
     <string name="batch_patch_preparing_next">Bir sonraki uygulama hazırlanıyor…</string>
+    <string name="batch_patch_progress_counter">%1$s/%2$s yamalanıyor</string>
     <string name="batch_patch_summary">%1$s yamalandı, %2$s başarısız oldu, %3$s atlandı</string>
     <string name="batch_patch_saved_hint">Yamalanan uygulamalar kaydedildi. Şimdi kurun veya ayarlar bölümündeki yamalı APK listesinden daha sonra kurun</string>
     <string name="batch_patch_multiple_sources">Bazı uygulamalar yamaları birden fazla kaynaktan birleştirir, bu da çakışmalara neden olabilir</string>
@@ -839,8 +839,6 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Simgeyi değiştir</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Güncellemeler</string>
-    <string name="settings_advanced_patcher">Yamalayıcı</string>
     <string name="settings_advanced_updates_manager_prereleases">Ön sürüm güncellemeleri</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Yeni Morphe sürümlerine erken erişim</string>
@@ -1320,6 +1318,7 @@ Ayrıntılar: %2$s"</string>
     <string name="reset_order">Sırayı sıfırla</string>
     <string name="reset_order_done">Sıra sıfırlandı</string>
     <string name="accessibility_select_app">Uygulama seç</string>
+    <string name="accessibility_select_source">Kaynak seçin</string>
     <string name="accessibility_move_up">Yukarı taşı</string>
     <string name="accessibility_move_down">Aşağı taşı</string>
     <string name="accessibility_app_moved_announcement">%1$s, %3$s\'nin %2$s konumuna taşındı</string>

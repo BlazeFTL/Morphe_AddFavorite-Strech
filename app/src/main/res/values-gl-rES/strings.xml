@@ -195,7 +195,6 @@ Elixe outro APK</string>
     <!-- "%1$s" is the free storage and "%2$s" the amount patching needs, both in gigabytes. -->
     <!-- Color picker -->
     <string name="custom_color">Cor personalizada</string>
-    <string name="hex_color">Cor Hexadecimal</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Instrucións</string>
     <string name="patch_option_enter_value">Inserir valor</string>

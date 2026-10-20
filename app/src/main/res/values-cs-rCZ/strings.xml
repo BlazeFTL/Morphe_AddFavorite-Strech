@@ -390,7 +390,6 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="home_simple_bundle_select_remember">Pro tuto aplikaci vždy používat tento zdroj</string>
     <!-- Color picker -->
     <string name="custom_color">Vlastní barva</string>
-    <string name="hex_color">Barva ve formátu Hex</string>
     <string name="color_picker_shade">Sytost a jas</string>
     <string name="color_picker_hue">Odstín</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Změnit ikonu</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Aktualizace</string>
-    <string name="settings_advanced_patcher">Záplatovač</string>
     <string name="settings_advanced_updates_manager_prereleases">Předběžné aktualizace</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Předběžný přístup k novým verzím Morphe</string>
@@ -1150,6 +1147,8 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Vymaže veškerý prostor v mezipaměti, který lze získat najednou</string>
     <string name="settings_system_storage_clear_all_confirm">Tím se vymažou uložené síťové odpovědi, připravené kopie instalačních programů a dočasné soubory. Původní a opravené soubory APK zůstanou zachovány</string>
     <string name="settings_system_storage_cleared">Uvolněno %s</string>
+    <string name="settings_system_storage_patch_running_warning">Již probíhá aktualizace a využívá tyto soubory. Jejich okamžité vymazání způsobí selhání</string>
+    <string name="settings_system_storage_clear_anyway">Přesto smazat</string>
     <string name="settings_system_storage_nothing_to_clear">Není co mazat</string>
     <string name="settings_system_storage_open_app_info_title">Otevřít úložiště aplikace Android</string>
     <string name="settings_system_storage_open_app_info_description">Spravujte nebo vymažte všechna data Morphe prostřednictvím nastavení systému</string>

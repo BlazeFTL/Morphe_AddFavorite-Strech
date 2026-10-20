@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">همیشه از این منبع برای این برنامه استفاده کنید</string>
     <!-- Color picker -->
     <string name="custom_color">رنگ سفارشی</string>
-    <string name="hex_color">رنگ شش ضلعی </string>
     <string name="color_picker_shade">اشباع و روشنایی</string>
     <string name="color_picker_hue">ته‌رنگ</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">تغییر آیکون</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">به‌روزرسانی‌ها</string>
-    <string name="settings_advanced_patcher">پچر</string>
     <string name="settings_advanced_updates_manager_prereleases">به‌روزرسانی‌های پیش‌انتشار</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">دسترسی زودهنگام به نسخه‌های جدید Morphe</string>

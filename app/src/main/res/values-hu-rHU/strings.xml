@@ -390,7 +390,6 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="home_simple_bundle_select_remember">Mindig ezt a forrást használja ehhez az alkalmazáshoz.</string>
     <!-- Color picker -->
     <string name="custom_color">Egyedi szín</string>
-    <string name="hex_color">Hex szín</string>
     <string name="color_picker_shade">Telítettség és fényerő</string>
     <string name="color_picker_hue">Színárnyalat</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Ikon megváltoztatása</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Frissítések</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Előzetes frissítések</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Korai hozzáférés az új Morphe verziókhoz</string>
@@ -1316,6 +1313,7 @@ Részletek: %2$s"</string>
     <string name="reset_order">Rendezés alaphelyzetbe állítása</string>
     <string name="reset_order_done">Rendelés visszaállítva</string>
     <string name="accessibility_select_app">Alkalmazás kiválasztása</string>
+    <string name="accessibility_select_source">Forrás kiválasztása</string>
     <string name="accessibility_move_up">Feljebb mozog</string>
     <string name="accessibility_move_down">Lejjebb mozog</string>
     <string name="accessibility_app_moved_announcement">A(z) %1$s a(z) %3$s %2$s. pozíciójára került</string>

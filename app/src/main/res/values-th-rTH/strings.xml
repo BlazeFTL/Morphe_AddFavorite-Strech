@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">ใช้แหล่งที่มานี้สำหรับแอปนี้เสมอ</string>
     <!-- Color picker -->
     <string name="custom_color">สีแบบกำหนดเอง</string>
-    <string name="hex_color">สี Hex</string>
     <string name="color_picker_shade">ความอิ่มสีและความสว่าง</string>
     <string name="color_picker_hue">โทนสี</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">เปลี่ยนไอคอน</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">อัปเดต</string>
-    <string name="settings_advanced_patcher">ตัวแพตช์</string>
     <string name="settings_advanced_updates_manager_prereleases">การอัปเดตก่อนเผยแพร่</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">การเข้าถึง Morphe เวอร์ชันใหม่ก่อนเผยแพร่</string>
@@ -1274,7 +1271,7 @@ morphe_header_custom_dark.png
     <string name="warning">คำเตือน</string>
     <string name="error_">ข้อผิดพลาด</string>
     <string name="failed">ล้มเหลว</string>
-    <string name="canceled">ยกเลิก</string>
+    <string name="canceled">ยกเลิกแล้ว</string>
     <string name="ready">พร้อม</string>
     <string name="retry">ลองใหม่</string>
     <string name="refresh">รีเฟรช</string>

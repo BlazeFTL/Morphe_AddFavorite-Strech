@@ -391,7 +391,6 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="home_simple_bundle_select_remember">Käytä tätä lähdettä aina tämän sovelluksen kohdalla</string>
     <!-- Color picker -->
     <string name="custom_color">Oma väri</string>
-    <string name="hex_color">HEX-väri</string>
     <string name="color_picker_shade">Kylläisyys ja kirkkaus</string>
     <string name="color_picker_hue">Sävy</string>
     <!-- Patch Options -->
@@ -839,8 +838,6 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Vaihda kuvake</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Päivitykset</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Esijulkaisupäivitykset</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Varhainen pääsy uusiin Morphe-versioihin</string>
@@ -1149,6 +1146,8 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Tyhjentää kaikki vapautettavat välimuistit kerralla</string>
     <string name="settings_system_storage_clear_all_confirm">Tämä tyhjentää välimuistiin tallennetut verkkovastaukset, asennusohjelman välivaihekopiot ja väliaikaistiedostot. Alkuperäiset ja paikatut APK-tiedostot säilytetään.</string>
     <string name="settings_system_storage_cleared">Vapautettu tila: %s</string>
+    <string name="settings_system_storage_patch_running_warning">Paikkaus on käynnissä ja käyttää näitä tiedostoja. Niiden tyhjentäminen nyt aiheuttaa epäonnistumisen</string>
+    <string name="settings_system_storage_clear_anyway">Tyhjennä joka tapauksessa</string>
     <string name="settings_system_storage_nothing_to_clear">Ei tyhjennettävää</string>
     <string name="settings_system_storage_open_app_info_title">Avaa Android-sovellustilan tallennustiedot</string>
     <string name="settings_system_storage_open_app_info_description">Hallitse tai tyhjennä kaikki Morphe-tiedot järjestelmäasetusten kautta</string>

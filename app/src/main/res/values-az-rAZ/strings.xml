@@ -390,7 +390,6 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="home_simple_bundle_select_remember">Bu tətbiq üçün həmişə bu mənbəni istifadə et</string>
     <!-- Color picker -->
     <string name="custom_color">Xüsusi rəng</string>
-    <string name="hex_color">Altı dəyərli rəng</string>
     <string name="color_picker_shade">Dolğunluq və parlaqlıq</string>
     <string name="color_picker_hue">Çalar</string>
     <!-- Patch Options -->
@@ -457,6 +456,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="batch_patch_title">Toplu yamaqlama</string>
     <string name="batch_patch_planning">Növbə hazırlanır...</string>
     <string name="batch_patch_preparing_next">Növbəti tətbiq hazırlanır...</string>
+    <string name="batch_patch_progress_counter">%2$s tətbiqdən %1$s-i yamaqlanır</string>
     <string name="batch_patch_summary">%1$s yamaqlandı, %2$s uğursuz oldu, %3$s ötürüldü</string>
     <string name="batch_patch_saved_hint">Yamaqlanmış tətbiqlər saxlanılır. Onları indi və ya daha sonra tənzimləmələrdəki yamaqlanmış APK siyahısından quraşdır</string>
     <string name="batch_patch_multiple_sources">Bəzi tətbiqlər birdən çox mənbədən yamaqları birləşdirir ki, bu da toqquşmalara səbəb ola bilər</string>
@@ -839,8 +839,6 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Simvolu dəyişdir</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Yenilənmələr</string>
-    <string name="settings_advanced_patcher">Yamaqlayıcı</string>
     <string name="settings_advanced_updates_manager_prereleases">İlkin buraxılış yeniləmələri</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Yeni Morphe versiyalarına erkən keçid</string>
@@ -1319,6 +1317,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="reset_order">Düzülüşü sıfırla</string>
     <string name="reset_order_done">Düzülüş sıfırlandı</string>
     <string name="accessibility_select_app">Tətbiq seç</string>
+    <string name="accessibility_select_source">Mənbə seç</string>
     <string name="accessibility_move_up">Yuxarı köçür</string>
     <string name="accessibility_move_down">Aşağı köçür</string>
     <string name="accessibility_app_moved_announcement">%1$s %3$s-dən %2$s mövqeyinə köçürüldü</string>

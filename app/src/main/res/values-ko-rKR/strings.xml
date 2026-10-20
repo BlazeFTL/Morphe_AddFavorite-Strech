@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">이 앱에는 항상 이 소스를 사용합니다</string>
     <!-- Color picker -->
     <string name="custom_color">커스텀 색상</string>
-    <string name="hex_color">헥스 색상 코드</string>
     <string name="color_picker_shade">채도 및 밝기</string>
     <string name="color_picker_hue">색상</string>
     <!-- Patch Options -->
@@ -457,6 +456,7 @@
     <string name="batch_patch_title">일괄 패치</string>
     <string name="batch_patch_planning">패치 목록을 준비하는 중…</string>
     <string name="batch_patch_preparing_next">다음 앱을 준비하는 중…</string>
+    <string name="batch_patch_progress_counter">%2$s 개 중 %1$s 개 패치하는 중</string>
     <string name="batch_patch_summary">%1$s 개 패치됨, %2$s 개 실패, %3$s 개 건너뜀</string>
     <string name="batch_patch_saved_hint">패치된 앱을 저장하였습니다. 지금 설치하거나 나중에 설정의 패치된 APK 목록에서 설치할 수 있습니다</string>
     <string name="batch_patch_multiple_sources">일부 앱은 여러 소스의 패치가 선택되어 있으므로 충돌이 발생할 수 있습니다</string>
@@ -839,8 +839,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">앱 아이콘 변경</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">업데이트</string>
-    <string name="settings_advanced_patcher">패처</string>
     <string name="settings_advanced_updates_manager_prereleases">Pre-release 업데이트</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">새 Morphe 앱 버전을 미리 받아봅니다</string>
@@ -1068,7 +1066,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_patcher_completion_sound_description">패치가 완료되면 성공 또는 실패 여부에 따라 서로 다른 알림음을 재생합니다</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">알림</string>
-    <string name="settings_system_notifications_description">Morphe 알림 설정</string>
+    <string name="settings_system_notifications_description">Morphe 알림 관련 설정</string>
     <string name="settings_system_notifications_success_sound">성공 알림음</string>
     <string name="settings_system_notifications_error_sound">실패 알림음</string>
     <string name="settings_system_notifications_sound_default">기본값</string>
@@ -1257,10 +1255,10 @@ morphe_header_custom_dark.png
     <string name="settings_section_patcher">패처</string>
     <string name="settings_section_updates">업데이트</string>
     <string name="settings_section_patching">패치</string>
-    <string name="settings_section_appearance_summary">Morphe 앱 디자인 설정</string>
+    <string name="settings_section_appearance_summary">Morphe 앱 디자인 관련 설정</string>
     <string name="settings_section_patch_options_summary">심플 모드가 앱을 패치하는 방식</string>
     <string name="settings_section_general">일반</string>
-    <string name="settings_section_patcher_summary">이 기기의 앱 패치 방식 설정</string>
+    <string name="settings_section_patcher_summary">앱 패치 방식 관련 설정</string>
     <string name="settings_section_help_info">도움말 및 정보</string>
     <string name="settings_section_about_summary">Morphe 자세히 알아보기 및 도움 받기</string>
     <string name="settings_section_local_files">파일</string>
@@ -1320,6 +1318,7 @@ morphe_header_custom_dark.png
     <string name="reset_order">순서 초기화</string>
     <string name="reset_order_done">순서를 초기화하였습니다</string>
     <string name="accessibility_select_app">앱 선택</string>
+    <string name="accessibility_select_source">소스 선택하기</string>
     <string name="accessibility_move_up">위로 이동</string>
     <string name="accessibility_move_down">아래로 이동</string>
     <string name="accessibility_app_moved_announcement">\'%1$s\'가 %3$s 개 중 %2$s 번째 위치로 이동하였습니다</string>

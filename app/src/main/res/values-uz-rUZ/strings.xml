@@ -364,7 +364,6 @@ Eng yaxshi natijalar uchun ushbu ilova to‘liq &lt;b&gt;APK&lt;/b&gt;ni patchla
     <string name="home_simple_bundle_select_remember">Bu manbadan doim shu ilova uchun foydalanish</string>
     <!-- Color picker -->
     <string name="custom_color">Maxsus rang</string>
-    <string name="hex_color">Hex rang</string>
     <string name="color_picker_shade">To\'yinganlik va yorqinlik</string>
     <string name="color_picker_hue">Rang tus</string>
     <!-- Patch Options -->
@@ -777,8 +776,6 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Tasdiqlash</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">O\'chirish</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Oldindan chiqish yangilanishlari</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Morphe yangi versiyalariga erta kirish</string>
@@ -1071,7 +1068,6 @@ Ma’lumotlar: %2$s"</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <string name="settings_system_original_apks_title">O\'rnatilgan</string>
     <string name="settings_system_original_apks_empty">Yangilash mavjud emas</string>
-    <string name="settings_system_original_apks_deleted">Manbalarni yuklab olishda xatolik: %s</string>
     <string name="settings_system_original_apks_delete_title">Original APKni o‘chirib tashlash?</string>
     <string name="settings_system_original_apks_delete_notice">Yangi APK taqdim etmasdan qayta yamay olmaysiz</string>
     <string name="settings_system_original_apks_delete_all_title">Hapus semua APK asli?</string>

@@ -19,7 +19,6 @@
     <string name="home_app_patch_sources_description">Óvaldar uppsprettur eru ekki boðnar þegar þessi forrit eru plöstuð, og plástrar þeirra bætast aldrei við val af sjálfu sér. Hver uppspretta er áfram valin fyrir öll önnur forrit.</string>
     <string name="home_app_patch_sources_mixed">Í boði fyrir %1$s af %2$s</string>
     <string name="home_app_patch_sources_covers">Hefur plástra fyrir %1$s af %2$s</string>
-    <string name="home_app_patch_sources_last">Forrit falin fyrir %1$s</string>
     <string name="android_11_bug_dialog_title">Android 11 galla</string>
     <string name="android_11_bug_dialog_description">Það er þörf á samningi um app uppsetningarheimildir til að forðast villu í Android 11 kerfinu sem mun hafa neikvæð áhrif á notendaupplifunina</string>
     <string name="deep_link_add_source_title">Bæta við gjafa</string>
@@ -389,7 +388,6 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_simple_bundle_select_remember">Fjarlægðu slóðirnar og haltu áfram</string>
     <!-- Color picker -->
     <string name="custom_color">Sérstakur litur</string>
-    <string name="hex_color">Hex litur</string>
     <string name="color_picker_shade">Mettun og birtustig</string>
     <string name="color_picker_hue">Litblær</string>
     <!-- Patch Options -->
@@ -837,8 +835,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Staðfestu táknbreytingu</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Uppfæra</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Forútgáfuuppfærslur</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Snemma aðgangur að nýjum Morphe útgáfum</string>

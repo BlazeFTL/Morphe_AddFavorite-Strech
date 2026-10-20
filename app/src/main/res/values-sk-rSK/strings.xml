@@ -390,7 +390,6 @@ Pre najlepšie výsledky sa odporúča záplatovať &lt;b&gt;úplný APK&lt;/b&g
     <string name="home_simple_bundle_select_remember">Vždy používať tento zdroj pre túto aplikáciu.</string>
     <!-- Color picker -->
     <string name="custom_color">Vlastná farba</string>
-    <string name="hex_color">Hex hodnota farby</string>
     <string name="color_picker_shade">Sýtosť a jas</string>
     <string name="color_picker_hue">Odtieň</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Zmeniť ikonu</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Aktualizácie</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Predbežné aktualizácie</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Včasný prístup k novým verziám Morphe</string>

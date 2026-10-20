@@ -392,7 +392,6 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="home_simple_bundle_select_remember">Toujours utiliser cette source pour cette application</string>
     <!-- Color picker -->
     <string name="custom_color">Couleur personnalisée</string>
-    <string name="hex_color">Couleur hexadécimale</string>
     <string name="color_picker_shade">Saturation et luminosité</string>
     <string name="color_picker_hue">Teinte</string>
     <!-- Patch Options -->
@@ -844,8 +843,6 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Changer l\'icône</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Mises à jour</string>
-    <string name="settings_advanced_patcher">Patcheur</string>
     <string name="settings_advanced_updates_manager_prereleases">Mises à jour en préversion</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Accès anticipé aux nouvelles versions de Morphe</string>
@@ -1162,6 +1159,8 @@ Détails : %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Libère en une seule fois tout l\'espace de cache récupérable</string>
     <string name="settings_system_storage_clear_all_confirm">Cela efface les réponses réseau mises en cache, les copies d\'installation temporaires et les fichiers temporaires. Les APK d\'origine et patchés sont conservés</string>
     <string name="settings_system_storage_cleared">%s libérés</string>
+    <string name="settings_system_storage_patch_running_warning">Un patch est en cours d\'exécution et utilise ces fichiers. Les effacer maintenant entraînera une erreur</string>
+    <string name="settings_system_storage_clear_anyway">Effacer quand même</string>
     <string name="settings_system_storage_nothing_to_clear">Rien à effacer</string>
     <string name="settings_system_storage_open_app_info_title">Ouvrir le stockage de l\'application Android</string>
     <string name="settings_system_storage_open_app_info_description">Gérez ou effacez toutes les données de Morphe via les paramètres du système</string>
@@ -1328,6 +1327,7 @@ Détails : %2$s"</string>
     <string name="reset_order">Réinitialiser l\'ordre</string>
     <string name="reset_order_done">Réinitialisation de l\'ordre</string>
     <string name="accessibility_select_app">Sélectionner une application</string>
+    <string name="accessibility_select_source">Sélectionner la source</string>
     <string name="accessibility_move_up">Déplacer vers le haut</string>
     <string name="accessibility_move_down">Déplacer vers le bas</string>
     <string name="accessibility_app_moved_announcement">%1$s a été déplacé à la position %2$s sur %3$s</string>

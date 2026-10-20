@@ -390,7 +390,6 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="home_simple_bundle_select_remember">Använd alltid den här källan för den här appen</string>
     <!-- Color picker -->
     <string name="custom_color">Anpassad färg</string>
-    <string name="hex_color">Hexfärg</string>
     <string name="color_picker_shade">Mättnad och ljusstyrka</string>
     <string name="color_picker_hue">Nyans</string>
     <!-- Patch Options -->
@@ -838,8 +837,6 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Ändra ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Uppdateringar</string>
-    <string name="settings_advanced_patcher">Modifieringsverktyg</string>
     <string name="settings_advanced_updates_manager_prereleases">Uppdatera med förhandsversioner</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Tidig åtkomst till nya Morphe-versioner</string>
@@ -896,7 +893,7 @@ Tillägg påverkas inte: aktivera förhandsversioner av tillägg för varje käl
     <string name="settings_advanced_github_pat_configured">Token konfigurerades</string>
     <string name="settings_advanced_github_pat_create">Skapa en token på GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
-    <string name="settings_advanced_github_pat_create_description">Öppnar GitHub med omfånget %s redan valt</string>
+    <string name="settings_advanced_github_pat_create_description">Öppnar GitHub med omfattningen %s redan valt</string>
     <string name="settings_advanced_github_pat_checking">Kontrollerar med GitHub …</string>
     <!-- "%s" is the GitHub account name -->
     <string name="settings_advanced_github_pat_account">Inloggad på GitHub som %s</string>

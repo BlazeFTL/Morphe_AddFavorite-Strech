@@ -390,7 +390,6 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="home_simple_bundle_select_remember">Bain úsáid as an bhfoinse seo i gcónaí don aip seo</string>
     <!-- Color picker -->
     <string name="custom_color">Dath saincheaptha</string>
-    <string name="hex_color">Dath heicsidheachúlach</string>
     <string name="color_picker_shade">Sáithiú agus gile</string>
     <string name="color_picker_hue">Lí</string>
     <!-- Patch Options -->
@@ -457,6 +456,7 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="batch_patch_title">Paisteáil bhaisc</string>
     <string name="batch_patch_planning">Ag ullmhú na scuaine…</string>
     <string name="batch_patch_preparing_next">Ag ullmhú an chéad aip eile…</string>
+    <string name="batch_patch_progress_counter">Ag paisteáil %1$s de %2$s</string>
     <string name="batch_patch_summary">%1$s paisteáilte, theip ar %2$s, scipeáil %3$s</string>
     <string name="batch_patch_saved_hint">Tá na haipeanna paisteáilte sábháilte. Suiteáil iad anois, nó níos déanaí ón liosta APK paisteáilte sna socruithe.</string>
     <string name="batch_patch_multiple_sources">Comhcheanglaíonn roinnt aipeanna paistí ó níos mó ná foinse amháin, rud a d’fhéadfadh coimhlintí a chruthú</string>
@@ -694,6 +694,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="failed_to_execute_patch">Theip ar %s a chur i bhfeidhm</string>
     <string name="patched_app_save_failed_toast">Theip ar aip chomhfhiosach a shábháil</string>
     <string name="plugin_activity_dialog_body">Tá idirghníomhaíocht úsáideora ag teastáil chun dul ar aghaidh leis an mbreiseán seo</string>
+    <string name="patcher_process_killed_message">Chuir an córas stop leis an gclár paisteála sular chríochnaigh sé, de ghnáth chun cuimhne a shaoradh. Dún aipeanna eile agus bain triail as arís.</string>
     <string name="patcher_heap_exhausted_message">Bhí an paisteálaí as cuimhne le carn %1$d MB. Tá an aip seo ró-mhór do na paistí roghnaithe. Bain triail as paisteáil le níos lú foinsí paiste, nó roghnaigh níos lú paistí</string>
     <string name="install_app_success">Suiteáilte go rathúil</string>
     <string name="install_app_fail">Theip ar aip a shuiteáil: %s</string>
@@ -838,8 +839,6 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Athraigh deilbhín</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Nuashonruithe</string>
-    <string name="settings_advanced_patcher">Paisteoir</string>
     <string name="settings_advanced_updates_manager_prereleases">Nuashonruithe réamh-eisiúna</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Rochtain luath ar leaganacha nua de Morphe</string>
@@ -856,10 +855,10 @@ Níl tionchar ar phaistí: cumasaigh paistí réamh-eisiúna do gach foinse sa l
     <string name="settings_system_notifications_categories">Catagóirí fógraí</string>
     <string name="settings_system_notifications_categories_description">Roghnaigh i socruithe an chórais cé na nuashonruithe a chuirfidh fógraí chugat</string>
     <string name="settings_advanced_update_interval">Seiceáil minicíocht</string>
-    <string name="settings_advanced_update_interval_hourly">Uair go huaire</string>
-    <string name="settings_advanced_update_interval_daily">Laethúil</string>
-    <string name="settings_advanced_update_interval_weekly">Seachnaideach</string>
-    <string name="settings_advanced_update_interval_monthly">Míosúil</string>
+    <string name="settings_advanced_update_interval_hourly">Go huaire</string>
+    <string name="settings_advanced_update_interval_daily">Go laethúil</string>
+    <string name="settings_advanced_update_interval_weekly">Go seachtainiúil</string>
+    <string name="settings_advanced_update_interval_monthly">Go míosúil</string>
     <string name="settings_advanced_update_interval_battery_warning">B’fhéidir nach n-oibreoidh seiceálacha cúlra go hiontaofa ar roinnt gléasanna. Is minic a chuireann monaróirí cosúil le Xiaomi, Huawei, Samsung, agus OnePlus srian dian ar phróisis chúlra chun ceallraí a shábháil.</string>
     <string name="settings_advanced_external_batch_patch">Ceadaigh spreagthóirí seachtracha</string>
     <string name="settings_advanced_external_batch_patch_description">Ligeann do aipeanna uathoibrithe tús a chur le paisteáil bhaisc</string>
@@ -891,13 +890,13 @@ Níl tionchar ar phaistí: cumasaigh paistí réamh-eisiúna do gach foinse sa l
     <string name="settings_advanced_strip_unused_libs">Optamaigh le haghaidh ailtireacht gléasanna</string>
     <string name="settings_advanced_strip_unused_libs_description">Baineann sé leabharlanna dúchasacha neamhúsáidte agus scoilteanna APK</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <string name="settings_advanced_github_pat_summary">Díchloiscthe foinse iarratas snathaid agus stórais phríobháideacha</string>
-    <string name="settings_advanced_github_pat_description">Le haghaidh foinse iarratais snathaid, stórais phríobháideacha agus teorainn ráta GitHub níos airde</string>
+    <string name="settings_advanced_github_pat_summary">Díghlasálann sé foinsí iarratas tarraingthe agus stórtha príobháideacha</string>
+    <string name="settings_advanced_github_pat_description">I gcás foinsí iarratas tarraingthe, stórtha príobháideacha agus teorainn ráta GitHub níos airde</string>
     <string name="settings_advanced_github_pat_configured">Cumraithe an chomhartha</string>
     <string name="settings_advanced_github_pat_create">Cruthaigh comhartha GitHub</string>
     <!-- "%s" is the GitHub scope name, keep it as is -->
     <string name="settings_advanced_github_pat_create_description">Oscail GitHub leis an scóip %s roghnaithe cheana féin</string>
-    <string name="settings_advanced_github_pat_checking">Á rianú le GitHub…</string>
+    <string name="settings_advanced_github_pat_checking">Ag seiceáil le GitHub…</string>
     <!-- "%s" is the GitHub account name -->
     <string name="settings_advanced_github_pat_account">Sínithe isteach ar GitHub mar %s</string>
     <string name="settings_advanced_github_pat_rejected">Chuir GitHub an comhartha seo ar shiúl. D\'fhéadfadh sé a bheith imithe in éag nó tarraingthe siar</string>
@@ -1058,6 +1057,9 @@ Sonraí: %2$s"</string>
     <string name="settings_system_battery_optimization">Uasmhéadú ceallraí</string>
     <string name="settings_system_battery_optimization_description">Coinníonn an paisteálaí ag rith nuair a bhíonn an aip íoslaghdaithe</string>
     <string name="settings_system_process_runtime">Am rith an phróisis</string>
+    <string name="settings_system_jvm_runtime_enable">Próiseas paisteála ar leith</string>
+    <string name="settings_system_jvm_runtime_description">Cuireann sé paistí i bhfeidhm laistigh dá thimpeallacht rite Java féin; is féidir leis an oiread cuimhne a úsáid agus atá ar fáil ar an bhfeiste. Múch é seo chun paistí a chur i bhfeidhm laistigh de Morphe.</string>
+    <string name="settings_system_jvm_runtime_unavailable">Teastaíonn gléas ARM nó x86 64-giotán</string>
     <string name="settings_system_patcher_completion_sound">Fuaim críochnaithe</string>
     <string name="settings_system_patcher_completion_sound_description">Seinneann ton ar leith le haghaidh rath nó teip nuair a chríochnaíonn an paisteáil</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1314,6 +1316,7 @@ Sonraí: %2$s"</string>
     <string name="reset_order">Athshocraigh an t-ordú</string>
     <string name="reset_order_done">Athshocrú ordaithe</string>
     <string name="accessibility_select_app">Roghnaigh aip</string>
+    <string name="accessibility_select_source">Roghnaigh foinse</string>
     <string name="accessibility_move_up">Bog suas</string>
     <string name="accessibility_move_down">Bog síos</string>
     <string name="accessibility_app_moved_announcement">%1$s bogtha go suíomh %2$s de %3$s</string>

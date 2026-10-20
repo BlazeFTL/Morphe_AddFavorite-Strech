@@ -391,7 +391,6 @@
     <string name="home_simple_bundle_select_remember">השתמש תמיד במקור הזה עבור האפליקציה הזו</string>
     <!-- Color picker -->
     <string name="custom_color">צבע מותאם אישית</string>
-    <string name="hex_color">צבע הקסדצימלי</string>
     <string name="color_picker_shade">רוויה ובהירות</string>
     <string name="color_picker_hue">גוון</string>
     <!-- Patch Options -->
@@ -839,8 +838,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">שנה סמל</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">עדכונים</string>
-    <string name="settings_advanced_patcher">מטלאה</string>
     <string name="settings_advanced_updates_manager_prereleases">עדכוני טרום-שחרור</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">גישה מוקדמת לגרסאות חדשות של Morphe</string>
@@ -1161,6 +1158,8 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_storage_clear_all_description">משחרר את כל שטח המטמון הניתן לשחזור בבת אחת</string>
     <string name="settings_system_storage_clear_all_confirm">פעולה זו מנקה תגובות רשת שמורות במטמון, עותקי מתקינים מאוחסנים וקבצים זמניים. קבצי APK מקוריים ומטופלים נשמרים</string>
     <string name="settings_system_storage_cleared">שוחרר %s</string>
+    <string name="settings_system_storage_patch_running_warning">פאץ\' רץ ומשתמש בקבצים אלו. ניקוי שלהם עכשיו יגרום לכשלון</string>
+    <string name="settings_system_storage_clear_anyway">נק בכל זאת</string>
     <string name="settings_system_storage_nothing_to_clear">אין מה לנקות</string>
     <string name="settings_system_storage_open_app_info_title">פתח אחסון אפליקציות Android</string>
     <string name="settings_system_storage_open_app_info_description">נהל או נקה את כל נתוני Morphe דרך הגדרות המערכת</string>

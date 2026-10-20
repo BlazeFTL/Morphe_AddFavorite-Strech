@@ -390,7 +390,6 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="home_simple_bundle_select_remember">Usar siempre esta fuente para esta aplicación</string>
     <!-- Color picker -->
     <string name="custom_color">Color personalizado</string>
-    <string name="hex_color">Color HEX</string>
     <string name="color_picker_shade">Saturación y brillo</string>
     <string name="color_picker_hue">Tono</string>
     <!-- Patch Options -->
@@ -840,8 +839,6 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Cambiar icono</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Actualizaciones</string>
-    <string name="settings_advanced_patcher">Parcheador</string>
     <string name="settings_advanced_updates_manager_prereleases">Actualizaciones pre-lanzamiento</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Acceso anticipado a nuevas versiones de Morphe</string>
@@ -1155,6 +1152,7 @@ Detalles: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Libera todo el espacio de caché recuperable a la vez</string>
     <string name="settings_system_storage_clear_all_confirm">Esto borra las respuestas de red en caché, las copias del instalador en espera y los archivos temporales. Los APK originales y parcheados se conservan</string>
     <string name="settings_system_storage_cleared">Liberado %s</string>
+    <string name="settings_system_storage_patch_running_warning">Hay un parcheo en ejecución que utiliza estos archivos. Si se borran ahora, fallará.</string>
     <string name="settings_system_storage_nothing_to_clear">Nada que borrar</string>
     <string name="settings_system_storage_open_app_info_title">Abrir almacenamiento de la aplicación Android</string>
     <string name="settings_system_storage_open_app_info_description">Administra o borra todos los datos de Morphe a través de los ajustes del sistema</string>
@@ -1321,6 +1319,7 @@ Detalles: %2$s"</string>
     <string name="reset_order">Restablecer orden</string>
     <string name="reset_order_done">Orden restablecido</string>
     <string name="accessibility_select_app">Seleccionar aplicación</string>
+    <string name="accessibility_select_source">Seleccionar fuente</string>
     <string name="accessibility_move_up">Mover hacia arriba</string>
     <string name="accessibility_move_down">Mover hacia abajo</string>
     <string name="accessibility_app_moved_announcement">%1$s se ha movido a la posición %2$s de %3$s</string>

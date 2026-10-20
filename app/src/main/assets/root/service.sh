@@ -1,7 +1,7 @@
 #!/system/bin/sh
-package_name="__PKG_NAME__"
-version="__VERSION__"
-manager_package="__MANAGER_PKG__"
+package_name=__PKG_NAME__
+version=__VERSION__
+manager_package=__MANAGER_PKG__
 
 # Resolve the module directory from the script's own path.
 # Falls back to the standard Magisk modules path if readlink is unavailable
@@ -11,7 +11,7 @@ if [ "${module_dir#"/"}" = "$module_dir" ] && command -v readlink >/dev/null 2>&
   module_dir="$(dirname "$(readlink -f "$0")")"
 fi
 if [ "${module_dir#"/"}" = "$module_dir" ]; then
-  module_dir="/data/adb/modules/__MODULE_ID__"
+  module_dir=/data/adb/modules/__MODULE_ID__
 fi
 
 base_dir="$module_dir"

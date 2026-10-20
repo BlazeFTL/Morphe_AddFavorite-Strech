@@ -375,7 +375,8 @@ class BatchPatcherViewModel(
             val resolved = withContext(Dispatchers.IO) {
                 downloadUrlResolver.resolve(item.packageName, version)
             }
-            apkSearch = apkSearch?.takeIf { it.item.packageName == item.packageName }?.copy(url = resolved)
+            // A search reopened meanwhile, for another version or a clone, waits on its own answer
+            apkSearch = apkSearch?.takeIf { it.item.id == item.id && it.version == version }?.copy(url = resolved)
         }
     }
 
@@ -644,22 +645,7 @@ class BatchPatcherViewModel(
 
     fun clear() = coordinator.clear()
 
-    /**
-     * Re-plans the apps that failed or were canceled so the user can retry without
-     * rebuilding the selection from the home screen.
-     */
-    fun retryUnfinished() {
-        val current = state.value ?: return
-        val targets = current.items
-            .filter { it.state == BatchItemState.FAILED || it.state == BatchItemState.CANCELLED }
-            .map { it.target }
-        if (targets.isEmpty()) return
-
-        val useMount = current.useMount
-        val policy = current.policy
-        coordinator.clear()
-        coordinator.plan(targets, useMount, policy)
-    }
+    fun retryUnfinished() = coordinator.retryUnfinished()
 
     /**
      * Records the [InstallType] of a patched app once it is installed from the summary,

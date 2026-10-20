@@ -36,6 +36,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 
 private const val TAG = "Morphe BatchPatcher"
 
@@ -73,6 +74,9 @@ class BatchPatchCoordinator(
 
     private var runJob: Job? = null
     private var activeWorkId: UUID? = null
+
+    // The latest re-resolve per item, so an older one finishing last cannot undo the user's newer pick
+    private val resolveJobs = ConcurrentHashMap<String, Job>()
 
     // Once this process has planned, storage only mirrors its state and may lag behind a clear
     @Volatile
@@ -202,7 +206,9 @@ class BatchPatchCoordinator(
     private suspend fun refreshApps(packageNames: Set<String>) {
         val current = _state.value ?: return
         if (current.phase != BatchPhase.PREFLIGHT) return
-        val stale = current.items.filter { it.packageName in packageNames && !it.selectionEdited }
+        val stale = current.items.filter {
+            it.packageName in packageNames && !it.selectionEdited && resolveJobs[it.id]?.isActive != true
+        }
         if (stale.isEmpty()) return
 
         val refreshed = coroutineScope {
@@ -232,14 +238,14 @@ class BatchPatchCoordinator(
         val item = current.items.firstOrNull { it.id == itemId } ?: return
         if (expectedState != null && item.state != expectedState) return
 
-        scope.launch {
+        resolveJobs.put(itemId, scope.launch {
             val resolved = resolve(item, current.useMount)
             // The queue may have started meanwhile, and an item it runs must not be swapped out
             _state.update { state ->
                 if (state.phase != BatchPhase.PREFLIGHT) return@update state
                 state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
             }
-        }
+        })?.cancel()
     }
 
     /** Re-resolves a single item against a manually attached APK. */
@@ -407,6 +413,41 @@ class BatchPatchCoordinator(
         runJob?.cancel()
         runJob = null
         _state.value = null
+    }
+
+    /**
+     * Plans the apps that failed or were canceled again as a queue of their own, keeping what the
+     * user set up on each: the APK, the source, an accepted warning and an edited selection.
+     */
+    fun retryUnfinished() {
+        if (isRunning) return
+        val current = _state.value ?: return
+        val unfinished = current.items.filter {
+            it.state == BatchItemState.FAILED || it.state == BatchItemState.CANCELLED
+        }
+        if (unfinished.isEmpty()) return
+
+        runJob?.cancel()
+        runJob = scope.launch {
+            _state.value = BatchRunState(
+                items = unfinished.map { placeholder(it.target) },
+                phase = BatchPhase.PLANNING,
+                policy = current.policy,
+                useMount = current.useMount
+            )
+            val items = unfinished.map { item ->
+                val resolved = resolver.refresh(item, current.useMount)
+                if (!item.selectionEdited) return@map resolved
+                resolved.copy(
+                    selection = item.selection,
+                    options = item.options,
+                    selectionEdited = true,
+                    // The edited selection is what ran, so it has patches even where the defaults have none
+                    state = if (resolved.state == BatchItemState.NO_PATCHES) BatchItemState.READY else resolved.state
+                )
+            }
+            _state.update { it.copy(items = items, phase = BatchPhase.PREFLIGHT) }
+        }
     }
 
     /**
@@ -581,6 +622,7 @@ class BatchPatchCoordinator(
 
         val workId = workerRepository.launchExpedited<PatcherWorker, PatcherWorker.Args>(args)
         activeWorkId = workId
+        var succeeded = false
 
         try {
             val finished = workManager.getWorkInfoByIdFlow(workId).first { it?.state?.isFinished == true }
@@ -590,6 +632,7 @@ class BatchPatchCoordinator(
                     val retained = withContext(NonCancellable) {
                         finishSuccessfulItem(item, selectedApp, outputFile)
                     }
+                    succeeded = true
                     updateItem(index) {
                         it.copy(state = BatchItemState.SUCCEEDED, patchedFile = retained, message = null)
                     }
@@ -616,7 +659,7 @@ class BatchPatchCoordinator(
                 // Retaining the APKs takes seconds, and this run has nothing left to show but
                 // completed steps. The screen switches to its between-apps state instead
                 _state.update { it.copy(activeIndex = null, activeRun = null) }
-                withContext(Dispatchers.IO) { cleanupInput(item, selectedApp) }
+                withContext(Dispatchers.IO) { cleanupInput(item, selectedApp, succeeded) }
             }
         }
     }
@@ -678,9 +721,11 @@ class BatchPatchCoordinator(
     }
 
     /** Deletes the copy [materialize] made of an installed app, the only input the queue owns. */
-    private fun cleanupInput(item: BatchPatchItem, selectedApp: SelectedApp) {
-        if (item.source !is BatchApkSource.Installed) return
-        (selectedApp as? SelectedApp.Local)?.file?.delete()
+    private fun cleanupInput(item: BatchPatchItem, selectedApp: SelectedApp, succeeded: Boolean) {
+        // An attached file is kept for a retry until its app is patched
+        val owned = item.source is BatchApkSource.Installed ||
+                (succeeded && item.source is BatchApkSource.UserFile)
+        if (owned) (selectedApp as? SelectedApp.Local)?.file?.delete()
     }
 
     /**

@@ -1740,6 +1740,18 @@ class Workspace:
 P = "app/src/main/java/app/morphe/manager/"
 
 
+def find_outside_app(ws, rx):
+    skip = {"build", "node_modules", "test", "androidTest", ".git", ".gradle"}
+    for p in sorted(ws.root.rglob("*.kt")):
+        rel = p.relative_to(ws.root).parts
+        if skip.intersection(rel) or p.is_relative_to(ws.main):
+            continue
+        text = p.read_bytes().decode("utf-8").lstrip(BOM).replace("\r\n", "\n")
+        if re.search(rx, mask(text), re.M):
+            return p, text
+    return None
+
+
 def build_plan(ws):
     problems = []
     plan = []
@@ -1789,6 +1801,11 @@ def build_plan(ws):
     stripper = ws.find(r"\bobject\s+NativeLibs\b", P + "patcher/util/NativeLibs.kt")
     if not stripper:
         stripper = ws.find(r"\bobject\s+NativeLibStripper\b", P + "patcher/util/NativeLibStripper.kt")
+    stripper_ext = None
+    if not stripper:
+        stripper_ext = find_outside_app(ws, r"\bobject\s+(?:NativeLibs|NativeLibStripper)\b")
+        if stripper_ext:
+            stripper = [stripper_ext[0]]
     pill = locate("FloatingPillBar", r"\bfun\s+FloatingPillBar\s*\(", P + "ui/screen/shared/FloatingPillBar.kt")
     nav = locate("MainPagerScaffold", r"\bfun\s+MainPagerScaffold\s*\(", P + "ui/screen/shared/MainNavigation.kt")
     home = locate("HomeScreen", r"\bfun\s+HomeScreen\s*\(", P + "ui/screen/HomeScreen.kt")
@@ -1833,8 +1850,12 @@ def build_plan(ws):
     ICON.clear()
     ICON.update(ICONS_SYMBOLS if symbols else ICONS_MATERIAL)
 
-    util_dir = stripper[0].parent
-    util_pkg = package_of(ws.get(stripper[0]))
+    if stripper_ext:
+        util_pkg = package_of(stripper_ext[1])
+        util_dir = ws.main / "java" / pathlib.Path(*util_pkg.split("."))
+    else:
+        util_dir = stripper[0].parent
+        util_pkg = package_of(ws.get(stripper[0]))
     helper_dir = card.parent
     helper_pkg = package_of(ws.get(card))
     fmt = {

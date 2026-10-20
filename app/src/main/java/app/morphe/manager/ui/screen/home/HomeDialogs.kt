@@ -952,13 +952,14 @@ fun DialogHostScope.SimpleBundleSelectDialog(
     onDismiss: () -> Unit,
     initiallySelected: Int? = null
 ) {
-    val selected = remember {
+    // Keyed by app: a dialog reopened for another one starts over rather than offer a source it lacks
+    val selected = remember(packageName) {
         mutableStateOf(
             initiallySelected?.takeIf { uid -> choices.any { (bundle, _) -> bundle.uid == uid } }
                 ?: choices.firstOrNull()?.first?.uid
         )
     }
-    val rememberChoice = remember { mutableStateOf(false) }
+    val rememberChoice = remember(packageName) { mutableStateOf(false) }
     val sourcesByUid = rememberSourcesByUid()
     val versionsBySource = remember(versions) { versions.groupBy { it.bundleUid } }
 

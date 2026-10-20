@@ -321,14 +321,11 @@ private fun SourcesPageContent(
     // Check if only default bundle exists
     val isSingleDefaultBundle = sources.size == 1
 
-    // Auto-enable the default bundle if it's the only one and disabled
-    LaunchedEffect(sources) {
-        if (sources.size == 1) {
-            val singleBundle = sources.first()
-            if (singleBundle.isDefault && !singleBundle.enabled) {
-                onToggleEnabled(listOf(singleBundle))
-            }
-        }
+    // Auto-enable the default bundle if it's the only one and disabled. Keyed by that condition
+    // rather than the list: the call toggles, so a second emission before it lands would undo it
+    val lonelyDisabledDefault = sources.singleOrNull()?.takeIf { it.isDefault && !it.enabled }
+    LaunchedEffect(lonelyDisabledDefault != null) {
+        lonelyDisabledDefault?.let { onToggleEnabled(listOf(it)) }
     }
 
     val context = LocalContext.current

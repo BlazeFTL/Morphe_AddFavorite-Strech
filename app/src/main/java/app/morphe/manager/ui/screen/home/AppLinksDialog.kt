@@ -96,17 +96,20 @@ fun rememberAppLinksActions(
                     ),
                     icon = MaterialSymbols.Rounded.Auto_fix_high,
                     onClick = {
-                        scope.launch {
+                        // Set before launching, so a second tap in the same frame starts nothing
+                        if (!isRepairing) {
                             isRepairing = true
-                            val success = appLinksManager.repairAppLinks(packageName)
-                            isRepairing = false
-                            onRefresh()
-                            messages.show(
-                                resources.getString(
-                                    if (success) R.string.app_links_repair_success
-                                    else R.string.app_links_repair_failed
+                            scope.launch {
+                                val success = appLinksManager.repairAppLinks(packageName)
+                                isRepairing = false
+                                onRefresh()
+                                messages.show(
+                                    resources.getString(
+                                        if (success) R.string.app_links_repair_success
+                                        else R.string.app_links_repair_failed
+                                    )
                                 )
-                            )
+                            }
                         }
                     },
                     enabled = !isRepairing,

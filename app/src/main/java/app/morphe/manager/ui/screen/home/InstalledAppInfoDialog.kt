@@ -283,8 +283,11 @@ fun DialogHostScope.InstalledAppInfoDialog(
         viewModel.onAppStateChanged = { pkg -> homeViewModel.apps.notifyAppStateChanged(pkg) }
     }
 
-    // Handle install result
+    // Handle install result. The installer outlives the dialog, so whatever it last ended with is
+    // left for its own screen and only a result reached while this dialog is open is handled here
+    val installStateAtOpen = remember { installState }
     LaunchedEffect(installState) {
+        if (installState === installStateAtOpen) return@LaunchedEffect
         when (installState) {
             is InstallViewModel.InstallState.Installed -> {
                 // Installation succeeded - update install type in database and refresh UI

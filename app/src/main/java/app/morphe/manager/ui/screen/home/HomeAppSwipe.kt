@@ -192,6 +192,9 @@ internal fun SwipeableCardContainer(
 ) {
     val view = LocalView.current
     val scope = rememberCoroutineScope()
+    // The gesture outlives recompositions, while the card it acts on may have been updated since
+    val currentOnSwipeToStart by rememberUpdatedState(onSwipeToStart)
+    val currentOnSwipeToEnd by rememberUpdatedState(onSwipeToEnd)
 
     // The offset is held in layout coordinates (negative drags the card toward the start edge),
     // while pointer deltas and translationX are physical, so both are mirrored in RTL
@@ -217,12 +220,12 @@ internal fun SwipeableCardContainer(
                                         offsetX.value < -actionThresholdPx -> {
                                             view.performHapticFeedback(startHaptic)
                                             offsetX.animateTo(0f, tween(200))
-                                            onSwipeToStart()
+                                            currentOnSwipeToStart()
                                         }
                                         offsetX.value > actionThresholdPx -> {
                                             view.performHapticFeedback(endHaptic)
                                             offsetX.animateTo(0f, tween(200))
-                                            onSwipeToEnd()
+                                            currentOnSwipeToEnd()
                                         }
                                         else -> offsetX.animateTo(
                                             0f,

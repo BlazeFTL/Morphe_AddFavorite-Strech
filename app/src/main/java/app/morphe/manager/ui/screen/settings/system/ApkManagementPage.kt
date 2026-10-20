@@ -727,10 +727,12 @@ private fun DialogHostScope.ApkManagementDialogContent(
             }
         },
         footer = {
+            // Held like the dismiss gesture, so closing never cuts a ZIP export short
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
+                onClick = { if (!isExporting) onDismiss() },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !isExporting
             )
         },
         bottomBar = if (isMultiSelectMode) {

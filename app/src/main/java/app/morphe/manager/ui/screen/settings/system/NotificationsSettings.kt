@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -58,8 +59,9 @@ fun NotificationsSettings(settingsViewModel: SettingsViewModel = koinViewModel()
 
     var showPermissionDialog by remember { mutableStateOf(false) }
     var showSourcePickerFor by remember { mutableStateOf<SoundKind?>(null) }
-    var pendingRingtoneFor by remember { mutableStateOf<SoundKind?>(null) }
-    var pendingFileFor by remember { mutableStateOf<SoundKind?>(null) }
+    // Saved, as the pickers are activities of their own and the manager may be recreated meanwhile
+    var pendingRingtoneFor by rememberSaveable { mutableStateOf<SoundKind?>(null) }
+    var pendingFileFor by rememberSaveable { mutableStateOf<SoundKind?>(null) }
 
     fun applySound(kind: SoundKind, uri: String) = when (kind) {
         SoundKind.Success -> settingsViewModel.setPatcherSuccessSoundUri(uri)

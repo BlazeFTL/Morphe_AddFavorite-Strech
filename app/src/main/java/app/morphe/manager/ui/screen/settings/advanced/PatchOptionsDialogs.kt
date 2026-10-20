@@ -40,10 +40,10 @@ fun DialogHostScope.CustomBrandingDialog(
 ) {
     val context = LocalContext.current
 
-    // Get current values from preferences
-    val appName = remember { mutableStateOf(patchOptionsPrefs.customAppName(packageName).getBlocking()) }
-    val iconPath = remember { mutableStateOf(patchOptionsPrefs.customIconPath(packageName).getBlocking()) }
-    val appIconStyle = remember { mutableStateOf(patchOptionsPrefs.appIconStyle(packageName).getBlocking()) }
+    // Get current values from preferences, read again for another app
+    val appName = remember(packageName) { mutableStateOf(patchOptionsPrefs.customAppName(packageName).getBlocking()) }
+    val iconPath = remember(packageName) { mutableStateOf(patchOptionsPrefs.customIconPath(packageName).getBlocking()) }
+    val appIconStyle = remember(packageName) { mutableStateOf(patchOptionsPrefs.appIconStyle(packageName).getBlocking()) }
 
     // Get branding options from bundle
     val brandingOptions = patchOptionsViewModel.getBrandingOptions(packageName)
@@ -160,7 +160,7 @@ fun DialogHostScope.CustomHeaderDialog(
 ) {
     val context = LocalContext.current
 
-    val headerPath = remember {
+    val headerPath = remember(packageName) {
         mutableStateOf(patchOptionsPrefs.customHeaderPath(packageName).getBlocking())
     }
 

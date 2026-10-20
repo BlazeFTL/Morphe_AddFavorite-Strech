@@ -88,6 +88,29 @@ fun Uri.displayName(contentResolver: ContentResolver): String? =
             }
     }.getOrNull() ?: lastPathSegment
 
+/**
+ * Copies the APK behind this URI to a new file in [dir], named [prefix] plus the extension it is
+ * shown under. Null when the provider has nothing to read, and a copy cut short is deleted.
+ */
+fun Uri.copyApkInto(dir: File, prefix: String, contentResolver: ContentResolver): File? {
+    val extension = displayName(contentResolver)?.substringAfterLast('.', "apk")?.lowercase() ?: "apk"
+    val target = dir.resolve("${prefix}_${System.currentTimeMillis()}.$extension")
+    val copied = try {
+        // Null when the provider is unavailable, e.g. Samsung storage held back by battery optimization
+        contentResolver.openInputStream(this)?.use { input ->
+            target.outputStream().use { output -> input.copyTo(output) }
+        }
+    } catch (e: Exception) {
+        target.delete()
+        throw e
+    }
+    if (copied == null || copied == 0L) {
+        target.delete()
+        return null
+    }
+    return target
+}
+
 /** Whether the URI names a .mpp patch bundle. */
 fun Uri.hasMppExtension(contentResolver: ContentResolver): Boolean =
     displayName(contentResolver)?.endsWith(".mpp", ignoreCase = true) == true

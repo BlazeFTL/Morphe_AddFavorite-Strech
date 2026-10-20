@@ -9,7 +9,6 @@ import android.app.Application
 import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
-import android.provider.OpenableColumns
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -690,22 +689,7 @@ class BatchPatcherViewModel(
     }
 
     private fun copyToWorkspace(uri: Uri): File? = try {
-        val displayName = app.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-            val index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-            if (cursor.moveToFirst() && index != -1) cursor.getString(index) else null
-        }
-        val extension = displayName?.substringAfterLast('.', "apk")?.lowercase() ?: "apk"
-        val target = fs.uiTempDir.resolve("batch_input_${System.currentTimeMillis()}.$extension")
-
-        val copied = app.contentResolver.openInputStream(uri)?.use { input ->
-            target.outputStream().use { output -> input.copyTo(output) }
-        }
-        if (copied == null || copied == 0L) {
-            target.delete()
-            null
-        } else {
-            target
-        }
+        uri.copyApkInto(fs.uiTempDir, "batch_input", app.contentResolver)
     } catch (e: Exception) {
         Log.e(tag, "Failed to copy attached APK", e)
         null

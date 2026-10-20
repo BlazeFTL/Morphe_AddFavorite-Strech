@@ -14,7 +14,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.StatFs
-import android.provider.OpenableColumns
 import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.runtime.getValue
@@ -1542,25 +1541,8 @@ class PatchFlow(
      */
     private suspend fun loadLocalApk(uri: Uri): ApkLoadResult = withContext(Dispatchers.IO) {
         try {
-            val contentResolver = app.contentResolver
-            // Copy file to uiTempDir with original extension detection
-            val fileName = contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                if (cursor.moveToFirst() && nameIndex != -1) cursor.getString(nameIndex) else null
-            } ?: "temp_${System.currentTimeMillis()}"
-
-            val extension = fileName.substringAfterLast('.', "apk").lowercase()
-            val tempFile = filesystem.uiTempDir.resolve("temp_apk_${System.currentTimeMillis()}.$extension")
-
-            // openInputStream can return null when the provider is unavailable
-            // e.g. Samsung External Storage restricted by Battery Optimization
-            val bytesCopied = contentResolver.openInputStream(uri)?.use { input ->
-                tempFile.outputStream().use { output -> input.copyTo(output) }
-            }
-            if (bytesCopied == null || bytesCopied == 0L) {
-                tempFile.delete()
-                return@withContext ApkLoadResult.Unreadable
-            }
+            val tempFile = uri.copyApkInto(filesystem.uiTempDir, "temp_apk", app.contentResolver)
+                ?: return@withContext ApkLoadResult.Unreadable
 
             // A split archive is read through its base module, deleted after the call, so the icon is read in it
             val (packageInfo, icon, patched) = SplitApkInspector.withRepresentativeApk(
@@ -1576,7 +1558,7 @@ class PatchFlow(
             }
 
             if (packageInfo == null) {
-                Log.w(tag, "Picked file $fileName could not be parsed as an APK")
+                Log.w(tag, "Picked file ${tempFile.name} could not be parsed as an APK")
                 tempFile.delete()
                 return@withContext ApkLoadResult.NotAnApk
             }

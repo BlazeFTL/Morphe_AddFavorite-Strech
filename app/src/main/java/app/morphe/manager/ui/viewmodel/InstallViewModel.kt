@@ -141,6 +141,9 @@ class InstallViewModel(
     private var pendingIntentFallbackPackage: String? = null
     private var pendingIntentFallbackInstallType: InstallType = InstallType.DEFAULT
 
+    // The install being started, which only reports Installing once its checks have run
+    private var installStart: Job? = null
+
     // Store pending install params for retry
     private var pendingInstallFile: File? = null
     private var pendingOriginalPackageName: String? = null
@@ -207,7 +210,8 @@ class InstallViewModel(
         autoUninstallOnConflict: Boolean = false,
         allowSignatureMismatch: Boolean = false
     ) {
-        if (installState is InstallState.Installing) return
+        // A second tap lands before the first one's checks report Installing
+        if (installState is InstallState.Installing || installStart?.isActive == true) return
 
         // Store for potential retry
         pendingInstallFile = outputFile
@@ -217,7 +221,7 @@ class InstallViewModel(
         pendingAutoUninstallOnConflict = autoUninstallOnConflict
         pendingAllowSignatureMismatch = allowSignatureMismatch
 
-        viewModelScope.launch {
+        installStart = viewModelScope.launch {
             // Check if we should prompt for installer selection
             val shouldPrompt = prefs.promptInstallerOnInstall.get()
 

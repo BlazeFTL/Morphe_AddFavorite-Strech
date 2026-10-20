@@ -624,6 +624,8 @@ class BatchPatcherViewModel(
 
     fun setPolicy(policy: BatchInstallPolicy) = coordinator.setPolicy(policy)
 
+    fun markAutoInstallStarted() = coordinator.markAutoInstallStarted()
+
     fun markInstalled(itemId: String, installedPackageName: String) =
         coordinator.markInstallResult(
             itemId = itemId,

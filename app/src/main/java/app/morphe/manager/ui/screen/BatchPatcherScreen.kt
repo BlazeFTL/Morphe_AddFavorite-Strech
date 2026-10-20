@@ -176,12 +176,15 @@ fun BatchPatcherScreen(
         }
     }
 
+    // Once per queue: a summary reopened or recreated after it would prompt for every app again
     LaunchedEffect(current?.phase, current?.policy, holdSummary) {
         if (current?.phase == BatchPhase.FINISHED &&
             !holdSummary &&
+            !current.autoInstallStarted &&
             current.policy == BatchInstallPolicy.INSTALL_AFTER &&
             installRequests.isNotEmpty()
         ) {
+            viewModel.markAutoInstallStarted()
             startInstallQueue(installRequests)
         }
     }

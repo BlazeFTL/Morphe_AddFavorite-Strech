@@ -339,6 +339,10 @@ class BatchPatchCoordinator(
         _state.update { it.copy(policy = policy) }
     }
 
+    fun markAutoInstallStarted() {
+        _state.update { it.copy(autoInstallStarted = true) }
+    }
+
     /** Records what the installer did with one patched app, for the summary to show. */
     fun markInstallResult(
         itemId: String,

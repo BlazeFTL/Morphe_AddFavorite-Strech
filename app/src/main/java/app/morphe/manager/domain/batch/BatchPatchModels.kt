@@ -232,7 +232,9 @@ data class BatchRunState(
     val useMount: Boolean = false,
     val activeIndex: Int? = null,
     val activeRun: PatchRunProgress? = null,
-    val finishedInForeground: Boolean = false
+    val finishedInForeground: Boolean = false,
+    /** Set once the summary started installing on its own, which a reopened summary must not repeat. */
+    val autoInstallStarted: Boolean = false
 ) {
     val activeItem get() = activeIndex?.let(items::getOrNull)
     val runnable get() = items.filter { it.state.isRunnable }

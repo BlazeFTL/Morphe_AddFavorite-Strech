@@ -1,3 +1,42 @@
+# [2.0.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.12...v2.0.0-dev.13) (2026-10-20)
+
+
+### Bug Fixes
+
+* Clean raw class-name labels and keep a lookup that raced an invalidation out of the cache ([a7dd59a](https://github.com/MorpheApp/morphe-manager/commit/a7dd59a708346a14f363cbf818e281b2410fd68f))
+* Compare manager versions with the shared version comparison and close the clients that resolve redirects ([5a925a9](https://github.com/MorpheApp/morphe-manager/commit/5a925a9247c7a3183d594d4f3f7d85a6979ba8ec))
+* Delete the APK of a run given up in expert mode and read the seen patches once ([5f9ff22](https://github.com/MorpheApp/morphe-manager/commit/5f9ff22e585de01cae4a0b162a027061d0e29350))
+* Delete the keystore copy after an automatic import ([13bc8a2](https://github.com/MorpheApp/morphe-manager/commit/13bc8a2e2b861ba6759f2490c598440bc75fda53))
+* Fail an icon or header set that could not be written in full and give its folder the storage path of the current user ([e98ab41](https://github.com/MorpheApp/morphe-manager/commit/e98ab4144bec7e39095b8cd317eb7ab2fcab4f8f))
+* Ignore a stale install result in app info, key dialog choices by their subject and keep home actions from firing twice or on a stale card ([1108643](https://github.com/MorpheApp/morphe-manager/commit/11086439f327661bca20f84be79fd6bde6ff1881))
+* Import EC and DSA keys and version 1 files from a JKS keystore ([f23d911](https://github.com/MorpheApp/morphe-manager/commit/f23d9113067b0dbaed1c94b73820e278b67fd96c))
+* Keep a local source intact when its update fails and stop false source update notifications ([3538a0e](https://github.com/MorpheApp/morphe-manager/commit/3538a0ec4e29c40de5e32fc9580ea3ea844bba0e))
+* Keep an unreadable bundle file from crashing the app and report success only for what was imported ([3037c95](https://github.com/MorpheApp/morphe-manager/commit/3037c956908a7ee2d3243712dd20275732b08754))
+* Keep app names in any script in the exported file name ([4bef02e](https://github.com/MorpheApp/morphe-manager/commit/4bef02e268493677889c0c78f8f185b3e12ea9fa))
+* Keep each app's choices on retry, let the newest re-resolve win and delete an attached APK once patched ([2f72c34](https://github.com/MorpheApp/morphe-manager/commit/2f72c3447e7ea56787d6955b35306a6587a3dcd3))
+* Keep settings dialogs on their own app, a picked sound across recreation and a ZIP export from being closed mid-way ([c72bd33](https://github.com/MorpheApp/morphe-manager/commit/c72bd33dc6f690dbb724e8ff0026384742abf000))
+* Keep the batch copy of an installed app until its original APK is saved and drop replans that finish after the queue starts ([b13e0f9](https://github.com/MorpheApp/morphe-manager/commit/b13e0f9d50f1636caaa1c10379eae52aa25d4054))
+* Keep the patched APK and a mount's input for an install that outlives the screen ([0d66880](https://github.com/MorpheApp/morphe-manager/commit/0d66880d2553a03fa0d9f91cde514fe11eedc315))
+* Keep the progress bar whole when the split step changes and report a batch app whose APK is gone ([b808ca1](https://github.com/MorpheApp/morphe-manager/commit/b808ca1ecf354315fd12b7c6023211985e7c3a25))
+* Leave one-letter words to the translation and pass cancellation on ([b02be02](https://github.com/MorpheApp/morphe-manager/commit/b02be02d9943cd0ea7457e53c1b473d27bd245f3))
+* Let a caller's timeout end a redirect lookup ([128d5ae](https://github.com/MorpheApp/morphe-manager/commit/128d5ae4c6a583bca61e1d7c67d5b93101d32f28))
+* Match the key alias regardless of case on import ([72c8707](https://github.com/MorpheApp/morphe-manager/commit/72c8707e6d2b3e90b4b9075a52fcd96e56d26d8b))
+* Open links and the all-files access screen through guarded helpers that never crash without a handler ([1510c4a](https://github.com/MorpheApp/morphe-manager/commit/1510c4a0e9df3565c075fd178b462d29143222c6))
+* Pause the parallax sensor in the background and resolve labels and icons per package ([1241600](https://github.com/MorpheApp/morphe-manager/commit/12416000f1f5fd47f2bf8e3f737b8d86526bd408))
+* Quote the app's version and name before writing them into the root module ([287f5ed](https://github.com/MorpheApp/morphe-manager/commit/287f5ed46bc6c5a50bc489b8547f87952acc8c96))
+* Read a keystore's type from its shown name, sanitize export names and name an app in its info as on its card ([414b2e3](https://github.com/MorpheApp/morphe-manager/commit/414b2e30ad2d8356cc14cc33c830a9d34e3b7193))
+* Read file icons, APK details and folder counts afresh on refresh in the file picker ([1b2ddf6](https://github.com/MorpheApp/morphe-manager/commit/1b2ddf6439094ea65085fa3693b48cd185529ca9))
+* Record a saved original under its own version rather than the patched one ([065386b](https://github.com/MorpheApp/morphe-manager/commit/065386bc93b2f062b4c622bdba02b7cc55dbead7))
+* Release the saved patched APK of a version an app moves past and prune copies no record claims ([2b87776](https://github.com/MorpheApp/morphe-manager/commit/2b87776fc4fa79d0f8c751771780492705c43bbd))
+* Remount a mounted app whose repatch failed and keep installer checks off the main thread ([1d53bd2](https://github.com/MorpheApp/morphe-manager/commit/1d53bd2c4860d0895739687f00a193c5ca2860e2))
+* Report a failed mount uninstall instead of crashing and keep closed dialogs from taking late results ([f2eba24](https://github.com/MorpheApp/morphe-manager/commit/f2eba24572c5663c2e7527cec319e0e7b8262b26))
+* Skip a restored outcome, keep a mount's input, follow a merged split and patch without the missing patches ([e9ee6f7](https://github.com/MorpheApp/morphe-manager/commit/e9ee6f748dbdb3c7f0053de108c98796e6912c7e))
+* Start a batch's own installs once per queue and keep a double tap or a skipped auto-install from stalling the install ([90a90f6](https://github.com/MorpheApp/morphe-manager/commit/90a90f6ca49e4f49ac996b87b103ff238c11ba6a))
+* Stop hashing APKs once the install check is cancelled ([42c2107](https://github.com/MorpheApp/morphe-manager/commit/42c21079225481639803bd25e5fa8e4fabb06f14))
+* Stop the loading shimmer after an update that brought no patches and drop a stale manifest ([083fcb4](https://github.com/MorpheApp/morphe-manager/commit/083fcb4055efcfc827a53a865588b79157175472))
+* Unmount before every installer and merge the Shizuku paths ([e782aff](https://github.com/MorpheApp/morphe-manager/commit/e782aff4ff6321de39ba4f783a193d0ff6e340a4))
+* Warn before clearing the patcher's working files while a patch is running ([be41933](https://github.com/MorpheApp/morphe-manager/commit/be41933e9d4130710fc144216d8e330493f71056))
+
 # [2.0.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.11...v2.0.0-dev.12) (2026-10-20)
 
 

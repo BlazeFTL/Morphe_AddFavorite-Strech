@@ -114,10 +114,9 @@ private class ResolvedIcon(val packageInfo: PackageInfo?, val drawable: Drawable
 private fun rememberResolvedIcon(packageName: String?, preferredSource: AppDataSource): ResolvedIcon? {
     val appDataResolver: AppDataResolver = koinInject()
     return produceState<ResolvedIcon?>(null, packageName, preferredSource) {
-        if (packageName == null) {
-            value = null
-            return@produceState
-        }
+        // Cleared first, so another package never shows the icon of the one before it
+        value = null
+        if (packageName == null) return@produceState
         value = withContext(Dispatchers.IO) {
             val resolvedData = appDataResolver.resolveAppData(packageName, preferredSource)
             // Decoded only without packageInfo, which Coil loads on its own

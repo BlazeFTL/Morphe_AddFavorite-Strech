@@ -14,11 +14,9 @@ import app.morphe.manager.data.room.AppDatabase
 import app.morphe.manager.data.room.AppDatabase.Companion.generateUid
 import app.morphe.manager.data.room.selection.PatchSelection
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 
 class PatchSelectionRepository(db: AppDatabase) {
     private val dao = db.selectionDao()
-    private val _resetEventsFlow = MutableSharedFlow<ResetEvent>(extraBufferCapacity = 4)
 
     private suspend fun getOrCreateSelection(bundleUid: Int, packageName: String) =
         dao.getSelectionId(bundleUid, packageName) ?: PatchSelection(
@@ -68,7 +66,6 @@ class PatchSelectionRepository(db: AppDatabase) {
      */
     suspend fun resetSelectionForPackage(packageName: String) {
         dao.resetForPackage(packageName)
-        _resetEventsFlow.emit(ResetEvent.Package(packageName))
     }
 
     /**
@@ -76,7 +73,6 @@ class PatchSelectionRepository(db: AppDatabase) {
      */
     suspend fun resetSelectionForPackageAndBundle(packageName: String, bundleUid: Int) {
         dao.resetForPackageAndBundle(packageName, bundleUid)
-        _resetEventsFlow.emit(ResetEvent.PackageBundle(packageName, bundleUid))
     }
 
     /**
@@ -84,7 +80,6 @@ class PatchSelectionRepository(db: AppDatabase) {
      */
     suspend fun reset() {
         dao.reset()
-        _resetEventsFlow.emit(ResetEvent.All)
     }
 
     /** Export selection for a specific bundle and package. */
@@ -108,7 +103,6 @@ class PatchSelectionRepository(db: AppDatabase) {
         dao.updateSelections(selection.entries.associate { (packageName, patches) ->
             getOrCreateSelection(bundleUid, packageName) to patches.toSet()
         })
-        _resetEventsFlow.emit(ResetEvent.Bundle(bundleUid))
     }
 
     /** Import selection for a specific package and bundle. */
@@ -119,7 +113,6 @@ class PatchSelectionRepository(db: AppDatabase) {
     ) {
         val selectionId = getOrCreateSelection(bundleUid, packageName)
         dao.updateSelections(mapOf(selectionId to patches.toSet()))
-        _resetEventsFlow.emit(ResetEvent.PackageBundle(packageName, bundleUid))
     }
 
 
@@ -139,13 +132,6 @@ class PatchSelectionRepository(db: AppDatabase) {
     suspend fun getSeenPatches(packageName: String, bundleUid: Int): Set<String>? {
         val result = dao.getSeenPatches(packageName, bundleUid)
         return if (result.isEmpty()) null else result.toSet()
-    }
-
-    sealed interface ResetEvent {
-        data object All : ResetEvent
-        data class Package(val packageName: String) : ResetEvent
-        data class Bundle(val bundleUid: Int) : ResetEvent
-        data class PackageBundle(val packageName: String, val bundleUid: Int) : ResetEvent
     }
 }
 

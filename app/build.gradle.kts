@@ -368,7 +368,10 @@ android {
     }
 
     lint {
+        lintConfig = file("lint.xml")
         disable += setOf("MissingTranslation")
+        // Morphe ships as an APK, never as a bundle split by language
+        disable += setOf("AppBundleLocaleChanges")
         // Crowdin drops a removed string from the translations only on its next sync
         warning += setOf("ExtraTranslation")
         baseline = file("lint-baseline.xml")

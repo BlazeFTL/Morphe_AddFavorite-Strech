@@ -60,9 +60,9 @@ import app.morphe.manager.ui.model.SelectedApp
 import app.morphe.manager.ui.model.State
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.restrictTo
-import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.nio.file.Files
@@ -293,9 +293,8 @@ class PatcherWorker(
             wakeLock.release()
         }
 
-        // Only delete the temporary input APK after patching if not rooted, since root mount
-        // install still needs it. The UI install flow deletes disposable inputs after mounting.
-        if (patchingSucceeded && Shell.isAppGrantedRoot() == false) {
+        // A mount can still restore the stock app from it, the install flow deletes it after mounting
+        if (patchingSucceeded && !args.useMount) {
             (args.input as? SelectedApp.Local)?.takeIf { it.temporary }?.file?.delete()
         }
 
@@ -363,13 +362,14 @@ class PatcherWorker(
         val successSoundUri = prefs.patcherSuccessSoundUri.get()
         val errorSoundUri = prefs.patcherErrorSoundUri.get()
 
+        var unmounted = false
+
         return try {
-            if (args.input is SelectedApp.Installed) {
-                installedAppRepository.get(args.packageName)?.let {
-                    if (it.installType == InstallType.MOUNT) {
-                        rootInstaller.unmount(args.packageName)
-                    }
-                }
+            if (args.input is SelectedApp.Installed &&
+                installedAppRepository.get(args.packageName)?.installType == InstallType.MOUNT
+            ) {
+                rootInstaller.unmount(args.packageName)
+                unmounted = true
             }
 
             val inputFile = when (val selectedApp = args.input) {
@@ -380,7 +380,9 @@ class PatcherWorker(
                 }
 
                 is SelectedApp.Installed -> {
-                    val source = File(pm.getPackageInfo(selectedApp.packageName)!!.applicationInfo!!.sourceDir)
+                    val sourceDir = pm.getPackageInfo(selectedApp.packageName)?.applicationInfo?.sourceDir
+                        ?: error("${selectedApp.packageName} is no longer installed")
+                    val source = File(sourceDir)
                     args.setInputFile(source, false, false)
                     source
                 }
@@ -561,6 +563,11 @@ class PatcherWorker(
                 workDataOf(PROCESS_FAILURE_MESSAGE_KEY to e.stackTraceToString().truncateForWorkData())
             )
         } finally {
+            // Unmounted only to read the stock APK, so a run that produced nothing puts the patched one back
+            if (unmounted && !succeeded) withContext(NonCancellable) {
+                runCatching { rootInstaller.mount(args.packageName) }
+                    .onFailure { Log.w(tag, "Failed to mount ${args.packageName} again".logFmt(), it) }
+            }
             if (!patchedApk.delete() && patchedApk.exists()) {
                 Log.w(tag, "Failed to delete temporary patched APK: ${patchedApk.absolutePath}".logFmt())
             }

@@ -289,10 +289,8 @@ class InstalledAppRepository(
         deleteSavedPatchedApks(listOf(installedApp))
 
     /**
-     * Deletes files in the patched APK directory that no record claims: versions a record moved
-     * past before it released them, and copies a save never finished writing. The listing is built
-     * from records, so nothing but this pass would ever reclaim their space. A file written within
-     * [UNCLAIMED_GRACE_MS] stays, as a save writes its file before the record that claims it.
+     * Deletes patched APKs no record claims, as the listing is built from records and could never offer them.
+     * Recent files stay, since a save writes its file before the record that claims it.
      */
     suspend fun pruneUnclaimedPatchedApks() = withContext(Dispatchers.IO) {
         val claimed = dao.getAll().first().flatMapTo(mutableSetOf()) { app ->

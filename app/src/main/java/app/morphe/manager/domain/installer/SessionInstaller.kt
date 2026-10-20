@@ -145,6 +145,7 @@ class SessionInstaller(private val app: Application) {
         }
 
         return suspendCancellableCoroutine { cont ->
+            var registered: BroadcastReceiver? = null
             try {
                 installer.openSession(sessionId).use { session ->
                     val pi = statusPendingIntent(ACTION_INSTALL_STATUS, EXTRA_SESSION_ID, sessionId)
@@ -204,6 +205,7 @@ class SessionInstaller(private val app: Application) {
                     }
 
                     registerReceiverCompat(receiver, IntentFilter(ACTION_INSTALL_STATUS))
+                    registered = receiver
 
                     cont.invokeOnCancellation {
                         runCatching { app.unregisterReceiver(receiver) }
@@ -213,6 +215,7 @@ class SessionInstaller(private val app: Application) {
                     session.commit(pi.intentSender)
                 }
             } catch (e: Exception) {
+                registered?.let { runCatching { app.unregisterReceiver(it) } }
                 runCatching { installer.abandonSession(sessionId) }
                 throw e
             }
@@ -406,7 +409,12 @@ class SessionInstaller(private val app: Application) {
             runCatching { app.unregisterReceiver(receiver) }
         }
 
-        installer.uninstall(packageName, pi.intentSender)
+        try {
+            installer.uninstall(packageName, pi.intentSender)
+        } catch (e: Exception) {
+            runCatching { app.unregisterReceiver(receiver) }
+            throw e
+        }
     }
 
     /**

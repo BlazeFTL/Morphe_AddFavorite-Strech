@@ -13,9 +13,8 @@ import kotlin.test.Test
 import kotlin.test.fail
 
 /**
- * Translations reach dev from Crowdin without review, so a placeholder a translator got wrong
- * would only show as a crash on a device set to that language. Every translation is formatted
- * here the way the app formats it, with arguments of the types its English string asks for.
+ * Translations reach dev from Crowdin unreviewed, and a wrong placeholder only shows as a crash
+ * on a device in that language.
  */
 class TranslationFormatTest {
     private val res = File("src/main/res")

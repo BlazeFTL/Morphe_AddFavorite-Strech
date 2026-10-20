@@ -1010,7 +1010,7 @@ private fun BundleManagementCard(
                                     modifier = Modifier.tourTarget(TourTarget.SOURCE_VERSION, tour),
                                     icon = MaterialSymbols.Rounded.Update,
                                     label = stringResource(R.string.version),
-                                    value = bundle.version?.removePrefix("v")?.isolateLtr() ?: "N/A",
+                                    value = bundle.version?.normalizeVersion()?.isolateLtr() ?: "N/A",
                                     onClick = actions.onVersionClick,
                                     enabled = !info.isUpdating
                                 )
@@ -1253,7 +1253,7 @@ private fun BundleCardHeader(
             // When showChevron=false (single bundle): show only date, no version.
             // When showChevron=true (multiple bundles): show version • date.
             val timestamp = bundle.updatedAt ?: bundle.createdAt
-            val versionText = if (showChevron) bundle.version?.removePrefix("v") else null
+            val versionText = if (showChevron) bundle.version?.normalizeVersion() else null
             val dateText = remember(timestamp) { timestamp?.let { getRelativeTimeString(it) } }
 
             if (versionText != null || dateText != null) {

@@ -1212,20 +1212,8 @@ class PatchFlow(
      * install starts from what the app was last patched with, and so does an install that
      * predates configurations of their own.
      */
-    private suspend fun configurationKeyFor(originalPackageName: String): String {
-        val repatched = session?.repatchPackageName
-        val hasOwnConfiguration = repatched != null &&
-                repatched != originalPackageName &&
-                withContext(Dispatchers.IO) {
-                    patchSelectionRepository.getAllSelectionsForPackage(repatched).isNotEmpty()
-                }
-
-        return configurationKey(
-            originalPackageName = originalPackageName,
-            repatchedPackageName = repatched,
-            repatchedHasOwnConfiguration = hasOwnConfiguration
-        )
-    }
+    private suspend fun configurationKeyFor(originalPackageName: String): String =
+        patchSelectionRepository.configurationKeyFor(originalPackageName, session?.repatchPackageName)
 
     /** Hands the run to the patcher, which takes it from here. */
     private fun proceedWithPatching(

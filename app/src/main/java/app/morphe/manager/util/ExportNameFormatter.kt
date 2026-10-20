@@ -71,15 +71,13 @@ object ExportNameFormatter {
         }
     }
 
-    private fun formatVersion(raw: String?): String? {
-        val normalized = raw?.trim()?.lowercase()?.removePrefix("v")?.takeUnless { it.isEmpty() } ?: return null
-        return "v$normalized"
-    }
+    private fun formatVersion(raw: String?): String? = bareVersion(raw)?.let { "v$it" }
 
-    private fun formatPatchesVersion(raw: String?): String? {
-        val normalized = raw?.trim()?.lowercase()?.removePrefix("v")?.takeUnless { it.isEmpty() } ?: return null
-        return "patches-v$normalized"
-    }
+    private fun formatPatchesVersion(raw: String?): String? = bareVersion(raw)?.let { "patches-v$it" }
+
+    // Lowercased first, so a "V" prefix goes too
+    private fun bareVersion(raw: String?): String? =
+        raw?.trim()?.lowercase()?.normalizeVersion()?.takeUnless { it.isEmpty() }
 
     private fun joinValues(
         values: List<String>,

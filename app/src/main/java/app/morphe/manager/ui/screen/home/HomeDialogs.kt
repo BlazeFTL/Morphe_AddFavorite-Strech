@@ -998,7 +998,7 @@ fun DialogHostScope.SimpleBundleSelectDialog(
                 )
                 val patchVersionText = (source?.version ?: bundle.version)
                     ?.takeIf { it.isNotBlank() }
-                    ?.let { "$patchLabel v${it.removePrefix("v")}" }
+                    ?.let { "$patchLabel ${it.withVersionPrefix()}" }
                 val recommendedVersionText = versionsBySource[bundle.uid].orEmpty().recommended()
                     ?.version
                     ?.let { "$recommendedVersionLabel v$it" }

@@ -13,6 +13,7 @@ package app.morphe.manager.domain.repository
 import app.morphe.manager.data.room.AppDatabase
 import app.morphe.manager.data.room.AppDatabase.Companion.generateUid
 import app.morphe.manager.data.room.selection.PatchSelection
+import app.morphe.manager.ui.model.configurationKey
 import kotlinx.coroutines.flow.Flow
 
 class PatchSelectionRepository(db: AppDatabase) {
@@ -33,6 +34,19 @@ class PatchSelectionRepository(db: AppDatabase) {
         dao.getAllSelectionsForPackage(packageName)
             .mapValues { it.value.toSet() }
             .filterValues { it.isNotEmpty() }
+
+    /**
+     * The package a run for [originalPackageName] reads its saved configuration from, see
+     * [configurationKey]. The rebuilt install is only looked up where it decides anything.
+     */
+    suspend fun configurationKeyFor(originalPackageName: String, repatchedPackageName: String?): String =
+        configurationKey(
+            originalPackageName = originalPackageName,
+            repatchedPackageName = repatchedPackageName,
+            repatchedHasOwnConfiguration = repatchedPackageName != null &&
+                    repatchedPackageName != originalPackageName &&
+                    getAllSelectionsForPackage(repatchedPackageName).isNotEmpty()
+        )
 
     /**
      * Replace the selections for a package within [scope]. Bundles inside [scope] that had

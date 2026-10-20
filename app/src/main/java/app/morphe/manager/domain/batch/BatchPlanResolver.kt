@@ -523,15 +523,8 @@ class BatchPlanResolver(
      * Where a target's saved patches and options live: its own package once it is an install of
      * its own, falling back to the app for a clone that predates configurations of their own.
      */
-    private suspend fun configurationKeyFor(target: BatchTarget): String {
-        val repatched = target.repatchedPackageName?.takeUnless { it == target.packageName }
-            ?: return target.packageName
-
-        val hasOwnConfiguration = patchSelectionRepository
-            .getAllSelectionsForPackage(repatched)
-            .isNotEmpty()
-        return if (hasOwnConfiguration) repatched else target.packageName
-    }
+    private suspend fun configurationKeyFor(target: BatchTarget): String =
+        patchSelectionRepository.configurationKeyFor(target.packageName, target.repatchedPackageName)
 
     /**
      * Same resolution the home screen uses. Patching renames packages, so an app that is only

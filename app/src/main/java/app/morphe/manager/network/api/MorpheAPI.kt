@@ -348,7 +348,7 @@ class MorpheAPI(
         config: RepoConfig,
         releaseInfo: ManagerReleaseInfo
     ): MorpheAsset {
-        val version = normalizeVersion(releaseInfo.version)
+        val version = releaseInfo.version.withVersionPrefix()
         return MorpheAsset(
             downloadUrl = releaseInfo.downloadUrl,
             createdAt = parseTimestamp(releaseInfo.createdAt),
@@ -363,7 +363,7 @@ class MorpheAPI(
         config: RepoConfig,
         releaseInfo: PatchesReleaseInfo
     ): MorpheAsset {
-        val version = normalizeVersion(releaseInfo.version)
+        val version = releaseInfo.version.withVersionPrefix()
         return MorpheAsset(
             downloadUrl = releaseInfo.downloadUrl,
             createdAt = parseTimestamp(releaseInfo.createdAt),
@@ -412,10 +412,6 @@ class MorpheAPI(
         }
         return Instant.parse(normalized).toLocalDateTime(TimeZone.UTC)
     }
-
-    /** Ensures a version string is prefixed with `v`, so `1.2.3` becomes `v1.2.3`. */
-    private fun normalizeVersion(version: String): String =
-        if (version.startsWith("v")) version else "v$version"
 
     /** Returns true if [asset] looks like an Android APK by name or content-type. */
     private fun isManagerAsset(asset: GitHubAsset): Boolean =

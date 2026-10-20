@@ -196,8 +196,7 @@ class PM(
         if (recorded.isEmpty()) return false
         val sourceDir = getApplicationInfo(packageName)?.sourceDir ?: return false
         val onDisk = getApkFileSignatureHashes(File(sourceDir))
-        if (onDisk.isEmpty()) return false
-        return onDisk.none { it in recorded }
+        return onDisk.isNotEmpty() && onDisk.none { it in recorded }
     }
 
     /** Certificate fingerprints the package manager holds for [packageName], without disk access. */
@@ -234,10 +233,8 @@ class PM(
         isPatchManagerInstaller(getInstallerPackageName(packageName))
 
     /** [isInstalledByPatchManager] for callers that already resolved the installer. */
-    fun isPatchManagerInstaller(installer: String?): Boolean {
-        if (installer == null) return false
-        return installer == app.packageName || installer in PATCH_MANAGER_PACKAGES
-    }
+    fun isPatchManagerInstaller(installer: String?): Boolean =
+        installer != null && (installer == app.packageName || installer in PATCH_MANAGER_PACKAGES)
 
     /**
      * Extracts SHA-256 certificate fingerprints from an APK file.
@@ -399,10 +396,10 @@ internal fun matchesSavedApkRecord(
 /** Lowercase hex of these bytes, the form every digest and fingerprint here is compared in. */
 private fun ByteArray.toHex(): String = joinToString("") { byte -> "%02x".format(byte) }
 
-/** SHA-256 fingerprint of an encoded certificate, alike from the platform, apksig or a keystore. */
+/** SHA-256 fingerprint of an encoded certificate, alike from the platform, the APK signer or a keystore. */
 fun ByteArray.sha256Fingerprint(): String = MessageDigest.getInstance("SHA-256").digest(this).toHex()
 
-/** SHA-256 of this file, or null when it cannot be read. Stops reading as soon as its caller is cancelled. */
+/** SHA-256 of this file, or null when it cannot be read. Stops reading as soon as its caller is canceled. */
 suspend fun File.sha256OrNull(): String? {
     if (!isFile) return null
     val digest = MessageDigest.getInstance("SHA-256")

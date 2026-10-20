@@ -115,10 +115,9 @@ private fun DialogHostScope.GitHubPatDialog(
     val check = lastCheck.value?.takeIf { it.first == token }?.second
 
     suspend fun runCheck(): GitHubPatCheck {
-        val checked = token
         checking.value = true
         return try {
-            onCheck(checked).also { lastCheck.value = checked to it }
+            onCheck(token).also { lastCheck.value = token to it }
         } finally {
             checking.value = false
         }

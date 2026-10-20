@@ -37,8 +37,9 @@ class TranslationFormatTest {
                     val error = runCatching { String.format(Locale.ROOT, entry.text, *arguments) }
                         .exceptionOrNull() ?: return@mapNotNull null
                     val sourceText = (source.find { it.quantity == entry.quantity } ?: source.last()).text
+                    val folder = file.parentFile?.name.orEmpty()
                     """
-                    |${languageName(file.parentFile.name)}  ${file.parentFile.name}/${file.name}  ${entry.label}
+                    |${languageName(folder)}  $folder/${file.name}  ${entry.label}
                     |  source:      $sourceText
                     |  translation: ${entry.text}
                     |  error:       ${error::class.simpleName}: ${error.message}
@@ -119,7 +120,7 @@ class TranslationFormatTest {
             types.putIfAbsent(match.groupValues[1].toIntOrNull() ?: next++, conversion)
         }
         if (types.isEmpty()) return null
-        return Array<Any>(types.lastKey()) { index ->
+        return Array(types.lastKey()) { index ->
             when (types[index + 1]?.lowercaseChar()) {
                 'd', 'o', 'x' -> 1
                 'e', 'f', 'g', 'a' -> 1.0

@@ -468,10 +468,8 @@ class SessionInstaller(private val app: Application) {
      */
     fun requestShizukuPermission(): Boolean {
         val status = shizukuStatus()
-        if (!status.installed || !status.supported || !status.running || status.permissionGranted) {
-            return false
-        }
-        return runCatching {
+        val canAsk = status.installed && status.supported && status.running && !status.permissionGranted
+        return canAsk && runCatching {
             Shizuku.requestPermission(SHIZUKU_PERMISSION_REQUEST_CODE)
             true
         }.onFailure { error ->

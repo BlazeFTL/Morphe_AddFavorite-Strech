@@ -221,33 +221,34 @@ class BatchPatchCoordinator(
         return if (item.state == BatchItemState.EXCLUDED) resolved.excluded() else resolved
     }
 
-    /** Re-resolves a single item against a manually attached APK. */
-    fun attachApk(itemId: String, file: File) {
+    /** Plans one queued app again with [resolve], provided it is still in [expectedState] when given. */
+    private fun reresolveItem(
+        itemId: String,
+        expectedState: BatchItemState? = null,
+        resolve: suspend (item: BatchPatchItem, useMount: Boolean) -> BatchPatchItem
+    ) {
         val current = _state.value ?: return
         if (current.phase != BatchPhase.PREFLIGHT) return
         val item = current.items.firstOrNull { it.id == itemId } ?: return
+        if (expectedState != null && item.state != expectedState) return
 
         scope.launch {
-            val resolved = resolver.reattach(item, file, current.useMount)
+            val resolved = resolve(item, current.useMount)
+            // The queue may have started meanwhile, and an item it runs must not be swapped out
             _state.update { state ->
+                if (state.phase != BatchPhase.PREFLIGHT) return@update state
                 state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
             }
         }
     }
+
+    /** Re-resolves a single item against a manually attached APK. */
+    fun attachApk(itemId: String, file: File) =
+        reresolveItem(itemId) { item, useMount -> resolver.reattach(item, file, useMount) }
 
     /** Re-resolves one item against the APK the user picked, saved original or installed app. */
-    fun useSource(itemId: String, preferInstalled: Boolean) {
-        val current = _state.value ?: return
-        if (current.phase != BatchPhase.PREFLIGHT) return
-        val item = current.items.firstOrNull { it.id == itemId } ?: return
-
-        scope.launch {
-            val resolved = resolver.useSource(item, current.useMount, preferInstalled)
-            _state.update { state ->
-                state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
-            }
-        }
-    }
+    fun useSource(itemId: String, preferInstalled: Boolean) =
+        reresolveItem(itemId) { item, useMount -> resolver.useSource(item, useMount, preferInstalled) }
 
     /** Toggles an item between excluded and its resolved state. */
     fun toggleExcluded(itemId: String) {
@@ -272,19 +273,8 @@ class BatchPatchCoordinator(
      * version is what brings in the patches that declare a different one. Without that the
      * app would be patched with nothing but the universal patches.
      */
-    fun forceVersion(itemId: String) {
-        val current = _state.value ?: return
-        if (current.phase != BatchPhase.PREFLIGHT) return
-        val item = current.items.firstOrNull { it.id == itemId } ?: return
-        if (item.state != BatchItemState.VERSION_MISMATCH) return
-
-        scope.launch {
-            val resolved = resolver.forceVersion(item, current.useMount)
-            _state.update { state ->
-                state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
-            }
-        }
-    }
+    fun forceVersion(itemId: String) =
+        reresolveItem(itemId, BatchItemState.VERSION_MISMATCH, resolver::forceVersion)
 
     /**
      * Accepts an APK the bundles do not vouch for, mirroring the single-app warning dialog.
@@ -292,19 +282,8 @@ class BatchPatchCoordinator(
      * The item is resolved again rather than just flipped to runnable, because everything the
      * run needs was left unresolved while the file was in question.
      */
-    fun acceptUnverifiedSignature(itemId: String) {
-        val current = _state.value ?: return
-        if (current.phase != BatchPhase.PREFLIGHT) return
-        val item = current.items.firstOrNull { it.id == itemId } ?: return
-        if (item.state != BatchItemState.UNVERIFIED_SIGNATURE) return
-
-        scope.launch {
-            val resolved = resolver.acceptUnverifiedSignature(item, current.useMount)
-            _state.update { state ->
-                state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
-            }
-        }
-    }
+    fun acceptUnverifiedSignature(itemId: String) =
+        reresolveItem(itemId, BatchItemState.UNVERIFIED_SIGNATURE, resolver::acceptUnverifiedSignature)
 
     /**
      * Replaces what one queued app will be patched with, after the user edited it on the
@@ -343,20 +322,11 @@ class BatchPatchCoordinator(
      * reads it as well.
      */
     fun chooseSource(itemId: String, bundleUid: Int) {
-        val current = _state.value ?: return
-        if (current.phase != BatchPhase.PREFLIGHT) return
-        val item = current.items.firstOrNull { it.id == itemId }
-            ?.copy(chosenBundleUid = bundleUid)
-            ?: return
-        _state.update { state -> state.copy(items = state.items.map { if (it.id == itemId) item else it }) }
-
-        scope.launch {
-            val resolved = replan(item, current.useMount)
-            _state.update { state ->
-                if (state.phase != BatchPhase.PREFLIGHT) return@update state
-                state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
-            }
+        _state.update { state ->
+            if (state.phase != BatchPhase.PREFLIGHT) return@update state
+            state.copy(items = state.items.map { if (it.id == itemId) it.copy(chosenBundleUid = bundleUid) else it })
         }
+        reresolveItem(itemId, resolve = ::replan)
     }
 
     fun setPolicy(policy: BatchInstallPolicy) {
@@ -605,7 +575,8 @@ class BatchPatchCoordinator(
             onProgress = runProgress::onProgress,
             patchSources = patchSources,
             announceCompletion = false,
-            queuePosition = _state.value?.let { it.position to it.total }
+            queuePosition = _state.value?.let { it.position to it.total },
+            useMount = _state.value?.useMount == true
         )
 
         val workId = workerRepository.launchExpedited<PatcherWorker, PatcherWorker.Args>(args)
@@ -645,7 +616,7 @@ class BatchPatchCoordinator(
                 // Retaining the APKs takes seconds, and this run has nothing left to show but
                 // completed steps. The screen switches to its between-apps state instead
                 _state.update { it.copy(activeIndex = null, activeRun = null) }
-                withContext(Dispatchers.IO) { cleanupInput(selectedApp) }
+                withContext(Dispatchers.IO) { cleanupInput(item, selectedApp) }
             }
         }
     }
@@ -688,7 +659,8 @@ class BatchPatchCoordinator(
                     version = source.version,
                     versionCode = source.versionCode,
                     file = target,
-                    temporary = true,
+                    // Not the worker's to delete: the original APK is saved from it after the run
+                    temporary = false,
                     fromInstalledDevice = true
                 )
             } catch (e: Exception) {
@@ -705,9 +677,10 @@ class BatchPatchCoordinator(
         is BatchApkSource.UserFile -> SplitApkPreparer.isSplitArchive(file)
     }
 
-    private fun cleanupInput(selectedApp: SelectedApp) {
-        val local = selectedApp as? SelectedApp.Local ?: return
-        if (local.temporary) local.file.delete()
+    /** Deletes the copy [materialize] made of an installed app, the only input the queue owns. */
+    private fun cleanupInput(item: BatchPatchItem, selectedApp: SelectedApp) {
+        if (item.source !is BatchApkSource.Installed) return
+        (selectedApp as? SelectedApp.Local)?.file?.delete()
     }
 
     /**
@@ -818,7 +791,7 @@ class BatchPatchCoordinator(
                 packageName = item.packageName,
                 version = version,
                 sourceFile = file,
-                moveSource = selectedApp.temporary
+                moveSource = item.source is BatchApkSource.Installed
             )
         }.onFailure { Log.w(TAG, "Failed to save original APK for ${item.packageName}", it) }
     }

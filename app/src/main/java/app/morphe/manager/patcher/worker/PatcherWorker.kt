@@ -523,10 +523,7 @@ class PatcherWorker(
             val message = applicationContext.getString(R.string.patcher_process_killed_message)
             updateProgress(state = State.FAILED, message = message)
             Result.failure(
-                workDataOf(
-                    PROCESS_KILLED_KEY to true,
-                    PROCESS_FAILURE_MESSAGE_KEY to message
-                )
+                workDataOf(PROCESS_FAILURE_MESSAGE_KEY to message)
             )
         } catch (e: HeapExhaustedException) {
             Log.e(
@@ -595,7 +592,6 @@ class PatcherWorker(
         fun stopCompletionSound() = CompletionSound.stop()
 
         /** Set when the system ended the patcher in the middle of the run. */
-        const val PROCESS_KILLED_KEY = "process_killed"
         const val PROCESS_FAILURE_MESSAGE_KEY = "process_failure_message"
 
         private const val RUNTIME_JVM = "jvm"

@@ -14,7 +14,6 @@ import android.graphics.Typeface
 import android.text.Html
 import android.text.style.StyleSpan
 import android.util.Log
-import androidx.annotation.MainThread
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,15 +25,11 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import app.morphe.manager.ui.screen.shared.UserMessages
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
-import kotlin.properties.PropertyDelegateProvider
-import kotlin.properties.ReadWriteProperty
-import kotlin.reflect.KProperty
 
 /** bundleUid → set of selected patch names. */
 typealias PatchSelection = Map<Int, Set<String>>
@@ -130,22 +125,6 @@ fun Int.androidVersionName(): String = when (this) {
     26 -> "8.0"
     else -> "$this" // future or very old SDK - just use the number
 }
-
-/**
- * Property delegate that stores a non-null value of type [T] in [SavedStateHandle],
- * initializing it with [init] on first access so it survives process death.
- */
-@MainThread
-fun <T : Any> SavedStateHandle.saveableVar(init: () -> T): PropertyDelegateProvider<Any?, ReadWriteProperty<Any?, T>> =
-    PropertyDelegateProvider { _: Any?, property ->
-        val name = property.name
-        if (name !in this) this[name] = init()
-        object : ReadWriteProperty<Any?, T> {
-            override fun getValue(thisRef: Any?, property: KProperty<*>): T = get(name)!!
-            override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) =
-                set(name, value)
-        }
-    }
 
 /** The [E] entry named [name], or null when nothing matches, as for a stale persisted value. */
 inline fun <reified E : Enum<E>> enumByNameOrNull(name: String?): E? =

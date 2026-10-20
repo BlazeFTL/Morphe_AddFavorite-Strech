@@ -612,7 +612,7 @@ class HttpService(
         httpMethod: HttpMethod,
         url: String,
         builder: HttpRequestBuilder.() -> Unit = {}
-    ): String? = runCatching {
+    ): String? = try {
         HttpClient { followRedirects = false }.use { client ->
             client.request {
                 method = httpMethod
@@ -620,7 +620,12 @@ class HttpService(
                 builder()
             }.headers[HttpHeaders.Location]
         }
-    }.getOrNull()
+    } catch (e: CancellationException) {
+        // A caller's timeout has to end the wait rather than read as "no redirect"
+        throw e
+    } catch (_: Exception) {
+        null
+    }
 
     class HttpException(val status: HttpStatusCode) :
         Exception("HTTP request failed with status: $status")

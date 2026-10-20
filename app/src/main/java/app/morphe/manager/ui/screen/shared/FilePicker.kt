@@ -393,8 +393,12 @@ fun DialogHostScope.FilePicker(
                         AppDropdownMenuItem(
                             text = stringResource(R.string.refresh),
                             onClick = {
-                                // Counts are read once per folder, so they go too to be read afresh
+                                // Counts, icons and APK details are read once per path, so they go
+                                // too, for a file replaced at the same path to show its new one
                                 folderItemCountCache.evictAll()
+                                apkPackageInfoCache.evictAll()
+                                imageThumbnailCache.evictAll()
+                                splitIconCache.evictAll()
                                 refreshKey++
                                 showViewMenu = false
                             }
@@ -619,6 +623,7 @@ private fun FolderListing(
                     pm = pm,
                     mppIcon = mppIcon,
                     modDateFormat = modDateFormat,
+                    refreshKey = refreshKey,
                     checked = checkedFiles?.takeUnless { file.isDirectory }?.let { file in it },
                     onClick = { if (file.isDirectory) onOpen(file) else onFilePicked(file) },
                     modifier = Modifier.animatedListItem(this)
@@ -641,6 +646,8 @@ private fun FileEntryRow(
     pm: PM,
     mppIcon: ImageBitmap?,
     modDateFormat: SimpleDateFormat,
+    /** Bumped by a refresh, which reads what the row shows afresh. */
+    refreshKey: Int,
     /** Whether the file is checked, or null where files are picked outright rather than checked. */
     checked: Boolean?,
     onClick: () -> Unit,
@@ -656,7 +663,7 @@ private fun FileEntryRow(
     val isImage = ext in IMAGE_EXTENSIONS
     val isSplitBundle = ext in SPLIT_ICON_EXTENSIONS
 
-    val packageInfo by produceState<PackageInfo?>(null, file) {
+    val packageInfo by produceState<PackageInfo?>(null, file, refreshKey) {
         if (canLoadIcon) {
             value = apkPackageInfoCache.get(file.absolutePath)
                 ?: withContext(iconLoadDispatcher) { pm.getPackageInfo(file) }
@@ -664,7 +671,7 @@ private fun FileEntryRow(
         }
     }
 
-    val thumbnail by produceState<ImageBitmap?>(null, file) {
+    val thumbnail by produceState<ImageBitmap?>(null, file, refreshKey) {
         if (isImage) {
             value = imageThumbnailCache.get(file.absolutePath)
                 ?: withContext(iconLoadDispatcher) { decodeThumbnail(file) }
@@ -677,7 +684,7 @@ private fun FileEntryRow(
     }
 
     // A folder says how much it holds, which takes a read of its own
-    val itemCount by produceState<Int?>(null, file) {
+    val itemCount by produceState<Int?>(null, file, refreshKey) {
         if (isDir) {
             value = folderItemCountCache.get(file.absolutePath)
                 ?: withContext(iconLoadDispatcher) { file.list()?.size }

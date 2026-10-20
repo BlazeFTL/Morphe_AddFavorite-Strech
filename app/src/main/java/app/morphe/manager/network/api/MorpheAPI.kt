@@ -477,7 +477,6 @@ class MorpheAPI(
      */
     suspend fun getAppUpdate(): MorpheAsset? {
         val usePrereleases = prefs.useManagerPrereleases.get()
-        val currentWeight = versionWeight(BuildConfig.VERSION_NAME.removePrefix("v"))
         val branch = if (usePrereleases) "dev" else "main"
 
         val candidate = if (USE_MANAGER_DIRECT_JSON) {
@@ -494,7 +493,7 @@ class MorpheAPI(
         // along, and it stays there until the stable release replaces it
         val update = candidate?.takeIf {
             (usePrereleases || !it.version.contains('-')) &&
-                    versionWeight(it.version.removePrefix("v")) > currentWeight
+                    isNewerVersion(BuildConfig.VERSION_NAME, it.version)
         } ?: return null
 
         // Only a definitive "not there" hides the update: a check that could not run at all
@@ -505,28 +504,6 @@ class MorpheAPI(
         }
 
         return update
-    }
-
-    /**
-     * Converts a semver-like version string to a comparable [Long] weight.
-     *
-     * Format: `MAJOR.MINOR.PATCH[-prerelease.N]`
-     *
-     * Stable releases rank strictly above pre-releases with the same core version:
-     * e.g. `1.2.3` > `1.2.3-beta.5`.
-     */
-    private fun versionWeight(version: String): Long {
-        val dashIdx = version.indexOf('-')
-        val core = if (dashIdx >= 0) version.substring(0, dashIdx) else version
-        val pre = if (dashIdx >= 0) version.substring(dashIdx + 1) else null
-        val parts = core.split('.').map { it.toIntOrNull() ?: 0 }
-        val major = parts.getOrElse(0) { 0 }.toLong()
-        val minor = parts.getOrElse(1) { 0 }.toLong()
-        val patch = parts.getOrElse(2) { 0 }.toLong()
-        // Stable gets a 100_000 bonus so it always beats any pre-release of the same version
-        val preWeight = if (pre == null) 100_000L
-        else pre.split('.').lastOrNull()?.toLongOrNull() ?: 0L
-        return major * 1_000_000_000L + minor * 1_000_000L + patch * 100_000L + preWeight
     }
 
     /**

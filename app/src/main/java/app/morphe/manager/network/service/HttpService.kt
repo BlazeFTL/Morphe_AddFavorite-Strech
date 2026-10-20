@@ -596,44 +596,31 @@ class HttpService(
     suspend fun resolveRedirect(
         url: String,
         builder: HttpRequestBuilder.() -> Unit = {}
+    ): String? = locationOf(HttpMethod.Get, url, builder)
+
+    /**
+     * Performs a HEAD request to [url] and returns where it redirects, resolved against [url]
+     * when relative, or null if the server did not redirect or any error occurred.
+     */
+    suspend fun headRedirect(url: String): String? =
+        locationOf(HttpMethod.Head, url)?.let { location ->
+            runCatching { java.net.URI(url).resolve(location).toString() }.getOrNull()
+        }
+
+    // A client of its own, as the shared one follows redirects; closed so each call frees its engine
+    private suspend fun locationOf(
+        httpMethod: HttpMethod,
+        url: String,
+        builder: HttpRequestBuilder.() -> Unit = {}
     ): String? = runCatching {
         HttpClient { followRedirects = false }.use { client ->
             client.request {
-                method = HttpMethod.Get
+                method = httpMethod
                 url(url)
                 builder()
             }.headers[HttpHeaders.Location]
         }
     }.getOrNull()
-
-    /**
-     * Performs a HEAD request to [url] and returns the value of the Location header,
-     * or null if the server did not redirect or any error occurred.
-     *
-     * Relative Location values are resolved against [url] so callers always receive
-     * an absolute URL or null.
-     */
-    suspend fun headRedirect(url: String): String? {
-        return runCatching {
-            // Ktor follows redirects by default, but we want to find the redirect.
-            val noRedirectClient = HttpClient {
-                followRedirects = false
-            }
-
-            noRedirectClient.request {
-                method = HttpMethod.Head
-                url(url)
-            }.headers[HttpHeaders.Location]?.let { location ->
-                if (location.startsWith("http://") || location.startsWith("https://")) {
-                    location
-                } else {
-                    val uri = java.net.URI(url)
-                    val prefix = "${uri.scheme}://${uri.host}"
-                    if (location.startsWith("/")) "$prefix$location" else "$prefix/$location"
-                }
-            }
-        }.getOrNull()
-    }
 
     class HttpException(val status: HttpStatusCode) :
         Exception("HTTP request failed with status: $status")

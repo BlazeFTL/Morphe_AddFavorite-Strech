@@ -99,6 +99,9 @@ class Filesystem(
             storagePermissionName
         ) == PackageManager.PERMISSION_GRANTED
 
+    /** Every file in the directory retained patched APKs are kept in. */
+    fun patchedAppFiles(): List<File> = patchedAppsDir.listFiles()?.filter(File::isFile).orEmpty()
+
     fun getPatchedAppFile(packageName: String, version: String): File {
         val safePackage = FilenameUtils.sanitize(packageName)
         val safeVersion = FilenameUtils.sanitize(version.ifBlank { "unspecified" })

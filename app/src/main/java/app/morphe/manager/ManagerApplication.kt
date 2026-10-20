@@ -406,8 +406,10 @@ class ManagerApplication : Application() {
 
     private fun onFreshProcessStart() {
         fs.uiTempDir.purgeDirectoryAsync(scope)
-        // Logs all app-private directories and their contents with file sizes on fresh start
+        // Logs all app-private directories and their contents with file sizes on fresh start,
+        // once copies no record claims are gone, so the log shows what the storage screen counts
         scope.launch(Dispatchers.IO) {
+            installedAppRepository.pruneUnclaimedPatchedApks()
             fs.logStorageContents()
         }
     }

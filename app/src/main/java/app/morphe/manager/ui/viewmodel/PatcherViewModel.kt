@@ -778,17 +778,7 @@ class PatcherViewModel(
             return@withContext true
         }
 
-        // Delete old version file if it exists and is different
-        val existingApp = installedAppRepository.get(finalPackageName)
-        if (existingApp != null && existingApp.version != finalVersion) {
-            val oldFile = fs.getPatchedAppFile(finalPackageName, existingApp.version)
-            if (oldFile.exists()) {
-                oldFile.delete()
-                Log.d(TAG, "Deleted old patched app file: ${oldFile.name}")
-            }
-        }
-
-        // Save new version
+        // Save new version, addOrUpdate drops the copy of the version the record moves past
         val savedCopy = fs.getPatchedAppFile(finalPackageName, finalVersion)
         if (savePatchedEnabled) {
             try {

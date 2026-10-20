@@ -1,3 +1,10 @@
+# [2.0.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.13...v2.0.0-dev.14) (2026-10-20)
+
+
+### Bug Fixes
+
+* Patcher process may not work on 32-bit phones ([a666f26](https://github.com/MorpheApp/morphe-manager/commit/a666f26535adbfce9d5c20e30681ec8732c9f0d0))
+
 # [2.0.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.12...v2.0.0-dev.13) (2026-10-20)
 
 

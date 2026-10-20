@@ -463,28 +463,16 @@ class PatchFlow(
 
     /**
      * The APK [info] describes of the installed [packageName], copied into a file of the run's
-     * own: a single APK as it is, split ones packed into a temp .apks archive. Null when it has
-     * gone from the device.
+     * own. Throws when it has gone from the device.
      */
-    private fun copyInstalledApk(packageName: String, info: InstalledApkInfo): SelectedApp.Local? {
-        val file = if (info.isSplit) {
-            File(filesystem.uiTempDir, "${packageName}_installed.apks").also { archive ->
-                SplitApkPreparer.writeApksArchive(info.apkPath, info.splitPaths, archive)
-            }
-        } else {
-            val source = File(info.apkPath)
-            if (!source.exists()) return null
-            File(filesystem.uiTempDir, "${packageName}_installed.apk").also { source.copyTo(it, overwrite = true) }
-        }
-        return SelectedApp.Local(
-            packageName = packageName,
-            version = info.version,
-            versionCode = info.versionCode,
-            file = file,
-            temporary = true,
-            fromInstalledDevice = true
-        )
-    }
+    private fun copyInstalledApk(packageName: String, info: InstalledApkInfo) = SelectedApp.Local(
+        packageName = packageName,
+        version = info.version,
+        versionCode = info.versionCode,
+        file = SplitApkPreparer.copyInstalledApp(packageName, info.apkPath, info.splitPaths, filesystem.uiTempDir),
+        temporary = true,
+        fromInstalledDevice = true
+    )
 
     /**
      * Handles a helper result where the user installed the target app outside Morphe.

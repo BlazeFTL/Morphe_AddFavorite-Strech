@@ -54,6 +54,18 @@ object SplitApkPreparer {
      * file name so [prepareIfNeeded] can tell the base from the splits. APKs are compressed
      * already, so they are stored rather than deflated, which needs each CRC up front.
      */
+    /**
+     * Copies an installed app into [directory] as one file named after [packageName]: an APKS
+     * archive of [baseApk] and its [splitApks] for a split install, the APK itself otherwise.
+     * Throws when its files are gone from the device.
+     */
+    fun copyInstalledApp(packageName: String, baseApk: String, splitApks: List<String>, directory: File): File =
+        if (splitApks.isNotEmpty()) {
+            directory.resolve("${packageName}_installed.apks").also { writeApksArchive(baseApk, splitApks, it) }
+        } else {
+            directory.resolve("${packageName}_installed.apk").also { File(baseApk).copyTo(it, overwrite = true) }
+        }
+
     fun writeApksArchive(baseApk: String, splitApks: List<String>, output: File) {
         output.parentFile?.mkdirs()
         ZipOutputStream(output.outputStream().buffered()).use { zip ->

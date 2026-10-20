@@ -695,13 +695,9 @@ class BatchPatchCoordinator(
             )
 
             is BatchApkSource.Installed -> try {
-                val target = if (source.isSplit) {
-                    workspace.resolve("${item.packageName}_installed.apks")
-                        .also { SplitApkPreparer.writeApksArchive(source.apkPath, source.splitPaths, it) }
-                } else {
-                    workspace.resolve("${item.packageName}_installed.apk")
-                        .also { File(source.apkPath).copyTo(it, overwrite = true) }
-                }
+                val target = SplitApkPreparer.copyInstalledApp(
+                    item.packageName, source.apkPath, source.splitPaths, workspace
+                )
                 SelectedApp.Local(
                     packageName = item.packageName,
                     version = source.version,

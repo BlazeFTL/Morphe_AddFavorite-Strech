@@ -107,8 +107,9 @@ class ContentTranslator(
 
             store.complete(texts.associateWith { text -> assemble(text, translations) })
         } catch (e: Exception) {
-            Log.e(tag, "Failed to translate into ${store.language}", e)
             store.fail(texts, e)
+            if (e is CancellationException) throw e
+            Log.e(tag, "Failed to translate into ${store.language}", e)
         }
     }
 
@@ -322,7 +323,8 @@ class ContentTranslator(
 internal fun restoreNameCasing(source: String, translated: String): String {
     val names = WORD.findAll(source)
         .map { it.value }
-        .filter { word -> word.any(Char::isUpperCase) }
+        // A single letter is no name: English "A" or "I" would recase the "a" and "i" of the translation
+        .filter { word -> word.length > 1 && word.any(Char::isUpperCase) }
         .associateBy { it.lowercase() }
     if (names.isEmpty()) return translated
 

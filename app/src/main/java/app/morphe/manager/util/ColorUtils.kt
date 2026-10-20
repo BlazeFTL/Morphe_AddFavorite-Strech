@@ -44,9 +44,10 @@ fun Color.isDarkBackground(): Boolean = requiresLightContent()
 fun Color.isExtremeAccent(): Boolean = luminance() !in 0.04f..0.92f
 
 /**
- * Composites this color at [alpha] over [background] and returns the opaque result.
+ * Composites this color at [alpha] over [background] and returns the opaque result, where Compose's
+ * compositeOver keeps the background's alpha.
  */
-fun Color.compositeOver(background: Color, alpha: Float = this.alpha): Color = Color(
+fun Color.compositeOpaqueOver(background: Color, alpha: Float = this.alpha): Color = Color(
     red   = background.red   * (1f - alpha) + red   * alpha,
     green = background.green * (1f - alpha) + green * alpha,
     blue  = background.blue  * (1f - alpha) + blue  * alpha,
@@ -77,7 +78,7 @@ fun Color.contrastAgainst(background: Color): Float {
  * its on-color stays dark. Contrast alone passes that, so polarity is weighed alongside [minRatio].
  */
 fun Color.readableOn(fill: Color, surface: Color, minRatio: Float = 3f): Color {
-    val background = fill.compositeOver(surface)
+    val background = fill.compositeOpaqueOver(surface)
     val wantsLightContent = background.requiresLightContent()
 
     val agreesWithFill = wantsLightContent != requiresLightContent()

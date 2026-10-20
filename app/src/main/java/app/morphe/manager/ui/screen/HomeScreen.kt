@@ -425,7 +425,6 @@ fun HomeScreen(
                             homeViewModel.handleAppClick(
                                 packageName = item.packageName,
                                 availablePatches = availablePatches,
-                                bundleUpdateInProgress = false,
                                 android11BugActive = homeViewModel.android11BugActive,
                                 installedApp = item.installedApp
                             )

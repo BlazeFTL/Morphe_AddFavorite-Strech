@@ -112,7 +112,6 @@ class HomeViewModel(
     val bundleUpdateProgress = patchBundleRepository.bundleUpdateProgress
     private val contentResolver: ContentResolver = app.contentResolver
 
-    /** Becomes true once the bundle repository has finished its initial DB load. */
     /** Android 11 kills the app process after granting the "install apps" permission. */
     val android11BugActive get() = Build.VERSION.SDK_INT == Build.VERSION_CODES.R && !pm.canInstallPackages()
 
@@ -150,8 +149,10 @@ class HomeViewModel(
         pendingMppUri = uri
         pendingMppFileName = uri.displayName(contentResolver)
         pendingMppManifest = null
-        viewModelScope.launch(Dispatchers.IO) {
-            pendingMppManifest = uri.readMppManifest(contentResolver)
+        viewModelScope.launch {
+            val manifest = withContext(Dispatchers.IO) { uri.readMppManifest(contentResolver) }
+            // A file opened in the meantime, or a dismissed prompt, is not described by this one
+            if (pendingMppUri == uri) pendingMppManifest = manifest
         }
     }
 
@@ -324,10 +325,17 @@ class HomeViewModel(
                 // Treat that transient state as "still loading" so we never flash the empty-state
                 // UI before the real bundle configuration is known.
                 val sourcesInitialized = sources.isNotEmpty() || patchCount > 0
+                // An update that ended without patches, offline on a first launch for one, brings
+                // nothing more to wait for
+                val updateEnded = progress?.result in setOf(
+                    PatchBundleRepository.BundleUpdateResult.NoInternet,
+                    PatchBundleRepository.BundleUpdateResult.Error,
+                    PatchBundleRepository.BundleUpdateResult.SkippedMetered
+                )
                 // If no sources are enabled (and we know the DB has been read), there is nothing
                 // to load - this is a valid terminal state, not a loading state.
                 val hasLoadedData = sourcesInitialized &&
-                        (!hasEnabledSources || installedApps.isNotEmpty() || patchCount > 0)
+                        (!hasEnabledSources || installedApps.isNotEmpty() || patchCount > 0 || updateEnded)
                 isBundleUpdateInProgress || !hasLoadedData
             }
                 .distinctUntilChanged()
@@ -767,7 +775,6 @@ class HomeViewModel(
     fun handleAppClick(
         packageName: String,
         availablePatches: Int,
-        bundleUpdateInProgress: Boolean,
         android11BugActive: Boolean,
         installedApp: InstalledApp?
     ) {
@@ -777,7 +784,7 @@ class HomeViewModel(
         }
 
         // Check if patches are being fetched
-        if (availablePatches <= 0 || bundleUpdateInProgress) {
+        if (availablePatches <= 0) {
             messages.show(R.string.home_sources_are_loading)
             return
         }
@@ -802,8 +809,7 @@ class HomeViewModel(
                 messages.show(R.string.home_external_apk_expert_mode_required)
                 return@launch
             }
-            // Wait for patches to be ready. Cap at 30 s to avoid hanging forever when
-            // no patch sources are configured (installedAppsLoading never clears in that case)
+            // Wait for patches to be ready, capped in case the sources never answer
             withTimeoutOrNull(30.seconds) {
                 snapshotFlow { installedAppsLoading }.first { !it }
             }

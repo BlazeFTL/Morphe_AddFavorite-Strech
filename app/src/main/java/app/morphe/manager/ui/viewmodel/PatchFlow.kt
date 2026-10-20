@@ -1030,6 +1030,7 @@ class PatchFlow(
 
         if (availableBundles.isEmpty()) {
             messages.show(R.string.home_no_patches_available)
+            selectedApp.discard()
             endRun()
             return
         }
@@ -1084,6 +1085,19 @@ class PatchFlow(
             val savedSelections = savedSelections()
             val savedOptions = savedOptions()
 
+            // The seen-patch snapshot is what tells a genuinely new patch from one the user
+            // deselected. Not read without a saved selection, so a first run flags nothing as new
+            val seenByBundle = if (savedSelections.isEmpty()) emptyMap() else withContext(Dispatchers.IO) {
+                allBundles.associate {
+                    it.uid to patchSelectionRepository.getSeenPatches(configurationKey, it.uid)
+                }
+            }
+            val newPatchesMap = allBundles.mapNotNull { bundle ->
+                val seen = seenByBundle[bundle.uid] ?: return@mapNotNull null
+                val new = bundle.patches.mapTo(mutableSetOf()) { it.name } - seen
+                new.takeIf { it.isNotEmpty() }?.let { bundle.uid to it }
+            }.toMap()
+
             // Use saved selections or create new ones
             val patches = if (savedSelections.isNotEmpty()) {
                 // Count patches before validation
@@ -1105,17 +1119,8 @@ class PatchFlow(
                     ))
                 }
 
-                // The seen-patch snapshot is what tells a genuinely new patch from one the
-                // user deselected, and the saved selection stands in for it on the first run,
-                // before any snapshot exists. Read in one go rather than per bundle inside the
-                // merge, which would cross to the IO dispatcher once per source
-                val seenByBundle = withContext(Dispatchers.IO) {
-                    allBundles.associate {
-                        it.uid to patchSelectionRepository.getSeenPatches(configurationKey, it.uid)
-                    }
-                }
-
-                // Runs after validation, so patches the sources dropped never sneak back in
+                // Runs after validation, so patches the sources dropped never sneak back in. The
+                // saved selection stands in for a snapshot that does not exist yet
                 mergeNewlyAdded(
                     bundles = allBundles,
                     validated = validatedPatches,
@@ -1126,31 +1131,6 @@ class PatchFlow(
             } else {
                 // No saved selections - use default for all current bundles
                 allBundles.toPatchSelection(allowIncompatible) { _, patch -> target.defaultSelected(patch) }
-            }
-
-            // Compute new patches map for the dialog to highlight.
-            // Only populated when a previous selection exists - on first run there is nothing
-            // to compare against so we keep it empty to avoid false "New" badges
-            // A patch is genuinely "new" if it was absent from the seen-patches snapshot
-            // saved at the end of the previous patching session. Comparing against savedSelections
-            // (which contains only *selected* patches) would incorrectly flag deselected patches
-            // as new on every subsequent open.
-            val newPatchesMap: Map<Int, Set<String>> = if (savedSelections.isNotEmpty()) {
-                buildMap {
-                    allBundles.forEach { bundle ->
-                        val seenForBundle = withContext(Dispatchers.IO) {
-                            patchSelectionRepository.getSeenPatches(configurationKey, bundle.uid)
-                        }
-                        // No snapshot yet → first time opening expert mode for this package,
-                        // nothing to flag as new.
-                        val seen = seenForBundle ?: return@forEach
-                        val currentPatchNames = bundle.patches.map { it.name }.toSet()
-                        val newForBundle = currentPatchNames - seen
-                        if (newForBundle.isNotEmpty()) put(bundle.uid, newForBundle)
-                    }
-                }
-            } else {
-                emptyMap()
             }
 
             // Validate options
@@ -1355,6 +1335,7 @@ class PatchFlow(
 
     /** Closes the expert dialog, giving up the run it was setting up. */
     fun dismissExpertMode() {
+        expertMode.app?.discard()
         expertMode.clear()
         dismiss()
     }
@@ -1412,7 +1393,7 @@ class PatchFlow(
     fun refreshBundlesAndContinuePatching() {
         val action = takePendingPatchAction() ?: return
         dialogs.close(HomeDialog.MeteredPatching)
-        scope.launch {
+        moveOn {
             // User explicitly requested update - bypass metered check and wait for completion
             patchBundleRepository.updateCheckAndAwait(allowUnsafeNetwork = true)
             action()
@@ -1536,6 +1517,7 @@ class PatchFlow(
     /** Closes every dialog of the flow and gives up the run, for the user to start afresh. */
     fun cancel() {
         stepJob?.cancel()
+        expertMode.app?.discard()
         expertMode.clear()
         pendingPatchAction = null
         dialogs.closeAll()
@@ -1545,6 +1527,7 @@ class PatchFlow(
     /** Deletes the APK held for a run, as nothing is left to patch it. */
     fun close() {
         heldApp?.discard()
+        expertMode.app?.discard()
     }
 
     /**

@@ -169,6 +169,7 @@ private fun PatcherScreenContent(
     // A mount, or an install that checks for a rename first. Started on its own after patching,
     // an install clears a conflict by itself, since nobody is there to answer for it
     suspend fun installPatchedApp(automatic: Boolean) {
+        patcherViewModel.onInstallStarted()
         if (usingMountInstall) {
             installViewModel.installMount(
                 outputFile = outputFile,

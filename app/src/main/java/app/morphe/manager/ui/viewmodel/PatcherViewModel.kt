@@ -1029,6 +1029,14 @@ class PatcherViewModel(
         if (successScreenDeferred) successScreenHeldBack = true else showSuccess()
     }
 
+    // An install outlives this screen and reads output.apk until it is done
+    private var installStarted = false
+
+    /** Called as an install of the patched APK starts, which keeps it on disk past this screen. */
+    fun onInstallStarted() {
+        installStarted = true
+    }
+
     /** Called once the installer has taken the auto-install over. */
     fun autoInstallHandedOff() {
         autoInstallPending = false
@@ -1130,15 +1138,14 @@ class PatcherViewModel(
 
     override fun onCleared() {
         patcherWorkerId?.uuid?.let(workManager::cancelWorkById)
-        cleanupTemporaryInput()
+        // A mount restores the stock app from the input, and drops it itself once done
+        if (!installStarted || !usingMountInstall) cleanupTemporaryInput()
         stopCompletionSound()
         patchRun.finish()
 
-        // Clean up the installer temp directory (contains output.apk and any intermediate files).
-        // This covers the case where the user navigates away before installing/exporting,
-        // or after a failed patch. The next PatcherViewModel creation will also deleteRecursively,
-        // but doing it here is more prompt and avoids holding ~XX MB until next launch.
-        tempDir.deleteRecursively()
+        // An install left running is still reading output.apk, which the next run or a restart
+        // clears instead
+        if (!installStarted) tempDir.deleteRecursively()
     }
 
     private companion object {

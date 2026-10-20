@@ -14,6 +14,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -768,7 +769,7 @@ private suspend fun createAdaptiveIcons(
         // Convert back to a real path so the patcher can reference it as a patch option value
         iconsDocDir.uri.toFilePath()
     } catch (e: Exception) {
-        e.printStackTrace()
+        Log.e(tag, "Failed to create adaptive icons", e)
         null
     }
 }

@@ -642,8 +642,8 @@ private fun MorpheManager(vm: MainViewModel) {
                 )
             }
 
-            composable<Patcher> { it ->
-                val params = it.getComplexArg<Patcher.ViewModelParams>() ?: return@composable
+            composable<Patcher> { entry ->
+                val params = entry.getComplexArg<Patcher.ViewModelParams>() ?: return@composable
                 val patcherViewModel: PatcherViewModel = koinViewModel { parametersOf(params) }
                 val leavePatcher: () -> Unit = {
                     patcherViewModel.stopCompletionSound()

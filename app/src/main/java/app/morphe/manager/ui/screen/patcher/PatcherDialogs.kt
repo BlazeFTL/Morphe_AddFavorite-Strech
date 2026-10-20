@@ -604,7 +604,7 @@ private fun diagnosticSections(errorInfo: PatcherErrorInfo?): List<List<Pair<Str
     val failedPatchLabel = stringResource(R.string.patcher_field_failed_patch)
     val sourceLabel = stringResource(R.string.patcher_field_source)
     val managerLabel = stringResource(R.string.patcher_field_manager)
-    val patcherLabel = stringResource(R.string.settings_advanced_patcher)
+    val patcherLabel = stringResource(R.string.settings_section_patcher)
     val librariesLabel = stringResource(R.string.patcher_field_libraries)
     val androidLabel = stringResource(R.string.patcher_field_android)
     val deviceLabel = stringResource(R.string.patcher_field_device)

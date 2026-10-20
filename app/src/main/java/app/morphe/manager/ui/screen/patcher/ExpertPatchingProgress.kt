@@ -924,7 +924,7 @@ private fun StartBannerCard(item: LogItem.StartBanner) {
                 value = item.managerVersion ?: "?",
                 modifier = Modifier.weight(1f))
             BannerFieldCell(
-                label = stringResource(R.string.settings_advanced_patcher),
+                label = stringResource(R.string.settings_section_patcher),
                 value = item.patcherVersion ?: "?",
                 modifier = Modifier.weight(1f))
         }

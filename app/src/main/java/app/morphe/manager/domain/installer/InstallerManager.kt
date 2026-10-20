@@ -489,7 +489,7 @@ class InstallerManager(
                 Availability(false, R.string.installer_status_shizuku_not_installed)
             } else if (checkRoot) {
                 // Full availability check
-                sessionInstaller.shizukuAvailability(target)
+                sessionInstaller.shizukuAvailability()
             } else {
                 // Just verify Shizuku is installed (for UI display)
                 Availability(true)
@@ -502,7 +502,7 @@ class InstallerManager(
             } else if (!sessionInstaller.isShizukuInstalled()) {
                 Availability(false, R.string.installer_status_shizuku_not_installed)
             } else if (checkRoot) {
-                sessionInstaller.shizukuAvailability(target)
+                sessionInstaller.shizukuAvailability()
             } else {
                 Availability(true)
             }
@@ -667,8 +667,7 @@ class InstallerManager(
 
     fun openShizukuApp(): Boolean = sessionInstaller.launchShizukuApp()
 
-    fun shizukuStatus(target: InstallTarget): SessionInstaller.ShizukuStatus =
-        sessionInstaller.shizukuStatus(target)
+    fun shizukuStatus(): SessionInstaller.ShizukuStatus = sessionInstaller.shizukuStatus()
 
     fun requestShizukuPermission(): Boolean = sessionInstaller.requestShizukuPermission()
 

@@ -13,7 +13,6 @@ composables-icons = "2.2.1"
 datetime = "0.8.0"
 dev-tools-gradle-plugin = "2.3.12"
 documentfile = "1.1.0"
-fading-edges = "1.0.4"
 firebase-bom = "35.0.2"
 google-services = "4.5.0"
 haze = "2.0.1"
@@ -29,7 +28,6 @@ libsu = "6.0.0"
 # Ahead of the Compose BOM, which still ships 1.4.0: the sheets build on the 1.5 bottom sheet API
 # (rememberBottomSheetState). Drop the override once the BOM ships a stable 1.5.0
 material3 = "1.5.0-beta01"
-morphe-library = "1.4.0"
 morphe-patcher = "2.0.0-dev.19"
 navigation = "2.10.2"
 play-services-base = "18.11.1"
@@ -89,7 +87,6 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 # Patcher
 arsclib = { module = "com.github.MorpheApp:ARSCLib", version.ref = "arsclib" }
 morphe-patcher = { group = "app.morphe", name = "morphe-patcher", version.ref = "morphe-patcher" }
-morphe-library = { group = "app.morphe", name = "morphe-library", version.ref = "morphe-library" }
 
 # Koin
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
@@ -105,9 +102,6 @@ ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor"
 ktor-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
-
-# Fading Edges
-fading-edges = { group = "com.github.GIGAMOLE", name = "ComposeFadingEdges", version.ref = "fading-edges"}
 
 # Native processes
 kotlin-process = { group = "com.github.pgreze", name = "kotlin-process", version.ref = "kotlin-process" }

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -440,7 +441,7 @@ private suspend fun createHeaderFiles(
         // Convert back to a real path so the patcher can reference it as a patch option value
         headerDocDir.uri.toFilePath()
     } catch (e: Exception) {
-        e.printStackTrace()
+        Log.e(tag, "Failed to create header images", e)
         null
     }
 }

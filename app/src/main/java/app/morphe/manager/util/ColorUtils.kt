@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.graphics.toColorInt
+import java.util.Locale
 import kotlin.math.max
 import kotlin.math.min
 
@@ -113,9 +114,9 @@ fun Color.darken(factor: Float): Color {
 fun Color.toHexString(includeAlpha: Boolean = false): String {
     val argb = toArgb()
     return if (includeAlpha) {
-        String.format("#%08X", argb)
+        String.format(Locale.ROOT, "#%08X", argb)
     } else {
-        String.format("#%06X", argb and 0xFFFFFF)
+        String.format(Locale.ROOT, "#%06X", argb and 0xFFFFFF)
     }
 }
 
@@ -143,20 +144,4 @@ fun String?.toColorOrNull(): Color? {
         val hexValue = if (value.startsWith("#")) value else "#$value"
         Color(hexValue.toColorInt())
     }.getOrNull()
-}
-
-/**
- * Parse color string to RGB float values (0-1 range)
- */
-fun parseColorToRgb(color: String): Triple<Float, Float, Float> {
-    return color.toColorOrNull()?.let {
-        Triple(it.red, it.green, it.blue)
-    } ?: Triple(0f, 0f, 0f)
-}
-
-/**
- * Convert RGB float values to hex string
- */
-fun rgbToHex(r: Float, g: Float, b: Float): String {
-    return Color(r, g, b).toHexString(includeAlpha = false)
 }

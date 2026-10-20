@@ -365,7 +365,7 @@ private val SettingsSection.titleRes: Int
         SettingsSection.APPEARANCE -> R.string.appearance
         SettingsSection.HOME -> R.string.settings_appearance_home_screen
         SettingsSection.PATCHING -> R.string.settings_system_backup_patching
-        SettingsSection.UPDATES -> R.string.settings_advanced_updates
+        SettingsSection.UPDATES -> R.string.settings_section_updates
         SettingsSection.SOURCES -> R.string.sources
         SettingsSection.PATCH_SELECTIONS -> R.string.settings_system_patch_selections_title
     }

@@ -165,23 +165,11 @@ val APK_FILE_MIME_TYPES = arrayOf(
     // end user will know or should have to do. Instead, show all files to ensure the user can
     // always select no matter what file naming ApkMirror uses.
     "application/*",
-//    "application/zip",
-//    "application/x-zip-compressed",
-//    "application/x-apkm",
-//    "application/x-apks",
-//    "application/x-xapk",
-//    "application/xapk",
-//    "application/vnd.android.xapk",
-//    "application/vnd.android.apkm",
-//    "application/apkm",
-//    "application/vnd.android.apks",
-//    "application/apks",
 )
 
 val MPP_FILE_MIME_TYPES = arrayOf(
     BIN_MIMETYPE,
     MPP_MIMETYPE,
-//    "application/x-zip-compressed"
     "*/*"
 )
 

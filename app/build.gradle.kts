@@ -62,7 +62,6 @@ dependencies {
     implementation(project(":patcher-core"))
     implementation(libs.arsclib)
     implementation(libs.morphe.patcher)
-    implementation(libs.morphe.library)
     patcherHost(project(":patcher-core", "hostJar"))
     // Unpacks the embedded JVM, which ships compressed with xz
     implementation(libs.xz)
@@ -102,9 +101,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging)
     implementation(libs.play.services.base)
-
-    // Fading Edges
-    implementation(libs.fading.edges)
 
     // Reorderable lists
     implementation(libs.reorderable)

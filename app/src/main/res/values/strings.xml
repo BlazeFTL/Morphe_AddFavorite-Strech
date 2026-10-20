@@ -401,7 +401,6 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
 
     <!-- Color picker -->
     <string name="custom_color">Custom color</string>
-    <string name="hex_color">Hex color</string>
     <string name="color_picker_shade">Saturation and brightness</string>
     <string name="color_picker_hue">Hue</string>
 
@@ -899,8 +898,6 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_app_icon_change_dialog_confirm">Change icon</string>
 
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Updates</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Pre-release updates</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Early access to new Morphe versions</string>
@@ -1205,7 +1202,7 @@ Details: %2$s"</string>
     <string name="settings_system_apks_delete_failed">Some APK files could not be deleted</string>
     <string name="settings_system_apks_export_zip_success">Selected APKs exported</string>
     <string name="settings_system_apks_export_zip_failed">Failed to export selected APKs</string>
-    <string name="settings_system_apk_item_info" translatable="false">v%s • %s</string>
+    <string name="settings_system_apk_item_info" translatable="false">v%1$s • %2$s</string>
 
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Storage management</string>

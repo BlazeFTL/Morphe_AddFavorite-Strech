@@ -321,8 +321,7 @@ class SettingsViewModel(
 
     fun openShizukuApp(): Boolean = installerManager.openShizukuApp()
 
-    fun getShizukuStatus(): SessionInstaller.ShizukuStatus =
-        installerManager.shizukuStatus(InstallerManager.InstallTarget.PATCHER)
+    fun getShizukuStatus(): SessionInstaller.ShizukuStatus = installerManager.shizukuStatus()
 
     fun requestShizukuPermission(): Boolean = installerManager.requestShizukuPermission()
 

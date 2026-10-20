@@ -29,9 +29,12 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.core.content.pm.PackageInfoCompat
 import app.morphe.manager.domain.apk.ApkSignatureCache
 import app.morphe.patcher.apk.ApkUtils
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.File
+import java.io.IOException
 import java.security.MessageDigest
 
 @SuppressLint("QueryPermissionsNeeded")
@@ -396,20 +399,25 @@ private fun ByteArray.toHex(): String = joinToString("") { byte -> "%02x".format
 /** SHA-256 fingerprint of an encoded certificate, alike from the platform, apksig or a keystore. */
 fun ByteArray.sha256Fingerprint(): String = MessageDigest.getInstance("SHA-256").digest(this).toHex()
 
-fun File.sha256OrNull(): String? = runCatching {
-    if (!isFile) return@runCatching null
+/** SHA-256 of this file, or null when it cannot be read. Stops reading as soon as its caller is cancelled. */
+suspend fun File.sha256OrNull(): String? {
+    if (!isFile) return null
     val digest = MessageDigest.getInstance("SHA-256")
-    inputStream().use { input ->
-        val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
-        while (!Thread.currentThread().isInterrupted) {
-            val read = input.read(buffer)
-            if (read < 0) break
-            digest.update(buffer, 0, read)
+    try {
+        inputStream().use { input ->
+            val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+            while (true) {
+                currentCoroutineContext().ensureActive()
+                val read = input.read(buffer)
+                if (read < 0) break
+                digest.update(buffer, 0, read)
+            }
         }
+    } catch (_: IOException) {
+        return null
     }
-    if (Thread.currentThread().isInterrupted) return@runCatching null
-    digest.digest().toHex()
-}.getOrNull()
+    return digest.digest().toHex()
+}
 
 /** Opens the system screen that lets the user grant the "install unknown apps" permission. */
 object RequestInstallAppsContract : ActivityResultContract<String, Boolean>(), KoinComponent {

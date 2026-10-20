@@ -45,6 +45,7 @@ import app.morphe.manager.util.PM
 import app.morphe.manager.util.enumByNameOrNull
 import app.morphe.manager.util.externalStorageVolumes
 import app.morphe.manager.util.formatBytes
+import app.morphe.manager.util.thumbnailSampleSize
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 import com.topjohnwu.superuser.Shell
@@ -54,6 +55,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.compose.koinInject
 import java.io.File
+import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -142,29 +144,24 @@ private val folderItemCountCache = LruCache<String, Int>(200)
 private fun decodeSplitIcon(file: File): ImageBitmap? = runCatching {
     java.util.zip.ZipFile(file).use { zip ->
         val entry = zip.getEntry("icon.png") ?: return@runCatching null
-        val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        zip.getInputStream(entry).use { BitmapFactory.decodeStream(it, null, opts) }
-        var sampleSize = 1
-        while (opts.outWidth / (sampleSize * 2) >= 128 && opts.outHeight / (sampleSize * 2) >= 128) {
-            sampleSize *= 2
-        }
-        zip.getInputStream(entry).use {
-            BitmapFactory.decodeStream(it, null, BitmapFactory.Options().apply { inSampleSize = sampleSize })
-                ?.asImageBitmap()
-        }
+        decodeSampledThumbnail { zip.getInputStream(entry) }
     }
 }.getOrNull()
 
 private fun decodeThumbnail(file: File): ImageBitmap? = runCatching {
-    val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-    BitmapFactory.decodeFile(file.absolutePath, opts)
-    var sampleSize = 1
-    while (opts.outWidth / (sampleSize * 2) >= 128 && opts.outHeight / (sampleSize * 2) >= 128) {
-        sampleSize *= 2
-    }
-    BitmapFactory.decodeFile(file.absolutePath, BitmapFactory.Options().apply { inSampleSize = sampleSize })
-        ?.asImageBitmap()
+    decodeSampledThumbnail { file.inputStream() }
 }.getOrNull()
+
+/** Reads the image [open] gives once for its size and once more, sampled down, for the picture. */
+private fun decodeSampledThumbnail(open: () -> InputStream): ImageBitmap? {
+    val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+    open().use { BitmapFactory.decodeStream(it, null, bounds) }
+    val sampleSize = thumbnailSampleSize(bounds.outWidth, bounds.outHeight, minDimension = 128)
+    return open().use {
+        BitmapFactory.decodeStream(it, null, BitmapFactory.Options().apply { inSampleSize = sampleSize })
+            ?.asImageBitmap()
+    }
+}
 
 private enum class SortMode {
     NAME_ASC, NAME_DESC, SIZE_DESC, SIZE_ASC, DATE_DESC, DATE_ASC;

@@ -703,17 +703,9 @@ class PatcherViewModel(
                 return@withLock
             }
 
-            // Get version from the package info
-            // Use outputFile (patched APK) because inputFile might be deleted by worker!
-            // For split archives: selected.file (archive) won't have valid PackageInfo
-            // For regular APKs: inputFile might be deleted
-            val apkPackageInfo = pm.getPackageInfo(outputFile)
-            if (apkPackageInfo == null) {
-                Log.w(TAG, "Cannot get package info from output APK, skipping save")
-                return@withLock
-            }
-
-            val originalVersion = apkPackageInfo.versionName?.takeUnless { it.isBlank() }
+            // The original's own version, as the worker records a merged one: a patch may rename
+            // the patched build's. An archive has no package info, so the run's version stands in
+            val originalVersion = pm.getPackageInfo(fileToSave)?.versionName?.takeUnless { it.isBlank() }
                 ?: input.selectedApp.version
                 ?: "unknown"
 

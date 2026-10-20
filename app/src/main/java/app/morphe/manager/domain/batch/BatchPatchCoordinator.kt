@@ -823,10 +823,14 @@ class BatchPatchCoordinator(
     private suspend fun saveOriginalApk(
         item: BatchPatchItem,
         selectedApp: SelectedApp,
-        version: String
+        patchedVersion: String
     ) {
         val file = (selectedApp as? SelectedApp.Local)?.file?.takeIf { it.exists() } ?: return
         if (SplitApkPreparer.isSplitArchive(file)) return
+        // Recorded under its own version, which a patch may have renamed in the patched build
+        val version = pm.getPackageInfo(file)?.versionName?.takeUnless { it.isBlank() }
+            ?: item.version
+            ?: patchedVersion
 
         val existing = originalApkRepository.get(item.packageName)
         if (existing != null && existing.version == version && File(existing.filePath).exists()) return

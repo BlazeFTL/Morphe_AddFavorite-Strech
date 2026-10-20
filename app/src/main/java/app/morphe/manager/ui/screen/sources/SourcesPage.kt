@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
@@ -329,16 +328,7 @@ private fun SourcesPageContent(
     }
 
     val context = LocalContext.current
-    val messages = koinInject<UserMessages>()
-    val uriHandler = LocalUriHandler.current
-    val failedToOpenUrlText = stringResource(R.string.sources_management_failed_to_open_url)
-    fun openUrl(url: String) {
-        try {
-            uriHandler.openUri(url)
-        } catch (_: Exception) {
-            messages.show(failedToOpenUrlText)
-        }
-    }
+    val openUrl = rememberOpenUrl()
 
     fun shareText(text: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {

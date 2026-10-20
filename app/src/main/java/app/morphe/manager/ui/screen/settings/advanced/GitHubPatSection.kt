@@ -15,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
@@ -110,7 +109,7 @@ private fun DialogHostScope.GitHubPatDialog(
     val lastCheck = remember { mutableStateOf<Pair<String, GitHubPatCheck>?>(null) }
     val checking = remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-    val uriHandler = LocalUriHandler.current
+    val openUrl = rememberOpenUrl()
 
     val token = pat.value.trim()
     val check = lastCheck.value?.takeIf { it.first == token }?.second
@@ -172,7 +171,7 @@ private fun DialogHostScope.GitHubPatDialog(
             }
 
             SettingsItem(
-                onClick = { uriHandler.openUri(CREATE_GITHUB_PAT_URL) },
+                onClick = { openUrl(CREATE_GITHUB_PAT_URL) },
                 showBorder = true,
                 icon = FontAwesome.Brands.Github,
                 title = stringResource(R.string.settings_advanced_github_pat_create),

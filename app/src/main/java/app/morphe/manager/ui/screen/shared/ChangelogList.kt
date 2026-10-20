@@ -19,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.util.ChangelogEntry
@@ -189,12 +188,12 @@ fun ChangelogFooter(
 /** Opens [pageUrl], named after the forge that hosts it, or null when there is no page. */
 @Composable
 private fun releasePageAction(pageUrl: String?): DialogAction? {
-    val uriHandler = LocalUriHandler.current
+    val openUrl = rememberOpenUrl()
     val host = pageUrl?.let(ReleaseHost::of) ?: return null
 
     return DialogAction(
         text = host.label?.let { stringResource(it) } ?: stringResource(R.string.changelog_release_page),
-        onClick = { uriHandler.openUri(pageUrl) },
+        onClick = { openUrl(pageUrl) },
         icon = host.icon,
         emphasis = DialogActionEmphasis.Outlined
     )

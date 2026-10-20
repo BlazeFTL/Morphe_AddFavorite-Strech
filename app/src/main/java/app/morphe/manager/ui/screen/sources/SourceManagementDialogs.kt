@@ -32,7 +32,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -102,7 +101,7 @@ fun DialogHostScope.AddSourceDialog(
         localFiles.count { it.check is LocalFileCheck.New || it.check is LocalFileCheck.Update }
     }
 
-    val uriHandler = LocalUriHandler.current
+    val openUrl = rememberOpenUrl()
     var showCommunityNotice by rememberSaveable { mutableStateOf(false) }
 
     DialogHost(visible = showCommunityNotice) {
@@ -114,7 +113,7 @@ fun DialogHostScope.AddSourceDialog(
             onDismiss = { showCommunityNotice = false },
             onConfirm = {
                 showCommunityNotice = false
-                uriHandler.openUri(COMMUNITY_PATCHES_URL)
+                openUrl(COMMUNITY_PATCHES_URL)
             }
         )
     }

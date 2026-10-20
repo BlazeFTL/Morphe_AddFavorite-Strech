@@ -19,6 +19,10 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.jvm.toolchain.JavaLauncher
 import org.gradle.process.ExecOperations
+import org.tukaani.xz.ARM64Options
+import org.tukaani.xz.ARMOptions
+import org.tukaani.xz.FilterOptions
+import org.tukaani.xz.X86Options
 import org.tukaani.xz.XZInputStream
 import java.io.File
 import java.net.URI
@@ -28,7 +32,8 @@ import javax.inject.Inject
 /**
  * Turns an Android build of the JVM into the runtime the app ships for one ABI: the modules the
  * patcher needs linked into a new image, next to the native libraries and configuration of the
- * build, packed into one archive for the app's assets, see [writeXzArchive].
+ * build, packed into one archive for the app's assets, see [writeXzArchive]. The image is left out
+ * of the archive, as [EmbeddedJvmAssetsTask] ships the images of all ABIs as one.
  *
  * The build ships every module of the JDK, most of which patching never touches. Its classes are
  * relinked rather than replaced with those of another JDK, as an Android build carries changes of
@@ -64,6 +69,10 @@ abstract class PrepareEmbeddedJvmTask : DefaultTask() {
 
     @get:OutputFile
     abstract val outputArchive: RegularFileProperty
+
+    /** The linked image, lib/modules of the runtime. */
+    @get:OutputFile
+    abstract val outputImage: RegularFileProperty
 
     @get:Inject
     abstract val archives: ArchiveOperations
@@ -125,9 +134,11 @@ abstract class PrepareEmbeddedJvmTask : DefaultTask() {
         // The license notices of every module the link took in, which the GPL has go with the binaries
         val legal = linkedModules(linked.resolve("release")).map { "legal/$it" }
 
+        linked.resolve(IMAGE_PATH).copyTo(outputImage.get().asFile, overwrite = true)
+
         val image = work.resolve("image")
         fileSystem.copy {
-            from(linked) { include("lib/modules", "release") }
+            from(linked) { include("release") }
             from(build) { (runtimeFiles.get() + legal).forEach { include(it, "$it/**") } }
             into(image)
         }
@@ -135,8 +146,18 @@ abstract class PrepareEmbeddedJvmTask : DefaultTask() {
             outputArchive.get().asFile,
             image.walkTopDown().filter { it.isFile }.map { file ->
                 file.relativeTo(image).invariantSeparatorsPath to { file.readBytes() }
-            }
+            },
+            bcjFor(targetPlatform.get())
         )
+    }
+
+    // The native libraries take up most of the archive. For 32-bit ARM, the ARM converter packs
+    // the build tighter than the Thumb one.
+    private fun bcjFor(platform: String): FilterOptions = when (platform.substringAfter('-')) {
+        "aarch64" -> ARM64Options()
+        "arm" -> ARMOptions()
+        "amd64" -> X86Options()
+        else -> throw GradleException("No branch converter for $platform")
     }
 
     private fun download(): File {
@@ -198,5 +219,6 @@ abstract class PrepareEmbeddedJvmTask : DefaultTask() {
     private companion object {
         const val JAVA_BASE = "java.base"
         const val RELEASE_MODULES = "MODULES="
+        const val IMAGE_PATH = "lib/modules"
     }
 }

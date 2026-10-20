@@ -34,13 +34,26 @@ The build is pinned by SHA-256 in `app/build.gradle.kts`.
 
 - Runtimes and the host jar are zips of stored entries, compressed whole with xz, which takes
   them to less than half of what deflate does (`XzArchive.kt`).
-- The 32-bit ARM build only ships the client VM (`lib/client`), the others the server VM.
+- The image (`lib/modules`) is left out of the runtimes. The ABIs link the same classes but for
+  a few generated per platform (`UnixConstants`, `Architecture`, ...), so `jvm/modules.xz` ships
+  the image of the first ABI of `embeddedJvms`, and every ABI whose image differs gets
+  `jvm/<abi>.modules.delta.xz` (`ImageDelta.kt`), about 90K in place of 7M. `JvmImageDelta`
+  rebuilds the image on the device, byte for byte, checked by size and CRC-32.
+- The host jar is shrunk with ProGuard (`ShrinkJarTask`, `host-rules.pro`), which keeps the
+  patcher, smali and Kotlin whole, as the app's R8 rules do, and follows the rules the
+  libraries ship in `META-INF/proguard`. Kotlin reflection is left out: neither the patcher
+  nor the patches use more of it than the standard library has. A new library a patch calls
+  into has to be kept in `host-rules.pro` as well as in the app's rules.
+- The host jar leaves out the Android frameworks of ARSCLib (`frameworks/android/*.apk`), which
+  the APK carries for patching inside the app. `JvmInstallation` copies them from the APK into
+  the host jar as it unpacks it, and the run falls back to the app if there are none.
+- Every build ships the server VM (`lib/server`), the 32-bit ARM one included.
 
 - The build's own classes are relinked (`jimage extract`, `jmod`, `jlink`), not swapped for
   another JDK's, because the Android build patches some of them.
 - `java.base` is packed last with `--hash-modules`, as the hashes it carries no longer match.
   The pattern avoids `*` and `?`, which the JDK launchers on Windows expand as file names.
-- The JDK that links has to be the same feature release, 21.
+- The JDK that links has to be the same feature release, 25.
 - The `legal/` notices of every linked module go into the archive, as the GPL requires them to
   travel with the binaries. The license itself is listed in `app/aboutlibraries`, since
   AboutLibraries only finds Gradle dependencies on its own.

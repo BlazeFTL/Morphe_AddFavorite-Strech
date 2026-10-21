@@ -1,3 +1,11 @@
+# [2.0.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.15...v2.0.0-dev.16) (2026-10-21)
+
+
+### Bug Fixes
+
+* Lay a header's band down as the content scrolls under it ([8d20f95](https://github.com/MorpheApp/morphe-manager/commit/8d20f95f9704c80b4b6a35eca92d98675e17d8f2))
+* Run the embedded JVM inside the app's process ([#1223](https://github.com/MorpheApp/morphe-manager/issues/1223)) ([9bd97d2](https://github.com/MorpheApp/morphe-manager/commit/9bd97d25b8552836dd30003c0ba01158e5b6dc4b))
+
 # [2.0.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.14...v2.0.0-dev.15) (2026-10-21)
 
 

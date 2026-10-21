@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-21T08:30:31",
-  "description": "# [2.0.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.14...v2.0.0-dev.15) (2026-10-21)\n\n\n### Bug Fixes\n\n* Hand batch dialogs over to one another and show the APK being processed ([d7a0a60](https://github.com/MorpheApp/morphe-manager/commit/d7a0a60d30461337f35aa43062dcde5e0ceca142))\n* Mark selected cards the same way on every screen ([3e919cd](https://github.com/MorpheApp/morphe-manager/commit/3e919cd1f0ab1d4dd436dc77f3f6bda2af77150b))\n* Name an app the same way everywhere, from any source that knows it ([7d3d05b](https://github.com/MorpheApp/morphe-manager/commit/7d3d05ba7136d9ffcb2c6c51a47bac50620247a4))\n* Name the app in expert mode as the other patching dialogs do ([c545dd8](https://github.com/MorpheApp/morphe-manager/commit/c545dd8056e07f8b4a1a57a2ee356e1e4167ed4c))\n* Show a batch app's APKs being looked into and confirm the one picked ([dd653d5](https://github.com/MorpheApp/morphe-manager/commit/dd653d545fc5b74d686ad9bdd7d08e8c9b70a4ab))\n* Tell a batch app with nothing selected from one without patches and open its patches after an APK ([0cb14e3](https://github.com/MorpheApp/morphe-manager/commit/0cb14e35e9cbc792e399efcda638cf23f79b50ea))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v2.0.0-dev.15/morphe-manager-2.0.0-dev.15.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v2.0.0-dev.15/morphe-manager-2.0.0-dev.15.apk.asc",
-  "version": "2.0.0-dev.15"
+  "created_at": "2026-10-21T16:17:04",
+  "description": "# [2.0.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.15...v2.0.0-dev.16) (2026-10-21)\n\n\n### Bug Fixes\n\n* Lay a header's band down as the content scrolls under it ([8d20f95](https://github.com/MorpheApp/morphe-manager/commit/8d20f95f9704c80b4b6a35eca92d98675e17d8f2))\n* Run the embedded JVM inside the app's process ([#1223](https://github.com/MorpheApp/morphe-manager/issues/1223)) ([9bd97d2](https://github.com/MorpheApp/morphe-manager/commit/9bd97d25b8552836dd30003c0ba01158e5b6dc4b))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v2.0.0-dev.16/morphe-manager-2.0.0-dev.16.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v2.0.0-dev.16/morphe-manager-2.0.0-dev.16.apk.asc",
+  "version": "2.0.0-dev.16"
 }

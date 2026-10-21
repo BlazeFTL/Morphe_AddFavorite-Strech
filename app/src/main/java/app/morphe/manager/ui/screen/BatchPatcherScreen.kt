@@ -240,137 +240,159 @@ fun BatchPatcherScreen(
         openApkPicker()
     }
 
-    // The same dialog the single-app flow uses, pointed at one queued app instead of the
-    // patcher, so the queue never has to grow a second patch list
-    DialogHost(target = viewModel.edit) { edit ->
-        val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
-        val sourcesByUid = remember(sources) { sources.associateBy { it.uid } }
-        ExpertModeDialog(
-            packageName = edit.packageName,
-            appName = edit.appName,
-            selection = ExpertPatchSelection(
-                allPatchesInfo = edit.allPatchesInfo,
-                options = edit.options,
-                totalSelectedCount = edit.totalSelectedCount,
-                newPatches = edit.newPatches,
-                savedPatches = edit.savedSelection,
-                lockStateOf = edit::lockStateOf,
-                holdsUniversalPatches = edit::selectAllHoldsUniversal
-            ),
-            hasMultipleBundles = edit.hasMultipleBundles,
-            patchActions = ExpertPatchActions(
-                onPatchToggle = edit::togglePatch,
-                onSelectAll = edit::selectAll,
-                onDeselectAll = edit::deselectAll,
-                onResetToDefault = edit::resetToDefault,
-                onRestoreSaved = edit::restoreSaved,
-                onCopyFromBundle = viewModel::openEditCopyDialog,
-                onOptionChange = edit::updateOption,
-                onResetOptions = edit::resetOptions
-            ),
-            usesPrerelease = { sourcesByUid[it]?.usesPrerelease == true },
-            proceedText = stringResource(R.string.save),
-            // The queue combines sources by design, and the tabs make it plain enough
-            warnOnMultipleBundles = false,
-            onDismiss = viewModel::cancelEdit,
-            onProceed = viewModel::applyEdit
-        )
+    // Blocks the screen while an APK given to an app is read and the app planned again against it
+    Overlay(visible = viewModel.processingApk) {
+        PulsingLogoWithCaption(caption = stringResource(R.string.processing_apk))
+    }
 
-        val copyTarget = edit.bundles.firstOrNull { it.uid == viewModel.editCopy.targetBundleUid }?.let { bundle ->
-            CopySelectionTarget(
-                packageName = edit.configurationKey,
-                bundleUid = bundle.uid,
-                bundleName = bundle.name,
-                appDisplayName = edit.appName
-            )
+    // The steps of getting a queued app its APK and patches share a stack, so each one takes
+    // over from the one before rather than opening after it has gone
+    val queueDialogs = listOfNotNull(
+        QueueDialog.SourcePick.takeIf { viewModel.sourcePick != null },
+        QueueDialog.ApkChoice.takeIf { viewModel.apkChoice != null },
+        QueueDialog.ApkSearch.takeIf { viewModel.apkSearch != null },
+        QueueDialog.AttachPrompt.takeIf { viewModel.attachPrompt != null },
+        QueueDialog.Edit.takeIf { viewModel.edit != null }
+    )
+    DialogStack(queueDialogs) { dialog ->
+        when (dialog) {
+            // The same source question simple mode answers before a single-app patch, asked on
+            // the way to the APK since the source settles which versions are worth looking for
+            QueueDialog.SourcePick -> held(viewModel.sourcePick)?.let { pick ->
+                SimpleBundleSelectDialog(
+                    packageName = pick.item.packageName,
+                    choices = pick.choices,
+                    versions = pick.versions,
+                    onSelect = viewModel::pickSource,
+                    onDismiss = viewModel::cancelSourcePick,
+                    initiallySelected = pick.item.chosenBundleUid
+                )
+            }
+
+            // The single-app flow's own APK question, pointed at a queued app. It carries the
+            // version list, so picking a specific or experimental version works here exactly as it
+            // does there
+            QueueDialog.ApkChoice -> held(viewModel.apkChoice)?.let { choice ->
+                ApkAvailabilityDialog(
+                    appName = choice.item.appName,
+                    packageName = choice.item.packageName,
+                    recommendedVersion = choice.recommended,
+                    compatibleVersions = choice.compatible,
+                    selectedDownloadVersion = choice.selectedVersion,
+                    onVersionSelect = viewModel::selectApkVersion,
+                    usingMountInstall = false,
+                    stockAppInstalled = choice.hasStockInstall,
+                    isExpertMode = useExpertMode,
+                    savedApkInfo = choice.saved,
+                    installedApkInfo = choice.installed,
+                    installedAppVersion = choice.installedVersion,
+                    hiddenSourceCount = choice.hiddenSources,
+                    onDismiss = viewModel::cancelApkChoice,
+                    onHaveApk = {
+                        viewModel.cancelApkChoice()
+                        attachApkTo(choice.item.id)
+                    },
+                    onNeedApk = { viewModel.beginApkSearch(choice.item, choice.selectedVersion?.version) },
+                    onUseSaved = { viewModel.useApkSource(preferInstalled = false) },
+                    onUseInstalled = { viewModel.useApkSource(preferInstalled = true) }
+                )
+            }
+
+            // The same instructions the single-app flow shows before sending someone to download
+            // an APK, pointed at a queued app. Continuing hands off the link and then opens the
+            // file picker
+            QueueDialog.ApkSearch -> held(viewModel.apkSearch)?.let { search ->
+                val bundleMetadata by patchBundleRepository.appMetadata.collectAsStateWithLifecycle()
+                val metadata = bundleMetadata[search.item.packageName]
+
+                DownloadInstructionsDialog(
+                    appName = search.item.appName,
+                    packageName = search.item.packageName,
+                    downloadUrl = search.url,
+                    requestedVersion = search.version,
+                    usingMountInstall = false,
+                    stockAppInstalled = search.item.source is BatchApkSource.Installed,
+                    downloadColor = metadata?.downloadColor ?: KnownApps.DEFAULT_DOWNLOAD_COLOR,
+                    isApkBundle = metadata?.apkFileType?.isApk == false,
+                    onDismiss = viewModel::cancelApkSearch,
+                    onOpenApkDownloadHelper = apkDownloadHelpers.open,
+                    onContinue = viewModel::confirmApkSearch
+                )
+            }
+
+            // Waits on screen while the user is in the browser, so the picker opens on their tap
+            // once they are back rather than behind whatever the browser put in front
+            QueueDialog.AttachPrompt -> held(viewModel.attachPrompt)?.let { item ->
+                FilePickerPromptDialog(
+                    appName = item.appName,
+                    packageName = item.packageName,
+                    isOtherApps = false,
+                    isLoadingInstalledApps = false,
+                    onDismiss = viewModel::dismissAttachPrompt,
+                    onOpenFilePicker = {
+                        viewModel.dismissAttachPrompt()
+                        attachApkTo(item.id)
+                    },
+                    onUseInstalledApp = null
+                )
+            }
+
+            // The same dialog the single-app flow uses, pointed at one queued app instead of the
+            // patcher, so the queue never has to grow a second patch list
+            QueueDialog.Edit -> held(viewModel.edit)?.let { edit ->
+                val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
+                val sourcesByUid = remember(sources) { sources.associateBy { it.uid } }
+                ExpertModeDialog(
+                    packageName = edit.packageName,
+                    appName = edit.appName,
+                    selection = ExpertPatchSelection(
+                        allPatchesInfo = edit.allPatchesInfo,
+                        options = edit.options,
+                        totalSelectedCount = edit.totalSelectedCount,
+                        newPatches = edit.newPatches,
+                        savedPatches = edit.savedSelection,
+                        lockStateOf = edit::lockStateOf,
+                        holdsUniversalPatches = edit::selectAllHoldsUniversal
+                    ),
+                    hasMultipleBundles = edit.hasMultipleBundles,
+                    patchActions = ExpertPatchActions(
+                        onPatchToggle = edit::togglePatch,
+                        onSelectAll = edit::selectAll,
+                        onDeselectAll = edit::deselectAll,
+                        onResetToDefault = edit::resetToDefault,
+                        onRestoreSaved = edit::restoreSaved,
+                        onCopyFromBundle = viewModel::openEditCopyDialog,
+                        onOptionChange = edit::updateOption,
+                        onResetOptions = edit::resetOptions
+                    ),
+                    usesPrerelease = { sourcesByUid[it]?.usesPrerelease == true },
+                    proceedText = stringResource(R.string.save),
+                    // The queue combines sources by design, and the tabs make it plain enough
+                    warnOnMultipleBundles = false,
+                    onDismiss = viewModel::cancelEdit,
+                    onProceed = viewModel::applyEdit
+                )
+
+                val copyTarget = edit.bundles
+                    .firstOrNull { it.uid == viewModel.editCopy.targetBundleUid }
+                    ?.let { bundle ->
+                        CopySelectionTarget(
+                            packageName = edit.configurationKey,
+                            bundleUid = bundle.uid,
+                            bundleName = bundle.name,
+                            appDisplayName = edit.appName
+                        )
+                    }
+                DialogHost(target = copyTarget) { target ->
+                    CopySelectionFromBundleDialog(
+                        target = target,
+                        candidates = viewModel.editCopy.candidates,
+                        onConfirm = viewModel::applyEditCopy,
+                        onDismiss = viewModel.editCopy::close
+                    )
+                }
+            }
         }
-        DialogHost(target = copyTarget) { target ->
-            CopySelectionFromBundleDialog(
-                target = target,
-                candidates = viewModel.editCopy.candidates,
-                onConfirm = viewModel::applyEditCopy,
-                onDismiss = viewModel.editCopy::close
-            )
-        }
-    }
-
-    // The single-app flow's own APK question, pointed at a queued app. It carries the version
-    // list, so picking a specific or experimental version works here exactly as it does there
-    DialogHost(target = viewModel.apkChoice) { choice ->
-        ApkAvailabilityDialog(
-            appName = choice.item.appName,
-            packageName = choice.item.packageName,
-            recommendedVersion = choice.recommended,
-            compatibleVersions = choice.compatible,
-            selectedDownloadVersion = choice.selectedVersion,
-            onVersionSelect = viewModel::selectApkVersion,
-            usingMountInstall = false,
-            stockAppInstalled = choice.hasStockInstall,
-            isExpertMode = useExpertMode,
-            savedApkInfo = choice.saved,
-            installedApkInfo = choice.installed,
-            installedAppVersion = choice.installedVersion,
-            hiddenSourceCount = choice.hiddenSources,
-            onDismiss = viewModel::cancelApkChoice,
-            onHaveApk = {
-                viewModel.cancelApkChoice()
-                attachApkTo(choice.item.id)
-            },
-            onNeedApk = { viewModel.beginApkSearch(choice.item, choice.selectedVersion?.version) },
-            onUseSaved = { viewModel.useApkSource(preferInstalled = false) },
-            onUseInstalled = { viewModel.useApkSource(preferInstalled = true) }
-        )
-    }
-
-    // The same instructions the single-app flow shows before sending someone to download an
-    // APK, pointed at a queued app. Continuing hands off the link and then opens the file picker
-    DialogHost(target = viewModel.apkSearch) { search ->
-        val bundleMetadata by patchBundleRepository.appMetadata.collectAsStateWithLifecycle()
-        val metadata = bundleMetadata[search.item.packageName]
-
-        DownloadInstructionsDialog(
-            appName = search.item.appName,
-            packageName = search.item.packageName,
-            downloadUrl = search.url,
-            requestedVersion = search.version,
-            usingMountInstall = false,
-            stockAppInstalled = search.item.source is BatchApkSource.Installed,
-            downloadColor = metadata?.downloadColor ?: KnownApps.DEFAULT_DOWNLOAD_COLOR,
-            isApkBundle = metadata?.apkFileType?.isApk == false,
-            onDismiss = viewModel::cancelApkSearch,
-            onOpenApkDownloadHelper = apkDownloadHelpers.open,
-            onContinue = viewModel::confirmApkSearch
-        )
-    }
-
-    // Waits on screen while the user is in the browser, so the picker opens on their tap
-    // once they are back rather than behind whatever the browser put in front
-    DialogHost(target = viewModel.attachPrompt) { item ->
-        FilePickerPromptDialog(
-            appName = item.appName,
-            packageName = item.packageName,
-            isOtherApps = false,
-            isLoadingInstalledApps = false,
-            onDismiss = viewModel::dismissAttachPrompt,
-            onOpenFilePicker = {
-                viewModel.dismissAttachPrompt()
-                attachApkTo(item.id)
-            },
-            onUseInstalledApp = null
-        )
-    }
-
-    // The same source question simple mode answers before a single-app patch, asked on the way
-    // to the APK since the source settles which versions are worth looking for
-    DialogHost(target = viewModel.sourcePick) { pick ->
-        SimpleBundleSelectDialog(
-            packageName = pick.item.packageName,
-            choices = pick.choices,
-            versions = pick.versions,
-            onSelect = viewModel::pickSource,
-            onDismiss = viewModel::cancelSourcePick,
-            initiallySelected = pick.item.chosenBundleUid
-        )
     }
 
     // Saving a patched APK somewhere the user picks, the same export the single-app flow and
@@ -625,6 +647,9 @@ fun BatchPatcherScreen(
         PulsingLogoWithCaption(caption = stringResource(R.string.batch_patch_planning))
     }
 }
+
+/** The dialogs of the queue that hand over to one another, see [DialogStack]. */
+private enum class QueueDialog { SourcePick, ApkChoice, ApkSearch, AttachPrompt, Edit }
 
 /** Footer buttons of the batch dialog, one pair per phase. */
 @Composable

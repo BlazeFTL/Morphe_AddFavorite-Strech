@@ -1146,6 +1146,8 @@ Detaljer: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Frigjør alt tilgjengelig bufferlagring på en gang</string>
     <string name="settings_system_storage_clear_all_confirm">Dette tømmer bufret nettverksrespons, installasjonskopier i kø og midlertidige filer. Originale og patched APK-er beholdes</string>
     <string name="settings_system_storage_cleared">Frigjort %s</string>
+    <string name="settings_system_storage_patch_running_warning">En patch kjører og bruker disse filene. Å tømme dem nå vil gjøre det feile</string>
+    <string name="settings_system_storage_clear_anyway">Tall uansett</string>
     <string name="settings_system_storage_nothing_to_clear">Ingenting å tømme</string>
     <string name="settings_system_storage_open_app_info_title">Åpne Android-applagring</string>
     <string name="settings_system_storage_open_app_info_description">Administrer eller tøm alle Morphe-data via systeminnstillinger</string>

@@ -1150,6 +1150,8 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Giải phóng toàn bộ dung lượng bộ nhớ đệm có thể dọn dẹp</string>
     <string name="settings_system_storage_clear_all_confirm">Thao tác này sẽ xóa phản hồi mạng đã lưu vào bộ nhớ đệm, các tệp và bản sao APK tạm thời. Các tệp APK gốc và APK đã vá vẫn được giữ lại</string>
     <string name="settings_system_storage_cleared">Đã xóa %s</string>
+    <string name="settings_system_storage_patch_running_warning">Đang chạy bản vá và sử dụng các tệp này. Xóa chúng ngay bây giờ sẽ khiến nó thất bại</string>
+    <string name="settings_system_storage_clear_anyway">Dù sao vẫn xóa</string>
     <string name="settings_system_storage_nothing_to_clear">Không còn gì để xóa</string>
     <string name="settings_system_storage_open_app_info_title">Mở cài đặt lưu trữ ứng dụng</string>
     <string name="settings_system_storage_open_app_info_description">Mở Cài đặt hệ thống để quản lý hoặc xóa toàn bộ dữ liệu Morphe</string>

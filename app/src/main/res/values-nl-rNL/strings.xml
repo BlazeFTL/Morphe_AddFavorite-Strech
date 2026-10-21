@@ -469,9 +469,12 @@ Voor de beste resultaten beveelt deze app aan om een &lt;b&gt;volledig APK&lt;/b
     <string name="batch_patch_force_version">Toch patchen</string>
     <string name="batch_patch_force_version_done">Toch in wachtrij geplaatst, de app kan defect raken</string>
     <string name="batch_patch_accept_signature_done">Toch in wachtrij geplaatst, APK niet geverifieerd</string>
+    <string name="batch_patch_apk_selected">APK geselecteerd</string>
     <string name="batch_patch_edit_patches">Patches kiezen</string>
     <string name="batch_patch_state_no_apk">Geen APK</string>
     <string name="batch_patch_state_no_patches">Geen patches</string>
+    <string name="batch_patch_state_no_selection">Niets geselecteerd</string>
+    <string name="batch_patch_no_selection">Geen van de beschikbare patches is geselecteerd</string>
     <string name="batch_patch_policy_install">Installeren na afronding</string>
     <string name="batch_patch_policy_install_description">Installeert elke gepatchte app direct na het afronden van de wachtrij. Uitgeschakeld bewaart de APK\'s voor later</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

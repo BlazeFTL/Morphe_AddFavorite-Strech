@@ -469,9 +469,12 @@
     <string name="batch_patch_force_version">无论如何应用补丁</string>
     <string name="batch_patch_force_version_done">仍然已加入队列，应用可能会崩溃</string>
     <string name="batch_patch_accept_signature_done">仍然已加入队列，APK 未验证</string>
+    <string name="batch_patch_apk_selected">已选择APK</string>
     <string name="batch_patch_edit_patches">选择补丁</string>
     <string name="batch_patch_state_no_apk">没有 APK</string>
     <string name="batch_patch_state_no_patches">没有补丁</string>
+    <string name="batch_patch_state_no_selection">未选择任何项</string>
+    <string name="batch_patch_no_selection">未选择任何可用补丁</string>
     <string name="batch_patch_policy_install">完成时安装</string>
     <string name="batch_patch_policy_install_description">队列完成后立即安装每个已修补的应用程序。关闭后，APK 将保留以供以后使用</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

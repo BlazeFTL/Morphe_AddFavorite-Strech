@@ -1152,6 +1152,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">Освобождает все доступное место в кэше за один раз</string>
     <string name="settings_system_storage_clear_all_confirm">Это очищает кэшированные сетевые ответы, подготовленные копии установщиков и временные файлы. Оригинальные и пропатченные APK сохраняются</string>
     <string name="settings_system_storage_cleared">Освобождено %s</string>
+    <string name="settings_system_storage_patch_running_warning">Выполнен патч, использующий эти файлы. Если их очистить сейчас, это приведет к сбою</string>
+    <string name="settings_system_storage_clear_anyway">Очистить в любом случае</string>
     <string name="settings_system_storage_nothing_to_clear">Нечего очищать</string>
     <string name="settings_system_storage_open_app_info_title">Открыть хранилище Android-приложения</string>
     <string name="settings_system_storage_open_app_info_description">Управление или очистка всех данных Morphe через системные настройки</string>

@@ -1152,6 +1152,8 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Tek seferde tüm geri kazanılabilir önbellek alanını boşaltır</string>
     <string name="settings_system_storage_clear_all_confirm">Bu, önbelleğe alınmış ağ yanıtlarını, aşamalı yükleyici kopyalarını ve geçici dosyaları temizler. Orijinal ve yamalı APK\'ler korunur</string>
     <string name="settings_system_storage_cleared">%s boşaltıldı</string>
+    <string name="settings_system_storage_patch_running_warning">Bir yama çalışıyor ve bu dosyaları kullanıyor. Şimdi temizlemek başarısız olmasına neden olur</string>
+    <string name="settings_system_storage_clear_anyway">Yine de temizle</string>
     <string name="settings_system_storage_nothing_to_clear">Temizlenecek bir şey yok</string>
     <string name="settings_system_storage_open_app_info_title">Android uygulama depolamasını aç</string>
     <string name="settings_system_storage_open_app_info_description">Morphe verilerinin tamamını sistem ayarları aracılığıyla yönetin veya temizleyin</string>

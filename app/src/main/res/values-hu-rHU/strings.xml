@@ -1147,6 +1147,8 @@ Részletek: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Egyszerre törli az összes visszanyerhető gyorsítótár-területet</string>
     <string name="settings_system_storage_clear_all_confirm">Ez törli a gyorsítótárazott hálózati válaszokat, a telepítők által használt példányokat és az ideiglenes fájlokat. Az eredeti és a módosított APK-k megőrizve maradnak</string>
     <string name="settings_system_storage_cleared">Felszabadítva: %s</string>
+    <string name="settings_system_storage_patch_running_warning">Egy frissítés fut, és ezeket a fájlokat használja. Az ezek törlése most hibát okoz</string>
+    <string name="settings_system_storage_clear_anyway">Töröljen mindent</string>
     <string name="settings_system_storage_nothing_to_clear">Nincs törölni való</string>
     <string name="settings_system_storage_open_app_info_title">Megnyitás Android alkalmazástár</string>
     <string name="settings_system_storage_open_app_info_description">Morphe adatok kezelése vagy törlése a rendszerbeállításokon keresztül</string>

@@ -469,9 +469,12 @@
     <string name="batch_patch_force_version">Διόρθωση ούτως ή άλλως</string>
     <string name="batch_patch_force_version_done">Προστέθηκε στην ουρά ούτως ή άλλως, η εφαρμογή μπορεί να χαλάσει</string>
     <string name="batch_patch_accept_signature_done">Προστέθηκε στην ουρά ούτως ή άλλως, το APK δεν επαληθεύτηκε</string>
+    <string name="batch_patch_apk_selected">Επιλέχτηκε APK</string>
     <string name="batch_patch_edit_patches">Επιλέξτε διορθώσεις</string>
     <string name="batch_patch_state_no_apk">Δεν υπάρχει APK</string>
     <string name="batch_patch_state_no_patches">Δεν υπάρχουν διορθώσεις</string>
+    <string name="batch_patch_state_no_selection">Καμία επιλογή</string>
+    <string name="batch_patch_no_selection">Κανένα από τα διαθέσιμα patches δεν έχει επιλεγεί</string>
     <string name="batch_patch_policy_install">Εγκατάσταση μετά την ολοκλήρωση</string>
     <string name="batch_patch_policy_install_description">Εγκαθιστά κάθε διορθωμένη εφαρμογή αμέσως μετά την ολοκλήρωση της ουράς. Η απενεργοποίηση διατηρεί τα APK για αργότερα</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

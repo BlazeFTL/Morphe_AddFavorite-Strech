@@ -470,9 +470,12 @@
     <string name="batch_patch_force_version">仍要繼續</string>
     <string name="batch_patch_force_version_done">已照樣排入佇列，應用程式可能無法正常運作</string>
     <string name="batch_patch_accept_signature_done">已照樣排入佇列，APK 未經驗證</string>
+    <string name="batch_patch_apk_selected">已選取 APK</string>
     <string name="batch_patch_edit_patches">選擇修補程式</string>
     <string name="batch_patch_state_no_apk">沒有 APK</string>
     <string name="batch_patch_state_no_patches">沒有修補程式</string>
+    <string name="batch_patch_state_no_selection">未選取任何項目</string>
+    <string name="batch_patch_no_selection">未選取任何可用的修補程式</string>
     <string name="batch_patch_policy_install">完成後安裝</string>
     <string name="batch_patch_policy_install_description">佇列完成後會立即安裝每個已修補的應用程式。關閉後保留 APK 以供日後使用</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

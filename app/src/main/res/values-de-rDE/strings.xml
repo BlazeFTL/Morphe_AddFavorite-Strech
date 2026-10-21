@@ -469,9 +469,12 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="batch_patch_force_version">Trotzdem fortfahren</string>
     <string name="batch_patch_force_version_done">Trotzdem eingereiht, die App funktioniert möglicherweise nicht mehr</string>
     <string name="batch_patch_accept_signature_done">Trotzdem eingereiht, APK nicht verifiziert</string>
+    <string name="batch_patch_apk_selected">APK ausgewählt</string>
     <string name="batch_patch_edit_patches">Patches auswählen</string>
     <string name="batch_patch_state_no_apk">Keine APK</string>
     <string name="batch_patch_state_no_patches">Keine Patches</string>
+    <string name="batch_patch_state_no_selection">Keine ausgewählt</string>
+    <string name="batch_patch_no_selection">Keines der verfügbaren Patches ist ausgewählt</string>
     <string name="batch_patch_policy_install">Beim Fertigstellen installieren</string>
     <string name="batch_patch_policy_install_description">Installiert jede gepatchte App direkt nach Abschluss der Warteschlange. Aus deaktiviert behält die APKs für später bei</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

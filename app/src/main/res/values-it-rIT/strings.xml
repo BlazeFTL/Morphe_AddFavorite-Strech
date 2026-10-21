@@ -1147,6 +1147,8 @@ Dettagli: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Libera tutto lo spazio cache recuperabile in una sola volta</string>
     <string name="settings_system_storage_clear_all_confirm">Questa operazione cancella le risposte di rete messe in cache, le copie dell\'installer in fase di preparazione e i file temporanei. Gli APK originali e patchati vengono conservati</string>
     <string name="settings_system_storage_cleared">Liberati %s</string>
+    <string name="settings_system_storage_patch_running_warning">È in esecuzione una patch e utilizza questi file. Eliminarli ora causa il fallimento</string>
+    <string name="settings_system_storage_clear_anyway">Elimina comunque</string>
     <string name="settings_system_storage_nothing_to_clear">Niente da cancellare</string>
     <string name="settings_system_storage_open_app_info_title">Apri l\'archiviazione dell\'app Android</string>
     <string name="settings_system_storage_open_app_info_description">Gestisci o cancella tutti i dati di Morphe tramite le impostazioni di sistema</string>

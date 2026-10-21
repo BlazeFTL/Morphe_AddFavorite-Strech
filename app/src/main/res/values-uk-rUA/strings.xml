@@ -470,9 +470,12 @@
     <string name="batch_patch_force_version">Патчити все одно</string>
     <string name="batch_patch_force_version_done">Все одно додано до черги, застосунок може зламатись</string>
     <string name="batch_patch_accept_signature_done">Все одно додано до черги, APK не перевірено</string>
+    <string name="batch_patch_apk_selected">APK вибрано</string>
     <string name="batch_patch_edit_patches">Вибрати патчі</string>
     <string name="batch_patch_state_no_apk">Немає APK</string>
     <string name="batch_patch_state_no_patches">Немає патчів</string>
+    <string name="batch_patch_state_no_selection">Нічого не вибрано</string>
+    <string name="batch_patch_no_selection">Жоден із доступних патчів не вибрано</string>
     <string name="batch_patch_policy_install">Встановити після завершення</string>
     <string name="batch_patch_policy_install_description">Встановлює кожен пропатчений застосунок одразу після завершення черги. Вимкнення зберігає APK на потім</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1152,6 +1155,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">Звільняє весь кеш одночасно</string>
     <string name="settings_system_storage_clear_all_confirm">Це очищує кешовані мережеві відповіді, проміжні копії інсталятора та тимчасові файли. Оригінальні та пропатчені APK файли зберігаються</string>
     <string name="settings_system_storage_cleared">Звільнено %s</string>
+    <string name="settings_system_storage_patch_running_warning">Виконується патч, який використовує ці файли. Їх очищення зараз призведе до збою</string>
+    <string name="settings_system_storage_clear_anyway">Усе одно очистити</string>
     <string name="settings_system_storage_nothing_to_clear">Нічого очищати</string>
     <string name="settings_system_storage_open_app_info_title">Відкрити сховище застосунку Android</string>
     <string name="settings_system_storage_open_app_info_description">Керуйте або очищайте всі дані Morphe через системні налаштування</string>
@@ -1364,7 +1369,7 @@ morphe_header_custom_dark.png
     <string name="update">Оновити</string>
     <string name="allow">Дозволити</string>
     <string name="hide">Приховати</string>
-    <string name="hidden">Приховані</string>
+    <string name="hidden">Приховано</string>
     <string name="unhide">Показати</string>
     <string name="show_all">Показати всі</string>
     <string name="ignore">Ігнорувати</string>

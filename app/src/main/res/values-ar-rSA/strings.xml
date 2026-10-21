@@ -470,9 +470,12 @@
     <string name="batch_patch_force_version">تعديل على أي حال</string>
     <string name="batch_patch_force_version_done">تمت الإضافة إلى قائمة الانتظار على أي حال، قد يتعطل التطبيق</string>
     <string name="batch_patch_accept_signature_done">تمت الإضافة إلى قائمة الانتظار على أي حال، لم يتم التحقق من APK</string>
+    <string name="batch_patch_apk_selected">تم تحديد ملف APK</string>
     <string name="batch_patch_edit_patches">اختر التعديلات</string>
     <string name="batch_patch_state_no_apk">لا يوجد ملف APK</string>
     <string name="batch_patch_state_no_patches">لا توجد تعديلات</string>
+    <string name="batch_patch_state_no_selection">لم يتم تحديد أي شيء</string>
+    <string name="batch_patch_no_selection">لم يتم تحديد أي من التصحيحات المتاحة</string>
     <string name="batch_patch_policy_install">التثبيت عند الانتهاء</string>
     <string name="batch_patch_policy_install_description">يقوم بتثبيت كل تطبيق تم تعديله مباشرة بعد انتهاء قائمة الإنتظار. وعند الإيقاف، تُحفظ ملفات APK للاستخدام لاحقًا</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1156,7 +1159,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_storage_clear_all_description">يحرر كل مساحة التخزين المؤقت القابلة للاسترداد دفعة واحدة</string>
     <string name="settings_system_storage_clear_all_confirm">يؤدي هذا إلى مسح استجابات الشبكة المخزنة مؤقتًا، نُسخ أداة التثبيت المؤقتة، والملفات المؤقتة. يتم الاحتفاظ بملفات APK الأصلية والمعدلة</string>
     <string name="settings_system_storage_cleared">تم تحرير %s</string>
-    <string name="settings_system_storage_patch_running_warning">هناك رقع تعمل وتستخدم هذه الملفات. مسحها الآن سيؤدي إلى الفشل</string>
+    <string name="settings_system_storage_patch_running_warning">هناك تعديل يعمل ويستخدم هذه الملفات. مسحها الآن سيؤدي إلى الفشل</string>
     <string name="settings_system_storage_clear_anyway">مسح على أي حال</string>
     <string name="settings_system_storage_nothing_to_clear">لا يوجد ما يمكن مسحه</string>
     <string name="settings_system_storage_open_app_info_title">فتح مساحة تخزين تطبيق Android</string>

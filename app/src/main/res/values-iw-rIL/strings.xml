@@ -470,9 +470,12 @@
     <string name="batch_patch_force_version">טלא באופן אוטומטי</string>
     <string name="batch_patch_force_version_done">הוכנס לתור בכל זאת, האפליקציה עלולה להישבר</string>
     <string name="batch_patch_accept_signature_done">הוכנס לתור בכל זאת, APK לא אומת</string>
+    <string name="batch_patch_apk_selected">APK נבחר</string>
     <string name="batch_patch_edit_patches">בחר טלאים</string>
     <string name="batch_patch_state_no_apk">אין APK</string>
     <string name="batch_patch_state_no_patches">אין טלאים</string>
+    <string name="batch_patch_state_no_selection">לא נבחר כלום</string>
+    <string name="batch_patch_no_selection">אף אחד מהפאצ\'ים הזמינים אינו נבחר</string>
     <string name="batch_patch_policy_install">התקן לאחר סיום</string>
     <string name="batch_patch_policy_install_description">מתקין כל אפליקציה שעברה תיקון מיד לאחר סיום התור. כבוי שומר את ה-APKs לשימוש מאוחר יותר</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

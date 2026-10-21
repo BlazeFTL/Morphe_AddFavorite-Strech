@@ -1148,6 +1148,8 @@ Rincian: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Mengosongkan semua ruang cache yang dapat digunakan kembali sekaligus</string>
     <string name="settings_system_storage_clear_all_confirm">Ini akan menghapus respons jaringan yang di-cache, salinan pemasang yang disimpan, dan berkas sementara. APK asli dan yang telah ditambal tetap disimpan</string>
     <string name="settings_system_storage_cleared">Dikosongkan %s</string>
+    <string name="settings_system_storage_patch_running_warning">Sedang berjalan tambalan dan menggunakan file ini. Membersihkannya sekarang akan membuatnya gagal</string>
+    <string name="settings_system_storage_clear_anyway">Bersihkan saja</string>
     <string name="settings_system_storage_nothing_to_clear">Tidak ada yang bisa dihapus</string>
     <string name="settings_system_storage_open_app_info_title">Buka penyimpanan aplikasi Android</string>
     <string name="settings_system_storage_open_app_info_description">Kelola atau bersihkan semua data Morphe melalui setelan sistem</string>

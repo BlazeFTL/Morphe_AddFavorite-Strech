@@ -470,9 +470,12 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="batch_patch_force_version">Korjaa joka tapauksessa</string>
     <string name="batch_patch_force_version_done">Jonotettu silti, sovellus voi hajota</string>
     <string name="batch_patch_accept_signature_done">Jonotettu silti, APK:ta ei varmennettu</string>
+    <string name="batch_patch_apk_selected">APK valittu</string>
     <string name="batch_patch_edit_patches">Valitse korjaukset</string>
     <string name="batch_patch_state_no_apk">APK-tiedostoa ei ole</string>
     <string name="batch_patch_state_no_patches">Ei korjauksia</string>
+    <string name="batch_patch_state_no_selection">Ei mitään valittu</string>
+    <string name="batch_patch_no_selection">Yhdenkään saatavilla olevan korjauksen tilaa ei ole valittu</string>
     <string name="batch_patch_policy_install">Asenna valmistuttua</string>
     <string name="batch_patch_policy_install_description">Asentaa jokaisen korjatun sovelluksen heti jonon valmistuttua. Pois käytöstä pitää APK-tiedostot myöhempää käyttöä varten</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

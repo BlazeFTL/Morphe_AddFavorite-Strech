@@ -1151,6 +1151,8 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Geri qazanıla bilən bütün keş sahəsini bir dəfəyə boşaldır</string>
     <string name="settings_system_storage_clear_all_confirm">Bu, keşlənmiş şəbəkə cavablarını, mərhələli quraşdırıcı nüsxələrini və müvəqqəti faylları təmizləyir. Orijinal və yamaqlanmış APK-lar saxlanılır</string>
     <string name="settings_system_storage_cleared">%s boşaldıldı</string>
+    <string name="settings_system_storage_patch_running_warning">Yamaq icra olunur və bu faylları istifadə edir. İndi onları silmək onun uğursuzluğuna səbəb olur</string>
+    <string name="settings_system_storage_clear_anyway">Yenə də təmizlə</string>
     <string name="settings_system_storage_nothing_to_clear">Təmizlənəcək bir şey yoxdur</string>
     <string name="settings_system_storage_open_app_info_title">Android tətbiq saxlama yerini aç</string>
     <string name="settings_system_storage_open_app_info_description">Bütün Morphe məlumatlarını sistem tənzimləmələri vasitəsilə idarə et və ya təmizlə</string>

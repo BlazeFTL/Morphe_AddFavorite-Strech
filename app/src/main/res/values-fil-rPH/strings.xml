@@ -466,9 +466,12 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="batch_patch_force_version">Mag-patch pa rin</string>
     <string name="batch_patch_force_version_done">Nakapila pa rin, maaaring masira ang app</string>
     <string name="batch_patch_accept_signature_done">Nakapila pa rin, hindi na-verify ang APK</string>
+    <string name="batch_patch_apk_selected">Napili na ang APK</string>
     <string name="batch_patch_edit_patches">Pumili ng mga patch</string>
     <string name="batch_patch_state_no_apk">Walang APK</string>
     <string name="batch_patch_state_no_patches">Walang mga patch</string>
+    <string name="batch_patch_state_no_selection">Walang napili</string>
+    <string name="batch_patch_no_selection">Walang isahang available patch ay napili</string>
     <string name="batch_patch_policy_install">I-install kapag tapos na</string>
     <string name="batch_patch_policy_install_description">I-i-install ang bawat na-patch na app pagkatapos ng queue. Off ay nagpapanatili sa mga APK para sa ibang pagkakataon</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

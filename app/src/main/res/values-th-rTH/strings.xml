@@ -1147,6 +1147,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">ล้างพื้นที่แคชที่สามารถเรียกคืนได้ทั้งหมดในครั้งเดียว</string>
     <string name="settings_system_storage_clear_all_confirm">การดำเนินการนี้จะล้างการตอบกลับเครือข่ายที่แคชไว้ สำเนาตัวติดตั้งที่จัดเตรียมไว้ และไฟล์ชั่วคราว ไฟล์ APK ดั้งเดิมและที่แพตช์แล้วจะถูกเก็บไว้</string>
     <string name="settings_system_storage_cleared">พื้นที่ว่าง %s</string>
+    <string name="settings_system_storage_patch_running_warning">กำลังแพตช์อยู่และใช้ไฟล์เหล่านี้ การลบตอนนี้จะทำให้ล้มเหลว</string>
+    <string name="settings_system_storage_clear_anyway">ดำเนินการลบตามเลย</string>
     <string name="settings_system_storage_nothing_to_clear">ไม่มีอะไรให้ล้าง</string>
     <string name="settings_system_storage_open_app_info_title">เปิดที่เก็บข้อมูลแอป Android</string>
     <string name="settings_system_storage_open_app_info_description">จัดการหรือล้างข้อมูล Morphe ทั้งหมดผ่านการตั้งค่าระบบ</string>

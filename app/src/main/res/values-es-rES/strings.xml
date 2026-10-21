@@ -1153,6 +1153,7 @@ Detalles: %2$s"</string>
     <string name="settings_system_storage_clear_all_confirm">Esto borra las respuestas de red en caché, las copias del instalador en espera y los archivos temporales. Los APK originales y parcheados se conservan</string>
     <string name="settings_system_storage_cleared">Liberado %s</string>
     <string name="settings_system_storage_patch_running_warning">Hay un parcheo en ejecución que utiliza estos archivos. Si se borran ahora, fallará.</string>
+    <string name="settings_system_storage_clear_anyway">Borrar de todos modos</string>
     <string name="settings_system_storage_nothing_to_clear">Nada que borrar</string>
     <string name="settings_system_storage_open_app_info_title">Abrir almacenamiento de la aplicación Android</string>
     <string name="settings_system_storage_open_app_info_description">Administra o borra todos los datos de Morphe a través de los ajustes del sistema</string>

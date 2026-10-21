@@ -1152,6 +1152,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">회수 가능한 모든 캐시 공간을 한 번에 확보합니다</string>
     <string name="settings_system_storage_clear_all_confirm">캐시된 네트워크 응답, 설치 준비된 APK 복사본, 임시 파일을 삭제합니다. 원본 APK와 패치된 APK는 유지됩니다</string>
     <string name="settings_system_storage_cleared">%s 확보됨</string>
+    <string name="settings_system_storage_patch_running_warning">패치가 실행 중이며 이 파일들을 사용하고 있습니다. 지금 삭제하면 실패합니다</string>
+    <string name="settings_system_storage_clear_anyway">어쨌든 지우기</string>
     <string name="settings_system_storage_nothing_to_clear">삭제할 항목이 없습니다</string>
     <string name="settings_system_storage_open_app_info_title">Android 앱 저장소 열기</string>
     <string name="settings_system_storage_open_app_info_description">시스템 설정을 통해 모든 Morphe 데이터를 관리하거나 지울 수 있습니다</string>

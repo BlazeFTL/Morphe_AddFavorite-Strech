@@ -469,9 +469,12 @@ Vir die beste resultate beveel hierdie app aan om 'n &lt;b&gt;volle APK&lt;/b&gt
     <string name="batch_patch_force_version">Patcher tog</string>
     <string name="batch_patch_force_version_done">In elk geval in die tou geplaas, die app mag breek</string>
     <string name="batch_patch_accept_signature_done">In elk geval in die tou geplaas, APK nie geverifieer nie</string>
+    <string name="batch_patch_apk_selected">APK gekies</string>
     <string name="batch_patch_edit_patches">Kies pleisters</string>
     <string name="batch_patch_state_no_apk">Geen APK</string>
     <string name="batch_patch_state_no_patches">Geen pleisters</string>
+    <string name="batch_patch_state_no_selection">Geen gekies nie</string>
+    <string name="batch_patch_no_selection">Geen van die beskiklike wysigings is gekies nie</string>
     <string name="batch_patch_policy_install">Installeer wanneer voltooi</string>
     <string name="batch_patch_policy_install_description">Installeer elke gepatchte program direk nadat die tou voltooi is. Af skakel die APK\'s vir later af</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

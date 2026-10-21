@@ -1150,6 +1150,8 @@ Sonraí: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Saorann sé an spás taisce in-athúsáidte go léir ag an am céanna</string>
     <string name="settings_system_storage_clear_all_confirm">Glanann sé seo freagraí líonra taisceáilte, cóipeanna suiteálaí céimnithe, agus comhaid shealadacha. Coinnítear APKanna bunaidh agus paisteáilte.</string>
     <string name="settings_system_storage_cleared">%s saortha</string>
+    <string name="settings_system_storage_patch_running_warning">Tá clòs á rith agus ag baint úsáide as na comhaid seo. Déanfaidh sé teip má chuirtear iad ar shiúl anois</string>
+    <string name="settings_system_storage_clear_anyway">Glan go halainn</string>
     <string name="settings_system_storage_nothing_to_clear">Ní rud ar bith le glanadh</string>
     <string name="settings_system_storage_open_app_info_title">Oscail stóras aipeanna Android</string>
     <string name="settings_system_storage_open_app_info_description">Bainistigh nó glan na sonraí Morphe go léir trí shocruithe an chórais</string>

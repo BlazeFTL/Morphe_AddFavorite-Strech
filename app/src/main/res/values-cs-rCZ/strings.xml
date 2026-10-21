@@ -469,9 +469,12 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="batch_patch_force_version">Aplikovat i tak</string>
     <string name="batch_patch_force_version_done">Přidáno do fronty, aplikace se může rozbít</string>
     <string name="batch_patch_accept_signature_done">Přidáno do fronty, APK nebylo ověřeno</string>
+    <string name="batch_patch_apk_selected">Vybrán APK</string>
     <string name="batch_patch_edit_patches">Zvolit záplaty</string>
     <string name="batch_patch_state_no_apk">Žádné APK</string>
     <string name="batch_patch_state_no_patches">Žádné záplaty</string>
+    <string name="batch_patch_state_no_selection">Nevybráno nic</string>
+    <string name="batch_patch_no_selection">Není vybrána žádná z dostupných záplat</string>
     <string name="batch_patch_policy_install">Nainstalovat po dokončení</string>
     <string name="batch_patch_policy_install_description">Po dokončení fronty se nainstalují všechny záplatované aplikace. Vypnuto ponechá APK pro pozdější použití</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

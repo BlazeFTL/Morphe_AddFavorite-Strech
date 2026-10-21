@@ -469,9 +469,12 @@
     <string name="batch_patch_force_version">Пачовай въпреки това</string>
     <string name="batch_patch_force_version_done">Въпреки това е на опашка, приложението може да се счупи</string>
     <string name="batch_patch_accept_signature_done">Въпреки това е на опашка, APK не е проверен</string>
+    <string name="batch_patch_apk_selected">APK е избран</string>
     <string name="batch_patch_edit_patches">Избор на пачове</string>
     <string name="batch_patch_state_no_apk">Няма APK</string>
     <string name="batch_patch_state_no_patches">Няма пачове</string>
+    <string name="batch_patch_state_no_selection">Не е избрано нищо</string>
+    <string name="batch_patch_no_selection">Нито един от наличните патчове не е избран</string>
     <string name="batch_patch_policy_install">Инсталиране при завършване</string>
     <string name="batch_patch_policy_install_description">Инсталира всяко закърпено приложение веднага след като приключи опашката. Изключването запазва APK файловете за по-късно</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

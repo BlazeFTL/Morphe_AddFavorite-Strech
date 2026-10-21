@@ -1146,6 +1146,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">Ослобађа све кеш просторе који се могу вратити одједном</string>
     <string name="settings_system_storage_clear_all_confirm">Ово брише кеширане мрежне одговоре, спремљене копије инсталера и привремне фајлове. Оригинални и подешени АПК-ови су сачувани</string>
     <string name="settings_system_storage_cleared">Ослобођено %s</string>
+    <string name="settings_system_storage_patch_running_warning">Ažuriranje se izvršava i koristi ove datoteke. Njihovo trenutno čišćenje će dovesti do greške</string>
+    <string name="settings_system_storage_clear_anyway">Ипак очисти</string>
     <string name="settings_system_storage_nothing_to_clear">Ништа за брисање</string>
     <string name="settings_system_storage_open_app_info_title">Отвори складиште апликација за Android</string>
     <string name="settings_system_storage_open_app_info_description">Управљајте или избришите све податке Morphe-а преко подешавања система</string>

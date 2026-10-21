@@ -1143,6 +1143,8 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Fríar allar endurheimtanlegar minnisafskriftir samtímis</string>
     <string name="settings_system_storage_clear_all_confirm">Þetta hreinsar vefminnistafskriftir, uppsetningareintök og tímabundar skrá. Upprunaleg og breytt APK eru geymd</string>
     <string name="settings_system_storage_cleared">Fríar %s</string>
+    <string name="settings_system_storage_patch_running_warning">Breyting er í gangi og notar þessa skrár. Að hreinsa þær núna veldur því að það mistakst</string>
+    <string name="settings_system_storage_clear_anyway">Hreinsa þrátt fyrir allt</string>
     <string name="settings_system_storage_nothing_to_clear">Ekki hægt að hreinsa neitt</string>
     <string name="settings_system_storage_open_app_info_title">Opna geymslu Android apps</string>
     <string name="settings_system_storage_open_app_info_description">Stjórna eða hreinsa allar Morphe gögn í gegnum kerfisstillingar</string>

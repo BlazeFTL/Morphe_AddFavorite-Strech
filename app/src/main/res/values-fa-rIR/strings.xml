@@ -1147,6 +1147,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">همهٔ فضای قابل‌بازیابی کش را یک‌جا آزاد می‌کند</string>
     <string name="settings_system_storage_clear_all_confirm">پاسخ‌های کش‌شدهٔ شبکه، نسخه‌های آماده‌شدهٔ نصب‌کننده و فایل‌های موقت پاک می‌شوند. APKهای اصلی و پچ‌شده نگه داشته می‌شوند</string>
     <string name="settings_system_storage_cleared">%s آزاد شد</string>
+    <string name="settings_system_storage_patch_running_warning">یک پچ در حال اجرا است و از این فایل‌ها استفاده می‌کند. پاک کردن آن‌ها اکنون باعث شکست عملیات می‌شود</string>
     <string name="settings_system_storage_nothing_to_clear">موردی برای پاک‌کردن نیست</string>
     <string name="settings_system_storage_open_app_info_title">بازکردن فضای ذخیره‌سازی برنامهٔ Android</string>
     <string name="settings_system_storage_open_app_info_description">همهٔ داده‌های Morphe را از طریق تنظیمات سیستم مدیریت یا پاک کنید</string>

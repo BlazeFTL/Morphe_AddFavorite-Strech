@@ -1147,6 +1147,8 @@ Išsami informacija: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Iš karto atlaisvina visą atlaisvinamą talpyklos vietą</string>
     <string name="settings_system_storage_clear_all_confirm">Tai išvalo tinklo atsakymų talpyklą, paruoštas diegimo įrankio kopijas ir laikinuosius failus. Originalūs ir pataisyti APK išsaugomi</string>
     <string name="settings_system_storage_cleared">Atlaisvinta %s</string>
+    <string name="settings_system_storage_patch_running_warning">Veikia švirkštas ir naudoja šiuos failus. Jei jų dabar ištrinsite, jis nepavyks</string>
+    <string name="settings_system_storage_clear_anyway">Vis tiek išvalyti</string>
     <string name="settings_system_storage_nothing_to_clear">Nėra ką išvalyti</string>
     <string name="settings_system_storage_open_app_info_title">Atidaryti „Android“ programos saugyklą</string>
     <string name="settings_system_storage_open_app_info_description">Tvarkykite arba išvalykite visus „Morphe“ duomenis per sistemos nustatymus</string>

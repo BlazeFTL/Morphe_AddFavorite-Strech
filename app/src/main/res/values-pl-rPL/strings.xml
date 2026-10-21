@@ -1153,6 +1153,8 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_storage_clear_all_description">Zwalnia za jednym razem całe miejsce w pamięci podręcznej, które można odzyskać</string>
     <string name="settings_system_storage_clear_all_confirm">To usunie zapisane odpowiedzi sieciowe, przygotowane kopie instalatora i pliki tymczasowe. Oryginalne i zmodyfikowane pliki APK zostaną zachowane</string>
     <string name="settings_system_storage_cleared">Zwolniono %s</string>
+    <string name="settings_system_storage_patch_running_warning">Trwa modyfikowanie, które korzysta z tych plików. Wyczyszczenie ich teraz spowoduje błąd</string>
+    <string name="settings_system_storage_clear_anyway">Wyczyść mimo to</string>
     <string name="settings_system_storage_nothing_to_clear">Nic do wyczyszczenia</string>
     <string name="settings_system_storage_open_app_info_title">Otwórz ustawienia pamięci aplikacji w Androidzie</string>
     <string name="settings_system_storage_open_app_info_description">Zarządzaj wszystkimi danymi Morphe lub usuń je przez ustawienia systemowe</string>

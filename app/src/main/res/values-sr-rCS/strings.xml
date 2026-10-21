@@ -1130,6 +1130,8 @@ Detalji: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Odmah oslobađa sav prostor koji se može povratiti iz keša</string>
     <string name="settings_system_storage_clear_all_confirm">Ovo će obrisati keširane mrežne odgovore, pripremljene kopije instalera i privremene datoteke. Originalni i modifikovani APK-ovi će biti sačuvani</string>
     <string name="settings_system_storage_cleared">Oslobođeno %s</string>
+    <string name="settings_system_storage_patch_running_warning">Ažuriranje se izvršava i koristi ove fajlove. Ako ih sada očistite, doći će do kvara</string>
+    <string name="settings_system_storage_clear_anyway">Ukloni svejedno</string>
     <string name="settings_system_storage_nothing_to_clear">Nema ničega za čišćenje</string>
     <string name="settings_system_storage_open_app_info_title">Otvorite skladište Android aplikacija</string>
     <string name="settings_system_storage_open_app_info_description">Upravljajte ili očistite sve Morphe podatke putem sistemskih postavki</string>

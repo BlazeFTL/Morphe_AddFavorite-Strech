@@ -469,9 +469,12 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="batch_patch_force_version">Patch alligevel</string>
     <string name="batch_patch_force_version_done">Sat i kø alligevel, appen kan gå i stykker</string>
     <string name="batch_patch_accept_signature_done">Sat i kø alligevel, APK ikke verificeret</string>
+    <string name="batch_patch_apk_selected">APK valgt</string>
     <string name="batch_patch_edit_patches">Vælg patches</string>
     <string name="batch_patch_state_no_apk">Ingen APK</string>
     <string name="batch_patch_state_no_patches">Ingen patches</string>
+    <string name="batch_patch_state_no_selection">Ingen valgt</string>
+    <string name="batch_patch_no_selection">Ingen af de tilgængelige patches er valgt</string>
     <string name="batch_patch_policy_install">Installer når færdig</string>
     <string name="batch_patch_policy_install_description">Installerer hver rettet app lige efter køen er afsluttet. Fra giver mulighed for senere installation af APK\'er</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

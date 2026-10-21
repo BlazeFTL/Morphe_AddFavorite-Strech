@@ -472,9 +472,12 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <string name="batch_patch_force_version">Patchaj svejedno</string>
     <string name="batch_patch_force_version_done">Svejedno dodano u red čekanja, aplikacija se može pokvariti</string>
     <string name="batch_patch_accept_signature_done">Svejedno dodano u red čekanja, APK nije verificiran</string>
+    <string name="batch_patch_apk_selected">Odabran APK</string>
     <string name="batch_patch_edit_patches">Odaberite patcheve</string>
     <string name="batch_patch_state_no_apk">Nema APK-a</string>
     <string name="batch_patch_state_no_patches">Nema patcheva </string>
+    <string name="batch_patch_state_no_selection">Ništa nije odabrano</string>
+    <string name="batch_patch_no_selection">Nijedna od dostupnih zakrpi nije odabrana</string>
     <string name="batch_patch_policy_install">Instaliraj kada je gotovo</string>
     <string name="batch_patch_policy_install_description">Instalira svaku patchanu aplikaciju odmah nakon završetka reda čekanja. Isključeno čuva APK-ove za kasnije.</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->

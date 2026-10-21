@@ -1147,6 +1147,8 @@ Detalii: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Eliberează tot spațiul cache recuperabil odată</string>
     <string name="settings_system_storage_clear_all_confirm">Aceasta șterge răspunsurile de rețea stocate în cache, copiile programului de instalare în așteptare și fișierele temporare. APK-urile originale și patch-uite sunt păstrate</string>
     <string name="settings_system_storage_cleared">Eliberat %s</string>
+    <string name="settings_system_storage_patch_running_warning">Un patch este în curs de execuție și utilizează aceste fișiere. Ștergerea lor acum va duce la eșec</string>
+    <string name="settings_system_storage_clear_anyway">Șterge oricum</string>
     <string name="settings_system_storage_nothing_to_clear">Nimic de șters</string>
     <string name="settings_system_storage_open_app_info_title">Deschide stocarea aplicației Android</string>
     <string name="settings_system_storage_open_app_info_description">Gestionează sau șterge toate datele Morphe prin setările sistemului</string>

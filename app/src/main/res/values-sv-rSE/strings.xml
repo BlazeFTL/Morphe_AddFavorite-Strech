@@ -1147,6 +1147,8 @@ Information: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Frigör allt återtagbart cacheutrymme på en gång</string>
     <string name="settings_system_storage_clear_all_confirm">Detta rensar cachelagrade nätverkssvar, tillfälligt lagrade installerarkopior och tillfälliga filer. Ursprungliga och modifierade APK-filer behålls</string>
     <string name="settings_system_storage_cleared">Frigjorde %s</string>
+    <string name="settings_system_storage_patch_running_warning">En patch körs och använder dessa filer. Om du rensar dem nu kommer det att misslyckas</string>
+    <string name="settings_system_storage_clear_anyway">Rensa ändå</string>
     <string name="settings_system_storage_nothing_to_clear">Inget att rensa</string>
     <string name="settings_system_storage_open_app_info_title">Öppna Android-appens lagring</string>
     <string name="settings_system_storage_open_app_info_description">Hantera eller rensa alla data för Morphe i systeminställningarna</string>

@@ -472,9 +472,12 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="batch_patch_force_version">Patcher quand même</string>
     <string name="batch_patch_force_version_done">Mis en file d\'attente quand même, l\'application peut ne plus fonctionner</string>
     <string name="batch_patch_accept_signature_done">Mis en file d\'attente quand même, APK non vérifié</string>
+    <string name="batch_patch_apk_selected">APK sélectionnée</string>
     <string name="batch_patch_edit_patches">Choisissez les patchs</string>
     <string name="batch_patch_state_no_apk">Aucun APK</string>
     <string name="batch_patch_state_no_patches">Aucun patch</string>
+    <string name="batch_patch_state_no_selection">Aucune sélectionnée</string>
+    <string name="batch_patch_no_selection">Aucun des correctifs disponibles n\'est sélectionné</string>
     <string name="batch_patch_policy_install">Installer une fois terminé</string>
     <string name="batch_patch_policy_install_description">Installe chaque application patchée juste après la fin de la file d\'attente. Désactivé conserve les APK pour plus tard</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1159,8 +1162,8 @@ Détails : %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Libère en une seule fois tout l\'espace de cache récupérable</string>
     <string name="settings_system_storage_clear_all_confirm">Cela efface les réponses réseau mises en cache, les copies d\'installation temporaires et les fichiers temporaires. Les APK d\'origine et patchés sont conservés</string>
     <string name="settings_system_storage_cleared">%s libérés</string>
-    <string name="settings_system_storage_patch_running_warning">Un patch est en cours d\'exécution et utilise ces fichiers. Les effacer maintenant entraînera une erreur</string>
-    <string name="settings_system_storage_clear_anyway">Effacer quand même</string>
+    <string name="settings_system_storage_patch_running_warning">Un patch est en cours d\'exécution et utilise ces fichiers. Les supprimer maintenant entraînera son échec</string>
+    <string name="settings_system_storage_clear_anyway">Supprimer quand même</string>
     <string name="settings_system_storage_nothing_to_clear">Rien à effacer</string>
     <string name="settings_system_storage_open_app_info_title">Ouvrir le stockage de l\'application Android</string>
     <string name="settings_system_storage_open_app_info_description">Gérez ou effacez toutes les données de Morphe via les paramètres du système</string>

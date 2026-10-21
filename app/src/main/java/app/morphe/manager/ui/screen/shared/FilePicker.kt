@@ -375,7 +375,7 @@ fun DialogHostScope.FilePicker(
                             text = stringResource(R.string.file_picker_show_hidden_files),
                             trailing = {
                                 SelectionCheckIndicator(
-                                    if (showHiddenFiles) ToggleableState.On else ToggleableState.Off
+                                    ToggleableState(showHiddenFiles)
                                 )
                             },
                             modifier = Modifier.semantics { role = Role.Checkbox },
@@ -717,7 +717,7 @@ private fun FileEntryRow(
         modifier = modifier,
         trailing = checked?.let { isChecked ->
             {
-                SelectionCheckIndicator(if (isChecked) ToggleableState.On else ToggleableState.Off)
+                SelectionCheckIndicator(ToggleableState(isChecked))
             }
         }
     )

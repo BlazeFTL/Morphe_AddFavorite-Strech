@@ -29,6 +29,7 @@ import androidx.compose.ui.semantics.*
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.util.contrastingContent
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
 
@@ -216,18 +217,26 @@ fun SelectionLeadingBox(
  *
  * @param accentColor Color of the card the indicator sits on, see [RadioSelectionCard] and
  *   [LocalAccent].
+ * @param ink Content color of a surface no theme color reads on, such as a gradient card. The
+ *   circle is filled with it and outlined in it, in place of [accentColor].
  */
 @Composable
 fun SelectionCheckIndicator(
     state: ToggleableState,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    accentColor: Color? = LocalAccent.current
+    accentColor: Color? = LocalAccent.current,
+    ink: Color? = null
 ) {
     val colors = MaterialTheme.colorScheme
     val accent = usableAppAccent(accentColor)
-    val container = accent?.copy(alpha = AccentAlpha.LEAD) ?: colors.primaryContainer
-    val content = if (accent != null) appAccentContent(container) else colors.onPrimaryContainer
+    val container = ink ?: accent?.copy(alpha = AccentAlpha.LEAD) ?: colors.primaryContainer
+    val content = when {
+        ink != null -> ink.contrastingContent()
+        accent != null -> appAccentContent(container)
+        else -> colors.onPrimaryContainer
+    }
+    val outline = ink?.copy(alpha = 0.6f) ?: colors.outlineVariant
     // Eased between the states, so picking a card fades its mark in as its border comes up
     Crossfade(
         targetState = state,
@@ -238,7 +247,7 @@ fun SelectionCheckIndicator(
         val icon = when (shown) {
             ToggleableState.On -> MaterialSymbols.Rounded.Check
             ToggleableState.Indeterminate -> MaterialSymbols.Rounded.Remove
-            ToggleableState.Off -> return@Crossfade StatusCirclePlaceholder()
+            ToggleableState.Off -> return@Crossfade StatusCirclePlaceholder(color = outline)
         }
 
         StatusCircleIcon(
@@ -281,7 +290,7 @@ fun SelectionCheckRow(
         horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium, Alignment.CenterHorizontally)
     ) {
         SelectionCheckIndicator(
-            state = if (checked) ToggleableState.On else ToggleableState.Off,
+            state = ToggleableState(checked),
             enabled = enabled
         )
         Text(
@@ -302,7 +311,7 @@ private fun selectionBorderColor(selected: Boolean, enabled: Boolean) = when {
 
 @Composable
 private fun DefaultRadioIndicator(selected: Boolean, enabled: Boolean, accentColor: Color?) = SelectionCheckIndicator(
-    state = if (selected) ToggleableState.On else ToggleableState.Off,
+    state = ToggleableState(selected),
     enabled = enabled,
     accentColor = accentColor
 )

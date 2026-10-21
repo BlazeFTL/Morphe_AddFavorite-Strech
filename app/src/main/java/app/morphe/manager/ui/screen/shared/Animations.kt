@@ -179,13 +179,15 @@ object Animations {
     val pillExit = fadeOut + scaleOut(defaultTween(), targetScale = 0.6f) +
             shrinkHorizontally(defaultTween(), clip = false)
 
-    // A control joining a header's row: its slot opens on a spring while it pops in from nothing,
-    // past its size and back. Put away it only shrinks off, as going away calls for no flourish
-    val headerActionEnter = expandHorizontally(spring(stiffness = Spring.StiffnessMediumLow), clip = false) +
-            scaleIn(spring(Spring.DampingRatioMediumBouncy, Spring.StiffnessMediumLow), initialScale = 0f) +
+    // A control popping in place from nothing, past its size and back. Put away it only shrinks
+    // off, as going away calls for no flourish
+    val popEnter = scaleIn(spring(Spring.DampingRatioMediumBouncy, Spring.StiffnessMediumLow), initialScale = 0f) +
             fadeIn(tween(Defaults.ANIMATION_DURATION_SHORT))
-    val headerActionExit = fadeOut + scaleOut(defaultTween(), targetScale = 0.6f) +
-            shrinkHorizontally(defaultTween(), clip = false)
+    val popExit = fadeOut + scaleOut(defaultTween(), targetScale = 0.6f)
+
+    // A control joining a header's row: its slot opens on a spring while it pops in
+    val headerActionEnter = expandHorizontally(spring(stiffness = Spring.StiffnessMediumLow), clip = false) + popEnter
+    val headerActionExit = popExit + shrinkHorizontally(defaultTween(), clip = false)
 
     const val STAGGER_STEP = 40
     private const val STAGGER_MAX_STEPS = 8

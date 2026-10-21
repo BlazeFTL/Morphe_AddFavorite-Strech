@@ -375,15 +375,14 @@ internal fun DynamicAppCard(
         ) {
             SelectableCard(
                 isSelected = isSelected,
-                isSelectionMode = isMultiSelectMode,
-                // The drag handle already sits in the corner the check badge would land in
-                showCheckmark = dragHandleModifier == null
+                isSelectionMode = isMultiSelectMode
             ) {
                 HomeAppCard(
                     item = item,
                     onClick = onAppClick,
                     // The drag handle takes the end of the card over while reordering
                     showStatusBadges = dragHandleModifier == null,
+                    selected = isSelected.takeIf { isMultiSelectMode && dragHandleModifier == null },
                     onLongClick = {
                         view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                         onLongPress()

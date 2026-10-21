@@ -1247,6 +1247,7 @@ fun DialogHostScope.SourceAppsDialog(
                     AppCardLayout(
                         gradientColors = gradientColors,
                         onClick = { bring(listOf(packageName), brought = !brought) },
+                        selected = brought,
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         val patchCount = patchCounts[packageName] ?: 0

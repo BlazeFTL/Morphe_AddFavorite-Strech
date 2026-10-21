@@ -33,7 +33,6 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
-import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -842,9 +841,7 @@ private fun BundleManagementCard(
     SelectableCard(
         modifier = modifier,
         isSelected = isSelected,
-        isSelectionMode = isSelectionMode,
-        // The header ends in the mark instead, where the corner badge would sit on the chevron
-        showCheckmark = false
+        isSelectionMode = isSelectionMode
     ) {
         Surface(
             modifier = Modifier
@@ -1360,10 +1357,16 @@ private fun BundleCardHeader(
             }
         }
 
-        when {
-            dragHandleModifier != null -> DragHandle(modifier = dragHandleModifier)
-            selected != null -> SelectionCheckIndicator(if (selected) ToggleableState.On else ToggleableState.Off)
-            showChevron -> ExpandChevron(expanded = expanded)
+        if (dragHandleModifier != null) {
+            DragHandle(modifier = dragHandleModifier)
+        } else {
+            // The chevron gives way to the mark while the card is picked rather than folded
+            SelectionMark(
+                selected = selected,
+                idle = if (showChevron) {
+                    { ExpandChevron(expanded = expanded) }
+                } else null
+            )
         }
     }
 }

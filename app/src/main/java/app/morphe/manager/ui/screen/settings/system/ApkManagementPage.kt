@@ -23,6 +23,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
@@ -946,12 +948,12 @@ private fun ApkItemCard(
     onDelete: () -> Unit
 ) {
     val view = LocalView.current
+    val selectLabel = stringResource(R.string.accessibility_select_app)
 
     SelectableCard(
         modifier = Modifier.fillMaxWidth(),
         isSelected = selected,
-        isSelectionMode = selectionMode,
-        checkmarkContentDescription = stringResource(R.string.state_selected)
+        isSelectionMode = selectionMode
     ) {
         // Worn the way the home screen wears it, so the app reads as itself here too
         SectionCard(accentColor = rememberAppColor(data.originalPackageName)) {
@@ -964,11 +966,13 @@ private fun ApkItemCard(
                             onClick = {
                                 if (selectionMode) onToggleSelection()
                             },
+                            onLongClickLabel = selectLabel.takeIf { !selectionMode },
                             onLongClick = {
                                 view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                                 onToggleSelection()
                             }
                         )
+                        .semantics { if (selectionMode) this.selected = selected }
                         .padding(Defaults.SpaceLarge),
                     horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
                     verticalAlignment = Alignment.CenterVertically
@@ -1016,6 +1020,8 @@ private fun ApkItemCard(
                             }
                         }
                     }
+
+                    SelectionMark(selected.takeIf { selectionMode })
                 }
 
                 FoldingVisibility(visible = !selectionMode) {

@@ -352,7 +352,7 @@ private fun SettingsBackupContents(
                 description = stringResource(section.descriptionRes),
                 role = Role.Checkbox,
                 leadingContent = {
-                    SelectionCheckIndicator(if (isSelected) ToggleableState.On else ToggleableState.Off)
+                    SelectionCheckIndicator(ToggleableState(isSelected))
                 }
             )
         }

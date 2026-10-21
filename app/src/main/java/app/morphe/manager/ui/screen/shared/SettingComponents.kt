@@ -253,12 +253,13 @@ fun ThemedIcon(
 @Composable
 fun StatusCirclePlaceholder(
     modifier: Modifier = Modifier,
-    size: Dp = 28.dp
+    size: Dp = 28.dp,
+    color: Color = MaterialTheme.colorScheme.outlineVariant
 ) {
     Spacer(
         modifier = modifier
             .size(size)
-            .border(1.5.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape)
+            .border(1.5.dp, color, CircleShape)
     )
 }
 

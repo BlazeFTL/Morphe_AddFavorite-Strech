@@ -896,7 +896,7 @@ private fun VersionRow(
         // The app's own round check, in its color, as the other pickers mark their pick
         if (selected != null) {
             SelectionCheckIndicator(
-                state = if (selected) ToggleableState.On else ToggleableState.Off,
+                state = ToggleableState(selected),
                 enabled = enabled
             )
         }

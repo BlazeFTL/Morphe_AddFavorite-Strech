@@ -494,7 +494,7 @@ class UpdateViewModel(
      * the list gains new content only.
      * Idempotent: repeat calls while loading or after a successful load are a no-op.
      */
-    // Cancelled when the dialog closes, so a load finishing late never fills the next opening
+    // Canceled when the dialog closes, so a load finishing late never fills the next opening
     private var olderEntriesJob: Job? = null
 
     fun loadOlderManagerEntries() {

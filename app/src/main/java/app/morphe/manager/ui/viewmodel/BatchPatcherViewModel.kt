@@ -298,8 +298,12 @@ class BatchPatcherViewModel(
         }
     }
 
-    /** The availability dialog for [item], covering the versions of [bundleUid] alone when given. */
-    private suspend fun showApkChoice(item: BatchPatchItem, bundleUid: Int?) {
+    /**
+     * The availability dialog for [item], covering the versions of [bundleUid] alone when given.
+     * Looking into the APKs on hand can take a while for an installed app, which is checked for
+     * being the stock one, so the screen says it is busy meanwhile.
+     */
+    private suspend fun showApkChoice(item: BatchPatchItem, bundleUid: Int?) = whileProcessingApk {
         val allCompatible = versionCatalog.compatibleVersions.first()[item.packageName].orEmpty()
         val sourceVersions = allCompatible.filter { it.bundleUid == bundleUid }
         val (compatible, recommended) = if (sourceVersions.isNotEmpty()) {
@@ -472,7 +476,10 @@ class BatchPatcherViewModel(
         viewModelScope.launch { settleGivenApk(item.id, resolution) }
     }
 
-    /** True while an APK given to a queued app is read and the app resolved against it. */
+    /**
+     * True while the APKs on hand for a queued app are looked into, or one given to it is read and
+     * the app resolved against it.
+     */
     val processingApk get() = apkProcessingCount > 0
 
     // Counted rather than flagged, so APKs given one over another keep it up until the last is in
@@ -498,6 +505,8 @@ class BatchPatcherViewModel(
         // Another APK given to the app meanwhile settles all this itself
         if (resolution?.isCancelled == true) return@whileProcessingApk
         val item = state.value?.items?.firstOrNull { it.id == itemId }?.takeIf { resolution != null }
+        // The card changes little for an APK of the version it already had, so the choice is confirmed
+        if (item?.source != null) messages.show(R.string.batch_patch_apk_selected)
         if (item?.state == BatchItemState.NO_SELECTION && item.source != null && prefs.useExpertMode.get()) {
             openEdit(item)
         } else if (apkChoice?.item?.id == itemId) {

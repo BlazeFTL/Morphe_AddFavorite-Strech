@@ -485,6 +485,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="batch_patch_force_version">Patch anyway</string>
     <string name="batch_patch_force_version_done">Queued anyway, the app may break</string>
     <string name="batch_patch_accept_signature_done">Queued anyway, APK not verified</string>
+    <string name="batch_patch_apk_selected">APK selected</string>
     <string name="batch_patch_edit_patches">Choose patches</string>
     <string name="batch_patch_state_no_apk">No APK</string>
     <string name="batch_patch_state_no_patches">No patches</string>

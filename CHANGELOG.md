@@ -1,3 +1,15 @@
+# [2.0.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.14...v2.0.0-dev.15) (2026-10-21)
+
+
+### Bug Fixes
+
+* Hand batch dialogs over to one another and show the APK being processed ([d7a0a60](https://github.com/MorpheApp/morphe-manager/commit/d7a0a60d30461337f35aa43062dcde5e0ceca142))
+* Mark selected cards the same way on every screen ([3e919cd](https://github.com/MorpheApp/morphe-manager/commit/3e919cd1f0ab1d4dd436dc77f3f6bda2af77150b))
+* Name an app the same way everywhere, from any source that knows it ([7d3d05b](https://github.com/MorpheApp/morphe-manager/commit/7d3d05ba7136d9ffcb2c6c51a47bac50620247a4))
+* Name the app in expert mode as the other patching dialogs do ([c545dd8](https://github.com/MorpheApp/morphe-manager/commit/c545dd8056e07f8b4a1a57a2ee356e1e4167ed4c))
+* Show a batch app's APKs being looked into and confirm the one picked ([dd653d5](https://github.com/MorpheApp/morphe-manager/commit/dd653d545fc5b74d686ad9bdd7d08e8c9b70a4ab))
+* Tell a batch app with nothing selected from one without patches and open its patches after an APK ([0cb14e3](https://github.com/MorpheApp/morphe-manager/commit/0cb14e35e9cbc792e399efcda638cf23f79b50ea))
+
 # [2.0.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.13...v2.0.0-dev.14) (2026-10-20)
 
 

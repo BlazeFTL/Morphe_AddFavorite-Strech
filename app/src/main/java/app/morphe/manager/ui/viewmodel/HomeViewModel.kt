@@ -629,12 +629,8 @@ class HomeViewModel(
     val bundleAppMetadataFlow: StateFlow<Map<String, BundleAppMetadata>> =
         patchBundleRepository.appMetadata
 
-    /**
-     * [bundleAppMetadataFlow] widened to every bundle, for the tracked records whose own source is
-     * no longer enabled and which have nothing else left describing them.
-     */
-    val allBundleAppMetadataFlow: StateFlow<Map<String, BundleAppMetadata>> =
-        patchBundleRepository.allAppMetadata
+    /** What the sources call each app, see [PatchBundleRepository.appDisplayNames]. */
+    val appDisplayNamesFlow: StateFlow<Map<String, String>> = patchBundleRepository.appDisplayNames
 
     /**
      * Snapshot of all bundle info (including disabled) as a [StateFlow] for synchronous reads.

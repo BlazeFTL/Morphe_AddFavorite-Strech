@@ -357,7 +357,7 @@ private fun DialogHostScope.PatchFlowDialog(
         }
 
         is HomeDialog.ExperimentalVersion -> ExperimentalVersionWarningDialog(
-            appName = dialog.state.packageName.let { homeViewModel.bundleAppMetadataFlow.value[it]?.displayName ?: it },
+            appName = session?.appName ?: KnownApps.getAppName(dialog.state.packageName),
             packageName = dialog.state.packageName,
             onDismiss = dismiss,
             onProceed = { flow.proceedDespiteVersion(dialog) }
@@ -422,10 +422,11 @@ private fun DialogHostScope.PatchFlowDialog(
         HomeDialog.ExpertMode -> {
             val selection = flow.expertMode
             val selectedApp = held(selection.app) ?: return
+            val appName = session?.appName ?: return
             ProvideAccent(rememberAppColor(selectedApp.packageName)) {
                 ExpertModeDialog(
                     packageName = selectedApp.packageName,
-                    appName = session?.appName,
+                    appName = appName,
                     appIcon = flow.expertModeAppIcon,
                     selection = ExpertPatchSelection(
                         allPatchesInfo = selection.allPatchesInfo,

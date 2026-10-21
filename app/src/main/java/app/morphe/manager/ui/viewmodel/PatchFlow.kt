@@ -290,7 +290,7 @@ class PatchFlow(
     /** A fresh run for [packageName], seeded from the current bundle data. */
     private fun sessionFor(packageName: String, repatchedPackageName: String? = null) = PatchFlowSession(
         packageName = packageName,
-        appName = appMetadata[packageName]?.displayName ?: KnownApps.getAppName(packageName),
+        appName = patchBundleRepository.appDisplayNames.value[packageName] ?: KnownApps.getAppName(packageName),
         repatchPackageName = repatchedPackageName,
         recommendedVersion = recommendedVersions.value[packageName],
         compatibleVersions = compatibleVersions.value[packageName].orEmpty()

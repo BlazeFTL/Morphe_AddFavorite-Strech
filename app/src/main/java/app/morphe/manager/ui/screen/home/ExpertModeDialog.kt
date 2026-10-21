@@ -84,13 +84,13 @@ class ExpertPatchActions(
  * Shown before patching when expert mode is enabled.
  *
  * @param packageName App being patched, which the header names and takes its color from.
- * @param appName Name to head the dialog with, where the caller knows one better than the sources.
+ * @param appName Name to head the dialog with, as the rest of the run names the app.
  * @param appIcon Icon for the header where no source has one, as for a file picked from storage.
  */
 @Composable
 fun DialogHostScope.ExpertModeDialog(
     packageName: String,
-    appName: String? = null,
+    appName: String,
     appIcon: Drawable? = null,
     selection: ExpertPatchSelection,
     hasMultipleBundles: Boolean,
@@ -156,10 +156,6 @@ fun DialogHostScope.ExpertModeDialog(
     val allPatches = remember(allPatchesInfo) { allPatchesInfo.flatMap { (_, patches) -> patches.map { it.first } } }
     val matchesPatch = rememberPatchMatcher(search.query, allPatches)
     val appColor = remember(allPatches, packageName) { allPatches.asSequence().appColorFor(packageName) }
-    // The app by the best name at hand, which heads this dialog and the options dialogs opened from it
-    val headerTitle = appName
-        ?: allPatchesInfo.firstNotNullOfOrNull { (bundle, _) -> bundle.displayName }
-        ?: packageName
     val sourcesByUid = rememberSourcesByUid()
 
     // The two filters stack: either can narrow what the other left. Keyed by bundle and in bundle
@@ -283,7 +279,7 @@ fun DialogHostScope.ExpertModeDialog(
                 icon = { modifier ->
                     AppIcon(packageName = packageName, icon = appIcon, contentDescription = null, modifier = modifier)
                 },
-                title = headerTitle,
+                title = appName,
                 subtitle = listOfNotNull(
                     stringResource(R.string.settings_advanced_expert_mode),
                     allPatchesInfo.singleOrNull()?.first?.name
@@ -525,7 +521,7 @@ fun DialogHostScope.ExpertModeDialog(
         PatchOptionsDialog(
             patch = patch,
             packageName = packageName,
-            appName = headerTitle,
+            appName = appName,
             appIcon = appIcon,
             accentColor = appColor,
             isDefaultBundle = bundleUid == 0,

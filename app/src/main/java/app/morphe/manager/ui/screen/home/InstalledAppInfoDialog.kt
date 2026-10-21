@@ -187,7 +187,6 @@ fun DialogHostScope.InstalledAppInfoDialog(
     // Accent color resolution order: bundle metadata (appIconColor) -> default. Read from every
     // source, a disabled one included, so the app keeps its color with nothing left to patch it.
     // originalPackageName needed because metadata is keyed by original pkg, not patched.
-    val bundleAppMetadata by homeViewModel.bundleAppMetadataFlow.collectAsStateWithLifecycle()
     val appAccentColor = rememberAppColor(viewModel.installedApp?.originalPackageName ?: packageName)
         ?: KnownApps.DEFAULT_DOWNLOAD_COLOR
     val infoAccentColor = ThemeTraitsDefaults.accentColor(appAccentColor)
@@ -230,14 +229,12 @@ fun DialogHostScope.InstalledAppInfoDialog(
     val availablePatches by viewModel.availablePatches.collectAsStateWithLifecycle()
 
     // Same order the home card resolves its name in, so a record reads the same in both places
-    val allBundleAppMetadata by homeViewModel.allBundleAppMetadataFlow.collectAsStateWithLifecycle()
+    val bundleNames by homeViewModel.appDisplayNamesFlow.collectAsStateWithLifecycle()
     val deviceLabel = remember(appInfo) { appInfo?.readableLabel(context.packageManager) }
-    val appLabel = remember(deviceLabel, installedApp, bundleAppMetadata, allBundleAppMetadata, packageName) {
-        val original = installedApp?.originalPackageName ?: packageName
+    val appLabel = remember(deviceLabel, installedApp, bundleNames, packageName) {
         installedApp?.appLabel
             ?: deviceLabel
-            ?: bundleAppMetadata[original]?.displayName
-            ?: allBundleAppMetadata[original]?.displayName
+            ?: bundleNames[installedApp?.originalPackageName ?: packageName]
             ?: KnownApps.getAppName(packageName)
     }
 

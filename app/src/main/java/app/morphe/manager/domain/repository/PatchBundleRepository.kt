@@ -160,6 +160,11 @@ class PatchBundleRepository(
             .map { BundleAppMetadata.buildFrom(it) }
             .stateIn(scope, SharingStarted.Eagerly, emptyMap())
 
+    /** What the sources call each app, see [BundleAppMetadata.displayNames]. */
+    val appDisplayNames: StateFlow<Map<String, String>> =
+        combine(appMetadata, allAppMetadata, BundleAppMetadata::displayNames)
+            .stateIn(scope, SharingStarted.Eagerly, emptyMap())
+
     fun scopedBundleInfoFlow(packageName: String, version: String?, versionCode: Long? = null) = enabledBundlesInfoFlow.map {
         it.map { (_, bundleInfo) ->
             bundleInfo.forPackage(packageName, version, versionCode)

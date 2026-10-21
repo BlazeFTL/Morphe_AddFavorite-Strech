@@ -505,8 +505,8 @@ class HomeApps(
 
     private data class HomeMetadata(
         val enabled: Map<String, BundleAppMetadata>,
-        /** Names only, for records whose bundle the user has since disabled. */
-        val all: Map<String, BundleAppMetadata>
+        /** See [BundleAppMetadata.displayNames], so records whose bundle is disabled keep a name. */
+        val names: Map<String, String>
     )
 
     private fun homeMetadataFor(
@@ -514,9 +514,10 @@ class HomeApps(
         enabledInfo: Map<Int, PatchBundleInfo.Global>
     ): HomeMetadata {
         homeMetadata?.takeIf { it.first === info }?.let { return it.second }
+        val enabled = BundleAppMetadata.buildFrom(enabledInfo)
         return HomeMetadata(
-            enabled = BundleAppMetadata.buildFrom(enabledInfo),
-            all = BundleAppMetadata.buildFrom(info)
+            enabled = enabled,
+            names = BundleAppMetadata.displayNames(enabled, BundleAppMetadata.buildFrom(info))
         ).also { homeMetadata = info to it }
     }
 
@@ -528,7 +529,7 @@ class HomeApps(
             ?: return cachedHomeCards?.toCards(installedApps, homePrefs)
 
         val enabledInfo = ready.info.filter { (_, info) -> info.enabled }
-        val (metadata, allMetadata) = homeMetadataFor(ready.info, enabledInfo)
+        val (metadata, bundleNames) = homeMetadataFor(ready.info, enabledInfo)
         val appsBySource = enabledInfo.mapValues { (_, info) -> info.appsBrought(keptFrom) }
         val packages = appsBySource.values.flatMapTo(mutableSetOf()) { it }
         val sourceGroups = buildHomeAppSourceGroups(
@@ -555,8 +556,7 @@ class HomeApps(
             // The record's patch-time label first, it outlives the artifacts and the bundle
             val displayName = installedApp?.appLabel
                 ?: installedData?.displayName
-                ?: bundleMeta?.displayName
-                ?: allMetadata[packageName]?.displayName
+                ?: bundleNames[packageName]
                 ?: KnownApps.getAppName(packageName)
             val trackedEntry = installedApp?.let { tracked ->
                 trackedSnapshots[tracked.currentPackageName]?.takeIf { it.app == tracked }

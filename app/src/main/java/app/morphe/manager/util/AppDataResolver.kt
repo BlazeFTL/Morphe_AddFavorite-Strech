@@ -399,16 +399,12 @@ class AppDataResolver(
             ?.let { icon -> runCatching { icon.toBitmap().toDrawable(resources) }.getOrNull() }
 
     /**
-     * Try to get app display name from patch bundle metadata.
-     * Uses [PatchBundleRepository.appMetadata] snapshot, no allocations.
-     * Returns null if bundles are not yet loaded or package isn't in any bundle.
+     * Try to get app display name from patch bundle metadata, see
+     * [PatchBundleRepository.appDisplayNames]. Returns null if bundles are not yet loaded or
+     * package isn't in any bundle.
      */
     private fun tryGetFromBundleMetadata(packageName: String): ResolvedAppData? {
-        // Disabled bundles are still consulted, because a name is worth more than the package of
-        // an app whose source the user has since turned off
-        val displayName = patchBundleRepository.appMetadata.value[packageName]?.displayName
-            ?: patchBundleRepository.allAppMetadata.value[packageName]?.displayName
-            ?: return null
+        val displayName = patchBundleRepository.appDisplayNames.value[packageName] ?: return null
         return ResolvedAppData(
             packageName = packageName,
             displayName = displayName,

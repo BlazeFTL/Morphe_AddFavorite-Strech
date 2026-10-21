@@ -425,6 +425,7 @@ private fun DialogHostScope.PatchFlowDialog(
             ProvideAccent(rememberAppColor(selectedApp.packageName)) {
                 ExpertModeDialog(
                     packageName = selectedApp.packageName,
+                    appName = session?.appName,
                     appIcon = flow.expertModeAppIcon,
                     selection = ExpertPatchSelection(
                         allPatchesInfo = selection.allPatchesInfo,

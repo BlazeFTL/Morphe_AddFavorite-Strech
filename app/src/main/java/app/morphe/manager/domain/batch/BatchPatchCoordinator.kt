@@ -232,20 +232,22 @@ class BatchPatchCoordinator(
         itemId: String,
         expectedState: BatchItemState? = null,
         resolve: suspend (item: BatchPatchItem, useMount: Boolean) -> BatchPatchItem
-    ) {
-        val current = _state.value ?: return
-        if (current.phase != BatchPhase.PREFLIGHT) return
-        val item = current.items.firstOrNull { it.id == itemId } ?: return
-        if (expectedState != null && item.state != expectedState) return
+    ): Job? {
+        val current = _state.value ?: return null
+        if (current.phase != BatchPhase.PREFLIGHT) return null
+        val item = current.items.firstOrNull { it.id == itemId } ?: return null
+        if (expectedState != null && item.state != expectedState) return null
 
-        resolveJobs.put(itemId, scope.launch {
+        val job = scope.launch {
             val resolved = resolve(item, current.useMount)
             // The queue may have started meanwhile, and an item it runs must not be swapped out
             _state.update { state ->
                 if (state.phase != BatchPhase.PREFLIGHT) return@update state
                 state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
             }
-        })?.cancel()
+        }
+        resolveJobs.put(itemId, job)?.cancel()
+        return job
     }
 
     /** Re-resolves a single item against a manually attached APK. */
@@ -293,8 +295,7 @@ class BatchPatchCoordinator(
 
     /**
      * Replaces what one queued app will be patched with, after the user edited it on the
-     * preflight screen. Deselecting everything leaves nothing to run, which is the same
-     * situation as a source that contributes no patches.
+     * preflight screen. Deselecting everything leaves nothing to run until a patch is picked again.
      */
     fun updateSelection(itemId: String, selection: PatchSelection, options: Options) {
         _state.update { state ->
@@ -303,17 +304,8 @@ class BatchPatchCoordinator(
                 items = state.items.map { item ->
                     if (item.id != itemId) return@map item
 
-                    val empty = selection.values.sumOf { it.size } == 0
-                    item.copy(
-                        selection = selection,
-                        options = options,
-                        selectionEdited = true,
-                        state = when {
-                            empty -> BatchItemState.NO_PATCHES
-                            item.state == BatchItemState.NO_PATCHES -> BatchItemState.READY
-                            else -> item.state
-                        }
-                    )
+                    val edited = item.copy(selection = selection, options = options, selectionEdited = true)
+                    edited.copy(state = edited.stateForSelection(item.state))
                 }
             )
         }
@@ -447,7 +439,7 @@ class BatchPatchCoordinator(
                     options = item.options,
                     selectionEdited = true,
                     // The edited selection is what ran, so it has patches even where the defaults have none
-                    state = if (resolved.state == BatchItemState.NO_PATCHES) BatchItemState.READY else resolved.state
+                    state = item.stateForSelection(resolved.state)
                 )
             }
             _state.update { it.copy(items = items, phase = BatchPhase.PREFLIGHT) }

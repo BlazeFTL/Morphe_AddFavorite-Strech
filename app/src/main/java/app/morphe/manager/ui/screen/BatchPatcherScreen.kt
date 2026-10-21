@@ -1027,6 +1027,8 @@ private fun itemDetails(item: BatchPatchItem): String = when (item.state) {
 
     BatchItemState.NO_PATCHES -> stringResource(R.string.home_no_patches_available)
 
+    BatchItemState.NO_SELECTION -> stringResource(R.string.batch_patch_no_selection)
+
     BatchItemState.VERSION_MISMATCH -> stringResource(
         R.string.batch_patch_version_mismatch,
         item.version.orEmpty()
@@ -1076,6 +1078,7 @@ private fun BatchStateBadge(state: BatchItemState) {
         BatchItemState.UNVERIFIED_SIGNATURE -> R.string.home_unverified to SemanticTone.Warning
 
         BatchItemState.NO_PATCHES -> R.string.batch_patch_state_no_patches to SemanticTone.Error
+        BatchItemState.NO_SELECTION -> R.string.batch_patch_state_no_selection to SemanticTone.Warning
     }
     StatusBadge(text = stringResource(labelRes), tone = tone)
 }

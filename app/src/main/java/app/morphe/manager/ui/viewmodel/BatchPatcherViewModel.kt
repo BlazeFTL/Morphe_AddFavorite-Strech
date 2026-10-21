@@ -54,6 +54,7 @@ import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.AppTarget
 import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -337,7 +338,7 @@ class BatchPatcherViewModel(
     fun useApkSource(preferInstalled: Boolean) {
         val choice = apkChoice ?: return
         apkChoice = null
-        coordinator.useSource(choice.item.id, preferInstalled)
+        choosePatchesOnceResolved(choice.item.id, coordinator.useSource(choice.item.id, preferInstalled))
     }
 
     /**
@@ -460,7 +461,23 @@ class BatchPatcherViewModel(
         attachPrompt = null
         // Re-resolved rather than taken on the helper's word: an installed app is only accepted
         // while it still looks like the stock one, see BatchPlanResolver
-        coordinator.useSource(item.id, preferInstalled = true)
+        choosePatchesOnceResolved(item.id, coordinator.useSource(item.id, preferInstalled = true))
+    }
+
+    /**
+     * Opens the editor once [itemId] is resolved against the APK just given to it, when none of
+     * its patches is selected. Expert mode, as the single-app flow opens the expert dialog after
+     * the APK, so the app is not left for the user to find the editor for.
+     */
+    private fun choosePatchesOnceResolved(itemId: String, resolution: Job?) {
+        resolution ?: return
+        viewModelScope.launch {
+            resolution.join()
+            // Another APK given to the app meanwhile asks the question itself
+            if (resolution.isCancelled || !prefs.useExpertMode.get()) return@launch
+            val item = state.value?.items?.firstOrNull { it.id == itemId } ?: return@launch
+            if (item.state == BatchItemState.NO_SELECTION) beginEdit(item)
+        }
     }
 
     /** Patch selection editor for one queued app, null when none is open. */
@@ -598,7 +615,7 @@ class BatchPatcherViewModel(
                 messages.show(R.string.home_invalid_apk_io_error)
                 return@launch
             }
-            coordinator.attachApk(itemId, file)
+            choosePatchesOnceResolved(itemId, coordinator.attachApk(itemId, file))
         }
     }
 

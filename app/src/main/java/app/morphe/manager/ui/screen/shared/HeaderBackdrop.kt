@@ -5,19 +5,14 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
@@ -36,10 +31,10 @@ class HeaderBackdrop {
     private var source by mutableStateOf<ScrollableState?>(null)
 
     /**
-     * Whether the list runs on under the header. False while no list is handed over, such as while
-     * one loads, so the header rests bare until there is something to scroll under it.
+     * How far the list runs on under the header, see [hiddenAtStart]. None while no list is handed
+     * over, such as while one loads, so the header rests bare until there is something under it.
      */
-    val scrolledUnder: Boolean get() = source?.canScrollBackward ?: false
+    val scrolledPast: Float get() = source?.hiddenAtStart() ?: 0f
 
     internal fun track(state: ScrollableState) {
         source = state
@@ -64,30 +59,32 @@ internal fun TrackHeaderBackdrop(state: ScrollableState) {
 }
 
 /**
- * A header's band of [glass] in [shape], blurring [haze], laid down while [scrolledUnder] says the
- * content runs on under the header and faded out at rest. Laid behind the header's content, filling it.
+ * How far content scrolls under a header before its [HeaderBand] is fully down: the room a page
+ * leaves between the header and its first line, so the band is whole by the time that line meets it.
+ */
+private val HeaderBandFadeDistance = Defaults.SpaceMedium
+
+/**
+ * A header's band of [glass] in [shape], blurring [haze], laid down as the content runs on under the
+ * header and gone at rest. Laid behind the header's content, filling it.
  *
- * @param scrolledUnder Read as the content scrolls, though the band only follows it as it flips.
+ * The band follows the scroll rather than easing in on a timer, so it is down by the time the content
+ * reaches it however fast that comes, and lifts as smoothly as the content is scrolled back.
+ *
+ * @param scrolledPast How far the content runs on under the header, read as it draws so the scroll
+ *   never recomposes the band.
  */
 @Composable
 fun BoxScope.HeaderBand(
     glass: Color,
     shape: Shape,
-    scrolledUnder: () -> Boolean,
+    scrolledPast: () -> Float,
     haze: HazeState? = LocalBackdropHaze.current
 ) {
-    val current = rememberUpdatedState(scrolledUnder)
-    // Only the flip recomposes, not every step of the scroll it is worked out from
-    val under by remember { derivedStateOf { current.value() } }
-    val shown by animateFloatAsState(
-        targetValue = if (under) 1f else 0f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "header_band"
-    )
     Box(
         modifier = Modifier
             .matchParentSize()
-            .graphicsLayer { alpha = shown }
+            .graphicsLayer { alpha = (scrolledPast() / HeaderBandFadeDistance.toPx()).coerceIn(0f, 1f) }
             .glassFill(glass, shape, haze)
     )
 }

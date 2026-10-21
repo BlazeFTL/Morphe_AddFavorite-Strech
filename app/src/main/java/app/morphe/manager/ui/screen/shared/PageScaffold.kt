@@ -122,7 +122,7 @@ fun PinnedHeaderPage(
         topBar = {
             Box(modifier = Modifier.fillMaxWidth()) {
                 // Bare at rest, the band laid down once the page scrolls on under the header
-                HeaderBand(appAccentFill(null), HeaderBandShape, scrolledUnder = { scrollState.canScrollBackward }, haze = haze)
+                HeaderBand(appAccentFill(null), HeaderBandShape, scrolledPast = { scrollState.hiddenAtStart() }, haze = haze)
                 Column(
                     modifier = Modifier
                         .align(Alignment.TopCenter)

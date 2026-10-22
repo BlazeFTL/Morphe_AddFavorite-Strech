@@ -1,0 +1,52 @@
+name: Sync upstream
+
+on:
+  schedule:
+    - cron: '30 23 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: dev
+          fetch-depth: 0
+          token: ${{ secrets.SYNC_PAT || secrets.GITHUB_TOKEN }}
+
+      - name: Merge upstream
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config merge.ours.driver true
+          echo "README.md merge=ours" >> .git/info/attributes
+          git remote add upstream https://github.com/MorpheApp/morphe-manager.git
+          git fetch --no-tags upstream dev
+          if git merge-base --is-ancestor upstream/dev HEAD; then
+            echo "Already up to date"
+            exit 0
+          fi
+          BEFORE=$(git rev-parse HEAD)
+          git merge --no-edit upstream/dev || {
+            CONFLICTS=$(git diff --name-only --diff-filter=U)
+            if [ "$CONFLICTS" = "README.md" ]; then
+              git checkout --ours README.md
+              git add README.md
+              git commit --no-edit
+            else
+              git merge --abort
+              echo "::error::Unresolved conflicts: $CONFLICTS"
+              exit 1
+            fi
+          }
+          git checkout "$BEFORE" -- README.md
+          git diff --cached --quiet || git commit -m "chore: Keep fork README"
+          git push origin HEAD:dev

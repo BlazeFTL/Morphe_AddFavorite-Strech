@@ -456,6 +456,7 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="batch_patch_title">Patching di gruppo</string>
     <string name="batch_patch_planning">Preparazione della coda…</string>
     <string name="batch_patch_preparing_next">Preparazione dell\'app successiva…</string>
+    <string name="batch_patch_progress_counter">Applicazione della patch %1$s di %2$s</string>
     <string name="batch_patch_summary">%1$s patchati, %2$s non riusciti, %3$s saltati</string>
     <string name="batch_patch_saved_hint">Le app modificate sono state salvate. Installale ora o in seguito dall\'elenco APK modificate nelle impostazioni</string>
     <string name="batch_patch_multiple_sources">Alcune app combinano patch da più fonti, il che può causare conflitti</string>
@@ -797,7 +798,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_greeting_phrases">Frasi di saluto</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Mostra un messaggio di saluto</string>
     <string name="settings_appearance_repatch_notice">Avviso di re-patch</string>
-    <string name="settings_appearance_repatch_notice_description">Mostra un banner quando le applicazionj modificate possono essere rimodificate</string>
+    <string name="settings_appearance_repatch_notice_description">Mostra un banner quando le applicazioni modificate possono essere rimodificate</string>
     <string name="settings_appearance_app_card_colors">Colori delle schede app</string>
     <string name="settings_appearance_app_card_colors_default">Predefinita</string>
     <string name="settings_appearance_app_card_colors_default_description">Assegna a ciascuna app il colore del proprio bundle</string>
@@ -1064,6 +1065,7 @@ Dettagli: %2$s"</string>
     <string name="settings_system_process_runtime">Runtime del patcher</string>
     <string name="settings_system_jvm_runtime_enable">Utilizza VM integrata</string>
     <string name="settings_system_jvm_runtime_description">Patch in una JVM che Morphe trasporta, che può utilizzare tutta la memoria disponibile dal dispositivo. Disattivare per applicare le patch con il runtime di Android</string>
+    <string name="settings_system_jvm_runtime_unavailable">Richiede un dispositivo con processore ARM oppure un processore x86 a 64 bit.</string>
     <string name="settings_system_patcher_completion_sound">Suono di completamento</string>
     <string name="settings_system_patcher_completion_sound_description">Riproduce un tono specifico per successo o fallimento al termine dell\'applicazione della patch</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1262,7 +1264,7 @@ Dettagli: %2$s"</string>
     <string name="settings_section_appearance_summary">Aspetto di Morphe</string>
     <string name="settings_section_patch_options_summary">Ciò che la modalità semplice patcha nelle app</string>
     <string name="settings_section_general">Generale</string>
-    <string name="settings_section_patcher_summary">Come le applicazionj vengono modificate su questo dispositivo</string>
+    <string name="settings_section_patcher_summary">Come le applicazioni vengono modificate su questo dispositivo</string>
     <string name="settings_section_help_info"><b>Help &amp; info</b></string>
     <string name="settings_section_about_summary">Maggiori informazioni su Morphe e come ottenere aiuto</string>
     <string name="settings_section_local_files">File</string>
@@ -1322,6 +1324,7 @@ Dettagli: %2$s"</string>
     <string name="reset_order">Ripristina ordine</string>
     <string name="reset_order_done">Ordine resettato</string>
     <string name="accessibility_select_app">Seleziona app</string>
+    <string name="accessibility_select_source">Seleziona la sorgente</string>
     <string name="accessibility_move_up">Sposta in alto</string>
     <string name="accessibility_move_down">Sposta in basso</string>
     <string name="accessibility_app_moved_announcement">%1$s spostato nella posizione %2$s di %3$s</string>

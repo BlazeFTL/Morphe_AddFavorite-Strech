@@ -699,7 +699,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="plugin_activity_dialog_body">Bu eklentinin çalışmaya devam edebilmesi için kullanıcı etkileşimi gereklidir</string>
     <string name="patcher_process_killed_message">Sistem, genellikle bellek açmak için, yama işlemini tamamlanmadan durdurdu. Diğer uygulamaları kapatın ve tekrar deneyin</string>
     <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
-    <string name="patcher_out_of_memory_message">Patcher %1$s MB yığın bellek ile çalışmayı bıraktı. Bu uygulama seçilen yamalar için çok büyük. Daha az yama kaynağıyla yama yapmayı deneyin veya daha az yama seçin</string>
+    <string name="patcher_out_of_memory_message">Yamalayıcı belleği %1$s MB yığın ile tükendi. Bu uygulama seçilen yamalar için çok büyük. Daha az yama kaynağıyla yamalamayı deneyin veya daha az yama seçin</string>
     <string name="install_app_success">Başarıyla yüklendi</string>
     <string name="install_app_fail">Uygulama yüklenemedi: %s</string>
     <string name="install_ignore_signature">Yine de yükle</string>

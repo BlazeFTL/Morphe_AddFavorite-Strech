@@ -470,7 +470,7 @@
     <string name="batch_patch_force_version">とにかくパッチを適用する</string>
     <string name="batch_patch_force_version_done">キューに追加しましたが、アプリが正常に動作しない可能性があります</string>
     <string name="batch_patch_accept_signature_done">キューに追加しましたが、APK は検証されていません</string>
-    <string name="batch_patch_apk_selected">APK選択済み</string>
+    <string name="batch_patch_apk_selected">選択済みの APK</string>
     <string name="batch_patch_edit_patches">パッチを選択する</string>
     <string name="batch_patch_state_no_apk">APK がありません</string>
     <string name="batch_patch_state_no_patches">パッチがありません</string>
@@ -1063,9 +1063,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">バッテリーの最適化</string>
     <string name="settings_system_battery_optimization_description">アプリを閉じていても、パッチャーを実行し続けます</string>
-    <string name="settings_system_process_runtime">パッチャーの実行時環境</string>
-    <string name="settings_system_jvm_runtime_enable">埋め込みVMを使用する</string>
-    <string name="settings_system_jvm_runtime_description">Morphe が搭載する Java VM のパッチ。デバイスの空きメモリを最大限に使用できます。Android の実行時環境を使用してパッチを適用するには、この設定をオフにしてください</string>
+    <string name="settings_system_process_runtime">パッチャーのランタイム</string>
+    <string name="settings_system_jvm_runtime_enable">組み込み VM を使用</string>
+    <string name="settings_system_jvm_runtime_description">Morphe が搭載する Java VM を用いてパッチを適用します。このランタイムは、デバイスの空きメモリを最大限に活用できます。Android のランタイムを用いてパッチを適用する場合は、この設定をオフにしてください</string>
     <string name="settings_system_jvm_runtime_unavailable">ARM または 64 ビットで動作する x86 デバイスが必要です</string>
     <string name="settings_system_patcher_completion_sound">完了音</string>
     <string name="settings_system_patcher_completion_sound_description">パッチ完了時に、結果を知らせるサウンドを再生します</string>
@@ -1157,8 +1157,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">削除可能なキャッシュをすべて消去します</string>
     <string name="settings_system_storage_clear_all_confirm">ネットワーク キャッシュとインストーラー用の一時コピー、一時ファイルを消去します。オリジナルの APK とパッチ適用済み APK は保持されます</string>
     <string name="settings_system_storage_cleared">%s 解放しました</string>
-    <string name="settings_system_storage_patch_running_warning">パッチが実行中でこれらのファイルを使用しています。今すぐ削除すると失敗します</string>
-    <string name="settings_system_storage_clear_anyway">それでもクリア</string>
+    <string name="settings_system_storage_patch_running_warning">現在パッチが実行されており、これらのファイルを使用しています。これらのファイルを削除すると、パッチの実行に失敗します</string>
+    <string name="settings_system_storage_clear_anyway">とにかく削除</string>
     <string name="settings_system_storage_nothing_to_clear">消去する物はありません</string>
     <string name="settings_system_storage_open_app_info_title">Android アプリのストレージを開く</string>
     <string name="settings_system_storage_open_app_info_description">システム設定から Morphe のデータを管理または消去します</string>

@@ -107,20 +107,20 @@
         <item quantity="other">คุณสมบัติ %s รายการ</item>
     </plurals>
     <plurals name="changelog_fix_count">
-        <item quantity="other">การแก้ไข %s</item>
+        <item quantity="other">การแก้ไข %s รายการ</item>
     </plurals>
     <plurals name="changelog_performance_count">
         <item quantity="other">การเพิ่มประสิทธิภาพ %s รายการ</item>
     </plurals>
     <plurals name="changelog_change_count">
-        <item quantity="other">การเปลี่ยนแปลง %s</item>
+        <item quantity="other">การเปลี่ยนแปลง %s รายการ</item>
     </plurals>
     <!-- Value of the Apps row on a source card when apps were left out on arrival, for example "3/232 · 2 new". %1$s is the app count, %2$d the new apps -->
     <plurals name="sources_apps_count_with_new">
         <item quantity="other">%1$s · %2$d ใหม่</item>
     </plurals>
     <plurals name="changelog_new_releases">
-        <item quantity="other">รุ่นใหม่ %s</item>
+        <item quantity="other">รุ่นใหม่ %s รุ่น</item>
     </plurals>
     <plurals name="app_links_count_enabled">
         <item quantity="other">เปิดใช้งานแล้ว %d ลิงก์</item>

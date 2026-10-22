@@ -698,7 +698,7 @@
     <string name="failed_to_execute_patch">فشل تطبيق %s</string>
     <string name="patched_app_save_failed_toast">فشل حفظ التطبيق المعدل</string>
     <string name="plugin_activity_dialog_body">يلزم تفاعل المستخدم للمتابعة باستخدام هذا المكون الإضافي</string>
-    <string name="patcher_process_killed_message">أوقف النظام أداة التعديل قبل إتمام عملها، وعادةً ما يحدث ذلك لتوفير مساحة في الذاكرة. أغلق التطبيقات الأخرى وحاول مجددًا.</string>
+    <string name="patcher_process_killed_message">أوقف النظام أداة التعديل قبل إتمام عملها، وعادةً ما يحدث ذلك لتوفير مساحة في الذاكرة. أغلق التطبيقات الأخرى وحاول مجددًا</string>
     <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
     <string name="patcher_out_of_memory_message">نفدت ذاكرة أداة التعديل، حيث بلغ حجم الكومة %1$s ميجابايت. هذا التطبيق كبير جدًا بالنسبة للتعديلات المحددة. حاول التعديل باستخدام عدد أقل من مصادر التعديل، أو حدد عددًا أقل من التعديلات
 
@@ -1264,7 +1264,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Sections the settings page lists, each opening a page of its own. A summary names what the section holds -->
     <string name="settings_section_patcher">أداة التعديل</string>
     <string name="settings_section_updates">التحديثات</string>
-    <string name="settings_section_patching">جارٍ التعديل</string>
+    <string name="settings_section_patching">التعديل</string>
     <string name="settings_section_appearance_summary">شكل تطبيق Morphe</string>
     <string name="settings_section_patch_options_summary">ما الذي يقوم الوضع البسيط بتعديله في التطبيقات؟</string>
     <string name="settings_section_general">عام</string>

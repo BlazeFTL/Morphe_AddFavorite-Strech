@@ -452,7 +452,7 @@
     <string name="header_creator_guide_positioning_title">ตำแหน่งและการปรับขนาด</string>
     <string name="header_creator_guide_positioning_body">ลากและบีบภาพในตัวแก้ไข หรือปรับขนาดด้วยแถบเลื่อน กล่องเส้นประแสดงตำแหน่งของโลโก้เริ่มต้น และเส้นบอกแนวจะปรากฏขึ้นเมื่อภาพจัดแนวตรงกับกล่องนั้น</string>
     <!-- Batch patching -->
-    <string name="batch_patch_action">แพตช์ถูกเลือก</string>
+    <string name="batch_patch_action">แพตช์ที่ถูกเลือก</string>
     <string name="batch_patch_title">การแพตช์เป็นชุด</string>
     <string name="batch_patch_planning">กำลังเตรียมคิว…</string>
     <string name="batch_patch_preparing_next">กำลังเตรียมแอปถัดไป…</string>
@@ -469,7 +469,7 @@
     <string name="batch_patch_force_version">แพตช์อยู่ดี</string>
     <string name="batch_patch_force_version_done">จัดคิวไว้แล้วก็ตาม แอปอาจพัง</string>
     <string name="batch_patch_accept_signature_done">จัดคิวไว้แล้วก็ตาม APK ไม่ได้รับการตรวจสอบ</string>
-    <string name="batch_patch_apk_selected">APK ที่เลือก</string>
+    <string name="batch_patch_apk_selected">เลือก APK แล้ว</string>
     <string name="batch_patch_edit_patches">เลือกแพตช์</string>
     <string name="batch_patch_state_no_apk">ไม่มี APK</string>
     <string name="batch_patch_state_no_patches">ไม่มีแพตช์</string>
@@ -649,8 +649,8 @@
     <string name="patcher_step_prepare_split_apk">รวม APK รูปแบบ Split </string>
     <string name="patcher_step_unpack">อ่านไฟล์ APK</string>
     <string name="patcher_step_group_saving">กำลังบันทึก</string>
-    <string name="patcher_step_write_patched">กำลังเขียนไฟล์ APK ที่ได้รับการแพตช์</string>
-    <string name="patcher_step_sign_apk">กำลังลงนามไฟล์ APK ที่ได้รับการแพตช์</string>
+    <string name="patcher_step_write_patched">กำลังเขียนไฟล์ APK ที่ถูกแพตช์</string>
+    <string name="patcher_step_sign_apk">กำลังลงนามไฟล์ APK ที่ถูกแพตช์</string>
     <!-- Battery optimization pre-flight dialog -->
     <string name="battery_optimization_dialog_title">การป้องกันการปรับแก้เบื้องหลัง</string>
     <string name="battery_optimization_dialog_description">อุปกรณ์บางเครื่องอาจหยุดโปรแกรมปรับแก้เมื่อแอปพลิเคชันถูกลดขนาด อนุญาตให้ Morphe ทำงานโดยไม่มีข้อจำกัดด้านแบตเตอรี่เพื่อให้แน่ใจว่าการปรับแก้เสร็จสมบูรณ์ได้อย่างน่าเชื่อถือ</string>
@@ -696,9 +696,9 @@
     <string name="failed_to_execute_patch">ไม่สามารถใช้ %s ได้</string>
     <string name="patched_app_save_failed_toast">ไม่สามารถบันทึกแอปที่แพตช์แล้วได้</string>
     <string name="plugin_activity_dialog_body">ต้องมีการติดต่อผู้ใช้เพื่อดำเนินการต่อไปนี้</string>
-    <string name="patcher_process_killed_message">ระบบหยุดผู้ปรับแต่งก่อนจะเสร็จสิ้น โดยปกติเพื่อ освободить memory ปิดแอปพลิเคชันอื่นแล้วลองอีกครั้ง</string>
+    <string name="patcher_process_killed_message">ระบบหยุดการทำงานของตัวแพตช์ก่อนที่จะเสร็จสิ้น โดยปกติแล้วเพื่อเพิ่มพื้นที่ว่างในหน่วยความจำ โปรดปิดแอปอื่นๆ แล้วลองใหม่อีกครั้ง</string>
     <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
-    <string name="patcher_out_of_memory_message">ตัวแพตช์ทำงานล้มเหลวเนื่องจากหน่วยความจำหมดโดยมีฮีปขนาด %1$s MB แอปพลิเคชันนี้มีขนาดใหญ่เกินไปสำหรับแพตช์ที่เลือก ลองแพตช์โดยใช้แหล่งแพตช์น้อยลง หรือเลือกแพตช์ให้น้อยลง</string>
+    <string name="patcher_out_of_memory_message">ตัวแพตช์ทำงานล้มเหลวเนื่องจากหน่วยความจำหมดโดยมีฮีปขนาด %1$s MB แอปนี้มีขนาดใหญ่เกินไปสำหรับแพตช์ที่เลือก ลองแพตช์โดยใช้แหล่งแพตช์น้อยลง หรือเลือกแพตช์ให้น้อยลง</string>
     <string name="install_app_success">ติดตั้งสำเร็จแล้ว</string>
     <string name="install_app_fail">ไม่สามารถติดตั้งแอปได้: %s</string>
     <string name="install_ignore_signature">ติดตั้งต่อไป</string>
@@ -797,7 +797,7 @@
     <string name="settings_appearance_greeting_phrases">วลีทักทาย</string>
     <string name="settings_appearance_greeting_phrases_subtitle">แสดงข้อความทักทาย</string>
     <string name="settings_appearance_repatch_notice">ประกาศการแพตช์ซ้ำ</string>
-    <string name="settings_appearance_repatch_notice_description">แสดงแบนเนอร์เมื่อแอปที่แพทช์แล้วสามารถแพทช์ซ้ำได้</string>
+    <string name="settings_appearance_repatch_notice_description">แสดงแบนเนอร์เมื่อแอปที่แพตช์แล้วสามารถแพตช์ซ้ำได้</string>
     <string name="settings_appearance_app_card_colors">สีการ์ดแอป</string>
     <string name="settings_appearance_app_card_colors_default">ค่าเริ่มต้น</string>
     <string name="settings_appearance_app_card_colors_default_description">กำหนดสีให้บันเดิลของแต่ละแอป</string>
@@ -864,7 +864,7 @@
     <string name="settings_advanced_update_interval_monthly">รายเดือน</string>
     <string name="settings_advanced_update_interval_battery_warning">การตรวจสอบพื้นหลังอาจไม่ทำงานได้อย่างมั่นคงบนบางอุปกรณ์. ผู้ผลิตเช่น Xiaomi, Huawei, Samsung, และ OnePlus บ่อยครั้งจำกัดขั้นตอนการทำงานพื้นหลังอย่างเข้มงวดเพื่อประหยัดแบตเตอรี่</string>
     <string name="settings_advanced_external_batch_patch">อนุญาตให้ทริกเกอร์ภายนอก</string>
-    <string name="settings_advanced_external_batch_patch_description">อนุญาตให้แอปอัตโนมัติเริ่มการแพทช์แบบกลุ่ม</string>
+    <string name="settings_advanced_external_batch_patch_description">อนุญาตให้แอปอัตโนมัติเริ่มการแพตช์แบบกลุ่ม</string>
     <string name="external_batch_patch_title">เริ่มแพตช์กลุ่ม?</string>
     <string name="external_batch_patch_description">%s ต้องการให้ Morphe แพตช์และติดตั้งแอป</string>
     <string name="external_batch_patch_trust_caller">อนุญาตแอปนี้เสมอ</string>
@@ -887,7 +887,7 @@
     <string name="notification_mount_replaced_text">v%1$s แทนที่ v%2$s ที่ถูกแพตช์ เปิด Morphe เพื่อกู้คืน</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert_mode">โหมดเชี่ยวชาญ</string>
-    <string name="settings_advanced_expert_mode_description">เปิดใช้งานการตั้งค่าการแพทช์ขั้นสูงและตัวเลือกการแพทช์</string>
+    <string name="settings_advanced_expert_mode_description">เปิดใช้งานการตั้งค่าการแพตช์ขั้นสูงและตัวเลือกการแพตช์</string>
     <string name="settings_advanced_expert_mode_dialog_title">เปิดใช้งานโหมดเชี่ยวชาญ?</string>
     <string name="settings_advanced_expert_mode_dialog_message">โหมดเชี่ยวชาญให้ควบคุมการนำเข้าแปลงมากขึ้น แต่การตั้งค่าค่าไม่ถูกต้องในโหมดเชี่ยวชาญอาจทำให้แอปพลิเคชันไม่สามารถใช้งานได้</string>
     <string name="settings_advanced_strip_unused_libs">ปรับประสิทธิภาพสำหรับสถาปัตยกรรมของอุปกรณ์</string>
@@ -1079,7 +1079,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">เลือกเสียงเรียกเข้า</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_signing_key">คีย์เซ็นชื่อ</string>
-    <string name="settings_system_signing_key_description">สำรองหรือเรียกคืนคีย์ที่ใช้เซ็นแอปที่แพทช์</string>
+    <string name="settings_system_signing_key_description">สำรองหรือเรียกคืนคีย์ที่ใช้เซ็นแอปที่แพตช์</string>
     <string name="settings_system_signing_key_dialog_description">แอปทุกตัวที่ Morphe แพตช์จะเซ็นชื่อด้วยคีย์นี้ เก็บสำเนาไว้ เพราะหากไม่มีคีย์นี้ แอปที่แพตช์แล้วจะอัปเดตได้ก็ต่อเมื่อถอนการติดตั้งออกก่อนเท่านั้น</string>
     <string name="settings_system_signing_key_missing">Morphe จะสร้างคีย์ขึ้นมาเมื่อคุณแพตช์ครั้งแรก</string>
     <string name="settings_system_signing_key_created">สร้างเมื่อ %s</string>

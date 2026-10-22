@@ -1063,7 +1063,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">Оптимізація батареї</string>
     <string name="settings_system_battery_optimization_description">Утримує патчер активним під час згортання застосунку</string>
     <string name="settings_system_process_runtime">Середовище виконання патчера</string>
-    <string name="settings_system_jvm_runtime_enable">Використовувати вбудовану VM</string>
+    <string name="settings_system_jvm_runtime_enable">Вбудована віртуальна машина</string>
     <string name="settings_system_jvm_runtime_description">Патчить у віртуальній машині Java, яку Morphe містить у собі, і вона може використовувати стільки пам\'яті, скільки здатен виділити пристрій. Вимкніть, щоб патчити за допомогою середовища виконання Android</string>
     <string name="settings_system_jvm_runtime_unavailable">Потрібен пристрій ARM або 64-бітний x86</string>
     <string name="settings_system_patcher_completion_sound">Звук завершення</string>

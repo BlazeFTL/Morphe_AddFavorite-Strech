@@ -703,7 +703,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="plugin_activity_dialog_body">Une interaction de l\'utilisateur est nécessaire pour pouvoir poursuivre avec ce plugin</string>
     <string name="patcher_process_killed_message">Le système a arrêté le patcheur avant qu\'il ait terminé, généralement pour libérer de la mémoire. Fermez les autres applications et réessayez</string>
     <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
-    <string name="patcher_out_of_memory_message">Le patcheur a manqué de mémoire avec un tas de %1$s Mo. Cette application est trop volumineuse pour les patchs sélectionnés. Essayez de patcher avec moins de sources de patchs, ou sélectionnez moins de patchs.</string>
+    <string name="patcher_out_of_memory_message">Le patcheur a manqué de mémoire avec un tas de %1$s Mo. Cette application est trop volumineuse pour les patchs sélectionnés. Essayez de patcher avec moins de sources de patchs, ou sélectionnez moins de patchs</string>
     <string name="install_app_success">Installé avec succès</string>
     <string name="install_app_fail">Impossible d\'installer l\'application : %s</string>
     <string name="install_ignore_signature">Installer quand même</string>

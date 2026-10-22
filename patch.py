@@ -10,6 +10,8 @@ patch.py -- apply fork changes to a MorpheApp/morphe-manager checkout (dev branc
   5. Settings > Updates: patch update check at launch limited to every 3/6/12/24 hours,
      picked in a radio dialog
   6. Sources page header: search toggle moved ahead of the actions, order Search, Sort, Add (+)
+  7. Expert patch dialog: bundles with a patch of their own for the app (not only universal
+     ones) are listed first
 
 Anchors are structural (function bodies, call arguments, parameter lists, single
 lines), never pasted multi-line context. Files are found by declaration; the path
@@ -1757,6 +1759,32 @@ def sources_search_first(src):
     return add_last_arg(src, m, calls[0], "searchFirst = true", r"\bsearchFirst\s*=")
 
 
+def bundles_app_first(src):
+    m = mask(src)
+    h = re.search(r"\bfun\s+List<[^\n]*>\.listedWith\s*\(", m)
+    if not h:
+        return None
+    lo = h.end() - 1
+    nxt = m.find("\n    /**", lo)
+    hi = len(m) if nxt < 0 else nxt
+    region = m[lo:hi]
+    if re.search(r"\bbundle\.incompatible\.isNotEmpty\(\)", region):
+        return src
+    hits = list(re.finditer(
+        r"compareByDescending<[^\n]*>\s*\{\s*\(bundle,\s*_\)\s*->\s*bundle\.targetsVersion\s*\}", region))
+    if len(hits) != 1:
+        return None
+    a, b = lo + hits[0].start(), lo + hits[0].end()
+    ind = indent_of(src, a)
+    old = src[a:b]
+    new = (
+        "// A bundle with a patch of its own for the app, not only universal ones, comes ahead of the rest\n"
+        + ind + old.replace("bundle.targetsVersion", "bundle.compatible.isNotEmpty() || bundle.incompatible.isNotEmpty()") + "\n"
+        + ind + "    .thenByDescending { (bundle, _) -> bundle.targetsVersion }"
+    )
+    return src[:a] + new + src[b:]
+
+
 class Workspace:
     def __init__(self, root):
         self.root = root
@@ -1891,6 +1919,7 @@ def build_plan(ws):
     app = locate("ManagerApplication", r"^class\s+ManagerApplication\b", P + "ManagerApplication.kt")
     hbar = locate("HeaderBar", r"\bfun\s+HeaderBar\s*\(", P + "ui/screen/shared/HeaderBar.kt")
     phead = locate("PageHeader", r"\bfun\s+PageHeader\s*\(", P + "ui/screen/shared/PageScaffold.kt")
+    selext = locate("PatchSelectionUtils", r"\bobject\s+PatchSelectionUtils\b", P + "util/PatchSelectionExtensions.kt")
     srcpage = locate("SourcesPageContent", r"\bfun\s+SourcesPageContent\s*\(", P + "ui/screen/sources/SourcesPage.kt")
     patchinfo = ws.find(r"\bclass\s+PatchInfo\b", P + "patcher/patch/PatchInfo.kt")
     toast = ws.find(r"\bfun\s+Context\.toast\s*\(", P + "util/Util.kt")
@@ -2040,6 +2069,7 @@ def build_plan(ws):
         ("page header searchFirst pass-through", phead_pass, False),
     ]))
     plan.append((str(srcpage.relative_to(ws.root)), srcpage, [("sources header search first", sources_search_first, False)]))
+    plan.append((str(selext.relative_to(ws.root)), selext, [("expert bundles with app patches first", bundles_app_first, False)]))
     plan.append((str(comps.relative_to(ws.root)), comps, COMPONENT_EDITS))
     plan.append((str(card.relative_to(ws.root)), card, [
         ("PatchCard params", card_params, False),

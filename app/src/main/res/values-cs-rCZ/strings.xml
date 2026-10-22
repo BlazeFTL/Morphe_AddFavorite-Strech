@@ -583,7 +583,7 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="patcher_field_output_size">Velikost výstupu</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Čas</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Průměrná paměť</string>
     <string name="patcher_field_memory_max">Špička I/O úložiště</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -696,7 +696,9 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="failed_to_execute_patch">Selhalo aplikování %s</string>
     <string name="patched_app_save_failed_toast">Chyba při ukládání zastaralé aplikace</string>
     <string name="plugin_activity_dialog_body">Provedení je vyžadováno pro pokračování v tomto rozšíření</string>
-    <string name="patcher_heap_exhausted_message">Patcheru došla paměť při velikosti haldy %1$d MB. Tato aplikace je pro vybrané patche příliš velká. Zkuste patchovat s menším počtem zdrojů patchů nebo vyberte méně patchů.</string>
+    <string name="patcher_process_killed_message">Systém ukončil patcher před dokončením, obvykle kvůli uvolnění paměti. Zavřete jiné aplikace a zkuste to znovu</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Patcher došel paměť s %1$s MB heapem. Tato aplikace je příliš velká pro vybrané patche. Zkuste patchovat s méně zdrojů patchů nebo vyberte méně patchů</string>
     <string name="install_app_success">Úspěšně nainstalováno</string>
     <string name="install_app_fail">Selhání instalace aplikace: %s</string>
     <string name="install_ignore_signature">Přesto instalovat</string>
@@ -1059,7 +1061,9 @@ Podrobnosti: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimalizace baterie</string>
     <string name="settings_system_battery_optimization_description">Udrží program záplatování spuštěný i při minimalizaci aplikace</string>
-    <string name="settings_system_process_runtime">Doba běhu procesů</string>
+    <string name="settings_system_process_runtime">Runtime patchera</string>
+    <string name="settings_system_jvm_runtime_enable">Použít vestavěný VM</string>
+    <string name="settings_system_jvm_runtime_description">Záplaty v Javovském VM, který Morphe přenáší, které mohou použít tolik paměti, kolik je k dispozici na zařízení. Vypnout pro záplatu s runtime Androidu</string>
     <string name="settings_system_patcher_completion_sound">Zvuk dokončení</string>
     <string name="settings_system_patcher_completion_sound_description">Přehrává odlišný tón pro úspěch nebo neúspěch po dokončení záplatování</string>
     <!-- Settings - System Tab - Notifications Section -->

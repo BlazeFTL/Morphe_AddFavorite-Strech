@@ -470,9 +470,12 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="batch_patch_force_version">Paiste ar aon nós</string>
     <string name="batch_patch_force_version_done">Curtha sa scuaine ar aon nós, d\'fhéadfadh an aip briseadh</string>
     <string name="batch_patch_accept_signature_done">Curtha sa scuaine mar sin féin, APK gan fíorú</string>
+    <string name="batch_patch_apk_selected">Roghnóladh APK</string>
     <string name="batch_patch_edit_patches">Roghnaigh paistí</string>
     <string name="batch_patch_state_no_apk">Gan APK</string>
     <string name="batch_patch_state_no_patches">Gan paistí</string>
+    <string name="batch_patch_state_no_selection">Gan aon roghnaithe</string>
+    <string name="batch_patch_no_selection">Níl aon cheann de na patais atá ar fáil roghnaithe</string>
     <string name="batch_patch_policy_install">Suiteáil nuair a bheidh sé críochnaithe</string>
     <string name="batch_patch_policy_install_description">Suiteálann sé gach aip phaisteáilte díreach tar éis don scuaine a bheith críochnaithe. Coinníonn sé na APKanna le haghaidh níos déanaí má bhíonn sé múchta.</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="patcher_field_output_size">Méid aschuir</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Am</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Meánchuimhne</string>
     <string name="patcher_field_memory_max">Uasmhéid cuimhne</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +698,8 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="patched_app_save_failed_toast">Theip ar aip chomhfhiosach a shábháil</string>
     <string name="plugin_activity_dialog_body">Tá idirghníomhaíocht úsáideora ag teastáil chun dul ar aghaidh leis an mbreiseán seo</string>
     <string name="patcher_process_killed_message">Chuir an córas stop leis an gclár paisteála sular chríochnaigh sé, de ghnáth chun cuimhne a shaoradh. Dún aipeanna eile agus bain triail as arís.</string>
-    <string name="patcher_heap_exhausted_message">Bhí an paisteálaí as cuimhne le carn %1$d MB. Tá an aip seo ró-mhór do na paistí roghnaithe. Bain triail as paisteáil le níos lú foinsí paiste, nó roghnaigh níos lú paistí</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Bhí an paisteálaí as cuimhne le carn %1$s MB. Tá an aip seo ró-mhór do na paistí roghnaithe. Bain triail as paisteáil le níos lú foinsí paiste, nó roghnaigh níos lú paistí</string>
     <string name="install_app_success">Suiteáilte go rathúil</string>
     <string name="install_app_fail">Theip ar aip a shuiteáil: %s</string>
     <string name="install_ignore_signature">Suiteáil ar aon nós</string>
@@ -1056,9 +1060,9 @@ Sonraí: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Uasmhéadú ceallraí</string>
     <string name="settings_system_battery_optimization_description">Coinníonn an paisteálaí ag rith nuair a bhíonn an aip íoslaghdaithe</string>
-    <string name="settings_system_process_runtime">Am rith an phróisis</string>
-    <string name="settings_system_jvm_runtime_enable">Próiseas paisteála ar leith</string>
-    <string name="settings_system_jvm_runtime_description">Cuireann sé paistí i bhfeidhm laistigh dá thimpeallacht rite Java féin; is féidir leis an oiread cuimhne a úsáid agus atá ar fáil ar an bhfeiste. Múch é seo chun paistí a chur i bhfeidhm laistigh de Morphe.</string>
+    <string name="settings_system_process_runtime">Am rite an phaitseálaí</string>
+    <string name="settings_system_jvm_runtime_enable">Úsáid VM leabaithe</string>
+    <string name="settings_system_jvm_runtime_description">Paistí i VM Java atá á n-iompar ag Morphe, ar féidir leo an oiread cuimhne a úsáid agus atá ar fáil ar an bhfeiste. Múch é seo chun paistí a chur i bhfeidhm ag baint úsáide as am rite Android.</string>
     <string name="settings_system_jvm_runtime_unavailable">Teastaíonn gléas ARM nó x86 64-giotán</string>
     <string name="settings_system_patcher_completion_sound">Fuaim críochnaithe</string>
     <string name="settings_system_patcher_completion_sound_description">Seinneann ton ar leith le haghaidh rath nó teip nuair a chríochnaíonn an paisteáil</string>
@@ -1150,8 +1154,8 @@ Sonraí: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Saorann sé an spás taisce in-athúsáidte go léir ag an am céanna</string>
     <string name="settings_system_storage_clear_all_confirm">Glanann sé seo freagraí líonra taisceáilte, cóipeanna suiteálaí céimnithe, agus comhaid shealadacha. Coinnítear APKanna bunaidh agus paisteáilte.</string>
     <string name="settings_system_storage_cleared">%s saortha</string>
-    <string name="settings_system_storage_patch_running_warning">Tá clòs á rith agus ag baint úsáide as na comhaid seo. Déanfaidh sé teip má chuirtear iad ar shiúl anois</string>
-    <string name="settings_system_storage_clear_anyway">Glan go halainn</string>
+    <string name="settings_system_storage_patch_running_warning">Tá paiste ag rith agus úsáideann sé na comhaid seo. Má ghlanann tú iad anois, teipfidh air.</string>
+    <string name="settings_system_storage_clear_anyway">Glan ar aon nós</string>
     <string name="settings_system_storage_nothing_to_clear">Ní rud ar bith le glanadh</string>
     <string name="settings_system_storage_open_app_info_title">Oscail stóras aipeanna Android</string>
     <string name="settings_system_storage_open_app_info_description">Bainistigh nó glan na sonraí Morphe go léir trí shocruithe an chórais</string>

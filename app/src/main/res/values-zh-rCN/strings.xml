@@ -583,7 +583,7 @@
     <string name="patcher_field_output_size">输出大小</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">时间</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">平均内存</string>
     <string name="patcher_field_memory_max">最大内存</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -696,7 +696,9 @@
     <string name="failed_to_execute_patch">执行 %s 失败</string>
     <string name="patched_app_save_failed_toast">保存修补后的应用失败</string>
     <string name="plugin_activity_dialog_body">需要用户交互才能继续使用此插件</string>
-    <string name="patcher_heap_exhausted_message">补丁程序在堆内存为 %1$d MB 时内存不足。此应用对于所选补丁来说太大。请尝试使用更少的补丁源进行修补，或选择更少的补丁。</string>
+    <string name="patcher_process_killed_message">系统在修补程序完成之前停止，通常是为了释放内存。关闭其他应用并重试</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">修补器在使用 %1$s MB 堆时内存耗尽。此应用对于所选修补程序来说太大了。尝试使用较少的修补源进行修补，或选择较少的修补程序</string>
     <string name="install_app_success">安装成功</string>
     <string name="install_app_fail">应用安装失败：%s</string>
     <string name="install_ignore_signature">仍然安装</string>
@@ -1060,6 +1062,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_battery_optimization">电池优化</string>
     <string name="settings_system_battery_optimization_description">在应用最小化时，保持修补程序运行</string>
     <string name="settings_system_process_runtime">修补程序运行时</string>
+    <string name="settings_system_jvm_runtime_enable">使用嵌入式虚拟机</string>
+    <string name="settings_system_jvm_runtime_description">Morphe 携带的 Java 虚拟机中的补丁，可使用设备剩余的所有内存。关闭后将以 Android 运行时进行补丁操作</string>
     <string name="settings_system_patcher_completion_sound">完成提示音</string>
     <string name="settings_system_patcher_completion_sound_description">修补完成后，播放不同的提示音以表示成功或失败</string>
     <!-- Settings - System Tab - Notifications Section -->

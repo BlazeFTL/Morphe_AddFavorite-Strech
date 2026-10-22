@@ -469,9 +469,12 @@
     <string name="batch_patch_force_version">به‌هرحال پچ کن</string>
     <string name="batch_patch_force_version_done">به‌هرحال در صف قرار گرفت؛ ممکن است برنامه از کار بیفتد</string>
     <string name="batch_patch_accept_signature_done">به‌هرحال در صف قرار گرفت؛ APK تأیید نشده است</string>
+    <string name="batch_patch_apk_selected">APK انتخاب شده است</string>
     <string name="batch_patch_edit_patches">انتخاب پچ‌ها</string>
     <string name="batch_patch_state_no_apk">بدون APK</string>
     <string name="batch_patch_state_no_patches">بدون پچ</string>
+    <string name="batch_patch_state_no_selection">هیچ‌کدام انتخاب نشده‌اند</string>
+    <string name="batch_patch_no_selection">هیچ‌یک از پچ‌های موجود انتخاب نشده‌اند</string>
     <string name="batch_patch_policy_install">پس از پایان نصب شود</string>
     <string name="batch_patch_policy_install_description">هر برنامهٔ پچ‌شده را بلافاصله پس از پایان صف نصب می‌کند. خاموش‌کردن آن APKها را برای بعد نگه می‌دارد</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +583,7 @@
     <string name="patcher_field_output_size">اندازهٔ خروجی</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">زمان</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">میانگین حافظه</string>
     <string name="patcher_field_memory_max">حداکثر حافظه</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +696,9 @@
     <string name="failed_to_execute_patch">اعمال %s ناموفق بود</string>
     <string name="patched_app_save_failed_toast">ذخیرهٔ برنامهٔ پچ‌شده ناموفق بود</string>
     <string name="plugin_activity_dialog_body">برای ادامهٔ کار این افزونه، تعامل کاربر لازم است</string>
-    <string name="patcher_heap_exhausted_message">پچر با هیپ %1$d مگابایتی حافظه‌اش را تمام کرد. این برنامه برای پچ‌های انتخاب‌شده بیش از حد بزرگ است. با منابع پچ کمتر یا پچ‌های کمتری دوباره تلاش کنید</string>
+    <string name="patcher_process_killed_message">سیستم قبل از اتمام فرآیند لکه‌گیر، آن را متوقف کرد، معمولاً برای آزادسازی حافظه. برنامه‌های دیگر را ببندید و دوباره تلاش کنید</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">پچر با هیپ %1$s مگابایتی حافظه‌اش را تمام کرد. این برنامه برای پچ‌های انتخاب‌شده بیش از حد بزرگ است. با منابع پچ کمتر یا پچ‌های کمتری دوباره تلاش کنید</string>
     <string name="install_app_success">با موفقیت نصب شد</string>
     <string name="install_app_fail">نصب برنامه ناموفق بود: %s</string>
     <string name="install_ignore_signature">به‌هرحال نصب کن</string>
@@ -1056,7 +1061,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">بهینه‌سازی باتری</string>
     <string name="settings_system_battery_optimization_description">پچر را هنگام کوچک‌شدن برنامه در حال اجرا نگه می‌دارد</string>
-    <string name="settings_system_process_runtime">زمان اجرای فرایند</string>
+    <string name="settings_system_process_runtime">زمان اجرای اصلاح‌کننده</string>
+    <string name="settings_system_jvm_runtime_enable">استفاده از VM تعبیه‌شده</string>
+    <string name="settings_system_jvm_runtime_description">اصلاحاتی در VM جاوا که Morphe حمل می‌کند، که می‌تواند تا حد حافظه موجود دستگاه استفاده کند. برای اعمال اصلاحات با زمان اجرای Android غیرفعال کنید</string>
     <string name="settings_system_patcher_completion_sound">صدای پایان</string>
     <string name="settings_system_patcher_completion_sound_description">هنگام پایان پچ‌کردن، برای موفقیت یا شکست صدایی متمایز پخش می‌کند</string>
     <!-- Settings - System Tab - Notifications Section -->

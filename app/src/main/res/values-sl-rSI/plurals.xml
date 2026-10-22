@@ -4,7 +4,7 @@
         <item quantity="one">%s popravek</item>
         <item quantity="two">%s Popravka</item>
         <item quantity="few">%s popravki</item>
-        <item quantity="other">%s Popravkih</item>
+        <item quantity="other">%s popravkov </item>
     </plurals>
     <!-- Subtitle of the open-source licenses page: how many libraries it lists -->
     <plurals name="library_count">

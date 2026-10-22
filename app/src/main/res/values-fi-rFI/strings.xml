@@ -584,7 +584,7 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="patcher_field_output_size">Tulosteen koko</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Aika</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Keskimääräinen muisti</string>
     <string name="patcher_field_memory_max">Muistin maksimi</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -697,7 +697,9 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="failed_to_execute_patch">Käyttöönotto epäonnistui: %s</string>
     <string name="patched_app_save_failed_toast">Muokatun sovelluksen tallennus epäonnistui</string>
     <string name="plugin_activity_dialog_body">Tämän liitännäisen käyttöönoton jatkamiseksi tarvitaan käyttäjän toimia.</string>
-    <string name="patcher_heap_exhausted_message">Paikkaajalta loppui muisti %1$d MB:n kekomuistilla. Tämä sovellus on liian suuri valituille paikkauksille. Yritä paikata vähemmillä paikkalähteillä tai valitse vähemmän paikkauksia.</string>
+    <string name="patcher_process_killed_message">Järjestelmä pysäytti paikkurin ennen sen valmistumista, yleensä muistin vapauttamiseksi. Sulje muut sovellukset ja yritä uudelleen</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Paikantaja loppui muistin puutteesta %1$s MT:n pinolla. Tämä sovellus on liian suuri valituille paikoille. Kokeile paikantamista vähemmällä paikantalähteellä tai valitse vähemmän paikkoja</string>
     <string name="install_app_success">Asennus onnistui</string>
     <string name="install_app_fail">Sovelluksen asentaminen epäonnistui: %s</string>
     <string name="install_ignore_signature">Asenna silti</string>
@@ -1058,7 +1060,9 @@ Yksityiskohdat: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Akun käytön optimointi</string>
     <string name="settings_system_battery_optimization_description">Pitää paikkaajan käynnissä, kun sovellus on pienennetty</string>
-    <string name="settings_system_process_runtime">Prosessin suoritus</string>
+    <string name="settings_system_process_runtime">Patterin ajoaika</string>
+    <string name="settings_system_jvm_runtime_enable">Käytä sisällytettyä VM:iä</string>
+    <string name="settings_system_jvm_runtime_description">Morpheen käyttämässä Java-VM:ssä olevat korjaukset, jotka voivat käyttää yhtä paljon muistia kuin laite säästää. Kytke pois päältä, jotta korjaus tapahtuu Androidin ajoajan kanssa</string>
     <string name="settings_system_patcher_completion_sound">Valmistumisen ääni</string>
     <string name="settings_system_patcher_completion_sound_description">Toistaa erillisen äänen onnistumisesta tai epäonnistumisesta paikkauksen valmistuttua</string>
     <!-- Settings - System Tab - Notifications Section -->

@@ -583,7 +583,7 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="patcher_field_output_size">Outputstørrelse</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tid</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Gennemsnitligt hukommelsesforbrug</string>
     <string name="patcher_field_memory_max">Maksimalt hukommelsesforbrug</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -696,7 +696,9 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="failed_to_execute_patch">Kunne ikke anvende %s</string>
     <string name="patched_app_save_failed_toast">Kunne ikke gemme patchet app</string>
     <string name="plugin_activity_dialog_body">Brugerinteraktion er nødvendig for at fortsætte med dette plugin</string>
-    <string name="patcher_heap_exhausted_message">Patcheren løb tør for hukommelse med en heap på %1$d MB. Denne app er for stor til de valgte patches. Prøv at patche med færre patchkilder, eller vælg færre patches.</string>
+    <string name="patcher_process_killed_message">Systemet stoppede patcheren, før den var færdig, typisk for at frigøre hukommelse. Luk andre apps, og prøv igen</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Patcheren løb tør for hukommelse med en %1$s MB stor heap. Denne app er for stor til de valgte patches. Prøv at patche med færre patch-kilder, eller vælg færre patches</string>
     <string name="install_app_success">Installeret</string>
     <string name="install_app_fail">Kunne ikke installere app: %s</string>
     <string name="install_ignore_signature">Installer alligevel</string>
@@ -1059,7 +1061,9 @@ Detaljer: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Batterioptimering</string>
     <string name="settings_system_battery_optimization_description">Holder patcheren kørende, når appen er minimeret</string>
-    <string name="settings_system_process_runtime">Proces runtime</string>
+    <string name="settings_system_process_runtime">Patcher-køretid</string>
+    <string name="settings_system_jvm_runtime_enable">Brug indlejret VM</string>
+    <string name="settings_system_jvm_runtime_description">Retter i en Java-VM, som Morphe bærer på, hvilket kan bruge så meget hukommelse, som enheden sparer. Slå fra for at rette med Android\'s køretid</string>
     <string name="settings_system_patcher_completion_sound">Fuldførelseslyd</string>
     <string name="settings_system_patcher_completion_sound_description">Afspiller en særlig tone ved succes eller fiasko, når patching er færdigt</string>
     <!-- Settings - System Tab - Notifications Section -->

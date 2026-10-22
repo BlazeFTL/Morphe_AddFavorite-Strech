@@ -469,9 +469,12 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="batch_patch_force_version">Vseeno popravite</string>
     <string name="batch_patch_force_version_done">Vseeno dodano v čakalno vrsto, aplikacija se lahko pokvari</string>
     <string name="batch_patch_accept_signature_done">Vseeno dodano v čakalno vrsto, APK ni preverjen</string>
+    <string name="batch_patch_apk_selected">%s izbrani</string>
     <string name="batch_patch_edit_patches">Izberite popravke</string>
     <string name="batch_patch_state_no_apk">Ni APK-ja</string>
     <string name="batch_patch_state_no_patches">Ni popravkov</string>
+    <string name="batch_patch_state_no_selection">Nič izbranega</string>
+    <string name="batch_patch_no_selection">Noben od razpoložljivih popravkov ni izbran</string>
     <string name="batch_patch_policy_install">Namestite po končanem postopku</string>
     <string name="batch_patch_policy_install_description">Vsaka popravljena aplikacija se namesti takoj po končanem postopku. Izklopljeno shrani APK-je za kasnejšo uporabo</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +583,7 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="patcher_field_output_size">Velikost izhoda</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Čas</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Povprečje pomnilnika</string>
     <string name="patcher_field_memory_max">Maksimum pomnilnika</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +696,9 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="failed_to_execute_patch">Ni uspelo nanesti %s</string>
     <string name="patched_app_save_failed_toast">Ni uspelo shraniti popravljene aplikacije</string>
     <string name="plugin_activity_dialog_body">Za nadaljevanje s tem dodatkom je potrebna uporabniško sodelovanje.</string>
-    <string name="patcher_heap_exhausted_message">Patcherju je zmanjkalo pomnilnika s kopico velikosti %1$d MB. Ta aplikacija je prevelika za izbrane popravke. Poskusite uporabiti manj virov popravkov ali izberite manj popravkov.</string>
+    <string name="patcher_process_killed_message">Sistem je ustavil popravnik preden je končal, običajno da sprostili pomnilnik. Zaprite druge aplikacije in poskusite znova</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Popravljalnik je porabil ves razpoložljiv pomnilnik z <b>%1$s</b> MB delovnim pomnilnikom. Ta aplikacija je prevelika za izbrane popravke. Poskusite popravljati z manj viri popravkov ali izberite manj popravkov</string>
     <string name="install_app_success">Namestitev je uspela</string>
     <string name="install_app_fail">Ni uspelo namestiti aplikacije: %s</string>
     <string name="install_ignore_signature">Namesti vse ostalo</string>
@@ -1056,7 +1061,9 @@ Podrobnosti: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimizacija baterije</string>
     <string name="settings_system_battery_optimization_description">Ohranja popravek v teku, ko je aplikacija pomanjšana</string>
-    <string name="settings_system_process_runtime">Čas izvajanja procesa</string>
+    <string name="settings_system_process_runtime">Časovno delovanje popravljalnika</string>
+    <string name="settings_system_jvm_runtime_enable">Uporabljaj vdelani VM</string>
+    <string name="settings_system_jvm_runtime_description">Popravki v navideznem stroju Java, ki ga uporablja Morphe, ki lahko porabi toliko pomnilnika, kot ga naprava omogoča. Izključite za popravljanje z časovnim delovanjem Androida</string>
     <string name="settings_system_patcher_completion_sound">Zvočni signal ob zaključku</string>
     <string name="settings_system_patcher_completion_sound_description">Predvaja ločen ton za uspeh ali neuspeh ob koncu popravka</string>
     <!-- Settings - System Tab - Notifications Section -->

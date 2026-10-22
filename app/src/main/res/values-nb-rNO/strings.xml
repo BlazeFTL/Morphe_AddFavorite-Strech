@@ -468,9 +468,12 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="batch_patch_force_version">Patch uansett</string>
     <string name="batch_patch_force_version_done">Satt i kø likevel, appen kan krasje</string>
     <string name="batch_patch_accept_signature_done">Satt i kø likevel, APK ikke verifisert</string>
+    <string name="batch_patch_apk_selected">APK valgt</string>
     <string name="batch_patch_edit_patches">Velg patcher</string>
     <string name="batch_patch_state_no_apk">Ingen APK</string>
     <string name="batch_patch_state_no_patches">Ingen patcher</string>
+    <string name="batch_patch_state_no_selection">Ingen valgt</string>
+    <string name="batch_patch_no_selection">Ingen av de tilgjengelige oppdateringene er valgt</string>
     <string name="batch_patch_policy_install">Installer når ferdig</string>
     <string name="batch_patch_policy_install_description">Installerer hver patchede app rett etter at køen er ferdig. Av slår på beholder APK-ene for senere</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -579,7 +582,7 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="patcher_field_output_size">Utdatastørrelse</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tid</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Gjennomsnittlig minne</string>
     <string name="patcher_field_memory_max">Maksimalt minne</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -692,7 +695,9 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="failed_to_execute_patch">Kunne ikke bruke %s</string>
     <string name="patched_app_save_failed_toast">Kunne ikke lagre patchet app</string>
     <string name="plugin_activity_dialog_body">Brukerinteraksjon er nødvendig for å fortsette med dette pluginet</string>
-    <string name="patcher_heap_exhausted_message">Patcheren gikk tom for minne med en heap på %1$d MB. Denne appen er for stor for de valgte patcherene. Prøv å patche med færre patchkilder, eller velg færre patcher.</string>
+    <string name="patcher_process_killed_message">Systemet stoppet patcheren før den ble ferdig, vanligvis for å frigjøre minne. Lukk andre apper og prøv igjen</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Patcheren løp tom for minne med en %1$s MB heap. Denne appen er for stor for de valgte patchene. Prøv å patche med færre patch-kilder, eller velg færre patcher</string>
     <string name="install_app_success">Installert vellykket</string>
     <string name="install_app_fail">Kunne ikke installere app: %s</string>
     <string name="install_ignore_signature">Installer likevel</string>
@@ -1055,7 +1060,9 @@ Detaljer: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimalisering av batteri</string>
     <string name="settings_system_battery_optimization_description">Holder patchingen i gang når appen minimeres</string>
-    <string name="settings_system_process_runtime">Prosesskjøretid</string>
+    <string name="settings_system_process_runtime">Patcher-kjøretid</string>
+    <string name="settings_system_jvm_runtime_enable">Bruk innebygd VM</string>
+    <string name="settings_system_jvm_runtime_description">Fiks i en Java-VM som Morphe håndterer, som kan bruke så mye minne som enheten har til overs. Skru av for å fikse med Androids kjøretid</string>
     <string name="settings_system_patcher_completion_sound">Fullføringslyd</string>
     <string name="settings_system_patcher_completion_sound_description">Spiller en distinkt tone for suksess eller feil når patching er fullført</string>
     <!-- Settings - System Tab - Notifications Section -->

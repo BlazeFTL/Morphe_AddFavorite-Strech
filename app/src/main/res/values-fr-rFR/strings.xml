@@ -472,12 +472,12 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="batch_patch_force_version">Patcher quand même</string>
     <string name="batch_patch_force_version_done">Mis en file d\'attente quand même, l\'application peut ne plus fonctionner</string>
     <string name="batch_patch_accept_signature_done">Mis en file d\'attente quand même, APK non vérifié</string>
-    <string name="batch_patch_apk_selected">APK sélectionnée</string>
+    <string name="batch_patch_apk_selected">APK sélectionnés</string>
     <string name="batch_patch_edit_patches">Choisissez les patchs</string>
     <string name="batch_patch_state_no_apk">Aucun APK</string>
     <string name="batch_patch_state_no_patches">Aucun patch</string>
-    <string name="batch_patch_state_no_selection">Aucune sélectionnée</string>
-    <string name="batch_patch_no_selection">Aucun des correctifs disponibles n\'est sélectionné</string>
+    <string name="batch_patch_state_no_selection">Aucun sélectionné</string>
+    <string name="batch_patch_no_selection">Aucun des patchs disponibles n\'est sélectionné</string>
     <string name="batch_patch_policy_install">Installer une fois terminé</string>
     <string name="batch_patch_policy_install_description">Installe chaque application patchée juste après la fin de la file d\'attente. Désactivé conserve les APK pour plus tard</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -588,7 +588,7 @@ Restaurer remet la version patchée. Désactive les mises à jour automatiques p
     <string name="patcher_field_output_size">Taille de sortie</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Temps</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Moyenne de la mémoire</string>
     <string name="patcher_field_memory_max">Mémoire maximale</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -702,7 +702,8 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="patched_app_save_failed_toast">Échec de l\'enregistrement de l\'application patchée</string>
     <string name="plugin_activity_dialog_body">Une interaction de l\'utilisateur est nécessaire pour pouvoir poursuivre avec ce plugin</string>
     <string name="patcher_process_killed_message">Le système a arrêté le patcheur avant qu\'il ait terminé, généralement pour libérer de la mémoire. Fermez les autres applications et réessayez</string>
-    <string name="patcher_heap_exhausted_message">Le patcheur a manqué de mémoire avec un tas de %1$d Mo. Cette application est trop volumineuse pour les patchs sélectionnés. Essayez de patcher avec moins de sources de patchs, ou sélectionnez moins de patchs.</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Le patcheur a manqué de mémoire avec un tas de %1$s Mo. Cette application est trop volumineuse pour les patchs sélectionnés. Essayez de patcher avec moins de sources de patchs, ou sélectionnez moins de patchs.</string>
     <string name="install_app_success">Installé avec succès</string>
     <string name="install_app_fail">Impossible d\'installer l\'application : %s</string>
     <string name="install_ignore_signature">Installer quand même</string>
@@ -1067,9 +1068,9 @@ Détails : %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimisation de la batterie</string>
     <string name="settings_system_battery_optimization_description">Maintient le patcheur en cours d\'exécution lorsque l\'application est minimisée</string>
-    <string name="settings_system_process_runtime">Temps d\'exécution du processus</string>
-    <string name="settings_system_jvm_runtime_enable">Processus de patcheur séparé</string>
-    <string name="settings_system_jvm_runtime_description">Patche dans son propre environnement d\'exécution Java, qui peut utiliser autant de mémoire que l\'appareil peut libérer. Désactivez cette option pour patcher directement dans Morphe</string>
+    <string name="settings_system_process_runtime">Environnement d\'exécution du patcheur</string>
+    <string name="settings_system_jvm_runtime_enable">Utiliser la machine virtuelle intégrée</string>
+    <string name="settings_system_jvm_runtime_description">Patche dans une machine virtuelle Java intégrée à Morphe, qui peut utiliser autant de mémoire que l\'appareil peut libérer. Désactivez cette option pour patcher avec l\'environnement d\'exécution d\'Android</string>
     <string name="settings_system_jvm_runtime_unavailable">Nécessite un appareil ARM ou x86 64 bits</string>
     <string name="settings_system_patcher_completion_sound">Son de fin</string>
     <string name="settings_system_patcher_completion_sound_description">Joue un son distinct pour indiquer la réussite ou l\'échec lorsque le patching est terminé</string>
@@ -1376,7 +1377,7 @@ Détails : %2$s"</string>
     <string name="update">Mettre à jour</string>
     <string name="allow">Autoriser</string>
     <string name="hide">Masquer</string>
-    <string name="hidden">Masquée</string>
+    <string name="hidden">Masquées</string>
     <string name="unhide">Afficher</string>
     <string name="show_all">Tout afficher</string>
     <string name="ignore">Ignorer</string>

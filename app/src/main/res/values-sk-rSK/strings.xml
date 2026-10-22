@@ -469,9 +469,12 @@ Pre najlepšie výsledky sa odporúča záplatovať &lt;b&gt;úplný APK&lt;/b&g
     <string name="batch_patch_force_version">Aplikovať aj tak</string>
     <string name="batch_patch_force_version_done">Napriek tomu zaradené do frontu, aplikácia sa môže pokaziť.</string>
     <string name="batch_patch_accept_signature_done">Napriek tomu zaradené do frontu, APK nebolo overené.</string>
+    <string name="batch_patch_apk_selected">APK vybrané</string>
     <string name="batch_patch_edit_patches">Vyberte záplaty</string>
     <string name="batch_patch_state_no_apk">Žiadny APK</string>
     <string name="batch_patch_state_no_patches">Žiadne záplaty</string>
+    <string name="batch_patch_state_no_selection">Nevybrané</string>
+    <string name="batch_patch_no_selection">Žiadny z dostupných záplat nie je vybraný</string>
     <string name="batch_patch_policy_install">Inštalovať po dokončení</string>
     <string name="batch_patch_policy_install_description">Inštaluje každú záplatanú aplikáciu ihneď po dokončení fronty. Vypnutie ponechá APK pre neskôr</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +583,7 @@ Pre najlepšie výsledky sa odporúča záplatovať &lt;b&gt;úplný APK&lt;/b&g
     <string name="patcher_field_output_size">Veľkosť výstupu</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Čas</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Priemerná pamäť</string>
     <string name="patcher_field_memory_max">Maximálna pamäť</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +696,9 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="failed_to_execute_patch">Nepodarilo sa aplikovať %s</string>
     <string name="patched_app_save_failed_toast">Nepodarilo sa uložiť zaplátanú aplikáciu</string>
     <string name="plugin_activity_dialog_body">Vyžaduje sa interakcia používateľa, aby bolo možné pokračovať s týmto pluginom</string>
-    <string name="patcher_heap_exhausted_message">Patcheru došla pamäť s haldou veľkosti %1$d MB. Táto aplikácia je príliš veľká na vybrané patche. Skúste patchovať s menším počtom zdrojov patchov alebo vyberte menej patchov.</string>
+    <string name="patcher_process_killed_message">Systém ukončil patcher pred dokončením, zvyčajne kvôli uvoľneniu pamäte. Zatvorte iné aplikácie a skúste to znova</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Patcher vyčerpal pamäť so zásobníkom %1$s MB. Táto aplikácia je príliš veľká na vybrané záplaty. Skúste patchovať s menej zdrojmi záplat alebo vyberte menej záplat</string>
     <string name="install_app_success">Úspešne nainštalované</string>
     <string name="install_app_fail">Nepodarilo sa nainštalovať aplikáciu: %s</string>
     <string name="install_ignore_signature">Nainštalovať napriek tomu</string>
@@ -1056,7 +1061,9 @@ Podrobnosti: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimalizácia batérie</string>
     <string name="settings_system_battery_optimization_description">Udrží pátrač v prevádzke, keď je aplikácia minimalizovaná</string>
-    <string name="settings_system_process_runtime">Runtime procesu</string>
+    <string name="settings_system_process_runtime">Runtime patchera</string>
+    <string name="settings_system_jvm_runtime_enable">Použiť embednutý VM</string>
+    <string name="settings_system_jvm_runtime_description">Záplaty v Java VM, ktoré Morphe prevádzkuje a ktorá môže využiť toľko pamäte, koľko je dostupné zariadení. Vypnutím zápuíte pomocou runtime Androidu</string>
     <string name="settings_system_patcher_completion_sound">Zvuk úspešného dokončenia</string>
     <string name="settings_system_patcher_completion_sound_description">Prehráva odlišný tón pre úspech alebo zlyhanie po dokončení záplatovania</string>
     <!-- Settings - System Tab - Notifications Section -->

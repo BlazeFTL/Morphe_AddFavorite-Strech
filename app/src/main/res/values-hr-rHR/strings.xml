@@ -587,7 +587,7 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <string name="patcher_field_output_size">Veličina izlaza</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Vrijeme</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Prosječna memorija</string>
     <string name="patcher_field_memory_max">Maksimalna memorija</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -700,7 +700,9 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="failed_to_execute_patch">Nije moguće primijeniti %s</string>
     <string name="patched_app_save_failed_toast">Spremanje patchane aplikacije nije uspjelo</string>
     <string name="plugin_activity_dialog_body">Za nastavak rada s ovim dodatkom potrebna je interakcija korisnika</string>
-    <string name="patcher_heap_exhausted_message">Programu za patchanje je ponestalo memorije s hrpom od %1$d MB. Ova je aplikacija prevelika za odabrane patcheve. Pokušajte patchanje  s manje izvora patcheva ili odaberite manje patcheva</string>
+    <string name="patcher_process_killed_message">Sustav je prekinuo patcher prije nego što je završio, obično kako bi oslobodio memoriju. Zatvorite druge aplikacije i pokušajte ponovno</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Programu za patchanje je ponestalo memorije s hrpom od %1$s MB. Ova je aplikacija prevelika za odabrane patcheve. Pokušajte patchanje  s manje izvora patcheva ili odaberite manje patcheva</string>
     <string name="install_app_success">Uspješno instalirano</string>
     <string name="install_app_fail">Nije moguće instalirati aplikaciju: %s</string>
     <string name="install_ignore_signature">Svejedno instaliraj</string>
@@ -1063,7 +1065,9 @@ Detalji: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimizacija baterije</string>
     <string name="settings_system_battery_optimization_description">Održava aplikaciju pokrenutom čak i kada je minimizirana</string>
-    <string name="settings_system_process_runtime">Izvođenje procesa</string>
+    <string name="settings_system_process_runtime">Izvođenje patchera</string>
+    <string name="settings_system_jvm_runtime_enable">Koristi ugrađeni VM</string>
+    <string name="settings_system_jvm_runtime_description">Poprasci u Java VM-u koje nosi Morphe, koji mogu koristiti toliko memorije koliko uređaj ima na raspolaganju. Isključite za popravak s vremenom izvođenja Androida</string>
     <string name="settings_system_patcher_completion_sound">Zvučni efekt dovršetka</string>
     <string name="settings_system_patcher_completion_sound_description">Reproducira zaseban ton za uspjeh ili neuspjeh kada se patchanje završi</string>
     <!-- Settings - System Tab - Notifications Section -->

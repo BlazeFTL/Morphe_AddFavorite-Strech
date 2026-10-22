@@ -470,9 +470,12 @@
     <string name="batch_patch_force_version">Патчить в любом случае</string>
     <string name="batch_patch_force_version_done">Всё равно поставлено в очередь, приложение может сломаться.</string>
     <string name="batch_patch_accept_signature_done">Всё равно поставлено в очередь, APK не проверен.</string>
+    <string name="batch_patch_apk_selected">APK выбраны</string>
     <string name="batch_patch_edit_patches">Выбрать патчи</string>
     <string name="batch_patch_state_no_apk">Нет APK</string>
     <string name="batch_patch_state_no_patches">Нет патчей</string>
+    <string name="batch_patch_state_no_selection">Не выбрано</string>
+    <string name="batch_patch_no_selection">Ни один из доступных патчей не выбран</string>
     <string name="batch_patch_policy_install">Устанавливать по завершении</string>
     <string name="batch_patch_policy_install_description">Устанавливает каждое пропатченное приложение сразу после завершения очереди. Выкл. сохраняет APK для последующей установки</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@
     <string name="patcher_field_output_size">Размер вывода</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Время</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Средний объем памяти</string>
     <string name="patcher_field_memory_max">Максимальный объем памяти</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +698,8 @@
     <string name="patched_app_save_failed_toast">Не удалось сохранить исправленное приложение</string>
     <string name="plugin_activity_dialog_body">Требуется взаимодействие пользователя для продолжения работы с этим плагином</string>
     <string name="patcher_process_killed_message">Система остановила патчер до его завершения, обычно для освобождения памяти. Закройте другие приложения и попробуйте ещё раз</string>
-    <string name="patcher_heap_exhausted_message">Патчеру не хватило памяти при куче размером %1$d МБ. Это приложение слишком велико для выбранных патчей. Попробуйте использовать меньше источников патчей или выберите меньше патчей.</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Приложению не хватило памяти: куча имела размер %1$s МБ. Приложение слишком большое для выбранных патчей. Попробуйте применить патчи с меньшим количеством источников или выберите меньше патчей</string>
     <string name="install_app_success">Успешно установлено</string>
     <string name="install_app_fail">Не удалось установить приложение: %s</string>
     <string name="install_ignore_signature">Установить в любом случае</string>
@@ -1058,9 +1062,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Оптимизация батареи</string>
     <string name="settings_system_battery_optimization_description">Поддерживает работу патчера при минимизации приложения</string>
-    <string name="settings_system_process_runtime">Время выполнения процесса</string>
-    <string name="settings_system_jvm_runtime_enable">Отдельный процесс патчера</string>
-    <string name="settings_system_jvm_runtime_description">Патчи в собственной среде выполнения Java, которая может использовать столько памяти, сколько есть в наличии на устройстве. Отключите патч внутри Morphe</string>
+    <string name="settings_system_process_runtime">Среда выполнения патчера</string>
+    <string name="settings_system_jvm_runtime_enable">Использовать встроенную ВМ</string>
+    <string name="settings_system_jvm_runtime_description">Патчи в среде выполнения Java, которую использует Morphe, которая может потреблять столько памяти, сколько доступно на устройстве. Отключите, чтобы патчить с помощью среды выполнения Android</string>
     <string name="settings_system_jvm_runtime_unavailable">Требуется ARM или 64-bit x86 устройство</string>
     <string name="settings_system_patcher_completion_sound">Звук завершения</string>
     <string name="settings_system_patcher_completion_sound_description">Воспроизводит отличный тон при успешном или неудачном завершении патчинга</string>

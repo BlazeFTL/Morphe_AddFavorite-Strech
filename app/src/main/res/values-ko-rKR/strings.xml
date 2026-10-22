@@ -470,9 +470,12 @@
     <string name="batch_patch_force_version">버전 강제 적용</string>
     <string name="batch_patch_force_version_done">그래도 패치 목록에 추가됨, 앱이 손상될 수 있음</string>
     <string name="batch_patch_accept_signature_done">그래도 패치 목록에 추가됨, APK가 검증되지 않음</string>
+    <string name="batch_patch_apk_selected">APK 선택됨</string>
     <string name="batch_patch_edit_patches">패치 선택</string>
     <string name="batch_patch_state_no_apk">APK 없음</string>
     <string name="batch_patch_state_no_patches">패치 없음</string>
+    <string name="batch_patch_state_no_selection">선택 안함</string>
+    <string name="batch_patch_no_selection">사용 가능한 패치 중 아무것도 선택되지 않음</string>
     <string name="batch_patch_policy_install">완료 후 설치</string>
     <string name="batch_patch_policy_install_description">패치 목록이 완료되면 패치된 각 앱을 즉시 설치합니다. 비활성화하면 나중에 사용할 수 있도록 APK를 유지합니다</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@
     <string name="patcher_field_output_size">출력 크기</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">시간</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">평균 메모리</string>
     <string name="patcher_field_memory_max">최대 메모리</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +698,8 @@
     <string name="patched_app_save_failed_toast">패치된 앱을 저장할 수 없습니다</string>
     <string name="plugin_activity_dialog_body">이 플러그인을 사용하려면 사용자 상호작용이 필요합니다</string>
     <string name="patcher_process_killed_message">시스템이 메모리를 확보하기 위해 패처가 작업을 완료하기 전에 중단하였습니다. 다른 앱을 종료한 후 다시 시도하세요</string>
-    <string name="patcher_heap_exhausted_message">패처가 %1$d MB 힙 메모리를 사용하는 동안 메모리가 부족해졌습니다. 이 앱은 선택한 패치를 적용하기에는 너무 큽니다. 패치 소스를 더 적게 사용하거나 패치를 더 적게 선택한 후 다시 패치해 보세요</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">패처가 %1$s MB 힙 메모리를 사용하는 동안 메모리가 부족해졌습니다. 이 앱은 선택한 패치를 적용하기에는 너무 큽니다. 패치 소스를 더 적게 사용하거나 패치를 더 적게 선택한 후 다시 패치해 보세요</string>
     <string name="install_app_success">성공적으로 설치하였습니다</string>
     <string name="install_app_fail">앱을 설치할 수 없습니다: %s</string>
     <string name="install_ignore_signature">무시하고 설치</string>
@@ -1058,9 +1062,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">배터리 최적화</string>
     <string name="settings_system_battery_optimization_description">앱이 최소화되어도 패처가 계속 실행되도록 유지합니다</string>
-    <string name="settings_system_process_runtime">프로세스 런타임</string>
-    <string name="settings_system_jvm_runtime_enable">패처 프로세스 분리</string>
-    <string name="settings_system_jvm_runtime_description">패치를 별도의 Java 런타임 환경에서 실행합니다. 이 환경은 기기에서 사용 가능한 메모리를 최대한 활용할 수 있습니다. 이 기능을 비활성화하면 Morphe 앱 내부에서 패치를 실행합니다</string>
+    <string name="settings_system_process_runtime">패처 런타임</string>
+    <string name="settings_system_jvm_runtime_enable">임베디드 VM 사용</string>
+    <string name="settings_system_jvm_runtime_description">Morphe가 제공하는 Java VM의 패치 기능으로, 기기 여유 메모리를 최대한 사용할 수 있습니다. 이 기능을 비활성화하면 Android 기본 런타임을 사용하여 패치합니다</string>
     <string name="settings_system_jvm_runtime_unavailable">ARM 또는 64비트 x86 기기가 필요합니다</string>
     <string name="settings_system_patcher_completion_sound">완료 알림음</string>
     <string name="settings_system_patcher_completion_sound_description">패치가 완료되면 성공 또는 실패 여부에 따라 서로 다른 알림음을 재생합니다</string>

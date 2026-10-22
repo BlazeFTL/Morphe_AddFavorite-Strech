@@ -580,7 +580,7 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="patcher_field_output_size">Laki ng output</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tagal</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Average ng memorya</string>
     <string name="patcher_field_memory_max">Pinakamataas na memorya</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +693,9 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="failed_to_execute_patch">Nabigong ilapat %s</string>
     <string name="patched_app_save_failed_toast">Nabigong ma-save ang na-patch na aplikasyon</string>
     <string name="plugin_activity_dialog_body">Kinakailangan ng pakikipag-ugnayan sa tagagamit upang magpatuloy sa plugin na ito</string>
-    <string name="patcher_heap_exhausted_message">Naubos ang memorya ng patcher na may %1$d MB na heap. Masyadong malaki ang app na ito para sa mga napiling patch. Subukang mag-patch na may mas kaunting patch source, o pumili ng mas kaunting patch.</string>
+    <string name="patcher_process_killed_message">Itinigil ng system ang patcher bago ito tapos, karaniwan upang maluwagan ang memorya. Isara ang ibang apps at subukan ulit</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Ang patcher ay wala nang memorya sa %1$s MB heap. Ang app na ito ay masyadong malaki para sa mga piniling patches. Subukang mag-patch gamit ang mas kaunting patch sources, o piliin ang mas kaunting patches</string>
     <string name="install_app_success">Matagumpay na na-install</string>
     <string name="install_app_fail">Nabigong ma-install ang aplikasyon: %s</string>
     <string name="install_ignore_signature">I-install pa rin</string>
@@ -1056,7 +1058,9 @@ Mga Detalye: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Pag-optimize sa baterya</string>
     <string name="settings_system_battery_optimization_description">Pinapanatili ang patcher na tumatakbo kapag ang app ay minimize</string>
-    <string name="settings_system_process_runtime">Runtime ng proseso</string>
+    <string name="settings_system_process_runtime">Patcher runtime</string>
+    <string name="settings_system_jvm_runtime_enable">Gumamit ng embedded VM</string>
+    <string name="settings_system_jvm_runtime_description">Mga patch sa isang Java VM na dala nina Morphe, na maaaring gumamit ng memorya hanggang sa kaya ng device. I-off upang i-patch gamit ang runtime ng Android</string>
     <string name="settings_system_patcher_completion_sound">Tunog ng pagkumpleto</string>
     <string name="settings_system_patcher_completion_sound_description">Tumutugtog ng natatanging tono para sa tagumpay o kabiguan kapag natapos ang pag-patch</string>
     <!-- Settings - System Tab - Notifications Section -->

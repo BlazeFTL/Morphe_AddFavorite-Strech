@@ -469,9 +469,12 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="batch_patch_force_version">Aplică patch oricum</string>
     <string name="batch_patch_force_version_done">Adăugat în coadă oricum, aplicația s-ar putea strica.</string>
     <string name="batch_patch_accept_signature_done">Adăugat în coadă oricum, APK neverificat.</string>
+    <string name="batch_patch_apk_selected">APK selectat</string>
     <string name="batch_patch_edit_patches">Alege patch-uri</string>
     <string name="batch_patch_state_no_apk">Nu este disponibil niciun APK</string>
     <string name="batch_patch_state_no_patches">Nu sunt disponibile patch-uri</string>
+    <string name="batch_patch_state_no_selection">Niciunul selectat</string>
+    <string name="batch_patch_no_selection">Niciunul dintre patch-urile disponibile nu este selectat</string>
     <string name="batch_patch_policy_install">Instalează când este finalizat</string>
     <string name="batch_patch_policy_install_description">Instalează fiecare aplicație modificată imediat ce coada se termină. Oprire păstrează APK-urile pentru mai târziu</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +583,7 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="patcher_field_output_size">Dimensiunea fișierului de ieșire</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Durată</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Memorie medie</string>
     <string name="patcher_field_memory_max">Memorie maximă</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +696,9 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="failed_to_execute_patch">Nu s-a putut aplica %s</string>
     <string name="patched_app_save_failed_toast">Eroare la salvarea aplicației modificate</string>
     <string name="plugin_activity_dialog_body">Este necesară interacțiunea utilizatorului pentru a continua cu acest plugin</string>
-    <string name="patcher_heap_exhausted_message">Patcher-ul a rămas fără memorie cu un heap de %1$d MB. Această aplicație este prea mare pentru patch-urile selectate. Încearcă să aplici patch-uri cu mai puține surse de patch-uri sau selectează mai puține patch-uri.</string>
+    <string name="patcher_process_killed_message">Sistemul a oprit patcher-ul înainte ca acesta să se încheie, de obicei pentru a elibera memorie. Închideți alte aplicații și încercați din nou</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Programul de aplicare a modificărilor nu a avut memorie suficientă, cu un heap de %1$s MB. Această aplicație este prea mare pentru patch-urile selectate. Încercați aplicarea modificărilor cu mai puține surse sau selectați mai puține patch-uri</string>
     <string name="install_app_success">Instalat cu succes</string>
     <string name="install_app_fail">Nu s-a putut instala aplicația: %s</string>
     <string name="install_ignore_signature">Instalează oricum</string>
@@ -1056,7 +1061,9 @@ Detalii: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimizarea bateriei</string>
     <string name="settings_system_battery_optimization_description">Menține patcherul în funcțiune când aplicația este minimizată</string>
-    <string name="settings_system_process_runtime">Runtime proces</string>
+    <string name="settings_system_process_runtime">Runtime-ul Patcher</string>
+    <string name="settings_system_jvm_runtime_enable">Utilizează VM integrat</string>
+    <string name="settings_system_jvm_runtime_description">Patch-uri într-un Java VM pe care Morphe îl poartă, care pot consuma cât timp memoria device-ului permite. Oprește-l pentru a face patch cu runtime Android</string>
     <string name="settings_system_patcher_completion_sound">Sunet de finalizare</string>
     <string name="settings_system_patcher_completion_sound_description">Redă un ton distinct pentru succes sau eșec la finalizarea aplicării patch-ului</string>
     <!-- Settings - System Tab - Notifications Section -->

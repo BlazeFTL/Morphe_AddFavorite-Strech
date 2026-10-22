@@ -469,9 +469,12 @@
     <string name="batch_patch_force_version">फिर भी पैच करें</string>
     <string name="batch_patch_force_version_done">फिर भी कतार में लगाया गया, ऐप टूट सकता है</string>
     <string name="batch_patch_accept_signature_done">फिर भी कतार में लगाया गया, APK सत्यापित नहीं है</string>
+    <string name="batch_patch_apk_selected">APK चुना गया</string>
     <string name="batch_patch_edit_patches">पैच चुनें</string>
     <string name="batch_patch_state_no_apk">कोई APK नहीं</string>
     <string name="batch_patch_state_no_patches">कोई पैच नहीं</string>
+    <string name="batch_patch_state_no_selection">कोई नहीं चुना गया</string>
+    <string name="batch_patch_no_selection">सब उपलब्ध पैच में से कोई भी नहीं चुना गया है</string>
     <string name="batch_patch_policy_install">पूरा होने पर इंस्टॉल करें</string>
     <string name="batch_patch_policy_install_description">क्यू खत्म होने के तुरंत बाद हर पैच किए गए ऐप को इंस्टॉल करता है। बंद रखने से APK बाद के लिए बच जाते हैं</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +583,7 @@
     <string name="patcher_field_output_size">आउटपुट आकार</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">समय</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">मेमोरी औसत</string>
     <string name="patcher_field_memory_max">अधिकतम मेमोरी</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +696,9 @@
     <string name="failed_to_execute_patch">Failed to execute %s</string>
     <string name="patched_app_save_failed_toast">Failed to save patched app</string>
     <string name="plugin_activity_dialog_body">इस प्लगइन के लिए आगे बढ़ने के लिए उपयोगकर्ता इंटरैक्शन आवश्यक है।</string>
-    <string name="patcher_heap_exhausted_message">पैचर %1$d MB हीप के साथ मेमोरी से बाहर हो गया। यह ऐप चयनित पैच के लिए बहुत बड़ा है। कम पैच स्रोतों के साथ पैच करने का प्रयास करें, या कम पैच चुनें।</string>
+    <string name="patcher_process_killed_message">सिस्टम ने पचर को पूरा होने से पहले ही बंद कर दिया, आमतौर पर मेमोरी खाली करने के लिए। अन्य ऐप्ब को बंद करें और पुन: प्रयास करें</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">पैचर की %1$s MB हीप के साथ मेमोरी समाप्त हो गई। यह ऐप चयनित पैचों के लिए बहुत बड़ा है। कमतर पैच स्रोतों के साथ पैचिंग का प्रयास करें, या कमतर पैच चयन करें</string>
     <string name="install_app_success">सफलतापूर्वक इंस्टॉल हो गया</string>
     <string name="install_app_fail">अप्लिकेशन को तैयार करना असफल रहा: %s</string>
     <string name="install_ignore_signature">फिर भी स्थापित करें</string>
@@ -1056,7 +1061,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">बैटरी अनुकूलन</string>
     <string name="settings_system_battery_optimization_description">जब ऐप छोटा किया जाता है, तो पैचर को चालू रखता है।</string>
-    <string name="settings_system_process_runtime">प्रोसेस रनटाइम</string>
+    <string name="settings_system_process_runtime">पैचर रनटाइम</string>
+    <string name="settings_system_jvm_runtime_enable">एम्बेडेड VM का उपयोग करें</string>
+    <string name="settings_system_jvm_runtime_description">जैव VM में मोर्फ द्वारा वाहक पैचेस जो डिवाइस स्पेयर के इतना ही मेमोरी उपयोग कर सकते हैं। एंड्रॉइड रनटाइम के साथ पैच करने के लिए इसे बंद करें</string>
     <string name="settings_system_patcher_completion_sound">पूर्ण होने की ध्वनि</string>
     <string name="settings_system_patcher_completion_sound_description">पैचिंग समाप्त होने पर सफलता या विफलता के लिए एक विशिष्ट टोन चलाता है</string>
     <!-- Settings - System Tab - Notifications Section -->

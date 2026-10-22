@@ -457,6 +457,7 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="batch_patch_title">Penambalan massal</string>
     <string name="batch_patch_planning">Menyiapkan antrean…</string>
     <string name="batch_patch_preparing_next">Mempersiapkan aplikasi selanjutnya…</string>
+    <string name="batch_patch_progress_counter">Menambal %1$s dari %2$s</string>
     <string name="batch_patch_summary">%1$s ditambal, %2$s gagal, %3$s dilewati</string>
     <string name="batch_patch_saved_hint">Aplikasi yang telah ditambal telah tersimpan. Pasang sekarang, atau nanti dari daftar APK yang telah ditambal di setelan.</string>
     <string name="batch_patch_multiple_sources">Beberapa aplikasi menggabungkan tambalan dari lebih dari satu sumber, yang dapat menyebabkan konflik</string>
@@ -470,9 +471,12 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="batch_patch_force_version">Tetap tambal</string>
     <string name="batch_patch_force_version_done">Tetap diantrekan, aplikasi mungkin rusak</string>
     <string name="batch_patch_accept_signature_done">Tetap diantrekan, APK tidak diverifikasi</string>
+    <string name="batch_patch_apk_selected">APK dipilih</string>
     <string name="batch_patch_edit_patches">Pilih tambalan</string>
     <string name="batch_patch_state_no_apk">Tidak ada APK</string>
     <string name="batch_patch_state_no_patches">Tidak ada tambalan</string>
+    <string name="batch_patch_state_no_selection">Tidak ada yang dipilih</string>
+    <string name="batch_patch_no_selection">Tidak ada patch yang tersedia yang dipilih</string>
     <string name="batch_patch_policy_install">Pasang setelah selesai</string>
     <string name="batch_patch_policy_install_description">Pasang setiap aplikasi yang ditambal segera setelah antrean selesai. Jika nonaktif, APK akan disimpan untuk nanti</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +585,7 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="patcher_field_output_size">Ukuran keluaran</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Waktu</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Rata-rata memori</string>
     <string name="patcher_field_memory_max">Memori maksimum</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +698,9 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="failed_to_execute_patch">Gagal menerapkan %s</string>
     <string name="patched_app_save_failed_toast">Gagal menyimpan aplikasi yang ditambal</string>
     <string name="plugin_activity_dialog_body">Interaksi pengguna diperlukan untuk melanjutkan plugin ini</string>
-    <string name="patcher_heap_exhausted_message">Penambal kehabisan memori dengan heap %1$d MB. Aplikasi ini terlalu besar untuk tambalan yang dipilih. Coba menambal dengan lebih sedikit sumber tambalan, atau pilih lebih sedikit tambalan</string>
+    <string name="patcher_process_killed_message">Sistem menghentikan patcher sebelum selesai, biasanya untuk membebaskan memori. Tutup aplikasi lain dan coba lagi</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Penambal kehabisan memori dengan heap %1$s MB. Aplikasi ini terlalu besar untuk tambalan yang dipilih. Coba menambal dengan lebih sedikit sumber tambalan, atau pilih lebih sedikit tambalan</string>
     <string name="install_app_success">Berhasil dipasang</string>
     <string name="install_app_fail">Gagal memasang aplikasi: %s</string>
     <string name="install_ignore_signature">Tetap pasang</string>
@@ -1057,7 +1063,10 @@ Rincian: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimisasi baterai</string>
     <string name="settings_system_battery_optimization_description">Menjaga penambal tetap berjalan saat aplikasi diminimalkan</string>
-    <string name="settings_system_process_runtime">Proses runtime</string>
+    <string name="settings_system_process_runtime">Runtime patcher</string>
+    <string name="settings_system_jvm_runtime_enable">Gunakan VM bawaan</string>
+    <string name="settings_system_jvm_runtime_description">Patch di dalam Java VM yang dibawa oleh Morphe, yang dapat menggunakan memori sebanyak yang tersedia pada perangkat. Matikan untuk melakukan patch dengan runtime Android</string>
+    <string name="settings_system_jvm_runtime_unavailable">Membutuhkan perangkat ARM atau 64-bit x86</string>
     <string name="settings_system_patcher_completion_sound">Suara penyelesaian</string>
     <string name="settings_system_patcher_completion_sound_description">Memainkan nada berbeda untuk keberhasilan atau kegagalan saat penambalan selesai</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1316,6 +1325,7 @@ Rincian: %2$s"</string>
     <string name="reset_order">Atur ulang urutan</string>
     <string name="reset_order_done">Urutan diatur ulang</string>
     <string name="accessibility_select_app">Pilih aplikasi</string>
+    <string name="accessibility_select_source">Pilih sumber</string>
     <string name="accessibility_move_up">Pindah ke atas</string>
     <string name="accessibility_move_down">Pindah ke bawah</string>
     <string name="accessibility_app_moved_announcement">%1$s dipindahkan ke posisi %2$s dari %3$s</string>

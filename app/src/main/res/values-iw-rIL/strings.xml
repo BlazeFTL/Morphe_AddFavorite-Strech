@@ -584,7 +584,7 @@
     <string name="patcher_field_output_size">גודל הפלט</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">זמן</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">ממוצע זיכרון</string>
     <string name="patcher_field_memory_max">מקסימום זיכרון</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -697,7 +697,9 @@
     <string name="failed_to_execute_patch">נכשל להחיל %s</string>
     <string name="patched_app_save_failed_toast">נכשל לשמור אפליקציה מתוקנת</string>
     <string name="plugin_activity_dialog_body">נדרש אינטראקציה של המשתמש כדי להמשיך עם תוסף זה</string>
-    <string name="patcher_heap_exhausted_message">למתקן נגמר הזיכרון עם ערימת %1$d מגה-בייט. האפליקציה הזו גדולה מדי עבור התיקונים שנבחרו. נסה לתקן עם פחות מקורות תיקון, או בחר פחות תיקונים.</string>
+    <string name="patcher_process_killed_message">המערכת עצרה את המתקן לפני השלמתו, בדרך כלל כדי לשחרר זיכרון. סגור אפליקציות אחרות ונסה שוב</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">מחולל הפאץ\' מיעד את זיכרון ה-heap עם %1$s MB. האפליקציה גדולה מדי עבור הפאצ\'ים הנבחרים. נסה לגנון עם מעט מקורות פאץ\', או בחר בפאצ\'ים fewer</string>
     <string name="install_app_success">הותקן בהצלחה</string>
     <string name="install_app_fail">נכשל להתקין את האפליקציה: %s</string>
     <string name="install_ignore_signature">התקן בכל זאת</string>
@@ -1070,7 +1072,9 @@ drawable-xxhdpi: 387x144 פיקסלים
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">מיטוב הסוללה</string>
     <string name="settings_system_battery_optimization_description">שומר את התיקון פעיל כאשר האפליקציה ממוזערת</string>
-    <string name="settings_system_process_runtime">זמן ריצה של תהליך</string>
+    <string name="settings_system_process_runtime">זמן ריצה של המתקן</string>
+    <string name="settings_system_jvm_runtime_enable">השתמש ב-JVM מובנה</string>
+    <string name="settings_system_jvm_runtime_description">תיקונים במכונה הווירטואלית של ג\'אווה ש-Morphe מציעה, שתוכל לנצל את כל הזיכרון העומד לרשות המכשיר. כבה זאת כדי לתקן בעזרת זמן הריצה של אנדרואיד</string>
     <string name="settings_system_patcher_completion_sound">צליל השלמה</string>
     <string name="settings_system_patcher_completion_sound_description">מנגן צליל ייחודי להצלחה או לכישלון כאשר התיקון מסתיים</string>
     <!-- Settings - System Tab - Notifications Section -->

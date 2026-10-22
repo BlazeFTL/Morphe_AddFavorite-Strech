@@ -470,9 +470,12 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="batch_patch_force_version">Continuar de todos modos</string>
     <string name="batch_patch_force_version_done">En cola de todos modos, la aplicación podría fallar</string>
     <string name="batch_patch_accept_signature_done">En cola de todos modos, APK no verificado</string>
+    <string name="batch_patch_apk_selected">APK seleccionada</string>
     <string name="batch_patch_edit_patches">Elegir parches</string>
     <string name="batch_patch_state_no_apk">Sin APK</string>
     <string name="batch_patch_state_no_patches">Sin parches</string>
+    <string name="batch_patch_state_no_selection">Ninguno seleccionado</string>
+    <string name="batch_patch_no_selection">Ninguno de los parches disponibles está seleccionado</string>
     <string name="batch_patch_policy_install">Instalar al finalizar</string>
     <string name="batch_patch_policy_install_description">Instala cada aplicación parcheada en cuanto finaliza la cola. Desactivado conserva los APK para más tarde</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="patcher_field_output_size">Tamaño de salida</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tiempo</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Promedio de memoria</string>
     <string name="patcher_field_memory_max">Memoria máxima</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +698,8 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="patched_app_save_failed_toast">Error al guardar la aplicación parcheada</string>
     <string name="plugin_activity_dialog_body">Es necesaria la interacción del usuario para continuar con este complemento</string>
     <string name="patcher_process_killed_message">El sistema detuvo el parcheador antes de que terminara, normalmente para liberar memoria. Cierra otras aplicaciones e inténtalo de nuevo</string>
-    <string name="patcher_heap_exhausted_message">El parcheador se quedó sin memoria con %1$d MB de memoria asignada. Esta aplicación es demasiado grande para los parches seleccionados. Intenta parchear con menos fuentes de parches o selecciona menos parches</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">El parcheador se quedó sin memoria con %1$s MB de memoria asignada. Esta aplicación es demasiado grande para los parches seleccionados. Intenta parchear con menos fuentes de parches o selecciona menos parches</string>
     <string name="install_app_success">Instalado correctamente</string>
     <string name="install_app_fail">Error al instalar la aplicación: %s</string>
     <string name="install_ignore_signature">Instalar de todos modos</string>
@@ -1058,9 +1062,9 @@ Detalles: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimización de batería</string>
     <string name="settings_system_battery_optimization_description">Mantiene el parcheador en funcionamiento cuando la aplicación está minimizada</string>
-    <string name="settings_system_process_runtime">Ejecución del proceso</string>
-    <string name="settings_system_jvm_runtime_enable">Proceso de parcheo independiente</string>
-    <string name="settings_system_jvm_runtime_description">Parcheo en un tiempo de ejecución Java propio, que puede usar tanta memoria como la que sobre en el dispositivo. Desactiva para aplicar parches dentro de Morphe</string>
+    <string name="settings_system_process_runtime">Entorno de ejecución del parcheador</string>
+    <string name="settings_system_jvm_runtime_enable">Usar máquina virtual integrada</string>
+    <string name="settings_system_jvm_runtime_description">Parchea en una máquina virtual Java que incluye Morphe, la cual puede usar toda la memoria que sobre en el dispositivo. Desactívalo para parchear con el entorno de ejecución de Android</string>
     <string name="settings_system_jvm_runtime_unavailable">Necesita un dispositivo ARM o x86 de 64 bits</string>
     <string name="settings_system_patcher_completion_sound">Sonido de finalización</string>
     <string name="settings_system_patcher_completion_sound_description">Reproduce un tono distintivo para indicar éxito o fallo al finalizar el parcheo</string>

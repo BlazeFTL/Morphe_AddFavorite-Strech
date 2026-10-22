@@ -583,7 +583,7 @@ Vir die beste resultate beveel hierdie app aan om 'n &lt;b&gt;volle APK&lt;/b&gt
     <string name="patcher_field_output_size">Uitsetgrootte</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tyd</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Gemiddelde geheue</string>
     <string name="patcher_field_memory_max">Maksimum geheue</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -696,7 +696,9 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="failed_to_execute_patch">Kon nie %s toepas nie</string>
     <string name="patched_app_save_failed_toast">Kon nie gepatchte app stoor nie</string>
     <string name="plugin_activity_dialog_body">Gebruikers interaksie is vereis om met hierdie inprop voort te gaan</string>
-    <string name="patcher_heap_exhausted_message">Die patcher het nie genoeg geheue gehad nie met \'n %1$d MB-heap. Hierdie app is te groot vir die geselekteerde patches. Probeer om met minder patchbronne te patch, of kies minder patches.</string>
+    <string name="patcher_process_killed_message">Die stelsel het die patcher gestop voordat dit voltooi is, gewoonlik om geheue vry te stel. Maak ander programme toe en probeer weer</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Die patsjering het uit geheue geloop met \'n %1$s MB-heap. Hierdie toepassing is te groot vir die geselekteerde patsjies. Probeer om met minder patsjibronne te werk, of selekteer minder patsjies</string>
     <string name="install_app_success">Suksesvol geïnstalleer</string>
     <string name="install_app_fail">Kon nie app installeer nie: %s</string>
     <string name="install_ignore_signature">Installeer nietemin</string>
@@ -1059,7 +1061,9 @@ Besonderhede: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Battery-optimalisering</string>
     <string name="settings_system_battery_optimization_description">Hou die patcher lopend wanneer die toepassing geminimaliseer is</string>
-    <string name="settings_system_process_runtime">Proses tydloop</string>
+    <string name="settings_system_process_runtime">Patcher-runtime</string>
+    <string name="settings_system_jvm_runtime_enable">Gebruik ingeboude VM</string>
+    <string name="settings_system_jvm_runtime_description">Vlekke in \'n Java-VM wat Morphe dra, wat soveel geheue kan gebruik as wat die toestel oor het. Skakel af om met Android se tydeloop te flikker</string>
     <string name="settings_system_patcher_completion_sound">Voltooiingklank</string>
     <string name="settings_system_patcher_completion_sound_description">Speel \'n kenmerkende toon vir sukses of mislukking wanneer die patching voltooi is</string>
     <!-- Settings - System Tab - Notifications Section -->

@@ -471,9 +471,12 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="batch_patch_force_version">Zmodyfikuj mimo to</string>
     <string name="batch_patch_force_version_done">Dodano do kolejki mimo to, aplikacja może nie działać</string>
     <string name="batch_patch_accept_signature_done">Dodano do kolejki mimo to, plik APK niezweryfikowany</string>
+    <string name="batch_patch_apk_selected">Wybrano plik APK</string>
     <string name="batch_patch_edit_patches">Wybierz modyfikacje</string>
     <string name="batch_patch_state_no_apk">Brak pliku APK</string>
     <string name="batch_patch_state_no_patches">Brak modyfikacji</string>
+    <string name="batch_patch_state_no_selection">Nic nie wybrano</string>
+    <string name="batch_patch_no_selection">Nie wybrano żadnej z dostępnych modyfikacji</string>
     <string name="batch_patch_policy_install">Zainstaluj po zakończeniu</string>
     <string name="batch_patch_policy_install_description">Instaluje każdą zmodyfikowaną aplikację zaraz po zakończeniu kolejki. Wyłączenie zachowa pliki APK na później</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -582,7 +585,7 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="patcher_field_output_size">Rozmiar wyjściowy</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Czas</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Średnie użycie pamięci</string>
     <string name="patcher_field_memory_max">Maksymalne użycie pamięci</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -696,7 +699,8 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patched_app_save_failed_toast">Nie udało się zapisać zmodyfikowanej aplikacji</string>
     <string name="plugin_activity_dialog_body">Wymagana jest interakcja użytkownika, aby kontynuować działanie tej wtyczki</string>
     <string name="patcher_process_killed_message">System zatrzymał proces modyfikowania przed jego zakończeniem, zazwyczaj w celu zwolnienia pamięci. Zamknij inne aplikacje i spróbuj ponownie</string>
-    <string name="patcher_heap_exhausted_message">Modyfikatorowi zabrakło pamięci przy rozmiarze sterty %1$d MB. Ta aplikacja jest zbyt duża dla wybranych modyfikacji. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Modyfikatorowi zabrakło pamięci przy rozmiarze sterty %1$s MB. Ta aplikacja jest zbyt duża dla wybranych modyfikacji. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
     <string name="install_app_success">Zainstalowano pomyślnie</string>
     <string name="install_app_fail">Nie udało się zainstalować aplikacji: %s</string>
     <string name="install_ignore_signature">Zainstaluj mimo to</string>
@@ -1059,9 +1063,9 @@ Wymagane są następujące wymiary obrazów:
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optymalizacja baterii</string>
     <string name="settings_system_battery_optimization_description">Utrzymuje działanie modyfikatora, gdy aplikacja jest zminimalizowana</string>
-    <string name="settings_system_process_runtime">Osobny proces</string>
-    <string name="settings_system_jvm_runtime_enable">Osobny proces modyfikatora</string>
-    <string name="settings_system_jvm_runtime_description">Modyfikuje we własnym środowisku uruchomieniowym Java, które może wykorzystać tyle pamięci, ile udostępni urządzenie. Wyłącz, aby modyfikować bezpośrednio w Morphe</string>
+    <string name="settings_system_process_runtime">Środowisko modyfikowania</string>
+    <string name="settings_system_jvm_runtime_enable">Użyj wbudowanej maszyny wirtualnej</string>
+    <string name="settings_system_jvm_runtime_description">Modyfikuje za pomocą maszyny wirtualnej Java dołączonej do Morphe, która może wykorzystać tyle pamięci, ile udostępni urządzenie. Wyłącz, aby modyfikować przy użyciu środowiska systemu Android</string>
     <string name="settings_system_jvm_runtime_unavailable">Wymaga urządzenia z architekturą ARM lub 64-bitową x86</string>
     <string name="settings_system_patcher_completion_sound">Dźwięk ukończenia</string>
     <string name="settings_system_patcher_completion_sound_description">Odtwarza wyraźny dźwięk powodzenia lub niepowodzenia po zakończeniu modyfikacji</string>

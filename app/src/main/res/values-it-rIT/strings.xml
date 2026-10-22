@@ -60,7 +60,7 @@
     <string name="home_app_filter_patched_description">Applicazioni che hai modificato o salvato con Morphe</string>
     <string name="home_app_filter_not_patched_description">Applicazioni che non hai ancora modificato in Morphe</string>
     <string name="home_app_filter_installed_description">Applicazioni attualmente installate su questo dispositivo</string>
-    <string name="home_app_filter_uninstalled_description">App patchate con Morphe che non sono più presenti su questo dispositivo</string>
+    <string name="home_app_filter_uninstalled_description">Applicazioni modificate con Morphe che non sono più presenti su questo dispositivo</string>
     <string name="home_app_filter_clones">Cloni</string>
     <string name="home_app_filter_clones_description">App create con un nome pacchetto proprio, installate accanto all\'originale</string>
     <string name="home_app_grouping_none">Nessuna</string>
@@ -127,7 +127,7 @@
     <string name="home_greeting_evening_2">Stai per rilassarti? Applica prima una patch</string>
     <string name="home_greeting_evening_3">Stai per uscire? Applica prima una patch</string>
     <!-- Late night greetings (22:00–23:59) -->
-    <string name="home_greeting_late_night_1">Ancora sveglio/a? Anche le app che devono essere patchate lo sono</string>
+    <string name="home_greeting_late_night_1">Ancora sveglio? Anche le applicazioni che devono essere modificate lo sono</string>
     <string name="home_greeting_late_night_2">Sessione di patch notturna? Ottimo</string>
     <string name="home_greeting_late_night_3">Modalità gufo notturno: attivata</string>
     <!-- Super late night greetings (0:00–4:59) -->
@@ -469,9 +469,12 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="batch_patch_force_version">Applica comunque</string>
     <string name="batch_patch_force_version_done">Accodato comunque, l\'app potrebbe non funzionare</string>
     <string name="batch_patch_accept_signature_done">Accodato comunque, APK non verificato</string>
+    <string name="batch_patch_apk_selected">APK selezionata</string>
     <string name="batch_patch_edit_patches">Scegli patch</string>
     <string name="batch_patch_state_no_apk">Nessun APK</string>
     <string name="batch_patch_state_no_patches">Nessuna patch</string>
+    <string name="batch_patch_state_no_selection">Nessuna selezionata</string>
+    <string name="batch_patch_no_selection">Nessuno dei patch disponibili è selezionato</string>
     <string name="batch_patch_policy_install">Installa al termine</string>
     <string name="batch_patch_policy_install_description">Installa ogni app modificata subito dopo che la coda è terminata. Disattivato mantiene gli APK per dopo</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +583,7 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="patcher_field_output_size">Dimensione output</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tempo</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Memoria media</string>
     <string name="patcher_field_memory_max">Memoria massima</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -613,7 +616,7 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="patcher_conflict_subtitle">Devi disinstallare la versione già presente</string>
     <string name="patcher_conflict_hint">L\'app modificata utilizza un certificato diverso rispetto alla versione installata. La disinstallazione cancellerà tutti i dati dell\'app</string>
     <string name="patcher_installed_conflict_title">Disinstallazione richiesta</string>
-    <string name="patcher_installed_conflict_body">"Morphe firma le app patchate con il proprio certificato, che è diverso da quello originale. Android richiede la rimozione della versione esistente prima che l'app patchata possa essere installata.
+    <string name="patcher_installed_conflict_body">"Morphe firma le applicazioni modificate con il proprio certificato, che è diverso da quello originale. Android richiede la rimozione della versione esistente prima che l'app patchata possa essere installata.
 
 La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_install_error_title">Errore di installazione</string>
@@ -693,7 +696,9 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="failed_to_execute_patch">Impossibile applicare %s</string>
     <string name="patched_app_save_failed_toast">Impossibile salvare l\'app modificata</string>
     <string name="plugin_activity_dialog_body">È richiesta l\'interazione dell\'utente per procedere con questo plugin</string>
-    <string name="patcher_heap_exhausted_message">Il patcher ha esaurito la memoria con un heap di %1$d MB. Questa app è troppo grande per le patch selezionate. Prova a eseguire il patching con meno sorgenti di patch oppure seleziona meno patch.</string>
+    <string name="patcher_process_killed_message">Il sistema ha interrotto il patcher prima del termine, solitamente per liberare memoria. Chiudi altre app e riprova</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Il patcher ha esaurito la memoria con un heap di %1$s MB. Questa app è troppo grande per le patch selezionate. Prova a eseguire la patch con meno origini di patch o seleziona meno patch</string>
     <string name="install_app_success">Installato correttamente</string>
     <string name="install_app_fail">Impossibile installare l\'app: %s</string>
     <string name="install_ignore_signature">Installa comunque</string>
@@ -792,7 +797,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_greeting_phrases">Frasi di saluto</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Mostra un messaggio di saluto</string>
     <string name="settings_appearance_repatch_notice">Avviso di re-patch</string>
-    <string name="settings_appearance_repatch_notice_description">Mostra un banner quando le app patchate possono essere ripatchate</string>
+    <string name="settings_appearance_repatch_notice_description">Mostra un banner quando le applicazionj modificate possono essere rimodificate</string>
     <string name="settings_appearance_app_card_colors">Colori delle schede app</string>
     <string name="settings_appearance_app_card_colors_default">Predefinita</string>
     <string name="settings_appearance_app_card_colors_default_description">Assegna a ciascuna app il colore del proprio bundle</string>
@@ -988,7 +993,7 @@ Le dimensioni delle immagini devono essere le seguenti:
     <string name="installer_play_store_description">Utilizza l\'installer di sistema e imposta il Google Play Store come origine di installazione</string>
     <string name="installer_root_play_store_description">Installa in silenzio con i permessi di root e imposta Google Play Store come fonte di installazione</string>
     <string name="installer_auto_saved_name">Montaggio tramite root</string>
-    <string name="installer_auto_saved_description">Monta le app che sono state patchate in modalità di montaggio root. Gli APK patchati standard utilizzano un altro installer.</string>
+    <string name="installer_auto_saved_description">Monta le app che sono state modificate in modalità di montaggio root. Gli APK modificati standard utilizzano un altro instalatore.</string>
     <string name="installer_shizuku_description">Installa silenziosamente utilizzando Shizuku o Sui</string>
     <string name="installer_shizuku_play_store_description">Installa in silenzio tramite Shizuku o Sui e imposta Google Play Store come fonte di installazione</string>
     <string name="installer_option_none">Nessun fallback</string>
@@ -1056,7 +1061,9 @@ Dettagli: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Ottimizzazione batteria</string>
     <string name="settings_system_battery_optimization_description">Mantiene il patcher in esecuzione quando l\'app è minimizzata</string>
-    <string name="settings_system_process_runtime">Processo di esecuzione</string>
+    <string name="settings_system_process_runtime">Runtime del patcher</string>
+    <string name="settings_system_jvm_runtime_enable">Utilizza VM integrata</string>
+    <string name="settings_system_jvm_runtime_description">Patch in una JVM che Morphe trasporta, che può utilizzare tutta la memoria disponibile dal dispositivo. Disattivare per applicare le patch con il runtime di Android</string>
     <string name="settings_system_patcher_completion_sound">Suono di completamento</string>
     <string name="settings_system_patcher_completion_sound_description">Riproduce un tono specifico per successo o fallimento al termine dell\'applicazione della patch</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1072,8 +1079,8 @@ Dettagli: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Scegli una melodia</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_signing_key">Chiave di firma</string>
-    <string name="settings_system_signing_key_description">Esegue il backup o ripristina la chiave che firma le app patchate</string>
-    <string name="settings_system_signing_key_dialog_description">Ogni app patchata da Morphe è firmata con questa chiave. Conservane una copia: senza di essa, le app patchate possono essere aggiornate solo dopo averle disinstallate.</string>
+    <string name="settings_system_signing_key_description">Esegue il backup o ripristina la chiave che firma le applicazioni modificate</string>
+    <string name="settings_system_signing_key_dialog_description">Ogni applicazione modificata da Morphe è firmata con questa chiave. Conservane una copia: senza di essa, le applicazioni modificate possono essere aggiornate solo dopo averle disinstallate.</string>
     <string name="settings_system_signing_key_missing">Morphe ne crea una con la tua prima patch</string>
     <string name="settings_system_signing_key_created">Creata %s</string>
     <string name="settings_system_signing_key_fingerprint">Impronta SHA-256</string>
@@ -1112,7 +1119,7 @@ Dettagli: %2$s"</string>
     <string name="settings_system_export_manager_settings_fail">Impossibile esportare le impostazioni di Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Impostazioni di Morphe esportate</string>
     <string name="settings_system_export_debug_logs">Esporta log di debug</string>
-    <string name="settings_system_export_debug_logs_description">Gestione dei file delle applicazioni patchate</string>
+    <string name="settings_system_export_debug_logs_description">Gestione dei file delle applicazioni modificate</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Lettura dei log non riuscita (codice di uscita %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Esportazione dei logs non riuscita</string>
     <string name="settings_system_export_debug_logs_export_success">Logs esportati</string>
@@ -1255,7 +1262,7 @@ Dettagli: %2$s"</string>
     <string name="settings_section_appearance_summary">Aspetto di Morphe</string>
     <string name="settings_section_patch_options_summary">Ciò che la modalità semplice patcha nelle app</string>
     <string name="settings_section_general">Generale</string>
-    <string name="settings_section_patcher_summary">Come le app vengono patchate su questo dispositivo</string>
+    <string name="settings_section_patcher_summary">Come le applicazionj vengono modificate su questo dispositivo</string>
     <string name="settings_section_help_info"><b>Help &amp; info</b></string>
     <string name="settings_section_about_summary">Maggiori informazioni su Morphe e come ottenere aiuto</string>
     <string name="settings_section_local_files">File</string>
@@ -1341,7 +1348,7 @@ Dettagli: %2$s"</string>
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>
     <string name="patching">Modifica</string>
-    <string name="patched">Patchate</string>
+    <string name="patched">Modifiche</string>
     <string name="open">Apri</string>
     <string name="mount">Monta</string>
     <string name="mounted">Montato</string>

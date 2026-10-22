@@ -469,9 +469,12 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="batch_patch_force_version">Vis tiek pataisyti</string>
     <string name="batch_patch_force_version_done">Vis tiek įtraukta į eilę, programa gali sugesti</string>
     <string name="batch_patch_accept_signature_done">Vis tiek įtraukta į eilę, APK nepatikrintas</string>
+    <string name="batch_patch_apk_selected">APK pasirinkta</string>
     <string name="batch_patch_edit_patches">Pasirinkti pataisas</string>
     <string name="batch_patch_state_no_apk">Nėra APK</string>
     <string name="batch_patch_state_no_patches">Nėra pataisų</string>
+    <string name="batch_patch_state_no_selection">Niekas nepažymėta</string>
+    <string name="batch_patch_no_selection">Nė vienas iš prieinamų pataisų nėra pažymėtas</string>
     <string name="batch_patch_policy_install">Įdiegti, kai baigsis</string>
     <string name="batch_patch_policy_install_description">Įdiegia kiekvieną pataisytą programą iškart po eilės pabaigos. Išjungus APK išsaugomi vėlesniam laikui</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +583,7 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="patcher_field_output_size">Išvesties dydis</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Laikas</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Vidutinė atmintis</string>
     <string name="patcher_field_memory_max">Maksimali atmintis</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +696,9 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="failed_to_execute_patch">Nepavyko pritaikyti %s</string>
     <string name="patched_app_save_failed_toast">Nepavyko išsaugoti pataisytos programos</string>
     <string name="plugin_activity_dialog_body">Reikia vartotojo sąveikos, kad tęsti su šiuo įskiepiu</string>
-    <string name="patcher_heap_exhausted_message">Pataisymo procesui pritrūko atminties, kai buvo %1$d MB krūva. Ši programa per didelė pasirinktoms pataisoms. Pabandykite pataisyti su mažiau pataisų šaltinių arba pasirinkite mažiau pataisų</string>
+    <string name="patcher_process_killed_message">Sistema sustabdė švirkštuvą, kol dar nebaigė veikti, paprastai dėl atminties išlaisvinimo. Uždarykite kitas programas ir bandykite dar kartą</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Patcherio atminties baigėsi su %1$s MB krūva. Ši programėlė per didelė pasirinktiems patamsims. Bandykite keisti mažesnių šaltinių, arba pasirinkti mažiau patamsų</string>
     <string name="install_app_success">Sėkmingai įdiegta</string>
     <string name="install_app_fail">Nepavyko įdiegti programos: %s</string>
     <string name="install_ignore_signature">Vis tiek įdiegti</string>
@@ -1056,7 +1061,9 @@ Išsami informacija: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Baterijos optimizavimas</string>
     <string name="settings_system_battery_optimization_description">Palieka pataisymo procesą veikiantį, kai programa sumažinama</string>
-    <string name="settings_system_process_runtime">Proceso vykdymo laikas</string>
+    <string name="settings_system_process_runtime">Patcherio veikimo laikas</string>
+    <string name="settings_system_jvm_runtime_enable">Naudoti integruotą VM</string>
+    <string name="settings_system_jvm_runtime_description">Morphe pernešamojo Java VM taisyklės, kurios gali užimti tiek atminties, kiek turimi įrenginyje. Išjunkite, kad taisyklei naudoti Android veikimo aplinką</string>
     <string name="settings_system_patcher_completion_sound">Užbaigimo garsas</string>
     <string name="settings_system_patcher_completion_sound_description">Kai pataisymas baigiasi, groja skirtingą toną sėkmės arba nesėkmės atveju</string>
     <!-- Settings - System Tab - Notifications Section -->

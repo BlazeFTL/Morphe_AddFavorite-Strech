@@ -530,7 +530,7 @@
     <string name="patcher_field_output_size">आउटपुट आकार</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">वेळ</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">सरासरी मेमरी</string>
     <string name="patcher_field_memory_max">कमाल मेमरी</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -640,7 +640,7 @@
     <string name="failed_to_execute_patch">%s लागू करण्यात अयशस्वी</string>
     <string name="patched_app_save_failed_toast">पॅच केलेले ॲप जतन करण्यात अयशस्वी</string>
     <string name="plugin_activity_dialog_body">या प्लगइनसह पुढे जाण्यासाठी वापरकर्त्याच्या इंटरॅक्शनची आवश्यकता आहे</string>
-    <string name="patcher_heap_exhausted_message">पॅचरला %1$d MB हीपसह मेमरी संपली. हे अॅप निवडलेल्या पॅचेससाठी खूप मोठे आहे. कमी पॅच स्रोतांसह पॅचिंग करून पहा, किंवा कमी पॅच निवडा.</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
     <string name="install_app_success">इंस्टॉल यशस्वी झाले</string>
     <string name="install_app_fail">ॲप इंस्टॉल करण्यात अयशस्वी: %s</string>
     <string name="install_ignore_signature">तरीही स्थापित करा</string>
@@ -966,7 +966,6 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">बॅटरी ऑप्टिमायझेशन</string>
     <string name="settings_system_battery_optimization_description">ॲप मिनिमाइज केले असताना पॅचर चालू ठेवतो</string>
-    <string name="settings_system_process_runtime">प्रक्रिया रनटाइम</string>
     <string name="settings_system_patcher_completion_sound">पूर्णत्वाचा आवाज</string>
     <string name="settings_system_patcher_completion_sound_description">पॅचिंग पूर्ण झाल्यावर यश किंवा अपयश दर्शवण्यासाठी विशिष्ट टोन प्ले करा</string>
     <!-- Settings - System Tab - Notifications Section -->

@@ -262,7 +262,7 @@
     <!-- Free and total RAM of the device, never its storage -->
     <!-- Size of the patched APK, once patching finished -->
     <!-- How long patching took -->
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <!-- Fastest read or write rate reached while patching, in data per second -->
     <!-- Value of "Libraries": the libraries this device cannot use were dropped from the patched APK -->
     <!-- Value of "Libraries": every library was left in the patched APK -->
@@ -341,6 +341,7 @@
     <string name="failed_to_execute_patch">شکستی هێنا لە جێگیرکردنی %s</string>
     <string name="patched_app_save_failed_toast">شکستی هێنا لە پاشەکەوت کردنی ئەپی پینەکراو</string>
     <string name="plugin_activity_dialog_body">کارلێکردنی بەکارهێنەر پێویستە بۆ ئەوەی بەردەوام بیت لەگەڵ ئەم پێوەکراوە</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
     <string name="install_app_success">بە سەرکەوتوویی دامەزرا</string>
     <string name="install_app_fail">دامەزراندنی ئەپەکە سەرکەوتوو نەبوو: %s</string>
     <string name="save_apk_success">APK هەڵگیرا</string>

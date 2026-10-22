@@ -583,7 +583,7 @@
     <string name="patcher_field_output_size">Размер на изхода</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Време</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Средна памет</string>
     <string name="patcher_field_memory_max">Максимална памет</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -696,7 +696,9 @@
     <string name="failed_to_execute_patch">Неуспешно прилагане на %s</string>
     <string name="patched_app_save_failed_toast">Import</string>
     <string name="plugin_activity_dialog_body">Потребителски интеракция е нужна, за да продължите с този плагин.</string>
-    <string name="patcher_heap_exhausted_message">Пачърът изчерпа паметта при heap от %1$d MB. Това приложение е твърде голямо за избраните пачове. Опитайте се да пачвате с по-малко източници на пачове или изберете по-малко пачове.</string>
+    <string name="patcher_process_killed_message">Системата спря програма за обновяване преди тя да приключи, обикновено с цел освобождаване на памет. Затворете други приложения и опитайте отново</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Програмата за патчове свърши с паметта при куп от %1$s МБ. Това приложение е твърде голямо за избраните патчове. Опитайте да патчувате с по-малко източници на патчове или изберете по-малко патчове</string>
     <string name="install_app_success">Инсталирано успешно</string>
     <string name="install_app_fail">Неуспешно инсталиране на приложението: %s</string>
     <string name="install_ignore_signature">Инсталирай все пак</string>
@@ -1059,7 +1061,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Оптимизация на батерията</string>
     <string name="settings_system_battery_optimization_description">Поддържа работещ патчър, когато приложението е минимизирано</string>
-    <string name="settings_system_process_runtime">Време на изпълнение</string>
+    <string name="settings_system_process_runtime">Ръчен модул</string>
+    <string name="settings_system_jvm_runtime_enable">Използвай вграден VM</string>
+    <string name="settings_system_jvm_runtime_description">Поправки в Java VM, които Morhe носи и които могат да използват колкото паметта на устройството е свободна. Изключете за поправка с runtime на Android</string>
     <string name="settings_system_patcher_completion_sound">Звук за завършване</string>
     <string name="settings_system_patcher_completion_sound_description">Възпроизвежда отделен тон при успех или неуспех, когато завърши прилагането на корекциите</string>
     <!-- Settings - System Tab - Notifications Section -->

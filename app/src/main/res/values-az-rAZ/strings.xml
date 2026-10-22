@@ -470,9 +470,12 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="batch_patch_force_version">Yenə də yamaqla</string>
     <string name="batch_patch_force_version_done">Yenə də növbəyə qoyuldu, tətbiq pozula bilər</string>
     <string name="batch_patch_accept_signature_done">Yenə də növbəyə qoyuldu, APK təsdiqlənməyib</string>
+    <string name="batch_patch_apk_selected">APK seçildi</string>
     <string name="batch_patch_edit_patches">Yamaqları seç</string>
     <string name="batch_patch_state_no_apk">APK Yoxdur</string>
     <string name="batch_patch_state_no_patches">Yamaq yoxdur</string>
+    <string name="batch_patch_state_no_selection">Heç biri seçilməyib</string>
+    <string name="batch_patch_no_selection">Mövcud yamaqlardan heç biri seçilməyib</string>
     <string name="batch_patch_policy_install">Bitdikdə quraşdır</string>
     <string name="batch_patch_policy_install_description">Növbə bitdikdən dərhal sonra hər bir yamaqlanmış tətbiqi quraşdırır. Qapalıdırsa, APK-lar daha sonra üçün saxlanılır</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="patcher_field_output_size">Çıxarış həcmi</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Müddət</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Orta yaddaş</string>
     <string name="patcher_field_memory_max">Maksimal yaddaş</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +698,8 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="patched_app_save_failed_toast">Yamaqlanan tətbiqi saxlamaq olmadı</string>
     <string name="plugin_activity_dialog_body">Bu qoşmayla davam etmək üçün istifadəçi reaksiyası tələb olunur</string>
     <string name="patcher_process_killed_message">Sistem yamaqlayıcını işini bitirmədən dayandırdı, bu adətən yaddaşı boşaltmaq üçün olur. Digər tətbiqləri bağla və təkrar cəhd et</string>
-    <string name="patcher_heap_exhausted_message">Yamaqlayıcının %1$d MB-lıq yaddaş yığını tükəndi. Bu tətbiq seçilmiş yamaqlar üçün çox böyükdür. Daha az yamaq mənbəyi ilə yamaqlamağa çalış və ya daha az yamaq seç</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Yamaqlayıcının %1$s MB-lıq yaddaş yığını tükəndi. Bu tətbiq seçilmiş yamaqlar üçün çox böyükdür. Daha az yamaq mənbəyi ilə yamaqlamağa çalış və ya daha az yamaq seç</string>
     <string name="install_app_success">Uğurla quraşdırıldı</string>
     <string name="install_app_fail">Tətbiqi quraşdırmaq olmadı: %s</string>
     <string name="install_ignore_signature">Yenə də quraşdır</string>
@@ -1057,9 +1061,9 @@ Təfərrüatlar: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Batareya yaxşılaşdırma</string>
     <string name="settings_system_battery_optimization_description">Tətbiq qısılanda yamaqlayıcını işlək saxlayır</string>
-    <string name="settings_system_process_runtime">Emal icra olunması müddəti</string>
-    <string name="settings_system_jvm_runtime_enable">Ayrı yamaqlayıcı prosesi</string>
-    <string name="settings_system_jvm_runtime_description">Cihazın ayırdığı qədər yaddaş istifadə edə bilən müstəqil Java icra vaxtında yamaqlayır. Morphe daxilində yamaqlamaq üçün qapat</string>
+    <string name="settings_system_process_runtime">Yamaqlayıcı icra müddəti</string>
+    <string name="settings_system_jvm_runtime_enable">Daxili VM İstifadə Et</string>
+    <string name="settings_system_jvm_runtime_description">Morphe-nin daşıdığı, cihazın ayırdığı qədər yaddaş istifadə edə bilən Java VM-də yamaqlayır. Android icra müddəti ilə yamaqlamaq üçün qapat</string>
     <string name="settings_system_jvm_runtime_unavailable">ARM və ya 64 bitlik x86 cihazı tələb olunur</string>
     <string name="settings_system_patcher_completion_sound">Tamamlanma səsi</string>
     <string name="settings_system_patcher_completion_sound_description">Yamaqlama bitdikdə uğur və ya uğursuzluq üçün fərqli ton səsləndirir</string>

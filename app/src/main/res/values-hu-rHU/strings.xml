@@ -469,9 +469,12 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="batch_patch_force_version">Javítsa mégis</string>
     <string name="batch_patch_force_version_done">Ennek ellenére sorba állítva, az alkalmazás meghibásodhat</string>
     <string name="batch_patch_accept_signature_done">Ennek ellenére sorba állítva, az APK nincs hitelesítve</string>
+    <string name="batch_patch_apk_selected">APK kiválasztva</string>
     <string name="batch_patch_edit_patches">Válassza ki a javításokat</string>
     <string name="batch_patch_state_no_apk">Nincs APK</string>
     <string name="batch_patch_state_no_patches">Nincs javítás</string>
+    <string name="batch_patch_state_no_selection">Egyik sem kiválasztva</string>
+    <string name="batch_patch_no_selection">A rendelkezésre álló javítások közül egyik sem lett kiválasztva</string>
     <string name="batch_patch_policy_install">Telepítés a befejezés után</string>
     <string name="batch_patch_policy_install_description">Minden javított alkalmazás a soron következő befejezése után azonnal települ. A kikapcsolás esetén az APK-k későbbre megmaradnak</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +583,7 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="patcher_field_output_size">Kimeneti méret</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Idő</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Memória átlaga</string>
     <string name="patcher_field_memory_max">Memória maximuma</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +696,9 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="failed_to_execute_patch">Nem sikerült alkalmazni: %s</string>
     <string name="patched_app_save_failed_toast">A módosított alkalmazás mentése sikertelen</string>
     <string name="plugin_activity_dialog_body">A bővítmény használatához felhasználói beavatkozásra van szükség</string>
-    <string name="patcher_heap_exhausted_message">A javítóprogram kifutott a memóriából egy %1$d MB méretű heap-pel. Ez az alkalmazás túl nagy a kiválasztott javításokhoz. Próbáljon kevesebb javítási forrással javítani, vagy válasszon kevesebb javítást.</string>
+    <string name="patcher_process_killed_message">A rendszer leállította a javítót mielőtt befejezte, általában a memória felszabadítása érdekében. Zárja be a többi alkalmazást, és próbálja újra</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">A javítóprogram %1$s MB-os vermemmel futott ki. Az alkalmazás túl nagy a kiválasztott javításokhoz. Próbáljon meg kevesebb javítási forrással vagy kevesebb javítással alkalmazni a javítást</string>
     <string name="install_app_success">Sikeresen telepítve</string>
     <string name="install_app_fail">Nem sikerült telepíteni az alkalmazást: %s</string>
     <string name="install_ignore_signature">Telepítés mindenképpen</string>
@@ -1056,7 +1061,9 @@ Részletek: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Akkuoptimalizálás</string>
     <string name="settings_system_battery_optimization_description">A javító folyamat futtatása a háttérben, amikor az alkalmazás minimalizálva van.</string>
-    <string name="settings_system_process_runtime">Folyamat futási ideje</string>
+    <string name="settings_system_process_runtime">Patcher futásideje</string>
+    <string name="settings_system_jvm_runtime_enable">Beágyazott VM használata</string>
+    <string name="settings_system_jvm_runtime_description">A Morphe által futtatott Java VM-mel kapcsolatos javítások, amelyek felhasználhatják a készüléken elérhető memóriát. A letiltással az Android futásidejével történik a javítás</string>
     <string name="settings_system_patcher_completion_sound">Befejezés hangja</string>
     <string name="settings_system_patcher_completion_sound_description">Jellegzetes hangot játszik le a sikeres vagy sikertelen javítás befejezésekor</string>
     <!-- Settings - System Tab - Notifications Section -->

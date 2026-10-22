@@ -534,7 +534,7 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="patcher_field_output_size">Saiz output</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Masa</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Purata memori</string>
     <string name="patcher_field_memory_max">Memori maksimum</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -644,7 +644,7 @@ Nyahpasang akan memadam semua data aplikasi secara kekal"</string>
     <string name="failed_to_execute_patch">Gagal untuk memasang %s</string>
     <string name="patched_app_save_failed_toast">Gagal untuk menyimpan aplikasi yang telah ditampal</string>
     <string name="plugin_activity_dialog_body">Interaksi pengguna diperlukan untuk meneruskan dengan pemalam ini</string>
-    <string name="patcher_heap_exhausted_message">Patcher kehabisan memori dengan heap %1$d MB. Aplikasi ini terlalu besar untuk tampalan yang dipilih. Cuba tampal dengan lebih sedikit sumber tampalan, atau pilih lebih sedikit tampalan</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
     <string name="install_app_success">Pemasangan berjaya</string>
     <string name="install_app_fail">Gagal untuk dipasang: %s</string>
     <string name="install_ignore_signature">Pasang juga</string>
@@ -971,7 +971,6 @@ Butiran: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimisasi bateri</string>
     <string name="settings_system_battery_optimization_description">Memastikan patcher terus berjalan apabila aplikasi diminimumkan</string>
-    <string name="settings_system_process_runtime">Masa runtime proses</string>
     <string name="settings_system_patcher_completion_sound">Bunyi selesai</string>
     <string name="settings_system_patcher_completion_sound_description">Memainkan nada berbeza untuk kejayaan atau kegagalan apabila tampalan selesai</string>
     <!-- Settings - System Tab - Notifications Section -->

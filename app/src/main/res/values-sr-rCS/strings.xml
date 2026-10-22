@@ -468,9 +468,12 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="batch_patch_force_version">Zakrpi bez obzira</string>
     <string name="batch_patch_force_version_done">Svejedno dodato u red čekanja, aplikacija može da se pokvari</string>
     <string name="batch_patch_accept_signature_done">Svejedno dodato u red čekanja, APK nije verifikovan</string>
+    <string name="batch_patch_apk_selected">Odabran APK</string>
     <string name="batch_patch_edit_patches">Izaberite zakrpe</string>
     <string name="batch_patch_state_no_apk">Nema APK-a</string>
     <string name="batch_patch_state_no_patches">Nema zakrpa</string>
+    <string name="batch_patch_state_no_selection">Nije odabrano ništa</string>
+    <string name="batch_patch_no_selection">Nijedna od dostupnih zakrpi nije odabrana</string>
     <string name="batch_patch_policy_install">Instaliraj kada je završeno</string>
     <string name="batch_patch_policy_install_description">Instalira svaku zakrpljenu aplikaciju odmah nakon završetka reda. Isključeno čuva APK-ove za kasnije</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -579,7 +582,7 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="patcher_field_output_size">Output size</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Time</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Prosečna memorija</string>
     <string name="patcher_field_memory_max">Maksimalna memorija</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -692,7 +695,9 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="failed_to_execute_patch">Došlo je do greške pri primeni %s</string>
     <string name="patched_app_save_failed_toast">Došlo je do greške pri čuvanju zakrpljene aplikacije</string>
     <string name="plugin_activity_dialog_body">Potrebna je interakcija korisnika da bi se nastavilo sa ovim dodatkom</string>
-    <string name="patcher_heap_exhausted_message">Patcher je ostao bez memorije sa %1$d MB heap-om. Ova aplikacija je prevelika za izabrane zakrpe. Pokušajte da zakrpate uz manje izvora zakrpa ili izaberite manje zakrpa.</string>
+    <string name="patcher_process_killed_message">Sistem je prekinuo patcher pre nego što je završio, obično da oslobodi memoriju. Zatvorite druge aplikacije i pokušajte ponovo</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Patcher je potrošio memoriju sa %1$s MB heap-a. Ova aplikacija je prevelika za odabrane patch-eve. Pokušajte da patch-ujete sa manjim brojem patch izvora ili odaberite manje patch-eva</string>
     <string name="install_app_success">Uspešno instalirano</string>
     <string name="install_app_fail">Nije uspelo instaliranje aplikacije: %s</string>
     <string name="install_ignore_signature">Ipak instaliraj</string>
@@ -1039,7 +1044,9 @@ Detalji: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimizacija baterije</string>
     <string name="settings_system_battery_optimization_description">Drži patcher pokrenutim kada je aplikacija minimizovana</string>
-    <string name="settings_system_process_runtime">Pokrenite proces izvođenja za bolju stabilnost</string>
+    <string name="settings_system_process_runtime">Vremensko izvođenje patchera</string>
+    <string name="settings_system_jvm_runtime_enable">Koristi ugrađeni VM</string>
+    <string name="settings_system_jvm_runtime_description">Ispravke u Java VM-u koju Morphe nosi, koja može koristiti koliko god memorije uređaj ima. Isključite za ispravljanje sa runtime-om Androida</string>
     <string name="settings_system_patcher_completion_sound">Zvuk završetka</string>
     <string name="settings_system_patcher_completion_sound_description">Reprodukuje poseban ton za uspeh ili neuspeh kada se patchovanje završi</string>
     <!-- Settings - System Tab - Notifications Section -->

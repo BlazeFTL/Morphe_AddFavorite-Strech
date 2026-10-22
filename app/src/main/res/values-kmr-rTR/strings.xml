@@ -530,7 +530,7 @@ Ji bo mezgînî, ev sepan pêşniyar dike ku paketek &lt;b&gt;full APK&lt;/b&gt;
     <string name="patcher_field_output_size">Mezinahiya derketinê</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Dem</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Navîniya bîrê</string>
     <string name="patcher_field_memory_max">Bîra herî zêde</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -640,7 +640,7 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="failed_to_execute_patch">Şeva pek dabeşin %s</string>
     <string name="patched_app_save_failed_toast">Hate parastina sepeya patch kirî</string>
     <string name="plugin_activity_dialog_body">Bixweştana mêz rêk û pê dei bilinge da pêşbaziyê bi zaniye vê plugin you bo lazmî bîye se</string>
-    <string name="patcher_heap_exhausted_message">Bîra patcherê bi heapê %1$d MB jî têr nekir. Ev sepan ji bo patchên hilbijartî pir mezin e. Hewl bidin ku bi çavkaniyên patchan ên kêmtir patch bikin, an patchên kêmtir hilbijêrin.</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
     <string name="install_app_success">Bi ser ketin</string>
     <string name="install_app_fail">Serketina kuştina sepanê: %s</string>
     <string name="install_ignore_signature">Dîsa jî saz bike</string>
@@ -967,7 +967,6 @@ Detay: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Serûşê bateriyê</string>
     <string name="settings_system_battery_optimization_description">Dema ku app hatî biçikînîn, sazkirîn bidomîne</string>
-    <string name="settings_system_process_runtime">Rayedîna pêroje</string>
     <string name="settings_system_patcher_completion_sound">Dengê qedandina</string>
     <string name="settings_system_patcher_completion_sound_description">Dengê taybet lêdanê ji bo serkeftinê an têkçûnê dema qedandina patchkirinê</string>
     <!-- Settings - System Tab - Notifications Section -->

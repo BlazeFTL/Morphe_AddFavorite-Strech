@@ -470,9 +470,12 @@
     <string name="batch_patch_force_version">とにかくパッチを適用する</string>
     <string name="batch_patch_force_version_done">キューに追加しましたが、アプリが正常に動作しない可能性があります</string>
     <string name="batch_patch_accept_signature_done">キューに追加しましたが、APK は検証されていません</string>
+    <string name="batch_patch_apk_selected">APK選択済み</string>
     <string name="batch_patch_edit_patches">パッチを選択する</string>
     <string name="batch_patch_state_no_apk">APK がありません</string>
     <string name="batch_patch_state_no_patches">パッチがありません</string>
+    <string name="batch_patch_state_no_selection">未選択</string>
+    <string name="batch_patch_no_selection">利用可能なパッチが何も選択されていません</string>
     <string name="batch_patch_policy_install">完了後にインストールする</string>
     <string name="batch_patch_policy_install_description">キューの処理が完了すると、パッチ適用済みアプリをすべて自動でインストールします。オフにすると、APK を保存して後でインストールできます</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@
     <string name="patcher_field_output_size">出力サイズ</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">所要時間</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">平均メモリ使用量</string>
     <string name="patcher_field_memory_max">最大メモリ使用量</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +698,8 @@
     <string name="patched_app_save_failed_toast">パッチ適用済みアプリの保存に失敗しました</string>
     <string name="plugin_activity_dialog_body">このプラグインを続行するには、ユーザーの操作が必要です</string>
     <string name="patcher_process_killed_message">システムがパッチ処理を完了する前に停止しました。これは、通常はメモリを解放するために発生しました。他のアプリを閉じて、もう一度お試しください</string>
-    <string name="patcher_heap_exhausted_message">%1$d MB のヒープではメモリ不足になりました。選択したパッチが多すぎます。パッチソースまたはパッチを減らして再度お試しください</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">%1$s MB のヒープではメモリ不足になりました。選択したパッチが多すぎます。パッチソースまたはパッチを減らして再度お試しください</string>
     <string name="install_app_success">正常にインストールされました</string>
     <string name="install_app_fail">アプリのインストールに失敗しました: %s</string>
     <string name="install_ignore_signature">そのままインストール</string>
@@ -1059,9 +1063,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">バッテリーの最適化</string>
     <string name="settings_system_battery_optimization_description">アプリを閉じていても、パッチャーを実行し続けます</string>
-    <string name="settings_system_process_runtime">別プロセスで実行</string>
-    <string name="settings_system_jvm_runtime_enable">独立したパッチ適用プロセスを有効化</string>
-    <string name="settings_system_jvm_runtime_description">独自の Java ランタイムでパッチを適用します。このランタイムは、デバイスの空きメモリを最大限に活用できます。Morphe 内でパッチを適用するには、この設定をオフにしてください</string>
+    <string name="settings_system_process_runtime">パッチャーの実行時環境</string>
+    <string name="settings_system_jvm_runtime_enable">埋め込みVMを使用する</string>
+    <string name="settings_system_jvm_runtime_description">Morphe が搭載する Java VM のパッチ。デバイスの空きメモリを最大限に使用できます。Android の実行時環境を使用してパッチを適用するには、この設定をオフにしてください</string>
     <string name="settings_system_jvm_runtime_unavailable">ARM または 64 ビットで動作する x86 デバイスが必要です</string>
     <string name="settings_system_patcher_completion_sound">完了音</string>
     <string name="settings_system_patcher_completion_sound_description">パッチ完了時に、結果を知らせるサウンドを再生します</string>

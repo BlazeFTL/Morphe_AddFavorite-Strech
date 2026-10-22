@@ -469,9 +469,12 @@ Para obteres os melhores resultados, este ficheiro recomenda a modificação de 
     <string name="batch_patch_force_version">Corrigir de qualquer maneira</string>
     <string name="batch_patch_force_version_done">Enfileirado mesmo assim, o aplicativo pode quebrar</string>
     <string name="batch_patch_accept_signature_done">Enfileirado mesmo assim, APK não verificado</string>
+    <string name="batch_patch_apk_selected">APK selecionado</string>
     <string name="batch_patch_edit_patches">Escolher patches</string>
     <string name="batch_patch_state_no_apk">Nenhum APK</string>
     <string name="batch_patch_state_no_patches">Nenhum patch encontrado</string>
+    <string name="batch_patch_state_no_selection">Nenhum selecionado</string>
+    <string name="batch_patch_no_selection">Nenhum dos patches disponíveis está selecionado</string>
     <string name="batch_patch_policy_install">Instalar quando terminar</string>
     <string name="batch_patch_policy_install_description">Instala cada aplicativo corrigido logo após o término da fila. Desativado mantém os APKs para mais tarde</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +583,7 @@ Para obteres os melhores resultados, este ficheiro recomenda a modificação de 
     <string name="patcher_field_output_size">Tamanho de saída</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Duração</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Média de memória</string>
     <string name="patcher_field_memory_max">Memória máxima</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +696,9 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <string name="failed_to_execute_patch">Erro ao aplicar %s</string>
     <string name="patched_app_save_failed_toast">Erro ao guardar a aplicação modificada</string>
     <string name="plugin_activity_dialog_body">Uma interação do utilizador é necessária para continuar com este plugin</string>
-    <string name="patcher_heap_exhausted_message">O patcher ficou sem memória com um heap de %1$d MB. Este aplicativo é grande demais para os patches selecionados. Tente aplicar patches com menos fontes de patches ou selecione menos patches.</string>
+    <string name="patcher_process_killed_message">O sistema interrompeu o patcher antes de concluir, geralmente para liberar memória. Feche outros aplicativos e tente novamente</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">O corretor ficou sem memória com um heap de %1$s MB. Este aplicativo é muito grande para os patches selecionados. Tente corrigir com menos fontes de patch ou selecione menos patches</string>
     <string name="install_app_success">Instalado com sucesso</string>
     <string name="install_app_fail">Erro ao instalar a aplicação: %s</string>
     <string name="install_ignore_signature">Instalar mesmo assim</string>
@@ -1056,7 +1061,9 @@ Detalhes: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Otimização de bateria</string>
     <string name="settings_system_battery_optimization_description">Mantém o modificador em execução quando a aplicação é minimizada</string>
-    <string name="settings_system_process_runtime">Tempo de execução</string>
+    <string name="settings_system_process_runtime">Execução do Patcher</string>
+    <string name="settings_system_jvm_runtime_enable">Usar VM embutida</string>
+    <string name="settings_system_jvm_runtime_description">Patches em uma JVM que a Morphe executa, que pode usar tanta memória quanto o dispositivo permitir. Desative para aplicar patches com a execução do Android</string>
     <string name="settings_system_patcher_completion_sound">Som de conclusão</string>
     <string name="settings_system_patcher_completion_sound_description">Reproduz um tom distinto para sucesso ou falha quando o patch é concluído</string>
     <!-- Settings - System Tab - Notifications Section -->

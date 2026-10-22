@@ -10,6 +10,11 @@ on:
         required: false
         default: false
         type: boolean
+      no_r8:
+        description: 'Skip R8 shrinking (faster, larger APK)'
+        required: false
+        default: false
+        type: boolean
   push:
     branches:
       - main
@@ -90,22 +95,31 @@ jobs:
       - name: Cache Gradle
         uses: burrunan/gradle-cache-action@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "lts/*"
-          cache: npm
-          cache-dependency-path: source/package-lock.json
-
-      - name: Install dependencies
-        working-directory: source
-        run: npm ci
+      - name: Trim build
+        run: |
+          python3 - <<'PY'
+          import re, pathlib
+          p = pathlib.Path("source/app/build.gradle.kts")
+          s = p.read_text()
+          for abi in ("armeabi-v7a", "x86_64"):
+              s, n = re.subn(r'^[ \t]*"%s" to Triple\([^\n]*\n' % abi, "", s, flags=re.M)
+              assert n == 1, f"embedded JVM entry not found: {abi}"
+          s, n = re.subn(r'(versionName = version\.toString\(\)\n)', r'\1        ndk { abiFilters += "arm64-v8a" }\n', s, count=1)
+          assert n == 1, "versionName anchor not found"
+          p.write_text(s)
+          PY
+          cat >> source/gradle.properties <<'EOF'
+          org.gradle.jvmargs=-Xms2g -Xmx6g -XX:+UseParallelGC -Dfile.encoding=UTF-8
+          kotlin.daemon.jvmargs=-Xmx3g -XX:+UseParallelGC
+          org.gradle.vfs.watch=false
+          EOF
 
       - name: Build release APK
         working-directory: source
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew assembleRelease
+          EXTRA: ${{ inputs.no_r8 && '-PnoProguard' || '' }}
+        run: ./gradlew assembleRelease $EXTRA --build-cache
 
       - name: Extract version
         id: version

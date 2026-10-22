@@ -9,6 +9,7 @@ patch.py -- apply fork changes to a MorpheApp/morphe-manager checkout (dev branc
      bottom navigation pill, always visible from first frame
   5. Settings > Updates: patch update check at launch limited to every 3/6/12/24 hours,
      picked in a radio dialog
+  6. Sources page header: search toggle moved ahead of the actions, order Search, Sort, Add (+)
 
 Anchors are structural (function bodies, call arguments, parameter lists, single
 lines), never pasted multi-line context. Files are found by declaration; the path
@@ -1678,6 +1679,84 @@ internal fun PatchUpdateIntervalSetting(prefs: PreferencesManager) {
 '''
 
 
+def _replace_in_fun(src, name, steps):
+    for rx, repl in steps:
+        m = mask(src)
+        f = one(find_funs(m, name))
+        if not f or f.bo is None:
+            return None
+        hits = list(re.finditer(rx, m[f.bo:f.bc], re.M))
+        if len(hits) != 1:
+            return None
+        h = hits[0]
+        a, b = f.bo + h.start(), f.bo + h.end()
+        src = src[:a] + h.expand(repl) + src[b:]
+    return src
+
+
+def hbar_param(src):
+    m = mask(src)
+    f = one(find_funs(m, "HeaderBar"))
+    if not f:
+        return None
+    return add_last_param(src, m, f, "searchFirst: Boolean = false,", r"\bsearchFirst\s*:")
+
+
+def hbar_layout(src):
+    m = mask(src)
+    f = one(find_funs(m, "HeaderBar"))
+    if not f or f.bo is None:
+        return None
+    if re.search(r"\bval\s+lead\b", m[f.bo:f.bc]):
+        return src
+    steps = [
+        (r"^([ \t]*)val\s+shift\s*=\s*-\(p\s*\*\s*\(width\s*-\s*toggleWidth\)\)\.roundToInt\(\)[ \t]*$",
+         "\\1// Toggle ahead of the actions: they stand at its end and leave the other way as the field opens\n"
+         "\\1val tail = if (searchFirst && actionsP != null && toggleP != null) actionsP.width + controlGap else 0\n"
+         "\\1val lead = ((1f - p) * tail).roundToInt()\n"
+         "\\1val shift = -(p * (width - toggleWidth - tail)).roundToInt()"),
+        (r"^([ \t]*)actionsP\?\.placeRelativeWithLayer\(\s*width\s*-\s*controlsWidth\s*\+\s*shift\s*,"
+         r"\s*centered\(actionsP\.height\)\s*\)\s*\{\s*alpha\s*=\s*fade\s*\}[ \t]*$",
+         "\\1actionsP?.let { a ->\n"
+         "\\1    val x = if (tail > 0) width - a.width + (p * tail).roundToInt() else width - controlsWidth + shift\n"
+         "\\1    a.placeRelativeWithLayer(x, centered(a.height)) { alpha = fade }\n"
+         "\\1}"),
+        (r"^([ \t]*)fieldP\?\.placeRelative\(\s*0\s*,\s*centered\(fieldP\.height\)\s*\)[ \t]*$",
+         "\\1fieldP?.placeRelative(-lead, centered(fieldP.height))"),
+        (r"^([ \t]*)toggleP\?\.placeRelative\(\s*width\s*-\s*toggleWidth\s*,\s*centered\(toggleP\.height\)\s*\)[ \t]*$",
+         "\\1toggleP?.placeRelative(width - toggleWidth - lead, centered(toggleP.height))"),
+    ]
+    return _replace_in_fun(src, "HeaderBar", steps)
+
+
+def phead_param(src):
+    m = mask(src)
+    f = one(find_funs(m, "PageHeader"))
+    if not f:
+        return None
+    return add_last_param(src, m, f, "searchFirst: Boolean = false,", r"\bsearchFirst\s*:")
+
+
+def phead_pass(src):
+    m = mask(src)
+    f = one(find_funs(m, "PageHeader"))
+    if not f or f.bo is None:
+        return None
+    calls = find_calls(m, "HeaderBar", f.bo, f.bc)
+    if len(calls) != 1:
+        return None
+    return add_last_arg(src, m, calls[0], "searchFirst = searchFirst", r"\bsearchFirst\s*=")
+
+
+def sources_search_first(src):
+    m = mask(src)
+    calls = [lp for lp in find_calls(m, "PageHeader")
+             if re.search(r"\bsearch\s*=\s*search\b", m[lp:match_close(m, lp)])]
+    if len(calls) != 1:
+        return None
+    return add_last_arg(src, m, calls[0], "searchFirst = true", r"\bsearchFirst\s*=")
+
+
 class Workspace:
     def __init__(self, root):
         self.root = root
@@ -1810,6 +1889,9 @@ def build_plan(ws):
     nav = locate("MainPagerScaffold", r"\bfun\s+MainPagerScaffold\s*\(", P + "ui/screen/shared/MainNavigation.kt")
     home = locate("HomeScreen", r"\bfun\s+HomeScreen\s*\(", P + "ui/screen/HomeScreen.kt")
     app = locate("ManagerApplication", r"^class\s+ManagerApplication\b", P + "ManagerApplication.kt")
+    hbar = locate("HeaderBar", r"\bfun\s+HeaderBar\s*\(", P + "ui/screen/shared/HeaderBar.kt")
+    phead = locate("PageHeader", r"\bfun\s+PageHeader\s*\(", P + "ui/screen/shared/PageScaffold.kt")
+    srcpage = locate("SourcesPageContent", r"\bfun\s+SourcesPageContent\s*\(", P + "ui/screen/sources/SourcesPage.kt")
     patchinfo = ws.find(r"\bclass\s+PatchInfo\b", P + "patcher/patch/PatchInfo.kt")
     toast = ws.find(r"\bfun\s+Context\.toast\s*\(", P + "util/Util.kt")
     # Newer upstream shows its messages through UserMessages instead of a toast helper
@@ -1949,6 +2031,15 @@ def build_plan(ws):
         plan.append((str(api.relative_to(ws.root)), api, [("stable channel accepts dev versions", prerelease_filter_edit, False)]))
         plan.append((str(postprompts.relative_to(ws.root)), postprompts, [("update worker without GMS gate", no_gms_edit, False)]))
     plan.append((str(updates.relative_to(ws.root)), updates, [("patch update interval row", updates_row, False)]))
+    plan.append((str(hbar.relative_to(ws.root)), hbar, [
+        ("header searchFirst param", hbar_param, False),
+        ("header search toggle ahead of actions", hbar_layout, False),
+    ]))
+    plan.append((str(phead.relative_to(ws.root)), phead, [
+        ("page header searchFirst param", phead_param, False),
+        ("page header searchFirst pass-through", phead_pass, False),
+    ]))
+    plan.append((str(srcpage.relative_to(ws.root)), srcpage, [("sources header search first", sources_search_first, False)]))
     plan.append((str(comps.relative_to(ws.root)), comps, COMPONENT_EDITS))
     plan.append((str(card.relative_to(ws.root)), card, [
         ("PatchCard params", card_params, False),

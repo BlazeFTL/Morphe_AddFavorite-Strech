@@ -482,11 +482,17 @@ private fun MorpheManager(vm: MainViewModel) {
     val onboardingState = remember { OnboardingState() }
 
     val onboardingSteps = remember(onboardingState) {
+        // Only the first step plays the swipe on the card, so every other one stops it
+        fun endSwipeHint() {
+            onboardingState.swipeActive = false
+            homeViewModel.apps.markSwipeGestureHintShown()
+        }
         // Each turns to its page and row, so stepping back from another page lands on it too
         fun targetStep(titleRes: Int, descRes: Int, page: MainPage, target: TourTarget) = StepDef(
             titleRes, descRes,
             getBounds = { onboardingState.targetBounds[target] },
             onShow = {
+                endSwipeHint()
                 onboardingState.page = page
                 onboardingState.target = target
             }
@@ -501,17 +507,19 @@ private fun MorpheManager(vm: MainViewModel) {
                     homeViewModel.apps.triggerSwipeGestureHint()
                 }
             ),
+            targetStep(R.string.home_other_apps_action, R.string.onboarding_other_apps_desc, MainPage.APPS, TourTarget.OTHER_APPS),
             StepDef(
                 R.string.sources_management_title, R.string.onboarding_sources_desc,
                 getBounds = { onboardingState.navigationBounds[MainPage.SOURCES] },
                 onShow = {
                     onboardingState.page = MainPage.APPS
-                    onboardingState.swipeActive = false
-                    homeViewModel.apps.markSwipeGestureHintShown()
+                    endSwipeHint()
                 }
             ),
+            targetStep(R.string.sources_dialog_add_source, R.string.onboarding_add_source_desc, MainPage.SOURCES, TourTarget.ADD_SOURCE),
             targetStep(R.string.patches, R.string.onboarding_sources_patches_desc, MainPage.SOURCES, TourTarget.SOURCE_PATCHES),
-            targetStep(R.string.changelog, R.string.onboarding_sources_version_desc, MainPage.SOURCES, TourTarget.SOURCE_VERSION),
+            targetStep(R.string.version, R.string.onboarding_sources_version_desc, MainPage.SOURCES, TourTarget.SOURCE_VERSION),
+            targetStep(R.string.sources_apps, R.string.onboarding_sources_apps_desc, MainPage.SOURCES, TourTarget.SOURCE_APPS),
             targetStep(
                 R.string.sources_management_prerelease_toggle, R.string.onboarding_sources_prerelease_desc,
                 MainPage.SOURCES, TourTarget.SOURCE_PRERELEASE
@@ -524,7 +532,8 @@ private fun MorpheManager(vm: MainViewModel) {
             targetStep(R.string.appearance, R.string.onboarding_appearance_tab_desc, MainPage.SETTINGS, TourTarget.APPEARANCE),
             targetStep(R.string.settings_advanced_expert_mode, R.string.onboarding_expert_mode_desc, MainPage.SETTINGS, TourTarget.EXPERT_MODE),
             targetStep(R.string.installer, R.string.onboarding_system_installer_desc, MainPage.SETTINGS, TourTarget.INSTALLER),
-            targetStep(R.string.settings_system_custom_file_picker, R.string.onboarding_system_file_picker_desc, MainPage.SETTINGS, TourTarget.FILE_PICKER)
+            targetStep(R.string.settings_system_custom_file_picker, R.string.onboarding_system_file_picker_desc, MainPage.SETTINGS, TourTarget.FILE_PICKER),
+            targetStep(R.string.settings_system_signing_key, R.string.onboarding_signing_key_desc, MainPage.SETTINGS, TourTarget.SIGNING_KEY)
         )
     }
 

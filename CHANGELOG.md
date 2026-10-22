@@ -1,3 +1,11 @@
+# [2.0.0-dev.17](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.16...v2.0.0-dev.17) (2026-10-22)
+
+
+### Bug Fixes
+
+* Patch in a process of its own, on the JVM or ART ([9d57d54](https://github.com/MorpheApp/morphe-manager/commit/9d57d545266fa4f29e1c4a98a7155635db17a996))
+* Show what patches print in the patcher log ([7426599](https://github.com/MorpheApp/morphe-manager/commit/742659984b3bbe4c62beac91342db66433c1cbdb))
+
 # [2.0.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0-dev.15...v2.0.0-dev.16) (2026-10-21)
 
 

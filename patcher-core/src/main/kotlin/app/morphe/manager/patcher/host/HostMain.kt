@@ -17,10 +17,12 @@ import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.io.PrintStream
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.FutureTask
 import kotlin.concurrent.thread
@@ -48,6 +50,17 @@ private class Host {
     @Volatile
     private var run: Job? = null
 
+    // Where the run in progress reports to, which also takes what is printed meanwhile
+    @Volatile
+    private var output: HostEvents? = null
+
+    init {
+        // The JVM shares the app's stdio, which Android points at /dev/null. Patches print what
+        // they did there, which the log is the one place to show
+        System.setOut(printedTo(System.out))
+        System.setErr(printedTo(System.err))
+    }
+
     fun handle(command: HostCommand) {
         when (command) {
             is HostCommand.Preload -> {
@@ -72,6 +85,7 @@ private class Host {
         preloaded = emptyMap()
         try {
             HostEvents(FileOutputStream(command.eventsFile)).use { events ->
+                output = events
                 val failure = runCatching {
                     val request = Json.decodeFromString(PatchRequest.serializer(), File(command.requestFile).readText())
                     runBlocking(job) {
@@ -82,6 +96,8 @@ private class Host {
                     }
                 }.exceptionOrNull()
 
+                // Nothing may follow the last event
+                output = null
                 events.send(HostEvent.Finished(failure?.let(HostEvent::Failure)))
             }
         } catch (_: IOException) {
@@ -97,6 +113,31 @@ private class Host {
      * megabytes committed that the app's process would otherwise keep until the next one.
      */
     private fun releaseMemory() = System.gc()
+
+    /**
+     * A stream whose lines go to the log of the run in progress as warnings, as nothing is meant
+     * to be printed. Lines printed between runs go on to [fallback].
+     */
+    private fun printedTo(fallback: PrintStream) = PrintStream(
+        LineOutputStream { line -> output?.logger?.warn("[STDIO]: $line") ?: fallback.println(line) },
+        true,
+        Charsets.UTF_8.name()
+    )
+}
+
+/** Hands each line written to it over to [onLine], without its line break. */
+private class LineOutputStream(private val onLine: (String) -> Unit) : OutputStream() {
+    private val line = ByteArrayOutputStream()
+
+    @Synchronized
+    override fun write(b: Int) {
+        if (b == '\n'.code) {
+            onLine(line.toString(Charsets.UTF_8.name()).removeSuffix("\r"))
+            line.reset()
+        } else {
+            line.write(b)
+        }
+    }
 }
 
 /**

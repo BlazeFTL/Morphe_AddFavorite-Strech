@@ -33,6 +33,8 @@ to preload bundles, start a run or cancel it, and `HostEvent` for what the run r
   the next suspension point, and the next run waits for it.
 - **Exit**: `System.exit` in the JVM ends the app, as does a crash of the JVM. The crash report
   goes to `files/patcher-jvm-error.log` and into the log of the next run.
+- **Stdio**: the app's stdout and stderr lead to `/dev/null`, so the host replaces `System.out`
+  and `System.err`. What patches print goes into the log of the run as `[STDIO]` warnings.
 
 ## The runtime in the APK
 

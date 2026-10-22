@@ -279,7 +279,9 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // Handle APK-family file shared via system share sheet (.apk/.apks/.xapk/.apkm)
+        // Handle APK-family file shared via system share sheet (.apk/.apks/.xapk/.apkm).
+        // The name is not checked: senders often drop or change the extension, and the file is
+        // read for what it is anyway, with a message when it turns out not to be an APK
         if (intent?.action == Intent.ACTION_SEND) {
             val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
@@ -287,9 +289,7 @@ class MainActivity : AppCompatActivity() {
                 @Suppress("DEPRECATION")
                 intent.getParcelableExtra(Intent.EXTRA_STREAM)
             }
-            if (uri != null && uri.hasApkExtension(contentResolver)) {
-                vm.pendingExternalApkUri = uri
-            }
+            uri?.let { vm.pendingExternalApkUri = it }
             return
         }
 

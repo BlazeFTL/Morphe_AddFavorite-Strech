@@ -1,3 +1,16 @@
+# [2.1.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0...v2.1.0-dev.1) (2026-10-22)
+
+
+### Bug Fixes
+
+* Open files shared to the app for patching ([d2867a0](https://github.com/MorpheApp/morphe-manager/commit/d2867a072e30a0bbee6a926d2d1fdcffafbf8e38))
+
+
+### Features
+
+* Name patch sources in exported APK file names ([5878b00](https://github.com/MorpheApp/morphe-manager/commit/5878b006f2c400e3e8d2e980f2ed4ce797a9bba6))
+* Show more of Morphe in the feature tour ([701a7bd](https://github.com/MorpheApp/morphe-manager/commit/701a7bdb035ed7463e6689299eb9011adc179a88))
+
 # [2.0.0](https://github.com/MorpheApp/morphe-manager/compare/v1.35.0...v2.0.0) (2026-10-22)
 
 

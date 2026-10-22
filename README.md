@@ -17,52 +17,91 @@
 </div>
 
 &nbsp;
-# Morphe Manager Fork Patcher
+# Morphe Manager Fork For Personal Use
+
 
 Script and CI workflow that apply custom features on top of [MorpheApp/morphe-manager](https://github.com/MorpheApp/morphe-manager) (`dev` branch) and build an installable APK.
 
+
 Upstream stays untouched. `patch.py` edits a fresh checkout at build time, so the fork keeps up with upstream without merge conflicts.
+
 
 ## Features
 
+
 ### Favorite universal patches
+
 
 Pin universal patches you use often in Expert mode.
 
+
 - Star button on every universal patch card
 - Long-press a card to toggle favorite, with haptic feedback
-- Favorites float to the top of the universal patches list
-- Toast on add/remove
+- Favorites float to the top of universal patch sections
+- Toast/message on add/remove
 - Screen reader label on the star ("patch name, Add to favorites")
 - Saved in preferences and included in settings export/import
 
+
 ### Skip APK signing (Expert mode)
 
-New switch in **Settings > Advanced** (visible only with Expert mode on). Based on [morphe-manager PR #1008](https://github.com/MorpheApp/morphe-manager/pull/1008).
 
+New switch under the Expert mode switch in **Settings > Patching** (older checkouts: Expert section of **Settings > Advanced**). Based on [morphe-manager PR #1008](https://github.com/MorpheApp/morphe-manager/pull/1008).
+
+
+- Visible and honored only while Expert mode is on
 - Patched APK is left unsigned by the manager's keystore
 - Original `META-INF` signature files and APK Signing Block (v2/v3) are restored from the input APK
 - Split bundles (APKS/XAPK/APKM): merging already clears original signatures, so a warning is logged and the merged APK is saved as-is
 - Auto-install is disabled while this option is on
 - Saving and sending to the selected installer still work
 
+
 Android normally rejects unsigned APKs. Use this for external signing tools or workflows that re-sign afterwards.
+
 
 ### Select APK button beside the bottom bar
 
-- The "Select other apps" button leaves the apps toolbar and sits as a round button on the right of the bottom navigation pill
-- Shown whenever the toolbar button was (a third-party source is active); landscape keeps it in the toolbar
+
+- The select-APK action moves out of the apps toolbar into a labelled pill button beside the bottom navigation pill
+- Always visible from the first frame; it does not wait for apps or third-party sources to load
+- In portrait, it replaces the toolbar action; in landscape, the toolbar action remains
+
 
 ### Patch update check interval
 
-New row in **Settings > Advanced > Updates**: automatic patch update check at launch runs at most every 3, 6, 12 or 24 hours (default 3).
 
-- Pull to refresh and notification-triggered checks always run
-- Offline launches skip the check without using up the interval
+New row in **Settings > Advanced > Updates**: the automatic patch update check at launch can be limited to every 3, 6, 12 or 24 hours, or left on every launch. Default: 3 hours.
+
+
+- Choice is made in a radio dialog
+- Pull-to-refresh and notification-triggered checks always run
+- Offline launches skip the check without consuming the interval
+
+
+### Sources header order
+
+
+On the Sources page, the search toggle is placed ahead of the actions: Search, Sort, Add (+).
+
+
+### Expert patch dialog ordering
+
+
+Bundles that contain a patch for the selected app, not only universal patches, are listed first.
+
+
+### Cleaner patcher log
+
+
+The loader notice "Universal patches must be declared with default false" is suppressed, including its indented bundle/patch list.
+
 
 ### Fork identity
 
+
 Installs side by side with the official Morphe Manager.
+
 
 | Field | Value |
 | --- | --- |
@@ -70,42 +109,46 @@ Installs side by side with the official Morphe Manager.
 | App name | `MorpheFork` |
 | `google-services.json` | `package_name` rewritten to match |
 
-### Other
-
-- Dialogs use full available size instead of a capped content width
 
 ## How it works
 
+
 `patch.py` does not rely on pasted multi-line context. Edits anchor on structure:
+
 
 - Files found by declaration (class or function name), path is only a hint
 - Edits target function bodies, call arguments, parameter lists and single lines
-- Feature code lives in new files (`SignatureRestorer.kt`, `FavoritePatches.kt`), so upstream diffs stay small
+- Feature code lives in new files (`SignatureRestorer.kt`, `FavoritePatches.kt`, `FloatingApkButton.kt`, `PatchUpdateThrottle.kt`, `PatchUpdateIntervalSetting.kt`), so upstream diffs stay small
 - Idempotent: running twice changes nothing
 - All-or-nothing: nothing is written unless every required edit resolves and the result passes bracket and reference checks
 - Line endings and BOM of each file are preserved
 
+
 ## Usage
+
 
 ```bash
 python3 patch.py path/to/morphe-manager
 python3 patch.py path/to/morphe-manager --check
 ```
 
+
 `--check` is a dry run. Exit code 1 means edits are pending or an anchor failed.
+
+
+Optional: set `FORK_REPO=owner/repo` before patching to redirect Manager self-update URLs to the fork, accept prerelease/dev versions, remove the Google Play Services update gate, and set the self-update check default to hourly.
+
 
 ## CI
 
+
 The **Build APK** workflow:
+
 
 1. Checks out this repo and upstream `dev`
 2. Runs `python3 patcher/patch.py source`
 3. Builds the release APK with Gradle
 4. Uploads the APK
 
+
 If upstream refactors code the script anchors on, step 2 fails with a line like `[!] cannot locate <name>` and nothing is built. Update the matching anchor in `patch.py`.
-
-## Credits
-
-- [MorpheApp/morphe-manager](https://github.com/MorpheApp/morphe-manager) for the app
-- Skip APK signing follows upstream PR #1008

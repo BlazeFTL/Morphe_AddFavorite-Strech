@@ -1033,13 +1033,11 @@ private fun BatchItemCard(
 
 /** The name a saved or shared APK of [this] item goes by, the one the single-app flow gives it. */
 private fun BatchPatchItem.exportFileName(): String = ExportNameFormatter.format(
-    null,
     PatchedAppExportData(
         appName = appName,
         packageName = id,
         appVersion = version,
-        patchBundleVersions = bundles.mapNotNull { it.version?.takeIf(String::isNotBlank) },
-        patchBundleNames = bundles.map { it.name }
+        sources = bundles.map { PatchSourceRef(it.name, it.version) }
     )
 )
 

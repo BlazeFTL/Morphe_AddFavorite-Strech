@@ -1,40 +1,48 @@
 # Patcher core
 
-Everything about a patching run that does not need Android. The app runs it in one of two places:
+Everything about a patching run that does not need Android. The app runs it in the `:patcher`
+process of `PatcherService`, started by `PatcherProcesses` for every run, on one of two VMs:
 
-- `JvmRuntime`, the default: an embedded HotSpot 25 inside the app's process, started by
-  `PatcherJvm`, with a heap of a third of the RAM (1-3 GB, at most 1 GB in a 32-bit process).
-  Shipped for arm64-v8a, armeabi-v7a and x86_64.
-- `CoroutineRuntime`: inside the app, on ART. Used when the setting is off, on 32-bit x86, and
-  when the JVM fails to start.
+- JVM, the default: an embedded HotSpot 25 with a heap of a third of the RAM (1-3 GB, at most
+  1 GB in a 32-bit process). Shipped for arm64-v8a, armeabi-v7a and x86_64.
+- ART, the runtime of the process itself, within the heap Android gives the app. Used when the
+  setting is off, on 32-bit x86, and when the JVM fails to start.
 
-Both run `PatchPipeline`. The app talks to the JVM over pipes, one JSON line each: `HostCommand`
-to preload bundles, start a run or cancel it, and `HostEvent` for what the run reports.
+Both serve the run with `serveRun` in `HostMain`, which differs only in how it loads the patches.
+The app talks to the host over pipes it hands the service, one JSON line each: `HostCommand` to
+preload bundles and start the run, and `HostEvent` for what the run reports.
 
 ## Pitfalls
 
 - **Heap pointer tagging**: HotSpot keeps flags in the top bits of pointers, and bionic aborts on
-  free. `jvm_launcher.cpp` turns tagging off for the process as it starts the JVM.
-- **Dumpable**: a release build starts the app as not dumpable, which makes `/proc/self/io`
+  free. `jvm_launcher.cpp` turns tagging off for the `:patcher` process.
+- **Dumpable**: a release build starts `:patcher` as not dumpable, which makes `/proc/self/io`
   unreadable and leaves the I/O graph empty. The launcher marks the process dumpable again.
-- **32-bit address space**: the heap is reserved in one piece, and the app's process has
-  already spent much of its 4G. `PatcherJvm` sizes the heap to the largest block still free,
-  less room for a code cache capped at 64M, and leaves the run to ART below 512M.
+- **32-bit address space**: the heap is reserved in one piece, out of the 4G the process has.
+  `PatcherService` sizes the heap to the largest block still free, less room for a code cache
+  capped at 64M, and leaves the run to ART below 512M.
 - **Linker namespace**: the app's namespace does not search the runtime's `lib/`, so
   `JvmInstallation.PRELOAD` loads the libraries that others link against by full path.
-- **One JVM per process**: HotSpot cannot be stopped or started again. It starts with the first
-  run the user sets up and serves every run after it. A JVM that fails to start leaves the
-  runs of that process to ART.
-- **No process of its own**: some vendors stop an app's extra processes regardless of their
-  priority, so the JVM shares the process of the app and its foreground service.
-- **Memory between runs**: the host collects in full after every run and when preloaded bundles
-  are dropped, which is when G1 shrinks the heap back.
-- **Cancel**: a run cannot be killed, so `HostCommand.Cancel` cancels its coroutines. It ends at
-  the next suspension point, and the next run waits for it.
-- **Exit**: `System.exit` in the JVM ends the app, as does a crash of the JVM. The crash report
-  goes to `files/patcher-jvm-error.log` and into the log of the next run.
-- **Stdio**: the app's stdout and stderr lead to `/dev/null`, so the host replaces `System.out`
-  and `System.err`. What patches print goes into the log of the run as `[STDIO]` warnings.
+- **`ManagerApplication.onCreate` runs in `:patcher` too**, and returns right away there.
+  Otherwise, Firebase crashes the process.
+- **One JVM per process**: HotSpot cannot be stopped or started again. The process ends with the
+  run, and every run gets a fresh one, started ahead while the user picks what to patch.
+- **A process of its own**: a large run, such as TikTok, can take more memory than a weak device
+  spares, and the system then ends the process that holds it. Apart from the app, that is the
+  run alone, and the app reports it with the reason the system recorded. On ART the heap of the
+  run would otherwise be the app's, and running out of it would throw on the UI thread as well.
+  A crash of the JVM or `System.exit` in a patch ends only that process too, and the JVM's report
+  (`patcher-jvm-error-<pid>.log` in the app's temporary files) goes into the log of the run.
+- **A full heap**: neither VM gives up on a heap that is nearly full right away, but collects
+  for a few minutes first (G1 through its GC overhead limit, ART once a collection frees under
+  1%). The run then fails with `HeapExhaustedException`.
+- **Cancel**: the app ends the process, which is also what it does with one started ahead that
+  no run took.
+- **Priority**: only the binding with `BIND_IMPORTANT` keeps `:patcher` off the slow background
+  cores.
+- **Stdio**: the stdout and stderr of an app's process lead to `/dev/null` or logcat, so the
+  host replaces `System.out` and `System.err`. What patches print goes into the log of the run
+  as `[STDIO]` warnings.
 
 ## The runtime in the APK
 
@@ -72,7 +80,7 @@ To change the JDK or add an ABI, edit `embeddedJvms`. `EMBEDDED_JVM_ID` changes 
 the app unpacks the runtime again.
 
 A new event of a run has to be added to `PatchingListener`, `HostEvent`, `HostMain`,
-`PatcherJvm.relay` and `ProgressReporter`.
+`PatcherProcesses.PatcherProcess.relay` and `ProgressReporter`.
 
 ## Tuning and profiling
 
@@ -105,12 +113,12 @@ adb exec-out run-as app.morphe.manager.debug cat files/gc.log > gc.log
 - **CDS**: the runtime ships no archive. One can be made in three runs: one with
   `-XX:DumpLoadedClassList=<dir>/classes.lst`, one with `-Xshare:dump
   -XX:SharedClassListFile=<dir>/classes.lst -XX:SharedArchiveFile=<dir>/app.jsa` (it exits
-  after the dump, which ends the app too), then runs with `-XX:SharedArchiveFile=<dir>/app.jsa`. The 47M archive of
+  after the dump), then runs with `-XX:SharedArchiveFile=<dir>/app.jsa`. The 47M archive of
   6300 classes made a run about 2% faster, less than runs differ by on their own.
 - **CPU profile**: JFR needs `jdk.jfr` in `embeddedJvmModules` and `lib/jfr` in `embeddedJvmFiles`,
   then `-XX:StartFlightRecording=settings=profile` with
   `-XX:FlightRecorderOptions=repository=/data/user/0/app.morphe.manager.debug/files/jfr-repo`.
-  The JVM exits only with the app, which ends without a dump at exit, so the chunk in the
-  repository is never finished. `jfr` and Mission Control refuse it, but
+  The process ends as soon as the run reports its end, before a dump at exit gets written, so
+  the chunk in the repository is never finished. `jfr` and Mission Control refuse it, but
   `jdk.jfr.consumer.EventStream.openRepository` reads what was flushed, which is all but the last
   second.

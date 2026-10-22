@@ -1,4 +1,4 @@
-// Starts a HotSpot JVM inside the app's process and runs a main class in it.
+// Starts a HotSpot JVM inside the calling process and runs a main class in it.
 //
 // The JVM keeps its heap in native memory, so it is bound by what the device can spare rather than
 // the heap limit ART puts on a process. HotSpot cannot be started twice in one process, so the
@@ -154,7 +154,7 @@ void *runJvm(void *data) {
         for (size_t i = 0; i < launch->args.size(); i++) {
             env->SetObjectArrayElement(args, static_cast<jsize>(i), env->NewStringUTF(launch->args[i].c_str()));
         }
-        // Serves the app until its process ends, so returning means the host broke down
+        // Ends the process once the run is over, so returning means the host broke down
         env->CallStaticVoidMethod(mainClass, main, args);
         describeException(env);
         __android_log_print(ANDROID_LOG_ERROR, TAG, "The main method of the JVM returned");

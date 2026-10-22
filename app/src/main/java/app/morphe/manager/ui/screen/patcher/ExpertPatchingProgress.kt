@@ -70,7 +70,7 @@ import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_PREF
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_PREFIX_SOURCE
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_PREFIX_STARTED
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_PREFIX_SUCCEEDED
-import app.morphe.manager.patcher.worker.PatcherWorker.Companion.RUNTIME_APP
+import app.morphe.manager.patcher.worker.PatcherWorker.Companion.RUNTIME_ART
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.RUNTIME_JVM
 import app.morphe.manager.ui.model.PatchProgressSource
 import app.morphe.manager.ui.model.State
@@ -157,7 +157,7 @@ private fun formatElapsed(ms: Long?): String {
 /** What the banner calls the runtime a log line names. */
 private fun runtimeLabel(name: String) = when (name) {
     RUNTIME_JVM -> "JVM"
-    RUNTIME_APP -> "ART"
+    RUNTIME_ART -> "ART"
     else -> name
 }
 

@@ -7,6 +7,7 @@ package app.morphe.manager.patcher.host
 
 import app.morphe.manager.patcher.PatchingListener
 import app.morphe.manager.patcher.logger.LogLevel
+import app.morphe.manager.patcher.runtime.isOutOfMemory
 import app.morphe.manager.patcher.split.SplitPreparationEvent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -59,7 +60,7 @@ sealed interface HostEvent {
     data class Failure(val stackTrace: String, val outOfMemory: Boolean) {
         constructor(error: Throwable) : this(
             error.stackTraceToString(),
-            generateSequence(error) { it.cause }.any { it is OutOfMemoryError }
+            error.isOutOfMemory()
         )
     }
 

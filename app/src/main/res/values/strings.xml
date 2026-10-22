@@ -724,7 +724,9 @@ Uninstalling will permanently erase all app data"</string>
     <string name="failed_to_execute_patch">Failed to apply %s</string>
     <string name="patched_app_save_failed_toast">Failed to save patched app</string>
     <string name="plugin_activity_dialog_body">User interaction is required in order to proceed with this plugin</string>
-    <string name="patcher_heap_exhausted_message">The patcher ran out of memory with a %1$d MB heap. This app is too large for the selected patches. Try patching with fewer patch sources, or select fewer patches</string>
+    <string name="patcher_process_killed_message">The system stopped the patcher before it finished, usually to free memory. Close other apps and try again</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">The patcher ran out of memory with a %1$s MB heap. This app is too large for the selected patches. Try patching with fewer patch sources, or select fewer patches</string>
 
     <string name="install_app_success">Installed successfully</string>
     <string name="install_app_fail">Failed to install app: %s</string>

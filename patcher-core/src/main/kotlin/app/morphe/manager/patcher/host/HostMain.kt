@@ -13,8 +13,6 @@ import app.morphe.manager.patcher.logger.Logger
 import app.morphe.manager.patcher.split.SplitPreparationEvent
 import app.morphe.patcher.patch.Patch
 import app.morphe.patcher.patch.loadPatchesFromJar
-import kotlinx.coroutines.CompletableJob
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import java.io.ByteArrayOutputStream
@@ -26,103 +24,80 @@ import java.io.PrintStream
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.FutureTask
 import kotlin.concurrent.thread
+import kotlin.system.exitProcess
 
 /**
- * Entry point of the JVM the app embeds for patching. HotSpot cannot be started twice in a
- * process, so the JVM lives as long as the app does and serves each of its runs.
+ * Entry point of the JVM the app embeds for patching, see [serveRun].
  *
- * @param args The read end of a pipe the app writes [HostCommand]s to, one per line.
+ * @param args The read end of a pipe the app writes [HostCommand]s to, one per line, then the write
+ *             end of a pipe the app reads [HostEvent]s from.
  */
 fun main(args: Array<String>) {
-    val host = Host()
-    File(args.single()).bufferedReader().useLines { lines ->
-        lines.forEach { host.handle(HostCommand.decode(it)) }
-    }
+    val (commandsFile, eventsFile) = args
+    serveRun(commandsFile, eventsFile) { loadPatchesFromJar(setOf(it)) }
 }
 
-/** Carries out what the app asks for. The app hands over a run only once the one before it finished. */
-private class Host {
-    // Taken by the run that follows, so a bundle is loaded ahead for one run at most
-    @Volatile
-    private var preloaded = emptyMap<String, PreloadedBundle>()
+/**
+ * Serves the single run of a process of its own, in whichever VM it runs, and ends the process
+ * with it. The host is started before the run is known, so it can load ahead while the user still
+ * picks what to patch.
+ *
+ * @param commandsFile What the app writes [HostCommand]s to, one per line.
+ * @param eventsFile What the app reads [HostEvent]s from.
+ * @param loadPatches Reads the patches of a bundle, which is the one step that depends on the VM.
+ */
+fun serveRun(
+    commandsFile: String,
+    eventsFile: String,
+    loadPatches: (File) -> Collection<Patch<*>>
+): Nothing {
+    val code = try {
+        HostEvents(FileOutputStream(eventsFile)).use { events ->
+            // Patches print what they did, which on Android goes to /dev/null or at best logcat.
+            // The log is the one place the user sees it
+            System.setOut(events.printer())
+            System.setErr(events.printer())
 
-    // Kept once completed, which a cancel then leaves as it is
-    @Volatile
-    private var run: Job? = null
+            var preloaded = emptyMap<String, PreloadedBundle>()
+            File(commandsFile).bufferedReader().useLines { lines ->
+                for (line in lines) when (val command = HostCommand.decode(line)) {
+                    is HostCommand.Preload ->
+                        preloaded = command.bundles.associateWith { PreloadedBundle(File(it), loadPatches) }
 
-    // Where the run in progress reports to, which also takes what is printed meanwhile
-    @Volatile
-    private var output: HostEvents? = null
-
-    init {
-        // The JVM shares the app's stdio, which Android points at /dev/null. Patches print what
-        // they did there, which the log is the one place to show
-        System.setOut(printedTo(System.out))
-        System.setErr(printedTo(System.err))
-    }
-
-    fun handle(command: HostCommand) {
-        when (command) {
-            is HostCommand.Preload -> {
-                preloaded = command.bundles.associateWith(::PreloadedBundle)
-                // A run in progress releases what it leaves once it ends
-                if (command.bundles.isEmpty() && run?.isActive != true) releaseMemory()
-            }
-
-            is HostCommand.Run -> {
-                // Set before the thread starts, so a cancel that follows right away is not lost
-                val job = Job()
-                run = job
-                thread(name = "PatcherRun") { run(command, job) }
-            }
-
-            HostCommand.Cancel -> run?.cancel()
-        }
-    }
-
-    private fun run(command: HostCommand.Run, job: CompletableJob) {
-        val bundles = preloaded
-        preloaded = emptyMap()
-        try {
-            HostEvents(FileOutputStream(command.eventsFile)).use { events ->
-                output = events
-                val failure = runCatching {
-                    val request = Json.decodeFromString(PatchRequest.serializer(), File(command.requestFile).readText())
-                    runBlocking(job) {
-                        PatchPipeline(request, events.logger, events.listener) { bundle ->
-                            bundles[bundle.patchesFile]?.take(events.logger)
-                                ?: loadPatchesFromJar(setOf(File(bundle.patchesFile)))
-                        }.run()
+                    is HostCommand.Run -> {
+                        run(command, preloaded, loadPatches, events)
+                        break
                     }
-                }.exceptionOrNull()
-
-                // Nothing may follow the last event
-                output = null
-                events.send(HostEvent.Finished(failure?.let(HostEvent::Failure)))
+                }
             }
-        } catch (_: IOException) {
-            // The app stopped reading, so there is nobody left to report to
-        } finally {
-            job.complete()
-            releaseMemory()
         }
+        0
+    } catch (_: IOException) {
+        // The app stopped reading, so there is nobody left to report to
+        1
     }
 
-    /**
-     * Collects in full, which is when the collector shrinks the heap. A run leaves hundreds of
-     * megabytes committed that the app's process would otherwise keep until the next one.
-     */
-    private fun releaseMemory() = System.gc()
+    // Threads the patches left running must not keep the process, which exists for this run alone
+    exitProcess(code)
+}
 
-    /**
-     * A stream whose lines go to the log of the run in progress as warnings, as nothing is meant
-     * to be printed. Lines printed between runs go on to [fallback].
-     */
-    private fun printedTo(fallback: PrintStream) = PrintStream(
-        LineOutputStream { line -> output?.logger?.warn("[STDIO]: $line") ?: fallback.println(line) },
-        true,
-        Charsets.UTF_8.name()
-    )
+private fun run(
+    command: HostCommand.Run,
+    preloaded: Map<String, PreloadedBundle>,
+    loadPatches: (File) -> Collection<Patch<*>>,
+    events: HostEvents
+) {
+    val failure = runCatching {
+        val request = Json.decodeFromString(PatchRequest.serializer(), File(command.requestFile).readText())
+        runBlocking {
+            PatchPipeline(request, events.logger, events.listener) { bundle ->
+                preloaded[bundle.patchesFile]?.take(events.logger)
+                    ?: loadPatches(File(bundle.patchesFile))
+            }.run()
+        }
+    }.exceptionOrNull()
+
+    events.send(HostEvent.Finished(failure?.let(HostEvent::Failure)))
 }
 
 /** Hands each line written to it over to [onLine], without its line break. */
@@ -144,15 +119,14 @@ private class LineOutputStream(private val onLine: (String) -> Unit) : OutputStr
  * The patches of a bundle, loaded on a thread of their own from the moment they are asked for. The
  * file may be replaced by an update before the run, so they are only used if it is unchanged.
  */
-private class PreloadedBundle(path: String) {
-    private val file = File(path)
+private class PreloadedBundle(private val file: File, loadPatches: (File) -> Collection<Patch<*>>) {
     private val stamp = stampOf(file)
-    private val patches = FutureTask { loadPatchesFromJar(setOf(file)) }.also {
+    private val patches = FutureTask { loadPatches(file) }.also {
         thread(isDaemon = true, name = "PreloadPatches") { it.run() }
     }
 
     /** The loaded patches, or null if the file changed or loading failed, for them to be loaded again. */
-    fun take(logger: Logger): Set<Patch<*>>? {
+    fun take(logger: Logger): Collection<Patch<*>>? {
         if (stampOf(file) != stamp) return null
         return try {
             patches.get()
@@ -197,6 +171,13 @@ private class HostEvents(stream: OutputStream) : AutoCloseable {
 
         override suspend fun patchesFinished(count: Int) = send(HostEvent.PatchesFinished(count))
     }
+
+    /** A stream whose lines go to the log as warnings, as nothing is meant to be printed. */
+    fun printer() = PrintStream(
+        LineOutputStream { line -> logger.warn("[STDIO]: $line") },
+        true,
+        Charsets.UTF_8.name()
+    )
 
     override fun close() = writer.close()
 }

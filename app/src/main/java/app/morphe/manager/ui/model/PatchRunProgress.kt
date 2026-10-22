@@ -230,7 +230,7 @@ class PatchRunProgress(
             steps.clear()
             steps.addAll(generatePatchSteps(appContext, requiresSplitPreparation))
             patchesPercentage = patchesShare()
-            // A fallback to the app's process reports the app's heap as its own limit
+            // A fallback to ART reports a heap limit of its own
             heapLimitMb = 0
             heapSamples.clear()
             ioSamples.clear()

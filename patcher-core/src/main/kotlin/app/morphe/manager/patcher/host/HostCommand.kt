@@ -15,26 +15,18 @@ import kotlinx.serialization.json.Json
  */
 @Serializable
 sealed interface HostCommand {
-    /**
-     * Loads the patch bundles the next run is likely to patch with, in place of any loaded before.
-     * None drops them, for their memory to be handed back.
-     */
+    /** Loads the patch bundles the run is likely to patch with, in place of any loaded before. */
     @Serializable
     @SerialName("preload")
     data class Preload(val bundles: List<String>) : HostCommand
 
     /**
      * Patches with the [app.morphe.manager.patcher.PatchRequest] written to [requestFile]. The run
-     * reports to [eventsFile] and always ends with [HostEvent.Finished].
+     * always ends with [HostEvent.Finished], and the process with it.
      */
     @Serializable
     @SerialName("run")
-    data class Run(val requestFile: String, val eventsFile: String) : HostCommand
-
-    /** Stops the run in progress, which still ends with [HostEvent.Finished]. */
-    @Serializable
-    @SerialName("cancel")
-    data object Cancel : HostCommand
+    data class Run(val requestFile: String) : HostCommand
 
     companion object {
         fun encode(command: HostCommand): String = Json.encodeToString(serializer(), command)

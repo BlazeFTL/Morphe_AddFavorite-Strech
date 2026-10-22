@@ -23,23 +23,26 @@ import app.morphe.manager.patcher.patch.optionValueToJson
 import app.morphe.manager.patcher.worker.ProgressEventHandler
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import java.io.File
 import kotlin.time.Duration
 import kotlin.time.measureTime
 
 /**
- * Where a run happens. Everything around it is the same for each: the request it is given, what
- * its reports turn into on screen, and the merged APK it leaves behind.
+ * Patches in a process of its own on [vm], see [PatcherProcesses]. Everything around a run is the
+ * same for each VM: the request it is given, what its reports turn into on screen, and the merged
+ * APK it leaves behind.
  */
-sealed class Runtime(
-    protected val context: Context,
+class Runtime(
+    private val context: Context,
     private val fs: Filesystem,
-    private val patchBundlesRepo: PatchBundleRepository
+    private val patchBundlesRepo: PatchBundleRepository,
+    private val processes: PatcherProcesses,
+    private val vm: PatcherVm
 ) {
-    /** Only of use to a runtime that reads bundles on ART, see [CoroutineRuntime]. */
-    protected val bundleLoadGuard get() = patchBundlesRepo.loadGuard
-
     /**
      * Patches [inputFile] into [outputFile].
      *
@@ -95,7 +98,19 @@ sealed class Runtime(
     }
 
     /** Runs [request], reporting through [logger] and [listener], and throws if it fails. */
-    protected abstract suspend fun patch(request: PatchRequest, logger: Logger, listener: PatchingListener)
+    private suspend fun patch(request: PatchRequest, logger: Logger, listener: PatchingListener) {
+        // A file of its own, as the process of a canceled run may still be reading its request
+        val requestFile = withContext(Dispatchers.IO) {
+            File.createTempFile("patch-request", ".json", fs.tempDir).apply {
+                writeText(Json.encodeToString(PatchRequest.serializer(), request))
+            }
+        }
+        try {
+            processes.run(requestFile, request.bundles.map { it.patchesFile }, vm, logger, listener)
+        } finally {
+            requestFile.delete()
+        }
+    }
 
     private suspend fun requestedBundles(selectedPatches: PatchSelection, options: Options) =
         patchBundlesRepo.bundles.first().let { bundles ->

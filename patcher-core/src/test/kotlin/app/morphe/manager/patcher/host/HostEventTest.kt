@@ -38,8 +38,7 @@ class HostEventTest {
         val commands = listOf(
             HostCommand.Preload(listOf("/a.mpp", "/b.mpp")),
             HostCommand.Preload(emptyList()),
-            HostCommand.Run("/request.json", "/proc/self/fd/42"),
-            HostCommand.Cancel
+            HostCommand.Run("/request.json")
         )
 
         commands.forEach { assertEquals(it, HostCommand.decode(HostCommand.encode(it))) }

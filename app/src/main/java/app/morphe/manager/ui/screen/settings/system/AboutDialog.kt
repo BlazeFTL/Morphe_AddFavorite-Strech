@@ -24,7 +24,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -54,7 +53,7 @@ fun DialogHostScope.AboutDialog(
     themeViewModel: ThemeSettingsViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
-    val uriHandler = LocalUriHandler.current
+    val openUrl = rememberOpenUrl()
     val view = LocalView.current
     val matrixUnlocked by themeViewModel.prefs.matrixBackgroundUnlocked.getAsState()
     var versionTaps by remember { mutableIntStateOf(0) }
@@ -172,7 +171,7 @@ fun DialogHostScope.AboutDialog(
                     SocialIconButton(
                         icon = AboutViewModel.getSocialIcon(link.name),
                         contentDescription = link.name,
-                        onClick = { uriHandler.openUri(link.url) },
+                        onClick = { openUrl(link.url) },
                         textColor = textColor
                     )
                 }

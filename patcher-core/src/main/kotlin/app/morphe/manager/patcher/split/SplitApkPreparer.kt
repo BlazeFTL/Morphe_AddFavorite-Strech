@@ -50,6 +50,18 @@ sealed class SplitPreparationEvent {
  */
 object SplitApkPreparer {
     /**
+     * Copies an installed app into [directory] as one file named after [packageName]: an APKS
+     * archive of [baseApk] and its [splitApks] for a split install, the APK itself otherwise.
+     * Throws when its files are gone from the device.
+     */
+    fun copyInstalledApp(packageName: String, baseApk: String, splitApks: List<String>, directory: File): File =
+        if (splitApks.isNotEmpty()) {
+            directory.resolve("${packageName}_installed.apks").also { writeApksArchive(baseApk, splitApks, it) }
+        } else {
+            directory.resolve("${packageName}_installed.apk").also { File(baseApk).copyTo(it, overwrite = true) }
+        }
+
+    /**
      * Packs [baseApk] and its [splitApks] into an APKS archive at [output], each under its own
      * file name so [prepareIfNeeded] can tell the base from the splits. APKs are compressed
      * already, so they are stored rather than deflated, which needs each CRC up front.
@@ -95,11 +107,10 @@ object SplitApkPreparer {
     )
 
     /** Returns `true` if [file] is a split APK bundle. */
-    fun isSplitArchive(file: File?): Boolean {
-        if (file == null || !file.exists()) return false
+    fun isSplitArchive(file: File?): Boolean =
         // Only an archive without a known extension is opened to look for modules
-        return file.extension.lowercase(Locale.ROOT) in SUPPORTED_EXTENSIONS || hasEmbeddedApkEntries(file)
-    }
+        file != null && file.exists() &&
+                (file.extension.lowercase(Locale.ROOT) in SUPPORTED_EXTENSIONS || hasEmbeddedApkEntries(file))
 
     /**
      * If [source] is a split APK bundle, extracts all modules into [workspace], merges them into

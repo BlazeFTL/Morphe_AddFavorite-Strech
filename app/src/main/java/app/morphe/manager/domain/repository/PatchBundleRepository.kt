@@ -160,6 +160,11 @@ class PatchBundleRepository(
             .map { BundleAppMetadata.buildFrom(it) }
             .stateIn(scope, SharingStarted.Eagerly, emptyMap())
 
+    /** What the sources call each app, see [BundleAppMetadata.displayNames]. */
+    val appDisplayNames: StateFlow<Map<String, String>> =
+        combine(appMetadata, allAppMetadata, BundleAppMetadata::displayNames)
+            .stateIn(scope, SharingStarted.Eagerly, emptyMap())
+
     fun scopedBundleInfoFlow(packageName: String, version: String?, versionCode: Long? = null) = enabledBundlesInfoFlow.map {
         it.map { (_, bundleInfo) ->
             bundleInfo.forPackage(packageName, version, versionCode)
@@ -1100,6 +1105,11 @@ class PatchBundleRepository(
         var copyRead = 0L
         var displayName: String? = null
         var importedUid: Int? = null
+        fun reportFailure(e: Exception) {
+            if (e is CancellationException) throw e
+            Log.e(tag, "Got exception while importing bundle", e)
+            messages.showIfInForeground(R.string.home_app_info_patches_replace_fail, e.simpleMessage())
+        }
         enqueueLocalImport()
         localImportMutex.withLock {
             val baseProcessed = localImportBaseSteps()
@@ -1117,38 +1127,44 @@ class PatchBundleRepository(
                     File.createTempFile("local_bundle", ".jar", app.cacheDir)
                 }
                 try {
-                    val precomputedDigest = withContext(Dispatchers.IO) {
-                        tempFile.outputStream().use { output ->
-                            createStream().use { input ->
-                                if (copyTotal == null) {
-                                    copyTotal = when (input) {
-                                        is FileInputStream -> runCatching { input.channel.size() }.getOrNull()
-                                        else -> runCatching { input.available().takeIf { it > 0 }?.toLong() }.getOrNull()
+                    // A provider that went away or a read cut short ends the import, not the app
+                    val precomputedDigest = try {
+                        withContext(Dispatchers.IO) {
+                            tempFile.outputStream().use { output ->
+                                createStream().use { input ->
+                                    if (copyTotal == null) {
+                                        copyTotal = when (input) {
+                                            is FileInputStream -> runCatching { input.channel.size() }.getOrNull()
+                                            else -> runCatching { input.available().takeIf { it > 0 }?.toLong() }.getOrNull()
+                                        }
                                     }
-                                }
-                                setLocalImportProgress(
-                                    baseProcessed = baseProcessed,
-                                    offset = 0,
-                                    displayName = displayName,
-                                    phase = BundleImportPhase.Downloading,
-                                    bytesRead = 0L,
-                                    bytesTotal = copyTotal,
-                                )
-
-                                sha256Of(input) { buffer, read ->
-                                    output.write(buffer, 0, read)
-                                    copyRead += read
                                     setLocalImportProgress(
                                         baseProcessed = baseProcessed,
                                         offset = 0,
                                         displayName = displayName,
                                         phase = BundleImportPhase.Downloading,
-                                        bytesRead = copyRead,
+                                        bytesRead = 0L,
                                         bytesTotal = copyTotal,
                                     )
+
+                                    sha256Of(input) { buffer, read ->
+                                        output.write(buffer, 0, read)
+                                        copyRead += read
+                                        setLocalImportProgress(
+                                            baseProcessed = baseProcessed,
+                                            offset = 0,
+                                            displayName = displayName,
+                                            phase = BundleImportPhase.Downloading,
+                                            bytesRead = copyRead,
+                                            bytesTotal = copyTotal,
+                                        )
+                                    }
                                 }
                             }
                         }
+                    } catch (e: Exception) {
+                        reportFailure(e)
+                        return null
                     }
                     if (copyTotal == null && copyRead > 0L) {
                         copyTotal = copyRead
@@ -1217,17 +1233,12 @@ class PatchBundleRepository(
                         }
                         importedUid = uid
                     } catch (e: Exception) {
-                        if (e is CancellationException) throw e
-                        Log.e(tag, "Got exception while importing bundle", e)
-                        messages.showIfInForeground(R.string.home_app_info_patches_replace_fail, e.simpleMessage())
+                        reportFailure(e)
 
-                        withContext(Dispatchers.IO) {
-                            runCatching {
-                                localBundle.patchesJarFile.setWritable(true, true)
-                            }
-                            runCatching {
-                                localBundle.patchesJarFile.delete()
-                            }
+                        // Both writes swap the file in one step, so a replaced bundle is still intact
+                        if (existingProps == null) withContext(Dispatchers.IO) {
+                            dao.remove(uid)
+                            directoryOf(uid).deleteRecursively()
                         }
                     }
                 } finally {
@@ -1762,9 +1773,11 @@ class PatchBundleRepository(
         if (!allowMeteredUpdates && networkInfo.isMetered()) return null
 
         return try {
+            // Only sources an update can reach, or the notification points at one that never comes
             val remoteBundles = (store.state.value as? BundleState.Ready)?.sources?.values
                 .orEmpty()
                 .filterIsInstance<RemotePatchBundle>()
+                .filter { it.enabled && !isSourceBlocked(it) }
 
             if (remoteBundles.isEmpty()) return null
 
@@ -1774,14 +1787,11 @@ class PatchBundleRepository(
                     .map { bundle ->
                         async {
                             try {
-                                val info = bundle.fetchLatestReleaseInfo()
-                                val latestSignature = info.version
-                                    .removePrefix("v")
-                                    .takeUnless { it.isBlank() }
-                                val installedSignature = bundle.installedVersionSignature
-                                // Report the bundle when signatures differ (or installed is null)
-                                if (latestSignature != null && installedSignature != latestSignature)
-                                    AvailableBundleUpdate(bundle.uid, latestSignature)
+                                val latest = bundle.fetchLatestReleaseInfo().version.normalizeVersion()
+                                // The installed signature keeps the tag's prefix, so both sides are normalized
+                                val installed = bundle.installedVersionSignature?.normalizeVersion()
+                                if (latest.isNotEmpty() && installed != latest)
+                                    AvailableBundleUpdate(bundle.uid, latest)
                                 else
                                     null
                             } catch (e: Exception) {
@@ -2348,7 +2358,8 @@ class PatchBundleRepository(
             val keptCustoms = customRemotes.filter {
                 mode == ImportMode.Merge || it.endpoint.lowercase(Locale.US) in incomingEndpoints
             }
-            val keptEndpoints = keptCustoms.map { it.endpoint.lowercase(Locale.US) }.toSet()
+            // Grows as sources are added, so a backup listing one twice adds it once
+            val knownEndpoints = keptCustoms.mapTo(mutableSetOf()) { it.endpoint.lowercase(Locale.US) }
 
             // Replace mode also reconciles the enabled toggle; Merge preserves the local state.
             if (mode == ImportMode.Replace) {
@@ -2380,7 +2391,8 @@ class PatchBundleRepository(
                     normalizeRemoteBundleUrl(snapshot.source)
                 }.getOrNull() ?: return@forEach
 
-                if (normalizedUrl.lowercase(Locale.US) in keptEndpoints) return@forEach
+                if (!knownEndpoints.add(normalizedUrl.lowercase(Locale.US))) return@forEach
+                if (toBlocklistKey(normalizedUrl)?.let(blocklistRepository::isBlocked) == true) return@forEach
 
                 val created = createEntity(
                     name = snapshot.name,

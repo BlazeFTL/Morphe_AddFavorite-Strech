@@ -141,6 +141,9 @@ class InstallViewModel(
     private var pendingIntentFallbackPackage: String? = null
     private var pendingIntentFallbackInstallType: InstallType = InstallType.DEFAULT
 
+    // The install being started, which only reports Installing once its checks have run
+    private var installStart: Job? = null
+
     // Store pending install params for retry
     private var pendingInstallFile: File? = null
     private var pendingOriginalPackageName: String? = null
@@ -207,7 +210,8 @@ class InstallViewModel(
         autoUninstallOnConflict: Boolean = false,
         allowSignatureMismatch: Boolean = false
     ) {
-        if (installState is InstallState.Installing) return
+        // A second tap lands before the first one's checks report Installing
+        if (installState is InstallState.Installing || installStart?.isActive == true) return
 
         // Store for potential retry
         pendingInstallFile = outputFile
@@ -217,7 +221,7 @@ class InstallViewModel(
         pendingAutoUninstallOnConflict = autoUninstallOnConflict
         pendingAllowSignatureMismatch = allowSignatureMismatch
 
-        viewModelScope.launch {
+        installStart = viewModelScope.launch {
             // Check if we should prompt for installer selection
             val shouldPrompt = prefs.promptInstallerOnInstall.get()
 
@@ -328,7 +332,7 @@ class InstallViewModel(
                 }
 
                 // Execute the installation plan
-                executeInstallPlan(resolved.plan, outputFile, originalPackageName, onPersistApp)
+                executeInstallPlan(resolved.plan, outputFile, onPersistApp)
 
             } catch (e: Exception) {
                 Log.e(TAG, "Install failed", e)
@@ -348,7 +352,6 @@ class InstallViewModel(
     private suspend fun executeInstallPlan(
         plan: InstallerManager.InstallPlan,
         outputFile: File,
-        originalPackageName: String,
         onPersistApp: suspend (String, InstallType) -> Boolean
     ) {
         currentInstallType = plan.installType()
@@ -357,7 +360,7 @@ class InstallViewModel(
         when (plan) {
             is InstallerManager.InstallPlan.Internal -> {
                 Log.d(TAG, "Using internal (standard) installer")
-                performStandardInstall(outputFile, originalPackageName, onPersistApp)
+                performStandardInstall(outputFile, onPersistApp)
             }
 
             is InstallerManager.InstallPlan.PlayStore -> {
@@ -372,18 +375,18 @@ class InstallViewModel(
 
             is InstallerManager.InstallPlan.Shizuku -> {
                 Log.d(TAG, "Using Shizuku installer")
-                performShizukuInstall(outputFile, onPersistApp)
+                performShizukuInstall(outputFile, asPlayStore = false, onPersistApp)
             }
 
             is InstallerManager.InstallPlan.ShizukuPlayStore -> {
                 Log.d(TAG, "Using Shizuku Play Store installer")
-                performShizukuPlayStoreInstall(outputFile, onPersistApp)
+                performShizukuInstall(outputFile, asPlayStore = true, onPersistApp)
             }
 
             is InstallerManager.InstallPlan.Mount -> {
                 Log.w(TAG, "Root mount plan resolved for regular install; using internal installer")
                 currentInstallType = InstallType.DEFAULT
-                performStandardInstall(outputFile, originalPackageName, onPersistApp)
+                performStandardInstall(outputFile, onPersistApp)
             }
 
             is InstallerManager.InstallPlan.External -> {
@@ -422,21 +425,10 @@ class InstallViewModel(
      */
     private suspend fun performStandardInstall(
         outputFile: File,
-        originalPackageName: String,
         onPersistApp: suspend (String, InstallType) -> Boolean
     ) {
-        val packageInfo = withContext(Dispatchers.IO) {
-            pm.getPackageInfo(outputFile)
-                ?: throw Exception("Failed to load application info")
-        }
-        val targetPackageName = packageInfo.packageName
-
-        // Unmount if mounted as root
-        withContext(Dispatchers.IO) {
-            if (rootInstaller.hasRootAccess() && rootInstaller.isAppMounted(originalPackageName)) {
-                rootInstaller.unmount(originalPackageName)
-            }
-        }
+        val targetPackageName = readPackageName(outputFile)
+        unmountIfMounted(targetPackageName)
 
         val result = try {
             sessionInstaller.installInternal(outputFile)
@@ -474,11 +466,7 @@ class InstallViewModel(
         outputFile: File,
         onPersistApp: suspend (String, InstallType) -> Boolean
     ) {
-        val packageInfo = withContext(Dispatchers.IO) {
-            pm.getPackageInfo(outputFile)
-                ?: throw Exception("Failed to load application info")
-        }
-        val targetPackageName = packageInfo.packageName
+        val targetPackageName = readPackageName(outputFile)
 
         launchMonitoredIntentInstall(
             targetPackageName = targetPackageName,
@@ -497,19 +485,11 @@ class InstallViewModel(
         outputFile: File,
         onPersistApp: suspend (String, InstallType) -> Boolean
     ) {
-        val packageInfo = withContext(Dispatchers.IO) {
-            pm.getPackageInfo(outputFile)
-                ?: throw Exception("Failed to load application info")
-        }
-        val targetPackageName = packageInfo.packageName
+        val targetPackageName = readPackageName(outputFile)
 
         try {
-            withContext(Dispatchers.IO) {
-                if (rootInstaller.hasRootAccess() && rootInstaller.isAppMounted(targetPackageName)) {
-                    rootInstaller.unmount(targetPackageName)
-                }
-                rootInstaller.installAsPlayStore(outputFile)
-            }
+            unmountIfMounted(targetPackageName)
+            rootInstaller.installAsPlayStore(outputFile)
         } catch (e: Exception) {
             if (!e.isSignatureRejection()) throw e
             handleConflict(targetPackageName, e.simpleMessage())
@@ -533,99 +513,59 @@ class InstallViewModel(
         installedHash == expectedHash
     }
 
-    /**
-     * Silent install via Shizuku/Sui.
-     */
-    private suspend fun performShizukuPlayStoreInstall(
-        outputFile: File,
-        onPersistApp: suspend (String, InstallType) -> Boolean
-    ) {
-        val packageInfo = withContext(Dispatchers.IO) {
-            pm.getPackageInfo(outputFile)
-                ?: throw Exception("Failed to load application info")
-        }
-        val targetPackageName = packageInfo.packageName
+    /** Package name [apk] installs as. */
+    private suspend fun readPackageName(apk: File): String = withContext(Dispatchers.IO) {
+        pm.getPackageInfo(apk)?.packageName ?: throw Exception("Failed to load application info")
+    }
 
-        withContext(Dispatchers.IO) {
-            if (rootInstaller.hasRootAccess() && rootInstaller.isAppMounted(targetPackageName)) {
-                rootInstaller.unmount(targetPackageName)
-            }
-        }
-
-        Log.d(TAG, "Starting Shizuku Play Store install for $targetPackageName")
-
-        val result = try {
-            sessionInstaller.installShizukuAsPlayStore(outputFile, targetPackageName)
-        } catch (_: InstallCancelledException) {
-            installState = InstallState.Ready
-            return
-        }
-
-        when (result) {
-            InstallResult.Success -> {
-                Log.d(TAG, "Shizuku Play Store install successful")
-                onPersistApp(targetPackageName, InstallType.SHIZUKU_PLAY_STORE)
-                installedPackageName = targetPackageName
-                installState = InstallState.Installed(targetPackageName)
-                messages.show(R.string.install_app_success)
-            }
-            is InstallResult.Conflict -> handleConflict(targetPackageName, result.message)
-            is InstallResult.Failure -> {
-                if (confirmInstallCompleted(outputFile, targetPackageName)) {
-                    Log.w(TAG, "Shizuku Play Store result failed but APK SHA-256 verification succeeded for $targetPackageName")
-                    onPersistApp(targetPackageName, InstallType.SHIZUKU_PLAY_STORE)
-                    handleInstallSuccess(targetPackageName)
-                    messages.show(R.string.install_app_success)
-                } else if (result.message.isSignatureRejection()) {
-                    handleConflict(targetPackageName, result.message)
-                } else {
-                    handleInstallError(formatShizukuInstallError(result.message))
-                }
-            }
+    /** Lifts a root mount over [packageName], which would otherwise keep showing the build being replaced. */
+    private suspend fun unmountIfMounted(packageName: String) = withContext(Dispatchers.IO) {
+        if (rootInstaller.hasRootAccess() && rootInstaller.isAppMounted(packageName)) {
+            rootInstaller.unmount(packageName)
         }
     }
 
+    /** Silent install via Shizuku/Sui, attributed to Google Play when [asPlayStore]. */
     private suspend fun performShizukuInstall(
         outputFile: File,
+        asPlayStore: Boolean,
         onPersistApp: suspend (String, InstallType) -> Boolean
     ) {
-        val packageInfo = withContext(Dispatchers.IO) {
-            pm.getPackageInfo(outputFile)
-                ?: throw Exception("Failed to load application info")
-        }
-        val targetPackageName = packageInfo.packageName
+        val targetPackageName = readPackageName(outputFile)
+        unmountIfMounted(targetPackageName)
 
-        withContext(Dispatchers.IO) {
-            if (rootInstaller.hasRootAccess() && rootInstaller.isAppMounted(targetPackageName)) {
-                rootInstaller.unmount(targetPackageName)
-            }
-        }
-
-        Log.d(TAG, "Starting Shizuku install for $targetPackageName")
+        Log.d(TAG, "Starting Shizuku install for $targetPackageName, as Play Store: $asPlayStore")
 
         val result = try {
-            sessionInstaller.installShizuku(outputFile, targetPackageName)
+            if (asPlayStore) {
+                sessionInstaller.installShizukuAsPlayStore(outputFile, targetPackageName)
+            } else {
+                sessionInstaller.installShizuku(outputFile, targetPackageName)
+            }
         } catch (_: InstallCancelledException) {
             installState = InstallState.Ready
             return
         }
 
-        when (result) {
-            InstallResult.Success -> {
-                Log.d(TAG, "Shizuku install successful")
-                onPersistApp(targetPackageName, InstallType.SHIZUKU)
-                installedPackageName = targetPackageName
-                installState = InstallState.Installed(targetPackageName)
+        // Shizuku can report a failure for an install that went through all the same
+        val verifiedDespiteFailure = result is InstallResult.Failure &&
+                confirmInstallCompleted(outputFile, targetPackageName)
+        if (verifiedDespiteFailure) {
+            Log.w(TAG, "Shizuku reported a failure but the installed APK matches for $targetPackageName")
+        }
+
+        when {
+            result == InstallResult.Success || verifiedDespiteFailure -> {
+                onPersistApp(
+                    targetPackageName,
+                    if (asPlayStore) InstallType.SHIZUKU_PLAY_STORE else InstallType.SHIZUKU
+                )
+                handleInstallSuccess(targetPackageName)
                 messages.show(R.string.install_app_success)
             }
-            is InstallResult.Conflict -> handleConflict(targetPackageName, result.message)
-            is InstallResult.Failure -> {
-                if (confirmInstallCompleted(outputFile, targetPackageName)) {
-                    Log.w(TAG, "Shizuku result failed but APK SHA-256 verification succeeded for $targetPackageName")
-                    onPersistApp(targetPackageName, InstallType.SHIZUKU)
-                    handleInstallSuccess(targetPackageName)
-                    messages.show(R.string.install_app_success)
-                } else if (result.message.isSignatureRejection()) {
+            result is InstallResult.Conflict -> handleConflict(targetPackageName, result.message)
+            result is InstallResult.Failure -> {
+                if (result.message.isSignatureRejection()) {
                     handleConflict(targetPackageName, result.message)
                 } else {
                     handleInstallError(formatShizukuInstallError(result.message))
@@ -825,8 +765,7 @@ class InstallViewModel(
             }
         }
 
-        installedPackageName = packageName
-        installState = InstallState.Installed(packageName)
+        handleInstallSuccess(packageName)
         messages.show(R.string.installer_external_success, plan.installerLabel)
         return true
     }
@@ -1278,7 +1217,7 @@ class InstallViewModel(
                 token == InstallerManager.Token.ShizukuPlayStore
 
         return isShizukuInstall && withContext(Dispatchers.IO) {
-            sessionInstaller.shizukuAvailability(InstallerManager.InstallTarget.PATCHER).available
+            sessionInstaller.shizukuAvailability().available
         }
     }
 
@@ -1315,8 +1254,7 @@ class InstallViewModel(
 
     fun openShizukuApp(): Boolean = installerManager.openShizukuApp()
 
-    fun getShizukuStatus(): SessionInstaller.ShizukuStatus =
-        installerManager.shizukuStatus(InstallerManager.InstallTarget.PATCHER)
+    fun getShizukuStatus(): SessionInstaller.ShizukuStatus = installerManager.shizukuStatus()
 
     fun requestShizukuPermission(): Boolean = installerManager.requestShizukuPermission()
 

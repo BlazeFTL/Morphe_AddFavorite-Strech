@@ -11,9 +11,12 @@
     <string name="home_app_hide_message">ఈ యాప్ హోమ్ స్క్రీన్ లో దాచి పడుతుంది. 
 మీరు దీన్ని ఇదేనా ఆప్స్ మిర్చి రీస్టోర్ చేయొచ్చు క్రింది లిస్ట్ లో ఉంది బటన్ ఉపయోగించి</string>
     <string name="home_app_will_be_hidden">ఈ‌ ఆప్ దాచబడుతుంది</string>
+    <string name="home_app_hidden_named">%s దాచబడింది</string>
+    <string name="home_app_shown_named">%s చూపించబడింది</string>
     <string name="home_app_no_hidden">ఏ ఆప్ దాచబడలేదు</string>
     <string name="home_app_hidden_apps_title">దాచబడిన ఆప్ లు</string>
     <string name="home_app_hidden_apps_hint">మళ్లీ కనిపించడానికి నొక్కండి</string>
+    <string name="home_apps_unhide_message">దాయని యాప్ల తిరిగి హోం స్క్రీన్ కి</string>
     <string name="home_app_patch_sources_covers">%2$s కోసం %1$s కి ప్యాచుండి </string>
     <string name="android_11_bug_dialog_title">ఆండ్రాయిడ్ 11 బగ్</string>
     <string name="deep_link_add_source_title">మూలాన్ని జోడించు</string>
@@ -84,6 +87,7 @@
     <!-- Halloween greetings, shown instead of the ones above around October 31 -->
     <!-- Pun on "Trick or treat" -->
     <string name="home_greeting_halloween_2">ఈ APKలలో అవశేషాలేవి (ఘోస్ట్) లేవు, మేము చూసాము</string>
+    <string name="home_greeting_halloween_3">దెయ్యాల సందడి మొదలైంది, సరికొత్త ప్యాచులు </string>
     <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
     <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
     <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
@@ -131,7 +135,7 @@
     <!-- Free and total RAM of the device, never its storage -->
     <!-- Size of the patched APK, once patching finished -->
     <!-- How long patching took -->
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <!-- Fastest read or write rate reached while patching, in data per second -->
     <!-- Value of "Libraries": the libraries this device cannot use were dropped from the patched APK -->
     <!-- Value of "Libraries": every library was left in the patched APK -->
@@ -146,6 +150,7 @@
     <!-- Throw away reference to a Saturday Night Live sketch. "fever" means sickness or the flu. "prescription" means medical treatment or can be translated from "cure" -->
     <!-- Expert patcher Screen -->
     <!-- Patcher Screen - Other hidden strings -->
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
     <!-- Patcher Screen - Mini-games -->
     <!-- Settings -->
     <!-- Settings - Appearance Tab - Background animation -->

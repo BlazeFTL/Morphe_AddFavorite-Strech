@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">이 앱에는 항상 이 소스를 사용합니다</string>
     <!-- Color picker -->
     <string name="custom_color">커스텀 색상</string>
-    <string name="hex_color">헥스 색상 코드</string>
     <string name="color_picker_shade">채도 및 밝기</string>
     <string name="color_picker_hue">색상</string>
     <!-- Patch Options -->
@@ -457,6 +456,7 @@
     <string name="batch_patch_title">일괄 패치</string>
     <string name="batch_patch_planning">패치 목록을 준비하는 중…</string>
     <string name="batch_patch_preparing_next">다음 앱을 준비하는 중…</string>
+    <string name="batch_patch_progress_counter">%2$s 개 중 %1$s 개 패치하는 중</string>
     <string name="batch_patch_summary">%1$s 개 패치됨, %2$s 개 실패, %3$s 개 건너뜀</string>
     <string name="batch_patch_saved_hint">패치된 앱을 저장하였습니다. 지금 설치하거나 나중에 설정의 패치된 APK 목록에서 설치할 수 있습니다</string>
     <string name="batch_patch_multiple_sources">일부 앱은 여러 소스의 패치가 선택되어 있으므로 충돌이 발생할 수 있습니다</string>
@@ -470,9 +470,12 @@
     <string name="batch_patch_force_version">버전 강제 적용</string>
     <string name="batch_patch_force_version_done">그래도 패치 목록에 추가됨, 앱이 손상될 수 있음</string>
     <string name="batch_patch_accept_signature_done">그래도 패치 목록에 추가됨, APK가 검증되지 않음</string>
+    <string name="batch_patch_apk_selected">APK 선택됨</string>
     <string name="batch_patch_edit_patches">패치 선택</string>
     <string name="batch_patch_state_no_apk">APK 없음</string>
     <string name="batch_patch_state_no_patches">패치 없음</string>
+    <string name="batch_patch_state_no_selection">선택 안함</string>
+    <string name="batch_patch_no_selection">사용 가능한 패치 중 아무것도 선택되지 않음</string>
     <string name="batch_patch_policy_install">완료 후 설치</string>
     <string name="batch_patch_policy_install_description">패치 목록이 완료되면 패치된 각 앱을 즉시 설치합니다. 비활성화하면 나중에 사용할 수 있도록 APK를 유지합니다</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@
     <string name="patcher_field_output_size">출력 크기</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">시간</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">평균 메모리</string>
     <string name="patcher_field_memory_max">최대 메모리</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +698,8 @@
     <string name="patched_app_save_failed_toast">패치된 앱을 저장할 수 없습니다</string>
     <string name="plugin_activity_dialog_body">이 플러그인을 사용하려면 사용자 상호작용이 필요합니다</string>
     <string name="patcher_process_killed_message">시스템이 메모리를 확보하기 위해 패처가 작업을 완료하기 전에 중단하였습니다. 다른 앱을 종료한 후 다시 시도하세요</string>
-    <string name="patcher_heap_exhausted_message">패처가 %1$d MB 힙 메모리를 사용하는 동안 메모리가 부족해졌습니다. 이 앱은 선택한 패치를 적용하기에는 너무 큽니다. 패치 소스를 더 적게 사용하거나 패치를 더 적게 선택한 후 다시 패치해 보세요</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">패처가 %1$s MB 힙 메모리를 사용하는 동안 메모리가 부족해졌습니다. 이 앱은 선택한 패치를 적용하기에는 너무 큽니다. 패치 소스를 더 적게 사용하거나 패치를 더 적게 선택한 후 다시 패치해 보세요</string>
     <string name="install_app_success">성공적으로 설치하였습니다</string>
     <string name="install_app_fail">앱을 설치할 수 없습니다: %s</string>
     <string name="install_ignore_signature">무시하고 설치</string>
@@ -839,8 +843,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">앱 아이콘 변경</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">업데이트</string>
-    <string name="settings_advanced_patcher">패처</string>
     <string name="settings_advanced_updates_manager_prereleases">Pre-release 업데이트</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">새 Morphe 앱 버전을 미리 받아봅니다</string>
@@ -1060,15 +1062,15 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">배터리 최적화</string>
     <string name="settings_system_battery_optimization_description">앱이 최소화되어도 패처가 계속 실행되도록 유지합니다</string>
-    <string name="settings_system_process_runtime">프로세스 런타임</string>
-    <string name="settings_system_jvm_runtime_enable">패처 프로세스 분리</string>
-    <string name="settings_system_jvm_runtime_description">패치를 별도의 Java 런타임 환경에서 실행합니다. 이 환경은 기기에서 사용 가능한 메모리를 최대한 활용할 수 있습니다. 이 기능을 비활성화하면 Morphe 앱 내부에서 패치를 실행합니다</string>
+    <string name="settings_system_process_runtime">패처 런타임</string>
+    <string name="settings_system_jvm_runtime_enable">임베디드 VM 사용</string>
+    <string name="settings_system_jvm_runtime_description">Morphe가 제공하는 Java VM의 패치 기능으로, 기기 여유 메모리를 최대한 사용할 수 있습니다. 이 기능을 비활성화하면 Android 기본 런타임을 사용하여 패치합니다</string>
     <string name="settings_system_jvm_runtime_unavailable">ARM 또는 64비트 x86 기기가 필요합니다</string>
     <string name="settings_system_patcher_completion_sound">완료 알림음</string>
     <string name="settings_system_patcher_completion_sound_description">패치가 완료되면 성공 또는 실패 여부에 따라 서로 다른 알림음을 재생합니다</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">알림</string>
-    <string name="settings_system_notifications_description">Morphe 알림 설정</string>
+    <string name="settings_system_notifications_description">Morphe 알림 관련 설정</string>
     <string name="settings_system_notifications_success_sound">성공 알림음</string>
     <string name="settings_system_notifications_error_sound">실패 알림음</string>
     <string name="settings_system_notifications_sound_default">기본값</string>
@@ -1154,6 +1156,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">회수 가능한 모든 캐시 공간을 한 번에 확보합니다</string>
     <string name="settings_system_storage_clear_all_confirm">캐시된 네트워크 응답, 설치 준비된 APK 복사본, 임시 파일을 삭제합니다. 원본 APK와 패치된 APK는 유지됩니다</string>
     <string name="settings_system_storage_cleared">%s 확보됨</string>
+    <string name="settings_system_storage_patch_running_warning">패치가 실행 중이며 이 파일들을 사용하고 있습니다. 지금 삭제하면 실패합니다</string>
+    <string name="settings_system_storage_clear_anyway">어쨌든 지우기</string>
     <string name="settings_system_storage_nothing_to_clear">삭제할 항목이 없습니다</string>
     <string name="settings_system_storage_open_app_info_title">Android 앱 저장소 열기</string>
     <string name="settings_system_storage_open_app_info_description">시스템 설정을 통해 모든 Morphe 데이터를 관리하거나 지울 수 있습니다</string>
@@ -1257,10 +1261,10 @@ morphe_header_custom_dark.png
     <string name="settings_section_patcher">패처</string>
     <string name="settings_section_updates">업데이트</string>
     <string name="settings_section_patching">패치</string>
-    <string name="settings_section_appearance_summary">Morphe 앱 디자인 설정</string>
+    <string name="settings_section_appearance_summary">Morphe 앱 디자인 관련 설정</string>
     <string name="settings_section_patch_options_summary">심플 모드가 앱을 패치하는 방식</string>
     <string name="settings_section_general">일반</string>
-    <string name="settings_section_patcher_summary">이 기기의 앱 패치 방식 설정</string>
+    <string name="settings_section_patcher_summary">앱 패치 방식 관련 설정</string>
     <string name="settings_section_help_info">도움말 및 정보</string>
     <string name="settings_section_about_summary">Morphe 자세히 알아보기 및 도움 받기</string>
     <string name="settings_section_local_files">파일</string>
@@ -1320,6 +1324,7 @@ morphe_header_custom_dark.png
     <string name="reset_order">순서 초기화</string>
     <string name="reset_order_done">순서를 초기화하였습니다</string>
     <string name="accessibility_select_app">앱 선택</string>
+    <string name="accessibility_select_source">소스 선택하기</string>
     <string name="accessibility_move_up">위로 이동</string>
     <string name="accessibility_move_down">아래로 이동</string>
     <string name="accessibility_app_moved_announcement">\'%1$s\'가 %3$s 개 중 %2$s 번째 위치로 이동하였습니다</string>

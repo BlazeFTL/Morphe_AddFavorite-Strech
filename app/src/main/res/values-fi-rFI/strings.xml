@@ -391,7 +391,6 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="home_simple_bundle_select_remember">Käytä tätä lähdettä aina tämän sovelluksen kohdalla</string>
     <!-- Color picker -->
     <string name="custom_color">Oma väri</string>
-    <string name="hex_color">HEX-väri</string>
     <string name="color_picker_shade">Kylläisyys ja kirkkaus</string>
     <string name="color_picker_hue">Sävy</string>
     <!-- Patch Options -->
@@ -471,9 +470,12 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="batch_patch_force_version">Korjaa joka tapauksessa</string>
     <string name="batch_patch_force_version_done">Jonotettu silti, sovellus voi hajota</string>
     <string name="batch_patch_accept_signature_done">Jonotettu silti, APK:ta ei varmennettu</string>
+    <string name="batch_patch_apk_selected">APK valittu</string>
     <string name="batch_patch_edit_patches">Valitse korjaukset</string>
     <string name="batch_patch_state_no_apk">APK-tiedostoa ei ole</string>
     <string name="batch_patch_state_no_patches">Ei korjauksia</string>
+    <string name="batch_patch_state_no_selection">Ei mitään valittu</string>
+    <string name="batch_patch_no_selection">Yhdenkään saatavilla olevan korjauksen tilaa ei ole valittu</string>
     <string name="batch_patch_policy_install">Asenna valmistuttua</string>
     <string name="batch_patch_policy_install_description">Asentaa jokaisen korjatun sovelluksen heti jonon valmistuttua. Pois käytöstä pitää APK-tiedostot myöhempää käyttöä varten</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -582,7 +584,7 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="patcher_field_output_size">Tulosteen koko</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Aika</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Keskimääräinen muisti</string>
     <string name="patcher_field_memory_max">Muistin maksimi</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +697,9 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="failed_to_execute_patch">Käyttöönotto epäonnistui: %s</string>
     <string name="patched_app_save_failed_toast">Muokatun sovelluksen tallennus epäonnistui</string>
     <string name="plugin_activity_dialog_body">Tämän liitännäisen käyttöönoton jatkamiseksi tarvitaan käyttäjän toimia.</string>
-    <string name="patcher_heap_exhausted_message">Paikkaajalta loppui muisti %1$d MB:n kekomuistilla. Tämä sovellus on liian suuri valituille paikkauksille. Yritä paikata vähemmillä paikkalähteillä tai valitse vähemmän paikkauksia.</string>
+    <string name="patcher_process_killed_message">Järjestelmä pysäytti paikkurin ennen sen valmistumista, yleensä muistin vapauttamiseksi. Sulje muut sovellukset ja yritä uudelleen</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Paikantaja loppui muistin puutteesta %1$s MT:n pinolla. Tämä sovellus on liian suuri valituille paikoille. Kokeile paikantamista vähemmällä paikantalähteellä tai valitse vähemmän paikkoja</string>
     <string name="install_app_success">Asennus onnistui</string>
     <string name="install_app_fail">Sovelluksen asentaminen epäonnistui: %s</string>
     <string name="install_ignore_signature">Asenna silti</string>
@@ -839,8 +843,6 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Vaihda kuvake</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Päivitykset</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Esijulkaisupäivitykset</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Varhainen pääsy uusiin Morphe-versioihin</string>
@@ -1058,7 +1060,9 @@ Yksityiskohdat: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Akun käytön optimointi</string>
     <string name="settings_system_battery_optimization_description">Pitää paikkaajan käynnissä, kun sovellus on pienennetty</string>
-    <string name="settings_system_process_runtime">Prosessin suoritus</string>
+    <string name="settings_system_process_runtime">Patterin ajoaika</string>
+    <string name="settings_system_jvm_runtime_enable">Käytä sisällytettyä VM:iä</string>
+    <string name="settings_system_jvm_runtime_description">Morpheen käyttämässä Java-VM:ssä olevat korjaukset, jotka voivat käyttää yhtä paljon muistia kuin laite säästää. Kytke pois päältä, jotta korjaus tapahtuu Androidin ajoajan kanssa</string>
     <string name="settings_system_patcher_completion_sound">Valmistumisen ääni</string>
     <string name="settings_system_patcher_completion_sound_description">Toistaa erillisen äänen onnistumisesta tai epäonnistumisesta paikkauksen valmistuttua</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1149,6 +1153,8 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Tyhjentää kaikki vapautettavat välimuistit kerralla</string>
     <string name="settings_system_storage_clear_all_confirm">Tämä tyhjentää välimuistiin tallennetut verkkovastaukset, asennusohjelman välivaihekopiot ja väliaikaistiedostot. Alkuperäiset ja paikatut APK-tiedostot säilytetään.</string>
     <string name="settings_system_storage_cleared">Vapautettu tila: %s</string>
+    <string name="settings_system_storage_patch_running_warning">Paikkaus on käynnissä ja käyttää näitä tiedostoja. Niiden tyhjentäminen nyt aiheuttaa epäonnistumisen</string>
+    <string name="settings_system_storage_clear_anyway">Tyhjennä joka tapauksessa</string>
     <string name="settings_system_storage_nothing_to_clear">Ei tyhjennettävää</string>
     <string name="settings_system_storage_open_app_info_title">Avaa Android-sovellustilan tallennustiedot</string>
     <string name="settings_system_storage_open_app_info_description">Hallitse tai tyhjennä kaikki Morphe-tiedot järjestelmäasetusten kautta</string>

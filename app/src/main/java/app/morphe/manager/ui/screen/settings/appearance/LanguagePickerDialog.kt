@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -32,7 +31,7 @@ fun DialogHostScope.LanguagePickerDialog(
     onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
-    val uriHandler = LocalUriHandler.current
+    val openUrl = rememberOpenUrl()
     val search = rememberSearchFieldState()
 
     val allLanguages = remember(context) {
@@ -86,7 +85,7 @@ fun DialogHostScope.LanguagePickerDialog(
             if (search.query.isBlank()) {
                 item(key = "translate") {
                     SettingsItem(
-                        onClick = { uriHandler.openUri("$MORPHE_WEBSITE_URL/translate") },
+                        onClick = { openUrl("$MORPHE_WEBSITE_URL/translate") },
                         showBorder = true,
                         icon = MaterialSymbols.Rounded.Translate,
                         title = stringResource(R.string.settings_appearance_translate),

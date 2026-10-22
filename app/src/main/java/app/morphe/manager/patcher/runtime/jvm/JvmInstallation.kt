@@ -19,7 +19,12 @@ import kotlinx.coroutines.withContext
 import org.tukaani.xz.XZInputStream
 import java.io.File
 import java.io.IOException
+import java.io.RandomAccessFile
+import java.util.zip.CRC32
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
+import java.util.zip.ZipOutputStream
 
 /**
  * The JVM the app ships in its assets for patching, unpacked to storage the first time a run
@@ -27,7 +32,8 @@ import java.util.zip.ZipInputStream
  *
  * The runtime is unpacked once per runtime the app ships. The patcher host is part of the app's
  * own code and is unpacked once per install of the app. Both ship compressed with xz, which
- * takes a few seconds to undo on a phone.
+ * takes a few seconds to undo on a phone. The image of the runtime, its lib/modules, ships once
+ * for all ABIs, see [unpackImage].
  */
 class JvmInstallation(private val app: Application) {
     /**
@@ -88,20 +94,76 @@ class JvmInstallation(private val app: Application) {
             }
         }
 
+        unpackImage(abi, staging.resolve(IMAGE_PATH))
+
         if (!staging.renameTo(home)) throw IOException("Could not move the runtime into $home")
         Log.i(tag, "Unpacked the patcher JVM for $abi")
     }
 
+    // The app ships one image for all ABIs, and for each whose image differs the delta to it
+    private fun unpackImage(abi: String, image: File) {
+        image.parentFile?.mkdirs()
+        val delta = "$abi$DELTA_SUFFIX"
+        if (app.assets.list(ASSETS_DIR)?.contains(delta) != true) {
+            unpackXz(IMAGE_ASSET, image)
+            return
+        }
+
+        val base = File(image.path + BASE_SUFFIX)
+        try {
+            unpackXz(IMAGE_ASSET, base)
+            RandomAccessFile(base, "r").use { baseImage ->
+                XZInputStream(app.assets.open("$ASSETS_DIR/$delta").buffered()).use { input ->
+                    image.outputStream().buffered().use { JvmImageDelta.apply(baseImage, input, it) }
+                }
+            }
+        } finally {
+            base.delete()
+        }
+    }
+
+    private fun unpackXz(asset: String, target: File) {
+        XZInputStream(app.assets.open("$ASSETS_DIR/$asset").buffered()).use { input ->
+            target.outputStream().use { input.copyTo(it) }
+        }
+    }
+
+    // The Android frameworks ARSCLib reads as resources are left out of the host by the build, as
+    // the APK carries the very same files for patching inside the app. They are taken from it here.
     private fun unpackHost(hostJar: File) {
         val staging = File(hostJar.path + STAGING_SUFFIX)
-        XZInputStream(app.assets.open("$ASSETS_DIR/$HOST_ARCHIVE").buffered()).use { input ->
-            staging.outputStream().use { input.copyTo(it) }
+        ZipOutputStream(staging.outputStream().buffered()).use { jar ->
+            ZipInputStream(XZInputStream(app.assets.open("$ASSETS_DIR/$HOST_ARCHIVE").buffered())).use { host ->
+                generateSequence { host.nextEntry }.filter { !it.isDirectory }.forEach { entry ->
+                    jar.writeStored(entry.name, host.readBytes())
+                }
+            }
+
+            ZipFile(app.applicationInfo.sourceDir).use { apk ->
+                val frameworks = apk.entries().asSequence()
+                    .filter { !it.isDirectory && it.name.startsWith(FRAMEWORKS_DIR) }
+                    .toList()
+                if (frameworks.isEmpty()) throw IOException("The app ships no Android frameworks for the patcher host")
+                frameworks.forEach { entry -> jar.writeStored(entry.name, apk.getInputStream(entry).use { it.readBytes() }) }
+            }
         }
         if (!staging.renameTo(hostJar)) throw IOException("Could not move the patcher host into $hostJar")
     }
 
+    // Stored like the host ships, so the JVM reads its classes without inflating them
+    private fun ZipOutputStream.writeStored(name: String, content: ByteArray) {
+        putNextEntry(ZipEntry(name).apply {
+            method = ZipEntry.STORED
+            size = content.size.toLong()
+            compressedSize = content.size.toLong()
+            crc = CRC32().apply { update(content) }.value
+        })
+        write(content)
+        closeEntry()
+    }
+
     class Installed(val home: File, val hostJar: File) {
-        /** The VM the runtime ships, the server one where there is one, as the 32-bit ARM one only has the client one. */
+        /** The VM the runtime ships, the server one where there is one, the client one otherwise. */
         val libjvm
             get() = VMS.map { home.resolve("lib/$it/libjvm.so") }.firstOrNull { it.isFile }
                 ?: throw JvmUnavailableException("The patcher JVM ships no VM")
@@ -115,6 +177,11 @@ class JvmInstallation(private val app: Application) {
         const val ASSETS_DIR = "jvm"
         const val HOST_ARCHIVE = "patcher-host.jar.xz"
         const val STAGING_SUFFIX = ".staging"
+        const val IMAGE_ASSET = "modules.xz"
+        const val DELTA_SUFFIX = ".modules.delta.xz"
+        const val IMAGE_PATH = "lib/modules"
+        const val BASE_SUFFIX = ".base"
+        const val FRAMEWORKS_DIR = "frameworks/"
 
         val VMS = listOf("server", "client")
 

@@ -272,6 +272,7 @@ class InstallerManager(
             .distinct()
             .map { Token.Component(it) }
 
+    /** The plan for [token], whose availability callers have already checked. */
     private fun createPlan(
         token: Token,
         target: InstallTarget,
@@ -281,65 +282,46 @@ class InstallerManager(
     ): InstallPlan? {
         return when (token) {
             Token.Internal -> InstallPlan.Internal(target)
-            Token.PlayStore -> if (availabilityFor(Token.PlayStore, target, checkRoot = true).available) {
-                InstallPlan.PlayStore(target)
-            } else null
-
-            Token.RootPlayStore -> if (availabilityFor(Token.RootPlayStore, target, checkRoot = true).available) {
-                InstallPlan.RootPlayStore(target)
-            } else null
-
+            Token.PlayStore -> InstallPlan.PlayStore(target)
+            Token.RootPlayStore -> InstallPlan.RootPlayStore(target)
             Token.None -> null
-            Token.AutoSaved -> if (availabilityFor(Token.AutoSaved, target, checkRoot = true).available) {
-                InstallPlan.Mount(target)
-            } else null
-
-            Token.Shizuku -> if (availabilityFor(Token.Shizuku, target, checkRoot = true).available) {
-                InstallPlan.Shizuku(target)
-            } else null
-
-            Token.ShizukuPlayStore -> if (availabilityFor(Token.ShizukuPlayStore, target, checkRoot = true).available) {
-                InstallPlan.ShizukuPlayStore(target)
-            } else null
-
+            Token.AutoSaved -> InstallPlan.Mount(target)
+            Token.Shizuku -> InstallPlan.Shizuku(target)
+            Token.ShizukuPlayStore -> InstallPlan.ShizukuPlayStore(target)
             is Token.Component -> {
-                if (!availabilityFor(token, target).available) {
-                    null
-                } else {
-                    val uri = InstallerFileProvider.getUriForFile(app, sourceFile)
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        setDataAndType(uri, APK_MIMETYPE)
-                        @SuppressLint("WrongConstant")
-                        addFlags(
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION or
-                                    Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION or
-                                    Intent.FLAG_GRANT_PREFIX_URI_PERMISSION or
-                                    Intent.FLAG_ACTIVITY_NEW_TASK
-                        )
-                        clipData = ClipData.newRawUri("APK", uri)
-                        putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
-                        putExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME, app.packageName)
-                        component = token.componentName
-                    }
+                val uri = InstallerFileProvider.getUriForFile(app, sourceFile)
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    setDataAndType(uri, APK_MIMETYPE)
                     @SuppressLint("WrongConstant")
-                    app.grantUriPermission(
-                        token.componentName.packageName,
-                        uri,
+                    addFlags(
                         Intent.FLAG_GRANT_READ_URI_PERMISSION or
                                 Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION or
-                                Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+                                Intent.FLAG_GRANT_PREFIX_URI_PERMISSION or
+                                Intent.FLAG_ACTIVITY_NEW_TASK
                     )
-                    InstallPlan.External(
-                        target = target,
-                        intent = intent,
-                        sharedFile = File(app.cacheDir, "${InstallerFileProvider.SHARE_DIR}/${sourceFile.name}"),
-                        uri = uri,
-                        expectedPackage = expectedPackage,
-                        installerLabel = resolveLabel(token.componentName),
-                        sourceLabel = sourceLabel,
-                        token = token
-                    )
+                    clipData = ClipData.newRawUri("APK", uri)
+                    putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
+                    putExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME, app.packageName)
+                    component = token.componentName
                 }
+                @SuppressLint("WrongConstant")
+                app.grantUriPermission(
+                    token.componentName.packageName,
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                            Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION or
+                            Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+                )
+                InstallPlan.External(
+                    target = target,
+                    intent = intent,
+                    sharedFile = File(app.cacheDir, "${InstallerFileProvider.SHARE_DIR}/${sourceFile.name}"),
+                    uri = uri,
+                    expectedPackage = expectedPackage,
+                    installerLabel = resolveLabel(token.componentName),
+                    sourceLabel = sourceLabel,
+                    token = token
+                )
             }
         }
     }
@@ -489,7 +471,7 @@ class InstallerManager(
                 Availability(false, R.string.installer_status_shizuku_not_installed)
             } else if (checkRoot) {
                 // Full availability check
-                sessionInstaller.shizukuAvailability(target)
+                sessionInstaller.shizukuAvailability()
             } else {
                 // Just verify Shizuku is installed (for UI display)
                 Availability(true)
@@ -502,7 +484,7 @@ class InstallerManager(
             } else if (!sessionInstaller.isShizukuInstalled()) {
                 Availability(false, R.string.installer_status_shizuku_not_installed)
             } else if (checkRoot) {
-                sessionInstaller.shizukuAvailability(target)
+                sessionInstaller.shizukuAvailability()
             } else {
                 Availability(true)
             }
@@ -667,8 +649,7 @@ class InstallerManager(
 
     fun openShizukuApp(): Boolean = sessionInstaller.launchShizukuApp()
 
-    fun shizukuStatus(target: InstallTarget): SessionInstaller.ShizukuStatus =
-        sessionInstaller.shizukuStatus(target)
+    fun shizukuStatus(): SessionInstaller.ShizukuStatus = sessionInstaller.shizukuStatus()
 
     fun requestShizukuPermission(): Boolean = sessionInstaller.requestShizukuPermission()
 

@@ -99,6 +99,8 @@ fun rememberInstallQueue(
         queue = queue.drop(1)
         val file = next.file.takeIf { it.exists() }
         if (file == null) {
+            // The patched APK went away, which its card reports like any other failure
+            next.onFailed(null)
             skipped++
             startNext()
             return

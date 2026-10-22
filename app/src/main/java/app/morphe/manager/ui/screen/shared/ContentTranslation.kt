@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import android.app.Application
 import android.content.res.Resources
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
@@ -35,7 +34,6 @@ private const val PREFETCH_BATCH = 50
  */
 @Stable
 class ContentTranslation(
-    private val app: Application,
     private val messages: UserMessages,
     private val translator: ContentTranslator,
     private val networkInfo: NetworkInfo,

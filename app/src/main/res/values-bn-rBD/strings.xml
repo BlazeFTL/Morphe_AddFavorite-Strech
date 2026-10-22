@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">এই অ্যাপের জন্য সবসময় এই সোর্সটি ব্যবহার করুন</string>
     <!-- Color picker -->
     <string name="custom_color">కస్టమ్‌ క్రోమ్‌</string>
-    <string name="hex_color">డిస్‌క్‌వర్‌ కోడ్ రంగు</string>
     <string name="color_picker_shade">স্যাচুরেশন এবং উজ্জ্বলতা</string>
     <string name="color_picker_hue">হিউ</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@
     <string name="batch_patch_force_version">যাইহোক প্যাচ করুন</string>
     <string name="batch_patch_force_version_done">যেভাবেই হোক সারিবদ্ধ করা হয়েছে, অ্যাপটি ভেঙে যেতে পারে</string>
     <string name="batch_patch_accept_signature_done">যেভাবেই হোক সারিবদ্ধ করা হয়েছে, APK যাচাই করা হয়নি</string>
+    <string name="batch_patch_apk_selected">APK নির্বাচিত হয়েছে</string>
     <string name="batch_patch_edit_patches">প্যাচ নির্বাচন করুন</string>
     <string name="batch_patch_state_no_apk">কোনো APK নেই</string>
     <string name="batch_patch_state_no_patches">কোনো প্যাচ নেই</string>
+    <string name="batch_patch_state_no_selection">কোনোটি নির্বাচন করা হয়নি</string>
+    <string name="batch_patch_no_selection">উপলব্ধ কোনো প্যাচ নির্বাচন করা হয়নি</string>
     <string name="batch_patch_policy_install">শেষ হলে ইনস্টল করুন</string>
     <string name="batch_patch_policy_install_description">সারিবদ্ধ শেষ হওয়ার সাথে সাথেই প্রতিটি প্যাচ করা অ্যাপ ইনস্টল করে। বন্ধ করলে APKগুলি পরে ব্যবহারের জন্য সেভ করা থাকবে</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@
     <string name="patcher_field_output_size">আউটপুট আকার</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">সময়</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">গড় মেমরি</string>
     <string name="patcher_field_memory_max">সর্বোচ্চ মেমরি</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +696,9 @@
     <string name="failed_to_execute_patch">%s প্রয়োগ করতে ব্যর্থ</string>
     <string name="patched_app_save_failed_toast">প্যাচ করা অ্যাপ সংরক্ষণ করতে ব্যর্থ</string>
     <string name="plugin_activity_dialog_body">এই প্লাগইন চালিয়ে যেতে জন্য ব্যবহারকারীর ইন্টারেকশন প্রয়োজন</string>
-    <string name="patcher_heap_exhausted_message">প্যাচারটি %1$d MB হিপ মেমরি শেষ করে ফেলেছে। নির্বাচিত প্যাচগুলির জন্য এই অ্যাপটি খুব বড়। কম প্যাচ উৎস দিয়ে প্যাচ করার চেষ্টা করুন, অথবা কম প্যাচ নির্বাচন করুন।</string>
+    <string name="patcher_process_killed_message">সিস্টেমটি প্যাচারকে সম্পন্ন করার আগেই বন্ধ করে দিয়েছে, সাধারণত মেমোরি খালি করতে। অন্য অ্যাপগুলো বন্ধ করুন এবং আবার চেষ্টা করুন</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">%1$s MB হিপ মেমোরি ব্যবহার করে প্যাচার রান শেষ হয়ে গেছে। এই অ্যাপটি নির্বাচিত প্যাচগুলির জন্য খুব বড়। কম প্যাচ সোর্স সহ প্যাচিং করার চেষ্টা করুন, অথবা কম প্যাচ নির্বাচন করুন</string>
     <string name="install_app_success">সাফল্য়ের সাথে ইনস্টল করা হয়েছে</string>
     <string name="install_app_fail">অ্যাপ ইনস্টল করতে ব্যর্থ: %s</string>
     <string name="install_ignore_signature">যাই হোক ইনস্টল করুন</string>
@@ -838,8 +842,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">আইকন পরিবর্তন করুন</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">আপডেটগুলি</string>
-    <string name="settings_advanced_patcher">প্যাচার</string>
     <string name="settings_advanced_updates_manager_prereleases">প্রাক-রিলিজ আপডেট</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">নতুন Morphe সংস্করণগুলোতে প্রাথমিক অ্যাক্সেস</string>
@@ -1049,7 +1051,9 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">ব্যাটারি অপটিমাইজেশন</string>
     <string name="settings_system_battery_optimization_description">অ্যাপটি মিনিমাইজ করা হলে প্যাচার চালু রাখে।</string>
-    <string name="settings_system_process_runtime">প্রক্রিয় রান্টাইম</string>
+    <string name="settings_system_process_runtime">প্যাচার রানটাইম</string>
+    <string name="settings_system_jvm_runtime_enable">এমবেডেড VM ব্যবহার করুন</string>
+    <string name="settings_system_jvm_runtime_description">Morphe-এর বহন করা Java VM-এর পাচগুলো, যা ডিভাইসের সংস্থানের মতো মেমোরি ব্যবহার করতে পারে। Android-এর রানটাইম দিয়ে পাচ করার জন্য বন্ধ করুন</string>
     <string name="settings_system_patcher_completion_sound">সম্পূর্ণ হওয়ার শব্দ</string>
     <string name="settings_system_patcher_completion_sound_description">প্যাচিং শেষ হলে সাফল্য বা ব্যর্থতার জন্য একটি স্বতন্ত্র সুর বাজায়</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1142,6 +1146,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_storage_clear_all_description">একবারে সমস্ত পুনরুদ্ধারযোগ্য ক্যাশে স্থান খালি করে</string>
     <string name="settings_system_storage_clear_all_confirm">এটি ক্যাশে করা নেটওয়ার্ক প্রতিক্রিয়া, স্টেজড ইনস্টলার অনুলিপি এবং অস্থায়ী ফাইলগুলি পরিষ্কার করে। আসল এবং প্যাচ করা APKগুলি সংরক্ষণ করা হবে</string>
     <string name="settings_system_storage_cleared">ফ্রি করা হয়েছে %s</string>
+    <string name="settings_system_storage_patch_running_warning">একটি প্যাচ চলছে এবং এটি এই ফাইলগুলি ব্যবহার করছে। এখন সেগুলি পরিষ্কার করলে ব্যর্থ হবে</string>
+    <string name="settings_system_storage_clear_anyway">যাইহোক পরিষ্কার করুন</string>
     <string name="settings_system_storage_nothing_to_clear">পরিষ্কার করার জন্য কিছু নেই</string>
     <string name="settings_system_storage_open_app_info_title">Android অ্যাপ স্টোরেজ খুলুন</string>
     <string name="settings_system_storage_open_app_info_description">সিস্টেম সেটিংসের মাধ্যমে সমস্ত Morphe ডেটা পরিচালনা বা পরিষ্কার করুন</string>

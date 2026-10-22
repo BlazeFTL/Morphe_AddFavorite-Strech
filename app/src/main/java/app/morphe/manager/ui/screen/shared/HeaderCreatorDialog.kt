@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -39,6 +40,7 @@ import app.morphe.manager.R
 import app.morphe.manager.util.*
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -427,7 +429,7 @@ private suspend fun createHeaderFiles(
             ?: return@withContext null
 
         layout.densities.forEach { density ->
-            val drawableDocDir = headerDocDir.getOrCreateDir(density.folderName) ?: return@forEach
+            val drawableDocDir = headerDocDir.requireDir(density.folderName)
             val frame = Size(density.width.toFloat(), density.height.toFloat())
             variants.forEach { variant ->
                 val picture = variant.picture ?: return@forEach
@@ -439,8 +441,10 @@ private suspend fun createHeaderFiles(
 
         // Convert back to a real path so the patcher can reference it as a patch option value
         headerDocDir.uri.toFilePath()
+    } catch (e: CancellationException) {
+        throw e
     } catch (e: Exception) {
-        e.printStackTrace()
+        Log.e(tag, "Failed to create header images", e)
         null
     }
 }

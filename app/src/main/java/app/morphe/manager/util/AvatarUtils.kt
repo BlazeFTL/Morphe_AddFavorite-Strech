@@ -36,7 +36,6 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileNotFoundException
 import java.net.URL
-import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 
 /** Side of the thumbnail an accent is read from: enough for a logo's colors, cheap to walk. */
@@ -232,16 +231,10 @@ private fun decodeAvatar(bytes: ByteArray): Bitmap? {
  * moved into place, so a run that dies halfway never leaves a broken avatar to read back.
  */
 private fun File.storeAvatar(bitmap: Bitmap?) {
-    runCatching {
-        parentFile?.mkdirs()
-        val partial = resolveSibling("$name.partial")
-        partial.outputStream().use { out -> bitmap?.compress(AVATAR_FORMAT, AVATAR_QUALITY, out) }
-        if (!partial.renameTo(this)) partial.delete()
-    }
+    runCatching { writeAtomically { out -> bitmap?.compress(AVATAR_FORMAT, AVATAR_QUALITY, out) } }
 }
 
-private fun String.cacheKey(): String =
-    MessageDigest.getInstance("SHA-256").digest(toByteArray()).joinToString("") { "%02x".format(it) }
+private fun String.cacheKey(): String = toByteArray().sha256Fingerprint()
 
 /**
  * Avatars that failed to load lately. Rows show the same avatar again each time they scroll back

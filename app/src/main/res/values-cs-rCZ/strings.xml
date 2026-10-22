@@ -390,7 +390,6 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="home_simple_bundle_select_remember">Pro tuto aplikaci vždy používat tento zdroj</string>
     <!-- Color picker -->
     <string name="custom_color">Vlastní barva</string>
-    <string name="hex_color">Barva ve formátu Hex</string>
     <string name="color_picker_shade">Sytost a jas</string>
     <string name="color_picker_hue">Odstín</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="batch_patch_force_version">Aplikovat i tak</string>
     <string name="batch_patch_force_version_done">Přidáno do fronty, aplikace se může rozbít</string>
     <string name="batch_patch_accept_signature_done">Přidáno do fronty, APK nebylo ověřeno</string>
+    <string name="batch_patch_apk_selected">Vybrán APK</string>
     <string name="batch_patch_edit_patches">Zvolit záplaty</string>
     <string name="batch_patch_state_no_apk">Žádné APK</string>
     <string name="batch_patch_state_no_patches">Žádné záplaty</string>
+    <string name="batch_patch_state_no_selection">Nevybráno nic</string>
+    <string name="batch_patch_no_selection">Není vybrána žádná z dostupných záplat</string>
     <string name="batch_patch_policy_install">Nainstalovat po dokončení</string>
     <string name="batch_patch_policy_install_description">Po dokončení fronty se nainstalují všechny záplatované aplikace. Vypnuto ponechá APK pro pozdější použití</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="patcher_field_output_size">Velikost výstupu</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Čas</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Průměrná paměť</string>
     <string name="patcher_field_memory_max">Špička I/O úložiště</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +696,9 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="failed_to_execute_patch">Selhalo aplikování %s</string>
     <string name="patched_app_save_failed_toast">Chyba při ukládání zastaralé aplikace</string>
     <string name="plugin_activity_dialog_body">Provedení je vyžadováno pro pokračování v tomto rozšíření</string>
-    <string name="patcher_heap_exhausted_message">Patcheru došla paměť při velikosti haldy %1$d MB. Tato aplikace je pro vybrané patche příliš velká. Zkuste patchovat s menším počtem zdrojů patchů nebo vyberte méně patchů.</string>
+    <string name="patcher_process_killed_message">Systém ukončil patcher před dokončením, obvykle kvůli uvolnění paměti. Zavřete jiné aplikace a zkuste to znovu</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Patcher došel paměť s %1$s MB heapem. Tato aplikace je příliš velká pro vybrané patche. Zkuste patchovat s méně zdrojů patchů nebo vyberte méně patchů</string>
     <string name="install_app_success">Úspěšně nainstalováno</string>
     <string name="install_app_fail">Selhání instalace aplikace: %s</string>
     <string name="install_ignore_signature">Přesto instalovat</string>
@@ -838,8 +842,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Změnit ikonu</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Aktualizace</string>
-    <string name="settings_advanced_patcher">Záplatovač</string>
     <string name="settings_advanced_updates_manager_prereleases">Předběžné aktualizace</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Předběžný přístup k novým verzím Morphe</string>
@@ -1059,7 +1061,9 @@ Podrobnosti: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimalizace baterie</string>
     <string name="settings_system_battery_optimization_description">Udrží program záplatování spuštěný i při minimalizaci aplikace</string>
-    <string name="settings_system_process_runtime">Doba běhu procesů</string>
+    <string name="settings_system_process_runtime">Runtime patchera</string>
+    <string name="settings_system_jvm_runtime_enable">Použít vestavěný VM</string>
+    <string name="settings_system_jvm_runtime_description">Záplaty v Javovském VM, který Morphe přenáší, které mohou použít tolik paměti, kolik je k dispozici na zařízení. Vypnout pro záplatu s runtime Androidu</string>
     <string name="settings_system_patcher_completion_sound">Zvuk dokončení</string>
     <string name="settings_system_patcher_completion_sound_description">Přehrává odlišný tón pro úspěch nebo neúspěch po dokončení záplatování</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1154,8 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Vymaže veškerý prostor v mezipaměti, který lze získat najednou</string>
     <string name="settings_system_storage_clear_all_confirm">Tím se vymažou uložené síťové odpovědi, připravené kopie instalačních programů a dočasné soubory. Původní a opravené soubory APK zůstanou zachovány</string>
     <string name="settings_system_storage_cleared">Uvolněno %s</string>
+    <string name="settings_system_storage_patch_running_warning">Již probíhá aktualizace a využívá tyto soubory. Jejich okamžité vymazání způsobí selhání</string>
+    <string name="settings_system_storage_clear_anyway">Přesto smazat</string>
     <string name="settings_system_storage_nothing_to_clear">Není co mazat</string>
     <string name="settings_system_storage_open_app_info_title">Otevřít úložiště aplikace Android</string>
     <string name="settings_system_storage_open_app_info_description">Spravujte nebo vymažte všechna data Morphe prostřednictvím nastavení systému</string>

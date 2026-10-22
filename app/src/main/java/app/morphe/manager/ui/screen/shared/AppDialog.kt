@@ -677,7 +677,7 @@ private fun CompactDialogContent(
                     HeaderBand(
                         glass = appAccentFill(LocalAccent.current),
                         shape = HeaderBandShape,
-                        scrolledUnder = { scrollState?.canScrollBackward == true }
+                        scrolledPast = { scrollState?.hiddenAtStart() ?: 0f }
                     )
                     Column(
                         modifier = Modifier

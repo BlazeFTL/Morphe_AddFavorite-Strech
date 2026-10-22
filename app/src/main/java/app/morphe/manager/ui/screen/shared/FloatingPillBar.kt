@@ -339,7 +339,7 @@ private fun pillLabelWeights(labels: List<String>, width: Dp): List<Float>? {
     return remember(labelWidths, width) {
         if (labels.isEmpty()) return@remember null
         val needed = labelWidths.map { it + PillLabelPadding * 2 }
-        val total = needed.fold(0.dp) { sum, it -> sum + it }
+        val total = needed.fold(0.dp) { sum, labelWidth -> sum + labelWidth }
         when {
             needed.all { it <= width / labels.size } -> labels.map { 1f }
             // Room left over is shared evenly, so a short label is not squeezed against a long one

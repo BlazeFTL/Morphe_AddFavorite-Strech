@@ -390,7 +390,6 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="home_simple_bundle_select_remember">Luôn sử dụng nguồn này cho ứng dụng này</string>
     <!-- Color picker -->
     <string name="custom_color">Tùy chỉnh màu</string>
-    <string name="hex_color">Mã hex</string>
     <string name="color_picker_shade">Độ bão hòa và độ sáng</string>
     <string name="color_picker_hue">Sắc thái</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="batch_patch_force_version">Vẫn tiếp tục vá</string>
     <string name="batch_patch_force_version_done">Vẫn được thêm vào hàng đợi, ứng dụng có thể gặp sự cố</string>
     <string name="batch_patch_accept_signature_done">Vẫn được thêm vào hàng đợi, APK chưa được xác minh</string>
+    <string name="batch_patch_apk_selected">Đã chọn APK</string>
     <string name="batch_patch_edit_patches">Chọn bản vá</string>
     <string name="batch_patch_state_no_apk">Không có APK</string>
     <string name="batch_patch_state_no_patches">Không có bản vá</string>
+    <string name="batch_patch_state_no_selection">Không có gì được chọn</string>
+    <string name="batch_patch_no_selection">Không có bản vá nào khả dụng được chọn</string>
     <string name="batch_patch_policy_install">Cài đặt khi hoàn tất</string>
     <string name="batch_patch_policy_install_description">Tự động cài đặt tất cả ứng dụng đã vá ngay sau khi hàng chờ hoàn tất. Nếu tắt, các APK sẽ được giữ lại để cài đặt sau</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="patcher_field_output_size">Kích thước đầu ra</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Thời gian</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Bộ nhớ trung bình</string>
     <string name="patcher_field_memory_max">Bộ nhớ tối đa</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +696,9 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="failed_to_execute_patch">Không thể áp dụng %s</string>
     <string name="patched_app_save_failed_toast">Không thể lưu ứng dụng đã vá</string>
     <string name="plugin_activity_dialog_body">Bạn vẫn cần tự thao tác để tải ứng dụng</string>
-    <string name="patcher_heap_exhausted_message">Trình vá đã hết bộ nhớ với heap %1$d MB. Ứng dụng này quá lớn so với các bản vá đã chọn. Hãy thử vá với ít nguồn vá hơn hoặc chọn ít bản vá hơn</string>
+    <string name="patcher_process_killed_message">Hệ thống đã dừng trình vá trước khi hoàn tất, thường là để giải phóng bộ nhớ. Đóng các ứng dụng khác và thử lại</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Trình vá đã hết bộ nhớ với heap %1$s MB. Ứng dụng này quá lớn so với các bản vá đã chọn. Hãy thử vá với ít nguồn vá hơn hoặc chọn ít bản vá hơn</string>
     <string name="install_app_success">Đã cài đặt thành công</string>
     <string name="install_app_fail">Không thể cài đặt ứng dụng: %s</string>
     <string name="install_ignore_signature">Vẫn cài đặt</string>
@@ -838,8 +842,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Chốt</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Cập nhật</string>
-    <string name="settings_advanced_patcher">Trình vá</string>
     <string name="settings_advanced_updates_manager_prereleases">Bản cập nhật trước</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Truy cập sớm các phiên bản Morphe mới</string>
@@ -1062,7 +1064,9 @@ Chi tiết: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Tối ưu hóa pin</string>
     <string name="settings_system_battery_optimization_description">Duy trì trình vá tiếp tục chạy kể cả khi ứng dụng bị thu nhỏ</string>
-    <string name="settings_system_process_runtime">Tiến trình riêng</string>
+    <string name="settings_system_process_runtime">Thời gian chạy Patcher</string>
+    <string name="settings_system_jvm_runtime_enable">Sử dụng VM nhúng</string>
+    <string name="settings_system_jvm_runtime_description">Các bản vá trong Java VM mà Morphe mang theo, có thể sử dụng nhiều bộ nhớ như thiết bị nhường. Tắt để vá bằng thời gian chạy của Android</string>
     <string name="settings_system_patcher_completion_sound">Âm báo hoàn tất</string>
     <string name="settings_system_patcher_completion_sound_description">Phát ra âm thanh để báo hiệu kết quả vá thành công hoặc thất bại</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1153,6 +1157,8 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Giải phóng toàn bộ dung lượng bộ nhớ đệm có thể dọn dẹp</string>
     <string name="settings_system_storage_clear_all_confirm">Thao tác này sẽ xóa phản hồi mạng đã lưu vào bộ nhớ đệm, các tệp và bản sao APK tạm thời. Các tệp APK gốc và APK đã vá vẫn được giữ lại</string>
     <string name="settings_system_storage_cleared">Đã xóa %s</string>
+    <string name="settings_system_storage_patch_running_warning">Đang chạy bản vá và sử dụng các tệp này. Xóa chúng ngay bây giờ sẽ khiến nó thất bại</string>
+    <string name="settings_system_storage_clear_anyway">Dù sao vẫn xóa</string>
     <string name="settings_system_storage_nothing_to_clear">Không còn gì để xóa</string>
     <string name="settings_system_storage_open_app_info_title">Mở cài đặt lưu trữ ứng dụng</string>
     <string name="settings_system_storage_open_app_info_description">Mở Cài đặt hệ thống để quản lý hoặc xóa toàn bộ dữ liệu Morphe</string>
@@ -1319,6 +1325,7 @@ Chi tiết: %2$s"</string>
     <string name="reset_order">Đặt lại thứ tự</string>
     <string name="reset_order_done">Đặt lại thứ tự</string>
     <string name="accessibility_select_app">Chọn ứng dụng</string>
+    <string name="accessibility_select_source">Chọn nguồn</string>
     <string name="accessibility_move_up">Lên trên</string>
     <string name="accessibility_move_down">Xuống dưới</string>
     <string name="accessibility_app_moved_announcement">Đã chuyển %1$s đến vị trí %2$s/%3$s</string>

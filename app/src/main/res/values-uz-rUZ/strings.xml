@@ -364,7 +364,6 @@ Eng yaxshi natijalar uchun ushbu ilova to‘liq &lt;b&gt;APK&lt;/b&gt;ni patchla
     <string name="home_simple_bundle_select_remember">Bu manbadan doim shu ilova uchun foydalanish</string>
     <!-- Color picker -->
     <string name="custom_color">Maxsus rang</string>
-    <string name="hex_color">Hex rang</string>
     <string name="color_picker_shade">To\'yinganlik va yorqinlik</string>
     <string name="color_picker_hue">Rang tus</string>
     <!-- Patch Options -->
@@ -532,7 +531,7 @@ Eng yaxshi natijalar uchun ushbu ilova to‘liq &lt;b&gt;APK&lt;/b&gt;ni patchla
     <string name="patcher_field_output_size">Chiqish hajmi</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Vaqt</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">O‘rtacha xotira</string>
     <string name="patcher_field_memory_max">Maksimal xotira</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -641,7 +640,7 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="failed_to_execute_patch">%s ni qo‘llashda xatolik</string>
     <string name="patched_app_save_failed_toast">Patchlangan ilovni saqlashda xatolik</string>
     <string name="plugin_activity_dialog_body">Ushbu plagin bilan davom etish uchun foydalanuvchi aralashuvi kerak</string>
-    <string name="patcher_heap_exhausted_message">Patcherda %1$d MB hajmli xotira tugadi. Bu ilova tanlangan patchlar uchun juda katta. Kamroq patch manbalari bilan patchlashni urinib ko‘ring yoki kamroq patchlarni tanlang.</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
     <string name="install_app_success">O‘rnatish muvaffaqiyatli yakunlandi</string>
     <string name="install_app_fail">Ilovni o‘rnatishda xatolik: %s</string>
     <string name="install_ignore_signature">Bari bir o\'rnatish</string>
@@ -777,8 +776,6 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Tasdiqlash</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">O\'chirish</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Oldindan chiqish yangilanishlari</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Morphe yangi versiyalariga erta kirish</string>
@@ -970,7 +967,6 @@ Ma’lumotlar: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Batareyani optimallashtirish</string>
     <string name="settings_system_battery_optimization_description">Patchlashi tugagandan keyin patcherni ishlayotgan holatda ushlab turish</string>
-    <string name="settings_system_process_runtime">Jarayon ishlayotgan vaqti</string>
     <string name="settings_system_patcher_completion_sound">Yakunlanish tovushi</string>
     <string name="settings_system_patcher_completion_sound_description">Qo\'shish tugagach muvaffaqiyat yoki muvaffaqiyatsizlik uchun alohida ohang ijro etiladi</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1071,7 +1067,6 @@ Ma’lumotlar: %2$s"</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <string name="settings_system_original_apks_title">O\'rnatilgan</string>
     <string name="settings_system_original_apks_empty">Yangilash mavjud emas</string>
-    <string name="settings_system_original_apks_deleted">Manbalarni yuklab olishda xatolik: %s</string>
     <string name="settings_system_original_apks_delete_title">Original APKni o‘chirib tashlash?</string>
     <string name="settings_system_original_apks_delete_notice">Yangi APK taqdim etmasdan qayta yamay olmaysiz</string>
     <string name="settings_system_original_apks_delete_all_title">Hapus semua APK asli?</string>

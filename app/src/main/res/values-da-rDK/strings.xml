@@ -390,7 +390,6 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="home_simple_bundle_select_remember">Brug altid denne kilde til denne app</string>
     <!-- Color picker -->
     <string name="custom_color">Brugerdefineret farve</string>
-    <string name="hex_color">Hex farve</string>
     <string name="color_picker_shade">Mætning og lysstyrke</string>
     <string name="color_picker_hue">Farleton</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="batch_patch_force_version">Patch alligevel</string>
     <string name="batch_patch_force_version_done">Sat i kø alligevel, appen kan gå i stykker</string>
     <string name="batch_patch_accept_signature_done">Sat i kø alligevel, APK ikke verificeret</string>
+    <string name="batch_patch_apk_selected">APK valgt</string>
     <string name="batch_patch_edit_patches">Vælg patches</string>
     <string name="batch_patch_state_no_apk">Ingen APK</string>
     <string name="batch_patch_state_no_patches">Ingen patches</string>
+    <string name="batch_patch_state_no_selection">Ingen valgt</string>
+    <string name="batch_patch_no_selection">Ingen af de tilgængelige patches er valgt</string>
     <string name="batch_patch_policy_install">Installer når færdig</string>
     <string name="batch_patch_policy_install_description">Installerer hver rettet app lige efter køen er afsluttet. Fra giver mulighed for senere installation af APK\'er</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="patcher_field_output_size">Outputstørrelse</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tid</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Gennemsnitligt hukommelsesforbrug</string>
     <string name="patcher_field_memory_max">Maksimalt hukommelsesforbrug</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +696,9 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="failed_to_execute_patch">Kunne ikke anvende %s</string>
     <string name="patched_app_save_failed_toast">Kunne ikke gemme patchet app</string>
     <string name="plugin_activity_dialog_body">Brugerinteraktion er nødvendig for at fortsætte med dette plugin</string>
-    <string name="patcher_heap_exhausted_message">Patcheren løb tør for hukommelse med en heap på %1$d MB. Denne app er for stor til de valgte patches. Prøv at patche med færre patchkilder, eller vælg færre patches.</string>
+    <string name="patcher_process_killed_message">Systemet stoppede patcheren, før den var færdig, typisk for at frigøre hukommelse. Luk andre apps, og prøv igen</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Patcheren løb tør for hukommelse med en %1$s MB stor heap. Denne app er for stor til de valgte patches. Prøv at patche med færre patch-kilder, eller vælg færre patches</string>
     <string name="install_app_success">Installeret</string>
     <string name="install_app_fail">Kunne ikke installere app: %s</string>
     <string name="install_ignore_signature">Installer alligevel</string>
@@ -838,8 +842,6 @@ Afinstallation sletter permanent alle appdata."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Ændre ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Opdateringer</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Præ-release-opdateringer</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Tidlig adgang til nye Morphe-versioner</string>
@@ -1059,7 +1061,9 @@ Detaljer: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Batterioptimering</string>
     <string name="settings_system_battery_optimization_description">Holder patcheren kørende, når appen er minimeret</string>
-    <string name="settings_system_process_runtime">Proces runtime</string>
+    <string name="settings_system_process_runtime">Patcher-køretid</string>
+    <string name="settings_system_jvm_runtime_enable">Brug indlejret VM</string>
+    <string name="settings_system_jvm_runtime_description">Retter i en Java-VM, som Morphe bærer på, hvilket kan bruge så meget hukommelse, som enheden sparer. Slå fra for at rette med Android\'s køretid</string>
     <string name="settings_system_patcher_completion_sound">Fuldførelseslyd</string>
     <string name="settings_system_patcher_completion_sound_description">Afspiller en særlig tone ved succes eller fiasko, når patching er færdigt</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1154,8 @@ Detaljer: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Frigør alt gendanvendeligt cachelager på én gang</string>
     <string name="settings_system_storage_clear_all_confirm">Dette rydder cachelagrede netværkssvar, mellem-lagrede installationskopier og midlertidige filer. Originale og patched APK\'er bevares</string>
     <string name="settings_system_storage_cleared">Frigivet %s</string>
+    <string name="settings_system_storage_patch_running_warning">En patch kører og bruger disse filer. Rydning af dem nu vil gøre det mislykket</string>
+    <string name="settings_system_storage_clear_anyway">Ryd alligevel</string>
     <string name="settings_system_storage_nothing_to_clear">Intet at rydde</string>
     <string name="settings_system_storage_open_app_info_title">Åbn Android-applager</string>
     <string name="settings_system_storage_open_app_info_description">Administrer eller ryd alle Morphe-data via systemindstillinger</string>

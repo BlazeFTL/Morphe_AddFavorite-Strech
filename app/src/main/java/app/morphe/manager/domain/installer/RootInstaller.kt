@@ -219,10 +219,13 @@ class RootInstaller(
             "__LABEL__" to label
         )
         val moduleFiles = MODULE_FILES.associateWith { file ->
+            // Version and label come from the APK, and the scripts run as root at every boot
+            val escape: (String) -> String =
+                if (file in MODULE_SCRIPTS) { value -> value.shellQuote() } else { value -> value.singleLine() }
             app.assets.open("root/$file").use { String(it.readBytes()) }
                 .replace("\r\n", "\n")
                 .replace("\r", "\n")
-                .let { text -> placeholders.entries.fold(text) { acc, (key, value) -> acc.replace(key, value) } }
+                .let { text -> placeholders.entries.fold(text) { acc, (key, value) -> acc.replace(key, escape(value)) } }
         }
         val stockPathsFile = if (stockModuleApkWritten) {
             mapOf(STOCK_PATHS_FILE to stockMountPaths.joinToString("\n", postfix = "\n"))
@@ -494,6 +497,8 @@ class RootInstaller(
         internal fun isValidPackageName(packageName: String) = PACKAGE_NAME.matches(packageName)
 
         private fun String.shellQuote() = "'${replace("'", "'\"'\"'")}'"
+
+        private fun String.singleLine() = replace(Regex("[\r\n]+"), " ")
 
         private fun staged(path: String) = "$path.tmp"
 

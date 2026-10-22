@@ -1,5 +1,7 @@
 import com.mikepenz.aboutlibraries.plugin.DuplicateMode
 import com.mikepenz.aboutlibraries.plugin.DuplicateRule
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import kotlin.random.Random
 
@@ -62,7 +64,6 @@ dependencies {
     implementation(project(":patcher-core"))
     implementation(libs.arsclib)
     implementation(libs.morphe.patcher)
-    implementation(libs.morphe.library)
     patcherHost(project(":patcher-core", "hostJar"))
     // Unpacks the embedded JVM, which ships compressed with xz
     implementation(libs.xz)
@@ -102,9 +103,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging)
     implementation(libs.play.services.base)
-
-    // Fading Edges
-    implementation(libs.fading.edges)
 
     // Reorderable lists
     implementation(libs.reorderable)
@@ -177,8 +175,8 @@ val embeddedJvmModules = listOf(
 )
 
 /**
- * What of the build the linked modules need, its native libraries above all. The 64 bit builds
- * ship the server VM, the 32-bit ARM one only the client VM.
+ * What of the build the linked modules need, its native libraries above all. Every build ships
+ * the server VM, the 32-bit ARM one included.
  */
 val embeddedJvmFiles = listOf(
     "lib/*/libjvm.so",
@@ -200,6 +198,7 @@ val embeddedJvmTasks = embeddedJvms.map { (abi, build) ->
         jdk.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(25)) })
         downloadCache.set(File(gradle.gradleUserHomeDir, "caches/morphe-embedded-jvm"))
         outputArchive.set(layout.buildDirectory.file("intermediates/embeddedJvm/$abi.zip.xz"))
+        outputImage.set(layout.buildDirectory.file("intermediates/embeddedJvm/$abi.modules"))
     }
 }
 
@@ -214,7 +213,9 @@ val embeddedJvmId = (embeddedJvms.values.map { build -> build.second } + embedde
 val embeddedJvmAssets = tasks.register<EmbeddedJvmAssetsTask>("embeddedJvmAssets") {
     group = "build"
     description = "Lays out the embedded JVM runtimes and the patcher host as assets."
-    runtimes.from(embeddedJvmTasks)
+    runtimes.from(embeddedJvmTasks.map { task -> task.flatMap { it.outputArchive } })
+    images.from(embeddedJvmTasks.map { task -> task.flatMap { it.outputImage } })
+    baseAbi.set(embeddedJvms.keys.first())
     hostJar.from(patcherHost)
     outputDirectory.set(layout.buildDirectory.dir("generated/embeddedJvm"))
 }
@@ -249,6 +250,7 @@ android {
         buildConfigField("String", "EMBEDDED_JVM_ID", "\"$embeddedJvmId\"")
 
         // The embedded JVM links against the shared C++ runtime, which the app ships alongside the launcher
+        @Suppress("UnstableApiUsage")
         externalNativeBuild {
             cmake {
                 arguments += "-DANDROID_STL=c++_shared"
@@ -369,7 +371,10 @@ android {
     }
 
     lint {
+        lintConfig = file("lint.xml")
         disable += setOf("MissingTranslation")
+        // Morphe ships as an APK, never as a bundle split by language
+        disable += setOf("AppBundleLocaleChanges")
         // Crowdin drops a removed string from the translations only on its next sync
         warning += setOf("ExtraTranslation")
         baseline = file("lint-baseline.xml")
@@ -408,6 +413,14 @@ tasks {
     whenTaskAdded {
         if (name.startsWith("lintVital")) {
             enabled = false
+        }
+    }
+
+    // CI logs are all anyone reads of a failed run, so a failure prints its whole message there
+    withType<Test>().configureEach {
+        testLogging {
+            events(TestLogEvent.FAILED)
+            exceptionFormat = TestExceptionFormat.FULL
         }
     }
 }

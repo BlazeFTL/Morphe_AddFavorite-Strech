@@ -34,6 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
@@ -221,6 +222,7 @@ internal fun RowScope.AppCardContent(
  * button when there is no record to show.
  *
  * @param showStatusBadges Whether the badges pinned to the end of the card may show.
+ * @param selected Whether the card is picked, null outside a selection.
  */
 @Composable
 internal fun HomeAppCard(
@@ -228,6 +230,7 @@ internal fun HomeAppCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     showStatusBadges: Boolean = true,
+    selected: Boolean? = null,
     onLongClick: (() -> Unit)? = null
 ) {
     val installedApp = item.installedApp
@@ -236,6 +239,7 @@ internal fun HomeAppCard(
             item = item,
             installedApp = installedApp,
             showStatusBadges = showStatusBadges,
+            selected = selected,
             onClick = onClick,
             onLongClick = onLongClick,
             modifier = modifier
@@ -243,6 +247,7 @@ internal fun HomeAppCard(
     } else {
         NotPatchedAppCard(
             item = item,
+            selected = selected,
             onClick = onClick,
             onLongClick = onLongClick,
             modifier = modifier
@@ -261,6 +266,7 @@ private fun InstalledAppCard(
     item: HomeAppItem,
     installedApp: InstalledApp,
     showStatusBadges: Boolean,
+    selected: Boolean?,
     onClick: () -> Unit,
     onLongClick: (() -> Unit)?,
     modifier: Modifier = Modifier
@@ -358,6 +364,7 @@ private fun InstalledAppCard(
         gradientColors = item.gradientColors,
         onClick = onClick,
         onLongClick = onLongClick,
+        selected = selected,
         modifier = modifier.semantics {
             role = Role.Button
             this.contentDescription = contentDesc
@@ -474,6 +481,7 @@ private fun InstalledAppCard(
 @Composable
 private fun NotPatchedAppCard(
     item: HomeAppItem,
+    selected: Boolean?,
     onClick: () -> Unit,
     onLongClick: (() -> Unit)?,
     modifier: Modifier = Modifier
@@ -495,6 +503,7 @@ private fun NotPatchedAppCard(
         gradientColors = item.gradientColors,
         onClick = onClick,
         onLongClick = onLongClick,
+        selected = selected,
         modifier = modifier.semantics {
             role = Role.Button
             this.contentDescription = contentDesc
@@ -516,6 +525,8 @@ private fun NotPatchedAppCard(
  * Uses a frosted glass effect built from two passes:
  * - a diagonal sweep carrying the card colors from the bottom-start tint to the top-end accent
  * - a gradient border
+ *
+ * @param selected Whether the card is picked, null outside a selection. Marked at the end of the row.
  */
 @Composable
 internal fun AppCardLayout(
@@ -523,6 +534,7 @@ internal fun AppCardLayout(
     gradientColors: List<Color>,
     onClick: () -> Unit,
     onLongClick: (() -> Unit)? = null,
+    selected: Boolean? = null,
     content: @Composable RowScope.() -> Unit
 ) {
     val cardStyle = homeAppCardStyle().onCard(gradientColors)
@@ -631,15 +643,19 @@ internal fun AppCardLayout(
                     }
                 } else null
             )
+            .semantics { if (selected != null) this.selected = selected }
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = cardStyle.contentPadding),
             horizontalArrangement = Arrangement.spacedBy(cardStyle.contentSpacing),
-            verticalAlignment = Alignment.CenterVertically,
-            content = content
-        )
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            content()
+            // In the card's own text color, which is picked to read on its gradient
+            SelectionMark(selected, ink = cardStyle.titleColor.takeIf { !cardStyle.monochrome })
+        }
     }
 }
 

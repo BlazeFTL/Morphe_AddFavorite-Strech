@@ -5,10 +5,7 @@
 
 package app.morphe.manager.ui.screen.patcher
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
-import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -42,6 +39,7 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.PathValidationResult
 import app.morphe.manager.util.deviceStats
 import app.morphe.manager.util.htmlAnnotatedString
+import app.morphe.manager.util.openAllFilesAccessSettings
 import app.morphe.manager.util.requestIgnoreBatteryOptimizations
 import com.composables.icons.materialsymbols.MaterialSymbols
 import com.composables.icons.materialsymbols.rounded.*
@@ -269,13 +267,8 @@ fun DialogHostScope.UnusableOptionPathsDialog(
                 isApi30Plus -> DialogAction(
                     text = stringResource(R.string.patcher_storage_permission_open_settings),
                     onClick = {
-                        // Open the per-app "Allow management of all files" system screen
                         // When the user comes back, onRetryAfterPermission re-runs preflight
-                        val intent = Intent(
-                            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                            Uri.fromParts("package", context.packageName, null)
-                        )
-                        context.startActivity(intent)
+                        context.openAllFilesAccessSettings()
                         // Trigger re-validation; if the user actually granted the
                         // permission the patcher will start when they return
                         onRetryAfterPermission()
@@ -604,7 +597,7 @@ private fun diagnosticSections(errorInfo: PatcherErrorInfo?): List<List<Pair<Str
     val failedPatchLabel = stringResource(R.string.patcher_field_failed_patch)
     val sourceLabel = stringResource(R.string.patcher_field_source)
     val managerLabel = stringResource(R.string.patcher_field_manager)
-    val patcherLabel = stringResource(R.string.settings_advanced_patcher)
+    val patcherLabel = stringResource(R.string.settings_section_patcher)
     val librariesLabel = stringResource(R.string.patcher_field_libraries)
     val androidLabel = stringResource(R.string.patcher_field_android)
     val deviceLabel = stringResource(R.string.patcher_field_device)

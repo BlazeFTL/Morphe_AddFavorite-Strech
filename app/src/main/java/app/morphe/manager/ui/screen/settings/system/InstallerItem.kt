@@ -75,7 +75,8 @@ internal fun rememberPolledInstallerEntries(
     LaunchedEffect(key) {
         while (isActive) {
             delay(1.5.seconds)
-            entries = currentProvider()
+            // Each read queries PackageManager for every installer, too slow to repeat on the main thread
+            entries = withContext(Dispatchers.IO) { currentProvider() }
         }
     }
     return entries

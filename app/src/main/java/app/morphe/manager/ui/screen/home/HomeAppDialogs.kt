@@ -372,6 +372,7 @@ internal fun DialogHostScope.HiddenAppsDialog(
                                     unhide()
                                 }
                             },
+                            selected = isSelected.takeIf { isMultiSelectMode.value },
                             onLongClick = {
                                 view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                                 isMultiSelectMode.value = true

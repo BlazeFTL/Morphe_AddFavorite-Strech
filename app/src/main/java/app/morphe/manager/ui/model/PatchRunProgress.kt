@@ -71,7 +71,7 @@ interface PatchProgressSource {
 class PatchRunProgress(
     context: Context,
     private val scope: CoroutineScope,
-    private val totalPatches: Int,
+    totalPatches: Int,
     splitStepActive: Boolean = false,
     restoredSteps: List<Step>? = null,
     restoredCompletedPatches: Int = 0,
@@ -125,7 +125,7 @@ class PatchRunProgress(
     /** Heap usage samples (MB) collected every second while patching. */
     override val heapSamples = mutableStateListOf<Int>()
 
-    /** Heap limit (MB) of the patcher process, parsed from the runtime's log line. */
+    /** Heap limit (MB) of the runtime that patches, parsed from its log line. */
     override var heapLimitMb by mutableIntStateOf(0)
         private set
 
@@ -139,6 +139,9 @@ class PatchRunProgress(
     /** Storage throughput samples (KB/s) collected while patching. */
     override val ioSamples = mutableStateListOf<IoSample>()
 
+    /** Patches the run applies, fewer than picked when some left their source before it started. */
+    var totalPatches by mutableIntStateOf(totalPatches)
+
     var completedPatches by mutableIntStateOf(restoredCompletedPatches)
         private set
 
@@ -147,7 +150,10 @@ class PatchRunProgress(
         private set
 
     /** Share of the progress bar left for executing patches after the fixed steps. */
-    private var patchesPercentage = max(0.0, 1.0 - steps.sumOf { it.progressPercentage })
+    private var patchesPercentage = patchesShare()
+
+    // Follows the steps, so the split step coming or going mid-run still adds up to the full bar
+    private fun patchesShare() = max(0.0, 1.0 - steps.sumOf { it.progressPercentage })
 
     private var currentStepIndex = steps.indexOfFirst { it.state == State.RUNNING }.coerceAtLeast(0)
 
@@ -223,8 +229,8 @@ class PatchRunProgress(
             currentStepIndex = 0
             steps.clear()
             steps.addAll(generatePatchSteps(appContext, requiresSplitPreparation))
-            patchesPercentage = max(0.0, 1.0 - steps.sumOf { it.progressPercentage })
-            // A fallback to the app's process reports the app's heap as its own limit
+            patchesPercentage = patchesShare()
+            // A fallback to ART reports a heap limit of its own
             heapLimitMb = 0
             heapSamples.clear()
             ioSamples.clear()
@@ -384,6 +390,7 @@ class PatchRunProgress(
         val state = if (insertIndex <= currentStepIndex) State.COMPLETED else State.WAITING
 
         steps.add(insertIndex, buildSplitStep(appContext, state = state))
+        patchesPercentage = patchesShare()
 
         if (insertIndex <= currentStepIndex) {
             currentStepIndex++
@@ -396,6 +403,7 @@ class PatchRunProgress(
 
         val removingCurrent = index == currentStepIndex
         steps.removeAt(index)
+        patchesPercentage = patchesShare()
 
         when {
             currentStepIndex > index -> currentStepIndex--

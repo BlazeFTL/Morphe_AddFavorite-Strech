@@ -303,7 +303,7 @@ class ExpertModeSelection(
      * when the user proceeds to patching.
      */
     fun applyCopy(candidate: CopySelectionCandidate) {
-        app ?: return
+        val forApp = app ?: return
         val targetBundleUid = copy.targetBundleUid ?: return
 
         scope.launch {
@@ -311,6 +311,8 @@ class ExpertModeSelection(
                 candidate = candidate,
                 targetPatches = bundlePatches(targetBundleUid)
             ) ?: return@launch
+            // The dialog may have closed or moved to another app while the copy was read
+            if (app !== forApp || copy.targetBundleUid != targetBundleUid) return@launch
 
             // The copy comes from a run that may have targeted another installer
             update(patches.withBundle(targetBundleUid, copied.patches))

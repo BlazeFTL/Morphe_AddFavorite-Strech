@@ -4,10 +4,10 @@
     <string name="home_other_apps">Egyéb alkalmazások</string>
     <string name="home_other_apps_action">Más alkalmazás kiválasztása</string>
     <string name="home_not_patched_yet">Még nincs módosítva</string>
-    <string name="home_unpatched_version_installed">Nem módosított verzió van telepítve</string>
+    <string name="home_unpatched_version_installed">A telepített verzió módosítatlan</string>
     <string name="home_unpatched_badge">Nincs módosítva</string>
     <string name="home_no_patches_available">Nincsenek elérhető módosítások</string>
-    <string name="home_app_hide_title">Elrejted az alkalmazást?</string>
+    <string name="home_app_hide_title">Elrejti az alkalmazást?</string>
     <string name="home_app_hide_message">Az alkalmazás el lesz rejtve a főképernyőről. Később visszaállíthatod a lista alján található gomb segítségével.</string>
     <string name="home_app_will_be_hidden">Az alkalmazás nem lesz látható</string>
     <string name="home_app_hidden_named">%s rejtett</string>
@@ -390,7 +390,6 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="home_simple_bundle_select_remember">Mindig ezt a forrást használja ehhez az alkalmazáshoz.</string>
     <!-- Color picker -->
     <string name="custom_color">Egyedi szín</string>
-    <string name="hex_color">Hex szín</string>
     <string name="color_picker_shade">Telítettség és fényerő</string>
     <string name="color_picker_hue">Színárnyalat</string>
     <!-- Patch Options -->
@@ -457,6 +456,7 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="batch_patch_title">Batch patching</string>
     <string name="batch_patch_planning">A sor előkészítése…</string>
     <string name="batch_patch_preparing_next">A következő alkalmazás előkészítése…</string>
+    <string name="batch_patch_progress_counter">%1$s patchelése a %2$s-ból</string>
     <string name="batch_patch_summary">%1$s javítva, %2$s sikertelen, %3$s kihagyva</string>
     <string name="batch_patch_saved_hint">A javított alkalmazások elmentve. Telepítse őket most, vagy később a javított APK listából a beállításokban</string>
     <string name="batch_patch_multiple_sources">Néhány alkalmazás több forrásból származó javításokat kombinál, ami konfliktusokat okozhat</string>
@@ -470,9 +470,12 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="batch_patch_force_version">Javítsa mégis</string>
     <string name="batch_patch_force_version_done">Ennek ellenére sorba állítva, az alkalmazás meghibásodhat</string>
     <string name="batch_patch_accept_signature_done">Ennek ellenére sorba állítva, az APK nincs hitelesítve</string>
+    <string name="batch_patch_apk_selected">APK kiválasztva</string>
     <string name="batch_patch_edit_patches">Válassza ki a javításokat</string>
     <string name="batch_patch_state_no_apk">Nincs APK</string>
     <string name="batch_patch_state_no_patches">Nincs javítás</string>
+    <string name="batch_patch_state_no_selection">Egyik sem kiválasztva</string>
+    <string name="batch_patch_no_selection">A rendelkezésre álló javítások közül egyik sem lett kiválasztva</string>
     <string name="batch_patch_policy_install">Telepítés a befejezés után</string>
     <string name="batch_patch_policy_install_description">Minden javított alkalmazás a soron következő befejezése után azonnal települ. A kikapcsolás esetén az APK-k későbbre megmaradnak</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="patcher_field_output_size">Kimeneti méret</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Idő</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Memória átlaga</string>
     <string name="patcher_field_memory_max">Memória maximuma</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +697,9 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="failed_to_execute_patch">Nem sikerült alkalmazni: %s</string>
     <string name="patched_app_save_failed_toast">A módosított alkalmazás mentése sikertelen</string>
     <string name="plugin_activity_dialog_body">A bővítmény használatához felhasználói beavatkozásra van szükség</string>
-    <string name="patcher_heap_exhausted_message">A javítóprogram kifutott a memóriából egy %1$d MB méretű heap-pel. Ez az alkalmazás túl nagy a kiválasztott javításokhoz. Próbáljon kevesebb javítási forrással javítani, vagy válasszon kevesebb javítást.</string>
+    <string name="patcher_process_killed_message">A rendszer leállította a javítót mielőtt befejezte, általában a memória felszabadítása érdekében. Zárja be a többi alkalmazást, és próbálja újra</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">A javítóprogram %1$s MB-os vermemmel futott ki. Az alkalmazás túl nagy a kiválasztott javításokhoz. Próbáljon meg kevesebb javítási forrással vagy kevesebb javítással alkalmazni a javítást</string>
     <string name="install_app_success">Sikeresen telepítve</string>
     <string name="install_app_fail">Nem sikerült telepíteni az alkalmazást: %s</string>
     <string name="install_ignore_signature">Telepítés mindenképpen</string>
@@ -838,8 +843,6 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Ikon megváltoztatása</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Frissítések</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Előzetes frissítések</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Korai hozzáférés az új Morphe verziókhoz</string>
@@ -1059,7 +1062,10 @@ Részletek: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Akkuoptimalizálás</string>
     <string name="settings_system_battery_optimization_description">A javító folyamat futtatása a háttérben, amikor az alkalmazás minimalizálva van.</string>
-    <string name="settings_system_process_runtime">Folyamat futási ideje</string>
+    <string name="settings_system_process_runtime">Patcher futásideje</string>
+    <string name="settings_system_jvm_runtime_enable">Beágyazott VM használata</string>
+    <string name="settings_system_jvm_runtime_description">A Morphe által futtatott Java VM-mel kapcsolatos javítások, amelyek felhasználhatják a készüléken elérhető memóriát. A letiltással az Android futásidejével történik a javítás</string>
+    <string name="settings_system_jvm_runtime_unavailable">ARM vagy 64-bit x86 eszköz szükséges</string>
     <string name="settings_system_patcher_completion_sound">Befejezés hangja</string>
     <string name="settings_system_patcher_completion_sound_description">Jellegzetes hangot játszik le a sikeres vagy sikertelen javítás befejezésekor</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1156,8 @@ Részletek: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Egyszerre törli az összes visszanyerhető gyorsítótár-területet</string>
     <string name="settings_system_storage_clear_all_confirm">Ez törli a gyorsítótárazott hálózati válaszokat, a telepítők által használt példányokat és az ideiglenes fájlokat. Az eredeti és a módosított APK-k megőrizve maradnak</string>
     <string name="settings_system_storage_cleared">Felszabadítva: %s</string>
+    <string name="settings_system_storage_patch_running_warning">Egy frissítés fut, és ezeket a fájlokat használja. Az ezek törlése most hibát okoz</string>
+    <string name="settings_system_storage_clear_anyway">Töröljen mindent</string>
     <string name="settings_system_storage_nothing_to_clear">Nincs törölni való</string>
     <string name="settings_system_storage_open_app_info_title">Megnyitás Android alkalmazástár</string>
     <string name="settings_system_storage_open_app_info_description">Morphe adatok kezelése vagy törlése a rendszerbeállításokon keresztül</string>
@@ -1316,6 +1324,7 @@ Részletek: %2$s"</string>
     <string name="reset_order">Rendezés alaphelyzetbe állítása</string>
     <string name="reset_order_done">Rendelés visszaállítva</string>
     <string name="accessibility_select_app">Alkalmazás kiválasztása</string>
+    <string name="accessibility_select_source">Forrás kiválasztása</string>
     <string name="accessibility_move_up">Feljebb mozog</string>
     <string name="accessibility_move_down">Lejjebb mozog</string>
     <string name="accessibility_app_moved_announcement">A(z) %1$s a(z) %3$s %2$s. pozíciójára került</string>

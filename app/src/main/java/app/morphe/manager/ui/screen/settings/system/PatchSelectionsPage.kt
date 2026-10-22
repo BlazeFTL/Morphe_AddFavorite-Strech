@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -553,6 +555,7 @@ private fun PackageSelectionHeader(
     val isSelected = multiSelect.selectedPackages.contains(packageName)
     val isSelectionMode = multiSelect.isSelectionMode
     val totalPatches = remember(bundleMap) { bundleMap.values.sum() }
+    val selectLabel = stringResource(R.string.accessibility_select_app)
 
     // The gap below goes outside the selection, so the check sits on the card rather than the gap
     SelectableCard(
@@ -568,11 +571,13 @@ private fun PackageSelectionHeader(
                         onClick = {
                             if (isSelectionMode) multiSelect.onToggleSelection(packageName) else onToggleExpanded()
                         },
+                        onLongClickLabel = selectLabel.takeIf { !isSelectionMode },
                         onLongClick = {
                             view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                             multiSelect.onEnterSelection(packageName)
                         }
                     )
+                    .semantics { if (isSelectionMode) selected = isSelected }
                     .padding(Defaults.SpaceLarge),
                 horizontalArrangement = Arrangement.spacedBy(Defaults.SpaceMedium),
                 verticalAlignment = Alignment.CenterVertically
@@ -631,10 +636,11 @@ private fun PackageSelectionHeader(
                     }
                 }
 
-                // Hidden in selection mode, where a tap selects rather than folds
-                FoldingVisibility(visible = !isSelectionMode) {
-                    ExpandChevron(expanded = expanded, announced = true)
-                }
+                // A tap selects rather than folds in selection mode, so the mark takes the chevron's place
+                SelectionMark(
+                    selected = isSelected.takeIf { isSelectionMode },
+                    idle = { ExpandChevron(expanded = expanded, announced = true) }
+                )
             }
         }
     }

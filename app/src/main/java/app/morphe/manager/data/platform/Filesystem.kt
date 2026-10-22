@@ -25,6 +25,7 @@ import app.morphe.manager.util.FilenameUtils
 import app.morphe.manager.util.RequestManageStorageContract
 import app.morphe.manager.util.formatBytesForReport
 import app.morphe.manager.util.purgeDirectoryAsync
+import app.morphe.manager.util.totalBytes
 import java.io.File
 
 private const val TAG = "Morphe Filesystem"
@@ -99,6 +100,9 @@ class Filesystem(
             storagePermissionName
         ) == PackageManager.PERMISSION_GRANTED
 
+    /** Every file in the directory retained patched APKs are kept in. */
+    fun patchedAppFiles(): List<File> = patchedAppsDir.listFiles()?.filter(File::isFile).orEmpty()
+
     fun getPatchedAppFile(packageName: String, version: String): File {
         val safePackage = FilenameUtils.sanitize(packageName)
         val safeVersion = FilenameUtils.sanitize(version.ifBlank { "unspecified" })
@@ -135,7 +139,7 @@ class Filesystem(
     }
 
     private fun logDir(label: String, dir: File, indent: String = "") {
-        val totalSize = dir.walkBottomUp().filter { it.isFile }.sumOf { it.length() }
+        val totalSize = dir.totalBytes()
         Log.i(TAG, "$indent[$label] ${dir.absolutePath} (total: ${formatBytesForReport(totalSize)})")
         dir.listFiles()
             ?.sortedWith(compareBy({ it.isFile }, { it.name }))

@@ -401,7 +401,6 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
 
     <!-- Color picker -->
     <string name="custom_color">Custom color</string>
-    <string name="hex_color">Hex color</string>
     <string name="color_picker_shade">Saturation and brightness</string>
     <string name="color_picker_hue">Hue</string>
 
@@ -486,9 +485,12 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="batch_patch_force_version">Patch anyway</string>
     <string name="batch_patch_force_version_done">Queued anyway, the app may break</string>
     <string name="batch_patch_accept_signature_done">Queued anyway, APK not verified</string>
+    <string name="batch_patch_apk_selected">APK selected</string>
     <string name="batch_patch_edit_patches">Choose patches</string>
     <string name="batch_patch_state_no_apk">No APK</string>
     <string name="batch_patch_state_no_patches">No patches</string>
+    <string name="batch_patch_state_no_selection">None selected</string>
+    <string name="batch_patch_no_selection">None of the available patches is selected</string>
     <string name="batch_patch_policy_install">Install when finished</string>
     <string name="batch_patch_policy_install_description">Installs every patched app right after the queue finishes. Off keeps the APKs for later</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -601,7 +603,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="patcher_field_output_size">Output size</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Time</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Memory average</string>
     <string name="patcher_field_memory_max">Memory max</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -723,7 +725,8 @@ Uninstalling will permanently erase all app data"</string>
     <string name="patched_app_save_failed_toast">Failed to save patched app</string>
     <string name="plugin_activity_dialog_body">User interaction is required in order to proceed with this plugin</string>
     <string name="patcher_process_killed_message">The system stopped the patcher before it finished, usually to free memory. Close other apps and try again</string>
-    <string name="patcher_heap_exhausted_message">The patcher ran out of memory with a %1$d MB heap. This app is too large for the selected patches. Try patching with fewer patch sources, or select fewer patches</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">The patcher ran out of memory with a %1$s MB heap. This app is too large for the selected patches. Try patching with fewer patch sources, or select fewer patches</string>
 
     <string name="install_app_success">Installed successfully</string>
     <string name="install_app_fail">Failed to install app: %s</string>
@@ -899,8 +902,6 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_app_icon_change_dialog_confirm">Change icon</string>
 
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Updates</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Pre-release updates</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Early access to new Morphe versions</string>
@@ -1130,9 +1131,9 @@ Details: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Battery optimization</string>
     <string name="settings_system_battery_optimization_description">Keeps the patcher running when the app is minimized</string>
-    <string name="settings_system_process_runtime">Process runtime</string>
-    <string name="settings_system_jvm_runtime_enable">Separate patcher process</string>
-    <string name="settings_system_jvm_runtime_description">Patches in a Java runtime of its own, which can use as much memory as the device spares. Turn off to patch inside Morphe</string>
+    <string name="settings_system_process_runtime">Patcher runtime</string>
+    <string name="settings_system_jvm_runtime_enable">Use embedded VM</string>
+    <string name="settings_system_jvm_runtime_description">Patches in a Java VM that Morphe carries, which can use as much memory as the device spares. Turn off to patch with the runtime of Android</string>
     <string name="settings_system_jvm_runtime_unavailable">Needs an ARM or 64-bit x86 device</string>
     <string name="settings_system_patcher_completion_sound">Completion sound</string>
     <string name="settings_system_patcher_completion_sound_description">Plays a distinct tone for success or failure when patching finishes</string>
@@ -1205,7 +1206,7 @@ Details: %2$s"</string>
     <string name="settings_system_apks_delete_failed">Some APK files could not be deleted</string>
     <string name="settings_system_apks_export_zip_success">Selected APKs exported</string>
     <string name="settings_system_apks_export_zip_failed">Failed to export selected APKs</string>
-    <string name="settings_system_apk_item_info" translatable="false">v%s • %s</string>
+    <string name="settings_system_apk_item_info" translatable="false">v%1$s • %2$s</string>
 
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">Storage management</string>
@@ -1229,6 +1230,8 @@ Details: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Frees all reclaimable cache space at once</string>
     <string name="settings_system_storage_clear_all_confirm">This clears cached network responses, staged installer copies, and temporary files. Original and patched APKs are kept</string>
     <string name="settings_system_storage_cleared">Freed %s</string>
+    <string name="settings_system_storage_patch_running_warning">A patch is running and uses these files. Clearing them now makes it fail</string>
+    <string name="settings_system_storage_clear_anyway">Clear anyway</string>
     <string name="settings_system_storage_nothing_to_clear">Nothing to clear</string>
     <string name="settings_system_storage_open_app_info_title">Open Android app storage</string>
     <string name="settings_system_storage_open_app_info_description">Manage or clear all Morphe data through system settings</string>
@@ -1528,11 +1531,15 @@ Do you still want to continue?"</string>
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <string name="onboarding_step_of">%1$s of %2$s</string>
     <string name="onboarding_sources_desc">Manage your patch sources. Each source provides patches that can be applied to your apps</string>
+    <string name="onboarding_other_apps_desc">Patch an app that is not on the list, from an APK file or an app installed on your device</string>
+    <string name="onboarding_add_source_desc">Add a patch source from a link or a patch bundle file</string>
+    <string name="onboarding_signing_key_desc">Back up the key that signs your patched apps. Without it, they can only be updated after uninstalling them</string>
     <string name="onboarding_swipe_title">Swipe gestures</string>
     <string name="onboarding_swipe_desc">Swipe right on an app card to view its available patches. Swipe left to hide the card from the home screen</string>
     <string name="onboarding_settings_desc">Customize Morphe: appearance, advanced options, and system tools</string>
     <string name="onboarding_sources_patches_desc">Tap to view all patches available from this source</string>
     <string name="onboarding_sources_version_desc">Tap the version to view the full changelog for this source</string>
+    <string name="onboarding_sources_apps_desc">Tap to see the apps this source patches and choose which of them it offers patches for</string>
     <string name="onboarding_sources_prerelease_desc">Enable this to receive pre-release patch versions from this source</string>
     <string name="onboarding_appearance_tab_desc">Customize the app\'s look: theme, accent color, and background</string>
     <string name="onboarding_expert_mode_desc">Enable Expert Mode to unlock patch selection, custom options, and other advanced features</string>

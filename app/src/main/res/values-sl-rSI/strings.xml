@@ -390,7 +390,6 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="home_simple_bundle_select_remember">Za to aplikacijo vedno uporabite ta vir.</string>
     <!-- Color picker -->
     <string name="custom_color">Prilagojena barva</string>
-    <string name="hex_color">Šestnajstiška (hex) barva</string>
     <string name="color_picker_shade">Nasičenost in svetlost</string>
     <string name="color_picker_hue">Odtenek</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="batch_patch_force_version">Vseeno popravite</string>
     <string name="batch_patch_force_version_done">Vseeno dodano v čakalno vrsto, aplikacija se lahko pokvari</string>
     <string name="batch_patch_accept_signature_done">Vseeno dodano v čakalno vrsto, APK ni preverjen</string>
+    <string name="batch_patch_apk_selected">%s izbrani</string>
     <string name="batch_patch_edit_patches">Izberite popravke</string>
     <string name="batch_patch_state_no_apk">Ni APK-ja</string>
     <string name="batch_patch_state_no_patches">Ni popravkov</string>
+    <string name="batch_patch_state_no_selection">Nič izbranega</string>
+    <string name="batch_patch_no_selection">Noben od razpoložljivih popravkov ni izbran</string>
     <string name="batch_patch_policy_install">Namestite po končanem postopku</string>
     <string name="batch_patch_policy_install_description">Vsaka popravljena aplikacija se namesti takoj po končanem postopku. Izklopljeno shrani APK-je za kasnejšo uporabo</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="patcher_field_output_size">Velikost izhoda</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Čas</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Povprečje pomnilnika</string>
     <string name="patcher_field_memory_max">Maksimum pomnilnika</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +696,9 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="failed_to_execute_patch">Ni uspelo nanesti %s</string>
     <string name="patched_app_save_failed_toast">Ni uspelo shraniti popravljene aplikacije</string>
     <string name="plugin_activity_dialog_body">Za nadaljevanje s tem dodatkom je potrebna uporabniško sodelovanje.</string>
-    <string name="patcher_heap_exhausted_message">Patcherju je zmanjkalo pomnilnika s kopico velikosti %1$d MB. Ta aplikacija je prevelika za izbrane popravke. Poskusite uporabiti manj virov popravkov ali izberite manj popravkov.</string>
+    <string name="patcher_process_killed_message">Sistem je ustavil popravnik preden je končal, običajno da sprostili pomnilnik. Zaprite druge aplikacije in poskusite znova</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Popravljalnik je porabil ves razpoložljiv pomnilnik z <b>%1$s</b> MB delovnim pomnilnikom. Ta aplikacija je prevelika za izbrane popravke. Poskusite popravljati z manj viri popravkov ali izberite manj popravkov</string>
     <string name="install_app_success">Namestitev je uspela</string>
     <string name="install_app_fail">Ni uspelo namestiti aplikacije: %s</string>
     <string name="install_ignore_signature">Namesti vse ostalo</string>
@@ -838,8 +842,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Spremeni ikono</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Posodobitve</string>
-    <string name="settings_advanced_patcher">Popravek</string>
     <string name="settings_advanced_updates_manager_prereleases">Posodobitve pred izdajo</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Zgodnji dostop do novih različic Morphe</string>
@@ -1059,7 +1061,9 @@ Podrobnosti: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimizacija baterije</string>
     <string name="settings_system_battery_optimization_description">Ohranja popravek v teku, ko je aplikacija pomanjšana</string>
-    <string name="settings_system_process_runtime">Čas izvajanja procesa</string>
+    <string name="settings_system_process_runtime">Časovno delovanje popravljalnika</string>
+    <string name="settings_system_jvm_runtime_enable">Uporabljaj vdelani VM</string>
+    <string name="settings_system_jvm_runtime_description">Popravki v navideznem stroju Java, ki ga uporablja Morphe, ki lahko porabi toliko pomnilnika, kot ga naprava omogoča. Izključite za popravljanje z časovnim delovanjem Androida</string>
     <string name="settings_system_patcher_completion_sound">Zvočni signal ob zaključku</string>
     <string name="settings_system_patcher_completion_sound_description">Predvaja ločen ton za uspeh ali neuspeh ob koncu popravka</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1154,8 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Naenkrat izbriše ves prostor predpomnilnika, ki ga je mogoče povrniti</string>
     <string name="settings_system_storage_clear_all_confirm">To počisti predpomnjene omrežne odzive, pripravljene kopije namestitvenih programov in začasne datoteke. Izvorne in popravljene datoteke APK ostanejo nedotaknjene</string>
     <string name="settings_system_storage_cleared">Osvobojeno %s</string>
+    <string name="settings_system_storage_patch_running_warning">Zaznana je bila operacija posodobitve, ki uporablja te datoteke. Če jih zdaj izbrišete, se bo operacija neuspešno končala</string>
+    <string name="settings_system_storage_clear_anyway">Vseeno počisti</string>
     <string name="settings_system_storage_nothing_to_clear">Nič za izbris</string>
     <string name="settings_system_storage_open_app_info_title">Odprite shranjevanje aplikacije Android</string>
     <string name="settings_system_storage_open_app_info_description">Upravljajte ali izbrišite vse podatke Morphe prek sistemskih nastavitev</string>

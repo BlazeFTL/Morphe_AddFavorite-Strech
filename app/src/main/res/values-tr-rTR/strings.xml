@@ -390,7 +390,6 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="home_simple_bundle_select_remember">Bu uygulama için her zaman bu kaynağı kullan</string>
     <!-- Color picker -->
     <string name="custom_color">Özel renk</string>
-    <string name="hex_color">Hex rengi</string>
     <string name="color_picker_shade">Doygunluk ve parlaklık</string>
     <string name="color_picker_hue">Ton</string>
     <!-- Patch Options -->
@@ -457,6 +456,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="batch_patch_title">Toplu yama</string>
     <string name="batch_patch_planning">Sıra hazırlanıyor…</string>
     <string name="batch_patch_preparing_next">Bir sonraki uygulama hazırlanıyor…</string>
+    <string name="batch_patch_progress_counter">%1$s/%2$s yamalanıyor</string>
     <string name="batch_patch_summary">%1$s yamalandı, %2$s başarısız oldu, %3$s atlandı</string>
     <string name="batch_patch_saved_hint">Yamalanan uygulamalar kaydedildi. Şimdi kurun veya ayarlar bölümündeki yamalı APK listesinden daha sonra kurun</string>
     <string name="batch_patch_multiple_sources">Bazı uygulamalar yamaları birden fazla kaynaktan birleştirir, bu da çakışmalara neden olabilir</string>
@@ -470,9 +470,12 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="batch_patch_force_version">Yine de yamala</string>
     <string name="batch_patch_force_version_done">Yine de kuyruğa alındı, uygulama bozulabilir</string>
     <string name="batch_patch_accept_signature_done">Yine de kuyruğa alındı, APK doğrulanmadı</string>
+    <string name="batch_patch_apk_selected">APK seçildi</string>
     <string name="batch_patch_edit_patches">Yamaları seç</string>
     <string name="batch_patch_state_no_apk">APK yok</string>
     <string name="batch_patch_state_no_patches">Yama yok</string>
+    <string name="batch_patch_state_no_selection">Hiçbiri seçilmedi</string>
+    <string name="batch_patch_no_selection">Kullanılabilir yamaların hiçbiri seçili değil</string>
     <string name="batch_patch_policy_install">Tamamlandığında kur</string>
     <string name="batch_patch_policy_install_description">Sıra bittikten hemen sonra her yamalı uygulamayı kurar. Kapalı bırakmak, APK\'ları daha sonra kullanmak üzere saklar</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="patcher_field_output_size">Çıktı boyutu</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Süre</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Ortalama bellek</string>
     <string name="patcher_field_memory_max">Maksimum bellek</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +698,8 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="patched_app_save_failed_toast">Yamalanmış uygulama kaydedilemedi</string>
     <string name="plugin_activity_dialog_body">Bu eklentinin çalışmaya devam edebilmesi için kullanıcı etkileşimi gereklidir</string>
     <string name="patcher_process_killed_message">Sistem, genellikle bellek açmak için, yama işlemini tamamlanmadan durdurdu. Diğer uygulamaları kapatın ve tekrar deneyin</string>
-    <string name="patcher_heap_exhausted_message">Yama uygulayıcının belleği, %1$d MB\'lik bir yığın ile tükendi. Bu uygulama seçilen yamalar için çok büyük. Daha az yama kaynağıyla yama uygulamayı deneyin veya daha az yama seçin.</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Yamalayıcı belleği %1$s MB yığın ile tükendi. Bu uygulama seçilen yamalar için çok büyük. Daha az yama kaynağıyla yamalamayı deneyin veya daha az yama seçin</string>
     <string name="install_app_success">Başarıyla yüklendi</string>
     <string name="install_app_fail">Uygulama yüklenemedi: %s</string>
     <string name="install_ignore_signature">Yine de yükle</string>
@@ -839,8 +843,6 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Simgeyi değiştir</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Güncellemeler</string>
-    <string name="settings_advanced_patcher">Yamalayıcı</string>
     <string name="settings_advanced_updates_manager_prereleases">Ön sürüm güncellemeleri</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Yeni Morphe sürümlerine erken erişim</string>
@@ -1060,9 +1062,9 @@ Ayrıntılar: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Pil optimizasyonu</string>
     <string name="settings_system_battery_optimization_description">Uygulama küçültüldüğünde patcher\'ı çalışır durumda tutar</string>
-    <string name="settings_system_process_runtime">Çalışma süreci</string>
-    <string name="settings_system_jvm_runtime_enable">Ayrı yamalayıcı süreci</string>
-    <string name="settings_system_jvm_runtime_description">Cihazın ayırabildiği kadar bellek kullanabilen, kendine has bir Java çalışma ortamı içinde yamalar. Morphe içinde yamalamak için kapatın</string>
+    <string name="settings_system_process_runtime">Yamalayıcı çalışma zamanı</string>
+    <string name="settings_system_jvm_runtime_enable">Dahili VM kullan</string>
+    <string name="settings_system_jvm_runtime_description">Morphe\'nin çalıştırdığı, cihazın ayırabildiği kadar bellek kullanabilen bir Java VM içinde yamalar. Android\'in çalışma zamanı ile yamalamak için kapatın</string>
     <string name="settings_system_jvm_runtime_unavailable">ARM veya 64-bit x86 cihaz gerektirir</string>
     <string name="settings_system_patcher_completion_sound">Tamamlama Sesi</string>
     <string name="settings_system_patcher_completion_sound_description">Yamalama işlemi bittiğinde başarı veya başarısızlık için farklı bir ton çalınır</string>
@@ -1154,6 +1156,8 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Tek seferde tüm geri kazanılabilir önbellek alanını boşaltır</string>
     <string name="settings_system_storage_clear_all_confirm">Bu, önbelleğe alınmış ağ yanıtlarını, aşamalı yükleyici kopyalarını ve geçici dosyaları temizler. Orijinal ve yamalı APK\'ler korunur</string>
     <string name="settings_system_storage_cleared">%s boşaltıldı</string>
+    <string name="settings_system_storage_patch_running_warning">Bir yama çalışıyor ve bu dosyaları kullanıyor. Şimdi temizlemek başarısız olmasına neden olur</string>
+    <string name="settings_system_storage_clear_anyway">Yine de temizle</string>
     <string name="settings_system_storage_nothing_to_clear">Temizlenecek bir şey yok</string>
     <string name="settings_system_storage_open_app_info_title">Android uygulama depolamasını aç</string>
     <string name="settings_system_storage_open_app_info_description">Morphe verilerinin tamamını sistem ayarları aracılığıyla yönetin veya temizleyin</string>
@@ -1279,7 +1283,7 @@ Ayrıntılar: %2$s"</string>
     <string name="error_">Hata</string>
     <string name="failed">Dışlandı</string>
     <string name="canceled">İptal edildi</string>
-    <string name="ready">Uygulama seç</string>
+    <string name="ready">Hazır</string>
     <string name="retry">Tekrar deneyin</string>
     <string name="refresh">Yenile</string>
     <string name="add">Ekle</string>
@@ -1320,6 +1324,7 @@ Ayrıntılar: %2$s"</string>
     <string name="reset_order">Sırayı sıfırla</string>
     <string name="reset_order_done">Sıra sıfırlandı</string>
     <string name="accessibility_select_app">Uygulama seç</string>
+    <string name="accessibility_select_source">Kaynak seçin</string>
     <string name="accessibility_move_up">Yukarı taşı</string>
     <string name="accessibility_move_down">Aşağı taşı</string>
     <string name="accessibility_app_moved_announcement">%1$s, %3$s\'nin %2$s konumuna taşındı</string>

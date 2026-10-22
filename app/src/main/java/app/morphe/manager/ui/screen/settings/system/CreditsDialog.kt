@@ -11,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
@@ -56,7 +55,7 @@ private val priorContributors = listOf(
  */
 @Composable
 fun DialogHostScope.CreditsDialog(onDismiss: () -> Unit) {
-    val uriHandler = LocalUriHandler.current
+    val openUrl = rememberOpenUrl()
     val accent = MaterialTheme.colorScheme.primary
 
     ListDialog(
@@ -91,13 +90,13 @@ fun DialogHostScope.CreditsDialog(onDismiss: () -> Unit) {
                 title = stringResource(R.string.credits_current_development),
                 icon = MaterialSymbols.Rounded.Code,
                 contributors = currentContributors,
-                onContributorClick = { uriHandler.openUri(it.url) }
+                onContributorClick = { openUrl(it.url) }
             )
             ContributorSection(
                 title = stringResource(R.string.credits_prior_development),
                 icon = MaterialSymbols.Rounded.History,
                 contributors = priorContributors,
-                onContributorClick = { uriHandler.openUri(it.url) }
+                onContributorClick = { openUrl(it.url) }
             )
         }
     }

@@ -38,7 +38,8 @@ fun DialogHostScope.ExternalBatchPatchDialog(
     onConfirm: (trustCaller: Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
-    var trustCaller by remember { mutableStateOf(false) }
+    // Keyed by caller, so a request from another app never inherits the trust ticked for the last one
+    var trustCaller by remember(callerPackage) { mutableStateOf(false) }
     val caller = callerPackage ?: stringResource(R.string.external_batch_patch_unknown_caller)
 
     AppDialog(

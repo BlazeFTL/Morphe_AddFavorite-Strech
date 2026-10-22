@@ -99,7 +99,6 @@
     <!-- "%1$s" is the free storage and "%2$s" the amount patching needs, both in gigabytes. -->
     <!-- Color picker -->
     <string name="custom_color">કસ્ટમ રંગ</string>
-    <string name="hex_color">હેક્સ રંગ</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">સૂચનાઓ</string>
     <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
@@ -125,7 +124,7 @@
     <!-- Free and total RAM of the device, never its storage -->
     <!-- Size of the patched APK, once patching finished -->
     <!-- How long patching took -->
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <!-- Fastest read or write rate reached while patching, in data per second -->
     <string name="patcher_field_value_unknown">અજ્ઞાત</string>
     <!-- Value of "Libraries": the libraries this device cannot use were dropped from the patched APK -->
@@ -170,6 +169,7 @@
     <string name="patcher_message_20">થોડો કચરો સાફ કરું છું... બસ બે મિનિટ હો! 🗑️</string>
     <!-- Expert patcher Screen -->
     <!-- Patcher Screen - Other hidden strings -->
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
     <!-- Patcher Screen - Mini-games -->
     <!-- Settings -->
     <!-- Settings - Appearance Tab - Background animation -->
@@ -195,7 +195,6 @@
     <string name="settings_appearance_app_icon_dark_2">ખાલીપણું</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_patcher">પેચર</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <!-- Notification content -->

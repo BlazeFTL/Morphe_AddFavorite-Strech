@@ -321,8 +321,7 @@ class SettingsViewModel(
 
     fun openShizukuApp(): Boolean = installerManager.openShizukuApp()
 
-    fun getShizukuStatus(): SessionInstaller.ShizukuStatus =
-        installerManager.shizukuStatus(InstallerManager.InstallTarget.PATCHER)
+    fun getShizukuStatus(): SessionInstaller.ShizukuStatus = installerManager.shizukuStatus()
 
     fun requestShizukuPermission(): Boolean = installerManager.requestShizukuPermission()
 
@@ -463,14 +462,12 @@ class SettingsViewModel(
             packageName = candidate.packageName,
             bundleUid = candidate.bundleUid
         )
-        val filteredOptions = filterOptionsForTarget(sourceOptions, targetPatches)
-        if (filteredOptions.isNotEmpty()) {
-            optionsRepository.importOptionsForBundle(
-                packageName = target.packageName,
-                bundleUid = target.bundleUid,
-                options = filteredOptions
-            )
-        }
+        // Written even when empty, which clears the target's old options along with its selection
+        optionsRepository.importOptionsForBundle(
+            packageName = target.packageName,
+            bundleUid = target.bundleUid,
+            options = filterOptionsForTarget(sourceOptions, targetPatches)
+        )
     }
 
     private suspend fun targetBundlePatchNames(packageName: String, bundleUid: Int): Set<String> =

@@ -387,7 +387,6 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="home_simple_bundle_select_remember">Palaging gamitin ang source na ito para sa app na ito.</string>
     <!-- Color picker -->
     <string name="custom_color">Pasadyang kulay</string>
-    <string name="hex_color">Kulay ng Hex</string>
     <string name="color_picker_shade">Saturasyon at liwanag</string>
     <string name="color_picker_hue">Tono</string>
     <!-- Patch Options -->
@@ -467,9 +466,12 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="batch_patch_force_version">Mag-patch pa rin</string>
     <string name="batch_patch_force_version_done">Nakapila pa rin, maaaring masira ang app</string>
     <string name="batch_patch_accept_signature_done">Nakapila pa rin, hindi na-verify ang APK</string>
+    <string name="batch_patch_apk_selected">Napili na ang APK</string>
     <string name="batch_patch_edit_patches">Pumili ng mga patch</string>
     <string name="batch_patch_state_no_apk">Walang APK</string>
     <string name="batch_patch_state_no_patches">Walang mga patch</string>
+    <string name="batch_patch_state_no_selection">Walang napili</string>
+    <string name="batch_patch_no_selection">Walang isahang available patch ay napili</string>
     <string name="batch_patch_policy_install">I-install kapag tapos na</string>
     <string name="batch_patch_policy_install_description">I-i-install ang bawat na-patch na app pagkatapos ng queue. Off ay nagpapanatili sa mga APK para sa ibang pagkakataon</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -578,7 +580,7 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="patcher_field_output_size">Laki ng output</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tagal</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Average ng memorya</string>
     <string name="patcher_field_memory_max">Pinakamataas na memorya</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -691,7 +693,9 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="failed_to_execute_patch">Nabigong ilapat %s</string>
     <string name="patched_app_save_failed_toast">Nabigong ma-save ang na-patch na aplikasyon</string>
     <string name="plugin_activity_dialog_body">Kinakailangan ng pakikipag-ugnayan sa tagagamit upang magpatuloy sa plugin na ito</string>
-    <string name="patcher_heap_exhausted_message">Naubos ang memorya ng patcher na may %1$d MB na heap. Masyadong malaki ang app na ito para sa mga napiling patch. Subukang mag-patch na may mas kaunting patch source, o pumili ng mas kaunting patch.</string>
+    <string name="patcher_process_killed_message">Itinigil ng system ang patcher bago ito tapos, karaniwan upang maluwagan ang memorya. Isara ang ibang apps at subukan ulit</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Ang patcher ay wala nang memorya sa %1$s MB heap. Ang app na ito ay masyadong malaki para sa mga piniling patches. Subukang mag-patch gamit ang mas kaunting patch sources, o piliin ang mas kaunting patches</string>
     <string name="install_app_success">Matagumpay na na-install</string>
     <string name="install_app_fail">Nabigong ma-install ang aplikasyon: %s</string>
     <string name="install_ignore_signature">I-install pa rin</string>
@@ -835,8 +839,6 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Baguhin ang icon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Mga update</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Mga update na pre-release</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Maagang pag-access sa mga bagong bersyon ng Morphe</string>
@@ -1056,7 +1058,9 @@ Mga Detalye: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Pag-optimize sa baterya</string>
     <string name="settings_system_battery_optimization_description">Pinapanatili ang patcher na tumatakbo kapag ang app ay minimize</string>
-    <string name="settings_system_process_runtime">Runtime ng proseso</string>
+    <string name="settings_system_process_runtime">Patcher runtime</string>
+    <string name="settings_system_jvm_runtime_enable">Gumamit ng embedded VM</string>
+    <string name="settings_system_jvm_runtime_description">Mga patch sa isang Java VM na dala nina Morphe, na maaaring gumamit ng memorya hanggang sa kaya ng device. I-off upang i-patch gamit ang runtime ng Android</string>
     <string name="settings_system_patcher_completion_sound">Tunog ng pagkumpleto</string>
     <string name="settings_system_patcher_completion_sound_description">Tumutugtog ng natatanging tono para sa tagumpay o kabiguan kapag natapos ang pag-patch</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1147,6 +1151,8 @@ Mga Detalye: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Nililinis ang lahat ng puwedeng mabawi na espasyo ng cache nang sabay-sabay</string>
     <string name="settings_system_storage_clear_all_confirm">Ito ay magcle-clear ng mga na-cache na tugon ng network, mga kopya ng installer na naka-stage, at mga pansamantalang file. Ang orihinal at na-patch na mga APK ay mananatili</string>
     <string name="settings_system_storage_cleared">Napalaya ang %s</string>
+    <string name="settings_system_storage_patch_running_warning">Isinasagawa ang patch at ginagamit ang mga file na ito. Kung lilinisin ngayon, magkakamali ito</string>
+    <string name="settings_system_storage_clear_anyway">Linisin pa rin</string>
     <string name="settings_system_storage_nothing_to_clear">Walang dapat i-clear</string>
     <string name="settings_system_storage_open_app_info_title">Buksan ang storage ng Android app</string>
     <string name="settings_system_storage_open_app_info_description">Pamahalaan o i-clear ang lahat ng data ng Morphe sa pamamagitan ng mga setting ng system</string>

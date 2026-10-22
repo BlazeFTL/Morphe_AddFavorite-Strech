@@ -53,6 +53,7 @@ import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.bundles.versionStatus
 import app.morphe.manager.domain.links.AppLinksStatus
 import app.morphe.manager.patcher.patch.PatchInfo
+import app.morphe.manager.patcher.patch.PatchSourceRef
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.sources.*
@@ -187,7 +188,6 @@ fun DialogHostScope.InstalledAppInfoDialog(
     // Accent color resolution order: bundle metadata (appIconColor) -> default. Read from every
     // source, a disabled one included, so the app keeps its color with nothing left to patch it.
     // originalPackageName needed because metadata is keyed by original pkg, not patched.
-    val bundleAppMetadata by homeViewModel.bundleAppMetadataFlow.collectAsStateWithLifecycle()
     val appAccentColor = rememberAppColor(viewModel.installedApp?.originalPackageName ?: packageName)
         ?: KnownApps.DEFAULT_DOWNLOAD_COLOR
     val infoAccentColor = ThemeTraitsDefaults.accentColor(appAccentColor)
@@ -230,25 +230,23 @@ fun DialogHostScope.InstalledAppInfoDialog(
     val availablePatches by viewModel.availablePatches.collectAsStateWithLifecycle()
 
     // Same order the home card resolves its name in, so a record reads the same in both places
-    val allBundleAppMetadata by homeViewModel.allBundleAppMetadataFlow.collectAsStateWithLifecycle()
-    val appLabel = remember(appInfo, installedApp, bundleAppMetadata, allBundleAppMetadata, packageName) {
-        val original = installedApp?.originalPackageName ?: packageName
-        appInfo?.applicationInfo?.loadLabel(context.packageManager)?.toString()
-            ?: bundleAppMetadata[original]?.displayName
-            ?: allBundleAppMetadata[original]?.displayName
-            ?: installedApp?.appLabel
+    val bundleNames by homeViewModel.appDisplayNamesFlow.collectAsStateWithLifecycle()
+    val deviceLabel = remember(appInfo) { appInfo?.readableLabel(context.packageManager) }
+    val appLabel = remember(deviceLabel, installedApp, bundleNames, packageName) {
+        installedApp?.appLabel
+            ?: deviceLabel
+            ?: bundleNames[installedApp?.originalPackageName ?: packageName]
             ?: KnownApps.getAppName(packageName)
     }
 
     // Export file name
-    val exportFileName = remember(installedApp?.currentPackageName, appInfo?.versionName, appliedBundles) {
+    val exportFileName = remember(installedApp?.currentPackageName, appInfo?.versionName, appliedBundles, appLabel) {
         val app = installedApp ?: return@remember "morphe_export.apk"
-        ExportNameFormatter.format(null, PatchedAppExportData(
-            appName = appInfo?.applicationInfo?.loadLabel(context.packageManager)?.toString(),
+        ExportNameFormatter.format(PatchedAppExportData(
+            appName = appLabel,
             packageName = app.currentPackageName,
             appVersion = appInfo?.versionName ?: app.version,
-            patchBundleVersions = appliedBundles.mapNotNull { it.version?.takeIf(String::isNotBlank) },
-            patchBundleNames = appliedBundles.map { it.title }.filter(String::isNotBlank)
+            sources = appliedBundles.map { PatchSourceRef(it.title, it.version) }
         ))
     }
 
@@ -283,8 +281,11 @@ fun DialogHostScope.InstalledAppInfoDialog(
         viewModel.onAppStateChanged = { pkg -> homeViewModel.apps.notifyAppStateChanged(pkg) }
     }
 
-    // Handle install result
+    // Handle install result. The installer outlives the dialog, so whatever it last ended with is
+    // left for its own screen and only a result reached while this dialog is open is handled here
+    val installStateAtOpen = remember { installState }
     LaunchedEffect(installState) {
+        if (installState === installStateAtOpen) return@LaunchedEffect
         when (installState) {
             is InstallViewModel.InstallState.Installed -> {
                 // Installation succeeded - update install type in database and refresh UI

@@ -254,6 +254,8 @@ class UpdateViewModel(
         } catch (_: InstallCancelledException) {
             state = State.CAN_INSTALL
         } catch (error: Exception) {
+            // A screen torn down mid-install cancels the wait, which is no failed install
+            if (error is CancellationException) throw error
             failInstall(error.simpleMessage().orEmpty())
         }
     }
@@ -492,6 +494,9 @@ class UpdateViewModel(
      * the list gains new content only.
      * Idempotent: repeat calls while loading or after a successful load are a no-op.
      */
+    // Canceled when the dialog closes, so a load finishing late never fills the next opening
+    private var olderEntriesJob: Job? = null
+
     fun loadOlderManagerEntries() {
         if (isLoadingOlderEntries || olderManagerEntries != null) return
         isLoadingOlderEntries = true
@@ -499,7 +504,8 @@ class UpdateViewModel(
         val exclude = changelogEntries.orEmpty()
             .map { it.version.normalizeVersion() }
             .toSet()
-        viewModelScope.launch(Dispatchers.Default) {
+        // On the main thread like loadChangelog, the only other user of the cache
+        olderEntriesJob = viewModelScope.launch {
             try {
                 val entries = managerEntriesCache.getOrPut(false) {
                     morpheAPI.fetchManagerChangelog(forDevBranch = false)
@@ -520,6 +526,7 @@ class UpdateViewModel(
     }
 
     fun resetOlderManagerEntries() {
+        olderEntriesJob?.cancel()
         olderManagerEntries = null
         isLoadingOlderEntries = false
         olderEntriesFailed = false

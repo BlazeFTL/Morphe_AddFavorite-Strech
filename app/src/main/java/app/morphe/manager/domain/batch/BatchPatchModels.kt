@@ -88,6 +88,9 @@ enum class BatchItemState {
     /** No enabled bundle contributes any patch for this package. */
     NO_PATCHES,
 
+    /** The bundles offer patches for this package, but none of them is selected. */
+    NO_SELECTION,
+
     /** Removed from the run by the user. */
     EXCLUDED,
 
@@ -100,8 +103,10 @@ enum class BatchItemState {
     val isRunnable get() = this == READY
 
     /** True when the item is blocked by something the user can fix on the preflight screen. */
-    val needsAttention get() =
-        this == NEEDS_APK || this == VERSION_MISMATCH || this == UNVERIFIED_SIGNATURE || this == NO_PATCHES
+    val needsAttention get() = when (this) {
+        NEEDS_APK, VERSION_MISMATCH, UNVERIFIED_SIGNATURE, NO_PATCHES, NO_SELECTION -> true
+        else -> false
+    }
 
     val isTerminal get() = this == SUCCEEDED || this == FAILED || this == CANCELLED
 }
@@ -180,6 +185,16 @@ data class BatchPatchItem(
     val patchCount get() = selection.values.sumOf { it.size }
     val version get() = source?.version
 
+    /**
+     * State of this item with a selection picked by hand, over the [resolved] one: nothing picked
+     * leaves nothing to run, and anything picked runs even where the defaults had nothing.
+     */
+    fun stateForSelection(resolved: BatchItemState) = when {
+        patchCount == 0 -> BatchItemState.NO_SELECTION
+        resolved == BatchItemState.NO_PATCHES || resolved == BatchItemState.NO_SELECTION -> BatchItemState.READY
+        else -> resolved
+    }
+
     /** Removed from the run, remembering the state an [included] call puts back. */
     fun excluded() = copy(state = BatchItemState.EXCLUDED, restoreState = state)
 
@@ -232,7 +247,9 @@ data class BatchRunState(
     val useMount: Boolean = false,
     val activeIndex: Int? = null,
     val activeRun: PatchRunProgress? = null,
-    val finishedInForeground: Boolean = false
+    val finishedInForeground: Boolean = false,
+    /** Set once the summary started installing on its own, which a reopened summary must not repeat. */
+    val autoInstallStarted: Boolean = false
 ) {
     val activeItem get() = activeIndex?.let(items::getOrNull)
     val runnable get() = items.filter { it.state.isRunnable }

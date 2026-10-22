@@ -14,7 +14,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.StatFs
-import android.provider.OpenableColumns
 import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.runtime.getValue
@@ -32,13 +31,14 @@ import app.morphe.manager.domain.installer.RootInstaller
 import app.morphe.manager.domain.manager.*
 import app.morphe.manager.domain.repository.*
 import app.morphe.manager.patcher.patch.*
-import app.morphe.manager.patcher.runtime.PatcherJvms
+import app.morphe.manager.patcher.runtime.PatcherProcesses
 import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelection
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
 import app.morphe.manager.ui.model.*
 import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.shared.UserMessages
+import app.morphe.manager.ui.screen.shared.readableLabel
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.restrictTo
@@ -195,7 +195,7 @@ class PatchFlow(
     private val compatibleVersions: StateFlow<Map<String, List<BundledAppTarget>>>,
     private val recommendedVersions: StateFlow<Map<String, AppTarget>>,
     expertModeCopy: CopySelectionController,
-    private val patcherJvms: PatcherJvms
+    private val patcherProcesses: PatcherProcesses
 ) : ApkDownloadHelperHost {
     /** The dialogs the flow has open, see [HomeDialog]. */
     val dialogs = HomeDialogStack()
@@ -238,13 +238,14 @@ class PatchFlow(
     // The redirect being resolved, given up for the next one when the user comes back for another version
     private var downloadRedirectJob: Job? = null
 
-    private var pickedApkIcon by mutableStateOf<Pair<File, Drawable>?>(null)
+    // The file picked last, with the icon and label read from it
+    private var pickedApk by mutableStateOf<ApkLoadResult.Success?>(null)
 
     /** Icon read from the file picked for expert mode, for an app no source has one for yet. */
     val expertModeAppIcon: Drawable?
-        get() = pickedApkIcon
-            ?.takeIf { (file, _) -> (expertMode.app as? SelectedApp.Local)?.file == file }
-            ?.second
+        get() = pickedApk
+            ?.takeIf { it.app.file == (expertMode.app as? SelectedApp.Local)?.file }
+            ?.icon
 
     // Counts the openings of the app information, so each one starts afresh
     private var appInfoOpenings = 0
@@ -281,17 +282,31 @@ class PatchFlow(
     fun showPatchDialog(packageName: String, repatchedPackageName: String? = null) {
         session = sessionFor(packageName, repatchedPackageName)
         // Started while the user picks the APK and patches, so patching does not wait for it
-        patcherJvms.startAhead()
+        patcherProcesses.startAhead()
 
         // Guard: if there is a pending bundle update on metered data, show the outdated-patches
         // dialog before proceeding with the actual APK selection flow.
         guardPatching { showPatchDialogInternal(packageName) }
     }
 
+    /**
+     * What the run calls [packageName]: the name the sources give it, see
+     * [PatchBundleRepository.appDisplayNames], or else the label of the file picked for it, which
+     * is at hand before the sources are and names an app they do not.
+     *
+     * @param names The names the sources give, passed in by a caller that observes them.
+     */
+    fun appNameFor(
+        packageName: String,
+        names: Map<String, String> = patchBundleRepository.appDisplayNames.value
+    ): String = names[packageName]
+        ?: pickedApk?.takeIf { it.app.packageName == packageName }?.label
+        ?: KnownApps.getAppName(packageName)
+
     /** A fresh run for [packageName], seeded from the current bundle data. */
     private fun sessionFor(packageName: String, repatchedPackageName: String? = null) = PatchFlowSession(
         packageName = packageName,
-        appName = appMetadata[packageName]?.displayName ?: KnownApps.getAppName(packageName),
+        appName = appNameFor(packageName),
         repatchPackageName = repatchedPackageName,
         recommendedVersion = recommendedVersions.value[packageName],
         compatibleVersions = compatibleVersions.value[packageName].orEmpty()
@@ -464,28 +479,16 @@ class PatchFlow(
 
     /**
      * The APK [info] describes of the installed [packageName], copied into a file of the run's
-     * own: a single APK as it is, split ones packed into a temp .apks archive. Null when it has
-     * gone from the device.
+     * own. Throws when it has gone from the device.
      */
-    private fun copyInstalledApk(packageName: String, info: InstalledApkInfo): SelectedApp.Local? {
-        val file = if (info.isSplit) {
-            File(filesystem.uiTempDir, "${packageName}_installed.apks").also { archive ->
-                SplitApkPreparer.writeApksArchive(info.apkPath, info.splitPaths, archive)
-            }
-        } else {
-            val source = File(info.apkPath)
-            if (!source.exists()) return null
-            File(filesystem.uiTempDir, "${packageName}_installed.apk").also { source.copyTo(it, overwrite = true) }
-        }
-        return SelectedApp.Local(
-            packageName = packageName,
-            version = info.version,
-            versionCode = info.versionCode,
-            file = file,
-            temporary = true,
-            fromInstalledDevice = true
-        )
-    }
+    private fun copyInstalledApk(packageName: String, info: InstalledApkInfo) = SelectedApp.Local(
+        packageName = packageName,
+        version = info.version,
+        versionCode = info.versionCode,
+        file = SplitApkPreparer.copyInstalledApp(packageName, info.apkPath, info.splitPaths, filesystem.uiTempDir),
+        temporary = true,
+        fromInstalledDevice = true
+    )
 
     /**
      * Handles a helper result where the user installed the target app outside Morphe.
@@ -664,7 +667,7 @@ class PatchFlow(
 
                 when (result) {
                     is ApkLoadResult.Success -> {
-                        pickedApkIcon = result.icon?.let { result.app.file to it }
+                        pickedApk = result
                         // Picked in place of the one held for a warning, which it takes the run over from
                         heldApp?.discard()
                         heldApp = null
@@ -771,7 +774,7 @@ class PatchFlow(
             val isSplitFile = SplitApkPreparer.isSplitArchive(selectedApp.file)
 
             if (isSplitFile && requiredApkFileType?.isApk == true && requiredApkFileType.isRequired) {
-                holdFor(HomeDialog.SplitApkWarning, selectedApp)
+                holdFor(HomeDialog.SplitApkWarning(selectedApp.packageName), selectedApp)
                 return
             }
 
@@ -795,7 +798,7 @@ class PatchFlow(
                             HomeDialog.InvalidSignature(
                                 InvalidSignatureDialogState(
                                     packageName = selectedApp.packageName,
-                                    appName = session?.appName ?: KnownApps.getAppName(selectedApp.packageName)
+                                    appName = session?.appName ?: appNameFor(selectedApp.packageName)
                                 )
                             ),
                             selectedApp
@@ -1030,6 +1033,7 @@ class PatchFlow(
 
         if (availableBundles.isEmpty()) {
             messages.show(R.string.home_no_patches_available)
+            selectedApp.discard()
             endRun()
             return
         }
@@ -1084,6 +1088,19 @@ class PatchFlow(
             val savedSelections = savedSelections()
             val savedOptions = savedOptions()
 
+            // The seen-patch snapshot is what tells a genuinely new patch from one the user
+            // deselected. Not read without a saved selection, so a first run flags nothing as new
+            val seenByBundle = if (savedSelections.isEmpty()) emptyMap() else withContext(Dispatchers.IO) {
+                allBundles.associate {
+                    it.uid to patchSelectionRepository.getSeenPatches(configurationKey, it.uid)
+                }
+            }
+            val newPatchesMap = allBundles.mapNotNull { bundle ->
+                val seen = seenByBundle[bundle.uid] ?: return@mapNotNull null
+                val new = bundle.patches.mapTo(mutableSetOf()) { it.name } - seen
+                new.takeIf { it.isNotEmpty() }?.let { bundle.uid to it }
+            }.toMap()
+
             // Use saved selections or create new ones
             val patches = if (savedSelections.isNotEmpty()) {
                 // Count patches before validation
@@ -1105,17 +1122,8 @@ class PatchFlow(
                     ))
                 }
 
-                // The seen-patch snapshot is what tells a genuinely new patch from one the
-                // user deselected, and the saved selection stands in for it on the first run,
-                // before any snapshot exists. Read in one go rather than per bundle inside the
-                // merge, which would cross to the IO dispatcher once per source
-                val seenByBundle = withContext(Dispatchers.IO) {
-                    allBundles.associate {
-                        it.uid to patchSelectionRepository.getSeenPatches(configurationKey, it.uid)
-                    }
-                }
-
-                // Runs after validation, so patches the sources dropped never sneak back in
+                // Runs after validation, so patches the sources dropped never sneak back in. The
+                // saved selection stands in for a snapshot that does not exist yet
                 mergeNewlyAdded(
                     bundles = allBundles,
                     validated = validatedPatches,
@@ -1126,31 +1134,6 @@ class PatchFlow(
             } else {
                 // No saved selections - use default for all current bundles
                 allBundles.toPatchSelection(allowIncompatible) { _, patch -> target.defaultSelected(patch) }
-            }
-
-            // Compute new patches map for the dialog to highlight.
-            // Only populated when a previous selection exists - on first run there is nothing
-            // to compare against so we keep it empty to avoid false "New" badges
-            // A patch is genuinely "new" if it was absent from the seen-patches snapshot
-            // saved at the end of the previous patching session. Comparing against savedSelections
-            // (which contains only *selected* patches) would incorrectly flag deselected patches
-            // as new on every subsequent open.
-            val newPatchesMap: Map<Int, Set<String>> = if (savedSelections.isNotEmpty()) {
-                buildMap {
-                    allBundles.forEach { bundle ->
-                        val seenForBundle = withContext(Dispatchers.IO) {
-                            patchSelectionRepository.getSeenPatches(configurationKey, bundle.uid)
-                        }
-                        // No snapshot yet → first time opening expert mode for this package,
-                        // nothing to flag as new.
-                        val seen = seenForBundle ?: return@forEach
-                        val currentPatchNames = bundle.patches.map { it.name }.toSet()
-                        val newForBundle = currentPatchNames - seen
-                        if (newForBundle.isNotEmpty()) put(bundle.uid, newForBundle)
-                    }
-                }
-            } else {
-                emptyMap()
             }
 
             // Validate options
@@ -1233,20 +1216,8 @@ class PatchFlow(
      * install starts from what the app was last patched with, and so does an install that
      * predates configurations of their own.
      */
-    private suspend fun configurationKeyFor(originalPackageName: String): String {
-        val repatched = session?.repatchPackageName
-        val hasOwnConfiguration = repatched != null &&
-                repatched != originalPackageName &&
-                withContext(Dispatchers.IO) {
-                    patchSelectionRepository.getAllSelectionsForPackage(repatched).isNotEmpty()
-                }
-
-        return configurationKey(
-            originalPackageName = originalPackageName,
-            repatchedPackageName = repatched,
-            repatchedHasOwnConfiguration = hasOwnConfiguration
-        )
-    }
+    private suspend fun configurationKeyFor(originalPackageName: String): String =
+        patchSelectionRepository.configurationKeyFor(originalPackageName, session?.repatchPackageName)
 
     /** Hands the run to the patcher, which takes it from here. */
     private fun proceedWithPatching(
@@ -1355,6 +1326,7 @@ class PatchFlow(
 
     /** Closes the expert dialog, giving up the run it was setting up. */
     fun dismissExpertMode() {
+        expertMode.app?.discard()
         expertMode.clear()
         dismiss()
     }
@@ -1412,7 +1384,7 @@ class PatchFlow(
     fun refreshBundlesAndContinuePatching() {
         val action = takePendingPatchAction() ?: return
         dialogs.close(HomeDialog.MeteredPatching)
-        scope.launch {
+        moveOn {
             // User explicitly requested update - bypass metered check and wait for completion
             patchBundleRepository.updateCheckAndAwait(allowUnsafeNetwork = true)
             action()
@@ -1514,7 +1486,7 @@ class PatchFlow(
     fun startOtherAppsFlow(appName: String) {
         endRun()
         session = PatchFlowSession(packageName = null, appName = appName)
-        patcherJvms.startAhead()
+        patcherProcesses.startAhead()
         dialogs.open(HomeDialog.FilePickerPrompt)
     }
 
@@ -1536,6 +1508,7 @@ class PatchFlow(
     /** Closes every dialog of the flow and gives up the run, for the user to start afresh. */
     fun cancel() {
         stepJob?.cancel()
+        expertMode.app?.discard()
         expertMode.clear()
         pendingPatchAction = null
         dialogs.closeAll()
@@ -1545,6 +1518,7 @@ class PatchFlow(
     /** Deletes the APK held for a run, as nothing is left to patch it. */
     fun close() {
         heldApp?.discard()
+        expertMode.app?.discard()
     }
 
     /**
@@ -1559,60 +1533,38 @@ class PatchFlow(
      */
     private suspend fun loadLocalApk(uri: Uri): ApkLoadResult = withContext(Dispatchers.IO) {
         try {
-            val contentResolver = app.contentResolver
-            // Copy file to uiTempDir with original extension detection
-            val fileName = contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                if (cursor.moveToFirst() && nameIndex != -1) cursor.getString(nameIndex) else null
-            } ?: "temp_${System.currentTimeMillis()}"
+            val tempFile = uri.copyApkInto(filesystem.uiTempDir, "temp_apk", app.contentResolver)
+                ?: return@withContext ApkLoadResult.Unreadable
 
-            val extension = fileName.substringAfterLast('.', "apk").lowercase()
-            val tempFile = filesystem.uiTempDir.resolve("temp_apk_${System.currentTimeMillis()}.$extension")
-
-            // openInputStream can return null when the provider is unavailable
-            // e.g. Samsung External Storage restricted by Battery Optimization
-            val bytesCopied = contentResolver.openInputStream(uri)?.use { input ->
-                tempFile.outputStream().use { output -> input.copyTo(output) }
-            }
-            if (bytesCopied == null || bytesCopied == 0L) {
-                tempFile.delete()
-                return@withContext ApkLoadResult.Unreadable
-            }
-
-            // A split archive is read through its base module, deleted after the call, so the icon is read in it
-            val (packageInfo, icon, patched) = SplitApkInspector.withRepresentativeApk(
+            // A split archive is read through its base module, deleted after the call, so the icon
+            // and the label are read in it
+            val result = SplitApkInspector.withRepresentativeApk(
                 source = tempFile,
                 workspace = filesystem.uiTempDir
             ) { apk ->
-                val info = pm.getPackageInfo(apk)
-                Triple(
-                    info,
-                    info?.let(appDataResolver::detachedArchiveIcon),
-                    info != null && localApkSources.isPatchedApk(apk, info.packageName)
-                )
+                val packageInfo = pm.getPackageInfo(apk)
+                when {
+                    packageInfo == null -> ApkLoadResult.NotAnApk
+                    localApkSources.isPatchedApk(apk, packageInfo.packageName) -> ApkLoadResult.AlreadyPatched
+                    else -> ApkLoadResult.Success(
+                        SelectedApp.Local(
+                            packageName = packageInfo.packageName,
+                            version = packageInfo.versionName ?: "unknown",
+                            versionCode = pm.getVersionCode(packageInfo),
+                            file = tempFile,
+                            temporary = true
+                        ),
+                        icon = appDataResolver.detachedArchiveIcon(packageInfo),
+                        label = packageInfo.readableLabel(app.packageManager)
+                    )
+                }
             }
 
-            if (packageInfo == null) {
-                Log.w(tag, "Picked file $fileName could not be parsed as an APK")
-                tempFile.delete()
-                return@withContext ApkLoadResult.NotAnApk
+            if (result == ApkLoadResult.NotAnApk) {
+                Log.w(tag, "Picked file ${tempFile.name} could not be parsed as an APK")
             }
-
-            if (patched) {
-                tempFile.delete()
-                return@withContext ApkLoadResult.AlreadyPatched
-            }
-
-            ApkLoadResult.Success(
-                SelectedApp.Local(
-                    packageName = packageInfo.packageName,
-                    version = packageInfo.versionName ?: "unknown",
-                    versionCode = pm.getVersionCode(packageInfo),
-                    file = tempFile,
-                    temporary = true
-                ),
-                icon
-            )
+            if (result !is ApkLoadResult.Success) tempFile.delete()
+            result
         } catch (e: Exception) {
             Log.e(tag, "Failed to load APK", e)
             ApkLoadResult.IoError
@@ -1627,8 +1579,8 @@ private fun SelectedApp.discard() {
 
 /** Result of attempting to load a local APK file. */
 private sealed interface ApkLoadResult {
-    /** File was read and parsed successfully, with the app's icon where it carries one. */
-    data class Success(val app: SelectedApp.Local, val icon: Drawable?) : ApkLoadResult
+    /** File was read and parsed successfully, with the app's icon and label where it carries them. */
+    data class Success(val app: SelectedApp.Local, val icon: Drawable?, val label: String?) : ApkLoadResult
     /** File could not be read - provider returned null stream or zero bytes. */
     data object Unreadable : ApkLoadResult
     /** File was read but is not a valid APK/split archive. */

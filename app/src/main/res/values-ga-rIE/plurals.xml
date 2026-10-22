@@ -54,11 +54,11 @@
         <item quantity="other">Foinsí paiste le haghaidh %s aip</item>
     </plurals>
     <plurals name="home_apk_availability_hidden_sources">
-        <item quantity="one">Tá foinse %s i bhfolach don aip seo. Roghnaigh an aip ar an tab Aipeanna agus oscail Patch sources chun í a thabhairt ar ais</item>
-        <item quantity="two">Tá foinsí %s i bhfolach don aip seo. Roghnaigh an aip ar an tab Aipeanna agus oscail Patch sources chun iad a thabhairt ar ais</item>
-        <item quantity="few">Tá foinsí %s i bhfolach don aip seo. Roghnaigh an aip ar an tab Aipeanna agus oscail Patch sources chun iad a thabhairt ar ais</item>
-        <item quantity="many">Tá foinsí %s i bhfolach don aip seo. Roghnaigh an aip ar an tab Aipeanna agus oscail Patch sources chun iad a thabhairt ar ais</item>
-        <item quantity="other">Tá foinsí %s i bhfolach don aip seo. Roghnaigh an aip ar an tab Aipeanna agus oscail Patch sources chun iad a thabhairt ar ais</item>
+        <item quantity="one">Tá an fhoinse %s i bhfolach don aip seo. Roghnaigh an aip ar an gcluaisín Aipeanna agus oscail Foinsí paisteála chun í a thabhairt ar ais.</item>
+        <item quantity="two">Tá foinsí %s i bhfolach don aip seo. Roghnaigh an aip ar an gcluaisín Aipeanna agus oscail Foinsí paiste chun iad a thabhairt ar ais.</item>
+        <item quantity="few">Tá foinsí %s i bhfolach don aip seo. Roghnaigh an aip ar an gcluaisín Aipeanna agus oscail Foinsí paiste chun iad a thabhairt ar ais.</item>
+        <item quantity="many">Tá foinsí %s i bhfolach don aip seo. Roghnaigh an aip ar an gcluaisín Aipeanna agus oscail Foinsí paiste chun iad a thabhairt ar ais.</item>
+        <item quantity="other">Tá foinsí %s i bhfolach don aip seo. Roghnaigh an aip ar an gcluaisín Aipeanna agus oscail Foinsí paiste chun iad a thabhairt ar ais.</item>
     </plurals>
     <plurals name="expert_mode_hidden_sources_notice">
         <item quantity="one">%s fhoinse i bhfolach. Tapáil chun taispeáint.</item>
@@ -180,25 +180,25 @@
         <item quantity="other">%s foinsí suiteáilte</item>
     </plurals>
     <plurals name="home_apps_hidden_count">
-        <item quantity="one">Folaíodh aip %s</item>
-        <item quantity="two">Folaíodh aip %s</item>
-        <item quantity="few">Folaíodh aipeanna %s</item>
-        <item quantity="many">%s aipí i bhfolach</item>
-        <item quantity="other">Folaíodh aip %s</item>
+        <item quantity="one">%s aip i bhfolach</item>
+        <item quantity="two">%s aip i bhfolach</item>
+        <item quantity="few">%s aip i bhfolach</item>
+        <item quantity="many">%s aip i bhfolach</item>
+        <item quantity="other">%s aip i bhfolach</item>
     </plurals>
     <plurals name="home_apps_shown_count">
-        <item quantity="one">Taiscudh aip %s</item>
-        <item quantity="two">Taiscudh aip %s</item>
-        <item quantity="few">Taiscudh aipeanna %s</item>
-        <item quantity="many">%s aipí ar taispeáint</item>
-        <item quantity="other">Taiscudh aip %s</item>
+        <item quantity="one">%s aip á dtaispeáint</item>
+        <item quantity="two">%s aip á dtaispeáint</item>
+        <item quantity="few">%s aip á dtaispeáint</item>
+        <item quantity="many">%s aip á dtaispeáint</item>
+        <item quantity="other">%s aip á dtaispeáint</item>
     </plurals>
     <plurals name="home_apps_unhide_title">
-        <item quantity="one">Foláithigh an aip %s?</item>
-        <item quantity="two">Foláithigh aipeanna %s?</item>
-        <item quantity="few">Foláithigh aipeanna %s?</item>
-        <item quantity="many">Foláithigh aipeanna %s?</item>
-        <item quantity="other">Foláithigh aipeanna %s?</item>
+        <item quantity="one">Nocht %s aip?</item>
+        <item quantity="two">Nocht %s aip?</item>
+        <item quantity="few">Nocht %s aip?</item>
+        <item quantity="many">Nocht %s aip?</item>
+        <item quantity="other">Nocht %s aip?</item>
     </plurals>
     <plurals name="home_app_show_hidden_count">
         <item quantity="one">%s aip i bhfolach</item>

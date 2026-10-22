@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">Να χρησιμοποιείται πάντα αυτή η πηγή για αυτήν την εφαρμογή.</string>
     <!-- Color picker -->
     <string name="custom_color">Προσαρμοσμένο χρώμα</string>
-    <string name="hex_color">Δεκαεξαδικό χρώμα</string>
     <string name="color_picker_shade">Κορεσμός και φωτεινότητα</string>
     <string name="color_picker_hue">Απόχρωση</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@
     <string name="batch_patch_force_version">Διόρθωση ούτως ή άλλως</string>
     <string name="batch_patch_force_version_done">Προστέθηκε στην ουρά ούτως ή άλλως, η εφαρμογή μπορεί να χαλάσει</string>
     <string name="batch_patch_accept_signature_done">Προστέθηκε στην ουρά ούτως ή άλλως, το APK δεν επαληθεύτηκε</string>
+    <string name="batch_patch_apk_selected">Επιλέχτηκε APK</string>
     <string name="batch_patch_edit_patches">Επιλέξτε διορθώσεις</string>
     <string name="batch_patch_state_no_apk">Δεν υπάρχει APK</string>
     <string name="batch_patch_state_no_patches">Δεν υπάρχουν διορθώσεις</string>
+    <string name="batch_patch_state_no_selection">Καμία επιλογή</string>
+    <string name="batch_patch_no_selection">Κανένα από τα διαθέσιμα patches δεν έχει επιλεγεί</string>
     <string name="batch_patch_policy_install">Εγκατάσταση μετά την ολοκλήρωση</string>
     <string name="batch_patch_policy_install_description">Εγκαθιστά κάθε διορθωμένη εφαρμογή αμέσως μετά την ολοκλήρωση της ουράς. Η απενεργοποίηση διατηρεί τα APK για αργότερα</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@
     <string name="patcher_field_output_size">Μέγεθος εξόδου</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Χρόνος</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Μέση μνήμη</string>
     <string name="patcher_field_memory_max">Μέγιστη μνήμη</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +696,9 @@
     <string name="failed_to_execute_patch">Απέτυχε η εφαρμογή του %s</string>
     <string name="patched_app_save_failed_toast">Αποτυχία αποθήκευσης της τροποποιημένης εφαρμογής</string>
     <string name="plugin_activity_dialog_body">Απαιτείται αλληλεπίδραση χρήστη για να συνεχίσετε με αυτό το πρόσθετο.</string>
-    <string name="patcher_heap_exhausted_message">Ο patcher εξάντλησε τη μνήμη με μέγεθος σωρού %1$d MB. Αυτή η εφαρμογή είναι πολύ μεγάλη για τα επιλεγμένα patches. Δοκιμάστε να κάνετε patch με λιγότερες πηγές patch ή επιλέξτε λιγότερα patches.</string>
+    <string name="patcher_process_killed_message">Το σύστημα σταμάτησε τον patcher πριν ολοκληρωθεί, συνήθως για να ελευθερώσει μνήμη. Κλείστε άλλες εφαρμογές και δοκιμάστε ξανά</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Ο patcher εξάντλησε τη μνήμη με κούπα %1$s MB. Αυτή η εφαρμογή είναι πολύ μεγάλη για τις επιλεγμένες επισκευές. Προσπαθήστε να επισκευάσετε με λιγότερες πηγές επισκευών, ή επιλέξτε λιγότερες επισκευές</string>
     <string name="install_app_success">Επιτυχής εγκατάσταση</string>
     <string name="install_app_fail">Απέτυχε η εγκατάσταση της εφαρμογής: %s</string>
     <string name="install_ignore_signature">Εγκατάσταση οτιδήποτε</string>
@@ -838,8 +842,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Αλλαγή εικονιδίου</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Ενημερώσεις</string>
-    <string name="settings_advanced_patcher">Εφαρμογέας</string>
     <string name="settings_advanced_updates_manager_prereleases">Ενημερώσεις προ-έκδοσης</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Πρόωρη πρόσβαση σε νέες εκδόσεις του Morphe</string>
@@ -1059,7 +1061,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Βελτιστοποίηση μπαταρίας</string>
     <string name="settings_system_battery_optimization_description">Διατηρεί τον επεξεργαστή ενεργό όταν η εφαρμογή είναι ελαχιστοποιημένη</string>
-    <string name="settings_system_process_runtime">Χρόνος εκτέλεσης διεργασίας</string>
+    <string name="settings_system_process_runtime">Χρόνος εκτέλεσης Patcher</string>
+    <string name="settings_system_jvm_runtime_enable">Ενεργοποίηση ενσωματωμένης JVM</string>
+    <string name="settings_system_jvm_runtime_description">Τροποποιήσεις σε μια Java VM που φέρνει ο Morphe, η οποία μπορεί να χρησιμοποιήσει όσο μνήμη διαθέτει η συσκευή. Απενεργοποιήστε για τροποποίηση με τον χρόνο εκτέλεσης του Android</string>
     <string name="settings_system_patcher_completion_sound">Ήχος ολοκλήρωσης</string>
     <string name="settings_system_patcher_completion_sound_description">Αναπαράγει έναν διακριτό τόνο για επιτυχία ή αποτυχία κατά την ολοκλήρωση της επιδιόρθωσης</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1154,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">Απελευθερώνει όλο τον χώρο κρυφής μνήμης που μπορεί να ανακτηθεί ταυτόχρονα</string>
     <string name="settings_system_storage_clear_all_confirm">Αυτό θα διαγράψει τις αποθηκευμένες στην κρυφή μνήμη απαντήσεις δικτύου, τα αντίγραφα εγκαταστάτη που έχουν τοποθετηθεί σε προσωρινή αποθήκευση και τα προσωρινά αρχεία. Τα αρχικά και τα επιδιορθωμένα APK θα διατηρηθούν</string>
     <string name="settings_system_storage_cleared">Απελευθερώθηκαν %s</string>
+    <string name="settings_system_storage_patch_running_warning">Ένα patch εκτελείται και χρησιμοποιεί αυτά τα αρχεία. Η διαγραφή τους τώρα θα προκαλέσει σφάλμα</string>
+    <string name="settings_system_storage_clear_anyway">Καθαρισμός παρόλα αυτά</string>
     <string name="settings_system_storage_nothing_to_clear">Δεν υπάρχουν στοιχεία για διαγραφή</string>
     <string name="settings_system_storage_open_app_info_title">Άνοιγμα αποθήκευσης εφαρμογής Android</string>
     <string name="settings_system_storage_open_app_info_description">Διαχείριση ή εκκαθάριση όλων των δεδομένων του Morphe μέσω των ρυθμίσεων του συστήματος</string>

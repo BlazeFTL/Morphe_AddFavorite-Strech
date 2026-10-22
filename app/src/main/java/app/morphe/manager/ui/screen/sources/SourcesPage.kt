@@ -30,11 +30,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
-import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -321,27 +319,15 @@ private fun SourcesPageContent(
     // Check if only default bundle exists
     val isSingleDefaultBundle = sources.size == 1
 
-    // Auto-enable the default bundle if it's the only one and disabled
-    LaunchedEffect(sources) {
-        if (sources.size == 1) {
-            val singleBundle = sources.first()
-            if (singleBundle.isDefault && !singleBundle.enabled) {
-                onToggleEnabled(listOf(singleBundle))
-            }
-        }
+    // Auto-enable the default bundle if it's the only one and disabled. Keyed by that condition
+    // rather than the list: the call toggles, so a second emission before it lands would undo it
+    val lonelyDisabledDefault = sources.singleOrNull()?.takeIf { it.isDefault && !it.enabled }
+    LaunchedEffect(lonelyDisabledDefault != null) {
+        lonelyDisabledDefault?.let { onToggleEnabled(listOf(it)) }
     }
 
     val context = LocalContext.current
-    val messages = koinInject<UserMessages>()
-    val uriHandler = LocalUriHandler.current
-    val failedToOpenUrlText = stringResource(R.string.sources_management_failed_to_open_url)
-    fun openUrl(url: String) {
-        try {
-            uriHandler.openUri(url)
-        } catch (_: Exception) {
-            messages.show(failedToOpenUrlText)
-        }
-    }
+    val openUrl = rememberOpenUrl()
 
     fun shareText(text: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {
@@ -404,7 +390,8 @@ private fun SourcesPageContent(
                     icon = MaterialSymbols.RoundedFilled.Add,
                     contentDescription = stringResource(R.string.add),
                     onClick = onAddSource,
-                    style = TitleActionStyle.Accent
+                    style = TitleActionStyle.Accent,
+                    modifier = Modifier.tourTarget(TourTarget.ADD_SOURCE, onboardingState)
                 )
             }
         },
@@ -774,7 +761,12 @@ private class SourceCardActions(
 )
 
 /** Rows of the first card the tour points at. */
-private val SourceTourTargets = setOf(TourTarget.SOURCE_PATCHES, TourTarget.SOURCE_VERSION, TourTarget.SOURCE_PRERELEASE)
+private val SourceTourTargets = setOf(
+    TourTarget.SOURCE_PATCHES,
+    TourTarget.SOURCE_VERSION,
+    TourTarget.SOURCE_APPS,
+    TourTarget.SOURCE_PRERELEASE
+)
 
 /**
  * Card for individual bundle management.
@@ -855,9 +847,7 @@ private fun BundleManagementCard(
     SelectableCard(
         modifier = modifier,
         isSelected = isSelected,
-        isSelectionMode = isSelectionMode,
-        // The header ends in the mark instead, where the corner badge would sit on the chevron
-        showCheckmark = false
+        isSelectionMode = isSelectionMode
     ) {
         Surface(
             modifier = Modifier
@@ -1023,7 +1013,7 @@ private fun BundleManagementCard(
                                     modifier = Modifier.tourTarget(TourTarget.SOURCE_VERSION, tour),
                                     icon = MaterialSymbols.Rounded.Update,
                                     label = stringResource(R.string.version),
-                                    value = bundle.version?.removePrefix("v")?.isolateLtr() ?: "N/A",
+                                    value = bundle.version?.normalizeVersion()?.isolateLtr() ?: "N/A",
                                     onClick = actions.onVersionClick,
                                     enabled = !info.isUpdating
                                 )
@@ -1041,6 +1031,7 @@ private fun BundleManagementCard(
                                         listedApps.toString()
                                     }
                                     InfoRow(
+                                        modifier = Modifier.tourTarget(TourTarget.SOURCE_APPS, tour),
                                         icon = MaterialSymbols.Rounded.Apps,
                                         label = stringResource(R.string.sources_apps),
                                         value = if (unseenApps > 0) {
@@ -1266,7 +1257,7 @@ private fun BundleCardHeader(
             // When showChevron=false (single bundle): show only date, no version.
             // When showChevron=true (multiple bundles): show version • date.
             val timestamp = bundle.updatedAt ?: bundle.createdAt
-            val versionText = if (showChevron) bundle.version?.removePrefix("v") else null
+            val versionText = if (showChevron) bundle.version?.normalizeVersion() else null
             val dateText = remember(timestamp) { timestamp?.let { getRelativeTimeString(it) } }
 
             if (versionText != null || dateText != null) {
@@ -1373,10 +1364,16 @@ private fun BundleCardHeader(
             }
         }
 
-        when {
-            dragHandleModifier != null -> DragHandle(modifier = dragHandleModifier)
-            selected != null -> SelectionCheckIndicator(if (selected) ToggleableState.On else ToggleableState.Off)
-            showChevron -> ExpandChevron(expanded = expanded)
+        if (dragHandleModifier != null) {
+            DragHandle(modifier = dragHandleModifier)
+        } else {
+            // The chevron gives way to the mark while the card is picked rather than folded
+            SelectionMark(
+                selected = selected,
+                idle = if (showChevron) {
+                    { ExpandChevron(expanded = expanded) }
+                } else null
+            )
         }
     }
 }

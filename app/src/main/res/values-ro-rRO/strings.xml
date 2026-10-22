@@ -390,7 +390,6 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="home_simple_bundle_select_remember">Folosiți întotdeauna această sursă pentru această aplicație</string>
     <!-- Color picker -->
     <string name="custom_color">Culoare personalizată</string>
-    <string name="hex_color">Culoare hexazecimală</string>
     <string name="color_picker_shade">Saturație și luminozitate</string>
     <string name="color_picker_hue">Nuanță</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="batch_patch_force_version">Aplică patch oricum</string>
     <string name="batch_patch_force_version_done">Adăugat în coadă oricum, aplicația s-ar putea strica.</string>
     <string name="batch_patch_accept_signature_done">Adăugat în coadă oricum, APK neverificat.</string>
+    <string name="batch_patch_apk_selected">APK selectat</string>
     <string name="batch_patch_edit_patches">Alege patch-uri</string>
     <string name="batch_patch_state_no_apk">Nu este disponibil niciun APK</string>
     <string name="batch_patch_state_no_patches">Nu sunt disponibile patch-uri</string>
+    <string name="batch_patch_state_no_selection">Niciunul selectat</string>
+    <string name="batch_patch_no_selection">Niciunul dintre patch-urile disponibile nu este selectat</string>
     <string name="batch_patch_policy_install">Instalează când este finalizat</string>
     <string name="batch_patch_policy_install_description">Instalează fiecare aplicație modificată imediat ce coada se termină. Oprire păstrează APK-urile pentru mai târziu</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="patcher_field_output_size">Dimensiunea fișierului de ieșire</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Durată</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Memorie medie</string>
     <string name="patcher_field_memory_max">Memorie maximă</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +696,9 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="failed_to_execute_patch">Nu s-a putut aplica %s</string>
     <string name="patched_app_save_failed_toast">Eroare la salvarea aplicației modificate</string>
     <string name="plugin_activity_dialog_body">Este necesară interacțiunea utilizatorului pentru a continua cu acest plugin</string>
-    <string name="patcher_heap_exhausted_message">Patcher-ul a rămas fără memorie cu un heap de %1$d MB. Această aplicație este prea mare pentru patch-urile selectate. Încearcă să aplici patch-uri cu mai puține surse de patch-uri sau selectează mai puține patch-uri.</string>
+    <string name="patcher_process_killed_message">Sistemul a oprit patcher-ul înainte ca acesta să se încheie, de obicei pentru a elibera memorie. Închideți alte aplicații și încercați din nou</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Programul de aplicare a modificărilor nu a avut memorie suficientă, cu un heap de %1$s MB. Această aplicație este prea mare pentru patch-urile selectate. Încercați aplicarea modificărilor cu mai puține surse sau selectați mai puține patch-uri</string>
     <string name="install_app_success">Instalat cu succes</string>
     <string name="install_app_fail">Nu s-a putut instala aplicația: %s</string>
     <string name="install_ignore_signature">Instalează oricum</string>
@@ -838,8 +842,6 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Schimbă pictograma</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Actualizări</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Actualizări pre-lansare</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Acces timpuriu la noile versiuni Morphe</string>
@@ -1059,7 +1061,9 @@ Detalii: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimizarea bateriei</string>
     <string name="settings_system_battery_optimization_description">Menține patcherul în funcțiune când aplicația este minimizată</string>
-    <string name="settings_system_process_runtime">Runtime proces</string>
+    <string name="settings_system_process_runtime">Runtime-ul Patcher</string>
+    <string name="settings_system_jvm_runtime_enable">Utilizează VM integrat</string>
+    <string name="settings_system_jvm_runtime_description">Patch-uri într-un Java VM pe care Morphe îl poartă, care pot consuma cât timp memoria device-ului permite. Oprește-l pentru a face patch cu runtime Android</string>
     <string name="settings_system_patcher_completion_sound">Sunet de finalizare</string>
     <string name="settings_system_patcher_completion_sound_description">Redă un ton distinct pentru succes sau eșec la finalizarea aplicării patch-ului</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1154,8 @@ Detalii: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Eliberează tot spațiul cache recuperabil odată</string>
     <string name="settings_system_storage_clear_all_confirm">Aceasta șterge răspunsurile de rețea stocate în cache, copiile programului de instalare în așteptare și fișierele temporare. APK-urile originale și patch-uite sunt păstrate</string>
     <string name="settings_system_storage_cleared">Eliberat %s</string>
+    <string name="settings_system_storage_patch_running_warning">Un patch este în curs de execuție și utilizează aceste fișiere. Ștergerea lor acum va duce la eșec</string>
+    <string name="settings_system_storage_clear_anyway">Șterge oricum</string>
     <string name="settings_system_storage_nothing_to_clear">Nimic de șters</string>
     <string name="settings_system_storage_open_app_info_title">Deschide stocarea aplicației Android</string>
     <string name="settings_system_storage_open_app_info_description">Gestionează sau șterge toate datele Morphe prin setările sistemului</string>

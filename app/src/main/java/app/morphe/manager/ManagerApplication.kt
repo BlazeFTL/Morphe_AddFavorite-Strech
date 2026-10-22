@@ -110,7 +110,7 @@ class ManagerApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // The patcher process only hosts the JVM that patches, none of the app is of use to it
+        // The patcher process only hosts the run, none of the app is of use to it
         if (currentProcessName() != packageName) return
 
         startKoin {
@@ -406,8 +406,10 @@ class ManagerApplication : Application() {
 
     private fun onFreshProcessStart() {
         fs.uiTempDir.purgeDirectoryAsync(scope)
-        // Logs all app-private directories and their contents with file sizes on fresh start
+        // Logs all app-private directories and their contents with file sizes on fresh start,
+        // once copies no record claims are gone, so the log shows what the storage screen counts
         scope.launch(Dispatchers.IO) {
+            installedAppRepository.pruneUnclaimedPatchedApks()
             fs.logStorageContents()
         }
     }

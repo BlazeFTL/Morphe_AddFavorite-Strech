@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.Modifier
@@ -79,6 +80,17 @@ fun Modifier.verticalScrollFade(state: LazyListState, length: Dp = EdgeFadeWidth
     orientation = Orientation.Vertical
 )
 
+/**
+ * How far [this] runs on past its start, for what follows the scroll in from there. A list whose
+ * kind is not known here counts as wholly past it once it can scroll back at all.
+ */
+internal fun ScrollableState.hiddenAtStart(): Float = when (this) {
+    is ScrollState -> value.toFloat()
+    is LazyListState -> hiddenAtStart()
+    is LazyGridState -> hiddenAtStart()
+    else -> if (canScrollBackward) Float.MAX_VALUE else 0f
+}
+
 // A lazy list measures only the rows in view, so a row out of sight counts as more than any fade
 private fun LazyListState.hiddenAtStart(): Float =
     if (firstVisibleItemIndex > 0) Float.MAX_VALUE else firstVisibleItemScrollOffset.toFloat()
@@ -117,7 +129,7 @@ private fun LazyGridState.hiddenAtEnd(): Float {
 
 private fun Modifier.scrollFade(scrollState: ScrollState, length: Dp, orientation: Orientation) = edgeFade(
     length = length,
-    hiddenAtStart = { scrollState.value.toFloat() },
+    hiddenAtStart = { scrollState.hiddenAtStart() },
     hiddenAtEnd = { (scrollState.maxValue - scrollState.value).toFloat() },
     orientation = orientation
 )

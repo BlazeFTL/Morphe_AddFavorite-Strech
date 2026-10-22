@@ -11,6 +11,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.OpenableColumns
 import android.util.Log
@@ -66,9 +67,10 @@ fun Uri.toFilePath(): String {
     }
 
     return when {
-        // "primary:Download/subfolder" → "/storage/emulated/0/Download/subfolder"
+        // "primary:Download/subfolder" → "/storage/emulated/<user>/Download/subfolder", the user
+        // being whoever runs the manager, as a work profile or second user has storage of its own
         docId?.startsWith("primary:") == true ->
-            "/storage/emulated/0/${docId.removePrefix("primary:")}"
+            "${Environment.getExternalStorageDirectory().absolutePath}/${docId.removePrefix("primary:")}"
         // "raw:/storage/emulated/0/Download/file" → "/storage/emulated/0/Download/file"
         docId?.startsWith("raw:") == true ->
             docId.removePrefix("raw:")
@@ -86,13 +88,32 @@ fun Uri.displayName(contentResolver: ContentResolver): String? =
             }
     }.getOrNull() ?: lastPathSegment
 
+/**
+ * Copies the APK behind this URI to a new file in [dir], named [prefix] plus the extension it is
+ * shown under. Null when the provider has nothing to read, and a copy cut short is deleted.
+ */
+fun Uri.copyApkInto(dir: File, prefix: String, contentResolver: ContentResolver): File? {
+    val extension = displayName(contentResolver)?.substringAfterLast('.', "apk")?.lowercase() ?: "apk"
+    val target = dir.resolve("${prefix}_${System.currentTimeMillis()}.$extension")
+    val copied = try {
+        // Null when the provider is unavailable, e.g. Samsung storage held back by battery optimization
+        contentResolver.openInputStream(this)?.use { input ->
+            target.outputStream().use { output -> input.copyTo(output) }
+        }
+    } catch (e: Exception) {
+        target.delete()
+        throw e
+    }
+    if (copied == null || copied == 0L) {
+        target.delete()
+        return null
+    }
+    return target
+}
+
 /** Whether the URI names a .mpp patch bundle. */
 fun Uri.hasMppExtension(contentResolver: ContentResolver): Boolean =
     displayName(contentResolver)?.endsWith(".mpp", ignoreCase = true) == true
-
-/** Whether the URI names an APK-family file, so generic octet-stream shares can be told apart. */
-fun Uri.hasApkExtension(contentResolver: ContentResolver): Boolean =
-    displayName(contentResolver)?.substringAfterLast('.', "")?.lowercase() in APK_EXTENSIONS
 
 /**
  * The manifest of a .mpp patch bundle, or null when it cannot be read. Values of "na" in any case

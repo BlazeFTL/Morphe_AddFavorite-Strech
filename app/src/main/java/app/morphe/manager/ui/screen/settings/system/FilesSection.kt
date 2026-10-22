@@ -148,6 +148,7 @@ fun FilesSection(
         SettingsGroup {
             ImportExportItems(
                 importExportViewModel = importExportViewModel,
+                tour = tour,
                 onImportKeystore = { importKeystoreLauncher() },
                 onExportKeystore = {
                     if (isTV) importExportViewModel.exportKeystoreToDownloads()
@@ -170,6 +171,7 @@ fun FilesSection(
 @Composable
 private fun ImportExportItems(
     importExportViewModel: ImportExportViewModel,
+    tour: OnboardingState?,
     onImportKeystore: () -> Unit,
     onExportKeystore: () -> Unit,
     onImportSettings: () -> Unit,
@@ -228,7 +230,8 @@ private fun ImportExportItems(
         onClick = { showSigningKeyDialog = true },
         leadingContent = { ThemedIcon(icon = MaterialSymbols.Rounded.Key) },
         title = stringResource(R.string.settings_system_signing_key),
-        subtitle = stringResource(R.string.settings_system_signing_key_description)
+        subtitle = stringResource(R.string.settings_system_signing_key_description),
+        modifier = Modifier.tourTarget(TourTarget.SIGNING_KEY, tour)
     )
 
     SettingsItem(
@@ -352,7 +355,7 @@ private fun SettingsBackupContents(
                 description = stringResource(section.descriptionRes),
                 role = Role.Checkbox,
                 leadingContent = {
-                    SelectionCheckIndicator(if (isSelected) ToggleableState.On else ToggleableState.Off)
+                    SelectionCheckIndicator(ToggleableState(isSelected))
                 }
             )
         }
@@ -365,7 +368,7 @@ private val SettingsSection.titleRes: Int
         SettingsSection.APPEARANCE -> R.string.appearance
         SettingsSection.HOME -> R.string.settings_appearance_home_screen
         SettingsSection.PATCHING -> R.string.settings_system_backup_patching
-        SettingsSection.UPDATES -> R.string.settings_advanced_updates
+        SettingsSection.UPDATES -> R.string.settings_section_updates
         SettingsSection.SOURCES -> R.string.sources
         SettingsSection.PATCH_SELECTIONS -> R.string.settings_system_patch_selections_title
     }

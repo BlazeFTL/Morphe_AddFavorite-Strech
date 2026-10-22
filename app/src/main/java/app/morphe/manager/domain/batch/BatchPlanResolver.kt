@@ -383,11 +383,14 @@ class BatchPlanResolver(
         val versionMismatch = !hasCompatible && hasIncompatible && !allowIncompatible
 
         /**
-         * Nothing to run with. Which of the two reasons it is matters: an app whose patches
-         * simply declare other versions still has a way forward, and calling that "no patches"
-         * would hide both the reason and the buttons that fix it.
+         * Nothing to run with. Which of the reasons it is matters: an app whose patches simply
+         * declare other versions, or are all left unselected, still has a way forward, and
+         * calling that "no patches" would hide both the reason and the buttons that fix it.
          */
-        fun blocked(contributing: List<PatchBundleInfo.Scoped> = emptyList()) = BatchPatchItem(
+        fun blocked(
+            contributing: List<PatchBundleInfo.Scoped> = emptyList(),
+            nothingSelected: Boolean = false
+        ) = BatchPatchItem(
             target = target,
             appName = appName,
             source = source,
@@ -396,7 +399,11 @@ class BatchPlanResolver(
             bundles = contributing.map { it.toRef() },
             experimentalVersion = experimental,
             suggestedVersion = suggested,
-            state = if (versionMismatch) BatchItemState.VERSION_MISMATCH else BatchItemState.NO_PATCHES
+            state = when {
+                versionMismatch -> BatchItemState.VERSION_MISMATCH
+                nothingSelected -> BatchItemState.NO_SELECTION
+                else -> BatchItemState.NO_PATCHES
+            }
         )
 
         if (!hasCompatible && !hasIncompatible && !hasUniversal) return blocked()
@@ -415,7 +422,7 @@ class BatchPlanResolver(
             apkArchitecture = source.apkArchitecture()
         )
 
-        if (selection.values.sumOf { it.size } == 0) return blocked(contributing)
+        if (selection.values.sumOf { it.size } == 0) return blocked(contributing, nothingSelected = true)
 
         val savedOptions = resolveOptions(target, configurationKey, contributing)
 
@@ -523,15 +530,8 @@ class BatchPlanResolver(
      * Where a target's saved patches and options live: its own package once it is an install of
      * its own, falling back to the app for a clone that predates configurations of their own.
      */
-    private suspend fun configurationKeyFor(target: BatchTarget): String {
-        val repatched = target.repatchedPackageName?.takeUnless { it == target.packageName }
-            ?: return target.packageName
-
-        val hasOwnConfiguration = patchSelectionRepository
-            .getAllSelectionsForPackage(repatched)
-            .isNotEmpty()
-        return if (hasOwnConfiguration) repatched else target.packageName
-    }
+    private suspend fun configurationKeyFor(target: BatchTarget): String =
+        patchSelectionRepository.configurationKeyFor(target.packageName, target.repatchedPackageName)
 
     /**
      * Same resolution the home screen uses. Patching renames packages, so an app that is only

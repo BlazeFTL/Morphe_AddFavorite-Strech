@@ -19,7 +19,6 @@
     <string name="home_app_patch_sources_description">Óvaldar uppsprettur eru ekki boðnar þegar þessi forrit eru plöstuð, og plástrar þeirra bætast aldrei við val af sjálfu sér. Hver uppspretta er áfram valin fyrir öll önnur forrit.</string>
     <string name="home_app_patch_sources_mixed">Í boði fyrir %1$s af %2$s</string>
     <string name="home_app_patch_sources_covers">Hefur plástra fyrir %1$s af %2$s</string>
-    <string name="home_app_patch_sources_last">Forrit falin fyrir %1$s</string>
     <string name="android_11_bug_dialog_title">Android 11 galla</string>
     <string name="android_11_bug_dialog_description">Það er þörf á samningi um app uppsetningarheimildir til að forðast villu í Android 11 kerfinu sem mun hafa neikvæð áhrif á notendaupplifunina</string>
     <string name="deep_link_add_source_title">Bæta við gjafa</string>
@@ -389,7 +388,6 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_simple_bundle_select_remember">Fjarlægðu slóðirnar og haltu áfram</string>
     <!-- Color picker -->
     <string name="custom_color">Sérstakur litur</string>
-    <string name="hex_color">Hex litur</string>
     <string name="color_picker_shade">Mettun og birtustig</string>
     <string name="color_picker_hue">Litblær</string>
     <!-- Patch Options -->
@@ -469,9 +467,12 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="batch_patch_force_version">Breyta samt sem áður</string>
     <string name="batch_patch_force_version_done">Sett í biðröð samt, appið gæti brotnað</string>
     <string name="batch_patch_accept_signature_done">Sett í biðröð samt, APK ekki staðfest</string>
+    <string name="batch_patch_apk_selected">APK valið</string>
     <string name="batch_patch_edit_patches">Veldu breytingar</string>
     <string name="batch_patch_state_no_apk">Enginn APK</string>
     <string name="batch_patch_state_no_patches">Engar breytingar</string>
+    <string name="batch_patch_state_no_selection">Ekkert valið</string>
+    <string name="batch_patch_no_selection">Engin tiltæk viðbót er valin</string>
     <string name="batch_patch_policy_install">Settur upp þegar búið er</string>
     <string name="batch_patch_policy_install_description">Setur upp hvert breytt app þegar biðröðin er lokið. Slökkt heldur APK-skránum til síðara</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -580,7 +581,7 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="patcher_field_output_size">Úttaksstærð</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tími</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Meðalminni</string>
     <string name="patcher_field_memory_max">Hámarksminni</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -693,7 +694,9 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="failed_to_execute_patch">Ekki tókst að á breytistillingu %s</string>
     <string name="patched_app_save_failed_toast">Ekki tókst að vista breytt app</string>
     <string name="plugin_activity_dialog_body">Þú þarft að grípa í gagnvirkt á hugbuginn til að fara áfram</string>
-    <string name="patcher_heap_exhausted_message">Plástrarinn kláraði minnið með %1$d MB minnisgeymi. Þetta forrit er of stórt fyrir valda plástra. Reyndu að nota færri plástrauppsprettur, eða veldu færri plástra.</string>
+    <string name="patcher_process_killed_message">Kerfið stóð patcharann áður en hann tókst, yfirleitt til að losa um minni. Lokaðu öðrum forritum og reyndu aftur</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Fleipir hlaup út fyrir minni með %1$s MB stakflötum. Þessi forrit er of stórt fyrir valda fleipa. Reyndu að fleipa með færri fleiugrunnum eða veldu færri fleipa</string>
     <string name="install_app_success">Uppsett með góðum árangri</string>
     <string name="install_app_fail">Ekki tókst að setja upp app: %s</string>
     <string name="install_ignore_signature">Setja upp samt</string>
@@ -837,8 +840,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Staðfestu táknbreytingu</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Uppfæra</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Forútgáfuuppfærslur</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Snemma aðgangur að nýjum Morphe útgáfum</string>
@@ -1056,7 +1057,9 @@ Nánari upplýsingar: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Rafhlöðu útvinnslustillingar</string>
     <string name="settings_system_battery_optimization_description">Skoða upprunaleg geymslu</string>
-    <string name="settings_system_process_runtime">Vinnslutími</string>
+    <string name="settings_system_process_runtime">Patcher keyrt</string>
+    <string name="settings_system_jvm_runtime_enable">Nota innbyggða VM</string>
+    <string name="settings_system_jvm_runtime_description">Breytingar í Java VM sem Morhe ber, sem geta notið eins mikið af minni og tækið skilar. Slökkva til að breyta með keyrt Android</string>
     <string name="settings_system_patcher_completion_sound">Ljós hljóð</string>
     <string name="settings_system_patcher_completion_sound_description">Spilar ákveðinn tón fyrir árangur eða misgengi þegar flakkast er lokið</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1147,6 +1150,8 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Fríar allar endurheimtanlegar minnisafskriftir samtímis</string>
     <string name="settings_system_storage_clear_all_confirm">Þetta hreinsar vefminnistafskriftir, uppsetningareintök og tímabundar skrá. Upprunaleg og breytt APK eru geymd</string>
     <string name="settings_system_storage_cleared">Fríar %s</string>
+    <string name="settings_system_storage_patch_running_warning">Breyting er í gangi og notar þessa skrár. Að hreinsa þær núna veldur því að það mistakst</string>
+    <string name="settings_system_storage_clear_anyway">Hreinsa þrátt fyrir allt</string>
     <string name="settings_system_storage_nothing_to_clear">Ekki hægt að hreinsa neitt</string>
     <string name="settings_system_storage_open_app_info_title">Opna geymslu Android apps</string>
     <string name="settings_system_storage_open_app_info_description">Stjórna eða hreinsa allar Morphe gögn í gegnum kerfisstillingar</string>

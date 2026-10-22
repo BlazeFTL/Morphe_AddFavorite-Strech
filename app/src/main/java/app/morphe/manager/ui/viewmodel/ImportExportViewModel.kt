@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppButtonPreferences
 import app.morphe.manager.domain.manager.KeystoreManager
@@ -37,6 +38,7 @@ import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
 import com.github.pgreze.process.Redirect
 import com.github.pgreze.process.process
+import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
@@ -187,10 +189,12 @@ class ImportExportViewModel(
                     stream.read(buf)
                     buf
                 }
+                // The shown name, as a document URI's last segment is an id without an extension
                 KeystoreInputFormat.detectFromBytes(header)
-            } ?: run {
-                val ext = content.lastPathSegment?.substringAfterLast('.')?.lowercase() ?: ""
-                KeystoreInputFormat.fromExtension(ext) ?: KeystoreInputFormat.PKCS12
+                    ?: KeystoreInputFormat.fromExtension(
+                        content.displayName(contentResolver)?.substringAfterLast('.', "").orEmpty()
+                    )
+                    ?: KeystoreInputFormat.PKCS12
             }
             keystoreImportFormat = detectedFormat
 
@@ -236,7 +240,9 @@ class ImportExportViewModel(
             val imported = keystoreManager.import(alias, pass, keystorePw, bksBytes.inputStream())
             if (imported) {
                 messages.show(R.string.settings_system_import_keystore_success)
-                cancelKeystoreImport()
+                // The copy holds the private key, and an automatic import never recorded its path
+                withContext(Dispatchers.IO) { Files.deleteIfExists(path) }
+                keystoreImportPath = null
                 refreshSigningKey()
             }
             imported
@@ -569,7 +575,7 @@ class ImportExportViewModel(
      * Get filename for package+bundle data export.
      */
     fun getPackageBundleDataExportFileName(packageName: String, bundleUid: Int, bundleName: String?): String {
-        val bundle = bundleName?.replace(" ", "_")?.take(20) ?: "bundle_$bundleUid"
+        val bundle = bundleName?.let { FilenameUtils.sanitize(it).take(20) }?.ifEmpty { null } ?: "bundle_$bundleUid"
         val pkg = packageName.substringAfterLast('.').take(15)
         return FilenameUtils.timestamped("morphe_${bundle}_${pkg}.json")
     }
@@ -583,13 +589,9 @@ class ImportExportViewModel(
      * Shared by [exportDebugLogs].
      */
     private suspend fun writeDebugLogContent(writer: BufferedWriter): Int = withContext(Dispatchers.IO) {
-        val versionName = runCatching {
-            app.packageManager.getPackageInfo(app.packageName, 0).versionName
-        }.getOrDefault("unknown")
-
         writer.write("=== Morphe Manager Debug Log ===\n")
         writer.write("Date       : ${LocalDateTime.now()}\n")
-        writer.write("Version    : $versionName\n")
+        writer.write("Version    : ${BuildConfig.VERSION_NAME}\n")
 
         writer.write("\n--- Device ---\n")
         writer.write("Model      : ${Build.MANUFACTURER} ${Build.MODEL}\n")
@@ -624,10 +626,8 @@ class ImportExportViewModel(
         }
 
         writer.write("\n--- Environment ---\n")
-        val hasRoot = runCatching {
-            Runtime.getRuntime().exec(arrayOf("su", "-c", "id")).waitFor() == 0
-        }.getOrDefault(false)
-        writer.write("Root access: $hasRoot\n")
+        // Read without asking, as su would raise the root prompt and wait for it unanswered
+        writer.write("Root access: ${Shell.isAppGrantedRoot() ?: "not checked"}\n")
 
         writer.write("\n=== Logcat ===\n\n")
 

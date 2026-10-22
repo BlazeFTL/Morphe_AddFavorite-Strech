@@ -391,7 +391,6 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="home_simple_bundle_select_remember">Zawsze używaj tego źródła dla tej aplikacji</string>
     <!-- Color picker -->
     <string name="custom_color">Własny kolor</string>
-    <string name="hex_color">Kolor HEX</string>
     <string name="color_picker_shade">Nasycenie i jasność</string>
     <string name="color_picker_hue">Odcień</string>
     <!-- Patch Options -->
@@ -458,6 +457,7 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="batch_patch_title">Modyfikowanie grupowe</string>
     <string name="batch_patch_planning">Przygotowywanie kolejki…</string>
     <string name="batch_patch_preparing_next">Przygotowywanie następnej aplikacji…</string>
+    <string name="batch_patch_progress_counter">Modyfikowanie %1$s z %2$s</string>
     <string name="batch_patch_summary">%1$s zmodyfikowano, %2$s nie powiodło się, %3$s pominięto</string>
     <string name="batch_patch_saved_hint">Zmodyfikowane aplikacje zostały zapisane. Zainstaluj je teraz lub później z listy zmodyfikowanych plików APK w ustawieniach</string>
     <string name="batch_patch_multiple_sources">Niektóre aplikacje łączą modyfikacje z więcej niż jednego źródła, co może powodować konflikty</string>
@@ -471,9 +471,12 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="batch_patch_force_version">Zmodyfikuj mimo to</string>
     <string name="batch_patch_force_version_done">Dodano do kolejki mimo to, aplikacja może nie działać</string>
     <string name="batch_patch_accept_signature_done">Dodano do kolejki mimo to, plik APK niezweryfikowany</string>
+    <string name="batch_patch_apk_selected">Wybrano plik APK</string>
     <string name="batch_patch_edit_patches">Wybierz modyfikacje</string>
     <string name="batch_patch_state_no_apk">Brak pliku APK</string>
     <string name="batch_patch_state_no_patches">Brak modyfikacji</string>
+    <string name="batch_patch_state_no_selection">Nic nie wybrano</string>
+    <string name="batch_patch_no_selection">Nie wybrano żadnej z dostępnych modyfikacji</string>
     <string name="batch_patch_policy_install">Zainstaluj po zakończeniu</string>
     <string name="batch_patch_policy_install_description">Instaluje każdą zmodyfikowaną aplikację zaraz po zakończeniu kolejki. Wyłączenie zachowa pliki APK na później</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -582,7 +585,7 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="patcher_field_output_size">Rozmiar wyjściowy</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Czas</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Średnie użycie pamięci</string>
     <string name="patcher_field_memory_max">Maksymalne użycie pamięci</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +698,9 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="failed_to_execute_patch">Nie udało się zastosować %s</string>
     <string name="patched_app_save_failed_toast">Nie udało się zapisać zmodyfikowanej aplikacji</string>
     <string name="plugin_activity_dialog_body">Wymagana jest interakcja użytkownika, aby kontynuować działanie tej wtyczki</string>
-    <string name="patcher_heap_exhausted_message">Modyfikatorowi zabrakło pamięci przy rozmiarze sterty %1$d MB. Ta aplikacja jest zbyt duża dla wybranych modyfikacji. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
+    <string name="patcher_process_killed_message">System zatrzymał proces modyfikowania przed jego zakończeniem, zazwyczaj w celu zwolnienia pamięci. Zamknij inne aplikacje i spróbuj ponownie</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Modyfikatorowi zabrakło pamięci przy rozmiarze sterty %1$s MB. Ta aplikacja jest zbyt duża dla wybranych modyfikacji. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
     <string name="install_app_success">Zainstalowano pomyślnie</string>
     <string name="install_app_fail">Nie udało się zainstalować aplikacji: %s</string>
     <string name="install_ignore_signature">Zainstaluj mimo to</string>
@@ -839,8 +844,6 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Zmień ikonę</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Aktualizacje</string>
-    <string name="settings_advanced_patcher">Modyfikator</string>
     <string name="settings_advanced_updates_manager_prereleases">Przedpremierowe aktualizacje</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Wczesny dostęp do nowych wersji Morphe</string>
@@ -1060,7 +1063,10 @@ Wymagane są następujące wymiary obrazów:
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optymalizacja baterii</string>
     <string name="settings_system_battery_optimization_description">Utrzymuje działanie modyfikatora, gdy aplikacja jest zminimalizowana</string>
-    <string name="settings_system_process_runtime">Osobny proces</string>
+    <string name="settings_system_process_runtime">Środowisko modyfikowania</string>
+    <string name="settings_system_jvm_runtime_enable">Użyj wbudowanej maszyny wirtualnej</string>
+    <string name="settings_system_jvm_runtime_description">Modyfikuje za pomocą maszyny wirtualnej Java dołączonej do Morphe, która może wykorzystać tyle pamięci, ile udostępni urządzenie. Wyłącz, aby modyfikować przy użyciu środowiska systemu Android</string>
+    <string name="settings_system_jvm_runtime_unavailable">Wymaga urządzenia z architekturą ARM lub 64-bitową x86</string>
     <string name="settings_system_patcher_completion_sound">Dźwięk ukończenia</string>
     <string name="settings_system_patcher_completion_sound_description">Odtwarza wyraźny dźwięk powodzenia lub niepowodzenia po zakończeniu modyfikacji</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1151,6 +1157,8 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_storage_clear_all_description">Zwalnia za jednym razem całe miejsce w pamięci podręcznej, które można odzyskać</string>
     <string name="settings_system_storage_clear_all_confirm">To usunie zapisane odpowiedzi sieciowe, przygotowane kopie instalatora i pliki tymczasowe. Oryginalne i zmodyfikowane pliki APK zostaną zachowane</string>
     <string name="settings_system_storage_cleared">Zwolniono %s</string>
+    <string name="settings_system_storage_patch_running_warning">Trwa modyfikowanie, które korzysta z tych plików. Wyczyszczenie ich teraz spowoduje błąd</string>
+    <string name="settings_system_storage_clear_anyway">Wyczyść mimo to</string>
     <string name="settings_system_storage_nothing_to_clear">Nic do wyczyszczenia</string>
     <string name="settings_system_storage_open_app_info_title">Otwórz ustawienia pamięci aplikacji w Androidzie</string>
     <string name="settings_system_storage_open_app_info_description">Zarządzaj wszystkimi danymi Morphe lub usuń je przez ustawienia systemowe</string>
@@ -1317,6 +1325,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="reset_order">Zresetuj kolejność</string>
     <string name="reset_order_done">Zresetowano kolejność</string>
     <string name="accessibility_select_app">Wybierz aplikację</string>
+    <string name="accessibility_select_source">Wybierz źródło</string>
     <string name="accessibility_move_up">Przenieś w górę</string>
     <string name="accessibility_move_down">Przenieś w dół</string>
     <string name="accessibility_app_moved_announcement">Przeniesiono %1$s na pozycję %2$s z %3$s</string>

@@ -243,7 +243,7 @@ internal fun PatchCard(
                 // Dimming alone leaves the state easy to miss. The card is what toggles, and it
                 // already reads the state out, so the indicator only shows it
                 SelectionCheckIndicator(
-                    state = if (isEnabled) ToggleableState.On else ToggleableState.Off,
+                    state = ToggleableState(isEnabled),
                     enabled = !lockState.blocksToggle(isEnabled),
                     modifier = Modifier.padding(end = Defaults.SpaceMedium)
                 )

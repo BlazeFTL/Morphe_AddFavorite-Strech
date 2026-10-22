@@ -7,6 +7,7 @@ package app.morphe.manager.patcher.host
 
 import app.morphe.manager.patcher.PatchingListener
 import app.morphe.manager.patcher.logger.LogLevel
+import app.morphe.manager.patcher.runtime.isOutOfMemory
 import app.morphe.manager.patcher.split.SplitPreparationEvent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -18,11 +19,6 @@ import kotlinx.serialization.json.Json
  */
 @Serializable
 sealed interface HostEvent {
-    /** The JVM is up and runs the host, so whatever ends the run from here on is no failure to start. */
-    @Serializable
-    @SerialName("started")
-    data object Started : HostEvent
-
     @Serializable
     @SerialName("log")
     data class Log(val level: LogLevel, val message: String) : HostEvent
@@ -64,7 +60,7 @@ sealed interface HostEvent {
     data class Failure(val stackTrace: String, val outOfMemory: Boolean) {
         constructor(error: Throwable) : this(
             error.stackTraceToString(),
-            generateSequence(error) { it.cause }.any { it is OutOfMemoryError }
+            error.isOutOfMemory()
         )
     }
 

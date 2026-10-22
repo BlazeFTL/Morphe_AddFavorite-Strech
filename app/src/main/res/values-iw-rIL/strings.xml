@@ -391,7 +391,6 @@
     <string name="home_simple_bundle_select_remember">השתמש תמיד במקור הזה עבור האפליקציה הזו</string>
     <!-- Color picker -->
     <string name="custom_color">צבע מותאם אישית</string>
-    <string name="hex_color">צבע הקסדצימלי</string>
     <string name="color_picker_shade">רוויה ובהירות</string>
     <string name="color_picker_hue">גוון</string>
     <!-- Patch Options -->
@@ -471,9 +470,12 @@
     <string name="batch_patch_force_version">טלא באופן אוטומטי</string>
     <string name="batch_patch_force_version_done">הוכנס לתור בכל זאת, האפליקציה עלולה להישבר</string>
     <string name="batch_patch_accept_signature_done">הוכנס לתור בכל זאת, APK לא אומת</string>
+    <string name="batch_patch_apk_selected">APK נבחר</string>
     <string name="batch_patch_edit_patches">בחר טלאים</string>
     <string name="batch_patch_state_no_apk">אין APK</string>
     <string name="batch_patch_state_no_patches">אין טלאים</string>
+    <string name="batch_patch_state_no_selection">לא נבחר כלום</string>
+    <string name="batch_patch_no_selection">אף אחד מהפאצ\'ים הזמינים אינו נבחר</string>
     <string name="batch_patch_policy_install">התקן לאחר סיום</string>
     <string name="batch_patch_policy_install_description">מתקין כל אפליקציה שעברה תיקון מיד לאחר סיום התור. כבוי שומר את ה-APKs לשימוש מאוחר יותר</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -582,7 +584,7 @@
     <string name="patcher_field_output_size">גודל הפלט</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">זמן</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">ממוצע זיכרון</string>
     <string name="patcher_field_memory_max">מקסימום זיכרון</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +697,9 @@
     <string name="failed_to_execute_patch">נכשל להחיל %s</string>
     <string name="patched_app_save_failed_toast">נכשל לשמור אפליקציה מתוקנת</string>
     <string name="plugin_activity_dialog_body">נדרש אינטראקציה של המשתמש כדי להמשיך עם תוסף זה</string>
-    <string name="patcher_heap_exhausted_message">למתקן נגמר הזיכרון עם ערימת %1$d מגה-בייט. האפליקציה הזו גדולה מדי עבור התיקונים שנבחרו. נסה לתקן עם פחות מקורות תיקון, או בחר פחות תיקונים.</string>
+    <string name="patcher_process_killed_message">המערכת עצרה את המתקן לפני השלמתו, בדרך כלל כדי לשחרר זיכרון. סגור אפליקציות אחרות ונסה שוב</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">מחולל הפאץ\' מיעד את זיכרון ה-heap עם %1$s MB. האפליקציה גדולה מדי עבור הפאצ\'ים הנבחרים. נסה לגנון עם מעט מקורות פאץ\', או בחר בפאצ\'ים fewer</string>
     <string name="install_app_success">הותקן בהצלחה</string>
     <string name="install_app_fail">נכשל להתקין את האפליקציה: %s</string>
     <string name="install_ignore_signature">התקן בכל זאת</string>
@@ -839,8 +843,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">שנה סמל</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">עדכונים</string>
-    <string name="settings_advanced_patcher">מטלאה</string>
     <string name="settings_advanced_updates_manager_prereleases">עדכוני טרום-שחרור</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">גישה מוקדמת לגרסאות חדשות של Morphe</string>
@@ -1070,7 +1072,9 @@ drawable-xxhdpi: 387x144 פיקסלים
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">מיטוב הסוללה</string>
     <string name="settings_system_battery_optimization_description">שומר את התיקון פעיל כאשר האפליקציה ממוזערת</string>
-    <string name="settings_system_process_runtime">זמן ריצה של תהליך</string>
+    <string name="settings_system_process_runtime">זמן ריצה של המתקן</string>
+    <string name="settings_system_jvm_runtime_enable">השתמש ב-JVM מובנה</string>
+    <string name="settings_system_jvm_runtime_description">תיקונים במכונה הווירטואלית של ג\'אווה ש-Morphe מציעה, שתוכל לנצל את כל הזיכרון העומד לרשות המכשיר. כבה זאת כדי לתקן בעזרת זמן הריצה של אנדרואיד</string>
     <string name="settings_system_patcher_completion_sound">צליל השלמה</string>
     <string name="settings_system_patcher_completion_sound_description">מנגן צליל ייחודי להצלחה או לכישלון כאשר התיקון מסתיים</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1161,6 +1165,8 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_storage_clear_all_description">משחרר את כל שטח המטמון הניתן לשחזור בבת אחת</string>
     <string name="settings_system_storage_clear_all_confirm">פעולה זו מנקה תגובות רשת שמורות במטמון, עותקי מתקינים מאוחסנים וקבצים זמניים. קבצי APK מקוריים ומטופלים נשמרים</string>
     <string name="settings_system_storage_cleared">שוחרר %s</string>
+    <string name="settings_system_storage_patch_running_warning">פאץ\' רץ ומשתמש בקבצים אלו. ניקוי שלהם עכשיו יגרום לכשלון</string>
+    <string name="settings_system_storage_clear_anyway">נק בכל זאת</string>
     <string name="settings_system_storage_nothing_to_clear">אין מה לנקות</string>
     <string name="settings_system_storage_open_app_info_title">פתח אחסון אפליקציות Android</string>
     <string name="settings_system_storage_open_app_info_description">נהל או נקה את כל נתוני Morphe דרך הגדרות המערכת</string>

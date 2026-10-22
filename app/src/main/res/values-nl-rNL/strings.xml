@@ -390,7 +390,6 @@ Voor de beste resultaten beveelt deze app aan om een &lt;b&gt;volledig APK&lt;/b
     <string name="home_simple_bundle_select_remember">Gebruik deze bron altijd voor deze app</string>
     <!-- Color picker -->
     <string name="custom_color">Aangepaste kleur</string>
-    <string name="hex_color">Hex-kleur</string>
     <string name="color_picker_shade">Verzadiging en helderheid</string>
     <string name="color_picker_hue">Tint</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@ Voor de beste resultaten beveelt deze app aan om een &lt;b&gt;volledig APK&lt;/b
     <string name="batch_patch_force_version">Toch patchen</string>
     <string name="batch_patch_force_version_done">Toch in wachtrij geplaatst, de app kan defect raken</string>
     <string name="batch_patch_accept_signature_done">Toch in wachtrij geplaatst, APK niet geverifieerd</string>
+    <string name="batch_patch_apk_selected">APK geselecteerd</string>
     <string name="batch_patch_edit_patches">Patches kiezen</string>
     <string name="batch_patch_state_no_apk">Geen APK</string>
     <string name="batch_patch_state_no_patches">Geen patches</string>
+    <string name="batch_patch_state_no_selection">Niets geselecteerd</string>
+    <string name="batch_patch_no_selection">Geen van de beschikbare patches is geselecteerd</string>
     <string name="batch_patch_policy_install">Installeren na afronding</string>
     <string name="batch_patch_policy_install_description">Installeert elke gepatchte app direct na het afronden van de wachtrij. Uitgeschakeld bewaart de APK\'s voor later</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@ Voor de beste resultaten beveelt deze app aan om een &lt;b&gt;volledig APK&lt;/b
     <string name="patcher_field_output_size">Bestandsgrootte</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tijd</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Gemiddeld geheugen</string>
     <string name="patcher_field_memory_max">Maximaal geheugen</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +696,9 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="failed_to_execute_patch">Kon %s niet toepassen</string>
     <string name="patched_app_save_failed_toast">Kon gepatchte app niet opslaan</string>
     <string name="plugin_activity_dialog_body">Gebruikersinteractie is vereist om te kunnen doorgaan met deze plugin</string>
-    <string name="patcher_heap_exhausted_message">De patcher heeft onvoldoende geheugen met een heap van %1$d MB. Deze app is te groot voor de geselecteerde patches. Probeer te patchen met minder patchbronnen, of selecteer minder patches.</string>
+    <string name="patcher_process_killed_message">Het systeem heeft de patcher gestopt voordat deze klaar was, meestal om geheugen vrij te maken. Sluit andere apps en probeer opnieuw</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">De patcher is buiten geheugen geraakt met een heap van %1$s MB. Deze app is te groot voor de geselecteerde patches. Probeer te patchen met minder patchbronnen, of selecteer minder patches</string>
     <string name="install_app_success">Succesvol geïnstalleerd</string>
     <string name="install_app_fail">Kon app niet installeren: %s</string>
     <string name="install_ignore_signature">Toch installeren</string>
@@ -838,8 +842,6 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Icoon wijzigen</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Updates</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Pre-release-updates</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Vroege toegang tot nieuwe Morphe-versies</string>
@@ -1059,7 +1061,9 @@ Details: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Batterijoptimalisatie</string>
     <string name="settings_system_battery_optimization_description">Houdt de patcher actief wanneer de app geminimaliseerd is</string>
-    <string name="settings_system_process_runtime">Processruntime</string>
+    <string name="settings_system_process_runtime">Patcher-runtime</string>
+    <string name="settings_system_jvm_runtime_enable">Ingebouwde VM gebruiken</string>
+    <string name="settings_system_jvm_runtime_description">Patchen in een Java VM die Morphe meeneemt, die zoveel geheugen kan gebruiken als het apparaat vrij heeft. Zet uit om te patchen met de runtime van Android</string>
     <string name="settings_system_patcher_completion_sound">Voltooiingsgeluid</string>
     <string name="settings_system_patcher_completion_sound_description">Speelt een specifiek geluid af bij succes of mislukking wanneer het patchen voltooid is</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1154,8 @@ Details: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Maakt alle terugwinbare cache ruimte in één keer vrij</string>
     <string name="settings_system_storage_clear_all_confirm">Hiermee worden gecachte netwerkantwoorden, staged installatiekopieën en tijdelijke bestanden gewist. Originele en gepatchte APK\'s worden bewaard</string>
     <string name="settings_system_storage_cleared">%s vrijgemaakt</string>
+    <string name="settings_system_storage_patch_running_warning">Er wordt een patch uitgevoerd en deze bestanden gebruikt. Het nu wissen zal de bewerking laten mislukken</string>
+    <string name="settings_system_storage_clear_anyway">Tóch wissen</string>
     <string name="settings_system_storage_nothing_to_clear">Niets om te wissen</string>
     <string name="settings_system_storage_open_app_info_title">Open Android-app opslag</string>
     <string name="settings_system_storage_open_app_info_description">Beheer of wis alle Morphe-gegevens via de systeeminstellingen</string>

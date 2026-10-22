@@ -18,7 +18,6 @@ class HostEventTest {
     @Test
     fun `every event comes back as it was sent`() {
         val events = listOf(
-            HostEvent.Started,
             HostEvent.Log(LogLevel.WARN, "line one\nline two"),
             HostEvent.StepCompleted,
             HostEvent.SplitPreparation(SplitPreparationEvent.Merging("split_config.arm64_v8a.apk")),
@@ -32,6 +31,17 @@ class HostEventTest {
         )
 
         events.forEach { assertEquals(it, HostEvent.decode(HostEvent.encode(it))) }
+    }
+
+    @Test
+    fun `every command comes back as it was sent`() {
+        val commands = listOf(
+            HostCommand.Preload(listOf("/a.mpp", "/b.mpp")),
+            HostCommand.Preload(emptyList()),
+            HostCommand.Run("/request.json")
+        )
+
+        commands.forEach { assertEquals(it, HostCommand.decode(HostCommand.encode(it))) }
     }
 
     @Test

@@ -212,7 +212,6 @@
     <!-- Home Screen - Sources Dialogs -->
     <string name="sources_dialog_display_name">Назив за приказ</string>
     <string name="sources_dialog_rename">Преименујте изворни извор</string>
-    <string name="sources_dialog_duplicate_name_error">Извор са именом %s већ постоји</string>
     <string name="sources_dialog_missing_error">Nije moguće ažurirati ovaj patch izvor</string>
     <string name="sources_dialog_add_source">Додај извор</string>
     <string name="sources_dialog_delete_confirm_body">Ово се не може поништити</string>
@@ -390,7 +389,6 @@
     <string name="home_simple_bundle_select_remember">Недостају датотеке са опцијама закрпе</string>
     <!-- Color picker -->
     <string name="custom_color">Prilagođena boja</string>
-    <string name="hex_color">Boja u heksadecimalnom formatu</string>
     <string name="color_picker_shade">Засићеност и осветленост</string>
     <string name="color_picker_hue">Нијанса</string>
     <!-- Patch Options -->
@@ -470,9 +468,12 @@
     <string name="batch_patch_force_version">Ипак настави</string>
     <string name="batch_patch_force_version_done">Ипак стављено у ред, апликација може да се поквари</string>
     <string name="batch_patch_accept_signature_done">Ипак стављено у ред, APK није верификован</string>
+    <string name="batch_patch_apk_selected">APK је изабран</string>
     <string name="batch_patch_edit_patches">Изаберите печеве</string>
     <string name="batch_patch_state_no_apk">Нема APK-а</string>
     <string name="batch_patch_state_no_patches">Нема печева</string>
+    <string name="batch_patch_state_no_selection">Није изабрано</string>
+    <string name="batch_patch_no_selection">Ниједан од доступних патчева није изабран</string>
     <string name="batch_patch_policy_install">Инсталирај када се заврши</string>
     <string name="batch_patch_policy_install_description">Инсталира сваку печену апликацију одмах након што се заврши ред. Искључено задржава APK-ове за касније</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +582,7 @@
     <string name="patcher_field_output_size">Величина излаза</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Трајање</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Просек меморије</string>
     <string name="patcher_field_memory_max">Максимум меморије</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +695,9 @@
     <string name="failed_to_execute_patch">Није успело да се примени %s</string>
     <string name="patched_app_save_failed_toast">Није успело чување крпељом потписане апликације</string>
     <string name="plugin_activity_dialog_body">Неопходна је корисничка интеракција да бисте наставили са овом додатком.</string>
-    <string name="patcher_heap_exhausted_message">Патчеру је понестало меморије са хеапом од %1$d MB. Ова апликација је превише велика за изабране патчеве. Покушајте да патчирате са мање извора патчева, или изаберите мање патчева.</string>
+    <string name="patcher_process_killed_message">Систем је прекинуо патчер пре него што је завршио, обично да ослободи меморију. Затворите друге апликације и покушајте поново</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Патчер је исцрпео меморију са кучањем од %1$s МБ. Ова апликација је превише велика за одабране патчеве. Пробајте да патчите са мање извора патчева или одаберите мање патчева</string>
     <string name="install_app_success">Успешно инсталирано</string>
     <string name="install_app_fail">Није успело инсталирање апликације: %s</string>
     <string name="install_ignore_signature">Ипак инсталирај</string>
@@ -838,8 +841,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Променити икону</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Ажурирања</string>
-    <string name="settings_advanced_patcher">Пачер</string>
     <string name="settings_advanced_updates_manager_prereleases">Ажурирања пре издања</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Рани приступ новим верзијама Morphe</string>
@@ -1059,7 +1060,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Оптимизација батерије</string>
     <string name="settings_system_battery_optimization_description">Држи закрпљивач активним када је апликација минимизирана</string>
-    <string name="settings_system_process_runtime">Трајање времена</string>
+    <string name="settings_system_process_runtime">Рунтајни поправник</string>
+    <string name="settings_system_jvm_runtime_enable">Користи уграђени ВМ</string>
+    <string name="settings_system_jvm_runtime_description">Поправке у Јава ВМ које носи Морфе, која може да користи толико меморије колико уређај има на располагању. Искључите да бисте поправили са рунтајним Андроидом</string>
     <string name="settings_system_patcher_completion_sound">Звук завршетка</string>
     <string name="settings_system_patcher_completion_sound_description">Пушта посебан тон за успех или неуспех када се заврши закачивање</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1153,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">Ослобађа све кеш просторе који се могу вратити одједном</string>
     <string name="settings_system_storage_clear_all_confirm">Ово брише кеширане мрежне одговоре, спремљене копије инсталера и привремне фајлове. Оригинални и подешени АПК-ови су сачувани</string>
     <string name="settings_system_storage_cleared">Ослобођено %s</string>
+    <string name="settings_system_storage_patch_running_warning">Ažuriranje se izvršava i koristi ove datoteke. Njihovo trenutno čišćenje će dovesti do greške</string>
+    <string name="settings_system_storage_clear_anyway">Ипак очисти</string>
     <string name="settings_system_storage_nothing_to_clear">Ништа за брисање</string>
     <string name="settings_system_storage_open_app_info_title">Отвори складиште апликација за Android</string>
     <string name="settings_system_storage_open_app_info_description">Управљајте или избришите све податке Morphe-а преко подешавања система</string>

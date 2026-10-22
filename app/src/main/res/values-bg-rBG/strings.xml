@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">Винаги използвайте този източник за това приложение</string>
     <!-- Color picker -->
     <string name="custom_color">Навикнат цвят</string>
-    <string name="hex_color">Хекс цвят</string>
     <string name="color_picker_shade">Наситеност и яркост</string>
     <string name="color_picker_hue">Нюанс</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@
     <string name="batch_patch_force_version">Пачовай въпреки това</string>
     <string name="batch_patch_force_version_done">Въпреки това е на опашка, приложението може да се счупи</string>
     <string name="batch_patch_accept_signature_done">Въпреки това е на опашка, APK не е проверен</string>
+    <string name="batch_patch_apk_selected">APK е избран</string>
     <string name="batch_patch_edit_patches">Избор на пачове</string>
     <string name="batch_patch_state_no_apk">Няма APK</string>
     <string name="batch_patch_state_no_patches">Няма пачове</string>
+    <string name="batch_patch_state_no_selection">Не е избрано нищо</string>
+    <string name="batch_patch_no_selection">Нито един от наличните патчове не е избран</string>
     <string name="batch_patch_policy_install">Инсталиране при завършване</string>
     <string name="batch_patch_policy_install_description">Инсталира всяко закърпено приложение веднага след като приключи опашката. Изключването запазва APK файловете за по-късно</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@
     <string name="patcher_field_output_size">Размер на изхода</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Време</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Средна памет</string>
     <string name="patcher_field_memory_max">Максимална памет</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +696,9 @@
     <string name="failed_to_execute_patch">Неуспешно прилагане на %s</string>
     <string name="patched_app_save_failed_toast">Import</string>
     <string name="plugin_activity_dialog_body">Потребителски интеракция е нужна, за да продължите с този плагин.</string>
-    <string name="patcher_heap_exhausted_message">Пачърът изчерпа паметта при heap от %1$d MB. Това приложение е твърде голямо за избраните пачове. Опитайте се да пачвате с по-малко източници на пачове или изберете по-малко пачове.</string>
+    <string name="patcher_process_killed_message">Системата спря програма за обновяване преди тя да приключи, обикновено с цел освобождаване на памет. Затворете други приложения и опитайте отново</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Програмата за патчове свърши с паметта при куп от %1$s МБ. Това приложение е твърде голямо за избраните патчове. Опитайте да патчувате с по-малко източници на патчове или изберете по-малко патчове</string>
     <string name="install_app_success">Инсталирано успешно</string>
     <string name="install_app_fail">Неуспешно инсталиране на приложението: %s</string>
     <string name="install_ignore_signature">Инсталирай все пак</string>
@@ -838,8 +842,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Промяна на икона</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Актуализации</string>
-    <string name="settings_advanced_patcher">Патчер</string>
     <string name="settings_advanced_updates_manager_prereleases">Актуализации преди официалното пускане</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Ранен достъп до нови версии на Morphe</string>
@@ -1059,7 +1061,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Оптимизация на батерията</string>
     <string name="settings_system_battery_optimization_description">Поддържа работещ патчър, когато приложението е минимизирано</string>
-    <string name="settings_system_process_runtime">Време на изпълнение</string>
+    <string name="settings_system_process_runtime">Ръчен модул</string>
+    <string name="settings_system_jvm_runtime_enable">Използвай вграден VM</string>
+    <string name="settings_system_jvm_runtime_description">Поправки в Java VM, които Morhe носи и които могат да използват колкото паметта на устройството е свободна. Изключете за поправка с runtime на Android</string>
     <string name="settings_system_patcher_completion_sound">Звук за завършване</string>
     <string name="settings_system_patcher_completion_sound_description">Възпроизвежда отделен тон при успех или неуспех, когато завърши прилагането на корекциите</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1154,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">Освобождава цялото кеширано пространство наведнъж</string>
     <string name="settings_system_storage_clear_all_confirm">Това изчиства кешираните мрежови отговори, подготвените копия на инсталатора и временните файлове. Оригиналните и приложените APK файлове се запазват</string>
     <string name="settings_system_storage_cleared">Освободени %s</string>
+    <string name="settings_system_storage_patch_running_warning">Пачът е в процес на изпълнение и използва тези файлове. Изтриването им сега ще доведе до неуспех</string>
+    <string name="settings_system_storage_clear_anyway">Изтрий въпреки това</string>
     <string name="settings_system_storage_nothing_to_clear">Няма какво да се изчиства</string>
     <string name="settings_system_storage_open_app_info_title">Отваряне на хранилището на Android приложението</string>
     <string name="settings_system_storage_open_app_info_description">Управление или изчистване на всички данни на Morphe чрез системните настройки</string>

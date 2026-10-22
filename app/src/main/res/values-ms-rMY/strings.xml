@@ -367,7 +367,6 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="home_simple_bundle_select_remember">Sentiasa gunakan sumber ini untuk aplikasi ini</string>
     <!-- Color picker -->
     <string name="custom_color">Warna tersuai</string>
-    <string name="hex_color">Warna Hex</string>
     <string name="color_picker_shade">Ketepuan dan kecerahan</string>
     <string name="color_picker_hue">Rona</string>
     <!-- Patch Options -->
@@ -535,7 +534,7 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="patcher_field_output_size">Saiz output</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Masa</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Purata memori</string>
     <string name="patcher_field_memory_max">Memori maksimum</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -645,7 +644,7 @@ Nyahpasang akan memadam semua data aplikasi secara kekal"</string>
     <string name="failed_to_execute_patch">Gagal untuk memasang %s</string>
     <string name="patched_app_save_failed_toast">Gagal untuk menyimpan aplikasi yang telah ditampal</string>
     <string name="plugin_activity_dialog_body">Interaksi pengguna diperlukan untuk meneruskan dengan pemalam ini</string>
-    <string name="patcher_heap_exhausted_message">Patcher kehabisan memori dengan heap %1$d MB. Aplikasi ini terlalu besar untuk tampalan yang dipilih. Cuba tampal dengan lebih sedikit sumber tampalan, atau pilih lebih sedikit tampalan</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
     <string name="install_app_success">Pemasangan berjaya</string>
     <string name="install_app_fail">Gagal untuk dipasang: %s</string>
     <string name="install_ignore_signature">Pasang juga</string>
@@ -781,8 +780,6 @@ Nyahpasang akan memadam semua data aplikasi secara kekal"</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Tukar ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Kemas kini</string>
-    <string name="settings_advanced_patcher">Penampal</string>
     <string name="settings_advanced_updates_manager_prereleases">Kemas kini prakeluaran</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Akses awal kepada versi Morphe baharu</string>
@@ -974,7 +971,6 @@ Butiran: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimisasi bateri</string>
     <string name="settings_system_battery_optimization_description">Memastikan patcher terus berjalan apabila aplikasi diminimumkan</string>
-    <string name="settings_system_process_runtime">Masa runtime proses</string>
     <string name="settings_system_patcher_completion_sound">Bunyi selesai</string>
     <string name="settings_system_patcher_completion_sound_description">Memainkan nada berbeza untuk kejayaan atau kegagalan apabila tampalan selesai</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1090,7 +1086,6 @@ Butiran: %2$s"</string>
     <string name="settings_system_patch_selection_reset_all_warning">Ini akan memadam secara kekal semua pilihan tampalan yang disimpan untuk semua pakej dan sumber</string>
     <string name="settings_system_patch_selection_reset_source_warning">Ini akan memadam pilihan tampalan yang disimpan untuk &lt;b&gt;%1$s&lt;/b&gt; dalam &lt;b&gt;%2$s&lt;/b&gt; secara kekal</string>
     <string name="settings_system_patch_selection_reset_selected_warning">Ini akan memadam semua pilihan tampalan yang disimpan untuk pakej yang dipilih secara kekal</string>
-    <string name="settings_system_export_source_data_fail">Gagal membaca log (kod keluar %s)</string>
     <string name="settings_system_export_source_data_success">Data sumber dieksport dengan jayanya</string>
     <string name="settings_system_import_source_data_fail">Gagal mengimport data sumber</string>
     <string name="settings_system_import_source_data_success">Data sumber diimport dengan jayanya</string>
@@ -1205,6 +1200,7 @@ Butiran: %2$s"</string>
     <string name="reset_order">Set semula susunan</string>
     <string name="reset_order_done">Susunan diset semula</string>
     <string name="accessibility_select_app">Pilih aplikasi</string>
+    <string name="accessibility_select_source">Pilih sumber</string>
     <string name="accessibility_move_up">Gerakkan ke atas</string>
     <string name="accessibility_move_down">Gerakkan ke bawah</string>
     <string name="accessibility_app_moved_announcement">%1$s dipindahkan ke kedudukan %2$s daripada %3$s</string>

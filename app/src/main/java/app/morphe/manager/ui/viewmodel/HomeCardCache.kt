@@ -12,6 +12,7 @@ import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.domain.bundles.AppVersionStatus
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.util.tag
+import app.morphe.manager.util.writeTextAtomically
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -49,11 +50,7 @@ internal class HomeCardCache(private val file: File) {
         )
         if (cached == lastWritten && file.exists()) return
         runCatching {
-            file.parentFile?.mkdirs()
-            val temp = File(file.path + ".tmp")
-            temp.writeText(json.encodeToString(CachedHome.serializer(), cached))
-            // Atomic swap, so a killed write keeps the previous file
-            if (!temp.renameTo(file)) error("Could not replace ${file.name}")
+            file.writeTextAtomically(json.encodeToString(CachedHome.serializer(), cached))
             lastWritten = cached
         }.onFailure { Log.w(tag, "Could not keep the home cards", it) }
     }

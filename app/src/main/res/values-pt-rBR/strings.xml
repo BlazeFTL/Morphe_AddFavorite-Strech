@@ -390,7 +390,6 @@ Para obter os melhores resultados, este aplicativo recomenda corrigir um(a) &lt;
     <string name="home_simple_bundle_select_remember">Sempre use esta fonte para este aplicativo</string>
     <!-- Color picker -->
     <string name="custom_color">Cor Personalizada</string>
-    <string name="hex_color">Cor HEX</string>
     <string name="color_picker_shade">Saturação e brilho</string>
     <string name="color_picker_hue">Matiz</string>
     <!-- Patch Options -->
@@ -470,9 +469,12 @@ Para obter os melhores resultados, este aplicativo recomenda corrigir um(a) &lt;
     <string name="batch_patch_force_version">Corrigir de qualquer forma</string>
     <string name="batch_patch_force_version_done">Enfileirado mesmo assim, o aplicativo pode quebrar</string>
     <string name="batch_patch_accept_signature_done">Enfileirado mesmo assim, APK não verificado</string>
+    <string name="batch_patch_apk_selected">APK selecionado</string>
     <string name="batch_patch_edit_patches">Escolher patches</string>
     <string name="batch_patch_state_no_apk">Sem APK</string>
     <string name="batch_patch_state_no_patches">Sem patches</string>
+    <string name="batch_patch_state_no_selection">Nenhum selecionado</string>
+    <string name="batch_patch_no_selection">Nenhuma das patches disponíveis está selecionada</string>
     <string name="batch_patch_policy_install">Instalar quando terminar</string>
     <string name="batch_patch_policy_install_description">Instala cada aplicativo corrigido logo após a fila terminar. Desativar mantém os APKs para mais tarde</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +583,7 @@ Para obter os melhores resultados, este aplicativo recomenda corrigir um(a) &lt;
     <string name="patcher_field_output_size">Tamanho de saída</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Duração</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Memória média</string>
     <string name="patcher_field_memory_max">Memória máxima</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -695,7 +697,9 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <string name="failed_to_execute_patch">Falha ao aplicar %s</string>
     <string name="patched_app_save_failed_toast">Falha ao salvar o aplicaitvo patcheado</string>
     <string name="plugin_activity_dialog_body">Interação do usuário é necessária para prosseguir com este plugin</string>
-    <string name="patcher_heap_exhausted_message">O aplicador de patch ficou sem memória com um heap de %1$d MB. Este aplicativo é grande demais para os patches selecionados. Tente aplicar o patch com menos fontes ou selecione menos patches</string>
+    <string name="patcher_process_killed_message">O sistema interrompeu o patcher antes que ele terminasse, geralmente para liberar memória. Feche outros aplicativos e tente novamente</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">O aplicador de patch ficou sem memória com um heap de %1$s MB. Este aplicativo é grande demais para os patches selecionados. Tente aplicar o patch com menos fontes ou selecione menos patches</string>
     <string name="install_app_success">Instalado com sucesso</string>
     <string name="install_app_fail">Falha ao instalar o aplicativo: %s</string>
     <string name="install_ignore_signature">Instalar mesmo assim</string>
@@ -839,8 +843,6 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Alterar ícone</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Atualizações</string>
-    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Atualizações de pré-lançamento</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Acesso antecipado a novas versões do Morphe</string>
@@ -1060,7 +1062,9 @@ Detalhes: %2$s"</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Otimização de bateria</string>
     <string name="settings_system_battery_optimization_description">Mantém o aplicador de patches em execução quando o aplicativo é minimizado</string>
-    <string name="settings_system_process_runtime">Processos de runtime</string>
+    <string name="settings_system_process_runtime">Tempo de execução do Patcher</string>
+    <string name="settings_system_jvm_runtime_enable">Usar VM embutida</string>
+    <string name="settings_system_jvm_runtime_description">Patches em uma Java VM que a Morphe executa, que pode utilizar toda a memória disponível no dispositivo. Desative para fazer os patches com o tempo de execução do Android</string>
     <string name="settings_system_patcher_completion_sound">Som de conclusão</string>
     <string name="settings_system_patcher_completion_sound_description">Reproduz um tom distinto para sucesso ou falha quando a aplicação de patch for concluída</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1151,6 +1155,8 @@ Detalhes: %2$s"</string>
     <string name="settings_system_storage_clear_all_description">Libera todo o espaço de cache recuperável de uma vez</string>
     <string name="settings_system_storage_clear_all_confirm">Isso limpa as respostas de rede em cache, as cópias do instalador em espera e os arquivos temporários. Os APKs originais e modificados são mantidos</string>
     <string name="settings_system_storage_cleared">%s liberados</string>
+    <string name="settings_system_storage_patch_running_warning">Um patch está em execução e usa esses arquivos. Limpar agora causará falha</string>
+    <string name="settings_system_storage_clear_anyway">Limpar mesmo assim</string>
     <string name="settings_system_storage_nothing_to_clear">Nada para limpar</string>
     <string name="settings_system_storage_open_app_info_title">Abrir armazenamento de aplicativos Android</string>
     <string name="settings_system_storage_open_app_info_description">Gerenciar ou limpar todos os dados do Morphe pelas configurações do sistema</string>

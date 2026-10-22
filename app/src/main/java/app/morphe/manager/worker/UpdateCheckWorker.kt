@@ -14,6 +14,7 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.ManagerUpdateRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.util.UpdateNotificationManager
+import app.morphe.manager.util.normalizeVersion
 import app.morphe.manager.util.tag
 import kotlinx.coroutines.flow.first
 import java.util.concurrent.TimeUnit
@@ -95,7 +96,7 @@ class UpdateCheckWorker(
             managerUpdateRepository.refresh()
         }.getOrNull() ?: return
 
-        val newVersion = update.version.removePrefix("v")
+        val newVersion = update.version.normalizeVersion()
         Log.d(tag, "UpdateCheckWorker: manager update available (${BuildConfig.VERSION_NAME} -> $newVersion)")
         notificationManager.showManagerUpdateNotification(newVersion)
     }

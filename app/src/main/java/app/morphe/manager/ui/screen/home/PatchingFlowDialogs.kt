@@ -515,8 +515,7 @@ fun DialogHostScope.InvalidSignatureDialog(
  */
 @Composable
 fun DialogHostScope.SplitApkWarningDialog(
-    appName: String,
-    packageName: String?,
+    packageName: String,
     onProceed: () -> Unit,
     onPickAnother: () -> Unit,
     onDismiss: () -> Unit
@@ -526,7 +525,7 @@ fun DialogHostScope.SplitApkWarningDialog(
         accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.home_split_apk_warning_title),
         description = htmlAnnotatedString(
-            stringResource(R.string.home_split_apk_warning_message, appName)
+            stringResource(R.string.home_split_apk_warning_message)
         ),
         footer = {
             AppDialogButtonRow(
@@ -896,7 +895,7 @@ private fun VersionRow(
         // The app's own round check, in its color, as the other pickers mark their pick
         if (selected != null) {
             SelectionCheckIndicator(
-                state = if (selected) ToggleableState.On else ToggleableState.Off,
+                state = ToggleableState(selected),
                 enabled = enabled
             )
         }

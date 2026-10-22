@@ -390,7 +390,6 @@
     <string name="home_simple_bundle_select_remember">Всегда использовать этот источник для этого приложения</string>
     <!-- Color picker -->
     <string name="custom_color">Свой цвет</string>
-    <string name="hex_color">Hex цвет</string>
     <string name="color_picker_shade">Насыщенность и яркость</string>
     <string name="color_picker_hue">Тон</string>
     <!-- Patch Options -->
@@ -457,6 +456,7 @@
     <string name="batch_patch_title">Пакетное применение патчей</string>
     <string name="batch_patch_planning">Подготовка очереди…</string>
     <string name="batch_patch_preparing_next">Подготовка следующего приложения…</string>
+    <string name="batch_patch_progress_counter">Патчинг %1$s из %2$s</string>
     <string name="batch_patch_summary">%1$s пропатчено, %2$s ошибка, %3$s пропущено</string>
     <string name="batch_patch_saved_hint">Сохраненные пропатченные приложения доступны для установки сейчас или позже из списка пропатченных APK в настройках</string>
     <string name="batch_patch_multiple_sources">Некоторые приложения объединяют патчи из разных источников, что может привести к конфликтам</string>
@@ -470,9 +470,12 @@
     <string name="batch_patch_force_version">Патчить в любом случае</string>
     <string name="batch_patch_force_version_done">Всё равно поставлено в очередь, приложение может сломаться.</string>
     <string name="batch_patch_accept_signature_done">Всё равно поставлено в очередь, APK не проверен.</string>
+    <string name="batch_patch_apk_selected">APK выбраны</string>
     <string name="batch_patch_edit_patches">Выбрать патчи</string>
     <string name="batch_patch_state_no_apk">Нет APK</string>
     <string name="batch_patch_state_no_patches">Нет патчей</string>
+    <string name="batch_patch_state_no_selection">Не выбрано</string>
+    <string name="batch_patch_no_selection">Ни один из доступных патчей не выбран</string>
     <string name="batch_patch_policy_install">Устанавливать по завершении</string>
     <string name="batch_patch_policy_install_description">Устанавливает каждое пропатченное приложение сразу после завершения очереди. Выкл. сохраняет APK для последующей установки</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
@@ -581,7 +584,7 @@
     <string name="patcher_field_output_size">Размер вывода</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Время</string>
-    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Average and peak heap the patcher held while it ran -->
     <string name="patcher_field_memory_average">Средний объем памяти</string>
     <string name="patcher_field_memory_max">Максимальный объем памяти</string>
     <!-- Fastest read or write rate reached while patching, in data per second -->
@@ -694,7 +697,9 @@
     <string name="failed_to_execute_patch">Не удалось применить %s</string>
     <string name="patched_app_save_failed_toast">Не удалось сохранить исправленное приложение</string>
     <string name="plugin_activity_dialog_body">Требуется взаимодействие пользователя для продолжения работы с этим плагином</string>
-    <string name="patcher_heap_exhausted_message">Патчеру не хватило памяти при куче размером %1$d МБ. Это приложение слишком велико для выбранных патчей. Попробуйте использовать меньше источников патчей или выберите меньше патчей.</string>
+    <string name="patcher_process_killed_message">Система остановила патчер до его завершения, обычно для освобождения памяти. Закройте другие приложения и попробуйте ещё раз</string>
+    <!-- Shown when a run fills the heap it was given. "%1$s" is the heap in megabytes. -->
+    <string name="patcher_out_of_memory_message">Приложению не хватило памяти: куча имела размер %1$s МБ. Приложение слишком большое для выбранных патчей. Попробуйте применить патчи с меньшим количеством источников или выберите меньше патчей</string>
     <string name="install_app_success">Успешно установлено</string>
     <string name="install_app_fail">Не удалось установить приложение: %s</string>
     <string name="install_ignore_signature">Установить в любом случае</string>
@@ -838,8 +843,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Изменить значок</string>
     <!-- Settings - Advanced Tab - Updates Section -->
-    <string name="settings_advanced_updates">Обновления</string>
-    <string name="settings_advanced_patcher">Патчер</string>
     <string name="settings_advanced_updates_manager_prereleases">Предварительные обновления</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Ранний доступ к новым версиям Morphe</string>
@@ -1059,7 +1062,10 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Оптимизация батареи</string>
     <string name="settings_system_battery_optimization_description">Поддерживает работу патчера при минимизации приложения</string>
-    <string name="settings_system_process_runtime">Время выполнения процесса</string>
+    <string name="settings_system_process_runtime">Среда выполнения патчера</string>
+    <string name="settings_system_jvm_runtime_enable">Использовать встроенную ВМ</string>
+    <string name="settings_system_jvm_runtime_description">Патчи в среде выполнения Java, которую использует Morphe, которая может потреблять столько памяти, сколько доступно на устройстве. Отключите, чтобы патчить с помощью среды выполнения Android</string>
+    <string name="settings_system_jvm_runtime_unavailable">Требуется ARM или 64-bit x86 устройство</string>
     <string name="settings_system_patcher_completion_sound">Звук завершения</string>
     <string name="settings_system_patcher_completion_sound_description">Воспроизводит отличный тон при успешном или неудачном завершении патчинга</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1150,6 +1156,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_clear_all_description">Освобождает все доступное место в кэше за один раз</string>
     <string name="settings_system_storage_clear_all_confirm">Это очищает кэшированные сетевые ответы, подготовленные копии установщиков и временные файлы. Оригинальные и пропатченные APK сохраняются</string>
     <string name="settings_system_storage_cleared">Освобождено %s</string>
+    <string name="settings_system_storage_patch_running_warning">Выполнен патч, использующий эти файлы. Если их очистить сейчас, это приведет к сбою</string>
+    <string name="settings_system_storage_clear_anyway">Очистить в любом случае</string>
     <string name="settings_system_storage_nothing_to_clear">Нечего очищать</string>
     <string name="settings_system_storage_open_app_info_title">Открыть хранилище Android-приложения</string>
     <string name="settings_system_storage_open_app_info_description">Управление или очистка всех данных Morphe через системные настройки</string>
@@ -1316,6 +1324,7 @@ morphe_header_custom_dark.png
     <string name="reset_order">Сбросить порядок</string>
     <string name="reset_order_done">Сброс заказа</string>
     <string name="accessibility_select_app">Выберите приложение</string>
+    <string name="accessibility_select_source">Выбрать источник</string>
     <string name="accessibility_move_up">Переместить вверх</string>
     <string name="accessibility_move_down">Переместить вниз</string>
     <string name="accessibility_app_moved_announcement">%1$s перемещен(а) на позицию %2$s из %3$s</string>

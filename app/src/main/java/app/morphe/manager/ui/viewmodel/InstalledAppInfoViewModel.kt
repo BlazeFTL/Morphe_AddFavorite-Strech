@@ -12,6 +12,7 @@ package app.morphe.manager.ui.viewmodel
 
 import android.app.Application
 import android.content.pm.PackageInfo
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -39,6 +40,7 @@ import app.morphe.manager.ui.screen.home.AppliedPatchBundleUi
 import app.morphe.manager.ui.screen.home.resolveAppliedBundleAttribution
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.util.*
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -131,19 +133,25 @@ class InstalledAppInfoViewModel(
             installedAppRepository.getAsFlow(packageName).collect { app ->
                 installedApp = app
 
-                // Scoped to this emission, so a failed check cancels its siblings rather than the collection
-                if (app != null) coroutineScope {
-                    // Run all checks in parallel
-                    val deferredOriginalApk = async { originalApkRepository.get(app.originalPackageName) != null }
-                    val deferredSiblings = async { installedAppRepository.hasSiblingRecords(app) }
-                    val deferredAppState = async { refreshAppState(app) }
-                    val deferredPatches = async { resolveAppliedSelection(app) }
+                // Scoped to this emission and caught, so a failed check cancels its siblings and
+                // leaves the next emission to try again instead of ending the collection
+                if (app != null) try {
+                    coroutineScope {
+                        // Run all checks in parallel
+                        val deferredOriginalApk = async { originalApkRepository.get(app.originalPackageName) != null }
+                        val deferredSiblings = async { installedAppRepository.hasSiblingRecords(app) }
+                        val deferredAppState = async { refreshAppState(app) }
+                        val deferredPatches = async { resolveAppliedSelection(app) }
 
-                    // Wait for all to complete
-                    hasOriginalApk = deferredOriginalApk.await()
-                    deletesOriginalApk = hasOriginalApk && !deferredSiblings.await()
-                    deferredAppState.await()
-                    appliedPatches = deferredPatches.await()
+                        // Wait for all to complete
+                        hasOriginalApk = deferredOriginalApk.await()
+                        deletesOriginalApk = hasOriginalApk && !deferredSiblings.await()
+                        deferredAppState.await()
+                        appliedPatches = deferredPatches.await()
+                    }
+                } catch (e: Exception) {
+                    if (e is CancellationException) throw e
+                    Log.e(tag, "Failed to read the state of ${app.currentPackageName}", e)
                 }
 
                 // Mark as loaded
@@ -221,6 +229,8 @@ class InstalledAppInfoViewModel(
                     } catch (_: UninstallCancelledException) {
                         // User dismissed dialog - do nothing
                     } catch (e: Exception) {
+                        // Leaving the dialog cancels the wait, which is no failed uninstall
+                        if (e is CancellationException) throw e
                         messages.show(R.string.uninstall_app_fail, e.simpleMessage())
                     }
                 }
@@ -229,8 +239,15 @@ class InstalledAppInfoViewModel(
             // No verification gate: unmounting only removes the bind mount and the module files,
             // so it never touches whichever package currently owns the name
             InstallType.MOUNT -> applicationScope.launch {
-                // Detached from viewModelScope: dialog dismissal must not abort the cleanup
-                rootInstaller.uninstall(app.currentPackageName)
+                // Detached from viewModelScope: dialog dismissal must not abort the cleanup. That
+                // scope has no handler, so a failed root command is reported rather than thrown
+                try {
+                    rootInstaller.uninstall(app.currentPackageName)
+                } catch (e: Exception) {
+                    if (e is CancellationException) throw e
+                    messages.show(R.string.uninstall_app_fail, e.simpleMessage())
+                    return@launch
+                }
                 // Delete record and APK but preserve selection and options
                 deleteRecordAndApk(app)
                 withContext(Dispatchers.Main) {

@@ -169,6 +169,7 @@ private fun PatcherScreenContent(
     // A mount, or an install that checks for a rename first. Started on its own after patching,
     // an install clears a conflict by itself, since nobody is there to answer for it
     suspend fun installPatchedApp(automatic: Boolean) {
+        patcherViewModel.onInstallStarted()
         if (usingMountInstall) {
             installViewModel.installMount(
                 outputFile = outputFile,
@@ -193,8 +194,10 @@ private fun PatcherScreenContent(
     // in the foreground when patching completes. UI-only guards checked here.
     LaunchedEffect(Unit) {
         patcherViewModel.autoInstallEvent.collect {
-            if (installViewModel.installState !is InstallViewModel.InstallState.Ready) return@collect
-            installPatchedApp(automatic = true)
+            // An install the user already started takes its place
+            if (installViewModel.installState is InstallViewModel.InstallState.Ready) {
+                installPatchedApp(automatic = true)
+            }
             // The installer owns the state from here, and an attempt that ends in nothing must
             // not leave the screen claiming an install forever
             patcherViewModel.autoInstallHandedOff()

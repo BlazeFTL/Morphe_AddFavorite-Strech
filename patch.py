@@ -12,6 +12,8 @@ patch.py -- apply fork changes to a MorpheApp/morphe-manager checkout (dev branc
   6. Sources page header: search toggle moved ahead of the actions, order Search, Sort, Add (+)
   7. Expert patch dialog: bundles with a patch of their own for the app (not only universal
      ones) are listed first
+  8. Patcher log: the loader's "Universal patches must be declared with default false" notice
+     (header, message and the indented bundle/patch list) is dropped
 
 Anchors are structural (function bodies, call arguments, parameter lists, single
 lines), never pasted multi-line context. Files are found by declaration; the path
@@ -1785,6 +1787,43 @@ def bundles_app_first(src):
     return src[:a] + new + src[b:]
 
 
+def host_quiet_universal(src):
+    if "checkUniversalPatchDefaults" in src:
+        return src
+    m = mask(src)
+    f = one(find_funs(m, "printer"))
+    if not f or f.eq is None:
+        return None
+    lp = m.find("(", f.eq)
+    if lp < 0:
+        return None
+    rp = match_close(m, lp)
+    if rp < 0:
+        return None
+    old = src[f.start:rp + 1]
+    if "LineOutputStream" not in old or not re.search(r'\[STDIO\]:\s*\$line', old):
+        return None
+    block = textwrap.dedent("""\
+        fun printer(): PrintStream {
+            // The loader's notice that universal patches lack default false is a header, the message and
+            // the bundles and patches indented under it. They are loaded with default false either way
+            var skipping = false
+            return PrintStream(
+                LineOutputStream { line ->
+                    val notice = "checkUniversalPatchDefaults" in line ||
+                            line.startsWith("WARNING: Universal patches must be declared with default false")
+                    skipping = notice || (skipping && line.isNotEmpty() && line[0].isWhitespace())
+                    if (!skipping) logger.warn("[STDIO]: $line")
+                },
+                true,
+                Charsets.UTF_8.name()
+            )
+        }""")
+    ind = indent_of(src, f.start)
+    new = reindent(block, ind)[len(ind):]
+    return src[:f.start] + new + src[rp + 1:]
+
+
 class Workspace:
     def __init__(self, root):
         self.root = root
@@ -1919,6 +1958,16 @@ def build_plan(ws):
     app = locate("ManagerApplication", r"^class\s+ManagerApplication\b", P + "ManagerApplication.kt")
     hbar = locate("HeaderBar", r"\bfun\s+HeaderBar\s*\(", P + "ui/screen/shared/HeaderBar.kt")
     phead = locate("PageHeader", r"\bfun\s+PageHeader\s*\(", P + "ui/screen/shared/PageScaffold.kt")
+    host_ext = None
+    host = ws.find(r"\bclass\s+HostEvents\b")
+    if len(host) == 1:
+        host_ext = (host[0], None)
+    else:
+        found = find_outside_app(ws, r"\bclass\s+HostEvents\b")
+        if found:
+            host_ext = found
+        else:
+            problems.append("cannot locate HostEvents (patcher log STDIO printer)")
     selext = locate("PatchSelectionUtils", r"\bobject\s+PatchSelectionUtils\b", P + "util/PatchSelectionExtensions.kt")
     srcpage = locate("SourcesPageContent", r"\bfun\s+SourcesPageContent\s*\(", P + "ui/screen/sources/SourcesPage.kt")
     patchinfo = ws.find(r"\bclass\s+PatchInfo\b", P + "patcher/patch/PatchInfo.kt")
@@ -2069,6 +2118,9 @@ def build_plan(ws):
         ("page header searchFirst pass-through", phead_pass, False),
     ]))
     plan.append((str(srcpage.relative_to(ws.root)), srcpage, [("sources header search first", sources_search_first, False)]))
+    host_path = host_ext[0]
+    ws.ensure(host_path)
+    plan.append((str(host_path.relative_to(ws.root)), host_path, [("quiet universal default notice", host_quiet_universal, False)]))
     plan.append((str(selext.relative_to(ws.root)), selext, [("expert bundles with app patches first", bundles_app_first, False)]))
     plan.append((str(comps.relative_to(ws.root)), comps, COMPONENT_EDITS))
     plan.append((str(card.relative_to(ws.root)), card, [

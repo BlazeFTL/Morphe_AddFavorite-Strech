@@ -602,8 +602,11 @@ class HttpService(
      * Performs a HEAD request to [url] and returns where it redirects, resolved against [url]
      * when relative, or null if the server did not redirect or any error occurred.
      */
-    suspend fun headRedirect(url: String): String? =
-        locationOf(HttpMethod.Head, url)?.let { location ->
+    suspend fun headRedirect(
+        url: String,
+        builder: HttpRequestBuilder.() -> Unit = {}
+    ): String? =
+        locationOf(HttpMethod.Head, url, builder)?.let { location ->
             runCatching { java.net.URI(url).resolve(location).toString() }.getOrNull()
         }
 

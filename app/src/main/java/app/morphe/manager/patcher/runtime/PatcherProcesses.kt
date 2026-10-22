@@ -238,11 +238,12 @@ class PatcherProcesses(
         "-Xrs",
         // Nothing reads the performance counters, which would otherwise be kept in a file of their own
         "-XX:-UsePerfData",
-        // C1 only. A run is too short for C2 to pay off, and its compiles take cores the run needs
-        "-XX:TieredStopAtLevel=1",
         // The working directory of an app is not writable, which is where the report would go
         "-XX:ErrorFile=${errorFile("%p")}"
     ) + listOfNotNull(
+        // C1 only. A run is too short for C2 to pay off, and its compiles take cores the run needs.
+        // A 32-bit JVM only has C1 and including the flag is redundant.
+        "-XX:TieredStopAtLevel=1".takeIf { Process.is64Bit() },
         // 8 byte object headers instead of 12. A run keeps millions of small objects alive, and
         // smaller ones leave the collector and the caches less to do. A 32-bit JVM does not
         // know the flag and will not start with it.

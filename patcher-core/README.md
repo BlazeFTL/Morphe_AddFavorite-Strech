@@ -100,7 +100,8 @@ adb exec-out run-as app.morphe.manager.debug cat files/gc.log > gc.log
 - **GC**: `-Xlog:gc+init` shows the collector the VM chose. G1 (the default) paused for about 3%
   of a YouTube run. ParallelGC paused for 5-8% and SerialGC for more, as both fall back to full
   collections once the 450-650M kept alive fills the old space.
-- **JIT**: the app passes `-XX:TieredStopAtLevel=1`, so only C1 compiles. YouTube runs started at
+- **JIT**: the app passes `-XX:TieredStopAtLevel=1` in a 64-bit process (a 32-bit JVM only has C1
+  and fails to start with the flag), so only C1 compiles. YouTube runs started at
   the same temperature were about 7% faster with it, almost all of it in the patches.
   `-XX:TieredStopAtLevel=4` in `jvm-options.txt` turns C2 back on. Let the phone cool between
   runs, as back to back runs got up to 40% slower, more than any flag changes. Read the

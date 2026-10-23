@@ -478,6 +478,10 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="batch_patch_no_selection">Kullanılabilir yamaların hiçbiri seçili değil</string>
     <string name="batch_patch_policy_install">Tamamlandığında kur</string>
     <string name="batch_patch_policy_install_description">Sıra bittikten hemen sonra her yamalı uygulamayı kurar. Kapalı bırakmak, APK\'ları daha sonra kullanmak üzere saklar</string>
+    <string name="batch_patch_policy_mount">Bittiğinde bağla</string>
+    <string name="batch_patch_policy_mount_description">Sıra tamamlandığında yamalanmış her uygulamayı bağlar. Kapalıysa APK\'ları daha sonra kullanmak üzere saklar.</string>
+    <string name="batch_patch_policy_install_mount">Bittiğinde yükle veya bağla</string>
+    <string name="batch_patch_policy_install_mount_description">Sıra tamamlandığında yamalanmış her uygulamayı yükler veya bağlar. Kapalıysa APK\'ları daha sonra kullanmak üzere saklar.</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Başlangıç</string>
     <string name="batch_patch_stop_title">Toplu yamalamayı durdur?</string>
@@ -1438,11 +1442,15 @@ Devam etmek istiyor musunuz?"</string>
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <string name="onboarding_step_of">%2$stan %1$s</string>
     <string name="onboarding_sources_desc">Yama kaynaklarınızı yönetin. Her kaynak, uygulamalarınıza uygulanabilecek yamalar sağlar</string>
+    <string name="onboarding_other_apps_desc">Listede olmayan bir uygulamayı, bir APK dosyasından veya cihazınıza yüklenmiş bir uygulamadan yamalayın</string>
+    <string name="onboarding_add_source_desc">Bir bağlantıdan veya yama paket dosyasından bir yama kaynağı ekleyin</string>
+    <string name="onboarding_signing_key_desc">Yamalı uygulamalarınızı imzalayan anahtarı yedekleyin. Bu olmadan, uygulamalar yalnızca kaldırıldıktan sonra güncellenebilirler</string>
     <string name="onboarding_swipe_title">Kaydırma hareketleri</string>
     <string name="onboarding_swipe_desc">Bir uygulama kartında bulunan yamaları görmek için sağa kaydırın. Kartı ana ekranından gizlemek için sola kaydırın</string>
     <string name="onboarding_settings_desc">Morphe\'yi özelleştirin: görünüm, gelişmiş seçenekler ve sistem araçları</string>
     <string name="onboarding_sources_patches_desc">Bu kaynaktan mevcut tüm yamaları görmek için dokunun</string>
     <string name="onboarding_sources_version_desc">Bu kaynağın tam sürüm notlarını görmek için sürüme dokunun</string>
+    <string name="onboarding_sources_apps_desc">Bu kaynağın yamaladığı uygulamaları görmek ve hangileri için yama sunduğunu seçmek için dokunun</string>
     <string name="onboarding_sources_prerelease_desc">Bu kaynaktan ön sürüm yama sürümleri almak için bunu etkinleştirin</string>
     <string name="onboarding_appearance_tab_desc">Uygulamanın görünümünü özelleştirin: tema, vurgu rengi ve arka plan</string>
     <string name="onboarding_expert_mode_desc">Yama seçimi, özel seçenekler ve diğer gelişmiş özellikleri açmak için Uzman Modu\'nu etkinleştirin</string>

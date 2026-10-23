@@ -1,3 +1,11 @@
+# [2.1.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v2.1.0-dev.1...v2.1.0-dev.2) (2026-10-23)
+
+
+### Bug Fixes
+
+* Mount apps queued for batch patching on rooted devices ([9d5c007](https://github.com/MorpheApp/morphe-manager/commit/9d5c0073abbcd369c130c7d47eeb5b619b90d527))
+* Patch on JDK 17 (fix for low-end devices) ([#1246](https://github.com/MorpheApp/morphe-manager/issues/1246)) ([619719f](https://github.com/MorpheApp/morphe-manager/commit/619719f353e8eb833637abb2c4c230e4b0ad7bc7))
+
 # [2.1.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0...v2.1.0-dev.1) (2026-10-22)
 
 

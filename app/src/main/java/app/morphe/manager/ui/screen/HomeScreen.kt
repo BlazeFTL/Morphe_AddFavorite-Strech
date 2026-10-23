@@ -43,6 +43,7 @@ import app.morphe.manager.ui.screen.shared.MainPage
 import app.morphe.manager.ui.screen.shared.MainPagerScaffold
 import app.morphe.manager.ui.screen.shared.UserMessages
 import app.morphe.manager.ui.screen.shared.rememberInstallQueue
+import app.morphe.manager.ui.screen.shared.turnTo
 import app.morphe.manager.ui.screen.sources.SourcesPage
 import app.morphe.manager.ui.screen.sources.rememberSourcesPageState
 import app.morphe.manager.ui.theme.SeasonalEvent
@@ -88,7 +89,7 @@ fun HomeScreen(
 
     val pagerState = rememberPagerState(initialPage = MainPage.APPS.ordinal) { MainPage.entries.size }
     val openPage: (MainPage) -> Unit = { page ->
-        scope.launch { pagerState.animateScrollToPage(page.ordinal) }
+        scope.launch { pagerState.turnTo(page) }
     }
     // Turns to each step's page, and back to the apps once the tour ends
     val tourPage = onboardingState?.page
@@ -100,13 +101,13 @@ fun HomeScreen(
                 tourShown = true
                 onboardingState.pageShown = null
                 tourPage?.let {
-                    pagerState.animateScrollToPage(it.ordinal)
+                    pagerState.turnTo(it)
                     onboardingState.pageShown = it
                 }
             }
             tourShown -> {
                 tourShown = false
-                pagerState.animateScrollToPage(MainPage.APPS.ordinal)
+                pagerState.turnTo(MainPage.APPS)
             }
         }
     }

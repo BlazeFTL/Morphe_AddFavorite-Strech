@@ -67,7 +67,7 @@ import kotlin.time.Duration.Companion.milliseconds
 fun HomeScreen(
     settingsNavigation: SettingsNavigation,
     onStartQuickPatch: (Patcher.ViewModelParams) -> Unit,
-    onStartBatchPatch: (List<BatchTarget>, Boolean) -> Unit,
+    onStartBatchPatch: (List<BatchTarget>) -> Unit,
     homeViewModel: HomeViewModel = koinViewModel(),
     prefs: PreferencesManager = koinInject(),
     homeAppButtonPrefs: HomeAppButtonPreferences = koinInject(),
@@ -236,7 +236,7 @@ fun HomeScreen(
     }
 
     val batchInProgressText = stringResource(R.string.batch_patch_in_progress)
-    val openBatchQueue: (List<BatchTarget>, Boolean) -> Unit = { targets, useMount ->
+    val openBatchQueue: (List<BatchTarget>) -> Unit = { targets ->
         when {
             availablePatches <= 0 -> messages.show(sourcesLoadingText)
             homeViewModel.android11BugActive -> homeViewModel.showAndroid11Dialog = true
@@ -244,16 +244,13 @@ fun HomeScreen(
             // A live queue keeps its own selection, so open it instead of swapping the apps
             homeViewModel.batchPatchRunning -> {
                 messages.show(batchInProgressText)
-                onStartBatchPatch(targets, useMount)
+                onStartBatchPatch(targets)
             }
-            else -> onStartBatchPatch(targets, useMount)
+            else -> onStartBatchPatch(targets)
         }
     }
     val startBatchPatch: (List<HomeAppItem>) -> Unit = { items ->
-        val targets = items.map { it.batchTarget() }
-        // The queue installs through the standard installer, never by mounting, so the
-        // single-app mount choice must not carry over into the patches it resolves
-        openBatchQueue(targets, false)
+        openBatchQueue(items.map { it.batchTarget() })
     }
 
     // Handle patch trigger from dialog
@@ -328,8 +325,8 @@ fun HomeScreen(
             val run = batchRun
             val saved = savedBatchQueue
             when {
-                run != null -> onStartBatchPatch(run.targets, run.useMount)
-                saved != null -> openBatchQueue(saved.targets, saved.useMount)
+                run != null -> onStartBatchPatch(run.targets)
+                saved != null -> openBatchQueue(saved.targets)
             }
         },
         bundleUpdate = BundleUpdateState(

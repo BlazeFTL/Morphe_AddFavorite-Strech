@@ -69,6 +69,17 @@ internal fun rememberPatchesSwipeAction(packageName: String): SwipeActionConfig 
     }
 }
 
+/** Swipe action taking a card off the list. */
+@Composable
+internal fun rememberHideSwipeAction(): SwipeActionConfig {
+    val label = stringResource(R.string.hide)
+    val container = MaterialTheme.colorScheme.errorContainer
+    val content = MaterialTheme.colorScheme.onErrorContainer
+    return remember(label, container, content) {
+        SwipeActionConfig(icon = MaterialSymbols.Rounded.Visibility_off, label = label, containerColor = container, contentColor = content)
+    }
+}
+
 /** Swipe action bringing a hidden app back onto the list. */
 @Composable
 internal fun rememberUnhideSwipeAction(): SwipeActionConfig {
@@ -176,6 +187,8 @@ internal fun SwipeBackground(
 
 /**
  * Shared container that handles horizontal swipe gestures and drives the [SwipeBackground] reveal animation.
+ *
+ * @param onSwipeToEnd Action of a swipe toward the end, null for a card that only swipes the other way.
  */
 @Composable
 internal fun SwipeableCardContainer(
@@ -183,7 +196,7 @@ internal fun SwipeableCardContainer(
     offsetX: Animatable<Float, AnimationVector1D>,
     actionThresholdPx: Float,
     onSwipeToStart: () -> Unit,
-    onSwipeToEnd: () -> Unit,
+    onSwipeToEnd: (() -> Unit)?,
     startHaptic: Int = HapticFeedbackConstants.LONG_PRESS,
     endHaptic: Int = HapticFeedbackConstants.VIRTUAL_KEY,
     enabled: Boolean = true,
@@ -225,7 +238,7 @@ internal fun SwipeableCardContainer(
                                         offsetX.value > actionThresholdPx -> {
                                             view.performHapticFeedback(endHaptic)
                                             offsetX.animateTo(0f, tween(200))
-                                            currentOnSwipeToEnd()
+                                            currentOnSwipeToEnd?.invoke()
                                         }
                                         else -> offsetX.animateTo(
                                             0f,
@@ -250,9 +263,11 @@ internal fun SwipeableCardContainer(
                             },
                             onHorizontalDrag = { change, dragAmount ->
                                 change.consume()
+                                // A side without an action does not give at all
+                                val endLimit = if (currentOnSwipeToEnd != null) actionThresholdPx * 1.5f else 0f
                                 scope.launch {
                                     val clamped = (offsetX.value + dragAmount * directionSign)
-                                        .coerceIn(-actionThresholdPx * 1.5f, actionThresholdPx * 1.5f)
+                                        .coerceIn(-actionThresholdPx * 1.5f, endLimit)
                                     offsetX.snapTo(clamped)
                                 }
                             }
@@ -317,22 +332,12 @@ internal fun DynamicAppCard(
         onGestureHintShown()
     }
 
-    val hideLabel = stringResource(R.string.hide)
     val patchesLabel = stringResource(R.string.patches)
     val selectLabel = stringResource(R.string.accessibility_select_app)
     val moveUpLabel = stringResource(R.string.accessibility_move_up)
     val moveDownLabel = stringResource(R.string.accessibility_move_down)
-    val errorContainer = MaterialTheme.colorScheme.errorContainer
-    val onErrorContainer = MaterialTheme.colorScheme.onErrorContainer
 
-    val startConfig = remember(hideLabel, errorContainer, onErrorContainer) {
-        SwipeActionConfig(
-            icon = MaterialSymbols.Rounded.Visibility_off,
-            label = hideLabel,
-            containerColor = errorContainer,
-            contentColor = onErrorContainer
-        )
-    }
+    val startConfig = rememberHideSwipeAction()
     val endConfig = rememberPatchesSwipeAction(item.packageName)
 
     Box(modifier = modifier.fillMaxWidth().semantics {
@@ -344,7 +349,7 @@ internal fun DynamicAppCard(
                 add(CustomAccessibilityAction(selectLabel) { onLongPress(); true })
             }
             if (swipeActionsEnabled) {
-                add(CustomAccessibilityAction(hideLabel) { showHideDialog.value = true; true })
+                add(CustomAccessibilityAction(startConfig.label) { showHideDialog.value = true; true })
                 add(CustomAccessibilityAction(patchesLabel) { onShowPatches(); true })
             }
             if (onMoveUp != null) {

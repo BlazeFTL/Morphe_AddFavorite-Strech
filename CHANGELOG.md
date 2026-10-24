@@ -1,3 +1,16 @@
+# [2.2.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v2.1.0...v2.2.0-dev.1) (2026-10-24)
+
+
+### Bug Fixes
+
+* Auto-install during a mini-game round ([ec26a3d](https://github.com/MorpheApp/morphe-manager/commit/ec26a3db66b85a241196beeacfaa6ed0fd1c1d20))
+* Remote and D-pad navigation on Android TV ([2742b26](https://github.com/MorpheApp/morphe-manager/commit/2742b263a4c71f541e361988b309831fcceca958))
+
+
+### Features
+
+* More apps card on the home screen ([a974389](https://github.com/MorpheApp/morphe-manager/commit/a9743897cf69b5d38bbaa0c48410cb07bf756d02))
+
 # [2.1.0](https://github.com/MorpheApp/morphe-manager/compare/v2.0.0...v2.1.0) (2026-10-23)
 
 

@@ -9,7 +9,6 @@ import android.os.Build
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -825,6 +824,9 @@ private fun VersionListCard(
     }
 }
 
+/** Shape of a [VersionPanel], which its rows are pressed and focused on too, so either fits its corners. */
+private val VersionPanelShape = RoundedCornerShape(Defaults.CornerLarge)
+
 /**
  * A card holding versions, one [VersionRow] after another: a source's own, in the neutral card or
  * edged in its color, or [color] and [border] for a card that stands for a verdict, such as a warning.
@@ -840,7 +842,7 @@ private fun VersionPanel(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.CornerLarge),
+        shape = VersionPanelShape,
         color = color,
         tonalElevation = 1.dp,
         border = border
@@ -884,7 +886,7 @@ private fun VersionRow(
             .fillMaxWidth()
             .then(
                 if (selected != null && onClick != null && enabled) {
-                    Modifier.selectable(selected = selected, onClick = onClick, role = Role.RadioButton)
+                    Modifier.shapedSelectable(VersionPanelShape, selected = selected, role = Role.RadioButton, onClick = onClick)
                 } else Modifier
             )
             .then(if (contentDescription != null) Modifier.semantics { this.contentDescription = contentDescription } else Modifier)

@@ -116,13 +116,7 @@ private fun MoreAppsCard(
     DialogHost(visible = showHideDialog) {
         ConfirmDialog(
             title = stringResource(R.string.home_more_apps_hide_title),
-            // Named by the titles the settings show, so the way back stays right if one is renamed
-            message = stringResource(
-                R.string.home_more_apps_hide_message,
-                stringResource(R.string.settings),
-                stringResource(R.string.appearance),
-                stringResource(R.string.settings_appearance_home_screen)
-            ),
+            message = stringResource(R.string.home_more_apps_hide_message),
             primaryText = hideAction.label,
             isPrimaryDestructive = false,
             onConfirm = {

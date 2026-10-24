@@ -9,7 +9,7 @@
     <string name="home_app_hide_title">Hide this app?</string>
     <string name="home_more_apps_title">More apps</string>
     <string name="home_more_apps_hide_title">Hide this card?</string>
-    <string name="home_more_apps_hide_message">You can bring it back in %1$s, in the %3$s section of %2$s</string>
+    <string name="home_more_apps_hide_message">You can bring it back anytime in Settings > Appearance > Home screen</string>
     <string name="home_app_hide_message">This app will be hidden from the home screen. You can restore it later from the hidden apps using the button at the bottom of the list</string>
     <string name="home_app_will_be_hidden">This app will be hidden</string>
     <string name="home_app_hidden_named">%s hidden</string>

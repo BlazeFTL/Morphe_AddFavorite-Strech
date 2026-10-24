@@ -74,27 +74,27 @@ fun HomeDialogs(
     val messages = koinInject<UserMessages>()
     val flow = homeViewModel.patchFlow
 
-    // Kept outside the dialog so the picker state survives the download dialog's exit animation
-    val apkDownloadHelpers = rememberApkDownloadHelperAction(
-        host = flow,
-        enabled = flow.dialogs.top == HomeDialog.DownloadInstructions
-    )
-
     // APK selection processing overlay - blocks interaction while APK is loaded/validated in background
     Overlay(visible = flow.processingApkSelection) {
         PulsingLogoWithCaption(caption = stringResource(R.string.processing_apk))
     }
 
-    // The patch flow over the app information it may have started from, in the order they opened
-    DialogStack(flow.dialogs.entries) { dialog ->
-        PatchFlowDialog(
-            dialog = dialog,
-            flow = flow,
-            homeViewModel = homeViewModel,
-            storagePickerLauncher = storagePickerLauncher,
-            apkDownloadHelpers = apkDownloadHelpers,
-            onTrustApkDownloadHelpers = { settingsNavigation.openSubpage(SettingsSubpage.APK_DOWNLOAD_HELPERS) }
-        )
+    // Kept outside the dialogs so the picker state survives the download dialog's exit animation
+    WithApkDownloadHelpers(
+        host = flow,
+        enabled = flow.dialogs.top.let { it == HomeDialog.ApkAvailability || it == HomeDialog.DownloadInstructions }
+    ) { apkDownloadHelpers ->
+        // The patch flow over the app information it may have started from, in the order they opened
+        DialogStack(flow.dialogs.entries) { dialog ->
+            PatchFlowDialog(
+                dialog = dialog,
+                flow = flow,
+                homeViewModel = homeViewModel,
+                storagePickerLauncher = storagePickerLauncher,
+                apkDownloadHelpers = apkDownloadHelpers,
+                onTrustApkDownloadHelpers = { settingsNavigation.openSubpage(SettingsSubpage.APK_DOWNLOAD_HELPERS) }
+            )
+        }
     }
 
     // Add bundle dialog
@@ -288,7 +288,7 @@ private fun DialogHostScope.PatchFlowDialog(
             hiddenSourceCount = session.hiddenSources,
             onDismiss = flow::backFromApkSource,
             onHaveApk = storagePickerLauncher,
-            onNeedApk = flow::showDownloadInstructions,
+            onNeedApk = { apkDownloadHelpers.showInstructions(flow::showDownloadInstructions) },
             onUseSaved = flow::handleSavedApkSelection,
             onUseInstalled = flow::handleInstalledApkSelection
         )

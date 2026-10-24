@@ -451,10 +451,7 @@ private fun MorpheManager(vm: MainViewModel) {
             navController.popBackStack(HomeScreen, false)
             navController.navigateComplex(
                 BatchPatcher,
-                BatchPatcher.ViewModelParams(
-                    targets = request.targets,
-                    useMount = false
-                )
+                BatchPatcher.ViewModelParams(targets = request.targets)
             )
         }
     }
@@ -614,15 +611,9 @@ private fun MorpheManager(vm: MainViewModel) {
                             navController.navigateComplex(Patcher, params)
                         }
                     },
-                    onStartBatchPatch = { targets, useMount ->
+                    onStartBatchPatch = { targets ->
                         entry.lifecycleScope.launch {
-                            navController.navigateComplex(
-                                BatchPatcher,
-                                BatchPatcher.ViewModelParams(
-                                    targets = targets,
-                                    useMount = useMount
-                                )
-                            )
+                            navController.navigateComplex(BatchPatcher, BatchPatcher.ViewModelParams(targets))
                         }
                     },
                     homeViewModel = homeViewModel,
@@ -638,7 +629,6 @@ private fun MorpheManager(vm: MainViewModel) {
                 val params = entry.getComplexArg<BatchPatcher.ViewModelParams>() ?: return@composable
                 BatchPatcherScreen(
                     targets = params.targets,
-                    useMount = params.useMount,
                     onBackClick = {
                         patchingCompleted.value = false
                         navController.popBackStack()

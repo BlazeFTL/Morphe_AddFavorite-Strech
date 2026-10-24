@@ -493,6 +493,10 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="batch_patch_no_selection">None of the available patches is selected</string>
     <string name="batch_patch_policy_install">Install when finished</string>
     <string name="batch_patch_policy_install_description">Installs every patched app right after the queue finishes. Off keeps the APKs for later</string>
+    <string name="batch_patch_policy_mount">Mount when finished</string>
+    <string name="batch_patch_policy_mount_description">Mounts every patched app once the queue finishes. Off keeps the APKs for later</string>
+    <string name="batch_patch_policy_install_mount">Install or mount when finished</string>
+    <string name="batch_patch_policy_install_mount_description">Installs or mounts every patched app once the queue finishes. Off keeps the APKs for later</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Stop batch patching?</string>

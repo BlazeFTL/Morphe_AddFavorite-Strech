@@ -456,6 +456,7 @@
     <string name="batch_patch_title">การแพตช์เป็นชุด</string>
     <string name="batch_patch_planning">กำลังเตรียมคิว…</string>
     <string name="batch_patch_preparing_next">กำลังเตรียมแอปถัดไป…</string>
+    <string name="batch_patch_progress_counter">กำลังแพตช์ %1$s จาก %2$s</string>
     <string name="batch_patch_summary">%1$s ถูกแพตช์, %2$s ล้มเหลว, %3$s ถูกข้าม</string>
     <string name="batch_patch_saved_hint">แอปที่แพตช์แล้วถูกบันทึกไว้ ติดตั้งเลย หรือภายหลังได้จากรายการ APK ที่แพตช์แล้วในตั้งค่า</string>
     <string name="batch_patch_multiple_sources">แอปบางตัวรวมแพตช์จากหลายแหล่ง ซึ่งอาจทำให้เกิดข้อขัดแย้ง</string>
@@ -477,6 +478,10 @@
     <string name="batch_patch_no_selection">ไม่มีการเลือกแพตช์ที่พร้อมใช้งาน</string>
     <string name="batch_patch_policy_install">ติดตั้งเมื่อเสร็จสิ้น</string>
     <string name="batch_patch_policy_install_description">ติดตั้งแอปที่แพตช์ทุกแอปทันทีที่คิวเสร็จสิ้น ปิดจะเก็บ APK ไว้ในภายหลัง</string>
+    <string name="batch_patch_policy_mount">เมานต์เมื่อเสร็จสิ้น</string>
+    <string name="batch_patch_policy_mount_description">จะเมานต์ทุกแอปที่แพตช์แล้วเมื่อคิวเสร็จสิ้น การปิดจะเก็บ APK ไว้ใช้ภายหลัง</string>
+    <string name="batch_patch_policy_install_mount">ติดตั้งหรือเมานต์เมื่อเสร็จสิ้น</string>
+    <string name="batch_patch_policy_install_mount_description">จะติดตั้งหรือเมานต์ทุกแอปที่แพตช์แล้วเมื่อคิวเสร็จสิ้น การปิดจะเก็บ APK ไว้ใช้ภายหลัง</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">เริ่มต้น</string>
     <string name="batch_patch_stop_title">หยุดแพตช์กลุ่ม?</string>
@@ -1061,9 +1066,10 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">การเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <string name="settings_system_battery_optimization_description">ทำให้ตัวแพตช์ทำงานต่อไปเมื่อแอปพลิเคชันถูกลดขนาด</string>
-    <string name="settings_system_process_runtime">เวลาเรียกใช้โปรแกรมแพตช์</string>
+    <string name="settings_system_process_runtime">รันไทม์ของตัวแพตช์</string>
     <string name="settings_system_jvm_runtime_enable">ใช้ VM ในตัว</string>
-    <string name="settings_system_jvm_runtime_description">แพตช์ใน Java VM ที่ Morphe นำไป ซึ่งสามารถใช้หน่วยความจำได้เท่าที่อุปกรณ์มีเหลือ เปิดใช้งานเพื่อแพตช์ด้วยการรันไทม์ของ Android</string>
+    <string name="settings_system_jvm_runtime_description">แพตช์ใน Java VM ที่ Morphe นำไป ซึ่งสามารถใช้หน่วยความจำได้เท่าที่อุปกรณ์มีเหลือ ปิดใช้งานเพื่อแพตช์ด้วยรันไทม์ของ Android</string>
+    <string name="settings_system_jvm_runtime_unavailable">ต้องใช้อุปกรณ์ ARM หรือ x86 แบบ 64 บิต</string>
     <string name="settings_system_patcher_completion_sound">เสียงเมื่อเสร็จสิ้น</string>
     <string name="settings_system_patcher_completion_sound_description">เล่นเสียงที่แตกต่างเมื่อการแพตช์เสร็จสมบูรณ์ ไม่ว่าจะเป็นความสำเร็จหรือความล้มเหลว</string>
     <!-- Settings - System Tab - Notifications Section -->
@@ -1322,6 +1328,7 @@ morphe_header_custom_dark.png
     <string name="reset_order">รีเซ็ตการจัดเรียง</string>
     <string name="reset_order_done">รีเซ็ตการจัดเรียงแล้ว</string>
     <string name="accessibility_select_app">เลือกแอป</string>
+    <string name="accessibility_select_source">เลือกแหล่งที่มา</string>
     <string name="accessibility_move_up">ย้ายขึ้น</string>
     <string name="accessibility_move_down">ย้ายลง</string>
     <string name="accessibility_app_moved_announcement">%1$s ย้ายไปยังตำแหน่งที่ %2$s จาก %3$s แล้ว</string>
@@ -1435,11 +1442,15 @@ morphe_header_custom_dark.png
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <string name="onboarding_step_of">%1$s จาก %2$s</string>
     <string name="onboarding_sources_desc">จัดการแหล่งแพตช์ของคุณ แต่ละแหล่งให้แพตช์ที่สามารถนำไปใช้กับแอปของคุณได้</string>
+    <string name="onboarding_other_apps_desc">ลงแพตช์แอปที่ไม่ได้อยู่ในรายการ โดยใช้อไฟล์ APK หรือแอปที่ติดตั้งอยู่บนอุปกรณ์ของคุณ</string>
+    <string name="onboarding_add_source_desc">เพิ่มแหล่งที่มาของแพตช์จากลิงก์หรือไฟล์แพตช์บันเดิล</string>
+    <string name="onboarding_signing_key_desc">สำรองกุญแจที่ใช้เซ็นชื่อแอปที่ถูกแพตช์ของคุณ หากไม่มีมัน แอปเหล่านั้นสามารถอัปเดตได้เฉพาะหลังจากการถอนการติดตั้งเท่านั้น</string>
     <string name="onboarding_swipe_title">ท่าทางสัมผัส</string>
     <string name="onboarding_swipe_desc">ปัดไปทางขวาบนการ์ดแอปเพื่อดูแพตช์ที่มีอยู่ ปัดไปทางซ้ายเพื่อซ่อนการ์ดออกจากหน้าจอหลัก</string>
     <string name="onboarding_settings_desc">ปรับแต่ง Morphe: รูปลักษณ์ ตัวเลือกขั้นสูง และเครื่องมือระบบ</string>
     <string name="onboarding_sources_patches_desc">แตะเพื่อดูแพตช์ทั้งหมดจากแหล่งนี้</string>
     <string name="onboarding_sources_version_desc">แตะที่เวอร์ชันเพื่อดูบันทึกการเปลี่ยนแปลงทั้งหมดสำหรับแหล่งนี้</string>
+    <string name="onboarding_sources_apps_desc">แตะเพื่อดูแอปที่แหล่งที่มานี้ลงแพตช์และเลือกว่ามีแอปใดบ้างที่แหล่งที่มานี้เสนอแพตช์สำหรับ</string>
     <string name="onboarding_sources_prerelease_desc">เปิดใช้งานเพื่อรับแพตช์เวอร์ชันก่อนวางจำหน่ายจากแหล่งนี้</string>
     <string name="onboarding_appearance_tab_desc">ปรับแต่งรูปลักษณ์ของแอป: ธีม สีเน้น และพื้นหลัง</string>
     <string name="onboarding_expert_mode_desc">เปิดใช้งานโหมดผู้เชี่ยวชาญเพื่อปลดล็อกการเลือกแพตช์ ตัวเลือกที่กำหนดเอง และคุณสมบัติขั้นสูงอื่นๆ</string>

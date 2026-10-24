@@ -478,6 +478,10 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="batch_patch_no_selection">A rendelkezésre álló javítások közül egyik sem lett kiválasztva</string>
     <string name="batch_patch_policy_install">Telepítés a befejezés után</string>
     <string name="batch_patch_policy_install_description">Minden javított alkalmazás a soron következő befejezése után azonnal települ. A kikapcsolás esetén az APK-k későbbre megmaradnak</string>
+    <string name="batch_patch_policy_mount">Helyezze csatolítással a befejezés után</string>
+    <string name="batch_patch_policy_mount_description">Minden módosított alkalmazást csatolít, amint a sor befejeződik. A kikapcsolás megőrzi az APK-kat későbbi időpontra</string>
+    <string name="batch_patch_policy_install_mount">Telepítse vagy csatolítsa a befejezés után</string>
+    <string name="batch_patch_policy_install_mount_description">Telepíti vagy csatolja minden módosított alkalmazást a sor befejezése után. A Kikapcsolva beállítással az APK-k később lesznek kezelve</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_start">Kezdet</string>
     <string name="batch_patch_stop_title">Megállítsa a csoportos javítást?</string>
@@ -1438,11 +1442,15 @@ Szeretnéd folytatni?"</string>
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <string name="onboarding_step_of">%1$s / %2$s</string>
     <string name="onboarding_sources_desc">A patch források kezelése. Minden forrás olyan patcheket biztosít, amelyek alkalmazhatók az alkalmazásaidra</string>
+    <string name="onboarding_other_apps_desc">Javítson fel egy alkalmazást, amely nincs a listán, egy APK-fájlból vagy egy eszközön telepített alkalmazásból</string>
+    <string name="onboarding_add_source_desc">Adjon hozzá forrást hivatkozásból vagy javítási csomagfájlból</string>
+    <string name="onboarding_signing_key_desc">Biztosítson biztonsági mentést az aláíró kulcsról, amellyel módosított alkalmazásait jelöli. Enélkül csak az alkalmazások eltávolítása után frissíthetők</string>
     <string name="onboarding_swipe_title">Gesztusvezérléses ujjmozdulatok</string>
     <string name="onboarding_swipe_desc">Csúsztass jobbra egy alkalmazáskártyán a rendelkezésre álló patchekért. Csúsztass balra, hogy elrejtsd a kártyát a kezdőképernyőről</string>
     <string name="onboarding_settings_desc">A Morphe testreszabása: megjelenés, haladó beállítások és rendszereszközök</string>
     <string name="onboarding_sources_patches_desc">Érintsd meg a forrásból elérhető összes patch megtekintéséhez</string>
     <string name="onboarding_sources_version_desc">Érintsd meg a verziót a forráshoz tartozó teljes változási napló megtekintéséhez</string>
+    <string name="onboarding_sources_apps_desc">Koppintson, hogy megtekinthesse ezeket a források által javított alkalmazásokat, és válassza ki, melyikhez kínál javításokat</string>
     <string name="onboarding_sources_prerelease_desc">Ezt engedélyezd, ha a forrásból előzetes patch verziókat szeretnél fogadni</string>
     <string name="onboarding_appearance_tab_desc">Az alkalmazás megjelenésének testreszabása: téma, kiemelő szín és háttér</string>
     <string name="onboarding_expert_mode_desc">Engedélyezd a szakértői módot a patch-ek kiválasztásához, egyéni beállításokhoz és egyéb haladó funkciókhoz</string>

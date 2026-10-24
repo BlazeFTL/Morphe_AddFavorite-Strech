@@ -23,7 +23,7 @@
         <item quantity="other">เพิ่ม %s แหล่งที่มา</item>
     </plurals>
     <plurals name="home_app_patch_sources_title">
-        <item quantity="other">แหล่งที่มาของแพตช์สำหรับ %s แอป</item>
+        <item quantity="other">แหล่งที่มาแพตช์สำหรับ %s แอป</item>
     </plurals>
     <plurals name="home_apk_availability_hidden_sources">
         <item quantity="other">แหล่งที่มา %s ถูกซ่อนไว้สำหรับแอปนี้ เลือกแอปในแท็บแอปและเปิดแหล่งที่มาแพตช์เพื่อนำกลับคืนมา</item>
@@ -38,7 +38,7 @@
         <item quantity="other">%s แหล่งที่มา</item>
     </plurals>
     <plurals name="package_count">
-        <item quantity="other">%s แพ็คเกจ</item>
+        <item quantity="other">%s แพ็กเกจ</item>
     </plurals>
     <plurals name="patches_executed">
         <item quantity="other">ดำเนินการแพตช์ %s รายการแล้ว</item>
@@ -48,6 +48,9 @@
     </plurals>
     <plurals name="batch_install_summary">
         <item quantity="other">ติดตั้ง %s แอปแล้ว</item>
+    </plurals>
+    <plurals name="batch_mount_summary">
+        <item quantity="other">ติดตั้งแอป %s แอปแล้ว</item>
     </plurals>
     <plurals name="batch_reinstall_summary">
         <item quantity="other">ติดตั้งใหม่ %s แอปแล้ว</item>

@@ -630,7 +630,8 @@ internal fun AppCardLayout(
             }
             .combinedClickable(
                 interactionSource = interactionSource,
-                indication = null,
+                // A press scales the card instead
+                indication = shapedIndication(shape, press = false),
                 onClick = {
                     view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     onClick()

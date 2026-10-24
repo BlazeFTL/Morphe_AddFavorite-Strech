@@ -527,7 +527,12 @@ private fun LocalFilesDropZone(onPickFiles: () -> Unit) {
                     style = stroke
                 )
             }
-            .clickable(role = Role.Button, onClick = onPickFiles)
+            .clickable(
+                interactionSource = null,
+                indication = shapedIndication(shape),
+                role = Role.Button,
+                onClick = onPickFiles
+            )
     ) {
         EmptyState(
             message = stringResource(R.string.sources_dialog_local_files),

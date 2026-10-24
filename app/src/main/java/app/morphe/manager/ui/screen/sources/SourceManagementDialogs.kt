@@ -101,59 +101,26 @@ fun DialogHostScope.AddSourceDialog(
         localFiles.count { it.check is LocalFileCheck.New || it.check is LocalFileCheck.Update }
     }
 
-    val openUrl = rememberOpenUrl()
-    var showCommunityNotice by rememberSaveable { mutableStateOf(false) }
-
-    DialogHost(visible = showCommunityNotice) {
-        ConfirmDialog(
-            title = stringResource(R.string.sources_dialog_community_notice_title),
-            message = stringResource(R.string.sources_dialog_community_notice_message),
-            primaryText = stringResource(R.string.open),
-            isPrimaryDestructive = false,
-            onDismiss = { showCommunityNotice = false },
-            onConfirm = {
-                showCommunityNotice = false
-                openUrl(COMMUNITY_PATCHES_URL)
-            }
-        )
-    }
-
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.sources_dialog_add_source),
         footer = {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                // The website hands out remote URLs, so it has nothing to offer the local tab
-                FoldingVisibility(visible = selectedTab == 0) {
-                    Column {
-                        // Nothing that website lists is reviewed by Morphe, so the disclaimer comes first
-                        AppDialogOutlinedButton(
-                            text = stringResource(R.string.sources_dialog_community),
-                            onClick = { showCommunityNotice = true },
-                            icon = MaterialSymbols.Rounded.Open_in_new.autoMirrored,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        // As far as the buttons under it stand apart, so the three read as one grid
-                        Spacer(modifier = Modifier.height(Defaults.SpaceMedium))
+            AppDialogButtonRow(
+                primaryText = if (readyCount > 1) {
+                    pluralStringResource(R.plurals.sources_dialog_add_count, readyCount, readyCount.toString())
+                } else {
+                    stringResource(R.string.add)
+                },
+                onPrimaryClick = {
+                    when (selectedTab) {
+                        0 -> onRemoteSubmit(remote.readyLinks, chooseApps)
+                        1 -> onLocalSubmit(chooseApps)
                     }
-                }
-                AppDialogButtonRow(
-                    primaryText = if (readyCount > 1) {
-                        pluralStringResource(R.plurals.sources_dialog_add_count, readyCount, readyCount.toString())
-                    } else {
-                        stringResource(R.string.add)
-                    },
-                    onPrimaryClick = {
-                        when (selectedTab) {
-                            0 -> onRemoteSubmit(remote.readyLinks, chooseApps)
-                            1 -> onLocalSubmit(chooseApps)
-                        }
-                    },
-                    primaryEnabled = readyCount > 0,
-                    secondaryText = stringResource(android.R.string.cancel),
-                    onSecondaryClick = onDismiss
-                )
-            }
+                },
+                primaryEnabled = readyCount > 0,
+                secondaryText = stringResource(android.R.string.cancel),
+                onSecondaryClick = onDismiss
+            )
         }
     ) {
         SegmentedTabs(

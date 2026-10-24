@@ -80,6 +80,9 @@ class PreferencesManager(
 
     /** The per-app badges carry the same news, so the banner is worth turning off. */
     val showRepatchNotice = booleanPreference("show_repatch_notice", true)
+
+    /** Whether the apps list ends on a card leading to the community patches for more apps. */
+    val showMoreAppsCard = booleanPreference("show_more_apps_card", true)
     val customAccentColor = stringPreference("custom_accent_color", "")
     val customThemeColor = stringPreference("custom_theme_color", "")
     val appCardColorMode = enumPreference("app_card_color_mode", AppCardColorMode.DEFAULT)

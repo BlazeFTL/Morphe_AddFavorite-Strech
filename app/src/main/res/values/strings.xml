@@ -7,6 +7,9 @@
     <string name="home_unpatched_badge">Not patched</string>
     <string name="home_no_patches_available">No patches available</string>
     <string name="home_app_hide_title">Hide this app?</string>
+    <string name="home_more_apps_title">More apps</string>
+    <string name="home_more_apps_hide_title">Hide this card?</string>
+    <string name="home_more_apps_hide_message">You can bring it back in %1$s, in the %3$s section of %2$s</string>
     <string name="home_app_hide_message">This app will be hidden from the home screen. You can restore it later from the hidden apps using the button at the bottom of the list</string>
     <string name="home_app_will_be_hidden">This app will be hidden</string>
     <string name="home_app_hidden_named">%s hidden</string>
@@ -859,6 +862,8 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Shows a greeting message</string>
     <string name="settings_appearance_repatch_notice">Re-patch notice</string>
     <string name="settings_appearance_repatch_notice_description">Shows a banner when patched apps can be re-patched</string>
+    <string name="settings_appearance_more_apps_card">More apps card</string>
+    <string name="settings_appearance_more_apps_card_description">Shows a card under the apps leading to community patches</string>
     <string name="settings_appearance_app_card_colors">App card colors</string>
     <string name="settings_appearance_app_card_colors_default">Default</string>
     <string name="settings_appearance_app_card_colors_default_description">Give each app the color of its own bundle</string>
